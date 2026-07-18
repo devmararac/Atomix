@@ -1,0 +1,172 @@
+[gd_scene format=3 uid="uid://borfdavhmb6th"]
+
+[ext_resource type="Script" uid="uid://b8wj1ixkb0mlv" path="res://Scripts/Quest/quest_ui.gd" id="1_bjb3p"]
+[ext_resource type="Texture2D" uid="uid://bs7y8uq0f2cuq" path="res://Assets/UX/HUD/Panels/quest_log_panel_left.png" id="2_b0pbx"]
+[ext_resource type="Texture2D" uid="uid://d3cpky1g21l5n" path="res://Assets/UX/HUD/Panels/quest_log_panel_right.png" id="3_0d0yo"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_0d0yo"]
+[ext_resource type="Texture2D" uid="uid://b0deicj16u8gm" path="res://Assets/UX/HUD/close.png" id="5_5srcu"]
+[ext_resource type="Texture2D" uid="uid://cq0wtxqc848xe" path="res://Assets/UX/HUD/close_pressed.png" id="5_j82mc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6plmd"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5srcu"]
+texture = ExtResource("2_b0pbx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j82mc"]
+texture = ExtResource("3_0d0yo")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nx7o7"]
+texture = ExtResource("5_5srcu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_on8dc"]
+texture = ExtResource("5_j82mc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xghlu"]
+texture = ExtResource("5_5srcu")
+
+[node name="QuestUI" type="Control" unique_id=543655345]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 20.0
+offset_right = 28.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bjb3p")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=31273321]
+layer = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=517073519]
+anchors_preset = -1
+anchor_left = 0.26000002
+anchor_top = 0.124000005
+anchor_right = 0.76000005
+anchor_bottom = 0.89000005
+offset_left = 0.19995117
+offset_top = -0.2800064
+offset_right = 0.19995117
+offset_bottom = 0.19995117
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_6plmd")
+
+[node name="Backgrounds" type="HBoxContainer" parent="CanvasLayer/Panel" unique_id=1689732424]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="BG1" type="Panel" parent="CanvasLayer/Panel/Backgrounds" unique_id=1395286487]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_5srcu")
+
+[node name="BG2" type="Panel" parent="CanvasLayer/Panel/Backgrounds" unique_id=1293984051]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_j82mc")
+
+[node name="LeftPage" type="MarginContainer" parent="CanvasLayer/Panel" unique_id=729464627]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.049000002
+anchor_top = 0.058000002
+anchor_right = 0.45600003
+anchor_bottom = 0.8880001
+offset_left = 0.48999786
+offset_top = -0.016002655
+offset_right = -0.44003296
+offset_bottom = -0.17602539
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/LeftPage" unique_id=77289969]
+layout_mode = 2
+
+[node name="List" type="Label" parent="CanvasLayer/Panel/LeftPage/VBoxContainer" unique_id=1495400824]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_0d0yo")
+theme_override_font_sizes/font_size = 30
+text = "Available Quest"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="QuestList" type="VBoxContainer" parent="CanvasLayer/Panel/LeftPage/VBoxContainer" unique_id=696239624]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="RightPage" type="MarginContainer" parent="CanvasLayer/Panel" unique_id=593218510]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.544
+anchor_top = 0.058000002
+anchor_right = 0.952
+anchor_bottom = 0.89100003
+offset_left = 0.4399414
+offset_top = -0.016002655
+offset_right = -0.4800415
+offset_bottom = 0.16796875
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/RightPage" unique_id=1519410356]
+layout_mode = 2
+
+[node name="Details" type="Label" parent="CanvasLayer/Panel/RightPage/VBoxContainer" unique_id=912885345]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_0d0yo")
+theme_override_font_sizes/font_size = 30
+text = "Quest Details"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Quest Title" type="Label" parent="CanvasLayer/Panel/RightPage/VBoxContainer" unique_id=1278103498]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_font_sizes/font_size = 24
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quest Description" type="Label" parent="CanvasLayer/Panel/RightPage/VBoxContainer" unique_id=1446867446]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_font_sizes/font_size = 20
+text = "Description"
+
+[node name="Quest Objectives" type="VBoxContainer" parent="CanvasLayer/Panel/RightPage/VBoxContainer" unique_id=1605815186]
+layout_mode = 2
+
+[node name="Quest Rewards" type="VBoxContainer" parent="CanvasLayer/Panel/RightPage/VBoxContainer" unique_id=48323503]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/Panel" unique_id=1380877284]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.952
+anchor_top = -0.025
+anchor_right = 1.016
+anchor_bottom = 0.094000004
+offset_left = -0.4800415
+offset_top = -0.19999981
+offset_right = 0.15997314
+offset_bottom = 0.11199951
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_nx7o7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_on8dc")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xghlu")
+expand_icon = true
+
+[connection signal="pressed" from="CanvasLayer/Panel/CloseButton" to="." method="_on_close_button_pressed"]

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dbfu76bgo27bq"]
+
+[ext_resource type="Texture2D" uid="uid://cx5lomsb3un8d" path="res://Assets/UX/Items/item_002 - Glass Shard.png" id="1_moumv"]
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_ytw7c"]
+
+[resource]
+script = ExtResource("1_ytw7c")
+item_id = "item_002"
+item_name = "Glass Shard"
+description = "A sharp fragment of broken glass that still reflects light despite its rough edges.
+
+Though seemingly worthless on its own, its clean surface and jagged shape make it a useful crafting material.
+
+Skilled artisans and researchers often collect Glass Shards to create lenses, decorative objects, or experimental equipment."
+icon = ExtResource("1_moumv")
+usable = true
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

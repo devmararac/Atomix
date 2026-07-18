@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://du77nqygcnca"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objectives.gd" id="1_1u6v7"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Rewards.gd" id="2_n2wpg"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="3_w1kbk"]
+
+[sub_resource type="Resource" id="Resource_1u6v7"]
+script = ExtResource("1_1u6v7")
+id = "collect_iron"
+description = "Collect 5 Iron Fragments."
+target_id = "item_001"
+target_type = "collection"
+required_quantity = 5
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+
+[sub_resource type="Resource" id="Resource_n2wpg"]
+script = ExtResource("2_n2wpg")
+reward_type = "coins"
+reward_amount = 50
+metadata/_custom_type_script = "uid://s0771j4ovmsh"
+
+[resource]
+script = ExtResource("3_w1kbk")
+quest_id = "quest_collect_iron"
+quest_name = "Iron Gathering"
+quest_description = "Linos has asked you to investigate the Iron Atomon near the eastern mine."
+objectives = Array[ExtResource("1_1u6v7")]([SubResource("Resource_1u6v7")])
+rewards = Array[ExtResource("2_n2wpg")]([SubResource("Resource_n2wpg")])
+metadata/_custom_type_script = "uid://7rrmrho1w3gn"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://debwqawctoug5"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_5xr5k"]
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_vefst"]
+
+[resource]
+script = ExtResource("1_5xr5k")
+move_name = "Be"
+description = "Boom"
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://cntpaw41usqe3"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_cmpkh"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_i3kqi"]
+
+[resource]
+script = ExtResource("1_i3kqi")
+move_name = "C"
+description = "Soda"
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

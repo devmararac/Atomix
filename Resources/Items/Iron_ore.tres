@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dmxmt65f5xbmd"]
+
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_cm6hh"]
+[ext_resource type="Texture2D" uid="uid://b4rmf7s45j5gv" path="res://Assets/UX/Items/Item_set_1.png" id="1_pxqsi"]
+
+[resource]
+script = ExtResource("1_cm6hh")
+item_id = "item_001"
+item_name = "Iron"
+description = "A dense chunk of iron ore naturally shed by Iron Atomon as they grow and strengthen their metallic bodies.
+
+Miners believe these creatures enrich the earth with every fragment they leave behind, making regions inhabited by Iron Atomon rich in valuable deposits.
+
+Though rough and unrefined, the ore is highly sought after by blacksmiths and engineers for forging durable equipment and crafting advanced machinery."
+icon = ExtResource("1_pxqsi")
+category = "Item"
+quest_item = true
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

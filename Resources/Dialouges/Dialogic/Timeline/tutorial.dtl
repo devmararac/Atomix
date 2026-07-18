@@ -1,0 +1,41 @@
+linos: Oh! A new face.
+linos: Welcome to Atomonia, traveler.
+linos: I'm Linos. I help the villagers study the Atomon that live around us.
+label Choices
+- Tell me about this place.
+	linos: This village may look peaceful, but every tree, river, and mountain here is home to living Atomon.
+	linos: People and Atomon have lived together for generations.
+	linos: Our researchers believe they are the very building blocks of everything in Chemistria.
+	linos: Because of them, our world stays in balance.
+	jump Choices
+- What are Atomon?
+	linos: Atomon are living beings that represent the chemical elements.
+	linos: Some are light and energetic...
+	linos: Others are heavy and incredibly resilient.
+	linos: Each one behaves differently depending on the properties of the element it represents.
+	linos: The more Atomon you discover, the more you'll understand how our world works.
+	jump Choices
+- Is there anything I can help with?
+	linos: Actually...
+	linos: Yes.
+	linos: Our researchers have noticed something unusual.
+	linos: The Hydrogen Atomon that usually roam the fields have almost completely disappeared.
+	linos: That may not sound serious...
+	linos: ...but Hydrogen is one of the most abundant elements in our world.
+	linos: Seeing so many vanish at once worries us.
+	linos: We don't think they're in danger.
+	linos: Hydrogen are naturally curious.
+	linos: If something catches their attention, they'll often gather around it.
+	linos: Unfortunately, no one has had time to investigate.
+	linos: Would you be willing to help us?
+	- I'll Help.
+		linos: Thank you.
+		linos: You don't need to capture them.
+		linos: Simply find three Hydrogen Atomon and observe them.
+		linos: Once you've confirmed they're safe, return here and tell me what you found.
+		linos: Good luck, traveler.
+		[signal arg="quest_accept:quest_hydrogen_001"]
+	- Maybe later...
+		linos: No problem.
+		linos: If you change your mind, come back and speak with me.
+		return

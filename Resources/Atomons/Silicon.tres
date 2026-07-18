@@ -1,0 +1,112 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://dv42cr1tsjs71"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_dvmbn"]
+[ext_resource type="Texture2D" uid="uid://gl5v5b1xupcd" path="res://Assets/UX/Icons/silicon_Si.png" id="1_qcj4i"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_slwgx"]
+[ext_resource type="Texture2D" uid="uid://bvyy5ylxgeehg" path="res://Assets/Pets/silicon_idle.png" id="4_4mcev"]
+[ext_resource type="Texture2D" uid="uid://b57m33wqvixp5" path="res://Assets/Pets/silicon_walk.png" id="5_wc074"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qwvn"]
+atlas = ExtResource("4_4mcev")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtvlr"]
+atlas = ExtResource("4_4mcev")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cw3vv"]
+atlas = ExtResource("4_4mcev")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3cqq"]
+atlas = ExtResource("4_4mcev")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73pim"]
+atlas = ExtResource("5_wc074")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r2p7"]
+atlas = ExtResource("5_wc074")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41s6r"]
+atlas = ExtResource("5_wc074")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjwlv"]
+atlas = ExtResource("5_wc074")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n521m"]
+atlas = ExtResource("5_wc074")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qcj4i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qwvn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtvlr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cw3vv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3cqq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73pim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0r2p7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41s6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjwlv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n521m")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 9.0
+}]
+
+[resource]
+script = ExtResource("2_slwgx")
+atom_name = "Silicon"
+chemical_symbol = "Si"
+atomic_number = 14
+sprite_frames = SubResource("SpriteFrames_qcj4i")
+symbol = ExtResource("1_qcj4i")
+portrait = SubResource("AtlasTexture_3qwvn")
+atomic_mass = 28.085
+density = 2.33
+ionization_energy = 8.152
+electronegativity = 1.916
+electron_affinity = 134.06
+valence_electrons = 4
+element_type = "Metalloid"
+state = "Solid"
+block = "p"
+period = 3
+description = "A small Atomon formed from silicon-rich pebbles found along rivers and mountain paths.
+
+Though quiet and unassuming, it is remarkably resilient, enduring countless impacts that would shatter ordinary stones.
+
+It slowly absorbs minerals from its surroundings, causing its body to become denser and tougher over time.
+
+When threatened, it hurls itself with surprising force or unleashes a barrage of sharp stone fragments.
+
+Patient by nature, this steadfast Atomon is said to remain in one place for years, silently watching the world as the elements shape its growth."
+metadata/_custom_type_script = "uid://dvv118enrwub6"

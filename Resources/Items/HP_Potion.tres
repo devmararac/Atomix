@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b877cbwlrvace"]
+
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_ewjv5"]
+[ext_resource type="Texture2D" uid="uid://b10mjfu3yh51j" path="res://Assets/UX/Items/item_004.png" id="1_h4xks"]
+
+[resource]
+script = ExtResource("1_ewjv5")
+item_id = "item_004"
+item_name = "HP Potion"
+description = "A restorative potion infused with carefully refined medicinal compounds that gradually replenish an Atomon's vitality.
+
+Widely used by trainers during long expeditions, it is valued for its reliable healing properties and easy portability.
+
+Though common, every bottle is carefully prepared to ensure it provides a safe and effective recovery in battle or while exploring the wild."
+icon = ExtResource("1_h4xks")
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b7lxvkp5cxt6f"]
+
+[ext_resource type="Texture2D" uid="uid://7ss0oylgproy" path="res://Assets/UX/Items/item_003.png" id="1_laned"]
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_rmvu2"]
+
+[resource]
+script = ExtResource("1_rmvu2")
+item_id = "item_003"
+item_name = "Lino's Letter"
+icon = ExtResource("1_laned")
+max_stack = 1
+quest_item = true
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

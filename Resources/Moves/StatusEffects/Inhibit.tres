@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MoveEffect" format=3 uid="uid://dfdp583d0ydw5"]
+
+[ext_resource type="Script" uid="uid://xti26ayd3sst" path="res://Resources/Scripts/Effects/MoveEffect.gd" id="1_tp31p"]
+
+[resource]
+script = ExtResource("1_tp31p")
+metadata/_custom_type_script = "uid://xti26ayd3sst"

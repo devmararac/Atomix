@@ -1,0 +1,188 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://c6ifad64lantw"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1_0ro7n"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_lsvay"]
+[ext_resource type="Texture2D" uid="uid://bte4enammcpdx" path="res://Assets/Pets/Golem_Armor_Idle.png" id="2_vfumv"]
+[ext_resource type="Texture2D" uid="uid://c782m3jfqn8mu" path="res://Assets/Pets/Golem_Armor_Run.png" id="3_lsvay"]
+[ext_resource type="Texture2D" uid="uid://c28mtsfje07on" path="res://Assets/UX/Icons/iron_Fe.png" id="5_ali7o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ali7o"]
+atlas = ExtResource("2_vfumv")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ali7o"]
+load_path = "res://.godot/imported/iron_attack.png-12a4bb0e282c8dcc77db7f0b8852c286.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2vc6"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slacj"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghmmt"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqhu5"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48f5g"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7sqn"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qffho"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipabk"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ronuh"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_woq1n"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hubc6"]
+atlas = SubResource("CompressedTexture2D_ali7o")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8idmc"]
+atlas = ExtResource("2_vfumv")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j4f6"]
+atlas = ExtResource("2_vfumv")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oe0g8"]
+atlas = ExtResource("2_vfumv")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v47u"]
+atlas = ExtResource("3_lsvay")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6hku"]
+atlas = ExtResource("3_lsvay")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gpsy"]
+atlas = ExtResource("3_lsvay")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kva43"]
+atlas = ExtResource("3_lsvay")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ali7o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2vc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slacj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghmmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqhu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48f5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7sqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qffho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipabk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ronuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_woq1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hubc6")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ali7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8idmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j4f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oe0g8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v47u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6hku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gpsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kva43")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_0ro7n")
+atom_name = "Iron"
+chemical_symbol = "Fe"
+atomic_number = 26
+sprite_frames = SubResource("SpriteFrames_ali7o")
+symbol = ExtResource("5_ali7o")
+portrait = SubResource("AtlasTexture_ali7o")
+atomic_mass = 55.845
+density = 7.874
+ionization_energy = 7.902
+electronegativity = 1.8
+electron_affinity = 14.78
+valence_electrons = 8
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 4
+description = "A dense, metallic-based Atomon forged from raw ore deposits deep within cavern layers. 
+
+Its body is reinforced with naturally formed iron plating, making it highly resistant to physical impact. 
+
+Though slow in movement, it compensates with exceptional durability and steady, powerful strikes. 
+
+It is often found guarding mineral-rich zones, reacting aggressively to disturbances in its territory."
+metadata/_custom_type_script = "uid://dvv118enrwub6"

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://t8wudrnfvec0"]
+
+[ext_resource type="Script" uid="uid://dfolnsbtm3k8q" path="res://Scripts/scene_trigger.gd" id="1_mgjgu"]
+
+[node name="Scene_Trigger" type="Area2D" unique_id=1986080103]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_mgjgu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

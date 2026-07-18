@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bssvvaqt0wwfo"
+path="res://.godot/imported/Run Bunny Run.mp3-2ec62e9809cad1668445370c4d7fe469.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Run Bunny Run.mp3"
+dest_files=["res://.godot/imported/Run Bunny Run.mp3-2ec62e9809cad1668445370c4d7fe469.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

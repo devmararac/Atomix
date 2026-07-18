@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://by8gjm1e4c5xp"]
+
+[ext_resource type="Script" uid="uid://bnutkvfv611c5" path="res://Scripts/monitor_main.gd" id="1_3k8jq"]
+[ext_resource type="Texture2D" uid="uid://drweuyyjw3rcg" path="res://Assets/UX/HUD/dialog_1.png" id="2_qbxim"]
+
+[node name="Control" type="Control" unique_id=221267979]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3k8jq")
+
+[node name="Panel" type="Panel" parent="." unique_id=18310025]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel" unique_id=81662660]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[node name="Panel" type="Panel" parent="Panel" unique_id=1999756117]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Panel" unique_id=1273283339]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Panel/HBoxContainer" unique_id=614286687]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/Panel/HBoxContainer" unique_id=1221789278]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Panel/Panel" unique_id=1006628228]
+position = Vector2(893, 330)
+texture_normal = ExtResource("2_qbxim")
+
+[node name="Label" type="Label" parent="Panel/Panel" unique_id=666111045]
+layout_mode = 0
+offset_left = 553.0
+offset_top = 253.0
+offset_right = 1364.0
+offset_bottom = 340.0
+theme_override_font_sizes/font_size = 30
+text = "Here Goes Monitoring UI. Press to go back to mainmenu
+"
+
+[connection signal="pressed" from="Panel/Panel/TouchScreenButton" to="." method="_on_touch_screen_button_pressed"]

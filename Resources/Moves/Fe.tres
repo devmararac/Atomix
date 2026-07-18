@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://cge4686by5as"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_1am4b"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2_hy1db"]
+
+[resource]
+script = ExtResource("2_hy1db")
+move_name = "Fe"
+description = "Iron slam"
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

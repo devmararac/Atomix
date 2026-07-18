@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://fcbu6e35u8mi"]
+
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_qawp2"]
+[ext_resource type="Script" uid="uid://075sai0h4bnf" path="res://Scripts/party_slot.gd" id="2_o20bk"]
+[ext_resource type="Texture2D" uid="uid://csw0ks17clkr5" path="res://Assets/Pets/hydrogen_idle.png" id="3_ral00"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6xam"]
+atlas = ExtResource("3_ral00")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5o2l"]
+atlas = ExtResource("3_ral00")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6236"]
+atlas = ExtResource("3_ral00")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvq0k"]
+atlas = ExtResource("3_ral00")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o20bk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6xam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5o2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6236")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvq0k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Party Slot" type="TextureButton" unique_id=766526209]
+custom_minimum_size = Vector2(473, 120)
+offset_right = 550.0
+offset_bottom = 120.0
+texture_normal = ExtResource("1_qawp2")
+texture_pressed = ExtResource("1_qawp2")
+stretch_mode = 0
+script = ExtResource("2_o20bk")
+
+[node name="AtomonSprite" type="AnimatedSprite2D" parent="." unique_id=839360268]
+position = Vector2(86.99999, 64)
+scale = Vector2(3.15625, 2.46875)
+sprite_frames = SubResource("SpriteFrames_o20bk")
+
+[node name="Name" type="Label" parent="." unique_id=11307252]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.356
+anchor_top = 0.142
+anchor_right = 0.85800004
+anchor_bottom = 0.333
+offset_left = 0.19999695
+offset_top = -0.040000916
+offset_right = 0.099975586
+offset_bottom = 0.040000916
+text = "Name"
+
+[node name="HP" type="Label" parent="." unique_id=2030307325]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.36200002
+anchor_top = 0.45000002
+anchor_right = 0.86700004
+anchor_bottom = 0.642
+offset_left = -0.1000061
+offset_right = 0.14996338
+offset_bottom = -0.040000916
+text = "HP"

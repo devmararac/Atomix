@@ -1,0 +1,227 @@
+[gd_scene format=3 uid="uid://dnlynd6e6aa4b"]
+
+[ext_resource type="Script" uid="uid://lhxpk4kgby7h" path="res://Scripts/linos.gd" id="1_3lx32"]
+[ext_resource type="Texture2D" uid="uid://dyynmoh413k80" path="res://Assets/NPC/Linos.png" id="1_4pb2k"]
+[ext_resource type="Resource" uid="uid://dcmxm25lqu2g2" path="res://Resources/Dialouges/Dialogic/Timeline/tutorial.dtl" id="2_jbd8h"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="3_jbd8h"]
+[ext_resource type="Resource" uid="uid://wa6ohi7hqlqw" path="res://Resources/Dialouges/Dialogic/Timeline/linos_hydrogen_in_progress.dtl" id="3_p163p"]
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objectives.gd" id="4_p163p"]
+[ext_resource type="Resource" uid="uid://rxe2pxhj24of" path="res://Resources/Dialouges/Dialogic/Timeline/linos_report_hydrogen.dtl" id="4_qu3ab"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Rewards.gd" id="5_qu3ab"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="6_qmvsd"]
+[ext_resource type="Texture2D" uid="uid://bd7gyx3ojos6x" path="res://Assets/VFX/expression_chat.png" id="8_qu3ab"]
+
+[sub_resource type="Resource" id="Resource_p163p"]
+script = ExtResource("4_p163p")
+id = "collect_iron"
+description = "Collect 5 Iron Ore"
+target_id = "item_iron"
+target_type = "collection"
+required_quantity = 5
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+
+[sub_resource type="Resource" id="Resource_qu3ab"]
+script = ExtResource("5_qu3ab")
+reward_type = "coins"
+reward_amount = 100
+metadata/_custom_type_script = "uid://s0771j4ovmsh"
+
+[sub_resource type="Resource" id="Resource_jbd8h"]
+script = ExtResource("3_jbd8h")
+quest_id = "collect_iron"
+quest_name = "Collect Iron"
+quest_description = "Linos needs iron to repair his forge. Collect 5 Iron Ore and bring it back."
+objectives = Array[ExtResource("4_p163p")]([SubResource("Resource_p163p")])
+rewards = Array[ExtResource("5_qu3ab")]([SubResource("Resource_qu3ab")])
+metadata/_custom_type_script = "uid://7rrmrho1w3gn"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uiagu"]
+atlas = ExtResource("8_qu3ab")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djs2x"]
+atlas = ExtResource("8_qu3ab")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqesy"]
+atlas = ExtResource("8_qu3ab")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06bcb"]
+atlas = ExtResource("8_qu3ab")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqqsw"]
+atlas = ExtResource("8_qu3ab")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7liak"]
+atlas = ExtResource("8_qu3ab")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_voh4a"]
+atlas = ExtResource("8_qu3ab")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3cr4y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uiagu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djs2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqesy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06bcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqqsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7liak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_voh4a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
+atlas = ExtResource("6_qmvsd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
+atlas = ExtResource("6_qmvsd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
+atlas = ExtResource("6_qmvsd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
+atlas = ExtResource("6_qmvsd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
+atlas = ExtResource("6_qmvsd")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jbd8h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d07v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyadn")
+}],
+"loop": true,
+"name": &"highlight",
+"speed": 9.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lx32"]
+atlas = ExtResource("1_4pb2k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqgx0"]
+atlas = ExtResource("1_4pb2k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_panlq"]
+atlas = ExtResource("1_4pb2k")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkx5j"]
+atlas = ExtResource("1_4pb2k")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3n1uf"]
+atlas = ExtResource("1_4pb2k")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ri4i"]
+atlas = ExtResource("1_4pb2k")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvhj5"]
+atlas = ExtResource("1_4pb2k")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4psm0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lx32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqgx0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_panlq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkx5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3n1uf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ri4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvhj5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lotnu"]
+radius = 13.0
+
+[node name="Linos" type="CharacterBody2D" unique_id=356160749 groups=["NPC"]]
+script = ExtResource("1_3lx32")
+npc_id = "npc_1"
+npc_name = "Linos"
+target_id = "linos"
+tutorial = ExtResource("2_jbd8h")
+hydrogen_in_progress_timeline = ExtResource("3_p163p")
+hydrogen_report_timeline = ExtResource("4_qu3ab")
+quests = Array[ExtResource("3_jbd8h")]([SubResource("Resource_jbd8h")])
+
+[node name="Chat" type="AnimatedSprite2D" parent="." unique_id=1982536544]
+position = Vector2(1, -20)
+sprite_frames = SubResource("SpriteFrames_3cr4y")
+autoplay = "default"
+frame_progress = 0.6963328
+
+[node name="Highlight" type="AnimatedSprite2D" parent="." unique_id=1013901439]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7921569)
+sprite_frames = SubResource("SpriteFrames_jbd8h")
+animation = &"highlight"
+autoplay = "highlight"
+frame_progress = 0.6494226
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1622136069]
+sprite_frames = SubResource("SpriteFrames_4psm0")
+animation = &"idle"
+frame_progress = 0.20205176
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=563263985]
+shape = SubResource("CircleShape2D_lotnu")

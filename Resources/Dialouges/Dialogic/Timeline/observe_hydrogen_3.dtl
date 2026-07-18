@@ -1,0 +1,3 @@
+Player: That's the third Hydrogen.
+Player: Linos should hear about this.
+[signal arg="observe:hydrogen"]

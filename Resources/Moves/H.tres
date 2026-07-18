@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://bhkfediic4g87"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_2y7bv"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_3vcip"]
+[ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="2_dchti"]
+[ext_resource type="Script" uid="uid://xti26ayd3sst" path="res://Resources/Scripts/Effects/MoveEffect.gd" id="3_6pjqj"]
+[ext_resource type="Script" uid="uid://cgnlftqbacyqr" path="res://Resources/Scripts/Actions/StatusAction.gd" id="4_d32tp"]
+
+[sub_resource type="Resource" id="Resource_d8x5y"]
+script = ExtResource("2_dchti")
+power = 30
+damage_type = "Special"
+metadata/_custom_type_script = "uid://bi06gqxjn2rug"
+
+[sub_resource type="Resource" id="Resource_dw53l"]
+script = ExtResource("3_6pjqj")
+value = 4
+chance = 50
+duration = 2
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_fcj85"]
+script = ExtResource("4_d32tp")
+effects = Array[ExtResource("3_6pjqj")]([SubResource("Resource_dw53l")])
+metadata/_custom_type_script = "uid://cgnlftqbacyqr"
+
+[resource]
+script = ExtResource("1_3vcip")
+move_name = "H"
+description = "Bomb"
+accuracy = 80
+priority = 1
+actions = Array[ExtResource("1_2y7bv")]([SubResource("Resource_d8x5y"), SubResource("Resource_fcj85")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

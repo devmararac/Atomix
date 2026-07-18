@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://dmik7ih8jc016"]
+
+[ext_resource type="Script" uid="uid://bbskbixeqfbur" path="res://Scripts/Dialouges/dialouge_ui.gd" id="1_dy0nv"]
+[ext_resource type="Texture2D" uid="uid://drweuyyjw3rcg" path="res://Assets/UX/HUD/dialog_1.png" id="2_a3518"]
+[ext_resource type="Texture2D" uid="uid://cq0wtxqc848xe" path="res://Assets/UX/HUD/close_pressed.png" id="3_480m7"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_y2tj4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_480m7"]
+texture = ExtResource("2_a3518")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[node name="DialougeUI" type="Control" unique_id=1202724389]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_dy0nv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1759603189]
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=2112336873]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -280.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_480m7")
+
+[node name="DialougeBox" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=911992228]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="DialougeSpeaker" type="Label" parent="CanvasLayer/Panel/DialougeBox" unique_id=1713846164]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_y2tj4")
+theme_override_font_sizes/font_size = 25
+text = "NPC NAME"
+
+[node name="DialougeText" type="Label" parent="CanvasLayer/Panel/DialougeBox" unique_id=870845362]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_y2tj4")
+theme_override_font_sizes/font_size = 28
+text = "DIALOUGE TEXT...."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialougeOptions" type="HBoxContainer" parent="CanvasLayer/Panel/DialougeBox" unique_id=760311928]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/Panel" unique_id=1120246502]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -68.0
+offset_top = 5.0
+offset_right = -15.0
+offset_bottom = 63.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+action_mode = 0
+icon = ExtResource("3_480m7")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="CanvasLayer/Panel/CloseButton" to="." method="_on_close_button_pressed"]

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://b7216b326p7rv"]
+
+[ext_resource type="Texture2D" uid="uid://cv3y2ucbjs3cb" path="res://Assets/UX/HUD/Panels/slot.png" id="1_i53lo"]
+[ext_resource type="Texture2D" uid="uid://cd8ibfrdd7n5p" path="res://Assets/UX/HUD/Panels/slot_pressed.png" id="2_40bps"]
+[ext_resource type="Script" uid="uid://5v1fgvjgko2c" path="res://Scripts/item_slot.gd" id="3_40bps"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_41rdk"]
+
+[node name="ItemSlot" type="TextureButton" unique_id=935584709]
+custom_minimum_size = Vector2(120, 120)
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_i53lo")
+texture_pressed = ExtResource("2_40bps")
+stretch_mode = 0
+script = ExtResource("3_40bps")
+
+[node name="item_texture" type="TextureRect" parent="." unique_id=917657569]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.067
+anchor_top = 0.067
+anchor_right = 0.933
+anchor_bottom = 0.933
+offset_left = -0.03999996
+offset_top = -0.03999996
+offset_right = 0.039993286
+offset_bottom = 0.039993286
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="." unique_id=2077851427]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.66700006
+anchor_top = 0.758
+anchor_right = 0.91700006
+anchor_bottom = 0.91700006
+offset_left = -0.040008545
+offset_top = 0.040000916
+offset_right = -0.040008545
+offset_bottom = -0.040008545
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_41rdk")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1

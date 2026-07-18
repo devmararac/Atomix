@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://d4citbw7ri8fq"]
+
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_jkca0"]
+[ext_resource type="Script" uid="uid://crpa1l51cdh6v" path="res://Scripts/teacher_dashboard.gd" id="1_x082l"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="3_mxhyk"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="4_sibsg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yumf0"]
+bg_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+border_width_bottom = 4
+border_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkca0"]
+bg_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+
+[node name="TeacherDashboard" type="Control" unique_id=672896987]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x082l")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1416401130]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[node name="AppBar" type="Panel" parent="." unique_id=182895380]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.11100001
+offset_bottom = 0.0799942
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yumf0")
+
+[node name="Menu" type="TextureButton" parent="AppBar" unique_id=864163056]
+layout_mode = 0
+offset_right = 104.0
+offset_bottom = 76.0
+
+[node name="MenuPanel" type="Panel" parent="." unique_id=918090282]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.11100001
+anchor_right = 0.136
+anchor_bottom = 1.0
+offset_top = 0.0799942
+offset_right = -0.2800293
+theme_override_styles/panel = SubResource("StyleBoxFlat_jkca0")
+
+[node name="Dashboard" type="TextureButton" parent="MenuPanel" unique_id=289937945]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49100003
+anchor_top = 0.030000001
+anchor_right = 0.49100003
+anchor_bottom = 0.030000001
+offset_left = -111.07901
+offset_top = -0.20000076
+offset_right = 110.92099
+offset_bottom = 65.8
+texture_normal = ExtResource("1_jkca0")
+stretch_mode = 0
+
+[node name="Students" type="TextureButton" parent="MenuPanel" unique_id=496867008]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49100003
+anchor_top = 0.20300001
+anchor_right = 0.49100003
+anchor_bottom = 0.20300001
+offset_left = -111.07901
+offset_top = 0.07998657
+offset_right = 110.920975
+offset_bottom = 80.07999
+texture_normal = ExtResource("1_jkca0")
+stretch_mode = 0
+
+[node name="Progress" type="TextureButton" parent="MenuPanel" unique_id=217362466]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49
+anchor_top = 0.377
+anchor_right = 0.49
+anchor_bottom = 0.377
+offset_left = -110.88701
+offset_top = 0.040023804
+offset_right = 111.112976
+offset_bottom = 80.04001
+texture_normal = ExtResource("1_jkca0")
+stretch_mode = 0
+
+[node name="CloseButton" type="TextureButton" parent="." unique_id=1601258808]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -85.0
+offset_bottom = 76.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_mxhyk")
+texture_pressed = ExtResource("4_sibsg")
+stretch_mode = 0
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

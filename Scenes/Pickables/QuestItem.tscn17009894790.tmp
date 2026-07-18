@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bj22gacek1ub7"]
+
+[ext_resource type="Script" uid="uid://ck5456nb0p4vs" path="res://Scripts/Quest/QuestItem.gd" id="1_ftxbf"]
+[ext_resource type="Texture2D" uid="uid://b4rmf7s45j5gv" path="res://Assets/UX/Items/Item_set_1.png" id="1_p344h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ftxbf"]
+
+[node name="QuestItem" type="Area2D" unique_id=254701955 groups=["Items"]]
+script = ExtResource("1_ftxbf")
+item_id = "item_iron"
+item_quantity = null
+item_icon = ExtResource("1_p344h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1419775142]
+shape = SubResource("CircleShape2D_ftxbf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=590735786]
+texture = ExtResource("1_p344h")

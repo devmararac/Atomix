@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://bn7masr82wgwc"]
+
+[ext_resource type="Script" uid="uid://dxljf62hvxos4" path="res://Scripts/switch_atomon.gd" id="1_5idv1"]
+[ext_resource type="Texture2D" uid="uid://blobcx8hb08fa" path="res://Assets/UX/HUD/Panels/inventory_bg.png" id="1_rkkwk"]
+[ext_resource type="Texture2D" uid="uid://daq1gtorekc3d" path="res://Assets/UX/HUD/Panels/book_panel_big.png" id="2_qg8ou"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="2_w5tlr"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="3_5idv1"]
+[ext_resource type="PackedScene" uid="uid://fcbu6e35u8mi" path="res://Scenes/UI/party_slot.tscn" id="3_k2i2i"]
+
+[node name="Canvas Layer" type="CanvasLayer" unique_id=1717074173]
+script = ExtResource("1_5idv1")
+
+[node name="NinePatchRect" type="ColorRect" parent="." unique_id=757420780]
+self_modulate = Color(0, 0, 0, 0.6745098)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="NinePatchRect" parent="NinePatchRect" unique_id=283729576]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -651.5
+offset_top = -322.5
+offset_right = 611.5
+offset_bottom = 282.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_qg8ou")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect/BG" unique_id=893542772]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25800002
+anchor_top = 0.083000004
+anchor_right = 0.25800002
+anchor_bottom = 0.083000004
+offset_left = -242.35403
+offset_top = 0.28499603
+offset_right = 241.64597
+offset_bottom = 476.285
+
+[node name="GridContainer" type="GridContainer" parent="NinePatchRect/BG/ScrollContainer" unique_id=1314887760]
+layout_mode = 2
+theme_override_constants/v_separation = 25
+
+[node name="slot_1" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=766526209 instance=ExtResource("3_k2i2i")]
+layout_mode = 2
+
+[node name="slot_2" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=1237802204 instance=ExtResource("3_k2i2i")]
+layout_mode = 2
+
+[node name="slot_3" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=1183647928 instance=ExtResource("3_k2i2i")]
+layout_mode = 2
+
+[node name="slot_4" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=942349078 instance=ExtResource("3_k2i2i")]
+layout_mode = 2
+
+[node name="slot_5" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=1998065792 instance=ExtResource("3_k2i2i")]
+layout_mode = 2
+
+[node name="Details" type="Panel" parent="NinePatchRect/BG" unique_id=347135483]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.74700004
+anchor_top = 0.065000005
+anchor_right = 0.74700004
+anchor_bottom = 0.065000005
+offset_left = -252.96106
+offset_top = 0.17499542
+offset_right = 254.03894
+offset_bottom = 492.175
+grow_horizontal = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/BG/Details" unique_id=1086672773]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rkkwk")
+
+[node name="CloseButton" type="TextureButton" parent="." unique_id=1218040698]
+anchors_preset = -1
+anchor_left = 0.753
+anchor_top = 0.13700001
+anchor_right = 0.753
+anchor_bottom = 0.13700001
+offset_left = -26.940063
+offset_top = 0.35999298
+offset_right = 27.059937
+offset_bottom = 51.359993
+grow_horizontal = 0
+texture_normal = ExtResource("2_w5tlr")
+texture_pressed = ExtResource("3_5idv1")
+stretch_mode = 0
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://deb16wmoo5crf"]
+
+[ext_resource type="Script" uid="uid://d34mllgjj2tgp" path="res://Atomons/Atomon.gd" id="1_l652a"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2_l652a"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_nrw8g"]
+
+[sub_resource type="Resource" id="Resource_l652a"]
+script = ExtResource("2_nrw8g")
+metadata/_custom_type_script = "uid://dvv118enrwub6"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l652a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_07bdt"]
+radius = 24.020824
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_07bdt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_73l05"]
+radius = 65.00769
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1785293783 groups=["Atomons"]]
+script = ExtResource("1_l652a")
+data = SubResource("Resource_l652a")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1904976270]
+sprite_frames = SubResource("SpriteFrames_l652a")
+offset = Vector2(0, -14)
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1933502051 groups=["Enemy"]]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=2890930]
+light_mask = 4
+visibility_layer = 8
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_07bdt")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=566772519]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_07bdt")
+
+[node name="AggroMove" type="Area2D" parent="." unique_id=1611714186]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroMove" unique_id=2145140399]
+position = Vector2(-2, -10)
+shape = SubResource("CircleShape2D_73l05")
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_battle_detection_body_entered"]
+[connection signal="body_entered" from="AggroMove" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="AggroMove" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_shape_entered" from="AggroMove" to="." method="_on_area_2d_body_shape_entered"]

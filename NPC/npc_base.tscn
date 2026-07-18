@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://djafjw6fwxvtx"]
+
+[ext_resource type="Script" uid="uid://cl122r8fx5tni" path="res://NPC/npc_base.gd" id="1_finpj"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_xn10o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6txx1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s6gr2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u3rnm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_chfhp"]
+radius = 19.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i6fm7"]
+
+[node name="NpcBase" type="CharacterBody2D" unique_id=747614588]
+script = ExtResource("1_finpj")
+
+[node name="NpcSprite" type="AnimatedSprite2D" parent="." unique_id=171084718]
+sprite_frames = SubResource("SpriteFrames_6txx1")
+
+[node name="NpcName" type="Label" parent="NpcSprite" unique_id=1694716363]
+offset_left = -16.0
+offset_top = -50.0
+offset_right = 15.0
+offset_bottom = -38.0
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_colors/font_shadow_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_xn10o")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_s6gr2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Indicator" type="AnimatedSprite2D" parent="NpcSprite" unique_id=1509797699]
+sprite_frames = SubResource("SpriteFrames_u3rnm")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=400915796]
+
+[node name="Detection Area" type="CollisionShape2D" parent="Area2D" unique_id=1542716785]
+shape = SubResource("CircleShape2D_chfhp")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=609970440]
+shape = SubResource("CircleShape2D_i6fm7")

@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://bj22gacek1ub7"]
+
+[ext_resource type="Script" uid="uid://ck5456nb0p4vs" path="res://Scripts/Quest/QuestItem.gd" id="1_ftxbf"]
+[ext_resource type="Texture2D" uid="uid://b4rmf7s45j5gv" path="res://Assets/UX/Items/Item_set_1.png" id="1_p344h"]
+[ext_resource type="Texture2D" uid="uid://dwt00aq1b4scn" path="res://Assets/UX/Icons/indicator_bounce - Copy.png" id="3_igc33"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="3_ohqdc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
+atlas = ExtResource("3_ohqdc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
+atlas = ExtResource("3_ohqdc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
+atlas = ExtResource("3_ohqdc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
+atlas = ExtResource("3_ohqdc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
+atlas = ExtResource("3_ohqdc")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_usew6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d07v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyadn")
+}],
+"loop": true,
+"name": &"highlight",
+"speed": 9.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ftxbf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohqdc"]
+atlas = ExtResource("3_igc33")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arwpd"]
+atlas = ExtResource("3_igc33")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0f5ej"]
+atlas = ExtResource("3_igc33")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0pkv"]
+atlas = ExtResource("3_igc33")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlnrf"]
+atlas = ExtResource("3_igc33")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ktyap"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohqdc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arwpd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0f5ej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0pkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlnrf")
+}],
+"loop": true,
+"name": &"bounce",
+"speed": 7.0
+}]
+
+[node name="QuestItem" type="Area2D" unique_id=254701955 groups=["Items"]]
+script = ExtResource("1_ftxbf")
+item_id = "item_iron"
+item_icon = ExtResource("1_p344h")
+target_id = "item_iron"
+
+[node name="Highlight" type="AnimatedSprite2D" parent="." unique_id=1538830096]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7921569)
+sprite_frames = SubResource("SpriteFrames_usew6")
+animation = &"highlight"
+autoplay = "highlight"
+frame_progress = 0.12192898
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1419775142]
+shape = SubResource("CircleShape2D_ftxbf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=590735786]
+texture = ExtResource("1_p344h")
+
+[node name="Indicator" type="AnimatedSprite2D" parent="." unique_id=1032411861]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_ktyap")
+animation = &"bounce"
+autoplay = "bounce"
+frame_progress = 0.28985274

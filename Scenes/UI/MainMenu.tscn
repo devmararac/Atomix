@@ -1,0 +1,266 @@
+[gd_scene format=3 uid="uid://cv0xt3baocsfl"]
+
+[ext_resource type="Script" uid="uid://boi8km0efioec" path="res://Scripts/main_menu.gd" id="1_g18y6"]
+[ext_resource type="Texture2D" uid="uid://c60g7x53146ki" path="res://Assets/main_menu_bg.png" id="2_744d7"]
+[ext_resource type="Texture2D" uid="uid://drweuyyjw3rcg" path="res://Assets/UX/HUD/dialog_1.png" id="2_mjmdf"]
+[ext_resource type="Texture2D" uid="uid://bc6qt1sy5wftq" path="res://Assets/LOGO_no_bg.png" id="3_744d7"]
+[ext_resource type="Texture2D" uid="uid://h3sd8wyoe8rb" path="res://Assets/UX/Buttons/Normal/start_button.png" id="4_jex3y"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_kl3t2"]
+[ext_resource type="Texture2D" uid="uid://doo7mciw56tpw" path="res://Assets/UX/HUD/Panels/main_panel.png" id="4_ynupv"]
+[ext_resource type="Texture2D" uid="uid://cntwpifdy45is" path="res://Assets/UX/Buttons/On-Pressed/start_button_pressed.png" id="5_744d7"]
+[ext_resource type="Texture2D" uid="uid://d2g8hi1viw8rr" path="res://Assets/UX/Buttons/Normal/login_button.png" id="6_hys1s"]
+[ext_resource type="AudioStream" uid="uid://d1u513vg34uhk" path="res://Assets/Music/Kevin MacLeod - Itty Bitty 8 Bit ♫ NO COPYRIGHT 8-bit Music.mp3" id="7_744d7"]
+[ext_resource type="Texture2D" uid="uid://cjjnuq13i5dll" path="res://Assets/UX/Buttons/On-Pressed/login_pressed.png" id="7_fgqbg"]
+[ext_resource type="Texture2D" uid="uid://b2n2075ljfgx4" path="res://Assets/UX/Buttons/Normal/SignUp_button.png" id="8_euk5f"]
+[ext_resource type="Texture2D" uid="uid://cwfu2b6vyg5oy" path="res://Assets/UX/Buttons/On-Pressed/SignUp_pressed.png" id="9_kdsd0"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jex3y"]
+texture = ExtResource("2_744d7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_744d7"]
+texture = ExtResource("3_744d7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m48tj"]
+texture = ExtResource("4_ynupv")
+
+[node name="Main Menu" type="Control" unique_id=1941167030]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g18y6")
+
+[node name="BG" type="Panel" parent="." unique_id=203169090]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.010000001
+anchor_top = -0.007
+anchor_right = 1.016
+anchor_bottom = 1.047
+offset_left = 0.80000114
+offset_top = 0.03999996
+offset_right = 0.3199463
+offset_bottom = 0.15997314
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_jex3y")
+
+[node name="Logo" type="Panel" parent="." unique_id=1360862152]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.31100002
+anchor_top = -0.068
+anchor_right = 0.689
+anchor_bottom = 0.499
+offset_left = -0.7800293
+offset_top = -0.0399971
+offset_right = -0.2199707
+offset_bottom = -0.27999878
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_744d7")
+
+[node name="AuthPanel" type="Panel" parent="." unique_id=24419986]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19800001
+anchor_top = 0.337
+anchor_right = 0.81100005
+anchor_bottom = 0.994
+offset_left = 0.9599304
+offset_top = 0.35998535
+offset_right = -287.2898
+offset_bottom = -132.30676
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.309576, 1.389651)
+theme_override_styles/panel = SubResource("StyleBoxTexture_m48tj")
+
+[node name="Welcome" type="Label" parent="AuthPanel" unique_id=76582129]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.259
+anchor_top = 0.087000005
+anchor_right = 0.74100006
+anchor_bottom = 0.27100003
+offset_left = 0.23999023
+offset_top = 0.02999878
+offset_right = -0.24005127
+offset_bottom = -0.010009766
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_kl3t2")
+theme_override_font_sizes/font_size = 19
+text = "WELCOME TRAVELER!
+LOGIN or SIGNUP"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="EmailTXT" type="Label" parent="AuthPanel" unique_id=701854807]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.277
+anchor_right = 0.18300001
+anchor_bottom = 0.365
+offset_left = 0.27999878
+offset_top = 0.12999725
+offset_right = -0.120010376
+offset_bottom = -0.15000153
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_kl3t2")
+theme_override_font_sizes/font_size = 26
+text = "EMAIL"
+
+[node name="PasswordTXT" type="Label" parent="AuthPanel" unique_id=1819716957]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.047000002
+anchor_top = 0.439
+anchor_right = 0.287
+anchor_bottom = 0.526
+offset_left = -0.08000183
+offset_top = -0.08999634
+offset_right = 0.32000732
+offset_bottom = -0.060012817
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_kl3t2")
+theme_override_font_sizes/font_size = 26
+text = "PASSWORD"
+
+[node name="Email" type="Panel" parent="AuthPanel" unique_id=696169082]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.323
+anchor_top = 0.27400002
+anchor_right = 0.95800006
+anchor_bottom = 0.37100002
+offset_left = 0.27999878
+offset_top = 0.05999756
+offset_right = -0.12005615
+offset_bottom = -0.010009766
+mouse_filter = 2
+
+[node name="EmailInput" type="LineEdit" parent="AuthPanel/Email" unique_id=768579636]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.033
+offset_bottom = 0.010000229
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Enter your email"
+select_all_on_focus = true
+
+[node name="Password" type="Panel" parent="AuthPanel" unique_id=547582768]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32500002
+anchor_top = 0.42900002
+anchor_right = 0.95900005
+anchor_bottom = 0.526
+offset_left = -1.5258789e-05
+offset_top = 0.009994507
+offset_right = 0.23999023
+offset_bottom = -0.060012817
+mouse_filter = 2
+
+[node name="PasswordInput" type="LineEdit" parent="AuthPanel/Password" unique_id=284323527]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.001
+anchor_top = -0.007
+anchor_right = 1.0
+anchor_bottom = 1.0270001
+offset_left = -0.011968732
+offset_top = 0.010018319
+offset_right = -0.41796875
+offset_bottom = -0.009983063
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Enter your password"
+secret = true
+
+[node name="AuthButtons" type="Panel" parent="AuthPanel" unique_id=1545438703]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18800001
+anchor_top = 0.6
+anchor_right = 0.79
+anchor_bottom = 0.80700004
+offset_left = 0.10998535
+offset_top = 0.14390564
+offset_right = -0.3665161
+offset_bottom = 0.12963867
+
+[node name="LoginButton" type="TouchScreenButton" parent="AuthPanel/AuthButtons" unique_id=1047824731]
+position = Vector2(76.54089, -3.0242615)
+scale = Vector2(1.8521284, 1.4380054)
+texture_normal = ExtResource("6_hys1s")
+texture_pressed = ExtResource("7_fgqbg")
+
+[node name="SignupButton" type="TouchScreenButton" parent="AuthPanel/AuthButtons" unique_id=1261423011]
+position = Vector2(310.2044, -3.0242538)
+scale = Vector2(1.853335, 1.4392103)
+texture_normal = ExtResource("8_euk5f")
+texture_pressed = ExtResource("9_kdsd0")
+
+[node name="StatusLabel" type="Label" parent="AuthPanel" unique_id=1695895991]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.462
+anchor_top = 0.85800004
+anchor_right = 0.537
+anchor_bottom = 0.93200004
+offset_left = -2.4553833
+offset_top = -0.44570923
+offset_right = 1.5446167
+offset_bottom = -0.3857727
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_kl3t2")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=889808789]
+stream = ExtResource("7_744d7")
+volume_db = -15.0
+autoplay = true
+
+[node name="Panel" type="Panel" parent="." unique_id=182627566]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37500003
+anchor_top = 0.44400004
+anchor_right = 0.62600005
+anchor_bottom = 0.86700004
+offset_left = -0.50006104
+offset_top = 0.3199768
+offset_right = 0.51989746
+offset_bottom = -0.24005127
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Start" type="TouchScreenButton" parent="Panel" unique_id=517103769]
+position = Vector2(91, 26)
+scale = Vector2(3.1041667, 2.25)
+texture_normal = ExtResource("4_jex3y")
+texture_pressed = ExtResource("5_744d7")
+passby_press = true
+action = "Start"
+
+[node name="Monitor" type="TouchScreenButton" parent="Panel" unique_id=1599034584]
+position = Vector2(92, 153)
+scale = Vector2(3.09375, 2.2708333)
+texture_normal = ExtResource("2_mjmdf")
+
+[connection signal="pressed" from="AuthPanel/AuthButtons/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="AuthPanel/AuthButtons/SignupButton" to="." method="_on_signup_button_pressed"]
+[connection signal="pressed" from="Panel/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Panel/Monitor" to="." method="_on_monitor_pressed"]

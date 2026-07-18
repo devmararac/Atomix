@@ -1,0 +1,98 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bmaldmvsapygf"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_lhjdu"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_dy5yk"]
+[ext_resource type="Texture2D" uid="uid://kxhw660rxko6" path="res://Assets/Pets/oxygen-idle.png" id="3_5ji83"]
+[ext_resource type="Texture2D" uid="uid://ca4pmqli3wriu" path="res://Assets/UX/Icons/oxygen_O.png" id="4_mfltm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4qgl"]
+atlas = ExtResource("3_5ji83")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njos1"]
+atlas = ExtResource("3_5ji83")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsug0"]
+atlas = ExtResource("3_5ji83")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdjpa"]
+atlas = ExtResource("3_5ji83")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0nbw"]
+atlas = ExtResource("3_5ji83")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kif3"]
+atlas = ExtResource("3_5ji83")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3vib"]
+atlas = ExtResource("3_5ji83")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqxlu"]
+atlas = ExtResource("3_5ji83")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lhjdu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4qgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_njos1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsug0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdjpa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0nbw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kif3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3vib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqxlu")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_dy5yk")
+atom_name = "Oxygen"
+chemical_symbol = "O"
+atomic_number = 8
+sprite_frames = SubResource("SpriteFrames_lhjdu")
+symbol = ExtResource("4_mfltm")
+portrait = SubResource("AtlasTexture_w4qgl")
+atomic_mass = 15.999
+density = 0.001
+ionization_energy = 13.618
+electronegativity = 3.61
+electron_affinity = 140.98
+valence_electrons = 6
+block = "p"
+period = 2
+description = "A gentle Atomon born from the very air we breathe.
+
+Oxygen Atomon drifts silently through forests and mountains, refreshing its surroundings with every breath.
+
+Though calm by nature, it can unleash powerful gusts that invigorate allies and overwhelm enemies. Many travelers believe spotting one is a sign of safe journeys and fresh beginnings."
+metadata/_custom_type_script = "uid://dvv118enrwub6"

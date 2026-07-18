@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://brhmsup3mqa07"]
+
+[ext_resource type="Texture2D" uid="uid://cc3ax2vspnbr8" path="res://Assets/Player/peak1-Sheet.png" id="1_nwgv7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm1si"]
+atlas = ExtResource("1_nwgv7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8rle"]
+atlas = ExtResource("1_nwgv7")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sds2y"]
+atlas = ExtResource("1_nwgv7")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8udd"]
+atlas = ExtResource("1_nwgv7")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2udgt"]
+atlas = ExtResource("1_nwgv7")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_id1d5"]
+atlas = ExtResource("1_nwgv7")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtjg5"]
+atlas = ExtResource("1_nwgv7")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d22xe"]
+atlas = ExtResource("1_nwgv7")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11ru5"]
+atlas = ExtResource("1_nwgv7")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0wktm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pm1si")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8rle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sds2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8udd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2udgt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_id1d5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtjg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d22xe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11ru5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fnjgf"]
+
+[node name="for Fun" type="CharacterBody2D" unique_id=512137566]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1139480889]
+sprite_frames = SubResource("SpriteFrames_0wktm")
+autoplay = "default"
+frame_progress = 0.3445047
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1941931001]
+position = Vector2(1, 11)
+shape = SubResource("CapsuleShape2D_fnjgf")

@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dm0a8tcy3qrnr"]
+
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="1_sjmnu"]
+[ext_resource type="PackedScene" uid="uid://bjt688poibqgb" path="res://Scenes/UI/buttons.tscn" id="2_cgmvo"]
+
+[node name="Joystick" type="Control" unique_id=241195174]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.0081257, 1.0091841)
+
+[node name="JoyStick" type="CanvasLayer" parent="." unique_id=655825408]
+
+[node name="Virtual Joystick" parent="JoyStick" unique_id=2038805356 instance=ExtResource("1_sjmnu")]
+anchor_left = 0.013
+anchor_top = 0.523
+anchor_right = 0.187
+offset_left = -0.103998184
+offset_top = 0.2640686
+offset_right = -44.624054
+offset_bottom = -43.175964
+scale = Vector2(1.1519414, 1.1787175)
+size_flags_horizontal = 4
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+
+[node name="Buttons" parent="." unique_id=1465327220 instance=ExtResource("2_cgmvo")]
+layout_mode = 1
