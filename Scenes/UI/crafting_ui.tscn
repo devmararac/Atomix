@@ -1,0 +1,1350 @@
+[gd_scene format=3 uid="uid://cgk1or41bi7dj"]
+
+[ext_resource type="Script" uid="uid://bwssenmwvh8yc" path="res://Scenes/UI/crafting_ui.gd" id="1_jtxwl"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="1_qw7ce"]
+[ext_resource type="PackedScene" uid="uid://drgms2ihsxvob" path="res://Scenes/UI/element_button.tscn" id="2_kvpgl"]
+[ext_resource type="Texture2D" uid="uid://blobcx8hb08fa" path="res://Assets/UX/HUD/Panels/inventory_bg.png" id="4_bsyg3"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_vxolc"]
+[ext_resource type="Texture2D" uid="uid://cl8jm6binvmxb" path="res://Assets/UX/Icons/arrow.png" id="5_gm1xq"]
+[ext_resource type="Texture2D" uid="uid://cgackw4bwt5yv" path="res://Assets/UX/Items/proton.png" id="5_vxolc"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="6_5sl6t"]
+[ext_resource type="Texture2D" uid="uid://0x4bu62h3ath" path="res://Assets/UX/Items/electron.png" id="6_as2dd"]
+[ext_resource type="Texture2D" uid="uid://c7st36401mgrs" path="res://Assets/UX/Icons/akali_metals.png" id="6_d00qg"]
+[ext_resource type="Texture2D" uid="uid://cn2pey2fm8vq4" path="res://Assets/UX/Items/neutron.png" id="7_5sl6t"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="7_bsyg3"]
+[ext_resource type="Texture2D" uid="uid://c316x2sd58tbx" path="res://Assets/UX/Icons/alkaline_metal.png" id="7_l3xq3"]
+[ext_resource type="Texture2D" uid="uid://cv3y2ucbjs3cb" path="res://Assets/UX/HUD/Panels/slot.png" id="7_qw7ce"]
+[ext_resource type="Texture2D" uid="uid://dwnpsbfget423" path="res://Assets/UX/Icons/transition_metal.png" id="8_28kaa"]
+[ext_resource type="Texture2D" uid="uid://y7ft4uvwjir4" path="res://Assets/UX/Items/atomon_core.png" id="8_as2dd"]
+[ext_resource type="Texture2D" uid="uid://fjyw3abirwgm" path="res://Assets/UX/Icons/nonmetal.png" id="8_ioru3"]
+[ext_resource type="Texture2D" uid="uid://bo1alsg7amrsu" path="res://Assets/UX/Icons/post_transition_metal.png" id="9_7eel5"]
+[ext_resource type="Texture2D" uid="uid://dak7g7ojug004" path="res://Assets/UX/Icons/metalloids.png" id="10_wjn1u"]
+[ext_resource type="Texture2D" uid="uid://dtm28k6auf1cw" path="res://Assets/UX/Buttons/Normal/craft_button.png" id="11_bsyg3"]
+[ext_resource type="Texture2D" uid="uid://d2ysj01d7wu4" path="res://Assets/UX/Icons/halogen.png" id="11_m2v0a"]
+[ext_resource type="Texture2D" uid="uid://rsely784lcmd" path="res://Assets/UX/Icons/noble_gas.png" id="12_flb27"]
+[ext_resource type="Texture2D" uid="uid://dcivlvakyp1ae" path="res://Assets/UX/Icons/lanthanide.png" id="13_edkgq"]
+[ext_resource type="Texture2D" uid="uid://e3qutfk27y18" path="res://Assets/UX/Icons/actinide.png" id="14_l8nkd"]
+
+[node name="CraftingUI" type="CanvasLayer" unique_id=627267472]
+script = ExtResource("1_jtxwl")
+
+[node name="TextureRect" type="NinePatchRect" parent="." unique_id=299198451]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_qw7ce")
+
+[node name="PeriodicTableScroll" type="ScrollContainer" parent="TextureRect" unique_id=765260594]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = 37.0
+offset_right = -31.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_hint_mode = 3
+
+[node name="Container" type="Control" parent="TextureRect/PeriodicTableScroll" unique_id=674478117]
+custom_minimum_size = Vector2(2350, 1325)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Background Panel" type="Label" parent="TextureRect/PeriodicTableScroll/Container" unique_id=1797962393]
+layout_mode = 0
+offset_left = 778.0
+offset_top = 6.0
+offset_right = 1160.0
+offset_bottom = 57.0
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 50
+text = "Periodic Table"
+
+[node name="0" type="GridContainer" parent="TextureRect/PeriodicTableScroll/Container" unique_id=1433811321]
+layout_mode = 0
+offset_left = 787.00006
+offset_top = 102.00001
+offset_right = 915.00006
+offset_bottom = 230.0
+scale = Vector2(2.5, 2.5)
+theme_override_constants/h_separation = 2
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0" unique_id=794830984]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("8_ioru3")
+
+[node name="Atomic Symbol" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/TextureRect" unique_id=1295210630]
+layout_mode = 0
+offset_left = 42.4
+offset_top = 41.999996
+offset_right = 90.00001
+offset_bottom = 99.2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 50
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Atomic Mass" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/TextureRect" unique_id=846055756]
+layout_mode = 0
+offset_left = 62.39998
+offset_top = 19.999998
+offset_right = 107.99999
+offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 16
+text = "1.008"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Atomic Mass2" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/TextureRect" unique_id=586253122]
+layout_mode = 0
+offset_left = 21.199982
+offset_top = 20.4
+offset_right = 31.199982
+offset_bottom = 36.4
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Atomic Name" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/TextureRect" unique_id=1826094110]
+layout_mode = 0
+offset_left = 21.20001
+offset_top = 95.2
+offset_right = 105.600006
+offset_bottom = 111.2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 16
+text = "Hydrogen"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Control" type="Control" parent="TextureRect/PeriodicTableScroll/Container/0" unique_id=1601016560]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control" unique_id=659575330]
+layout_mode = 0
+offset_left = 91.99997
+offset_top = -111.200005
+offset_right = 171.19995
+offset_bottom = -102.200005
+texture = ExtResource("5_gm1xq")
+
+[node name="Atomic Mass" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control" unique_id=362233387]
+layout_mode = 0
+offset_left = 169.99997
+offset_top = -112.80001
+offset_right = 278.0
+offset_bottom = -96.80001
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 16
+text = "Atomic Mass"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextureRect4" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control" unique_id=1701829645]
+layout_mode = 0
+offset_left = 89.19997
+offset_top = -33.600006
+offset_right = 168.39995
+offset_bottom = -24.600006
+texture = ExtResource("5_gm1xq")
+
+[node name="Atomic Name" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control" unique_id=1088982843]
+layout_mode = 0
+offset_left = 167.19997
+offset_top = -35.20002
+offset_right = 282.79993
+offset_bottom = -19.20002
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 16
+text = "Atomic Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control" unique_id=1126896404]
+layout_mode = 0
+offset_left = -58.80002
+offset_top = -111.2
+offset_right = 20.399963
+offset_bottom = -102.2
+texture = ExtResource("5_gm1xq")
+
+[node name="Atomic Number2" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control" unique_id=2112749772]
+layout_mode = 0
+offset_left = -176.80002
+offset_top = -113.59998
+offset_right = -44.399963
+offset_bottom = -97.59998
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 16
+text = "Atomic Number"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control" unique_id=55722421]
+layout_mode = 0
+offset_left = -33.200043
+offset_top = -71.20001
+offset_right = 45.99994
+offset_bottom = -62.200012
+texture = ExtResource("5_gm1xq")
+
+[node name="Atomic Symbol" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control" unique_id=32197507]
+layout_mode = 0
+offset_left = -146.00003
+offset_top = -73.6
+offset_right = -18.799988
+offset_bottom = -57.6
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 16
+text = "Atomic Symbol"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Control2" type="Control" parent="TextureRect/PeriodicTableScroll/Container/0" unique_id=2068771005]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=248673807]
+layout_mode = 0
+offset_left = 308.0
+offset_top = -173.20001
+offset_right = 435.0
+offset_bottom = -150.20001
+theme_override_fonts/font = ExtResource("4_vxolc")
+text = "Family Legend:"
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1726535730]
+layout_mode = 0
+offset_left = 310.00006
+offset_top = -152.80005
+offset_right = 320.00006
+offset_bottom = -142.80005
+texture = ExtResource("6_d00qg")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=475808547]
+layout_mode = 0
+offset_left = 322.40005
+offset_top = -152.40002
+offset_right = 380.0001
+offset_bottom = -141.40002
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Alkali"
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=600381729]
+layout_mode = 0
+offset_left = 310.00006
+offset_top = -142.40005
+offset_right = 320.00006
+offset_bottom = -132.40005
+texture = ExtResource("7_l3xq3")
+expand_mode = 1
+
+[node name="Label10" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1462706091]
+layout_mode = 0
+offset_left = 322.00006
+offset_top = -141.6
+offset_right = 379.6001
+offset_bottom = -130.6
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Alkali"
+
+[node name="TextureRect3" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=637404618]
+layout_mode = 0
+offset_left = 310.00006
+offset_top = -131.20004
+offset_right = 320.00006
+offset_bottom = -121.20004
+texture = ExtResource("8_28kaa")
+expand_mode = 1
+
+[node name="Label4" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=936596613]
+layout_mode = 0
+offset_left = 322.40002
+offset_top = -130.40002
+offset_right = 380.00006
+offset_bottom = -119.400024
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Transition"
+
+[node name="TextureRect4" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1410943795]
+layout_mode = 0
+offset_left = 309.6
+offset_top = -120.399994
+offset_right = 319.6
+offset_bottom = -110.399994
+texture = ExtResource("9_7eel5")
+expand_mode = 1
+
+[node name="Label5" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1858659305]
+layout_mode = 0
+offset_left = 322.39996
+offset_top = -119.20002
+offset_right = 407.39996
+offset_bottom = -108.20002
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Post-Transition"
+
+[node name="TextureRect5" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1549299124]
+layout_mode = 0
+offset_left = 309.6
+offset_top = -109.200035
+offset_right = 319.6
+offset_bottom = -99.200035
+texture = ExtResource("10_wjn1u")
+expand_mode = 1
+
+[node name="Label6" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1046638418]
+layout_mode = 0
+offset_left = 322.39996
+offset_top = -108.40002
+offset_right = 380.0
+offset_bottom = -97.40002
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Metalloid"
+
+[node name="TextureRect6" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1645541703]
+layout_mode = 0
+offset_left = 412.00006
+offset_top = -152.80005
+offset_right = 422.00006
+offset_bottom = -142.80005
+texture = ExtResource("8_ioru3")
+expand_mode = 1
+
+[node name="Label7" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=506007499]
+layout_mode = 0
+offset_left = 424.39996
+offset_top = -152.40002
+offset_right = 482.0
+offset_bottom = -141.40002
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Nonmetal"
+
+[node name="TextureRect7" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1208086264]
+layout_mode = 0
+offset_left = 412.0
+offset_top = -142.40002
+offset_right = 422.0
+offset_bottom = -132.40002
+texture = ExtResource("11_m2v0a")
+expand_mode = 1
+
+[node name="Label8" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1293846844]
+layout_mode = 0
+offset_left = 423.99994
+offset_top = -141.20004
+offset_right = 481.59998
+offset_bottom = -130.20004
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Halogen"
+
+[node name="TextureRect8" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=221821193]
+layout_mode = 0
+offset_left = 412.0
+offset_top = -131.20004
+offset_right = 422.0
+offset_bottom = -121.20004
+texture = ExtResource("12_flb27")
+expand_mode = 1
+
+[node name="Label9" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1348985853]
+layout_mode = 0
+offset_left = 424.39996
+offset_top = -130.40002
+offset_right = 482.0
+offset_bottom = -119.400024
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Noble Gas"
+
+[node name="TextureRect9" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=950057018]
+layout_mode = 0
+offset_left = 412.0
+offset_top = -120.399994
+offset_right = 422.0
+offset_bottom = -110.399994
+texture = ExtResource("13_edkgq")
+expand_mode = 1
+
+[node name="Label3" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1803963336]
+layout_mode = 0
+offset_left = 424.39996
+offset_top = -119.20002
+offset_right = 483.39996
+offset_bottom = -108.20002
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Lanthanide"
+
+[node name="TextureRect10" type="TextureRect" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=601127592]
+layout_mode = 0
+offset_left = 412.0
+offset_top = -109.20002
+offset_right = 422.0
+offset_bottom = -99.20002
+texture = ExtResource("14_l8nkd")
+expand_mode = 1
+
+[node name="Label11" type="Label" parent="TextureRect/PeriodicTableScroll/Container/0/Control2" unique_id=1092269740]
+layout_mode = 0
+offset_left = 423.59998
+offset_top = -108.40002
+offset_right = 481.2
+offset_bottom = -97.40002
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 10
+text = "Actinide"
+
+[node name="1" type="GridContainer" parent="TextureRect/PeriodicTableScroll/Container" unique_id=1135283006]
+layout_mode = 0
+offset_left = 11.000002
+offset_top = 117.0
+offset_right = 139.0
+offset_bottom = 1019.0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+
+[node name="H" parent="TextureRect/PeriodicTableScroll/Container/1" unique_id=1126324346 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Li" parent="TextureRect/PeriodicTableScroll/Container/1" unique_id=1485065430 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Na" parent="TextureRect/PeriodicTableScroll/Container/1" unique_id=1604759962 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="K" parent="TextureRect/PeriodicTableScroll/Container/1" unique_id=778774777 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Rb" parent="TextureRect/PeriodicTableScroll/Container/1" unique_id=2102387676 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Cs" parent="TextureRect/PeriodicTableScroll/Container/1" unique_id=691945534 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Fr" parent="TextureRect/PeriodicTableScroll/Container/1" unique_id=757316116 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="2" type="GridContainer" parent="TextureRect/PeriodicTableScroll/Container" unique_id=1097642306]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 246.0
+offset_right = 268.0
+offset_bottom = 1019.0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+
+[node name="Be" parent="TextureRect/PeriodicTableScroll/Container/2" unique_id=2124063542 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Mg" parent="TextureRect/PeriodicTableScroll/Container/2" unique_id=1865785836 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ca" parent="TextureRect/PeriodicTableScroll/Container/2" unique_id=441564057 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Sr" parent="TextureRect/PeriodicTableScroll/Container/2" unique_id=925133956 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ba" parent="TextureRect/PeriodicTableScroll/Container/2" unique_id=1404856495 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ra" parent="TextureRect/PeriodicTableScroll/Container/2" unique_id=350043989 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="3" type="GridContainer" parent="TextureRect/PeriodicTableScroll/Container" unique_id=1397372754]
+layout_mode = 0
+offset_left = 269.0
+offset_top = 504.0
+offset_right = 397.0
+offset_bottom = 761.0
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 1
+
+[node name="Sc" parent="TextureRect/PeriodicTableScroll/Container/3" unique_id=401585538 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Y" parent="TextureRect/PeriodicTableScroll/Container/3" unique_id=1364353031 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="4" type="GridContainer" parent="TextureRect/PeriodicTableScroll/Container" unique_id=1232962952]
+layout_mode = 0
+offset_left = 2204.0
+offset_top = 117.0
+offset_right = 2332.0
+offset_bottom = 245.0
+theme_override_constants/h_separation = 2
+
+[node name="He" parent="TextureRect/PeriodicTableScroll/Container/4" unique_id=611935277 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="5" type="GridContainer" parent="TextureRect/PeriodicTableScroll/Container" unique_id=715792901]
+layout_mode = 0
+offset_left = 1559.0
+offset_top = 246.0
+offset_right = 2332.0
+offset_bottom = 503.0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 6
+
+[node name="B" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=1236313366 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="C" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=91057782 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="N" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=70795687 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="O" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=635613943 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="F" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=910300681 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ne" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=952117287 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Al" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=1266807728 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Si" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=1252887367 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="P" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=1192595910 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="S" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=891122524 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Cl" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=1673872098 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ar" parent="TextureRect/PeriodicTableScroll/Container/5" unique_id=1747739170 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="6" type="GridContainer" parent="TextureRect/PeriodicTableScroll/Container" unique_id=1497814910]
+layout_mode = 0
+offset_left = 398.0
+offset_top = 504.0
+offset_right = 2332.0
+offset_bottom = 1019.0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 15
+
+[node name="Ti" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1989194694 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="V" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=2019938406 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Cr" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1662065424 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Mn" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=2121178928 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Fe" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=384713482 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Co" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1487381727 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ni" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=538094465 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Cu" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=426737553 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Zn" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=693472261 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ga" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1950653397 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ge" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=389420603 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="As" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1214238792 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Se" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=186657308 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Br" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=2028012547 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Kr" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=34365906 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Zr" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1715010806 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Nb" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=2125626458 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Mo" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1590499505 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Tc" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1636013802 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ru" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=920761810 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Rh" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1468818655 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Pd" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1023968566 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ag" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1024042960 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Cd" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=30961208 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="In" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=111170189 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Sn" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=812448865 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Sb" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1435961809 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Te" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1228846632 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="I" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1977918387 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Xe" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1385958964 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Hf" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=360594702 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ta" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=861536796 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="W" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1463247726 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Re" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1402078315 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Os" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=498784048 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ir" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=674485017 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Pt" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=584722695 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Au" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=252889032 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Hg" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=323518821 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Tl" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1245555837 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Pb" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=765632674 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Bi" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=993000243 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Po" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=673558509 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="At" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1745733497 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Rn" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=316906820 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Rf" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1653409942 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Db" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1090860925 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Sg" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1207030223 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Bh" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=950850149 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Hs" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1611009093 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Mt" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=45696361 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ds" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1747478585 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Rg" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=2060737201 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Cn" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=310553767 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Nh" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=831618811 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Fl" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=737439418 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Mc" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=188710461 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Lv" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=204403241 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ts" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1340887259 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Og" parent="TextureRect/PeriodicTableScroll/Container/6" unique_id=1461360834 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="7" type="GridContainer" parent="TextureRect/PeriodicTableScroll/Container" unique_id=1826833836]
+layout_mode = 0
+offset_left = 398.0
+offset_top = 1053.0
+offset_right = 2332.0
+offset_bottom = 1310.0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 15
+
+[node name="La" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=824239200 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ce" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=271036217 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Pr" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1342820911 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Nd" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1355056461 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Pm" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1369788056 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Sm" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=928302178 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Eu" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=279882194 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Gd" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1232631458 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Tb" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1681984968 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Dy" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=708290963 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ho" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=881618370 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Er" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=2071193641 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Tm" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=632757486 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Yb" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1163436450 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Lu" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1258335101 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Ac" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1467524325 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Th" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1570480512 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Pa" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=433074747 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="U" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1129578015 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Np" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1550143671 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Pu" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=587382532 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Am" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=87329099 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Cm" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=837188618 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Bk" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1848980047 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Cf" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1284163779 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Es" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1619874945 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Fm" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=1643984846 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Md" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=2116096119 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="No" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=182420797 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Lr" parent="TextureRect/PeriodicTableScroll/Container/7" unique_id=808598372 instance=ExtResource("2_kvpgl")]
+layout_mode = 2
+size_flags_horizontal = 5
+
+[node name="Info Panel" type="PanelContainer" parent="TextureRect" unique_id=151947441]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.29000002
+anchor_top = 0.042000003
+anchor_right = 0.698
+anchor_bottom = 0.95800006
+offset_left = 0.5319824
+offset_top = -0.24000168
+offset_right = -0.040039063
+offset_bottom = 0.2399292
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/Info Panel" unique_id=2140921952]
+layout_mode = 2
+texture = ExtResource("4_bsyg3")
+
+[node name="Container" type="Control" parent="TextureRect/Info Panel/TextureRect" unique_id=353891543]
+layout_mode = 1
+anchor_left = 0.014
+anchor_top = 0.003
+anchor_right = 0.99000007
+anchor_bottom = 0.46500003
+offset_left = 0.19824791
+offset_top = 0.01999998
+offset_right = 0.072631836
+offset_bottom = 0.099975586
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/Info Panel/TextureRect/Container" unique_id=1060184000]
+layout_mode = 0
+offset_left = 44.768005
+offset_top = 33.963005
+offset_right = 294.768
+offset_bottom = 283.963
+texture = ExtResource("7_qw7ce")
+
+[node name="Atomic Symbol" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/TextureRect2" unique_id=582345489]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 73.03699
+offset_right = 228.0
+offset_bottom = 159.212
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 80
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Atomic Number" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/TextureRect2" unique_id=25954999]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.036995
+offset_right = 86.0
+offset_bottom = 60.036995
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "1"
+autowrap_mode = 3
+
+[node name="Atomic Mass" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/TextureRect2" unique_id=504918959]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 39.036995
+offset_right = 212.0
+offset_bottom = 59.036995
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "1.008"
+horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Atomic Name" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/TextureRect2" unique_id=598911541]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 155.03699
+offset_right = 219.0
+offset_bottom = 175.03699
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Hydrogen"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Type" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/TextureRect2" unique_id=801389529]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 177.03699
+offset_right = 220.0
+offset_bottom = 220.03699
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Post-Transition Metal"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="GridContainer" type="GridContainer" parent="TextureRect/Info Panel/TextureRect/Container" unique_id=154737893]
+layout_mode = 0
+offset_left = 324.768
+offset_top = 53.963005
+offset_right = 727.768
+offset_bottom = 265.963
+columns = 2
+
+[node name="Density" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=1283232216]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Density"
+vertical_alignment = 1
+
+[node name="Density Value" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=1578460029]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "0.00008988"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="IE" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=1862332349]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "1st Ionization Energy"
+vertical_alignment = 1
+
+[node name="IE Value" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=582381160]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "13.59844"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Electronegativity" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=2090710041]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Electronegativity"
+vertical_alignment = 1
+
+[node name="Electronegativity Value" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=952832377]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "2.3"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="EA" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=1039134847]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Electron Affinity Inverse"
+vertical_alignment = 1
+
+[node name="EA Value" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=2143906778]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "72.78"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VE" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=932806603]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Valence Electrons"
+vertical_alignment = 1
+
+[node name="VE Value" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=1693293916]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Phase" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=1450229829]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Phase"
+vertical_alignment = 1
+
+[node name="Phase Value" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=1177365409]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Gas"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Period" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=88247738]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Period"
+vertical_alignment = 1
+
+[node name="Period Value" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=902883732]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Block" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=1831259299]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Block"
+vertical_alignment = 1
+
+[node name="Block Value" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=529615393]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "s"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Radioactive" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=1242296279]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "Radioactive"
+vertical_alignment = 1
+
+[node name="Radioactive Value" type="Label" parent="TextureRect/Info Panel/TextureRect/Container/GridContainer" unique_id=713043716]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 20
+text = "No"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="TextureRect/Info Panel" unique_id=126766656]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Materials" type="GridContainer" parent="TextureRect/Info Panel/Control2" unique_id=1355207783]
+layout_mode = 0
+offset_left = 231.268
+offset_top = 314.0
+offset_right = 467.268
+offset_bottom = 458.66666
+scale = Vector2(1.5, 1.5)
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 12
+
+[node name="Label" type="Label" parent="TextureRect/Info Panel/Control2/Materials" unique_id=2126345225]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 25
+text = "Materials"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Proton" type="GridContainer" parent="TextureRect/Info Panel/Control2/Materials" unique_id=715018126]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 100
+columns = 3
+
+[node name="Proton Icon" type="TextureRect" parent="TextureRect/Info Panel/Control2/Materials/Proton" unique_id=1115447292]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("5_vxolc")
+expand_mode = 3
+
+[node name="X" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Proton" unique_id=923098654]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+text = "X"
+
+[node name="Proton Count" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Proton" unique_id=387571016]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+text = "1"
+
+[node name="Electron" type="GridContainer" parent="TextureRect/Info Panel/Control2/Materials" unique_id=1613985420]
+layout_mode = 2
+theme_override_constants/h_separation = 100
+columns = 3
+
+[node name="Electron Icon" type="TextureRect" parent="TextureRect/Info Panel/Control2/Materials/Electron" unique_id=29900787]
+layout_mode = 2
+texture = ExtResource("6_as2dd")
+expand_mode = 3
+
+[node name="X" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Electron" unique_id=448385917]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+text = "X"
+
+[node name="Electron Count" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Electron" unique_id=1489455290]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+text = "1"
+
+[node name="Neutron" type="GridContainer" parent="TextureRect/Info Panel/Control2/Materials" unique_id=779454649]
+layout_mode = 2
+theme_override_constants/h_separation = 100
+columns = 3
+
+[node name="Neutron Icon" type="TextureRect" parent="TextureRect/Info Panel/Control2/Materials/Neutron" unique_id=1561720358]
+layout_mode = 2
+texture = ExtResource("7_5sl6t")
+expand_mode = 3
+
+[node name="X" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Neutron" unique_id=99738451]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+text = "X"
+
+[node name="Neutron Count" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Neutron" unique_id=1071295945]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+text = "1"
+
+[node name="Atomic Core" type="GridContainer" parent="TextureRect/Info Panel/Control2/Materials" unique_id=1999043228]
+layout_mode = 2
+theme_override_constants/h_separation = 100
+columns = 3
+
+[node name="Atomic Core Icon" type="TextureRect" parent="TextureRect/Info Panel/Control2/Materials/Atomic Core" unique_id=175709899]
+layout_mode = 2
+texture = ExtResource("8_as2dd")
+expand_mode = 3
+
+[node name="X" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Atomic Core" unique_id=2142693820]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+text = "X"
+
+[node name="Atomic Core Count" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Atomic Core" unique_id=1693535328]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_vxolc")
+text = "1"
+
+[node name="Control" type="Control" parent="TextureRect/Info Panel" unique_id=1506933234]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Craft Button" type="TextureButton" parent="TextureRect/Info Panel/Control" unique_id=1194592798]
+layout_mode = 0
+offset_left = 366.268
+offset_top = 565.0
+offset_right = 462.268
+offset_bottom = 613.0
+texture_normal = ExtResource("11_bsyg3")
+
+[node name="Control3" type="Control" parent="TextureRect/Info Panel" unique_id=82754227]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Close Button" type="TextureButton" parent="TextureRect/Info Panel/Control3" unique_id=1795559375]
+layout_mode = 0
+offset_left = 761.26794
+offset_top = -13.0
+offset_right = 821.26794
+offset_bottom = 47.0
+texture_normal = ExtResource("6_5sl6t")
+texture_pressed = ExtResource("7_bsyg3")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CloseCrafting" type="TextureButton" parent="TextureRect" unique_id=1383945964]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.97400004
+anchor_right = 1.0
+anchor_bottom = 0.078
+offset_left = -0.52001953
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -0.15999985
+texture_normal = ExtResource("6_5sl6t")
+texture_pressed = ExtResource("7_bsyg3")
+stretch_mode = 0
+
+[connection signal="pressed" from="TextureRect/Info Panel/Control3/Close Button" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="TextureRect/CloseCrafting" to="." method="_on_close_crafting_pressed"]

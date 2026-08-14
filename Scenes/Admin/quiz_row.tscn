@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://gfvq0twbbjla"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_row"]
+bg_color = Color(0.8509804, 0.9254902, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 15
+border_color = Color(0.62285954, 0.8139773, 1, 1)
+corner_detail = 1
+
+[node name="QuizRow" type="PanelContainer" unique_id=360517894]
+custom_minimum_size = Vector2(0, 90)
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_row")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1561820895]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=879777029]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="QuizTitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1199292425]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 18
+text = "Organic Chemistry Review"
+
+[node name="QuizInfo" type="Label" parent="MarginContainer/VBoxContainer" unique_id=485592928]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.75)
+theme_override_font_sizes/font_size = 14
+text = "20 Questions • Multiple Choice"
+
+[node name="BottomRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=146527562]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/BottomRow" unique_id=968988591]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EditButton" type="Button" parent="MarginContainer/VBoxContainer/BottomRow" unique_id=1623901091]
+custom_minimum_size = Vector2(80, 36)
+layout_mode = 2
+text = "Edit"
+
+[node name="DeleteButton" type="Button" parent="MarginContainer/VBoxContainer/BottomRow" unique_id=1179966009]
+custom_minimum_size = Vector2(80, 36)
+layout_mode = 2
+text = "Delete"

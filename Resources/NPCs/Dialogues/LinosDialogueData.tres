@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="NPCDialogueData" format=3 uid="uid://cjkf43ojlc3j8"]
+
+[ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="1_sdgi2"]
+[ext_resource type="Resource" uid="uid://v6ypl1enormr" path="res://Resources/Dialouges/Dialogic/Timeline/intro.dtl" id="1_xv03n"]
+[ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="2_4g3u3"]
+[ext_resource type="Resource" uid="uid://cenrrrdoi305r" path="res://Resources/Quest/quest_hydrogen_001.tres" id="2_ppeu7"]
+[ext_resource type="Resource" uid="uid://dcmxm25lqu2g2" path="res://Resources/Dialouges/Dialogic/Timeline/tutorial.dtl" id="3_pgm3e"]
+[ext_resource type="Resource" uid="uid://wa6ohi7hqlqw" path="res://Resources/Dialouges/Dialogic/Timeline/linos_hydrogen_in_progress.dtl" id="4_ppeu7"]
+[ext_resource type="Resource" uid="uid://rxe2pxhj24of" path="res://Resources/Dialouges/Dialogic/Timeline/linos_report_hydrogen.dtl" id="5_axahq"]
+
+[sub_resource type="Resource" id="Resource_ypqaw"]
+script = ExtResource("1_sdgi2")
+conversation_name = "Intro and Quest"
+conversation_type = 2
+quest = ExtResource("2_ppeu7")
+timeline = ExtResource("3_pgm3e")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[sub_resource type="Resource" id="Resource_ppeu7"]
+script = ExtResource("1_sdgi2")
+conversation_name = "Done?"
+conversation_type = 3
+quest = ExtResource("2_ppeu7")
+timeline = ExtResource("4_ppeu7")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[sub_resource type="Resource" id="Resource_4mr5j"]
+script = ExtResource("1_sdgi2")
+conversation_type = 4
+quest = ExtResource("2_ppeu7")
+timeline = ExtResource("5_axahq")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[resource]
+script = ExtResource("2_4g3u3")
+default_timeline = ExtResource("1_xv03n")
+conversations = Array[ExtResource("1_sdgi2")]([SubResource("Resource_ypqaw"), SubResource("Resource_ppeu7"), SubResource("Resource_4mr5j")])
+metadata/_custom_type_script = "uid://ckoa2l31dwe64"

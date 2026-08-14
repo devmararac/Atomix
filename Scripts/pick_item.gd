@@ -4,9 +4,6 @@ extends Area2D
 @export var data: ItemData
 @export var quantity := 1
 
-# Quest support
-@export var target_id: String = ""
-
 @onready var sprite: Sprite2D = $Icon
 @onready var indicator: AnimatedSprite2D = $Indicator
 
@@ -26,25 +23,34 @@ func _process(_delta):
 
 
 func should_show_indicator() -> bool:
-	var quest = QuestManager.selected_quest
+	var quest = QuestManager.tracked_quest
 
 	if quest == null or data == null:
 		return false
 
 	for objective in quest.objectives:
-		if objective.target_type == "collection" \
+
+		if objective.type == ObjectiveType.Type.COLLECTION \
 		and objective.target_id == data.item_id \
 		and !objective.is_completed:
+
 			return true
 
 	return false
 
 
 func collect():
+
 	var instance = ItemInstance.new()
 	instance.data = data
 	instance.quantity = quantity
 
 	InventoryManager.add_item(instance)
+
+	QuestManager.notify(
+		ObjectiveType.Type.COLLECTION,
+		data.item_id,
+		quantity
+	)
 
 	queue_free()

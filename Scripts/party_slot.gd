@@ -2,7 +2,7 @@ extends TextureButton
 
 signal slot_clicked(instance: AtomonInstance)
 
-@onready var atomon_sprite: AnimatedSprite2D = $AtomonSprite
+@onready var atomon_sprite = $AtomonPortrait
 @onready var name_label: Label = $Name
 @onready var hp_label: Label = $HP
 

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://gwmaygoqfam1"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_pkd45"]
+[ext_resource type="Script" uid="uid://coomt1t7ljksq" path="res://Resources/Scripts/Actions/HealAction.gd" id="2_pkd45"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="3_m8fgi"]
+
+[sub_resource type="Resource" id="Resource_kkcig"]
+script = ExtResource("2_pkd45")
+metadata/_custom_type_script = "uid://coomt1t7ljksq"
+
+[resource]
+script = ExtResource("3_m8fgi")
+move_name = "Heal 3"
+description = "Oxidize"
+actions = Array[ExtResource("1_pkd45")]([SubResource("Resource_kkcig")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

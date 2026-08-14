@@ -17,6 +17,9 @@ func save_game():
 
 	# Party
 	save_data.party = PartyManager.party.duplicate(true)
+	print("===== SAVING PARTY =====")
+	for atomon in PartyManager.party:
+		print(atomon.data.atom_name, atomon.current_pp)
 	save_data.active_index = PartyManager.active_index
 
 	# Inventory
@@ -40,8 +43,18 @@ func load_game():
 	CurrencyManager.set_coins(save_data.coins)
 
 	# Party
-	PartyManager.party = save_data.party
+	PartyManager.party.clear()
+
+	for atomon in save_data.party:
+		PartyManager.party.append(atomon.duplicate(true))
+
 	PartyManager.active_index = save_data.active_index
+	for i in range(save_data.party.size()):
+		print(
+			save_data.party[i].data.atom_name,
+			" same object = ",
+			save_data.party[i] == PartyManager.party[i]
+		)
 
 	# Inventory
 	InventoryManager.inventory.clear()

@@ -2,9 +2,18 @@
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_5xr5k"]
 [ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_vefst"]
+[ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="2_tm1dd"]
+
+[sub_resource type="Resource" id="Resource_jh1m8"]
+script = ExtResource("2_tm1dd")
+power = 30
+damage_type = "Special"
+metadata/_custom_type_script = "uid://bi06gqxjn2rug"
 
 [resource]
 script = ExtResource("1_5xr5k")
 move_name = "Be"
 description = "Boom"
+accuracy = 90
+actions = Array[ExtResource("1_vefst")]([SubResource("Resource_jh1m8")])
 metadata/_custom_type_script = "uid://c3r52ktnjg7y"

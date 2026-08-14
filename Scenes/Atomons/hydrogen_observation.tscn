@@ -87,7 +87,7 @@ animations = [{
 "speed": 9.0
 }]
 
-[node name="HydrogenObservation" type="CharacterBody2D" unique_id=238339346]
+[node name="HydrogenObservation" type="CharacterBody2D" unique_id=238339346 groups=["QuestObjects"]]
 script = ExtResource("1_3b5ha")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=929656731]
@@ -106,3 +106,5 @@ position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_vyini")
 animation = &"highlight"
 autoplay = "highlight"
+
+[node name="BubbleMarker" type="Marker2D" parent="." unique_id=1652428399]

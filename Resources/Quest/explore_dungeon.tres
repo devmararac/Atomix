@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://cltjiwtaoi7a7"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_0rppk"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_iw870"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="3_p2tow"]
+
+[sub_resource type="Resource" id="Resource_0rppk"]
+script = ExtResource("1_0rppk")
+id = "explore_dungeon"
+description = "Explore the dungeon."
+type = 3
+target_id = "dungeon_trigger"
+is_active = true
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+
+[resource]
+script = ExtResource("3_p2tow")
+quest_id = "story_quest_explore_dungeon"
+quest_name = "Explore the Dungeon"
+quest_description = "You woke up in an unknown area all of a sudden."
+objectives = Array[ExtResource("1_0rppk")]([SubResource("Resource_0rppk")])
+metadata/_custom_type_script = "uid://7rrmrho1w3gn"

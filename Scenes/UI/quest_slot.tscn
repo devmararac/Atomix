@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bn38dfbnfn7iw"]
+
+[ext_resource type="Texture2D" uid="uid://dvnjhko28534e" path="res://Assets/UX/HUD/Panels/slot_big.png" id="1_drvj5"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_font"]
+[ext_resource type="Texture2D" uid="uid://4gkicblfys6k" path="res://Assets/UX/HUD/Panels/slot_big_pressed.png" id="2_jm8gf"]
+[ext_resource type="Script" uid="uid://dpcrlevudlmw4" path="res://Scripts/quest_slot.gd" id="3_jm8gf"]
+
+[node name="Quest Slot" type="TextureButton" unique_id=327489849]
+texture_filter = 1
+custom_minimum_size = Vector2(430, 70)
+mouse_filter = 1
+texture_normal = ExtResource("1_drvj5")
+texture_pressed = ExtResource("2_jm8gf")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_jm8gf")
+
+[node name="QuestName" type="Label" parent="." unique_id=787348330]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 8.0
+offset_right = -20.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 24
+text = "Quest Name"
+vertical_alignment = 1

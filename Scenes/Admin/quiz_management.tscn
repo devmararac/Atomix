@@ -1,0 +1,255 @@
+[gd_scene format=3 uid="uid://bwt1lwkaalkbj"]
+
+[ext_resource type="Script" uid="uid://5k5vu51iamna" path="res://Scripts/QuizMode.gd" id="1_tlse4"]
+[ext_resource type="Texture2D" uid="uid://dxg7ga6k8m7hs" path="res://Assets/UX/Icons/icon_quiz.png" id="2_d1gt5"]
+[ext_resource type="Texture2D" uid="uid://oqodphq3t1kq" path="res://Assets/UX/Buttons/Normal/create_quiz.png" id="3_y42cc"]
+[ext_resource type="PackedScene" uid="uid://gfvq0twbbjla" path="res://Scenes/Admin/quiz_row.tscn" id="4_nijgf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wisd"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.69411767, 0.52156866, 0.3019608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcse7"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.69411767, 0.52156866, 0.3019608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evw0e"]
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_color = Color(0.776, 0.627, 0.482, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrvwu"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6fock"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 0.60784316)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrrnp"]
+bg_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+corner_detail = 1
+
+[node name="QuizManagement" type="Control" unique_id=950356207]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tlse4")
+
+[node name="QuizPanel" type="Panel" parent="." unique_id=213977910]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7wisd")
+
+[node name="MarginContainer" type="MarginContainer" parent="QuizPanel" unique_id=127082730]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizPanel/MarginContainer" unique_id=33825492]
+layout_mode = 2
+
+[node name="Icon_QuizButton" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=680296847]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="LeftSection" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton" unique_id=1516823095]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="QuizIcon" type="TextureRect" parent="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton/LeftSection" unique_id=1491863879]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_d1gt5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton/LeftSection" unique_id=1500058942]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 56
+text = "QUIZ MANAGEMENT"
+vertical_alignment = 1
+
+[node name="RightSection" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton" unique_id=1822067664]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="CreateQuiz" type="TextureButton" parent="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton/RightSection" unique_id=968731480]
+layout_mode = 2
+texture_normal = ExtResource("3_y42cc")
+stretch_mode = 0
+
+[node name="SPACER" type="Control" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=1988308536]
+custom_minimum_size = Vector2(95, 89)
+layout_mode = 2
+
+[node name="ToolbarPanel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=1443800728]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xcse7")
+
+[node name="MarginContainer" type="MarginContainer" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel" unique_id=1108730208]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer" unique_id=1128178052]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SearchPanel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1057219883]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_evw0e")
+
+[node name="SearchBar" type="LineEdit" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SearchPanel" unique_id=498248563]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_selected_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.47058824, 0.3529412, 0.23529412, 0.53333336)
+theme_override_colors/caret_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/selection_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/clear_button_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/clear_button_color_pressed = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_mrvwu")
+theme_override_styles/focus = SubResource("StyleBoxFlat_6fock")
+placeholder_text = "🔎 Search quizes..."
+clear_button_enabled = true
+
+[node name="FilterPanel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=376474658]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_evw0e")
+
+[node name="FilterButton" type="OptionButton" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/FilterPanel" unique_id=1515475066]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SortPanel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=440596121]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_evw0e")
+
+[node name="SortButton" type="OptionButton" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SortPanel" unique_id=907337589]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RefreshPanel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=2064919505]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_evw0e")
+
+[node name="RefreshButton" type="Button" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/RefreshPanel" unique_id=83212302]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "↻ Refresh"
+
+[node name="StudentTable" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=892006163]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer/StudentTable" unique_id=820706160]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.106000006
+offset_bottom = -0.06800079
+theme_override_styles/panel = SubResource("StyleBoxFlat_jrrnp")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="QuizPanel/MarginContainer/VBoxContainer/StudentTable" unique_id=106848351]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.106000006
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.06800079
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Rows" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/StudentTable/ScrollContainer" unique_id=34248658]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="QuizRow" parent="QuizPanel/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows" unique_id=229974342 instance=ExtResource("4_nijgf")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[connection signal="pressed" from="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton/RightSection/CreateQuiz" to="." method="_on_create_quiz_pressed"]

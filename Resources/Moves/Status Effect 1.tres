@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://elx6np0ias51"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_7bre6"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2_go2dr"]
+[ext_resource type="Script" uid="uid://xti26ayd3sst" path="res://Resources/Scripts/Effects/MoveEffect.gd" id="2_pc4ql"]
+[ext_resource type="Resource" uid="uid://dxqcdfwy8347r" path="res://Resources/Moves/StatusEffects/Oxidize.tres" id="3_uyitu"]
+[ext_resource type="Script" uid="uid://cgnlftqbacyqr" path="res://Resources/Scripts/Actions/StatusAction.gd" id="4_aetc6"]
+
+[sub_resource type="Resource" id="Resource_pc4ql"]
+script = ExtResource("4_aetc6")
+effects = Array[ExtResource("2_pc4ql")]([ExtResource("3_uyitu")])
+metadata/_custom_type_script = "uid://cgnlftqbacyqr"
+
+[resource]
+script = ExtResource("2_go2dr")
+move_name = "Status Effect 1"
+description = "Crystal slash"
+actions = Array[ExtResource("1_7bre6")]([SubResource("Resource_pc4ql")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

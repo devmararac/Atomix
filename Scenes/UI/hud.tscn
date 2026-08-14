@@ -1,0 +1,349 @@
+[gd_scene format=3 uid="uid://58her1ab75n5"]
+
+[ext_resource type="Texture2D" uid="uid://d3cpky1g21l5n" path="res://Assets/UX/HUD/Panels/quest_log_panel_right.png" id="1_0hfmd"]
+[ext_resource type="Script" uid="uid://begg130in27no" path="res://Scripts/hud.gd" id="1_pc4p0"]
+[ext_resource type="Script" uid="uid://ds1u02nemnxqg" path="res://Scripts/quest_tracker.gd" id="2_pc4p0"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_iiebs"]
+[ext_resource type="Texture2D" uid="uid://qmlh4ngdep03" path="res://Assets/UX/HUD/Panels/tracker_title_panel.png" id="4_n5w8m"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="5_3omb4"]
+[ext_resource type="Texture2D" uid="uid://b38ioxy8g5fta" path="res://Assets/UX/Buttons/Normal/button_Interact.png" id="6_e17ao"]
+[ext_resource type="Texture2D" uid="uid://07tyqohijvey" path="res://Assets/UX/Buttons/Normal/button_Action.png" id="7_0hfmd"]
+[ext_resource type="Texture2D" uid="uid://bf56bu8glsj5q" path="res://Assets/UX/Buttons/On-Pressed/button_Interact_Pressed.png" id="7_iiebs"]
+[ext_resource type="Texture2D" uid="uid://cjxpmwm0fultq" path="res://Assets/UX/Buttons/On-Pressed/button_Action_Pressed.png" id="9_n5w8m"]
+[ext_resource type="Texture2D" uid="uid://dq00bn2o5dl3m" path="res://Assets/UX/Buttons/Normal/quest_log2.png" id="10_q8e8b"]
+[ext_resource type="Texture2D" uid="uid://8paefcdgkg1j" path="res://Assets/UX/Buttons/On-Pressed/quest_log2_pressed.png" id="11_f1jpe"]
+[ext_resource type="Texture2D" uid="uid://lssmb8lh7mtp" path="res://Assets/UX/Buttons/Normal/item_menu.png" id="12_mgdch"]
+[ext_resource type="Texture2D" uid="uid://dodagbimt4hod" path="res://Assets/UX/Buttons/On-Pressed/item_menu_pressed.png" id="13_k32gu"]
+[ext_resource type="Texture2D" uid="uid://dpi2iiv05q52w" path="res://Assets/UX/Buttons/Normal/atomon_menu.png" id="14_yl4g0"]
+[ext_resource type="Texture2D" uid="uid://dlhprws6d8wgm" path="res://Assets/UX/Buttons/On-Pressed/atomon_menu_pressed.png" id="15_jxctp"]
+[ext_resource type="Texture2D" uid="uid://bdmvxkk8ovutr" path="res://Assets/UX/Buttons/Normal/save_button.png" id="16_q71jo"]
+[ext_resource type="Texture2D" uid="uid://bowa83cnnak3m" path="res://Assets/UX/Buttons/On-Pressed/save_button_pressed.png" id="17_81d8i"]
+[ext_resource type="Texture2D" uid="uid://baaxhvf47gthw" path="res://Assets/UX/Buttons/Normal/load_button.png" id="18_njpji"]
+[ext_resource type="Texture2D" uid="uid://be752msv6ngp" path="res://Assets/UX/Buttons/On-Pressed/load_button_pressed.png" id="19_wae4w"]
+[ext_resource type="Script" uid="uid://bk3fmwxse7r5i" path="res://Scripts/quest_log_panel.gd" id="20_iiebs"]
+[ext_resource type="Texture2D" uid="uid://bs7y8uq0f2cuq" path="res://Assets/UX/HUD/Panels/quest_log_panel_left.png" id="20_l5ade"]
+[ext_resource type="Texture2D" uid="uid://b0deicj16u8gm" path="res://Assets/UX/HUD/close.png" id="21_y7nnf"]
+[ext_resource type="Texture2D" uid="uid://cq0wtxqc848xe" path="res://Assets/UX/HUD/close_pressed.png" id="22_yv5wq"]
+[ext_resource type="AudioStream" uid="uid://nc0rgldh1q75" path="res://Assets/Music/SFX/click.wav" id="25_n5w8m"]
+[ext_resource type="Texture2D" uid="uid://b3ioxidxpjgox" path="res://Assets/UX/Buttons/Normal/atomons_button.png" id="26_mu5ro"]
+[ext_resource type="Texture2D" uid="uid://c3vm5i558q04l" path="res://Assets/UX/Buttons/On-Pressed/atomons_button_pressed.png" id="27_lb081"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_furuj"]
+texture = ExtResource("4_n5w8m")
+texture_margin_left = 23.0
+texture_margin_top = 10.0
+texture_margin_right = 7.0
+texture_margin_bottom = 2.0
+expand_margin_left = 44.0
+expand_margin_top = 11.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_an1px"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b4m6i"]
+texture = ExtResource("20_l5ade")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mugiv"]
+texture = ExtResource("1_0hfmd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ndia8"]
+texture = ExtResource("21_y7nnf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eaycp"]
+texture = ExtResource("22_yv5wq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f13sg"]
+texture = ExtResource("21_y7nnf")
+
+[node name="HUD" type="CanvasLayer" unique_id=116850924 groups=["HUD"]]
+script = ExtResource("1_pc4p0")
+
+[node name="QuestTracker" type="NinePatchRect" parent="." unique_id=159889323]
+anchors_preset = -1
+anchor_left = 0.827
+anchor_top = 0.001
+anchor_right = 0.97900003
+anchor_bottom = 0.32200003
+offset_left = 0.539917
+offset_top = 0.27999997
+offset_right = -0.42004395
+offset_bottom = 0.15997314
+texture = ExtResource("1_0hfmd")
+patch_margin_left = 20
+patch_margin_top = 26
+patch_margin_right = 24
+patch_margin_bottom = 40
+script = ExtResource("2_pc4p0")
+
+[node name="Details" type="VBoxContainer" parent="QuestTracker" unique_id=802709658]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.043
+anchor_top = 0.09
+anchor_right = 0.957
+anchor_bottom = 0.91
+offset_left = 0.09999943
+offset_top = -7.800008
+offset_right = -0.1000061
+offset_bottom = -0.020004272
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="QuestTracker/Details" unique_id=1124851064]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_iiebs")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_furuj")
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Objectives" type="VBoxContainer" parent="QuestTracker" unique_id=1410001563]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.097
+anchor_top = 0.4
+anchor_right = 0.89000005
+anchor_bottom = 0.86700004
+offset_left = -0.10000038
+offset_bottom = -0.040008545
+size_flags_vertical = 3
+
+[node name="ActionButtons" type="HBoxContainer" parent="." unique_id=1631709524]
+anchors_preset = -1
+anchor_left = 0.771
+anchor_top = 0.661
+anchor_right = 0.92200005
+anchor_bottom = 0.87700003
+offset_left = -0.059936523
+offset_top = 0.3279724
+offset_right = -199.03992
+offset_bottom = -103.191956
+scale = Vector2(2.9811127, 2.979179)
+
+[node name="Interact" type="TouchScreenButton" parent="ActionButtons" unique_id=814973628]
+texture_normal = ExtResource("6_e17ao")
+texture_pressed = ExtResource("7_iiebs")
+action = "Interact"
+
+[node name="Action" type="TouchScreenButton" parent="ActionButtons" unique_id=663166077]
+position = Vector2(60.876587, -0.08323965)
+texture_normal = ExtResource("7_0hfmd")
+texture_pressed = ExtResource("9_n5w8m")
+action = "Action"
+
+[node name="MenuButtons" type="Button" parent="." unique_id=748391866]
+anchors_preset = -1
+anchor_left = 0.17
+anchor_top = 0.007
+anchor_right = 0.27400002
+anchor_bottom = 0.13900001
+offset_left = 0.3999939
+offset_top = 0.96000004
+offset_right = 269.47998
+offset_bottom = -0.08000946
+flat = true
+
+[node name="QuestLog" type="TouchScreenButton" parent="MenuButtons" unique_id=451295116]
+position = Vector2(109.00001, -3)
+scale = Vector2(2.46875, 2.7187502)
+texture_normal = ExtResource("10_q8e8b")
+texture_pressed = ExtResource("11_f1jpe")
+action = "Quest"
+
+[node name="Item" type="TouchScreenButton" parent="MenuButtons" unique_id=56811029]
+position = Vector2(2, -4)
+scale = Vector2(3.1562507, 2.7187498)
+texture_normal = ExtResource("12_mgdch")
+texture_pressed = ExtResource("13_k32gu")
+
+[node name="Atomons" type="TouchScreenButton" parent="MenuButtons" unique_id=230543426]
+position = Vector2(191, -32)
+scale = Vector2(2.8749998, 4.125)
+texture_normal = ExtResource("14_yl4g0")
+texture_pressed = ExtResource("15_jxctp")
+
+[node name="Save" type="TouchScreenButton" parent="MenuButtons" unique_id=1622670849]
+position = Vector2(294, 0)
+scale = Vector2(2.5, 2.7857144)
+texture_normal = ExtResource("16_q71jo")
+texture_pressed = ExtResource("17_81d8i")
+
+[node name="Load" type="TouchScreenButton" parent="MenuButtons" unique_id=961387668]
+position = Vector2(385, 0)
+scale = Vector2(2.5, 2.7857144)
+texture_normal = ExtResource("18_njpji")
+texture_pressed = ExtResource("19_wae4w")
+
+[node name="QuestLogPanel" type="Panel" parent="." unique_id=1095896620]
+anchors_preset = -1
+anchor_left = 0.26000002
+anchor_top = 0.124000005
+anchor_right = 0.76000005
+anchor_bottom = 0.89000005
+offset_left = 0.19995117
+offset_top = -0.2800064
+offset_right = 0.19995117
+offset_bottom = 0.19995117
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_an1px")
+script = ExtResource("20_iiebs")
+
+[node name="Backgrounds" type="HBoxContainer" parent="QuestLogPanel" unique_id=980198952]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="BG1" type="Panel" parent="QuestLogPanel/Backgrounds" unique_id=1933573833]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_b4m6i")
+
+[node name="BG2" type="Panel" parent="QuestLogPanel/Backgrounds" unique_id=1350610088]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_mugiv")
+
+[node name="LeftPage" type="MarginContainer" parent="QuestLogPanel" unique_id=530015633]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.049000002
+anchor_top = 0.058000002
+anchor_right = 0.45600003
+anchor_bottom = 0.8880001
+offset_left = 0.48999786
+offset_top = -0.016002655
+offset_right = -0.44003296
+offset_bottom = -0.17602539
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuestLogPanel/LeftPage" unique_id=813809792]
+layout_mode = 2
+
+[node name="List" type="Label" parent="QuestLogPanel/LeftPage/VBoxContainer" unique_id=1073269659]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_iiebs")
+theme_override_font_sizes/font_size = 30
+text = "Available Quest"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="QuestList" type="VBoxContainer" parent="QuestLogPanel/LeftPage/VBoxContainer" unique_id=1817028269]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="RightPage" type="MarginContainer" parent="QuestLogPanel" unique_id=1623640600]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.544
+anchor_top = 0.058000002
+anchor_right = 0.952
+anchor_bottom = 0.89100003
+offset_left = 0.4399414
+offset_top = -0.016002655
+offset_right = -0.4800415
+offset_bottom = 0.16796875
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuestLogPanel/RightPage" unique_id=1467395850]
+layout_mode = 2
+
+[node name="Details" type="Label" parent="QuestLogPanel/RightPage/VBoxContainer" unique_id=1515638509]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_iiebs")
+theme_override_font_sizes/font_size = 30
+text = "Quest Details"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Quest Title" type="Label" parent="QuestLogPanel/RightPage/VBoxContainer" unique_id=1937519191]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_font_sizes/font_size = 24
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quest Description" type="Label" parent="QuestLogPanel/RightPage/VBoxContainer" unique_id=1831880044]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_font_sizes/font_size = 20
+text = "Description"
+
+[node name="Quest Objectives" type="VBoxContainer" parent="QuestLogPanel/RightPage/VBoxContainer" unique_id=2078915677]
+layout_mode = 2
+
+[node name="Quest Rewards" type="VBoxContainer" parent="QuestLogPanel/RightPage/VBoxContainer" unique_id=1522206040]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="QuestLogPanel" unique_id=1085786198]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.952
+anchor_top = -0.025
+anchor_right = 1.016
+anchor_bottom = 0.094000004
+offset_left = -0.4800415
+offset_top = -0.19999981
+offset_right = 0.15997314
+offset_bottom = 0.11199951
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_ndia8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eaycp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f13sg")
+expand_icon = true
+
+[node name="VirtualJoystick" parent="." unique_id=550804456 instance=ExtResource("5_3omb4")]
+anchor_left = 0.013
+anchor_top = 0.523
+anchor_right = 0.187
+offset_left = -0.103998184
+offset_top = 0.2640686
+offset_right = -44.624084
+offset_bottom = -43.175964
+scale = Vector2(1.1519414, 1.1787175)
+size_flags_horizontal = 4
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1681849785]
+stream = ExtResource("25_n5w8m")
+volume_db = -18.2
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=372907492]
+anchors_preset = -1
+anchor_left = 0.92700005
+anchor_top = 0.49300003
+anchor_right = 0.92700005
+anchor_bottom = 0.49300003
+offset_left = -113.46008
+offset_top = 0.039978027
+offset_right = 111.53992
+offset_bottom = 100.03998
+texture_normal = ExtResource("26_mu5ro")
+texture_pressed = ExtResource("27_lb081")
+stretch_mode = 0
+
+[connection signal="pressed" from="MenuButtons/Item" to="." method="_on_item_pressed"]
+[connection signal="pressed" from="MenuButtons/Atomons" to="." method="_on_atomons_pressed"]
+[connection signal="pressed" from="MenuButtons/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="MenuButtons/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="QuestLogPanel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

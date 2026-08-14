@@ -1,0 +1,89 @@
+[gd_resource type="Resource" script_class="NPCData" format=3 uid="uid://dvuuako13e8s2"]
+
+[ext_resource type="Texture2D" uid="uid://cpjbrhj3kah6b" path="res://Assets/UX/Icons/arrow_up-1.png" id="1_5rnw1"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_24kt4"]
+[ext_resource type="Resource" uid="uid://c2tbla42yvqfg" path="res://Resources/NPCs/Dialogues/DianneDialogueData.tres" id="1_tiyyf"]
+[ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_e31gr"]
+[ext_resource type="Texture2D" uid="uid://cbqmogpb74oxf" path="res://Assets/NPC/Dianne.png" id="3_e31gr"]
+[ext_resource type="Resource" uid="uid://cenrrrdoi305r" path="res://Resources/Quest/quest_hydrogen_001.tres" id="4_ho7wb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rnw1"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tiyyf"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ho7wb"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmve3"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mn3y"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bagmc"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pf7y"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dn1bf"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36fcf"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(768, 0, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n47g2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rnw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tiyyf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ho7wb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmve3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mn3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bagmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pf7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dn1bf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36fcf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[resource]
+script = ExtResource("2_e31gr")
+npc_id = "npc_003"
+display_name = "Dianne"
+sprite_frames = SubResource("SpriteFrames_n47g2")
+interaction_icon = ExtResource("1_5rnw1")
+dialogue_data = ExtResource("1_tiyyf")
+quests = Array[ExtResource("1_24kt4")]([ExtResource("4_ho7wb")])
+metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

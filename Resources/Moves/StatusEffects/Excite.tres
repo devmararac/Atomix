@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_kfthy")
+effect_name = "Excite"
+self_target = true
 metadata/_custom_type_script = "uid://xti26ayd3sst"

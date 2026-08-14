@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b4s1kmxqiijm3"
+path="res://.godot/imported/Why Did The Crow Cross The Road_ - RoccoW _ Chiptune [No Copyright Music].mp3-77eb2d9fa8221fc6e509592eb7dc518c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Why Did The Crow Cross The Road_ - RoccoW _ Chiptune [No Copyright Music].mp3"
+dest_files=["res://.godot/imported/Why Did The Crow Cross The Road_ - RoccoW _ Chiptune [No Copyright Music].mp3-77eb2d9fa8221fc6e509592eb7dc518c.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

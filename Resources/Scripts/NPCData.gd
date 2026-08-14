@@ -1,29 +1,38 @@
 class_name NPCData
 extends Resource
 
+enum NPCType {
+	VILLAGER,
+	QUEST_GIVER,
+	MERCHANT,
+	TEACHER,
+	GUARD,
+	TRAINER
+}
+
 enum FacingDirection {
 	LEFT,
 	RIGHT
 }
 
+# Identity
 @export var npc_id: String
 @export var display_name: String
+@export var npc_type := NPCType.VILLAGER
 
-@export_multiline var dialogue: String
-
+# Appearance
 @export var portrait: Texture2D
 @export var sprite_frames: SpriteFrames
+@export var interaction_icon: Texture2D
+@export var dialogic_character: DialogicCharacter
 
-# Later
-# @export var shop: ShopData
-@export var quest: Quest
+# Dialogue
+@export var dialogue_data: NPCDialogueData
 
-# Behavior
+# Quests
+@export var quests: Array[Quest]
+
+# Behaviour
 @export var can_wander := false
 @export var move_speed := 30.0
-
-# Visuals
-@export var interaction_icon: Texture2D
-
-# Direction
 @export var facing_direction := FacingDirection.RIGHT

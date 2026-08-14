@@ -124,4 +124,5 @@ func close():
 	queue_free()
 
 func _on_close_pressed() -> void:
+	SfxManager.play_click()
 	queue_free()

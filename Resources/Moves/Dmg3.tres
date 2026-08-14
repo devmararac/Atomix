@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://bshx5r6gn1vum"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_fkmgy"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2_sq31k"]
+[ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="2_wr8q7"]
+
+[sub_resource type="Resource" id="Resource_2dwv4"]
+script = ExtResource("2_wr8q7")
+metadata/_custom_type_script = "uid://bi06gqxjn2rug"
+
+[resource]
+script = ExtResource("2_sq31k")
+move_name = "Damage 3"
+description = "Charge"
+actions = Array[ExtResource("1_fkmgy")]([SubResource("Resource_2dwv4")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

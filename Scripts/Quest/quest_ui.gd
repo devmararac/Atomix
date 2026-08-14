@@ -7,7 +7,6 @@ extends Control
 @onready var quest_objectives = $"CanvasLayer/Panel/RightPage/VBoxContainer/Quest Objectives"
 @onready var quest_rewards = $"CanvasLayer/Panel/RightPage/VBoxContainer/Quest Rewards"
 
-var selected_quest: Quest = null
 var quest_manager
 
 func _ready() -> void:
@@ -16,7 +15,6 @@ func _ready() -> void:
 	#Quest Manager/UI Connection
 	quest_manager = QuestManager
 	quest_description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-
 	quest_manager.quest_updated.connect(_on_quest_updated)
 	quest_manager.objective_updated.connect(_on_objectives_updated)
 
@@ -24,8 +22,8 @@ func _ready() -> void:
 func show_hide_log():
 	panel.visible = !panel.visible
 	update_quest_list()
-	if selected_quest:
-		_on_quest_selected(selected_quest)
+	if QuestManager.tracked_quest:
+		_on_quest_selected(QuestManager.tracked_quest)
 
 #Populate Quest List
 func update_quest_list():
@@ -36,12 +34,9 @@ func update_quest_list():
 
 	#Populate with new items
 	var active_quests = quest_manager.get_active_quests()
-	print("QuestUI sees ", active_quests.size(), " active quest(s)")
 	if active_quests.size() == 0:
 		clear_quest_details()
-		QuestManager.selected_quest = null
-		global.player.update_quest_tracker(null)
-		
+		QuestManager.set_tracked_quest(null)
 	else:
 		for quest in active_quests:
 			var button = Button.new()
@@ -49,14 +44,10 @@ func update_quest_list():
 			button.text = quest.quest_name
 			button.pressed.connect(_on_quest_selected.bind(quest))
 			quest_list.add_child(button)
-	
-	#Update quest tracker
-	global.player.update_quest_tracker(selected_quest)
 
 #On Quest Selected
 func _on_quest_selected(quest: Quest):
-	selected_quest = quest
-	QuestManager.selected_quest = quest
+	QuestManager.set_tracked_quest(quest)
 	#Populate details
 	quest_title.text = quest.quest_name
 	quest_description.text = quest.quest_description
@@ -115,21 +106,19 @@ func clear_quest_details():
 
 #Trigger to update quest list
 func _on_quest_updated(quest_id: String):
-	if selected_quest and selected_quest.quest_id == quest_id:
-		_on_quest_selected(selected_quest)
+	if QuestManager.tracked_quest and QuestManager.tracked_quest.quest_id == quest_id:
+		_on_quest_selected(QuestManager.tracked_quest)
 	else: 
 		update_quest_list()
-		selected_quest = null
-		QuestManager.selected_quest = null
+		QuestManager.set_tracked_quest(null)
 
 #Trigger to update quest details
 func _on_objectives_updated(quest_id: String, objectives_id: String):
-	if selected_quest and selected_quest.quest_id == quest_id:
-		_on_quest_selected(selected_quest)
+	if QuestManager.tracked_quest and QuestManager.tracked_quest.quest_id == quest_id:
+		_on_quest_selected(QuestManager.tracked_quest)
 	else: 
 		clear_quest_details()
-		selected_quest = null
-		QuestManager.selected_quest = null
+		QuestManager.set_tracked_quest(null)
 
 
 func _on_close_button_pressed() -> void:

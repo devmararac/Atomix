@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dq7f2uyaxwg4g" path="res://Scripts/atomons_menu.gd" id="1_7hc1b"]
 [ext_resource type="Texture2D" uid="uid://bs7y8uq0f2cuq" path="res://Assets/UX/HUD/Panels/quest_log_panel_left.png" id="1_ii6yd"]
-[ext_resource type="PackedScene" uid="uid://fcbu6e35u8mi" path="res://Scenes/UI/party_slot.tscn" id="2_ib7yn"]
 [ext_resource type="Texture2D" uid="uid://d3cpky1g21l5n" path="res://Assets/UX/HUD/Panels/quest_log_panel_right.png" id="2_k062e"]
+[ext_resource type="PackedScene" uid="uid://b5qi11rfhw83q" path="res://Scenes/UI/atomon_slots.tscn" id="3_6ib8q"]
 [ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="4_ib7yn"]
 [ext_resource type="Texture2D" uid="uid://blobcx8hb08fa" path="res://Assets/UX/HUD/Panels/inventory_bg.png" id="5_6ib8q"]
 [ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="5_d5exc"]
@@ -46,63 +46,63 @@ texture = ExtResource("1_ii6yd")
 [node name="PartySlot" type="GridContainer" parent="Party/TextureRect" unique_id=1255913805]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.132
-anchor_top = 0.18300001
-anchor_right = 0.873
-anchor_bottom = 0.82600003
-offset_left = 0.2440033
-offset_top = 0.035736084
-offset_right = 3.8410034
-offset_bottom = 0.2364502
+anchor_left = 0.123
+anchor_top = 0.18900001
+anchor_right = 0.883
+anchor_bottom = 0.85600007
+offset_left = 0.09099579
+offset_top = -0.28276062
+offset_right = 0.010986328
+offset_bottom = -0.35601807
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 35
 theme_override_constants/v_separation = 35
 columns = 5
 
-[node name="Slot" parent="Party/TextureRect/PartySlot" unique_id=2030275118 instance=ExtResource("2_ib7yn")]
+[node name="Slot" parent="Party/TextureRect/PartySlot" unique_id=2030275118 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot2" parent="Party/TextureRect/PartySlot" unique_id=282237949 instance=ExtResource("2_ib7yn")]
+[node name="Slot2" parent="Party/TextureRect/PartySlot" unique_id=419264559 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot3" parent="Party/TextureRect/PartySlot" unique_id=1377881753 instance=ExtResource("2_ib7yn")]
+[node name="Slot3" parent="Party/TextureRect/PartySlot" unique_id=1894447109 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot4" parent="Party/TextureRect/PartySlot" unique_id=1664185049 instance=ExtResource("2_ib7yn")]
+[node name="Slot4" parent="Party/TextureRect/PartySlot" unique_id=18145719 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot5" parent="Party/TextureRect/PartySlot" unique_id=1541054196 instance=ExtResource("2_ib7yn")]
+[node name="Slot5" parent="Party/TextureRect/PartySlot" unique_id=1235256311 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot6" parent="Party/TextureRect/PartySlot" unique_id=1888065471 instance=ExtResource("2_ib7yn")]
+[node name="Slot6" parent="Party/TextureRect/PartySlot" unique_id=2008564068 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot7" parent="Party/TextureRect/PartySlot" unique_id=1280829255 instance=ExtResource("2_ib7yn")]
+[node name="Slot7" parent="Party/TextureRect/PartySlot" unique_id=2122786365 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot8" parent="Party/TextureRect/PartySlot" unique_id=2038584542 instance=ExtResource("2_ib7yn")]
+[node name="Slot8" parent="Party/TextureRect/PartySlot" unique_id=1821915712 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot9" parent="Party/TextureRect/PartySlot" unique_id=2099809139 instance=ExtResource("2_ib7yn")]
+[node name="Slot9" parent="Party/TextureRect/PartySlot" unique_id=1550455073 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot10" parent="Party/TextureRect/PartySlot" unique_id=796306665 instance=ExtResource("2_ib7yn")]
+[node name="Slot10" parent="Party/TextureRect/PartySlot" unique_id=479001591 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot11" parent="Party/TextureRect/PartySlot" unique_id=884117246 instance=ExtResource("2_ib7yn")]
+[node name="Slot11" parent="Party/TextureRect/PartySlot" unique_id=593429972 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot12" parent="Party/TextureRect/PartySlot" unique_id=1126463672 instance=ExtResource("2_ib7yn")]
+[node name="Slot12" parent="Party/TextureRect/PartySlot" unique_id=178745140 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot13" parent="Party/TextureRect/PartySlot" unique_id=2028390453 instance=ExtResource("2_ib7yn")]
+[node name="Slot13" parent="Party/TextureRect/PartySlot" unique_id=900891672 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot14" parent="Party/TextureRect/PartySlot" unique_id=1258360529 instance=ExtResource("2_ib7yn")]
+[node name="Slot14" parent="Party/TextureRect/PartySlot" unique_id=310279562 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
-[node name="Slot15" parent="Party/TextureRect/PartySlot" unique_id=858281717 instance=ExtResource("2_ib7yn")]
+[node name="Slot15" parent="Party/TextureRect/PartySlot" unique_id=1087368422 instance=ExtResource("3_6ib8q")]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Party" unique_id=1814722912]

@@ -12,6 +12,7 @@ func _ready():
 
 func _on_pressed():
 	if item_instance != null:
+		SfxManager.play_slot_click()
 		item_selected.emit(item_instance)
 
 func set_item(item: ItemInstance):

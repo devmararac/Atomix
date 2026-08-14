@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_1qwp1")
+effect_name = "Catalyze"
+self_target = true
 metadata/_custom_type_script = "uid://xti26ayd3sst"

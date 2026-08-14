@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="Objectives" format=3 uid="uid://yqkhj7pwbfly"]
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://yqkhj7pwbfly"]
 
-[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objectives.gd" id="1_eec66"]
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_eec66"]
 
 [resource]
 script = ExtResource("1_eec66")
 id = "observe_hydrogen"
 description = "Observe 3 Hydrogen Atomon"
+type = 4
 target_id = "hydrogen"
-target_type = "observe"
-required_quantity = 3
+required_amount = 3
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

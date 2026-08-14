@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://u7dq2rf4msib"]
+
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_8b2tx"]
+[ext_resource type="Texture2D" uid="uid://0x4bu62h3ath" path="res://Assets/UX/Items/electron.png" id="1_ip70c"]
+
+[resource]
+script = ExtResource("1_8b2tx")
+item_id = "electron"
+item_name = "Electron"
+description = "A negatively charged subatomic particle that surrounds the atomic nucleus. Electrons are used to complete an atom during Atomon crafting."
+icon = ExtResource("1_ip70c")
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

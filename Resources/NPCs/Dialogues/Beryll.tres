@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NPCDialogueData" format=3 uid="uid://ymabdf3qufew"]
+
+[ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="1_j63lu"]
+[ext_resource type="Resource" uid="uid://c888q7mh2uchy" path="res://Resources/Dialouges/Dialogic/Timeline/atomonia_entrance.dtl" id="2_00k0y"]
+[ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="2_sc42m"]
+
+[sub_resource type="Resource" id="Resource_upl2h"]
+script = ExtResource("1_j63lu")
+conversation_name = "Help"
+timeline = ExtResource("2_00k0y")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[resource]
+script = ExtResource("2_sc42m")
+conversations = Array[ExtResource("1_j63lu")]([SubResource("Resource_upl2h")])
+metadata/_custom_type_script = "uid://ckoa2l31dwe64"

@@ -1,39 +1,88 @@
-### Quest.gd
-
 extends Resource
-
 class_name Quest
 
 @export var quest_id: String
 @export var quest_name: String
-@export var quest_description: String
-@export var state: String = "not_started"
-@export var unlock_id: String  
-@export var objectives: Array[Objectives] = []
-@export var rewards: Array[Rewards] = []
+@export_multiline var quest_description: String
 
-# Checks objectives completed
+## Which quest becomes available after this one is completed.
+@export var unlock_id: String = ""
+
+## Objectives that make up this quest.
+@export var objectives: Array[Objective] = []
+
+## Rewards granted when the quest is completed.
+@export var rewards: Array[Reward] = []
+
+## Current quest state.
+@export var state := QuestState.Type.NOT_STARTED
+
+
+## Starts the quest.
+func start() -> void:
+	state = QuestState.Type.ACTIVE
+
+	if objectives.is_empty():
+		return
+
+	objectives[0].is_active = true
+
+
+## Returns the currently active objective.
+func get_active_objective() -> Objective:
+	for objective in objectives:
+		if objective.is_active and !objective.is_completed:
+			return objective
+
+	return null
+
+
+## Returns true if every objective has been completed.
 func is_completed() -> bool:
 	for objective in objectives:
-		if not objective.is_completed:
+		if !objective.is_completed:
 			return false
+
 	return true
 
-# Completes objectives
-func complete_objective(objective_id: String, quantity: int = 1):
-	print("Looking for objective:", objective_id)
-	for objective in objectives:
-		if objective.id == objective_id:
+func advance_objective() -> void:
+	var current: Objective = get_active_objective()
 
-			if objective.required_quantity > 0:
-				objective.collected_quantity += quantity
+	if current == null:
+		return
 
-				if objective.collected_quantity >= objective.required_quantity:
-					objective.is_completed = true
-			else:
-				objective.is_completed = true
+	current.is_active = false
+	current.is_completed = true
 
-			break
+	var index := objectives.find(current)
 
-	if is_completed():
-		state = "completed"
+	if index + 1 < objectives.size():
+		objectives[index + 1].is_active = true
+	else:
+		state = QuestState.Type.COMPLETED
+
+func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> bool:
+
+	var objective: Objective = get_active_objective()
+
+	if objective == null:
+		return false
+
+	if objective.type != type:
+		return false
+
+	if objective.target_id != target_id:
+		return false
+
+
+	objective.current_amount = min(
+		objective.current_amount + amount,
+		objective.required_amount
+	)
+
+
+	if objective.is_finished():
+		advance_objective()
+
+
+	return true

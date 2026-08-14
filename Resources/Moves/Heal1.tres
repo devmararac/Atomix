@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://dkjgjf3eljlf1"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_iikq0"]
+[ext_resource type="Script" uid="uid://coomt1t7ljksq" path="res://Resources/Scripts/Actions/HealAction.gd" id="2_iikq0"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="3_gqbd5"]
+
+[sub_resource type="Resource" id="Resource_8im43"]
+script = ExtResource("2_iikq0")
+heal_amount = 20
+metadata/_custom_type_script = "uid://coomt1t7ljksq"
+
+[resource]
+script = ExtResource("3_gqbd5")
+move_name = "Heal 1"
+description = "Soda"
+actions = Array[ExtResource("1_iikq0")]([SubResource("Resource_8im43")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

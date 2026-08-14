@@ -2,14 +2,11 @@
 
 [ext_resource type="Script" uid="uid://wddgu6jaiy0m" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://uqvrm846l357" path="res://Assets/Player/Player Sprite.png" id="1_v0iea"]
+[ext_resource type="Resource" uid="uid://b7n3aiykhvntg" path="res://Resources/Dialouges/Dialogic/Characters/Player.dch" id="2_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://h7645c2xaxl7" path="res://Assets/Player/base_attack.png" id="2_pu2lt"]
-[ext_resource type="PackedScene" uid="uid://dm0a8tcy3qrnr" path="res://Scenes/UI/control.tscn" id="4_vgqql"]
-[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="5_8erm5"]
-[ext_resource type="PackedScene" uid="uid://cvsqojv1j0mhg" path="res://Scenes/Quest/QuestManager.tscn" id="5_fkybt"]
-[ext_resource type="Texture2D" uid="uid://d3cpky1g21l5n" path="res://Assets/UX/HUD/Panels/quest_log_panel_right.png" id="6_gymyn"]
-[ext_resource type="Texture2D" uid="uid://qmlh4ngdep03" path="res://Assets/UX/HUD/Panels/tracker_title_panel.png" id="7_pu2lt"]
-[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="9_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://db7r44i8rlylt" path="res://Assets/Player/base_jump.png" id="4_h4iuc"]
 [ext_resource type="Texture2D" uid="uid://ot3igj31d13s" path="res://Assets/UX/Icons/arrow_animated.png" id="10_tx1dd"]
+[ext_resource type="Script" uid="uid://beq2qqb8susg2" path="res://Scripts/objective_arrow.gd" id="12_7dp3o"]
 [ext_resource type="AudioStream" uid="uid://k682hfq1gbo2" path="res://Assets/Music/SFX/07_human_atk_sword_2.wav" id="13_ukyrk"]
 [ext_resource type="AudioStream" uid="uid://bpki5aw7yq4xm" path="res://Assets/Music/SFX/16_human_walk_stone_2.wav" id="14_7dp3o"]
 
@@ -80,6 +77,42 @@ region = Rect2(160, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
 atlas = ExtResource("1_v0iea")
 region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqcod"]
+atlas = ExtResource("4_h4iuc")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igrcy"]
+atlas = ExtResource("4_h4iuc")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs7ks"]
+atlas = ExtResource("4_h4iuc")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6n3p"]
+atlas = ExtResource("4_h4iuc")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olqyp"]
+atlas = ExtResource("4_h4iuc")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpjfl"]
+atlas = ExtResource("4_h4iuc")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bi64h"]
+atlas = ExtResource("4_h4iuc")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ijsl"]
+atlas = ExtResource("4_h4iuc")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1odr"]
+atlas = ExtResource("4_h4iuc")
+region = Rect2(768, 0, 96, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1ek2"]
 atlas = ExtResource("1_v0iea")
@@ -178,6 +211,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_qqcod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igrcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fs7ks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6n3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olqyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpjfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bi64h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ijsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1odr")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_f1ek2")
 }, {
 "duration": 1.0,
@@ -213,92 +278,6 @@ radius = 6.0
 radius = 5.0990195
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pu2lt"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ukyrk"]
-texture = ExtResource("7_pu2lt")
-texture_margin_left = 23.0
-texture_margin_top = 10.0
-texture_margin_right = 7.0
-texture_margin_bottom = 2.0
-expand_margin_left = 44.0
-expand_margin_top = 11.0
-
-[sub_resource type="GDScript" id="GDScript_tx1dd"]
-script/source = "extends Node2D
-
-
-@export var quest_database: Array[Quest] = []
-@onready var quest_ui = $QuestUI
-
-
-#Signals
-signal quest_updated(quest_id: String)
-signal objective_updated(quest_id: String, objective_id: String)
-signal quest_list_updated()
-
-var quests = {}
-
-
-func add_quest_by_id(quest_id: String):
-	# Don't add duplicate quests
-	if quests.has(quest_id):
-		return
-
-	for quest in quest_database:
-		if quest.quest_id == quest_id:
-			quest.state = \"in_progress\"
-			add_quest(quest)
-			print(\"Quest Added:\", quest.quest_name)
-			return
-
-	print(\"Quest not found:\", quest_id)
-
-#Add quest
-func add_quest(quest: Quest):
-	if quests.has(quest.quest_id):
-		return
-
-	quests[quest.quest_id] = quest
-	quest_updated.emit(quest.quest_id)
-	quest_list_updated.emit()
-
-#Remove Quest
-func remove_quest(quest_id: String):
-	quests.erase(quest_id)
-	quest_list_updated.emit()
- 
-#Get quest
-func get_quest(quest_id: String) -> Quest:
-	return quests.get(quest_id, null)
-
-#Update quest 
-func update_quest(quest_id: String, state: String):
-	var quest = get_quest(quest_id)
-	if quest:
-		quest.state = state
-		quest_updated.emit(quest_id)
-		if state == \"completed\":
-			remove_quest(quest_id)
-
-#Get Selected Quest
-func get_active_quests() -> Array:
-	var active_quests = []
-	for quest in quests.values():
-		if quest.state == \"in_progress\":
-			active_quests.append(quest)
-	return active_quests
-
-#Complete objective 
-func complete_objective(quest_id: String, objective_id: String):
-	var quest = get_quest(quest_id)
-	if quest:
-		quest.complete_objective(objective_id)
-		objective_updated.emit(quest_id, objective_id)
-
-#Show/Hide Quest UI
-func show_hide_log():
-	quest_ui.show_hide_log()
-"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wohnl"]
 atlas = ExtResource("10_tx1dd")
@@ -347,19 +326,21 @@ animations = [{
 z_index = 1
 collision_layer = 11
 script = ExtResource("1_cvnsp")
+dialogic_character = ExtResource("2_f1ek2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1236284597]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_qqcod")
-animation = &"idle"
+animation = &"jump"
 autoplay = "idle"
+frame_progress = 0.6700987
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1070887428]
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_cvnsp")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=641954940]
-zoom = Vector2(6, 6)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=641954940 groups=["Player"]]
+zoom = Vector2(7, 7)
 limit_left = 0
 limit_top = 0
 limit_right = 1152
@@ -383,74 +364,6 @@ collision_mask = 4
 position = Vector2(13, -20)
 shape = SubResource("RectangleShape2D_pu2lt")
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=1576808902]
-
-[node name="QuestTracker" type="NinePatchRect" parent="HUD" unique_id=2363837]
-anchors_preset = -1
-anchor_left = 0.827
-anchor_top = 0.001
-anchor_right = 0.97900003
-anchor_bottom = 0.32200003
-offset_left = 0.539917
-offset_top = 0.27999997
-offset_right = -0.42004395
-offset_bottom = 0.15997314
-texture = ExtResource("6_gymyn")
-patch_margin_left = 20
-patch_margin_top = 26
-patch_margin_right = 24
-patch_margin_bottom = 40
-
-[node name="Details" type="VBoxContainer" parent="HUD/QuestTracker" unique_id=1266874027]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.043
-anchor_top = 0.09
-anchor_right = 0.957
-anchor_bottom = 0.91
-offset_left = 0.09999943
-offset_top = -7.800008
-offset_right = -0.1000061
-offset_bottom = -0.020004272
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-
-[node name="Title" type="Label" parent="HUD/QuestTracker/Details" unique_id=1476915716]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-theme_override_fonts/font = ExtResource("5_8erm5")
-theme_override_font_sizes/font_size = 28
-theme_override_styles/normal = SubResource("StyleBoxTexture_ukyrk")
-text = "Title"
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-
-[node name="Objectives" type="VBoxContainer" parent="HUD/QuestTracker" unique_id=1333688187]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.097
-anchor_top = 0.4
-anchor_right = 0.89000005
-anchor_bottom = 0.86700004
-offset_left = -0.10000038
-offset_bottom = -0.040008545
-size_flags_vertical = 3
-
-[node name="Joystick" parent="." unique_id=241195174 instance=ExtResource("4_vgqql")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 134.0
-offset_right = 134.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="QuestManager" parent="." unique_id=2032512229 instance=ExtResource("5_fkybt")]
-script = SubResource("GDScript_tx1dd")
-quest_database = Array[ExtResource("9_f1ek2")]([])
-
 [node name="Indicator" type="AnimatedSprite2D" parent="." unique_id=793342033]
 position = Vector2(-12.000002, -4)
 scale = Vector2(0.6875, 0.625)
@@ -458,12 +371,16 @@ sprite_frames = SubResource("SpriteFrames_11gg7")
 animation = &"up"
 autoplay = "up"
 frame_progress = 0.5235253
+script = ExtResource("12_7dp3o")
 
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="." unique_id=718974684]
 stream = ExtResource("13_ukyrk")
 
 [node name="FootstepSound" type="AudioStreamPlayer2D" parent="." unique_id=872672067]
 stream = ExtResource("14_7dp3o")
+
+[node name="BubbleMarker" type="Marker2D" parent="." unique_id=1793308347]
+position = Vector2(11, -13)
 
 [connection signal="body_entered" from="Detection_Area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="Detection_Area" to="." method="_on_detection_area_body_exited"]

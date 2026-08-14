@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dqj6uct56ofpr"]
+
+[ext_resource type="Texture2D" uid="uid://cnesnb3ch3vg7" path="res://Assets/Structures/Interiors/Furnitures/Tables/table_long_alchemist.png" id="1_cw1i1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlht2"]
+size = Vector2(46, 19)
+
+[node name="Alchemist Table" type="StaticBody2D" unique_id=1178858451]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=12748250]
+position = Vector2(0, 1)
+texture = ExtResource("1_cw1i1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1366216328]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_xlht2")

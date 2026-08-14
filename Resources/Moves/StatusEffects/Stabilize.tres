@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_co8w7")
+effect_name = "Stabilize"
+self_target = true
 metadata/_custom_type_script = "uid://xti26ayd3sst"

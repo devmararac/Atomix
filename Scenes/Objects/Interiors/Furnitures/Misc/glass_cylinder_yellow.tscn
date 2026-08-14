@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ch1ab0hol8qs2"]
+
+[ext_resource type="Texture2D" uid="uid://b3jvg8y0b1yvq" path="res://Assets/Structures/Interiors/Furnitures/glass_yellow_liquid.png" id="1_l1q3i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l1q3i"]
+size = Vector2(14, 8)
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=474902200]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=950450996]
+position = Vector2(0, -5)
+texture = ExtResource("1_l1q3i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=62154578]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_l1q3i")

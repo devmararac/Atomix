@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="DialogicStyle" format=3 uid="uid://bp00dickw07h6"]
+
+[ext_resource type="PackedScene" uid="uid://syki6k0e6aac" path="res://addons/dialogic/Modules/DefaultLayoutParts/Base_TextBubble/text_bubble_base.tscn" id="1_dcqxs"]
+[ext_resource type="Script" uid="uid://bwg6yncmh2cml" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="2_3yihw"]
+[ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="3_cu8xk"]
+[ext_resource type="PackedScene" uid="uid://f1qdx4fjfacf" path="res://Resources/Dialouges/Dialogic/Styles/custom/text_bubble_layer.tscn" id="4_3yihw"]
+[ext_resource type="Script" uid="uid://dv08k6ljua6fm" path="res://addons/dialogic/Resources/dialogic_style.gd" id="5_x3rqq"]
+
+[sub_resource type="Resource" id="Resource_cdwbx"]
+script = ExtResource("2_3yihw")
+scene = ExtResource("1_dcqxs")
+
+[sub_resource type="Resource" id="Resource_3f0uf"]
+script = ExtResource("2_3yihw")
+scene = ExtResource("3_cu8xk")
+
+[sub_resource type="Resource" id="Resource_tln81"]
+script = ExtResource("2_3yihw")
+scene = ExtResource("4_3yihw")
+overrides = {
+"behaviour_distance": "20.0",
+"box_modulate": "Color(0.96862745, 0.8862745, 0.77254903, 1)",
+"box_padding": "Vector2(50, 5)",
+"name_label_color": "Color(0.47058824, 0.3529412, 0.23529412, 1)",
+"name_label_font": "\"res://Assets/Font/NicoPaint-Regular.woff\"",
+"name_label_font_size": "20.0",
+"name_label_padding": "Vector2(15, 5)",
+"normal_font": "\"res://Assets/Font/NicoPaint-Regular.woff\"",
+"text_color": "Color(0.35546875, 0.26451874, 0.17356873, 1)",
+"text_max_width": "500.0",
+"text_size": "25.0"
+}
+
+[resource]
+script = ExtResource("5_x3rqq")
+name = "text_bubble"
+layer_list = Array[String](["10", "11"])
+layer_info = {
+"": SubResource("Resource_cdwbx"),
+"10": SubResource("Resource_3f0uf"),
+"11": SubResource("Resource_tln81")
+}
+metadata/_latest_layer = "12"

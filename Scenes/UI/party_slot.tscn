@@ -20,7 +20,7 @@ region = Rect2(64, 0, 32, 32)
 atlas = ExtResource("3_ral00")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_o20bk"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_3aa6h"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -49,32 +49,32 @@ texture_pressed = ExtResource("1_qawp2")
 stretch_mode = 0
 script = ExtResource("2_o20bk")
 
-[node name="AtomonSprite" type="AnimatedSprite2D" parent="." unique_id=839360268]
-position = Vector2(86.99999, 64)
+[node name="AtomonPortrait" type="AnimatedSprite2D" parent="." unique_id=126823613]
+position = Vector2(96.000015, 59)
 scale = Vector2(3.15625, 2.46875)
-sprite_frames = SubResource("SpriteFrames_o20bk")
+sprite_frames = SubResource("SpriteFrames_3aa6h")
 
 [node name="Name" type="Label" parent="." unique_id=11307252]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.356
-anchor_top = 0.142
-anchor_right = 0.85800004
-anchor_bottom = 0.333
-offset_left = 0.19999695
-offset_top = -0.040000916
-offset_right = 0.099975586
-offset_bottom = 0.040000916
+anchor_left = 0.335
+anchor_top = 0.29200003
+anchor_right = 0.836
+anchor_bottom = 0.483
+offset_left = -0.25
+offset_top = -0.04000473
+offset_right = 0.19998169
+offset_bottom = 0.0399971
 text = "Name"
 
 [node name="HP" type="Label" parent="." unique_id=2030307325]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.36200002
-anchor_top = 0.45000002
-anchor_right = 0.86700004
-anchor_bottom = 0.642
-offset_left = -0.1000061
-offset_right = 0.14996338
-offset_bottom = -0.040000916
+anchor_left = 0.335
+anchor_top = 0.53300005
+anchor_right = 0.84000003
+anchor_bottom = 0.725
+offset_left = -0.25
+offset_top = 0.039993286
+offset_right = -3.0517578e-05
 text = "HP"

@@ -1,0 +1,329 @@
+[gd_scene format=3 uid="uid://c0he70v4j63rb"]
+
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="1_1lrpa"]
+[ext_resource type="Script" uid="uid://cmmttueylhbcw" path="res://Scripts/atomon_page.gd" id="1_bl7m2"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_g3klj"]
+[ext_resource type="PackedScene" uid="uid://b5qi11rfhw83q" path="res://Scenes/UI/atomon_slots.tscn" id="3_giubf"]
+[ext_resource type="Texture2D" uid="uid://cusa2lwfp2nax" path="res://Assets/UX/HUD/Panels/animated_book.png" id="4_5rsqt"]
+[ext_resource type="Texture2D" uid="uid://ban1cmvop5yw7" path="res://Assets/UX/HUD/Panels/atomon_sprite_textured.png" id="5_fqfyu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_giubf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl7m2"]
+atlas = ExtResource("4_5rsqt")
+region = Rect2(0, 0, 592, 522)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1561x"]
+atlas = ExtResource("4_5rsqt")
+region = Rect2(592, 0, 592, 522)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xje7c"]
+atlas = ExtResource("4_5rsqt")
+region = Rect2(1184, 0, 592, 522)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10nvo"]
+atlas = ExtResource("4_5rsqt")
+region = Rect2(1776, 0, 592, 522)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7omqu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bl7m2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1561x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xje7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10nvo")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bl7m2"]
+texture = ExtResource("5_fqfyu")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bl7m2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1561x"]
+texture = ExtResource("1_1lrpa")
+
+[node name="Atomon Page" type="Control" unique_id=1246073987]
+custom_minimum_size = Vector2(1418, 648)
+layout_mode = 3
+anchor_right = 0.716
+anchor_bottom = 0.90000004
+offset_right = 0.3199463
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bl7m2")
+
+[node name="BG" type="TextureRect" parent="." unique_id=326538513]
+custom_minimum_size = Vector2(1418, 648)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1lrpa")
+
+[node name="Title" type="Label" parent="." unique_id=891528467]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.12100001
+anchor_top = 0.079
+anchor_right = 0.12100001
+anchor_bottom = 0.079
+offset_left = -132.578
+offset_top = -0.19200134
+offset_right = 133.422
+offset_bottom = 50.808
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_g3klj")
+theme_override_font_sizes/font_size = 50
+text = "Atomons"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="." unique_id=1454455467]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.499
+anchor_top = 0.162
+anchor_right = 0.499
+anchor_bottom = 0.162
+offset_left = -669.58203
+offset_top = -0.19999695
+offset_right = 669.41797
+offset_bottom = 3.800003
+
+[node name="Left Panel" type="Panel" parent="." unique_id=416095213]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.029000001
+anchor_top = 0.17600001
+anchor_right = 0.57500005
+anchor_bottom = 0.9110001
+offset_left = -0.42000198
+offset_top = -0.04801178
+offset_right = 0.64990234
+offset_bottom = 0.079956055
+theme_override_styles/panel = SubResource("StyleBoxEmpty_giubf")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Left Panel" unique_id=351610758]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.019000001
+anchor_right = 0.96800005
+anchor_bottom = 1.0
+offset_top = -0.051753044
+offset_right = -0.19049072
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SlotContainer" type="GridContainer" parent="Left Panel/ScrollContainer" unique_id=234044150]
+layout_mode = 2
+columns = 6
+
+[node name="Slot" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=2030275118 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot2" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1752559890 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot3" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1519995709 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot4" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1671287 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot5" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=2113971302 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot6" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=989108882 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot7" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1147777858 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot8" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=896478126 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot9" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1999263785 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot10" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1976461989 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot11" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=125574840 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot12" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=860534673 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot13" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=20233806 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot14" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1570859596 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot15" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1350008912 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot16" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=804901661 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot17" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1963161901 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot18" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1772470559 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot19" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1672361650 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot20" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=489872486 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot21" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=101282802 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot22" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=396332420 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot23" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1033711320 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot24" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1341959785 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot25" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1343892621 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot26" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=543858549 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot27" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=2128076993 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot28" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=157850220 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot29" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=989883190 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Slot30" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1699517799 instance=ExtResource("3_giubf")]
+layout_mode = 2
+
+[node name="Right Panel" type="Control" parent="." unique_id=601061142]
+layout_mode = 1
+anchor_left = 0.56100005
+anchor_top = 0.19000001
+anchor_right = 0.9760001
+anchor_bottom = 0.924
+offset_left = -0.49804688
+offset_top = -0.120010376
+offset_right = 0.03186035
+offset_bottom = 0.24798584
+
+[node name="Book BG" type="AnimatedSprite2D" parent="Right Panel" unique_id=1091273251]
+position = Vector2(294, 215)
+sprite_frames = SubResource("SpriteFrames_7omqu")
+animation = &"idle"
+frame = 3
+frame_progress = 1.0
+
+[node name="Atomon Sprite" type="Panel" parent="Right Panel" unique_id=970654502]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.065000005
+anchor_top = 0.080000006
+anchor_right = 0.43300003
+anchor_bottom = 0.44500002
+offset_left = -0.28500366
+offset_top = -0.08000183
+offset_right = -0.037017822
+offset_bottom = 0.17999268
+theme_override_styles/panel = SubResource("StyleBoxTexture_bl7m2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Right Panel/Atomon Sprite" unique_id=1301803921]
+position = Vector2(111, 86)
+sprite_frames = SubResource("SpriteFrames_bl7m2")
+
+[node name="Timer" type="Timer" parent="Right Panel/Atomon Sprite" unique_id=1462399727]
+one_shot = true
+
+[node name="AtomonAllias" type="Label" parent="Right Panel" unique_id=698823621]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24900001
+anchor_top = 0.48900002
+anchor_right = 0.24900001
+anchor_bottom = 0.48900002
+offset_left = -98.16101
+offset_top = -14.764008
+offset_right = 97.83899
+offset_bottom = 15.235992
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_g3klj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_1561x")
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AtomonDescription" type="RichTextLabel" parent="Right Panel" unique_id=1088610572]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24800001
+anchor_top = 0.634
+anchor_right = 0.24800001
+anchor_bottom = 0.634
+offset_left = -114.07201
+offset_top = -48.783997
+offset_right = 113.92799
+offset_bottom = 49.216003
+theme_override_colors/default_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/normal_font = ExtResource("2_g3klj")
+text = "Test"
+
+[node name="AtomicSymbol" type="TextureRect" parent="Right Panel" unique_id=704636267]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.749
+anchor_top = 0.17500001
+anchor_right = 0.749
+anchor_bottom = 0.17500001
+offset_left = -53.16101
+offset_top = -48.300003
+offset_right = 52.83899
+offset_bottom = 48.699997
+expand_mode = 1
+
+[node name="AtomonName" type="Label" parent="Right Panel" unique_id=1336794036]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.749
+anchor_top = 0.32200003
+anchor_right = 0.749
+anchor_bottom = 0.32200003
+offset_left = -118.16101
+offset_top = -17.272018
+offset_right = 117.83899
+offset_bottom = 17.727982
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_g3klj")
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("StyleBoxTexture_1561x")
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1

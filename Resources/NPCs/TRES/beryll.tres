@@ -1,0 +1,168 @@
+[gd_resource type="Resource" script_class="NPCData" format=3 uid="uid://kmolysh2l6m"]
+
+[ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="1_3tjg5"]
+[ext_resource type="Resource" uid="uid://bapr0ig5s80th" path="res://Resources/Dialouges/Dialogic/Characters/Beryll.dch" id="1_knhm4"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_o68jo"]
+[ext_resource type="Resource" uid="uid://c888q7mh2uchy" path="res://Resources/Dialouges/Dialogic/Timeline/atomonia_entrance.dtl" id="2_knhm4"]
+[ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_kpns6"]
+[ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="3_cq8lw"]
+[ext_resource type="Texture2D" uid="uid://pcqbv4on3d76" path="res://Assets/NPC/Beryll.png" id="3_kpns6"]
+[ext_resource type="Resource" uid="uid://b4aw6iuo051qt" path="res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction.dtl" id="4_cq8lw"]
+
+[sub_resource type="Resource" id="Resource_knhm4"]
+script = ExtResource("1_3tjg5")
+conversation_name = "HELP"
+timeline = ExtResource("2_knhm4")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[sub_resource type="Resource" id="Resource_cq8lw"]
+script = ExtResource("1_3tjg5")
+conversation_name = "BERYLL"
+timeline = ExtResource("4_cq8lw")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[sub_resource type="Resource" id="Resource_2p2y1"]
+script = ExtResource("3_cq8lw")
+conversations = Array[ExtResource("1_3tjg5")]([SubResource("Resource_knhm4"), SubResource("Resource_cq8lw")])
+metadata/_custom_type_script = "uid://ckoa2l31dwe64"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogsd6"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55xui"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tjg5"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knhm4"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cq8lw"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2p2y1"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gqhd"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcjpc"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjf74"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(768, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jyna"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(0, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bynm5"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(96, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwb8x"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(192, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbydu"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(288, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y62t2"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(384, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3ff3"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(480, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3iaw"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(576, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gn2uf"]
+atlas = ExtResource("3_kpns6")
+region = Rect2(672, 64, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2jyna"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogsd6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55xui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tjg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knhm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cq8lw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2p2y1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gqhd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcjpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjf74")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jyna")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bynm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwb8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbydu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y62t2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3ff3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3iaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gn2uf")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 9.0
+}]
+
+[resource]
+script = ExtResource("2_kpns6")
+npc_id = "npc_004"
+display_name = "Beryll"
+sprite_frames = SubResource("SpriteFrames_2jyna")
+dialogic_character = ExtResource("1_knhm4")
+dialogue_data = SubResource("Resource_2p2y1")
+metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

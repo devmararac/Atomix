@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NPCDialogueData" format=3 uid="uid://hy02s5ylnq86"]
+
+[ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="1_7qu1e"]
+[ext_resource type="Resource" uid="uid://bgehaip0ahj7t" path="res://Resources/Dialouges/Dialogic/Timeline/StartingCutscene.dtl" id="2_rg3kr"]
+[ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="3_arlma"]
+
+[sub_resource type="Resource" id="Resource_7qu1e"]
+script = ExtResource("1_7qu1e")
+conversation_name = "Intro"
+timeline = ExtResource("2_rg3kr")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[resource]
+script = ExtResource("3_arlma")
+conversations = Array[ExtResource("1_7qu1e")]([SubResource("Resource_7qu1e")])
+metadata/_custom_type_script = "uid://ckoa2l31dwe64"

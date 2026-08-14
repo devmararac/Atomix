@@ -90,8 +90,6 @@ func recruit():
 
 	PartyManager.add_species(data)
 
-	print(data.atom_name + " joined your party!")
-
 	queue_free()
 
 

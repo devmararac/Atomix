@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_tp31p")
+effect_name = "Inhibit"
 metadata/_custom_type_script = "uid://xti26ayd3sst"

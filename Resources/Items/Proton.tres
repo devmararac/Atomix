@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://0n86aw7oh7kl"]
+
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_qkpti"]
+[ext_resource type="Texture2D" uid="uid://cgackw4bwt5yv" path="res://Assets/UX/Items/proton.png" id="1_t3dah"]
+
+[resource]
+script = ExtResource("1_qkpti")
+item_id = "proton"
+item_name = "Proton"
+description = "A positively charged subatomic particle used to construct an atom's nucleus. The number of protons determines an element's atomic number and identity. Protons are used to complete an atom during Atomon crafting."
+icon = ExtResource("1_t3dah")
+max_stack = 999
+category = "Crafting Material"
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://cqq24sm7b0057"]
+
+[ext_resource type="Script" uid="uid://bu8dji06c7eal" path="res://Scripts/static_card.gd" id="1_hp4ev"]
+[ext_resource type="Texture2D" uid="uid://d4neppv7o8r3o" path="res://Assets/UX/Icons/icon_grad.png" id="2_wmuol"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.776, 0.627, 0.482, 1)
+
+[sub_resource type="FontFile" id="FontFile_wmuol"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/19/0/ascent = 0.0
+cache/0/19/0/descent = 0.0
+cache/0/19/0/underline_position = 0.0
+cache/0/19/0/underline_thickness = 0.0
+cache/0/19/0/scale = 1.0
+
+[node name="StatisticCard" type="Panel" unique_id=1748720836]
+custom_minimum_size = Vector2(320, 90)
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+script = ExtResource("1_hp4ev")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=316354390]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=304620446]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=1873464150]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+texture = ExtResource("2_wmuol")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=714678449]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1564946609]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = SubResource("FontFile_wmuol")
+theme_override_font_sizes/font_size = 19
+text = "TOTAL STUDENTS"
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1347703552]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = SubResource("FontFile_wmuol")
+theme_override_font_sizes/font_size = 19
+text = "32"
+
+[node name="Subtitle" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1841974563]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = SubResource("FontFile_wmuol")
+theme_override_font_sizes/font_size = 19
+text = "Enrolled this term"

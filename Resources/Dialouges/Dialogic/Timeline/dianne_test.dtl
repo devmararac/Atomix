@@ -1,0 +1,7 @@
+Dianne: Hello DevAlberto!
+Dianne: We are currently testing this new system we are about to make so please do your best!!!!!
+- Sure!
+	Dianne: Excellete!
+- Yeah
+	Dianne: Why the long face??
+	[signal arg="quest_accept:quest_hydrogen_001"]

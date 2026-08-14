@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cpjbrhj3kah6b" path="res://Assets/UX/Icons/arrow_up-1.png" id="11_hyeig"]
 [ext_resource type="Texture2D" uid="uid://cjhxs40ndhss4" path="res://Assets/UX/HUD/mini_map.png" id="12_w2yqr"]
 [ext_resource type="PackedScene" uid="uid://deb16wmoo5crf" path="res://Atomons/Atomon.tscn" id="13_hyeig"]
+[ext_resource type="PackedScene" uid="uid://58her1ab75n5" path="res://Scenes/UI/hud.tscn" id="15_kn5sb"]
 [ext_resource type="Resource" uid="uid://dv42cr1tsjs71" path="res://Resources/Atomons/Silicon.tres" id="15_w2yqr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wip4p"]
@@ -1585,3 +1586,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_w2yqr")
+
+[node name="HUD" parent="." unique_id=116850924 instance=ExtResource("15_kn5sb")]

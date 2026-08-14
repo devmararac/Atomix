@@ -1,0 +1,40 @@
+Player: ......
+[signal arg="beryll_reaction"]
+[wait time="1.0"]
+[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine3.mp3" volume="0.0"]
+Beryll: Hey!
+[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine4.mp3" volume="0.0"]
+Beryll: You there!
+[signal arg="beryll_walk"]
+Player: .......
+[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine5.mp3" volume="0.0"]
+Beryll: Please talk to me....
+[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine6.mp3" volume="0.0"]
+Beryll: How did you get in here?
+[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine7.mp3" volume="0.0"]
+Beryll: Where did you came from??
+Player: .........
+[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine8.mp3" volume="0.0"]
+Beryll: Why are you not saying anything??
+[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine9.mp3" volume="0.0"]
+Beryll: Are you alright??
+- Who are you??
+	Player: Who are you??
+	[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine10.mp3" volume="0.0"]
+	Beryll: My name is Beryll..
+	[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine11.mp3" volume="0.0"]
+	Beryll: How about you??
+	Player: I'm .....
+	Player: Do you know where we are??
+	[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine12.mp3" volume="0.0"]
+	Beryll: You don't know?
+	Player: The last thing I remember...
+	Player: I was in my classroom...
+	Player: Then everything went dark.
+	Player: When I opened my eyes...
+	Player: I was here.
+	[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine13.mp3" volume="0.0"]
+	Beryll: ...A classroom?
+	Beryll: THIS IS A DEBUG DIALOGUE\
+	YOU WILL NOW BE TELEPORTED TO THE STARTING MAP
+	[signal arg="debug"]

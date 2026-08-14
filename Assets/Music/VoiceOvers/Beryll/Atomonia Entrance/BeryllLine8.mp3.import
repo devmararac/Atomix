@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://by732reti41dr"
+path="res://.godot/imported/BeryllLine8.mp3-57fb624bd1a46e01f9b252edef5ee5de.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine8.mp3"
+dest_files=["res://.godot/imported/BeryllLine8.mp3-57fb624bd1a46e01f9b252edef5ee5de.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

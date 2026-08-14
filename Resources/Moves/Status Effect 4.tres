@@ -1,0 +1,86 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://dwxntq7hagx57"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_uppxp"]
+[ext_resource type="Script" uid="uid://xti26ayd3sst" path="res://Resources/Scripts/Effects/MoveEffect.gd" id="2_7aq8d"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2_gf3kd"]
+[ext_resource type="Script" uid="uid://cgnlftqbacyqr" path="res://Resources/Scripts/Actions/StatusAction.gd" id="4_01o0e"]
+
+[sub_resource type="Resource" id="Resource_87454"]
+script = ExtResource("2_7aq8d")
+value = 5
+duration = 2
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_7aq8d"]
+script = ExtResource("2_7aq8d")
+effect_name = "Oxidize"
+value = 5
+duration = 2
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_1ouer"]
+script = ExtResource("2_7aq8d")
+effect_name = "Catalyze"
+value = 3
+duration = 5
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_01o0e"]
+script = ExtResource("2_7aq8d")
+effect_name = "Passivate"
+value = 2
+duration = 4
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_oyjab"]
+script = ExtResource("2_7aq8d")
+effect_name = "Ionize"
+value = 6
+duration = 2
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_hlbou"]
+script = ExtResource("2_7aq8d")
+effect_name = "Polarize"
+value = 10
+duration = 1
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_2323n"]
+script = ExtResource("2_7aq8d")
+effect_name = "Excite"
+value = 10
+duration = 3
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_x2q8y"]
+script = ExtResource("2_7aq8d")
+effect_name = "Stabilize"
+value = 4
+duration = 2
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_6n2av"]
+script = ExtResource("2_7aq8d")
+effect_name = "Inhibit"
+value = 4
+duration = 2
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_ui6sp"]
+script = ExtResource("2_7aq8d")
+effect_name = "Neutralize"
+value = 4
+duration = 3
+metadata/_custom_type_script = "uid://xti26ayd3sst"
+
+[sub_resource type="Resource" id="Resource_c28pi"]
+script = ExtResource("4_01o0e")
+effects = Array[ExtResource("2_7aq8d")]([SubResource("Resource_87454"), SubResource("Resource_7aq8d"), SubResource("Resource_1ouer"), SubResource("Resource_01o0e"), SubResource("Resource_oyjab"), SubResource("Resource_hlbou"), SubResource("Resource_2323n"), SubResource("Resource_x2q8y"), SubResource("Resource_6n2av"), SubResource("Resource_ui6sp")])
+metadata/_custom_type_script = "uid://cgnlftqbacyqr"
+
+[resource]
+script = ExtResource("2_gf3kd")
+move_name = "Status Effect 4"
+actions = Array[ExtResource("1_uppxp")]([SubResource("Resource_c28pi")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

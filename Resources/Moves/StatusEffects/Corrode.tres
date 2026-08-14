@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_7kmi8")
+effect_name = "Oxidize"
 metadata/_custom_type_script = "uid://xti26ayd3sst"

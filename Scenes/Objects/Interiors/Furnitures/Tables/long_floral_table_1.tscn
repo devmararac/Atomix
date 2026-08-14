@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bkrsdkgnf1lp3"]
+
+[ext_resource type="Texture2D" uid="uid://dxu136p1ybetx" path="res://Assets/Structures/Interiors/Furnitures/Tables/table_long_floral_1.png" id="1_qi2ao"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r54lq"]
+size = Vector2(32, 13)
+
+[node name="Long Floral Table 1" type="StaticBody2D" unique_id=1345805839]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1402253249]
+texture = ExtResource("1_qi2ao")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1822768353]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_r54lq")

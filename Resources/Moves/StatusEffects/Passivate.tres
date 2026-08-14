@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_byhf8")
+effect_name = "Passivate"
+self_target = true
 metadata/_custom_type_script = "uid://xti26ayd3sst"

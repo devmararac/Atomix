@@ -1,0 +1,123 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://b3t7logynq7t3"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_eeq8w"]
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="2_en52p"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_li51x"]
+[ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="3_ttp37"]
+[ext_resource type="Resource" uid="uid://d0ef24qu8lsjb" path="res://Resources/Moves/Dmg2.tres" id="4_oalnc"]
+[ext_resource type="Resource" uid="uid://dkjgjf3eljlf1" path="res://Resources/Moves/Heal1.tres" id="5_805st"]
+[ext_resource type="Resource" uid="uid://elx6np0ias51" path="res://Resources/Moves/Status Effect 1.tres" id="6_7nky3"]
+[ext_resource type="Texture2D" uid="uid://c0d5et8qj31un" path="res://Assets/Pets/Lithium-walk.png" id="8_oalnc"]
+[ext_resource type="Texture2D" uid="uid://ct10edbjpkamm" path="res://Assets/UX/Icons/AtomicImage/icon_case.png" id="9_805st"]
+
+[sub_resource type="Resource" id="Resource_6pjqj"]
+script = ExtResource("3_ttp37")
+power = 50
+metadata/_custom_type_script = "uid://bi06gqxjn2rug"
+
+[sub_resource type="Resource" id="Resource_3hewa"]
+script = ExtResource("1_eeq8w")
+move_name = "Damage 1"
+description = "Bomb"
+accuracy = 80
+priority = 1
+actions = Array[ExtResource("2_en52p")]([SubResource("Resource_6pjqj")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nky3"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(0, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hewa"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(90, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyjw6"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(180, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m62ra"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(270, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_181bi"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(360, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm0e3"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(450, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbhaa"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(540, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w111e"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(630, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxij7"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(720, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocbio"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(810, 0, 90, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bxmr3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nky3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hewa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyjw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m62ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_181bi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lm0e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbhaa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w111e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxij7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocbio")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_li51x")
+atom_name = "Lithum"
+chemical_symbol = "Li"
+atomic_number = 3
+sprite_frames = SubResource("SpriteFrames_bxmr3")
+symbol = ExtResource("9_805st")
+atomic_mass = 6.94
+density = 0.5339999999999999
+ionization_energy = 5.39172
+electronegativity = 0.912
+electron_affinity = 59.629999999999995
+valence_electrons = 1
+mass_number = 7
+element_type = "Alkali Metal"
+state = "Solid"
+period = 2
+moves = Array[ExtResource("1_eeq8w")]([SubResource("Resource_3hewa"), ExtResource("4_oalnc"), ExtResource("5_805st"), ExtResource("6_7nky3")])
+metadata/_custom_type_script = "uid://dvv118enrwub6"

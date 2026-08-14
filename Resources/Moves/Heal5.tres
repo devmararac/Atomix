@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://cse5knam3fi4m"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_lxjrx"]
+[ext_resource type="Script" uid="uid://coomt1t7ljksq" path="res://Resources/Scripts/Actions/HealAction.gd" id="2_8oleu"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2_mxwun"]
+
+[sub_resource type="Resource" id="Resource_q3tdw"]
+script = ExtResource("2_8oleu")
+heal_amount = 40
+metadata/_custom_type_script = "uid://coomt1t7ljksq"
+
+[resource]
+script = ExtResource("2_mxwun")
+move_name = "Heal 5"
+description = "Flash"
+actions = Array[ExtResource("1_lxjrx")]([SubResource("Resource_q3tdw")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

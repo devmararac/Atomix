@@ -1,0 +1,249 @@
+[gd_scene format=3 uid="uid://04cd1ginqkhu"]
+
+[ext_resource type="Texture2D" uid="uid://daq1gtorekc3d" path="res://Assets/UX/HUD/Panels/book_panel_big.png" id="1_book"]
+[ext_resource type="Script" uid="uid://dt51x7gt8b85w" path="res://Scripts/quest_log_panel_new.gd" id="1_k6cmj"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="1_rlkg8"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://qmlh4ngdep03" path="res://Assets/UX/HUD/Panels/tracker_title_panel.png" id="5_k6cmj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jinld"]
+texture = ExtResource("5_k6cmj")
+texture_margin_left = 23.0
+texture_margin_top = 6.0
+texture_margin_right = 3.0
+texture_margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k6cmj"]
+texture = ExtResource("1_rlkg8")
+
+[node name="Quest Page" type="Control" unique_id=1335486803]
+custom_minimum_size = Vector2(1418, 648)
+layout_mode = 3
+anchor_right = 0.716
+anchor_bottom = 0.90000004
+offset_right = 0.3199463
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k6cmj")
+
+[node name="MainBG" type="TextureRect" parent="." unique_id=1477811060]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_rlkg8")
+
+[node name="BookBG" type="TextureRect" parent="MainBG" unique_id=800228386]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 59.0
+offset_top = 26.0
+offset_right = -96.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_book")
+
+[node name="Left Page" type="Control" parent="MainBG/BookBG" unique_id=361878707]
+layout_mode = 1
+anchor_left = 0.046000004
+anchor_top = 0.055000003
+anchor_right = 0.45700002
+anchor_bottom = 0.89400005
+offset_left = -0.0980072
+offset_top = -0.27500916
+offset_right = -0.19104004
+offset_bottom = 0.12994385
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="MainBG/BookBG/Left Page" unique_id=114699210]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.03
+anchor_right = 0.5
+anchor_bottom = 0.03
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 42
+text = "Quest Log"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="MainBG/BookBG/Left Page" unique_id=1757621684]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.13000001
+anchor_right = 0.5
+anchor_bottom = 0.13000001
+offset_left = -257.5
+offset_top = -0.08000946
+offset_right = 257.5
+offset_bottom = 3.9199905
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainBG/BookBG/Left Page" unique_id=1807531531]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.16
+anchor_right = 0.97
+anchor_bottom = 0.98
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="QuestList" type="VBoxContainer" parent="MainBG/BookBG/Left Page/ScrollContainer" unique_id=2049316314]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="No Quests" type="Label" parent="MainBG/BookBG/Left Page" unique_id=608967898]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -25.0
+offset_right = 200.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 26
+text = "No active quests"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right Page" type="Control" parent="MainBG/BookBG" unique_id=541844461]
+layout_mode = 1
+anchor_left = 0.541
+anchor_top = 0.053000003
+anchor_right = 0.95400006
+anchor_bottom = 0.896
+offset_left = -0.28302002
+offset_top = -0.06500244
+offset_right = 0.09790039
+offset_bottom = -0.08001709
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="MainBG/BookBG/Right Page" unique_id=1632310170]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.03
+anchor_right = 0.5
+anchor_bottom = 0.03
+offset_left = -260.0
+offset_right = 260.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 42
+text = "Quest Details"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="MainBG/BookBG/Right Page" unique_id=98623246]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.12
+anchor_right = 0.5
+anchor_bottom = 0.12
+offset_left = -259.0
+offset_top = 6.0
+offset_right = 259.0
+offset_bottom = 10.0
+
+[node name="Objective Panel" type="Panel" parent="MainBG/BookBG/Right Page" unique_id=322361500]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.231
+anchor_right = 0.5
+anchor_bottom = 0.231
+offset_left = -255.0
+offset_top = -19.810005
+offset_right = 255.0
+offset_bottom = 20.189995
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Objective" type="Label" parent="MainBG/BookBG/Right Page/Objective Panel" unique_id=484860748]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_jinld")
+vertical_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="MainBG/BookBG/Right Page" unique_id=1249202473]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021000002
+anchor_top = 0.31
+anchor_right = 0.97700006
+anchor_bottom = 0.694
+offset_left = 0.037999153
+offset_top = -0.1000061
+offset_right = 0.0059814453
+offset_bottom = 0.05999756
+theme_override_colors/default_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+text = "No active quests...."
+
+[node name="Rewards" type="Panel" parent="MainBG/BookBG/Right Page" unique_id=1994964913]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.019000001
+anchor_top = 0.73300004
+anchor_right = 0.98300004
+anchor_bottom = 0.98600006
+offset_left = 0.08199978
+offset_top = 0.16998291
+offset_right = -0.1260376
+offset_bottom = 0.13995361
+theme_override_styles/panel = SubResource("StyleBoxTexture_k6cmj")
+
+[node name="QuestRewardsLabel" type="Label" parent="MainBG/BookBG/Right Page/Rewards" unique_id=633362849]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.157
+anchor_top = 0.155
+anchor_right = 0.157
+anchor_bottom = 0.155
+offset_left = -64.971
+offset_top = -7.995001
+offset_right = 65.029
+offset_bottom = 8.004999
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+text = "Quest Rewards:"
+
+[node name="GridContainer" type="GridContainer" parent="MainBG/BookBG/Right Page/Rewards" unique_id=868845732]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.034
+anchor_top = 0.31
+anchor_right = 0.95600003
+anchor_bottom = 0.87600005
+offset_left = -0.10200119
+offset_top = 0.0099983215
+offset_right = 0.13198853
+offset_bottom = -0.004005432

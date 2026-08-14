@@ -1,9 +1,29 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://1s83vhkm1bd2"]
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_28k1t"]
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="2_eqdnw"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_mrh51"]
 [ext_resource type="Texture2D" uid="uid://csw0ks17clkr5" path="res://Assets/Pets/hydrogen_idle.png" id="3_mrh51"]
-[ext_resource type="Texture2D" uid="uid://bhla4rhfrcjvu" path="res://Assets/UX/Icons/hydrogen_H.png" id="4_t34n2"]
+[ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="3_q2hpa"]
+[ext_resource type="Resource" uid="uid://be7eo5ha36roj" path="res://Resources/Moves/He.tres" id="4_eqdnw"]
+[ext_resource type="Texture2D" uid="uid://bhla4rhfrcjvu" path="res://Assets/UX/Icons/AtomicImage/hydrogen_H.png" id="4_t34n2"]
+[ext_resource type="Resource" uid="uid://cntpaw41usqe3" path="res://Resources/Moves/C.tres" id="5_q2hpa"]
+[ext_resource type="Resource" uid="uid://bmp3krn62o2le" path="res://Resources/Moves/Na.tres" id="6_xkd1v"]
+
+[sub_resource type="Resource" id="Resource_6pjqj"]
+script = ExtResource("3_q2hpa")
+power = 30
+damage_type = "Special"
+metadata/_custom_type_script = "uid://bi06gqxjn2rug"
+
+[sub_resource type="Resource" id="Resource_eqdnw"]
+script = ExtResource("1_28k1t")
+move_name = "Damage 1"
+description = "Bomb"
+accuracy = 80
+priority = 1
+actions = Array[ExtResource("2_eqdnw")]([SubResource("Resource_6pjqj")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t34n2"]
 atlas = ExtResource("3_mrh51")
@@ -78,12 +98,15 @@ animations = [{
 script = ExtResource("2_mrh51")
 atom_name = "Hydrogen"
 chemical_symbol = "H"
+alias = "Hydrubbie"
 sprite_frames = SubResource("SpriteFrames_28k1t")
 symbol = ExtResource("4_t34n2")
 portrait = SubResource("AtlasTexture_t34n2")
-density = 0.0
+density = 8.987999999999996e-05
+ionization_energy = 13.59844
+electron_affinity = 72.78
 valence_electrons = 1
-moves = Array[ExtResource("1_28k1t")]([null, null, null, null])
+moves = Array[ExtResource("1_28k1t")]([SubResource("Resource_eqdnw"), ExtResource("4_eqdnw"), ExtResource("5_q2hpa"), ExtResource("6_xkd1v")])
 description = "Hydrogen is the first Atomon ever discovered and is considered the building block of many stronger species. 
 
 It prefers to travel in groups and rarely stays still for long. 

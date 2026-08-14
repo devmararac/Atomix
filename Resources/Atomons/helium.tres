@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bopgpl7eas45l"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_da012"]
+[ext_resource type="Texture2D" uid="uid://chx0rfxik5dnj" path="res://Assets/Pets/Ghost-128x128.png" id="2_ds1m4"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_o7d7g"]
+[ext_resource type="Texture2D" uid="uid://cv3y2ucbjs3cb" path="res://Assets/UX/HUD/Panels/slot.png" id="4_c63v4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfs85"]
+atlas = ExtResource("2_ds1m4")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyxj"]
+atlas = ExtResource("2_ds1m4")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dyytm"]
+atlas = ExtResource("2_ds1m4")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n80o"]
+atlas = ExtResource("2_ds1m4")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dosi"]
+atlas = ExtResource("2_ds1m4")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lc6o6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfs85")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dyytm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n80o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dosi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_o7d7g")
+atom_name = "Helium"
+chemical_symbol = "He"
+atomic_number = 2
+sprite_frames = SubResource("SpriteFrames_lc6o6")
+symbol = ExtResource("4_c63v4")
+portrait = SubResource("AtlasTexture_sfs85")
+atomic_mass = 4.003
+density = 0.0
+ionization_energy = 24.58741
+electronegativity = 4.16
+electron_affinity = -48.0
+valence_electrons = 2
+element_type = "Noble Gas"
+metadata/_custom_type_script = "uid://dvv118enrwub6"

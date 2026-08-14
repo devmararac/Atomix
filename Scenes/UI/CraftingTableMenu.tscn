@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://cbn85gknp5rur"]
+
+[ext_resource type="Script" uid="uid://co3f35bwvbxki" path="res://Scenes/UI/crafting_table_menu.gd" id="1_16ru5"]
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_sdaug"]
+[ext_resource type="Texture2D" uid="uid://3jd3lmhnscxm" path="res://Assets/UX/Buttons/Normal/heal_button.png" id="2_16ru5"]
+[ext_resource type="Texture2D" uid="uid://dtm28k6auf1cw" path="res://Assets/UX/Buttons/Normal/craft_button.png" id="3_c5ibt"]
+[ext_resource type="Texture2D" uid="uid://uubo6k47sia3" path="res://Assets/UX/Buttons/On-Pressed/heal_button_pressed.png" id="4_kt4ma"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="4_rodo8"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="6_c5ibt"]
+[ext_resource type="Texture2D" uid="uid://ctrrlrpealfi8" path="res://Assets/UX/Buttons/On-Pressed/craft_button_pressed.png" id="6_kcc2s"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="8_pqd52"]
+
+[node name="CraftingTableMenu" type="CanvasLayer" unique_id=40252885]
+script = ExtResource("1_16ru5")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=947631103]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -143.5
+offset_right = 210.0
+offset_bottom = 143.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_sdaug")
+
+[node name="Heal" type="TextureButton" parent="NinePatchRect" unique_id=1023750555]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 166.0
+offset_right = 203.0
+offset_bottom = 246.0
+texture_normal = ExtResource("2_16ru5")
+texture_pressed = ExtResource("4_kt4ma")
+stretch_mode = 0
+
+[node name="Craft" type="TextureButton" parent="NinePatchRect" unique_id=1158798120]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 166.0
+offset_right = 376.0
+offset_bottom = 246.0
+texture_normal = ExtResource("3_c5ibt")
+texture_pressed = ExtResource("6_kcc2s")
+stretch_mode = 0
+
+[node name="Close" type="TextureButton" parent="NinePatchRect" unique_id=1289601561]
+layout_mode = 0
+offset_left = 384.0
+offset_top = -8.0
+offset_right = 434.0
+offset_bottom = 42.0
+texture_normal = ExtResource("4_rodo8")
+texture_pressed = ExtResource("8_pqd52")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="NinePatchRect" unique_id=524715824]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 44.0
+offset_right = 409.0
+offset_bottom = 149.0
+theme_override_fonts/font = ExtResource("6_c5ibt")
+theme_override_font_sizes/font_size = 46
+text = "What would you like to do?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1

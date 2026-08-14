@@ -1,0 +1,7 @@
+[voice path="res://Assets/Music/VoiceOvers/Beryll/Atomonia Entrance/BeryllLine2.mp3" volume="-10.0"]
+Player: .......
+[signal arg="player_reaction"]
+Player: !?
+Player: WHO'S THERE!!
+Player: ....
+[signal arg="beryll_entrance_atomonia"]

@@ -1,10 +1,18 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://dv42cr1tsjs71"]
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_dvmbn"]
-[ext_resource type="Texture2D" uid="uid://gl5v5b1xupcd" path="res://Assets/UX/Icons/silicon_Si.png" id="1_qcj4i"]
+[ext_resource type="Texture2D" uid="uid://gl5v5b1xupcd" path="res://Assets/UX/Icons/AtomicImage/silicon_Si.png" id="1_qcj4i"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_slwgx"]
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="2_vtvlr"]
+[ext_resource type="Resource" uid="uid://d377q4kxh621i" path="res://Resources/Moves/Status Effect 5.tres" id="3_cw3vv"]
 [ext_resource type="Texture2D" uid="uid://bvyy5ylxgeehg" path="res://Assets/Pets/silicon_idle.png" id="4_4mcev"]
+[ext_resource type="Resource" uid="uid://bshx5r6gn1vum" path="res://Resources/Moves/Dmg3.tres" id="4_o3cqq"]
+[ext_resource type="Resource" uid="uid://dwxntq7hagx57" path="res://Resources/Moves/Status Effect 4.tres" id="5_73pim"]
 [ext_resource type="Texture2D" uid="uid://b57m33wqvixp5" path="res://Assets/Pets/silicon_walk.png" id="5_wc074"]
+
+[sub_resource type="Resource" id="Resource_cw3vv"]
+script = ExtResource("1_dvmbn")
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3qwvn"]
 atlas = ExtResource("4_4mcev")
@@ -87,19 +95,22 @@ script = ExtResource("2_slwgx")
 atom_name = "Silicon"
 chemical_symbol = "Si"
 atomic_number = 14
+alias = "Pebblicon"
 sprite_frames = SubResource("SpriteFrames_qcj4i")
 symbol = ExtResource("1_qcj4i")
 portrait = SubResource("AtlasTexture_3qwvn")
 atomic_mass = 28.085
-density = 2.33
-ionization_energy = 8.152
+density = 2.3296
+ionization_energy = 8.15169
 electronegativity = 1.916
 electron_affinity = 134.06
 valence_electrons = 4
+mass_number = 28
 element_type = "Metalloid"
 state = "Solid"
 block = "p"
 period = 3
+moves = Array[ExtResource("1_dvmbn")]([SubResource("Resource_cw3vv"), ExtResource("3_cw3vv"), ExtResource("4_o3cqq"), ExtResource("5_73pim")])
 description = "A small Atomon formed from silicon-rich pebbles found along rivers and mountain paths.
 
 Though quiet and unassuming, it is remarkably resilient, enduring countless impacts that would shatter ordinary stones.

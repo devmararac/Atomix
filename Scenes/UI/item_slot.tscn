@@ -6,11 +6,12 @@
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_41rdk"]
 
 [node name="ItemSlot" type="TextureButton" unique_id=935584709]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(100, 100)
 offset_right = 40.0
 offset_bottom = 40.0
 texture_normal = ExtResource("1_i53lo")
 texture_pressed = ExtResource("2_40bps")
+texture_focused = ExtResource("2_40bps")
 stretch_mode = 0
 script = ExtResource("3_40bps")
 

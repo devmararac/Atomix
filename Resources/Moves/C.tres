@@ -2,9 +2,15 @@
 
 [ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_cmpkh"]
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_i3kqi"]
+[ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="2_4fkyn"]
+
+[sub_resource type="Resource" id="Resource_rp6q6"]
+script = ExtResource("2_4fkyn")
+metadata/_custom_type_script = "uid://bi06gqxjn2rug"
 
 [resource]
 script = ExtResource("1_i3kqi")
 move_name = "C"
 description = "Soda"
+actions = Array[ExtResource("1_cmpkh")]([SubResource("Resource_rp6q6")])
 metadata/_custom_type_script = "uid://c3r52ktnjg7y"

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dqlebs6rggtl4"]
+
+[ext_resource type="Texture2D" uid="uid://j7ny5txgajlf" path="res://Assets/Tiles/Plains Terrain.png" id="1_ejnv4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yv7xv"]
+atlas = ExtResource("1_ejnv4")
+region = Rect2(336, 288, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ed7da"]
+atlas = ExtResource("1_ejnv4")
+region = Rect2(352, 288, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66n2m"]
+atlas = ExtResource("1_ejnv4")
+region = Rect2(368, 288, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cigjs"]
+atlas = ExtResource("1_ejnv4")
+region = Rect2(384, 288, 16, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gdm74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yv7xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ed7da")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66n2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cigjs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1671308692]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=368151269]
+sprite_frames = SubResource("SpriteFrames_gdm74")
+autoplay = "default"
+frame_progress = 0.7333372

@@ -2,9 +2,17 @@
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_lwfp7"]
 [ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_ouytw"]
+[ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="2_msc2v"]
+
+[sub_resource type="Resource" id="Resource_8rbuw"]
+script = ExtResource("2_msc2v")
+metadata/_custom_type_script = "uid://bi06gqxjn2rug"
 
 [resource]
 script = ExtResource("1_lwfp7")
 move_name = "B"
 description = "Boron Strike"
+accuracy = 80
+max_uses = 15
+actions = Array[ExtResource("1_ouytw")]([SubResource("Resource_8rbuw")])
 metadata/_custom_type_script = "uid://c3r52ktnjg7y"

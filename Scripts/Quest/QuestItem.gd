@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 
 
 func should_show_indicator() -> bool:
-	var quest = QuestManager.selected_quest
+	var quest = QuestManager.tracked_quest
 
 	if quest == null:
 		return false

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://syki6k0e6aac" path="res://addons/dialogic/Modules/DefaultLayoutParts/Base_TextBubble/text_bubble_base.tscn" id="1_c7dq3"]
 [ext_resource type="Script" uid="uid://bwg6yncmh2cml" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="2_0qejj"]
 [ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="3_55v3k"]
-[ext_resource type="PackedScene" uid="uid://d2it0xiap3gnt" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble_layer.tscn" id="4_ong83"]
+[ext_resource type="PackedScene" path="res://Resources/Dialouges/Dialogic/Styles/TextbubbleLayer/custom_textbubble_layer.tscn" id="4_c7dq3"]
 [ext_resource type="Script" uid="uid://dv08k6ljua6fm" path="res://addons/dialogic/Resources/dialogic_style.gd" id="5_uhum4"]
 
 [sub_resource type="Resource" id="Resource_4rqy5"]
@@ -16,7 +16,22 @@ scene = ExtResource("3_55v3k")
 
 [sub_resource type="Resource" id="Resource_0n5v3"]
 script = ExtResource("2_0qejj")
-scene = ExtResource("4_ong83")
+scene = ExtResource("4_c7dq3")
+overrides = {
+"box_modulate": "Color(0.96862745, 0.8862745, 0.77254903, 1)",
+"choices_layout_alignment": "1",
+"choices_layout_force_lines": "true",
+"choices_text_color": "Color(0.47058824, 0.3529412, 0.23529412, 1)",
+"choices_text_font": "\"res://Assets/Font/NicoPaint-Regular.woff\"",
+"choices_text_size": "25.0",
+"name_label_box_modulate": "Color(0.96862745, 0.8862745, 0.77254903, 1)",
+"name_label_color": "Color(0.47058824, 0.3529412, 0.23529412, 1)",
+"name_label_font": "\"res://Assets/Font/NicoPaint-Regular.woff\"",
+"name_label_font_size": "25.0",
+"normal_font": "\"res://Assets/Font/NicoPaint-Regular.woff\"",
+"text_color": "Color(0.47058824, 0.3529412, 0.23529412, 1)",
+"text_size": "25.0"
+}
 
 [resource]
 script = ExtResource("5_uhum4")
@@ -27,4 +42,4 @@ layer_info = {
 "10": SubResource("Resource_istuq"),
 "11": SubResource("Resource_0n5v3")
 }
-metadata/_latest_layer = "10"
+metadata/_latest_layer = "11"

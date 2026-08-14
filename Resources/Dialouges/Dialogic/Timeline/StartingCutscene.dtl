@@ -1,0 +1,85 @@
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine1.mp3" volume="0.0"]
+Prof_Andrew: Good morning, class.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine2.mp3" volume="0.0"]
+Prof_Andrew: Before we begin today's lesson, I hope everyone has their notes ready.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine3.mp3" volume="0.0"]
+Prof_Andrew: Today, we're going to talk about something you've encountered before... the chemical elements.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine4.mp3" volume="0.0"]
+Prof_Andrew: Everything around us is made up of elements.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine5.mp3" volume="0.0"]
+Prof_Andrew: The air you breathe, the water you drink, even your own body.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine6.mp3" volume="0.0"]
+Prof_Andrew: They are the building blocks of our world.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine7.mp3" volume="0.0"]
+Prof_Andrew: For example....
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine8.mp3" volume="0.0"]
+Prof_Andrew: Let's start with the very first element on the periodic table.
+[signal arg="camera_professor"]
+[wait time="0.5"]
+[signal arg="prof_write_hydrogen"]
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine9.mp3" volume="0.0"]
+Prof_Andrew: Hydrogen.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine10.mp3" volume="0.0"]
+Prof_Andrew: Simple... light... and yet one of the most important elements in the universe.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine11.mp3" volume="0.0"]
+Prof_Andrew: Without hydrogen, stars wouldn't shine...
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine12.mp3" volume="0.0"]
+Prof_Andrew: Water wouldn't exist...
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine13.mp3" volume="0.0"]
+Prof_Andrew: And neither would life as we know it.
+[signal arg="camera_felix"]
+[wait time="0.5"]
+Felix: *writes notes*
+[signal arg="camera_anne"]
+[wait time="0.5"]
+Anne: That'll probably be on the quiz...
+[signal arg="camera_garry"]
+[wait time="0.5"]
+Garry: *quietly nods*
+[signal arg="camera_return"]
+[wait time="1.0"]
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine14.mp3" volume="0.0"]
+Prof_Andrew: Every element has its own unique properties.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine15.mp3" volume="0.0"]
+Prof_Andrew: Some are incredibly stable.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine16.mp3" volume="0.0"]
+Prof_Andrew: Others react the moment they come into contact with another element.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine17.mp3" volume="0.0"]
+Prof_Andrew: It's these interactions that create the world around us.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine18.mp3" volume="0.0"]
+Prof_Andrew: That's why chemistry is more than just a list of symbols and formulas.
+[signal arg="player_sleepy"]
+[signal arg="vision_start"]
+Player: What??
+Player: I'm feeling sleepy all of a sudden......
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine19.mp3" volume="0.0"]
+Prof_Andrew: Chemistry isn't just about memorizing symbols...
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine20.mp3" volume="0.0"]
+Prof_Andrew: It's about understanding how everything is connected.
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine21.mp3" volume="0.0"]
+Prof_Andrew: Once you understand the relationships between elements...
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine22.mp3" volume="0.0"]
+Prof_Andrew: You'll begin to understand the world itself.
+[signal arg="blur_more"]
+Player: ........
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine23.mp3" volume="0.0"]
+Prof_Andrew: So tell me...
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine24.mp3" volume="0.0"]
+Prof_Andrew: Can anyone explain why hydrogen is considered so important?
+[signal arg="dim_more"]
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine25.mp3" volume="0.0"]
+Prof_Andrew: Hmm?
+[signal arg="Audio"]
+[signal arg="prof_walk_to_player"]
+Prof_Andrew: Mr...?
+[signal arg="dim_more"]
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine26.mp3" volume="0.0"]
+Prof_Andrew: Are you feeling alright?
+[signal arg="black_screen"]
+Player: I'm fine sir... 😪
+Prof_Andrew: Mr...?
+[voice path="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine27.mp3" volume="0.0"]
+Prof_Andrew: Can you hear me?
+Player: ........
+Prof_Andrew: ...........
+[signal arg="teleport_atomonia"]

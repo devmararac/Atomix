@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://f1qdx4fjfacf"]
+
+[ext_resource type="Script" uid="uid://ciogli4wa1ihx" path="res://Resources/Dialouges/Dialogic/Styles/custom/text_bubble_layer.gd" id="1_ffw8g"]
+
+[node name="TextBubbleLayer" type="Control" unique_id=2120225020]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_ffw8g")
+choices_custom_button = "uid://caqp8ve3mybc5"

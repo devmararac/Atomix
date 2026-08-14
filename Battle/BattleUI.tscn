@@ -2,20 +2,31 @@
 
 [ext_resource type="Script" uid="uid://bbjhgeseekw7p" path="res://Battle/BattleUI.gd" id="1_8n08m"]
 [ext_resource type="Texture2D" uid="uid://b2tlf7vrqfluo" path="res://Assets/battle_bg_1.png" id="1_x1u45"]
-[ext_resource type="Texture2D" uid="uid://doo7mciw56tpw" path="res://Assets/UX/HUD/Panels/main_panel.png" id="2_cnbk2"]
 [ext_resource type="Texture2D" uid="uid://dnuinyny5lcj6" path="res://Assets/UX/HUD/Bars/info_bar.png" id="3_77877"]
-[ext_resource type="Texture2D" uid="uid://bms0wkr31j412" path="res://Assets/UX/HUD/Bars/hp_bar.png" id="4_4iy4j"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="3_b00jw"]
+[ext_resource type="Texture2D" uid="uid://dumectpjifch1" path="res://Assets/UX/HUD/Bars/under_bar.png" id="5_4cw33"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="5_4iy4j"]
 [ext_resource type="Texture2D" uid="uid://ddm8852ib8nxe" path="res://Assets/UX/HUD/Bars/exp_bar.png" id="6_s7vr4"]
+[ext_resource type="Texture2D" uid="uid://djtm76gfbyc4w" path="res://Assets/UX/HUD/Bars/new_info_bar.png" id="6_s72o8"]
+[ext_resource type="Texture2D" uid="uid://cvlrvv7fcxwfm" path="res://Assets/UX/HUD/Bars/new_hp_bar.png" id="7_l7c5a"]
 [ext_resource type="Texture2D" uid="uid://r4y1wnwmrie" path="res://Assets/UX/Buttons/Normal/attack_button.png" id="7_svtvq"]
 [ext_resource type="Texture2D" uid="uid://cg6e54yulf4m6" path="res://Assets/UX/Buttons/On-Pressed/attack_button_pressed.png" id="8_8n08m"]
+[ext_resource type="Texture2D" uid="uid://dofw7o474odev" path="res://Assets/UX/Buttons/Normal/move_button.png" id="10_g2i5h"]
 [ext_resource type="Texture2D" uid="uid://bm6sb0cmxojdg" path="res://Assets/UX/Buttons/Normal/fusion_button.png" id="10_k0oc4"]
 [ext_resource type="Texture2D" uid="uid://dt2ufm6juac41" path="res://Assets/UX/Buttons/On-Pressed/fusion_button_pressed.png" id="11_ejqjo"]
+[ext_resource type="Texture2D" uid="uid://doyceaqqs7d22" path="res://Assets/UX/Buttons/On-Pressed/move_button_pressed.png" id="11_vjfga"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="12_l7c5a"]
 [ext_resource type="Texture2D" uid="uid://b3ioxidxpjgox" path="res://Assets/UX/Buttons/Normal/atomons_button.png" id="12_ugl38"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="13_g2i5h"]
 [ext_resource type="Texture2D" uid="uid://c3vm5i558q04l" path="res://Assets/UX/Buttons/On-Pressed/atomons_button_pressed.png" id="13_limpo"]
 [ext_resource type="Texture2D" uid="uid://b87wpfox4ocwj" path="res://Assets/UX/Buttons/Normal/run_button.png" id="14_gvh18"]
 [ext_resource type="Texture2D" uid="uid://b5fsn2ti1cki0" path="res://Assets/UX/Buttons/On-Pressed/run_button_pressed.png" id="15_vghoh"]
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="16_c225n"]
 [ext_resource type="AudioStream" uid="uid://bssvvaqt0wwfo" path="res://Assets/Music/Run Bunny Run.mp3" id="16_gwo5a"]
+[ext_resource type="Script" uid="uid://vt7nk5gwohmi" path="res://Battle/BattleController.gd" id="21_4cw33"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c225n"]
+load_path = "res://.godot/imported/atomon_sprite.png-8d7a2f2bcbae16fdd9a5c61d790751e7.ctex"
 
 [node name="BattleUI" type="Control" unique_id=501285373]
 layout_mode = 3
@@ -60,7 +71,7 @@ offset_right = -0.18005371
 offset_bottom = 0.3199768
 
 [node name="SpawnPoint" type="Marker2D" parent="BattleField/EnemyContainer" unique_id=838805849]
-position = Vector2(20, 16)
+position = Vector2(20, 55)
 
 [node name="FriendlyAtomonContainer" type="Panel" parent="BattleField" unique_id=1882541079]
 self_modulate = Color(1, 1, 1, 0)
@@ -76,7 +87,7 @@ offset_right = -0.4800415
 offset_bottom = 0.07998657
 
 [node name="SpawnPoint" type="Marker2D" parent="BattleField/FriendlyAtomonContainer" unique_id=405602415]
-position = Vector2(25, 19)
+position = Vector2(25, 75)
 
 [node name="BattleEffects" type="Node2D" parent="BattleField" unique_id=1118640751]
 visible = false
@@ -90,44 +101,57 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="EnemyAtomonInfo" type="Control" parent="CanvasLayer/HUD" unique_id=1834522945]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchor_left = 0.767
+anchor_left = 0.86300004
 anchor_top = 0.060000002
-anchor_right = 0.95900005
-anchor_bottom = 0.22600001
-offset_left = 0.33996582
+anchor_right = 0.86300004
+anchor_bottom = 0.060000002
+offset_left = -189.74011
 offset_top = -0.20000076
-offset_right = 0.17993164
-offset_bottom = 0.27999878
+offset_right = 190.25989
+offset_bottom = 119.8
 grow_horizontal = 0
 
 [node name="EnemyAtomonPanel" type="TextureRect" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=1117460555]
-layout_mode = 0
-offset_right = 380.0
-offset_bottom = 120.0
-texture = ExtResource("2_cnbk2")
-expand_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_b00jw")
 
 [node name="EnemyAtomonName" type="Label" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=1920892585]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 23.0
-offset_right = 304.0
-offset_bottom = 61.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.432
+anchor_top = 0.192
+anchor_right = 0.432
+anchor_bottom = 0.192
+offset_left = -140.16
+offset_top = -0.040000916
+offset_right = 139.84
+offset_bottom = 28.96
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("5_4iy4j")
 theme_override_font_sizes/font_size = 28
 text = "Enemy Name"
 
 [node name="EnemyAtomonLevel" type="Label" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=1912405891]
-layout_mode = 0
-offset_left = 293.0
-offset_top = 28.0
-offset_right = 333.0
-offset_bottom = 51.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.82400006
+anchor_top = 0.23300001
+anchor_right = 0.82400006
+anchor_bottom = 0.23300001
+offset_left = -20.120026
+offset_top = 0.03999901
+offset_right = 19.879974
+offset_bottom = 23.039999
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("5_4iy4j")
 theme_override_font_sizes/font_size = 20
@@ -145,23 +169,32 @@ theme_override_font_sizes/font_size = 20
 text = "1"
 
 [node name="EnemyAtomonHP" type="TextureProgressBar" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=842237167]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 53.0
-offset_right = 76.16669
-offset_bottom = 59.833336
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.44200003
+anchor_right = 0.5
+anchor_bottom = 0.44200003
+offset_left = -171.0
+offset_top = -0.04000473
+offset_right = -113.83331
+offset_bottom = 6.126663
 scale = Vector2(6, 6)
 nine_patch_stretch = true
-texture_under = ExtResource("3_77877")
-texture_over = ExtResource("3_77877")
-texture_progress = ExtResource("4_4iy4j")
+texture_under = ExtResource("5_4cw33")
+texture_over = ExtResource("6_s72o8")
+texture_progress = ExtResource("7_l7c5a")
 
 [node name="EnemyAtomonHPText" type="Label" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=978577713]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 93.0
-offset_right = 116.0
-offset_bottom = 115.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19500001
+anchor_top = 0.77500004
+anchor_right = 0.19500001
+anchor_bottom = 0.77500004
+offset_left = -42.100006
+offset_right = 41.899994
+offset_bottom = 21.999992
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("5_4iy4j")
 theme_override_font_sizes/font_size = 20
@@ -172,23 +205,24 @@ vertical_alignment = 1
 [node name="FriendlyAtomonInfo" type="Control" parent="CanvasLayer/HUD" unique_id=218999455]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchor_left = 0.033
+anchor_left = 0.126
 anchor_top = 0.758
-anchor_right = 0.22500001
-anchor_bottom = 0.9250001
-offset_left = 0.66000366
-offset_top = 0.23999023
-offset_right = -0.5000305
-offset_bottom = -6.1035156e-05
+anchor_right = 0.126
+anchor_bottom = 0.758
+offset_left = -183.48001
+offset_top = -41.76001
+offset_right = 183.51999
+offset_bottom = 78.23999
 grow_vertical = 0
 
 [node name="FriendlyAtomonPanel" type="TextureRect" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=390781912]
-layout_mode = 0
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 378.0
-offset_bottom = 118.0
-texture = ExtResource("2_cnbk2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_b00jw")
 expand_mode = 1
 
 [node name="FriendlyAtomonName" type="Label" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=2102198142]
@@ -225,16 +259,20 @@ theme_override_font_sizes/font_size = 20
 text = "1"
 
 [node name="FriendlyAtomonHP" type="TextureProgressBar" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=708244504]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 53.0
-offset_right = 76.16669
-offset_bottom = 59.833336
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.425
+anchor_right = 0.5
+anchor_bottom = 0.425
+offset_left = -170.5
+offset_right = -113.333
+offset_bottom = 6.167
 scale = Vector2(6, 6)
 nine_patch_stretch = true
-texture_under = ExtResource("3_77877")
-texture_over = ExtResource("3_77877")
-texture_progress = ExtResource("4_4iy4j")
+texture_under = ExtResource("5_4cw33")
+texture_over = ExtResource("6_s72o8")
+texture_progress = ExtResource("7_l7c5a")
 
 [node name="EXPBar" type="TextureProgressBar" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=274911389]
 layout_mode = 0
@@ -259,190 +297,189 @@ text = "0/100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DialogueBox" type="PanelContainer" parent="CanvasLayer" unique_id=925981202]
-visible = false
-anchors_preset = -1
-anchor_left = 0.44700003
-anchor_top = 0.69200003
-anchor_right = 0.753
-anchor_bottom = 0.9760001
-offset_left = 0.9399414
-offset_top = -0.24002075
-offset_right = -0.9400635
-offset_bottom = 0.27996826
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=221253998]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 133.0
+offset_right = 247.0
+offset_bottom = 189.0
+texture_normal = ExtResource("10_g2i5h")
+texture_pressed = ExtResource("11_vjfga")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="CommandUI" type="Control" parent="CanvasLayer" unique_id=762791792]
-layout_mode = 3
-anchor_left = 0.77800006
-anchor_top = 0.674
+[node name="Label" type="Label" parent="CanvasLayer/HUD/FriendlyAtomonInfo/TextureButton" unique_id=492963307]
+layout_mode = 1
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.44006348
-offset_top = -0.2800293
-offset_right = 5.0
-offset_bottom = -12.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="CommandPanel" type="TextureRect" parent="CanvasLayer/CommandUI" unique_id=808651164]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.081
-anchor_right = 0.901
-anchor_bottom = 1.0
-offset_left = 0.045001984
-offset_right = 0.054992676
+offset_left = 2.0
+offset_top = 11.0
+offset_right = 3.0
+offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_cnbk2")
-expand_mode = 1
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 28
+text = "Excite
+"
+horizontal_alignment = 1
+vertical_alignment = 3
+autowrap_mode = 3
 
-[node name="Button" type="Button" parent="CanvasLayer/CommandUI" unique_id=1481952495]
-layout_mode = 1
+[node name="BattleLog" type="RichTextLabel" parent="CanvasLayer" unique_id=1257588147]
 anchors_preset = -1
-anchor_left = -0.004
-anchor_top = 0.10300001
-anchor_right = 0.36900002
-anchor_bottom = 0.404
-offset_left = -0.21999991
-offset_top = 0.03099823
-offset_right = -0.20500183
-offset_bottom = -0.09200287
+anchor_left = 0.22500001
+anchor_top = 0.028
+anchor_right = 0.22500001
+anchor_bottom = 0.028
+offset_left = -341.50003
+offset_top = -0.15999985
+offset_right = 340.49997
+offset_bottom = 175.19199
 grow_horizontal = 2
 grow_vertical = 2
-disabled = true
-flat = true
-
-[node name="Attack" type="TouchScreenButton" parent="CanvasLayer/CommandUI/Button" unique_id=1589102689]
-position = Vector2(-1, -1)
-scale = Vector2(1.7500011, 1.4374998)
-texture_normal = ExtResource("7_svtvq")
-texture_pressed = ExtResource("8_8n08m")
-
-[node name="Button2" type="Button" parent="CanvasLayer/CommandUI" unique_id=1672070808]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.45700002
-anchor_top = 0.108
-anchor_right = 0.82400006
-anchor_bottom = 0.41900003
-offset_left = 18.634995
-offset_top = -0.08400154
-offset_right = -133.74402
-offset_bottom = -61.437004
-grow_horizontal = 2
-grow_vertical = 2
-disabled = true
-flat = true
-
-[node name="Fusion" type="TouchScreenButton" parent="CanvasLayer/CommandUI/Button2" unique_id=1985269453]
-position = Vector2(-22, 0)
-scale = Vector2(1.7499989, 1.437)
-texture_normal = ExtResource("10_k0oc4")
-texture_pressed = ExtResource("11_ejqjo")
-
-[node name="Button3" type="Button" parent="CanvasLayer/CommandUI" unique_id=542092034]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.002
-anchor_top = 0.52900004
-anchor_right = 0.36600003
-anchor_bottom = 0.82100004
-offset_left = -0.109999955
-offset_top = 0.032989502
-offset_right = 0.12998962
-offset_bottom = -0.08300781
-grow_horizontal = 2
-grow_vertical = 2
-disabled = true
-flat = true
-
-[node name="Atomons" type="TouchScreenButton" parent="CanvasLayer/CommandUI/Button3" unique_id=1634707561]
-position = Vector2(-2, -2)
-scale = Vector2(1.7499994, 1.4375)
-texture_normal = ExtResource("12_ugl38")
-texture_pressed = ExtResource("13_limpo")
-
-[node name="Button4" type="Button" parent="CanvasLayer/CommandUI" unique_id=1080118135]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.45400003
-anchor_top = 0.52900004
-anchor_right = 0.822
-anchor_bottom = 0.82100004
-offset_left = -0.030014038
-offset_top = 0.032989502
-offset_right = 0.20999146
-offset_bottom = -0.08300781
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-
-[node name="Run" type="TouchScreenButton" parent="CanvasLayer/CommandUI/Button4" unique_id=983749380]
-position = Vector2(-2, -2)
-scale = Vector2(1.75, 1.4375)
-texture_normal = ExtResource("14_gvh18")
-texture_pressed = ExtResource("15_vghoh")
+theme_override_colors/default_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_colors/font_outline_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/normal_font = ExtResource("5_4iy4j")
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+text = "test"
+vertical_alignment = 1
 
 [node name="MoveMenu" type="PanelContainer" parent="CanvasLayer" unique_id=621087706]
-visible = false
+self_modulate = Color(1, 1, 1, 0)
 anchors_preset = -1
-anchor_left = 0.611
-anchor_top = 0.71800005
-anchor_right = 0.744
-anchor_bottom = 0.93900007
-offset_left = -192.78003
-offset_top = -29.960022
-offset_right = 1.8800049
-offset_bottom = 32.91992
+anchor_left = 0.84200007
+anchor_top = 0.62200004
+anchor_right = 0.84200007
+anchor_bottom = 0.62200004
+offset_left = -258.16016
+offset_top = 0.15997314
+offset_right = 259.83984
+offset_bottom = 250.15997
 
 [node name="CommandPanel2" type="TextureRect" parent="CanvasLayer/MoveMenu" unique_id=1393610319]
 layout_mode = 2
-texture = ExtResource("2_cnbk2")
+texture = ExtResource("3_b00jw")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MoveMenu" unique_id=1921713693]
+[node name="CloseButton" type="TextureButton" parent="CanvasLayer/MoveMenu/CommandPanel2" unique_id=927271925]
+layout_mode = 0
+offset_left = 492.0
+offset_top = -11.0
+offset_right = 532.0
+offset_bottom = 29.0
+texture_normal = ExtResource("12_l7c5a")
+texture_pressed = ExtResource("13_g2i5h")
+stretch_mode = 0
+
+[node name="VBoxContainer" type="GridContainer" parent="CanvasLayer/MoveMenu" unique_id=1350003912]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
 
 [node name="Move1" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=532429083]
 layout_mode = 2
-disabled = true
+icon = SubResource("CompressedTexture2D_c225n")
 flat = true
 
-[node name="Move1" type="TouchScreenButton" parent="CanvasLayer/MoveMenu/VBoxContainer/Move1" unique_id=1897358698]
-position = Vector2(36, 27)
+[node name="Move1" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move1" unique_id=1166405098]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.091000006
+anchor_right = 0.952
+anchor_bottom = 0.90900004
+offset_left = -0.06405926
+offset_top = -0.007992744
+offset_right = -65.07883
+offset_bottom = -21.887627
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(1.7499989, 1.437)
-texture_normal = ExtResource("7_svtvq")
+theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+text = "Move 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Move2" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=2043350183]
 layout_mode = 2
-disabled = true
+icon = ExtResource("16_c225n")
 flat = true
 
-[node name="Move2" type="TouchScreenButton" parent="CanvasLayer/MoveMenu/VBoxContainer/Move2" unique_id=917681074]
-position = Vector2(36, 101.99999)
+[node name="Move2" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move2" unique_id=483671787]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.091000006
+anchor_right = 0.952
+anchor_bottom = 0.90900004
+offset_left = -0.06401396
+offset_top = -0.0079956055
+offset_right = -65.07884
+offset_bottom = -21.88763
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(1.7499989, 1.437)
-texture_normal = ExtResource("7_svtvq")
+theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+text = "Move 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Move3" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=595104115]
 layout_mode = 2
-disabled = true
+icon = ExtResource("16_c225n")
 flat = true
 
-[node name="Move3" type="TouchScreenButton" parent="CanvasLayer/MoveMenu/VBoxContainer/Move3" unique_id=390487987]
-position = Vector2(247.99998, 2.000002)
+[node name="Move3" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move3" unique_id=402327594]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.091000006
+anchor_right = 0.952
+anchor_bottom = 0.90900004
+offset_left = -0.0640316
+offset_top = -0.008030891
+offset_right = -65.0788
+offset_bottom = -21.887634
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(1.7499989, 1.437)
-texture_normal = ExtResource("7_svtvq")
+theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+text = "Move 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Move4" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=948089054]
 layout_mode = 2
-disabled = true
+icon = ExtResource("16_c225n")
 flat = true
 
-[node name="Move4" type="TouchScreenButton" parent="CanvasLayer/MoveMenu/VBoxContainer/Move4" unique_id=1840835562]
-position = Vector2(249.99998, 78.99999)
+[node name="Move4" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move4" unique_id=385878718]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.091000006
+anchor_right = 0.952
+anchor_bottom = 0.90900004
+offset_left = -0.06401777
+offset_top = -0.007989883
+offset_right = -65.07884
+offset_bottom = -21.887623
 scale = Vector2(1.7499989, 1.437)
-texture_normal = ExtResource("7_svtvq")
+theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+text = "Move 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="ItemMenu" type="PanelContainer" parent="CanvasLayer" unique_id=396706838]
 visible = false
@@ -455,24 +492,6 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ItemMenu/ScrollContainer" unique_id=1721109739]
 layout_mode = 2
 
-[node name="AtomonMenu" type="PanelContainer" parent="CanvasLayer" unique_id=859460732]
-visible = false
-anchors_preset = -1
-anchor_left = 0.397
-anchor_top = 0.592
-anchor_right = 0.753
-anchor_bottom = 1.057
-offset_left = -0.060058594
-offset_top = -0.23999023
-offset_right = -0.9400635
-offset_bottom = -0.040039063
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/AtomonMenu" unique_id=883791730]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AtomonMenu/ScrollContainer" unique_id=1387709076]
-layout_mode = 2
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=473527471]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=581017409]
@@ -480,10 +499,83 @@ stream = ExtResource("16_gwo5a")
 volume_db = 4.0
 autoplay = true
 
-[connection signal="pressed" from="CanvasLayer/CommandUI/Button/Attack" to="." method="_on_attack_pressed"]
-[connection signal="pressed" from="CanvasLayer/CommandUI/Button3/Atomons" to="." method="_on_atomons_pressed"]
-[connection signal="pressed" from="CanvasLayer/CommandUI/Button4/Run" to="." method="_on_run_pressed"]
+[node name="CommandUI" type="Control" parent="." unique_id=762791792]
+layout_mode = 1
+anchor_left = 0.84200007
+anchor_top = 0.62200004
+anchor_right = 0.84200007
+anchor_bottom = 0.62200004
+offset_left = -258.16016
+offset_top = 0.15997314
+offset_right = 259.83984
+offset_bottom = 250.15997
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="CommandPanel" type="TextureRect" parent="CommandUI" unique_id=808651164]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_b00jw")
+expand_mode = 1
+
+[node name="GridContainer" type="GridContainer" parent="CommandUI" unique_id=1058140013]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -229.0
+offset_top = -107.5
+offset_right = 229.0
+offset_bottom = 107.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 15
+columns = 2
+
+[node name="Attack" type="TextureButton" parent="CommandUI/GridContainer" unique_id=1390370771]
+custom_minimum_size = Vector2(220, 100)
+layout_mode = 2
+texture_normal = ExtResource("7_svtvq")
+texture_pressed = ExtResource("8_8n08m")
+stretch_mode = 0
+
+[node name="Fusion" type="TextureButton" parent="CommandUI/GridContainer" unique_id=250768487]
+custom_minimum_size = Vector2(220, 67)
+layout_mode = 2
+texture_normal = ExtResource("10_k0oc4")
+texture_pressed = ExtResource("11_ejqjo")
+stretch_mode = 0
+
+[node name="Atomons" type="TextureButton" parent="CommandUI/GridContainer" unique_id=1591039315]
+custom_minimum_size = Vector2(220, 100)
+layout_mode = 2
+texture_normal = ExtResource("12_ugl38")
+texture_pressed = ExtResource("13_limpo")
+stretch_mode = 0
+
+[node name="Run" type="TextureButton" parent="CommandUI/GridContainer" unique_id=1703971348]
+custom_minimum_size = Vector2(220, 67)
+layout_mode = 2
+texture_normal = ExtResource("14_gvh18")
+texture_pressed = ExtResource("15_vghoh")
+stretch_mode = 0
+
+[node name="BattleController" type="Node" parent="." unique_id=1091136324]
+script = ExtResource("21_4cw33")
+
+[connection signal="pressed" from="CanvasLayer/HUD/FriendlyAtomonInfo/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MoveMenu/CommandPanel2/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move1" to="." method="_on_move_1_pressed"]
 [connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move2" to="." method="_on_move_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move3" to="." method="_on_move_3_pressed"]
 [connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move4" to="." method="_on_move_4_pressed"]
+[connection signal="pressed" from="CommandUI/GridContainer/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="CommandUI/GridContainer/Atomons" to="." method="_on_atomons_pressed"]
+[connection signal="pressed" from="CommandUI/GridContainer/Run" to="." method="_on_run_pressed"]

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://xti26ayd3sst" path="res://Resources/Scripts/Effects/MoveEffect.gd" id="3_6pjqj"]
 [ext_resource type="Script" uid="uid://cgnlftqbacyqr" path="res://Resources/Scripts/Actions/StatusAction.gd" id="4_d32tp"]
 
-[sub_resource type="Resource" id="Resource_d8x5y"]
+[sub_resource type="Resource" id="Resource_6pjqj"]
 script = ExtResource("2_dchti")
 power = 30
 damage_type = "Special"
@@ -30,5 +30,5 @@ move_name = "H"
 description = "Bomb"
 accuracy = 80
 priority = 1
-actions = Array[ExtResource("1_2y7bv")]([SubResource("Resource_d8x5y"), SubResource("Resource_fcj85")])
+actions = Array[ExtResource("1_2y7bv")]([SubResource("Resource_6pjqj"), SubResource("Resource_fcj85")])
 metadata/_custom_type_script = "uid://c3r52ktnjg7y"

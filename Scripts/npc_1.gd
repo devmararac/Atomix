@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-@export var npc_id: String
 @export var npc_name: String
 @export var target_id: String
 

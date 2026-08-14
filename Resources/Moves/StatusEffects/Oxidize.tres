@@ -4,4 +4,7 @@
 
 [resource]
 script = ExtResource("1_qbnpm")
+value = null
+chance = null
+duration = null
 metadata/_custom_type_script = "uid://xti26ayd3sst"

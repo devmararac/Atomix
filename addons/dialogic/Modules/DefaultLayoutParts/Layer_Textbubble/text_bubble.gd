@@ -66,13 +66,14 @@ func _process(delta:float) -> void:
 	if base_position.x > center.x: influence_x = -influence_x
 	if base_position.y > center.y: influence_y = -influence_y
 	var edge_influence := Vector2(influence_x, influence_y)
+	var margin := Vector2(16, 48)
 
 	var direction := (base_direction + edge_influence).normalized()
 
 	var p: Vector2 = base_position + direction * (
 		safe_zone + lerp(bubble_rect.size.y, bubble_rect.size.x, abs(direction.x)) * 0.4
 		)
-	p = p.clamp(bubble_rect.size / 2.0, get_viewport_rect().size - bubble_rect.size / 2.0)
+	p = p.clamp(bubble_rect.size / 2.0+margin, get_viewport_rect().size - bubble_rect.size / 2.0+margin)
 
 	position = position.lerp(p, 5 * delta)
 
@@ -142,19 +143,42 @@ func _resize_bubble(content_size:Vector2, popup:=false) -> void:
 func _on_question_shown(info:Dictionary) -> void:
 	if !is_visible_in_tree():
 		return
-
-	# Avoid choice_container's flickering(because some ticks will happen in
-	# `await get_base_content_size()` which will make choice_container exist
-	# at its old position for several tens of milliseconds).
+	
+	
+	print("QUESTION SHOWN:", self)
+	
 	choice_container.modulate.a = 0
 
 	var content_size := await get_base_content_size()
-	content_size.y += choice_container.size.y
-	content_size.x = max(content_size.x, choice_container.size.x)
 	_resize_bubble(content_size)
 
-	# Now, choice_container has changed to its new position, so we can make it
-	# actually show up.
+	# Wait for the choices to calculate their real size
+	await get_tree().process_frame
+
+	var margin := 20
+	var viewport_size := get_viewport_rect().size
+
+	# Preferred position (below the dialogue bubble)
+	var desired_position := Vector2(
+		viewport_size.x / 2 - choice_container.size.x / 2,
+		viewport_size.y - choice_container.size.y - 50
+	)
+
+	# Keep inside screen boundaries
+	choice_container.position = Vector2(
+		clamp(
+			desired_position.x,
+			margin,
+			viewport_size.x - choice_container.size.x - margin
+		),
+		clamp(
+			desired_position.y,
+			margin,
+			viewport_size.y - choice_container.size.y - margin
+		)
+	)
+
+
 	choice_container.modulate.a = 1
 
 
@@ -183,12 +207,18 @@ func add_choice_container(node:Container, alignment:=FlowContainer.ALIGNMENT_BEG
 	if choice_container:
 		choice_container.get_parent().remove_child(choice_container)
 		choice_container.queue_free()
-
+		
+	
 	node.name = "ChoiceContainer"
 	choice_container = node
-	node.set_anchors_preset(LayoutPreset.PRESET_BOTTOM_WIDE)
-	node.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	text.add_child(node)
+
+	get_parent().add_child(node)
+
+	var viewport_size := get_viewport_rect().size
+	node.position = Vector2(
+		viewport_size.x / 2 - node.size.x / 2,
+		viewport_size.y - node.size.y - 50
+	)
 
 	if node is HFlowContainer:
 		(node as HFlowContainer).alignment = alignment

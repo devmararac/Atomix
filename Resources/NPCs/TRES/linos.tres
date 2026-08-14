@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="NPCData" format=3 uid="uid://dk5xx8427a8lg"]
+
+[ext_resource type="Resource" uid="uid://cjkf43ojlc3j8" path="res://Resources/NPCs/Dialogues/LinosDialogueData.tres" id="1_fuoic"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_qshg2"]
+[ext_resource type="Resource" uid="uid://cud1o61fkxw0o" path="res://Resources/Dialouges/Dialogic/Characters/linos.dch" id="1_xgsqs"]
+[ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_m1s1s"]
+[ext_resource type="Resource" uid="uid://cenrrrdoi305r" path="res://Resources/Quest/quest_hydrogen_001.tres" id="3_3ukpb"]
+[ext_resource type="Texture2D" uid="uid://dyynmoh413k80" path="res://Assets/NPC/Linos.png" id="3_m1s1s"]
+[ext_resource type="Resource" uid="uid://du77nqygcnca" path="res://Resources/Quest/quest_collect_iron.tres" id="4_xgsqs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fuoic"]
+atlas = ExtResource("3_m1s1s")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wy1y"]
+atlas = ExtResource("3_m1s1s")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ukpb"]
+atlas = ExtResource("3_m1s1s")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgsqs"]
+atlas = ExtResource("3_m1s1s")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2h0i"]
+atlas = ExtResource("3_m1s1s")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dcxv5"]
+atlas = ExtResource("3_m1s1s")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lljp7"]
+atlas = ExtResource("3_m1s1s")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_01uf6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fuoic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wy1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ukpb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgsqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2h0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dcxv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lljp7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[resource]
+script = ExtResource("2_m1s1s")
+npc_id = "npc_001"
+display_name = "Linos"
+sprite_frames = SubResource("SpriteFrames_01uf6")
+dialogic_character = ExtResource("1_xgsqs")
+dialogue_data = ExtResource("1_fuoic")
+quests = Array[ExtResource("1_qshg2")]([ExtResource("3_3ukpb"), ExtResource("4_xgsqs")])
+metadata/_custom_type_script = "uid://cn6cd03e4ht1w"
