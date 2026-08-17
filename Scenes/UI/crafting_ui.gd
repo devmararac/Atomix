@@ -150,11 +150,12 @@ func _on_element_selected(element: AtomonData, crafted: bool):
 	radioactive_value.text = "Yes" if element.radioactive else "No"
 	
 	
-func _on_craft_pressed():
+func _on_craft_pressed() -> void:
 	if selected_element == null:
 		return
 
 	print("CRAFTING: ", selected_element.atom_name)
+	print("SYMBOL: ", selected_element.chemical_symbol)
 
 	# Check party capacity first
 	if PartyManager.party.size() >= PartyManager.MAX_PARTY_SIZE:
@@ -172,15 +173,23 @@ func _on_craft_pressed():
 	for button in buttons:
 		if button.element_data == selected_element:
 			if button.is_crafted:
-				print("ALREADY CRAFTED: ", selected_element.atom_name)
+				print(
+					"ALREADY CRAFTED: ",
+					selected_element.atom_name
+				)
 				return
 			break
 
 	# Create the Atomon
-	var new_atomon := PartyManager.add_species(selected_element)
+	var new_atomon: AtomonInstance = PartyManager.add_species(
+		selected_element
+	)
 
 	if new_atomon == null:
-		print("FAILED TO CRAFT: ", selected_element.atom_name)
+		print(
+			"FAILED TO CRAFT: ",
+			selected_element.atom_name
+		)
 		return
 
 	# Mark the button as crafted
@@ -191,8 +200,29 @@ func _on_craft_pressed():
 
 	print("CRAFTED: ", selected_element.atom_name)
 
+	# ========================================================
+	# SAVE THE ACTUAL ELEMENT SYMBOL
+	# ========================================================
+
+	await StudentDataManager.collect_element(
+		selected_element.chemical_symbol
+	)
+
+	print(
+		"[CraftingUI] Saved element: ",
+		selected_element.chemical_symbol
+	)
+
+	print(
+		"[CraftingUI] Collected elements: ",
+		StudentDataManager.get_collected_elements()
+	)
+
 	# Immediately update the currently open info panel
-	_on_element_selected(selected_element, true)
+	_on_element_selected(
+		selected_element,
+		true
+	)
 
 
 func _on_close_button_pressed() -> void:

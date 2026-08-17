@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://t8wudrnfvec0" path="res://Scenes/scene_trigger.tscn" id="12_3kusq"]
 [ext_resource type="Shader" uid="uid://djgpqh4301gak" path="res://Assets/start_map.gdshader" id="14_6rw27"]
 [ext_resource type="Script" uid="uid://cr0wlc65mawv2" path="res://Scripts/sub_viewport.gd" id="14_b4cia"]
-[ext_resource type="Resource" uid="uid://b3t7logynq7t3" path="res://Resources/Atomons/Lithium.tres" id="14_kjb13"]
+[ext_resource type="Resource" uid="uid://b3t7logynq7t3" path="res://Resources/Atomons/lithium.tres" id="14_kjb13"]
 [ext_resource type="Texture2D" uid="uid://cjhxs40ndhss4" path="res://Assets/UX/HUD/mini_map.png" id="14_x8kuv"]
 [ext_resource type="Texture2D" uid="uid://cpjbrhj3kah6b" path="res://Assets/UX/Icons/arrow_up-1.png" id="16_6rw27"]
 [ext_resource type="PackedScene" uid="uid://deb16wmoo5crf" path="res://Atomons/Atomon.tscn" id="18_rmbbm"]
@@ -2936,7 +2936,6 @@ position = Vector2(156, 205)
 data = ExtResource("24_4i1l6")
 
 [node name="HUD" parent="." unique_id=116850924 instance=ExtResource("26_sp10x")]
-visible = false
 
 [node name="StaticBody2D" parent="." unique_id=1671308692 instance=ExtResource("28_rsgrb")]
 position = Vector2(24, 249)

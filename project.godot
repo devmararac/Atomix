@@ -13,7 +13,7 @@ config_version=5
 config/name="AtomiX: Chemistry Adventure"
 config/description="A 2D E-Learning Turn-Based Combat RPG Game for Chemistry Education Utilizing the Octet Rule"
 config/version="1.0"
-run/main_scene="uid://cv0xt3baocsfl"
+run/main_scene="res://Scenes/UI/MainMenu.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 boot_splash/image="uid://d2aqyitfx6wbb"
 config/icon="uid://d2aqyitfx6wbb"
@@ -21,7 +21,7 @@ boot_splash/minimum_display_time=3
 
 [audio]
 
-buses/default_bus_layout="uid://bbwukpvx63vtb"
+buses/default_bus_layout="uid://dsivhto7fp27b"
 
 [autoload]
 
@@ -43,6 +43,8 @@ BattleControllerGlobal="*uid://vt7nk5gwohmi"
 CraftingManager="*uid://c763ibn0makw5"
 FirebaseManager="*uid://c6sppeo4qpee3"
 StudentDataManager="*uid://cg20foxv38bnr"
+TeacherDataManager="*uid://1fvwit8ssfmp"
+FirebaseConfig="*uid://djexcsoc68yt2"
 
 [dialogic]
 

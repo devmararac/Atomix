@@ -1,18 +1,344 @@
-[gd_scene format=3 uid="uid://c8t1c58w0qcrr"]
+[gd_scene format=3 uid="uid://cvc5yt0fx31dm"]
 
-[node name="Students" type="Control" unique_id=389512980]
+[ext_resource type="Script" uid="uid://bsykqcnrmnyji" path="res://Scenes/Admin/students.gd" id="1_43a65"]
+[ext_resource type="PackedScene" uid="uid://cm3qhq0evy8fk" path="res://Scenes/Admin/student_row.tscn" id="2_bu631"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Panel"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.694118, 0.521569, 0.301961, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Input"]
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776, 0.627, 0.482, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Header"]
+bg_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Empty"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Students" type="Control" unique_id=98900790]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_43a65")
 
-[node name="Panel" type="Panel" parent="." unique_id=413590437]
-self_modulate = Color(1, 1, 1, 0)
+[node name="PageBackground" type="Panel" parent="." unique_id=1105366320]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Page")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground" unique_id=585897647]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/MarginContainer" unique_id=81784199]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=516084967]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 32
+text = "Students"
+
+[node name="Subtitle" type="Label" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=8267220]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
+theme_override_font_sizes/font_size = 18
+text = "Manage student accounts and monitor their activity."
+
+[node name="ToolbarPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=985052336]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel" unique_id=475500138]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer" unique_id=154251650]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SearchPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=33513852]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_Input")
+
+[node name="SearchInput" type="LineEdit" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SearchPanel" unique_id=916377585]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Search students..."
+clear_button_enabled = true
+
+[node name="FilterButton" type="OptionButton" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=772153593]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+selected = 0
+item_count = 3
+popup/item_0/text = "All Students"
+popup/item_0/id = 0
+popup/item_1/text = "Active"
+popup/item_1/id = 1
+popup/item_2/text = "Inactive"
+popup/item_2/id = 2
+
+[node name="SortButton" type="OptionButton" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=555980678]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+selected = 0
+item_count = 2
+popup/item_0/text = "Name"
+popup/item_0/id = 0
+popup/item_1/text = "Progress"
+popup/item_1/id = 2
+
+[node name="RefreshButton" type="Button" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1956880925]
+custom_minimum_size = Vector2(110, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+text = "↻ Refresh"
+
+[node name="AddStudentButton" type="Button" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1086870938]
+custom_minimum_size = Vector2(130, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+text = "+ Add Student"
+
+[node name="TablePanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=1235994843]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel" unique_id=1443335842]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer" unique_id=1562945664]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer" unique_id=1389778064]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Header")
+
+[node name="Columns" type="HBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header" unique_id=108677055]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns" unique_id=770665516]
+layout_mode = 2
+
+[node name="Number" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=815439092]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.26900002
+anchor_bottom = 0.731
+offset_left = 40.0
+offset_top = 0.01199913
+offset_right = 90.0
+offset_bottom = -0.012001038
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "#"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Student" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1775513030]
+layout_mode = 0
+offset_left = 279.0
+offset_top = 17.0
+offset_right = 346.0
+offset_bottom = 41.0
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "Student"
+vertical_alignment = 1
+
+[node name="Email" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=313986615]
+layout_mode = 0
+offset_left = 670.0
+offset_top = 17.0
+offset_right = 717.0
+offset_bottom = 41.0
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "Email"
+vertical_alignment = 1
+
+[node name="Rank" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=225739511]
+layout_mode = 0
+offset_left = 935.0
+offset_top = 14.0
+offset_right = 1092.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "Rank"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Elements Collected" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1318045409]
+layout_mode = 0
+offset_left = 1144.0
+offset_top = 14.0
+offset_right = 1301.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "Elements Collected"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Progress" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1868927534]
+layout_mode = 0
+offset_left = 1393.0
+offset_top = 14.0
+offset_right = 1465.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "Progress"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Status" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1458472231]
+layout_mode = 0
+offset_left = 1569.0
+offset_top = 14.0
+offset_right = 1624.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "Status"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LastActive" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1054529485]
+layout_mode = 0
+offset_left = 1688.0
+offset_top = 14.0
+offset_right = 1777.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "Last Active"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer" unique_id=315756135]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Rows" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1347610020]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="StudentContainer" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/ScrollContainer/Rows" unique_id=1654802566 instance=ExtResource("2_bu631")]
+layout_mode = 2
+
+[node name="EmptyState" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer" unique_id=1786010736]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Empty")
+
+[node name="Label" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/EmptyState" unique_id=2082275682]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -25.0
+offset_right = 200.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.7)
+theme_override_font_sizes/font_size = 22
+text = "No students found."
+horizontal_alignment = 1
+vertical_alignment = 1

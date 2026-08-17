@@ -1,0 +1,193 @@
+[gd_scene format=3 uid="uid://b1wvtl4pyuyj2"]
+
+[ext_resource type="Script" uid="uid://8xon8yexavvg" path="res://Scenes/Admin/add_student.gd" id="1_wpdm0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Panel"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.694118, 0.521569, 0.301961, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Input"]
+bg_color = Color(0.929412, 0.827451, 0.690196, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Cancel"]
+bg_color = Color(0.870588, 0.796078, 0.694118, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button"]
+bg_color = Color(0.470588, 0.352941, 0.235294, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[node name="AddStudent" type="Control" unique_id=715330153]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wpdm0")
+
+[node name="PageBackground" type="Panel" parent="." unique_id=944768351]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Page")
+
+[node name="CenterContainer" type="CenterContainer" parent="PageBackground" unique_id=756244458]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PageBackground/CenterContainer" unique_id=1492540295]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground/CenterContainer/Panel" unique_id=669086936]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/CenterContainer/Panel/MarginContainer" unique_id=1096639656]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=967999447]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 30
+text = "Add Student"
+
+[node name="Subtitle" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1282372883]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
+theme_override_font_sizes/font_size = 16
+text = "Create a new student account."
+
+[node name="NameLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1228066776]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+text = "Student Name"
+
+[node name="NameInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=876861073]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter student's name"
+
+[node name="EmailLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=734061473]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+text = "Email"
+
+[node name="EmailInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1235458927]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "student@example.com"
+
+[node name="PasswordLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=912370259]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+text = "Password"
+
+[node name="PasswordInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=136670305]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter temporary password"
+secret = true
+
+[node name="ConfirmPasswordLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1413886086]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+text = "Confirm Password"
+
+[node name="ConfirmPasswordInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=135398378]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Confirm password"
+secret = true
+
+[node name="StatusLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1194082152]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1832394788]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CancelButton" type="Button" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons" unique_id=1647845736]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Cancel")
+text = "Cancel"
+
+[node name="CreateButton" type="Button" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons" unique_id=14379244]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "Create Student"
+
+[connection signal="pressed" from="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons/CreateButton" to="." method="_on_create_button_pressed"]

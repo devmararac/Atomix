@@ -38,6 +38,49 @@ func add_species(species: AtomonData) -> AtomonInstance:
 	party.append(instance)
 	return instance
 
+# ============================================================
+# LOAD SAVED PARTY FROM STUDENT DATA
+# ============================================================
+
+func load_saved_party() -> void:
+
+	party.clear()
+	active_index = 0
+
+	var symbols: Array[String] = StudentDataManager.get_collected_elements()
+
+	print("[PartyManager] Loading saved Atomons...")
+	print("[PartyManager] Saved elements: ", symbols)
+
+	for symbol in symbols:
+
+		if not AtomonDatabase.ELEMENTS.has(symbol):
+			print("[PartyManager] No element data for: ", symbol)
+			continue
+
+		var species: AtomonData = AtomonDatabase.ELEMENTS[symbol]
+
+		if species == null:
+			print("[PartyManager] Null species data for: ", symbol)
+			continue
+
+		var atomon := add_species(species)
+
+		if atomon != null:
+			print(
+				"[PartyManager] Restored: ",
+				symbol,
+				" -> ",
+				species.atom_name
+			)
+
+	print(
+		"[PartyManager] Party restored: ",
+		party.size(),
+		"/",
+		MAX_PARTY_SIZE
+	)
+
 
 # ============================================================
 # REMOVE ATOMON
