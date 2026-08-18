@@ -15,6 +15,9 @@ extends Resource
 @export var party: Array[AtomonInstance]
 @export var active_index := 0
 
+# Firebase party state
+@export var firebase_party_data: Array = []
+
 # Inventory
 @export var inventory: Array[ItemInstance] = []
 

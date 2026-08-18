@@ -220,9 +220,9 @@ func create_student_document(
 	email: String
 ) -> bool:
 
-	# -------------------------
-	# CREATE USERS DOCUMENT
-	# -------------------------
+	# ========================================================
+	# USERS DOCUMENT
+	# ========================================================
 
 	var users = Firebase.Firestore.collection("users")
 
@@ -247,49 +247,110 @@ func create_student_document(
 	print("[AddStudent] Users document created.")
 
 
-	# -------------------------
-	# CREATE STUDENTS DOCUMENT
-	# -------------------------
+	# ========================================================
+	# STUDENTS DOCUMENT
+	# ========================================================
 
 	var students = Firebase.Firestore.collection("students")
 
+
 	var student_data := {
+
+		# ----------------------------------------------------
+		# BASIC STUDENT INFORMATION
+		# ----------------------------------------------------
+
 		"name": student_name,
 		"email": email,
 		"role": "student",
 
-		# -------------------------
+
+		# ----------------------------------------------------
 		# STUDENT PROGRESS
-		# -------------------------
+		# ----------------------------------------------------
+
 		"progress": {
+
 			"elements_total": 118,
+
 			"elements_collected": 0,
+
 			"collected_elements": []
 		},
 
-		# -------------------------
-		# GAME SAVE STATE
-		# -------------------------
+
+		# ----------------------------------------------------
+		# GAME STATE
+		# ----------------------------------------------------
+
 		"game_state": {
+
+			# New account has no saved game yet.
 			"has_save": false,
 
-			"current_scene": "res://Scenes/Areas/start_map.tscn",
 
+			# Default scene.
+			"current_scene":
+				"res://Scenes/Areas/start_map.tscn",
+
+
+			# These are intentionally the scene's
+			# default starting coordinates.
 			"player_position": {
+
 				"x": 0.0,
 				"y": 0.0
 			},
 
+
+			# Currency.
 			"coins": 0,
+
+
+			# Active battle-party slot.
 			"active_index": 0,
+
+
+			# ------------------------------------------------
+			# PARTY
+			#
+			# Empty for a new student.
+			#
+			# Later this becomes:
+			#
+			# party:
+			#   0:
+			#     chemical_symbol: "H"
+			#     atomic_number: 1
+			#     current_hp: ...
+			#     electron_energy: ...
+			#     excited_state: ...
+			#     active_excited_state: ...
+			#     current_pp: [...]
+			#     instance_id: ...
+			# ------------------------------------------------
+
 			"party": [],
+
+
+			# ------------------------------------------------
+			# INVENTORY
+			# ------------------------------------------------
+
 			"inventory": {}
 		}
 	}
 
+
+	# ========================================================
+	# CREATE STUDENT FIRESTORE DOCUMENT
+	# ========================================================
+
 	print("[AddStudent] Creating students document...")
 	print("[AddStudent] Document ID: ", uid)
 	print("[AddStudent] Game state initialized.")
+	print("[AddStudent] Party initialized: 0/15")
+	print("[AddStudent] Elements collected: 0/118")
 
 	var student_document: FirestoreDocument = await students.add(
 		uid,
@@ -297,10 +358,17 @@ func create_student_document(
 	)
 
 	if student_document == null:
-		print("[AddStudent] Failed to create students document.")
+
+		print(
+			"[AddStudent] Failed to create students document."
+		)
+
 		return false
 
-	print("[AddStudent] Students document created.")
+
+	print(
+		"[AddStudent] Students document created."
+	)
 
 	return true
 
