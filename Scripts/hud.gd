@@ -37,6 +37,8 @@ func _on_save_pressed() -> void:
 func _on_load_pressed() -> void:
 	SfxManager.play_click()
 	SaveManager.load_game()
+	PartyManager.load_saved_party()
+
 
 func _on_item_pressed() -> void:
 	SfxManager.play_click()

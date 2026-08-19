@@ -75,15 +75,7 @@ func _on_student_loaded(data: Dictionary) -> void:
 	print("[MainMenu] Student data loaded.")
 	print("[MainMenu] Student: ", data)
 
-	# Restore the student's saved Atomons.
-	PartyManager.load_saved_party()
-
-	print(
-		"[MainMenu] Restored party size: ",
-		PartyManager.party.size()
-	)
-
-	status_label.text = "Welcome, " + str(data.get("name", "Student")) + "!"
+	status_label.text = "Welcome, " + str(data.get("name", "Student"))
 
 	auth_panel.hide()
 	buttons_start.show()

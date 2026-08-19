@@ -29,13 +29,15 @@ var current_category := Category.ALL
 
 func _ready():
 	CurrencyManager.coins_changed.connect(_on_coins_changed)
+	InventoryManager.inventory_changed.connect(_on_inventory_changed)
+
 	_on_coins_changed(CurrencyManager.coins)
-	
+
 	all_button.pressed.connect(_on_all_pressed)
 	item_button.pressed.connect(_on_item_pressed)
 	consumable_button.pressed.connect(_on_consumable_pressed)
 	quest_button.pressed.connect(_on_quest_pressed)
-	
+
 	clear_description()
 	load_category(Category.ALL)
 
@@ -96,6 +98,10 @@ func refresh_inventory():
 
 
 func show_item(item: ItemInstance):
+	print("SHOWING ITEM: ", item.data.item_id)
+	print("NAME: ", item.data.item_name)
+	print("DESCRIPTION: ", item.data.description)
+
 	item_panel.visible = true
 	item_icon.visible = true
 	item_name.visible = true
@@ -126,3 +132,7 @@ func close():
 func _on_close_pressed() -> void:
 	SfxManager.play_click()
 	queue_free()
+
+
+func _on_inventory_changed() -> void:
+	refresh_inventory()

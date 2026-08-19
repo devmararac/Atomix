@@ -2,33 +2,42 @@ extends Node
 
 var items: Dictionary = {}
 
+# Explicitly load all ItemData resources
+var item_resources: Array[ItemData] = [
+	preload("res://Resources/Items/AtomicCore.tres"),
+	preload("res://Resources/Items/Electron.tres"),
+	preload("res://Resources/Items/Glass_shard.tres"),
+	preload("res://Resources/Items/HP_Potion.tres"),
+	preload("res://Resources/Items/Iron_ore.tres"),
+	preload("res://Resources/Items/Letter.tres"),
+	preload("res://Resources/Items/Neutron.tres"),
+	preload("res://Resources/Items/Proton.tres")
+]
+
+
 func _ready():
 	load_items()
+
+	print("[ItemDatabase] Total items loaded: ", items.size())
+
+	if items.has("item_004"):
+		print("[ItemDatabase] item_004 FOUND")
+	else:
+		print("[ItemDatabase] item_004 NOT FOUND")
+
 
 func load_items():
 	items.clear()
 
-	var dir = DirAccess.open("res://Resources/Items")
-
-	if dir == null:
-		push_error("ItemDatabase: Cannot open res://Resources/Items")
-		return
-
-	dir.list_dir_begin()
-
-	var file_name = dir.get_next()
-
-	while file_name != "":
-		if !dir.current_is_dir():
-			if file_name.ends_with(".tres"):
-				var item = load("res://Resources/Items/" + file_name)
-
-				if item is ItemData:
-					items[item.item_id] = item
-
-		file_name = dir.get_next()
-
-	dir.list_dir_end()
+	for item in item_resources:
+		if item != null:
+			items[item.item_id] = item
+			print(
+				"[ItemDatabase] Loaded: ",
+				item.item_id,
+				" -> ",
+				item.item_name
+			)
 
 
 func get_item(item_id: String) -> ItemData:

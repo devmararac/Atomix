@@ -1,11 +1,11 @@
 extends Node
 
+signal inventory_changed
 var inventory: Array[ItemInstance] = []
 
 
 func add_item(item: ItemInstance):
 
-	# Try to stack
 	if item.data.stackable:
 		for existing in inventory:
 			if existing.data.item_id == item.data.item_id:
@@ -17,15 +17,18 @@ func add_item(item: ItemInstance):
 					existing.quantity += amount
 					item.quantity -= amount
 
+					inventory_changed.emit()
+
 					if item.quantity <= 0:
 						return
 
-	# Anything left becomes a new stack
 	inventory.append(item)
+	inventory_changed.emit()
 
 
 func remove_item(item: ItemInstance):
 	inventory.erase(item)
+	inventory_changed.emit()
 
 
 func get_items() -> Array[ItemInstance]:
@@ -51,7 +54,7 @@ func has_item(item_id: String, amount: int) -> bool:
 
 func remove_item_by_id(item_id: String, amount: int) -> bool:
 
-	if !has_item(item_id, amount):
+	if not has_item(item_id, amount):
 		return false
 
 	var remaining := amount
@@ -63,12 +66,14 @@ func remove_item_by_id(item_id: String, amount: int) -> bool:
 
 		if item.quantity > remaining:
 			item.quantity -= remaining
+			inventory_changed.emit()
 			return true
 
 		remaining -= item.quantity
 		inventory.erase(item)
 
 		if remaining <= 0:
+			inventory_changed.emit()
 			return true
 
 	return true

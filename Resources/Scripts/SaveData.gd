@@ -17,6 +17,7 @@ extends Resource
 
 # Firebase party state
 @export var firebase_party_data: Array = []
+@export var firebase_inventory_data: Array = []
 
 # Inventory
 @export var inventory: Array[ItemInstance] = []

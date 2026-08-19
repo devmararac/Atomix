@@ -1,62 +1,43 @@
 extends Node
 
-
 var save_data: SaveData = null
-
 
 # ============================================================
 # SAVE GAME
 # ============================================================
-
 func save_game() -> void:
-
 	if not StudentDataManager.is_student_logged_in():
 		print("[SaveManager] Cannot save. No student is logged in.")
 		return
-
 	if global.player == null:
 		print("[SaveManager] Cannot save. Player does not exist.")
 		return
-
 	var uid := StudentDataManager.get_student_uid()
-
 	if uid.is_empty():
 		print("[SaveManager] Cannot save. Student UID is empty.")
 		return
-
-
 	save_data = SaveData.new()
-
 
 	# --------------------------------------------------------
 	# PLAYER
 	# --------------------------------------------------------
-
 	save_data.player_name = "Player"
 	save_data.coins = CurrencyManager.coins
-
 	save_data.current_scene = (
 		get_tree().current_scene.scene_file_path
 	)
-
 	save_data.player_position = (
 		global.player.global_position
 	)
 
-
 	# --------------------------------------------------------
 	# PARTY
 	# --------------------------------------------------------
-
 	save_data.party = PartyManager.party.duplicate(true)
 	save_data.active_index = PartyManager.active_index
-
 	print("===== SAVING PARTY =====")
-
 	for atomon in PartyManager.party:
-
 		if atomon != null and atomon.data != null:
-
 			print(
 				"[SaveManager] ",
 				atomon.data.chemical_symbol,
@@ -65,16 +46,11 @@ func save_game() -> void:
 				" PP: ",
 				atomon.current_pp
 			)
-
-
 	# --------------------------------------------------------
 	# INVENTORY
 	# --------------------------------------------------------
 
-	save_data.inventory = (
-		InventoryManager.inventory.duplicate(true)
-	)
-
+	save_data.inventory = (InventoryManager.inventory.duplicate(true))
 
 	print("[SaveManager] Scene: ", save_data.current_scene)
 	print("[SaveManager] Position: ", save_data.player_position)
@@ -82,25 +58,19 @@ func save_game() -> void:
 	print("[SaveManager] Party size: ", save_data.party.size())
 	print("[SaveManager] Inventory size: ", save_data.inventory.size())
 
-
 	# --------------------------------------------------------
 	# UPLOAD
 	# --------------------------------------------------------
-
 	await upload_to_firebase()
-
-
+	
 # ============================================================
 # LOAD GAME
 # ============================================================
-
 func load_game() -> void:
-
 	if not StudentDataManager.is_student_logged_in():
 		print("[SaveManager] Cannot load. No student is logged in.")
 		return
-
-
+		
 	print("[SaveManager] Downloading student's saved game...")
 
 	var success := await download_from_firebase()
@@ -113,55 +83,33 @@ func load_game() -> void:
 		print("[SaveManager] Save data is null.")
 		return
 
-
 	# --------------------------------------------------------
 	# COINS
 	# --------------------------------------------------------
-
-	CurrencyManager.set_coins(
-		save_data.coins
-	)
-
+	CurrencyManager.set_coins(save_data.coins)
 
 	# --------------------------------------------------------
 	# INVENTORY
 	# --------------------------------------------------------
-
 	InventoryManager.inventory.clear()
-
 	for item in save_data.inventory:
-
 		if item == null:
 			continue
+		InventoryManager.add_item(item.duplicate(true))
 
-		InventoryManager.add_item(
-			item.duplicate(true)
-		)
-
-	print(
-		"[SaveManager] Inventory loaded: ",
-		InventoryManager.inventory.size()
-	)
-
+	print("[SaveManager] Inventory loaded: ", InventoryManager.inventory.size())
 
 	# --------------------------------------------------------
 	# CHANGE TO SAVED SCENE
 	# --------------------------------------------------------
-
 	if save_data.current_scene.is_empty():
 		print("[SaveManager] Saved scene is empty.")
 		return
 
+	print("[SaveManager] Loading scene: ",save_data.current_scene)
 
-	print(
-		"[SaveManager] Loading scene: ",
-		save_data.current_scene
-	)
-
-	await get_tree().change_scene_to_file(
-		save_data.current_scene
-	)
-
+	@warning_ignore("redundant_await")
+	await get_tree().change_scene_to_file(save_data.current_scene)
 	await get_tree().process_frame
 	await get_tree().process_frame
 
@@ -169,12 +117,9 @@ func load_game() -> void:
 	# --------------------------------------------------------
 	# RESTORE PLAYER POSITION
 	# --------------------------------------------------------
-
 	if global.player != null:
 
-		global.player.global_position = (
-			save_data.player_position
-		)
+		global.player.global_position = (save_data.player_position)
 
 		print(
 			"[SaveManager] Player position restored: ",
@@ -193,6 +138,7 @@ func load_game() -> void:
 	# --------------------------------------------------------
 
 	apply_saved_party_state()
+	apply_saved_inventory_state()
 
 
 # ============================================================
@@ -264,7 +210,25 @@ func upload_to_firebase() -> bool:
 	# SERIALIZE INVENTORY
 	# --------------------------------------------------------
 
-	var firebase_inventory := {}
+	var firebase_inventory: Array = []
+
+	for item in save_data.inventory:
+
+		if item == null:
+			continue
+
+		var item_dict := item.to_save_dict()
+
+		if item_dict.is_empty():
+			continue
+
+		firebase_inventory.append(item_dict)
+
+
+	print(
+		"[SaveManager] Firebase inventory size: ",
+		firebase_inventory.size()
+	)
 
 	# Keep this empty for now because ItemInstance
 	# serialization has not been implemented yet.
@@ -466,18 +430,6 @@ func download_from_firebase() -> bool:
 		game_state.get("active_index", 0)
 	)
 
-
-	# --------------------------------------------------------
-	# PARTY SAVE DATA
-	#
-	# We DON'T reconstruct the Atomons here.
-	#
-	# PartyManager already reconstructs them from
-	# progress.collected_elements.
-	#
-	# We only keep the Firebase dictionaries temporarily.
-	# --------------------------------------------------------
-
 	var firebase_party = game_state.get(
 		"party",
 		[]
@@ -490,11 +442,6 @@ func download_from_firebase() -> bool:
 			firebase_party.size()
 		)
 
-		# Store them temporarily.
-		#
-		# We use metadata on SaveData because the actual
-		# AtomonData Resources should NOT come from Firebase.
-
 		save_data.firebase_party_data = (
 			firebase_party.duplicate(true)
 		)
@@ -504,7 +451,21 @@ func download_from_firebase() -> bool:
 	# INVENTORY
 	# --------------------------------------------------------
 
-	# Inventory serialization will be implemented later.
+	var firebase_inventory = game_state.get(
+		"inventory",
+		[]
+	)
+
+	if firebase_inventory is Array:
+
+		print(
+			"[SaveManager] Firebase inventory entries: ",
+			firebase_inventory.size()
+		)
+
+		save_data.firebase_inventory_data = (
+			firebase_inventory.duplicate(true)
+		)
 
 	print(
 		"[SaveManager] Game state downloaded."
@@ -639,6 +600,74 @@ func apply_saved_party_state() -> void:
 		"[SaveManager] Saved party state applied."
 	)
 
+# ============================================================
+# APPLY SAVED INVENTORY STATE
+# ============================================================
+
+func apply_saved_inventory_state() -> void:
+
+	if save_data == null:
+		print("[SaveManager] ERROR: save_data is null")
+		return
+
+	var firebase_inventory: Array = save_data.firebase_inventory_data
+
+	print("[SaveManager] ===== APPLYING INVENTORY =====")
+	print("[SaveManager] Firebase inventory count: ", firebase_inventory.size())
+
+	InventoryManager.inventory.clear()
+
+	if firebase_inventory.is_empty():
+		print("[SaveManager] No saved inventory.")
+		return
+
+	for saved_item in firebase_inventory:
+
+		print("[SaveManager] Saved item data: ", saved_item)
+
+		if not saved_item is Dictionary:
+			print("[SaveManager] ERROR: saved item is not Dictionary")
+			continue
+
+		var item_id := str(
+			saved_item.get("item_id", "")
+		)
+
+		print("[SaveManager] Looking for item ID: ", item_id)
+
+		if item_id.is_empty():
+			print("[SaveManager] ERROR: Item ID is empty")
+			continue
+
+		var item_data: ItemData = ItemDatabase.get_item(item_id)
+
+		if item_data == null:
+			print("[SaveManager] ERROR: ItemDatabase cannot find: ", item_id)
+			continue
+
+		print(
+			"[SaveManager] ItemDatabase found: ",
+			item_data.item_id
+		)
+
+		var item_instance := ItemInstance.new()
+
+		item_instance.data = item_data
+		item_instance.apply_save_dict(saved_item)
+
+		InventoryManager.add_item(item_instance)
+
+		print(
+			"[SaveManager] RESTORED: ",
+			item_id,
+			" x",
+			item_instance.quantity
+		)
+
+	print(
+		"[SaveManager] FINAL INVENTORY COUNT: ",
+		InventoryManager.inventory.size()
+	)
 
 # ============================================================
 # COLLECT GAME DATA
