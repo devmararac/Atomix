@@ -12,7 +12,7 @@ func save_game() -> void:
 	if global.player == null:
 		print("[SaveManager] Cannot save. Player does not exist.")
 		return
-	var uid := StudentDataManager.get_student_uid()
+	var uid: String = StudentDataManager.get_student_uid()
 	if uid.is_empty():
 		print("[SaveManager] Cannot save. Student UID is empty.")
 		return
@@ -152,7 +152,7 @@ func upload_to_firebase() -> bool:
 		return false
 
 
-	var uid := StudentDataManager.get_student_uid()
+	var uid: String = StudentDataManager.get_student_uid()
 
 	if uid.is_empty():
 		print("[SaveManager] Cannot upload. UID is empty.")
@@ -302,7 +302,7 @@ func upload_to_firebase() -> bool:
 
 func download_from_firebase() -> bool:
 
-	var uid := StudentDataManager.get_student_uid()
+	var uid: String = StudentDataManager.get_student_uid()
 
 	if uid.is_empty():
 

@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var hud = $HUD
-@onready var mini_map = $CanvasLayer
+@onready var mini_map = $Minimap
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

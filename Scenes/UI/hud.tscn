@@ -25,8 +25,11 @@
 [ext_resource type="Texture2D" uid="uid://b0deicj16u8gm" path="res://Assets/UX/HUD/close.png" id="21_y7nnf"]
 [ext_resource type="Texture2D" uid="uid://cq0wtxqc848xe" path="res://Assets/UX/HUD/close_pressed.png" id="22_yv5wq"]
 [ext_resource type="AudioStream" uid="uid://nc0rgldh1q75" path="res://Assets/Music/SFX/click.wav" id="25_n5w8m"]
-[ext_resource type="Texture2D" uid="uid://b3ioxidxpjgox" path="res://Assets/UX/Buttons/Normal/atomons_button.png" id="26_mu5ro"]
-[ext_resource type="Texture2D" uid="uid://c3vm5i558q04l" path="res://Assets/UX/Buttons/On-Pressed/atomons_button_pressed.png" id="27_lb081"]
+[ext_resource type="Script" uid="uid://r2e52tv6o0w4" path="res://Scripts/hot_bar.gd" id="27_yxyk2"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="28_q8e8b"]
+[ext_resource type="PackedScene" uid="uid://b7216b326p7rv" path="res://Scenes/UI/item_slot.tscn" id="29_f1jpe"]
+[ext_resource type="Texture2D" uid="uid://e684byx18ghc" path="res://Assets/UX/HUD/Panels/slot - Copy.png" id="30_mgdch"]
+[ext_resource type="Texture2D" uid="uid://c1ci74yagfgra" path="res://Assets/UX/HUD/Panels/slot_pressed - Copy.png" id="31_k32gu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_furuj"]
 texture = ExtResource("4_n5w8m")
@@ -54,6 +57,11 @@ texture = ExtResource("22_yv5wq")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f13sg"]
 texture = ExtResource("21_y7nnf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yl4g0"]
+texture = ExtResource("28_q8e8b")
+texture_margin_left = 9.0
+texture_margin_right = 9.0
 
 [node name="HUD" type="CanvasLayer" unique_id=116850924 groups=["HUD"]]
 script = ExtResource("1_pc4p0")
@@ -114,23 +122,26 @@ size_flags_vertical = 3
 
 [node name="ActionButtons" type="HBoxContainer" parent="." unique_id=1631709524]
 anchors_preset = -1
-anchor_left = 0.771
-anchor_top = 0.661
-anchor_right = 0.92200005
-anchor_bottom = 0.87700003
-offset_left = -0.059936523
-offset_top = 0.3279724
-offset_right = -199.03992
-offset_bottom = -103.191956
+anchor_left = 0.792
+anchor_top = 0.668
+anchor_right = 0.985
+anchor_bottom = 0.962
+offset_left = -0.16003418
+offset_top = 0.040008545
+offset_right = -253.8241
+offset_bottom = -140.50696
 scale = Vector2(2.9811127, 2.979179)
 
 [node name="Interact" type="TouchScreenButton" parent="ActionButtons" unique_id=814973628]
+position = Vector2(-1.006, 2.685)
+scale = Vector2(1.37, 1.37)
 texture_normal = ExtResource("6_e17ao")
 texture_pressed = ExtResource("7_iiebs")
 action = "Interact"
 
 [node name="Action" type="TouchScreenButton" parent="ActionButtons" unique_id=663166077]
-position = Vector2(60.876587, -0.08323965)
+position = Vector2(63.734, 2.685)
+scale = Vector2(1.37, 1.37)
 texture_normal = ExtResource("7_0hfmd")
 texture_pressed = ExtResource("9_n5w8m")
 action = "Action"
@@ -179,6 +190,7 @@ texture_normal = ExtResource("18_njpji")
 texture_pressed = ExtResource("19_wae4w")
 
 [node name="QuestLogPanel" type="Panel" parent="." unique_id=1095896620]
+visible = false
 anchors_preset = -1
 anchor_left = 0.26000002
 anchor_top = 0.124000005
@@ -327,18 +339,62 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("25_n5w8m")
 volume_db = -18.2
 
-[node name="TextureButton" type="TextureButton" parent="." unique_id=372907492]
+[node name="HotBar" type="Panel" parent="." unique_id=897005149]
 anchors_preset = -1
-anchor_left = 0.92700005
-anchor_top = 0.49300003
-anchor_right = 0.92700005
-anchor_bottom = 0.49300003
-offset_left = -113.46008
-offset_top = 0.039978027
-offset_right = 111.53992
-offset_bottom = 100.03998
-texture_normal = ExtResource("26_mu5ro")
-texture_pressed = ExtResource("27_lb081")
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 0.9
+offset_left = -473.0
+offset_top = -59.0
+offset_right = 472.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_yl4g0")
+script = ExtResource("27_yxyk2")
+
+[node name="HotBarSlotContainer" type="HBoxContainer" parent="HotBar" unique_id=555014333]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.5
+offset_top = 8.0
+offset_right = -9.5
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemSlot" parent="HotBar/HotBarSlotContainer" unique_id=935584709 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot2" parent="HotBar/HotBarSlotContainer" unique_id=1519693495 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot3" parent="HotBar/HotBarSlotContainer" unique_id=1647758245 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot4" parent="HotBar/HotBarSlotContainer" unique_id=2018452969 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot5" parent="HotBar/HotBarSlotContainer" unique_id=891374665 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot6" parent="HotBar/HotBarSlotContainer" unique_id=1662194259 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot7" parent="HotBar/HotBarSlotContainer" unique_id=1662997821 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot8" parent="HotBar/HotBarSlotContainer" unique_id=542670108 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="Menu" type="TextureButton" parent="HotBar/HotBarSlotContainer" unique_id=1303642027]
+custom_minimum_size = Vector2(99, 50)
+layout_mode = 2
+texture_normal = ExtResource("30_mgdch")
+texture_pressed = ExtResource("31_k32gu")
 stretch_mode = 0
 
 [connection signal="pressed" from="MenuButtons/Item" to="." method="_on_item_pressed"]
@@ -346,4 +402,4 @@ stretch_mode = 0
 [connection signal="pressed" from="MenuButtons/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="MenuButtons/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="QuestLogPanel/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="HotBar/HotBarSlotContainer/Menu" to="." method="_on_menu_pressed"]

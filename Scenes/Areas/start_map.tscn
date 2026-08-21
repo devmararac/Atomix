@@ -14,11 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://db2ylo8k68p25" path="res://Scenes/NPCs/andrew.tscn" id="10_6akuu"]
 [ext_resource type="AudioStream" uid="uid://laeg7bjtd3bi" path="res://Assets/Music/Partys Cancelled - RoccoW _ Chiptune [No Copyright Music].mp3" id="11_ucnbf"]
 [ext_resource type="PackedScene" uid="uid://t8wudrnfvec0" path="res://Scenes/scene_trigger.tscn" id="12_3kusq"]
-[ext_resource type="Shader" uid="uid://djgpqh4301gak" path="res://Assets/start_map.gdshader" id="14_6rw27"]
-[ext_resource type="Script" uid="uid://cr0wlc65mawv2" path="res://Scripts/sub_viewport.gd" id="14_b4cia"]
 [ext_resource type="Resource" uid="uid://b3t7logynq7t3" path="res://Resources/Atomons/lithium.tres" id="14_kjb13"]
-[ext_resource type="Texture2D" uid="uid://cjhxs40ndhss4" path="res://Assets/UX/HUD/mini_map.png" id="14_x8kuv"]
-[ext_resource type="Texture2D" uid="uid://cpjbrhj3kah6b" path="res://Assets/UX/Icons/arrow_up-1.png" id="16_6rw27"]
 [ext_resource type="PackedScene" uid="uid://deb16wmoo5crf" path="res://Atomons/Atomon.tscn" id="18_rmbbm"]
 [ext_resource type="PackedScene" uid="uid://4uukj8h8cvw0" path="res://Scenes/Atomons/hydrogen_observation.tscn" id="19_qwoho"]
 [ext_resource type="Resource" uid="uid://bmaldmvsapygf" path="res://Resources/Atomons/Oxygen.tres" id="20_qwoho"]
@@ -26,6 +22,7 @@
 [ext_resource type="Resource" uid="uid://dbfu76bgo27bq" path="res://Resources/Items/Glass_shard.tres" id="22_pc3gm"]
 [ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="23_ucnbf"]
 [ext_resource type="Resource" uid="uid://dk5xx8427a8lg" path="res://Resources/NPCs/TRES/linos.tres" id="24_4i1l6"]
+[ext_resource type="PackedScene" uid="uid://bn52xk2xw4mg8" path="res://Scenes/UI/minimap.tscn" id="26_ky5g8"]
 [ext_resource type="PackedScene" uid="uid://58her1ab75n5" path="res://Scenes/UI/hud.tscn" id="26_sp10x"]
 [ext_resource type="PackedScene" uid="uid://wi6lfrx4um8v" path="res://Scenes/Objects/Vegetation/Trees/tree.tscn" id="27_ky5g8"]
 [ext_resource type="PackedScene" uid="uid://dqlebs6rggtl4" path="res://Scenes/Objects/water_plash.tscn" id="28_rsgrb"]
@@ -2240,9 +2237,6 @@ size = Vector2(28, 11)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc3gm"]
 size = Vector2(10, 8)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_313yg"]
-shader = ExtResource("14_6rw27")
-
 [node name="map" type="Node2D" unique_id=1186236317]
 y_sort_enabled = true
 script = ExtResource("1_rsgrb")
@@ -2836,73 +2830,6 @@ volume_db = -15.0
 pitch_scale = 1.01
 autoplay = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=214176876]
-visible = false
-
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=1309588193]
-clip_contents = true
-layout_mode = 3
-anchor_left = 0.0050000004
-anchor_right = 0.0050000004
-offset_left = 0.09999943
-offset_top = -4.0
-offset_right = 322.1
-offset_bottom = 262.0
-grow_horizontal = 0
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Control" unique_id=1729569216]
-material = SubResource("ShaderMaterial_313yg")
-clip_contents = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.29500002
-anchor_top = -0.33100003
-anchor_right = 1.2950001
-anchor_bottom = 1.3310001
-offset_left = -0.009994507
-offset_top = -0.051994324
-offset_right = 0.009979248
-offset_bottom = 0.051971436
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Control/SubViewportContainer" unique_id=1775944131]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(560, 512)
-render_target_update_mode = 0
-script = ExtResource("14_b4cia")
-
-[node name="Camera2D" type="Camera2D" parent="CanvasLayer/Control/SubViewportContainer/SubViewport" unique_id=926278408]
-position = Vector2(113, -4)
-zoom = Vector2(0.6, 0.6)
-
-[node name="Marker" type="TextureRect" parent="CanvasLayer/Control" unique_id=965932480]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.46500003
-anchor_top = 0.45100003
-anchor_right = 0.535
-anchor_bottom = 0.549
-offset_left = 0.019989014
-offset_top = 0.033988953
-offset_right = -0.020004272
-offset_bottom = -0.03401184
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("16_6rw27")
-
-[node name="Map" type="TextureRect" parent="CanvasLayer/Control" unique_id=318553846]
-clip_children = 2
-clip_contents = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("14_x8kuv")
-
 [node name="HydrogenObservation" parent="." unique_id=238339346 instance=ExtResource("19_qwoho")]
 position = Vector2(999, 599)
 dialogue_timeline = "observe_hydrogen_2"
@@ -2936,6 +2863,11 @@ position = Vector2(156, 205)
 data = ExtResource("24_4i1l6")
 
 [node name="HUD" parent="." unique_id=116850924 instance=ExtResource("26_sp10x")]
+visible = false
 
 [node name="StaticBody2D" parent="." unique_id=1671308692 instance=ExtResource("28_rsgrb")]
 position = Vector2(24, 249)
+
+[node name="Minimap" parent="." unique_id=438677015 instance=ExtResource("26_ky5g8")]
+visible = false
+player_path = NodePath("../OBJECTS/Player")
