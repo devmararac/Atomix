@@ -202,3 +202,139 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> voi
 
 			if quest.is_completed():
 				handle_quest_completion(quest)
+
+
+# ============================================================
+# SAVE ALL QUESTS
+# ============================================================
+
+func get_save_data() -> Dictionary:
+	var data := {
+		"active_quests": {},
+		"completed_quests": {},
+		"tracked_quest_id": ""
+	}
+
+	for quest_id in active_quests:
+		var quest: Quest = active_quests[quest_id]
+
+		if quest != null:
+			data["active_quests"][quest_id] = quest.to_save_dict()
+
+	for quest_id in completed_quests:
+		var quest: Quest = completed_quests[quest_id]
+
+		if quest != null:
+			data["completed_quests"][quest_id] = quest.to_save_dict()
+
+	if tracked_quest != null:
+		data["tracked_quest_id"] = tracked_quest.quest_id
+
+	return data
+
+
+# ============================================================
+# LOAD ALL QUESTS
+# ============================================================
+
+func load_save_data(data: Dictionary) -> void:
+
+	active_quests.clear()
+	completed_quests.clear()
+	tracked_quest = null
+
+	# --------------------------------------------------------
+	# ACTIVE QUESTS
+	# --------------------------------------------------------
+
+	var saved_active: Dictionary = data.get(
+		"active_quests",
+		{}
+	)
+
+	for quest_id in saved_active:
+
+		if not quest_database.has(quest_id):
+			print(
+				"[QuestManager] Quest not found: ",
+				quest_id
+			)
+			continue
+
+		var quest: Quest = (
+			quest_database[quest_id].duplicate(true)
+		)
+
+		quest.apply_save_dict(
+			saved_active[quest_id]
+		)
+
+		active_quests[quest_id] = quest
+
+
+	# --------------------------------------------------------
+	# COMPLETED QUESTS
+	# --------------------------------------------------------
+
+	var saved_completed: Dictionary = data.get(
+		"completed_quests",
+		{}
+	)
+
+	for quest_id in saved_completed:
+
+		if not quest_database.has(quest_id):
+			print(
+				"[QuestManager] Completed quest not found: ",
+				quest_id
+			)
+			continue
+
+		var quest: Quest = (
+			quest_database[quest_id].duplicate(true)
+		)
+
+		quest.apply_save_dict(
+			saved_completed[quest_id]
+		)
+
+		completed_quests[quest_id] = quest
+
+
+	# --------------------------------------------------------
+	# TRACKED QUEST
+	# --------------------------------------------------------
+
+	var tracked_id := str(
+		data.get(
+			"tracked_quest_id",
+			""
+		)
+	)
+
+	if not tracked_id.is_empty():
+
+		if active_quests.has(tracked_id):
+
+			tracked_quest = active_quests[tracked_id]
+
+
+	print(
+		"[QuestManager] Loaded active quests: ",
+		active_quests.size()
+	)
+
+	print(
+		"[QuestManager] Loaded completed quests: ",
+		completed_quests.size()
+	)
+
+	if tracked_quest != null:
+		print(
+			"[QuestManager] Tracked quest: ",
+			tracked_quest.quest_id
+		)
+
+		tracked_quest_changed.emit(tracked_quest)
+
+	quest_list_updated.emit()

@@ -1,6 +1,8 @@
 
 extends Control
 
+signal student_created
+
 @onready var name_input: LineEdit = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/NameInput
 @onready var email_input: LineEdit = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/EmailInput
 @onready var password_input: LineEdit = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/PasswordInput
@@ -13,6 +15,8 @@ extends Control
 func _ready() -> void:
 	create_button.pressed.connect(_on_create_pressed)
 	cancel_button.pressed.connect(_on_cancel_pressed)
+
+	hide()
 
 
 func _on_create_pressed() -> void:
@@ -109,9 +113,7 @@ func _on_create_pressed() -> void:
 
 	await get_tree().create_timer(1.0).timeout
 
-	get_tree().change_scene_to_file(
-		"res://Scenes/Admin/students.tscn"
-	)
+	student_created.emit()
 
 
 # ============================================================
@@ -302,7 +304,12 @@ func create_student_document(
 			# ------------------------------------------------
 			# INVENTORY
 			# ------------------------------------------------
-			"inventory": {}
+			"inventory": [],
+			
+			#------------------------------------------------
+			# QUEST
+			# ------------------------------------------------
+			"quest_data": {}
 		}
 	}
 
@@ -343,9 +350,7 @@ func create_student_document(
 # ============================================================
 
 func _on_cancel_pressed() -> void:
-	get_tree().change_scene_to_file(
-		"res://Scenes/Admin/students.tscn"
-	)
+	hide()
 
 
 # ============================================================

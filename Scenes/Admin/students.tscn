@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://cvc5yt0fx31dm"]
+[gd_scene format=3 uid="uid://cyiv56m6swxwa"]
 
 [ext_resource type="Script" uid="uid://bsykqcnrmnyji" path="res://Scenes/Admin/students.gd" id="1_43a65"]
 [ext_resource type="PackedScene" uid="uid://cm3qhq0evy8fk" path="res://Scenes/Admin/student_row.tscn" id="2_bu631"]
+[ext_resource type="PackedScene" uid="uid://bmiprdfdv1lmk" path="res://Scenes/Admin/add_student.tscn" id="3_m2ql7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -342,3 +343,7 @@ theme_override_font_sizes/font_size = 22
 text = "No students found."
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AddStudent" parent="." unique_id=715330153 instance=ExtResource("3_m2ql7")]
+visible = false
+layout_mode = 1

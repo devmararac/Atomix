@@ -74,15 +74,79 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> boo
 	if objective.target_id != target_id:
 		return false
 
-
 	objective.current_amount = min(
 		objective.current_amount + amount,
 		objective.required_amount
 	)
 
-
 	if objective.is_finished():
 		advance_objective()
-
-
 	return true
+
+# ============================================================
+# SAVE QUEST STATE
+# ============================================================
+
+func to_save_dict() -> Dictionary:
+
+	var objective_data: Dictionary = {}
+
+	for objective in objectives:
+
+		if objective == null:
+			continue
+
+		objective_data[objective.id] = {
+			"current_amount": objective.current_amount,
+			"is_active": objective.is_active,
+			"is_completed": objective.is_completed
+		}
+
+	return {
+		"quest_id": quest_id,
+		"state": int(state),
+		"objectives": objective_data
+	}
+
+
+# ============================================================
+# RESTORE QUEST STATE
+# ============================================================
+
+func apply_save_dict(saved_data: Dictionary) -> void:
+
+	state = QuestState.Type.values()[clampi(
+		int(saved_data.get(
+			"state",
+			QuestState.Type.NOT_STARTED
+		)),
+		0,
+		QuestState.Type.size() - 1
+	)]
+
+	var saved_objectives: Dictionary = saved_data.get(
+		"objectives",
+		{}
+	)
+
+	for objective in objectives:
+
+		if objective == null:
+			continue
+
+		if not saved_objectives.has(objective.id):
+			continue
+
+		var saved_objective: Dictionary = saved_objectives[objective.id]
+
+		objective.current_amount = int(
+			saved_objective.get("current_amount", 0)
+		)
+
+		objective.is_active = bool(
+			saved_objective.get("is_active", false)
+		)
+
+		objective.is_completed = bool(
+			saved_objective.get("is_completed", false)
+		)

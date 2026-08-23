@@ -9,10 +9,18 @@ extends Control
 @onready var filter_button: OptionButton = $PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/FilterButton
 @onready var sort_button: OptionButton = $PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SortButton
 
+# ADD STUDENT PANEL
+@onready var add_student_panel: Control = $AddStudent
+
 const STUDENT_ROW = preload("res://Scenes/Admin/student_row.tscn")
 
 
 func _ready() -> void:
+
+	# --------------------------------------------------------
+	# BUTTON CONNECTIONS
+	# --------------------------------------------------------
+
 	refresh_button.pressed.connect(_on_refresh_pressed)
 	add_student_button.pressed.connect(_on_add_student_pressed)
 
@@ -20,8 +28,28 @@ func _ready() -> void:
 	filter_button.item_selected.connect(_on_filter_changed)
 	sort_button.item_selected.connect(_on_sort_changed)
 
+	# --------------------------------------------------------
+	# TEACHER DATA MANAGER
+	# --------------------------------------------------------
+
 	TeacherDataManager.students_loaded.connect(_on_students_loaded)
 	TeacherDataManager.students_error.connect(_on_students_error)
+
+	# --------------------------------------------------------
+	# ADD STUDENT PANEL
+	# --------------------------------------------------------
+
+	# Make sure the Add Student panel is hidden when
+	# the Students page first opens.
+	add_student_panel.hide()
+
+	# Listen for successful student creation.
+	if add_student_panel.has_signal("student_created"):
+		add_student_panel.student_created.connect(_on_student_created)
+
+	# --------------------------------------------------------
+	# INITIAL STATE
+	# --------------------------------------------------------
 
 	empty_state.show()
 
@@ -37,9 +65,27 @@ func _on_refresh_pressed() -> void:
 
 
 func _on_add_student_pressed() -> void:
-	get_tree().change_scene_to_file(
-		"res://Scenes/Admin/add_student.tscn"
-	)
+	print("[Students] Opening Add Student panel.")
+
+	add_student_panel.show()
+
+	# Optional: bring panel to the front.
+	add_student_panel.move_to_front()
+
+
+# ============================================================
+# ADD STUDENT
+# ============================================================
+
+func _on_student_created() -> void:
+
+	print("[Students] Student created. Refreshing student list.")
+
+	# Hide the Add Student panel.
+	add_student_panel.hide()
+
+	# Reload students from Firebase.
+	load_students()
 
 
 # ============================================================
@@ -72,6 +118,7 @@ func clear_rows() -> void:
 # ============================================================
 
 func load_students() -> void:
+
 	print("[Students] Requesting student data...")
 
 	clear_rows()
@@ -81,12 +128,14 @@ func load_students() -> void:
 
 
 func _on_students_loaded(student_list: Array) -> void:
+
 	print("[Students] Received ", student_list.size(), " students.")
 
 	display_students()
 
 
 func _on_students_error(error) -> void:
+
 	print("[Students] Firebase error: ", error)
 
 	clear_rows()
@@ -98,6 +147,7 @@ func _on_students_error(error) -> void:
 # ============================================================
 
 func display_students() -> void:
+
 	clear_rows()
 
 	var all_students: Array[Dictionary] = TeacherDataManager.get_students()
@@ -120,16 +170,16 @@ func display_students() -> void:
 			student_data.get("email", "")
 		).to_lower()
 
-		# Empty search = show everyone.
 		if search_text.is_empty():
+
 			filtered_students.append(student_data)
 			continue
 
-		# Search by name OR email.
 		if (
 			student_name.contains(search_text)
 			or email.contains(search_text)
 		):
+
 			filtered_students.append(student_data)
 
 
@@ -140,13 +190,13 @@ func display_students() -> void:
 	var filter_index: int = filter_button.selected
 
 	if filter_index == 1:
-		# Active
+
 		filtered_students = get_active_students(
 			filtered_students
 		)
 
 	elif filter_index == 2:
-		# Inactive
+
 		filtered_students = get_inactive_students(
 			filtered_students
 		)
@@ -159,9 +209,11 @@ func display_students() -> void:
 	var sort_index: int = sort_button.selected
 
 	if sort_index == 0:
+
 		# Name A-Z
 		filtered_students.sort_custom(
 			func(a: Dictionary, b: Dictionary) -> bool:
+
 				return str(
 					a.get("name", "")
 				).to_lower() < str(
@@ -170,16 +222,20 @@ func display_students() -> void:
 		)
 
 	elif sort_index == 1:
-		# Progress: highest first
+
+		# Progress highest first
 		filtered_students.sort_custom(
 			func(a: Dictionary, b: Dictionary) -> bool:
+
 				return get_student_progress(a) > get_student_progress(b)
 		)
 
 	elif sort_index == 2:
-		# Elements collected: highest first
+
+		# Elements collected highest first
 		filtered_students.sort_custom(
 			func(a: Dictionary, b: Dictionary) -> bool:
+
 				return get_elements_collected(a) > get_elements_collected(b)
 		)
 
@@ -189,6 +245,7 @@ func display_students() -> void:
 	# --------------------------------------------------------
 
 	if filtered_students.is_empty():
+
 		empty_state.show()
 		return
 
@@ -221,6 +278,7 @@ func display_students() -> void:
 # ============================================================
 
 func get_elements_collected(data: Dictionary) -> int:
+
 	var progress_value = data.get(
 		"progress",
 		{}
@@ -244,6 +302,7 @@ func get_elements_collected(data: Dictionary) -> int:
 
 
 func get_elements_total(data: Dictionary) -> int:
+
 	var progress_value = data.get(
 		"progress",
 		{}
@@ -268,6 +327,7 @@ func get_elements_total(data: Dictionary) -> int:
 
 
 func get_student_progress(data: Dictionary) -> float:
+
 	var collected: int = get_elements_collected(data)
 	var total: int = get_elements_total(data)
 
@@ -291,8 +351,7 @@ func get_active_students(
 
 	var result: Array[Dictionary] = []
 
-	# For now, every loaded student is considered active.
-	# We will connect this to actual login activity later.
+	# Activity tracking can be implemented later.
 	for student_data in student_list:
 		result.append(student_data)
 
@@ -318,10 +377,6 @@ func setup_student_row(
 	data: Dictionary,
 	number: int
 ) -> void:
-
-	# --------------------------------------------------------
-	# NODE REFERENCES
-	# --------------------------------------------------------
 
 	var number_label: Label = row.get_node(
 		"MarginContainer/Columns/Control/Number"
@@ -361,7 +416,7 @@ func setup_student_row(
 
 
 	# --------------------------------------------------------
-	# BASIC STUDENT INFORMATION
+	# BASIC INFORMATION
 	# --------------------------------------------------------
 
 	var student_name: String = str(
@@ -387,7 +442,7 @@ func setup_student_row(
 
 
 	# --------------------------------------------------------
-	# STUDENT NAME / EMAIL
+	# NAME / EMAIL
 	# --------------------------------------------------------
 
 	name_label.text = student_name
@@ -417,7 +472,6 @@ func setup_student_row(
 
 	var progress_percent: float = get_student_progress(data)
 
-
 	elements_label.text = "%d / %d" % [
 		collected,
 		total
@@ -444,3 +498,7 @@ func setup_student_row(
 	status_label.text = "Active"
 
 	last_active_label.text = "Recently"
+
+
+func _on_texture_button_pressed() -> void:
+	hide()

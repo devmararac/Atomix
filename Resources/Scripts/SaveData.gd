@@ -23,8 +23,7 @@ extends Resource
 @export var inventory: Array[ItemInstance] = []
 
 # Quests
-@export var completed_quests: Array[String] = []
-@export var active_quests: Array[String] = []
+@export var quest_data: Dictionary = {}
 
 # World
 @export var switches := {}

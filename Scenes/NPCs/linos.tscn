@@ -49,7 +49,7 @@ func start_dialouge():
 func get_current_timeline() -> DialogicTimeline:
 
 	var quest := QuestManager.get_quest(\"quest_hydrogen_001\")
-	
+
 	print(\"Quest = \", quest)
 
 	# Never accepted
@@ -57,7 +57,7 @@ func get_current_timeline() -> DialogicTimeline:
 		return tutorial
 
 	# Finished quest
-	if quest.state == \"completed\":
+	if quest.state == QuestState.Type.COMPLETED:
 		return default_timeline
 
 	var observe = quest.objectives[0]
@@ -72,11 +72,28 @@ func get_current_timeline() -> DialogicTimeline:
 		return hydrogen_report_timeline
 
 	return default_timeline
-	print(\"Returning default (fallback)\")
-	return default_timeline
 
 func _on_dialogue_finished():
-	pass
+	global.player.can_move = true
+
+	var quest := QuestManager.get_quest(\"quest_hydrogen_001\")
+
+	if quest == null:
+		return
+
+	if quest.state == QuestState.Type.COMPLETED:
+		return
+
+	var observe = quest.objectives[0]
+	var report = quest.objectives[1]
+
+	# Player finished observing Hydrogen
+	# and has now reported back to Linos.
+	if observe.is_completed and !report.is_completed:
+		report.is_completed = true
+		report.is_active = false
+
+		QuestManager.handle_quest_completion(quest)
 
 func _ready() -> void:
 
@@ -86,22 +103,26 @@ func _ready() -> void:
 	$Highlight.visible = false
 
 func offer_quest(quest_id: String):
-	print(\"Attempting to offer quest:\", quest_id)
+	print(\"Attempting to offer quest: \", quest_id)
 
 	for quest in quests:
-		if quest.quest_id == quest_id:
 
-			if QuestManager.get_quest(quest_id):
-				print(\"Player already has this quest.\")
-				return
+		if quest.quest_id != quest_id:
+			continue
 
-			var runtime_quest = quest.duplicate(true)
-			runtime_quest.state = \"in_progress\"
-
-			QuestManager.add_quest(runtime_quest)
+		if QuestManager.active_quests.has(quest_id):
+			print(\"Player already has this quest.\")
 			return
 
-	print(\"Quest not found\")
+		if QuestManager.completed_quests.has(quest_id):
+			print(\"Player already completed this quest.\")
+			return
+
+		QuestManager.accept_quest(quest_id)
+		print(\"Quest accepted: \", quest_id)
+		return
+
+	print(\"Quest not found: \", quest_id)
 
 func npc():
 	pass
@@ -112,8 +133,6 @@ script = ExtResource("4_p163p")
 id = "collect_iron"
 description = "Collect 5 Iron Ore"
 target_id = "item_iron"
-target_type = "collection"
-required_quantity = 5
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
 
 [sub_resource type="Resource" id="Resource_qu3ab"]

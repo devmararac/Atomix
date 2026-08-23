@@ -46,7 +46,7 @@ func focus_button(button: Control) -> void:
 	button.grab_focus()
 
 func _on_close_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Cutscenes/classroom_cutscene.tscn")
+	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
 
 func _on_dashboard_button_pressed() -> void:
 	var button = $MenuPanel/VBoxContainer/DashboardButton
@@ -59,6 +59,7 @@ func _on_students_button_pressed() -> void:
 	focus_button(button)
 	move_selector($MenuPanel/VBoxContainer/StudentsButton)
 	show_page(STUDENTS)
+	
 
 func _on_quiz_mode_button_pressed() -> void:
 	var button = $MenuPanel/VBoxContainer/QuizModeButton

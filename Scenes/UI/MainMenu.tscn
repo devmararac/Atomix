@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://boi8km0efioec" path="res://Scripts/main_menu.gd" id="1_g18y6"]
 [ext_resource type="Texture2D" uid="uid://c60g7x53146ki" path="res://Assets/main_menu_bg.png" id="2_744d7"]
-[ext_resource type="Texture2D" uid="uid://drweuyyjw3rcg" path="res://Assets/UX/HUD/dialog_1.png" id="2_mjmdf"]
 [ext_resource type="Texture2D" uid="uid://bc6qt1sy5wftq" path="res://Assets/LOGO_no_bg.png" id="3_744d7"]
 [ext_resource type="Texture2D" uid="uid://h3sd8wyoe8rb" path="res://Assets/UX/Buttons/Normal/start_button.png" id="4_jex3y"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_kl3t2"]
@@ -13,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://cjjnuq13i5dll" path="res://Assets/UX/Buttons/On-Pressed/login_pressed.png" id="7_fgqbg"]
 [ext_resource type="Texture2D" uid="uid://b2n2075ljfgx4" path="res://Assets/UX/Buttons/Normal/SignUp_button.png" id="8_euk5f"]
 [ext_resource type="Texture2D" uid="uid://cwfu2b6vyg5oy" path="res://Assets/UX/Buttons/On-Pressed/SignUp_pressed.png" id="9_kdsd0"]
+[ext_resource type="Texture2D" uid="uid://bj31gnxsem511" path="res://Assets/UX/Buttons/Normal/continue_button.png" id="13_fgqbg"]
+[ext_resource type="Texture2D" uid="uid://b5pccx46wypxe" path="res://Assets/UX/Buttons/On-Pressed/continue_button_pressed.png" id="14_euk5f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jex3y"]
 texture = ExtResource("2_744d7")
@@ -255,12 +256,14 @@ texture_pressed = ExtResource("5_744d7")
 passby_press = true
 action = "Start"
 
-[node name="Monitor" type="TouchScreenButton" parent="Panel" unique_id=1599034584]
+[node name="Continue" type="TouchScreenButton" parent="Panel" unique_id=1599034584]
+visible = false
 position = Vector2(92, 153)
 scale = Vector2(3.09375, 2.2708333)
-texture_normal = ExtResource("2_mjmdf")
+texture_normal = ExtResource("13_fgqbg")
+texture_pressed = ExtResource("14_euk5f")
 
 [connection signal="pressed" from="AuthPanel/AuthButtons/LoginButton" to="." method="_on_login_button_pressed"]
 [connection signal="pressed" from="AuthPanel/AuthButtons/SignupButton" to="." method="_on_signup_button_pressed"]
 [connection signal="pressed" from="Panel/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="Panel/Monitor" to="." method="_on_monitor_pressed"]
+[connection signal="pressed" from="Panel/Continue" to="." method="_on_monitor_pressed"]

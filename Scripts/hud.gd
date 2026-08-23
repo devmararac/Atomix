@@ -28,6 +28,11 @@ func _on_load_pressed() -> void:
 	SfxManager.play_click()
 	SaveManager.load_game()
 	PartyManager.load_saved_party()
+	var tracker = get_tree().get_first_node_in_group("QuestTracker")
+
+	if tracker:
+		tracker.refresh_from_quest_manager()
+	
 
 func _on_menu_pressed() -> void:
 	var menu = GAME_MENU.instantiate()

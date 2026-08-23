@@ -5,26 +5,28 @@ func interact(npc: NPCBase):
 
 	if npc.data == null:
 		return
-		
 
 	if npc.data.dialogue_data == null:
 		push_warning("%s has no DialogueData." % npc.data.display_name)
 		return
 
+	var conversation := get_best_conversation(npc)
 
-	# Check if talking completes an objective first
+	if conversation == null:
+		push_warning("%s has no playable conversation." % npc.data.display_name)
+		return
+
+	# Play the conversation first.
+	var result = play_conversation(npc, conversation)
+
+	# Then notify the quest system that the player talked to this NPC.
 	QuestManager.notify(
 		ObjectiveType.Type.TALK,
 		npc.data.npc_id
 	)
 
-	var conversation := get_best_conversation(npc)
-	if conversation == null:
-		push_warning("%s has no playable conversation." % npc.data.display_name)
-		return
-
-	return play_conversation(npc, conversation)
-
+	return result
+	
 func play_conversation(npc: NPCBase, conversation: NPCConversation):
 
 	if conversation == null:

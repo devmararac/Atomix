@@ -9,13 +9,17 @@ const font = preload("res://Assets/Font/NicoPaint-Regular.woff")
 func _ready():
 	print("Tracker ready")
 	visible = false
-	
+
 	QuestManager.quest_updated.connect(_on_quest_updated)
 	QuestManager.objective_updated.connect(_on_objective_updated)
-	
-	if QuestManager.tracked_quest:
-		update_quest_tracker(QuestManager.tracked_quest)
+	QuestManager.tracked_quest_changed.connect(_on_tracked_quest_changed)
 
+	# Check immediately
+	if QuestManager.tracked_quest:
+		print("Tracker found tracked quest: ", QuestManager.tracked_quest.quest_id)
+		update_quest_tracker(QuestManager.tracked_quest)
+	else:
+		print("Tracker: No tracked quest yet.")
 
 #Update tracker UI
 func update_quest_tracker(quest: Quest):
@@ -83,4 +87,24 @@ func _on_objective_updated(quest_id: String, objective_id: String):
 		update_quest_tracker(QuestManager.tracked_quest)
 
 func show_tracker(quest: Quest):
+	update_quest_tracker(quest)
+
+
+func refresh_from_quest_manager():
+	print("===== REFRESHING QUEST TRACKER =====")
+
+	var quest = QuestManager.tracked_quest
+
+	if quest == null:
+		print("Tracker: QuestManager has no tracked quest.")
+		visible = false
+		return
+
+	print("Tracker: Showing quest: ", quest.quest_id)
+
+	update_quest_tracker(quest)
+
+func _on_tracked_quest_changed(quest: Quest):
+	print("Tracker: tracked quest changed")
+
 	update_quest_tracker(quest)

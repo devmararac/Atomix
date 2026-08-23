@@ -59,6 +59,36 @@ func save_game() -> void:
 	print("[SaveManager] Inventory size: ", save_data.inventory.size())
 
 	# --------------------------------------------------------
+	# QUESTS
+	# --------------------------------------------------------
+
+	save_data.quest_data.clear()
+	# Active quests
+	for quest_id in QuestManager.active_quests:
+		var quest: Quest = QuestManager.active_quests[quest_id]
+		if quest == null:
+			continue
+		save_data.quest_data[quest_id] = {
+			"quest_status": "active",
+			"data": quest.to_save_dict()
+		}
+
+
+	# Completed quests
+	for quest_id in QuestManager.completed_quests:
+		var quest: Quest = QuestManager.completed_quests[quest_id]
+		if quest == null:
+			continue
+		save_data.quest_data[quest_id] = {
+			"quest_status": "completed",
+			"data": quest.to_save_dict()
+		}
+
+	print(
+		"[SaveManager] Quest data: ",
+		save_data.quest_data
+	)
+	# --------------------------------------------------------
 	# UPLOAD
 	# --------------------------------------------------------
 	await upload_to_firebase()
@@ -139,7 +169,7 @@ func load_game() -> void:
 
 	apply_saved_party_state()
 	apply_saved_inventory_state()
-
+	apply_saved_quest_state()
 
 # ============================================================
 # FIREBASE UPLOAD
@@ -260,7 +290,10 @@ func upload_to_firebase() -> bool:
 			firebase_party,
 
 		"inventory":
-			firebase_inventory
+			firebase_inventory,
+			
+		"quest_data":
+			save_data.quest_data
 	}
 
 
@@ -496,8 +529,40 @@ func download_from_firebase() -> bool:
 		firebase_party.size()
 	)
 
+	# --------------------------------------------------------
+	# QUESTS
+	# --------------------------------------------------------
+
+	var firebase_quest_data = game_state.get(
+		"quest_data",
+		{}
+	)
+
+	if firebase_quest_data is Dictionary:
+
+		print(
+			"[SaveManager] Firebase quest entries: ",
+			firebase_quest_data.size()
+		)
+
+		save_data.quest_data = (
+			firebase_quest_data.duplicate(true)
+		)
+
+		print(
+			"[SaveManager] Quest entries: ",
+			save_data.quest_data.size()
+		)
+
+	else:
+
+		print(
+			"[SaveManager] Firebase quest data is invalid."
+		)
 
 	return true
+
+
 
 
 # ============================================================
@@ -669,6 +734,97 @@ func apply_saved_inventory_state() -> void:
 		InventoryManager.inventory.size()
 	)
 
+
+func apply_saved_quest_state() -> void:
+
+	if save_data == null:
+		print("[SaveManager] ERROR: save_data is null")
+		return
+
+	if save_data.quest_data.is_empty():
+		print("[SaveManager] No saved quest data.")
+		return
+
+	print("[SaveManager] ===== APPLYING QUEST STATE =====")
+
+	QuestManager.active_quests.clear()
+	QuestManager.completed_quests.clear()
+	QuestManager.tracked_quest = null
+
+	for quest_id in save_data.quest_data:
+
+		var saved_entry = save_data.quest_data[quest_id]
+
+		if not saved_entry is Dictionary:
+			continue
+
+		var quest_status := str(
+			saved_entry.get("quest_status", "")
+		)
+
+		var saved_quest_data = saved_entry.get(
+			"data",
+			{}
+		)
+
+		if not saved_quest_data is Dictionary:
+			continue
+
+		# Find the original quest resource
+		if not QuestManager.quest_database.has(quest_id):
+			print(
+				"[SaveManager] Quest not found in database: ",
+				quest_id
+			)
+			continue
+
+		# Create a runtime copy
+		var quest: Quest = (
+			QuestManager.quest_database[quest_id].duplicate(true)
+		)
+
+		# Restore state and objectives
+		quest.apply_save_dict(saved_quest_data)
+
+		# Put it back into the correct QuestManager dictionary
+		if quest_status == "active":
+
+			QuestManager.active_quests[quest_id] = quest
+
+			print(
+				"[SaveManager] RESTORED ACTIVE QUEST: ",
+				quest_id
+			)
+
+		elif quest_status == "completed":
+
+			QuestManager.completed_quests[quest_id] = quest
+
+			print(
+				"[SaveManager] RESTORED COMPLETED QUEST: ",
+				quest_id
+			)
+
+	# Track the first active quest
+	if not QuestManager.active_quests.is_empty():
+
+		var first_quest: Quest = (
+			QuestManager.active_quests.values()[0]
+		)
+
+		QuestManager.set_tracked_quest(first_quest)
+
+	print(
+		"[SaveManager] Active quests restored: ",
+		QuestManager.active_quests.size()
+	)
+
+	print(
+		"[SaveManager] Completed quests restored: ",
+		QuestManager.completed_quests.size()
+	)
+
+	QuestManager.quest_list_updated.emit()
 # ============================================================
 # COLLECT GAME DATA
 # ============================================================
