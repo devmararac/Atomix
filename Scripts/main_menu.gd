@@ -2,7 +2,7 @@ extends Control
 
 @onready var auth_panel = $AuthPanel
 @onready var buttons_start = $Panel/Start
-@onready var buttons_mon = $Panel/Monitor
+@onready var buttons_cont = $Panel/Continue
 
 @onready var email_input = $AuthPanel/Email/EmailInput
 @onready var password_input = $AuthPanel/Password/PasswordInput
@@ -14,7 +14,7 @@ var login_in_progress: bool = false
 
 func _ready() -> void:
 	buttons_start.hide()
-	buttons_mon.hide()
+	buttons_cont.hide()
 
 	AuthManager.login_success.connect(_on_login_success)
 	AuthManager.login_failed.connect(_on_login_failed)
@@ -79,7 +79,7 @@ func _on_student_loaded(data: Dictionary) -> void:
 
 	auth_panel.hide()
 	buttons_start.show()
-	buttons_mon.hide()
+	buttons_cont.show()
 
 
 
@@ -94,7 +94,7 @@ func _on_student_created(data: Dictionary) -> void:
 
 	auth_panel.hide()
 	buttons_start.show()
-	buttons_mon.hide()
+	buttons_cont.show()
 
 
 func _on_student_error(error) -> void:
@@ -119,10 +119,15 @@ func _on_exit_pressed() -> void:
 	get_tree().quit()
 
 
-func _on_monitor_pressed() -> void:
-	get_tree().change_scene_to_file(
-		"res://Scenes/Admin/teacher_dashboard.tscn"
-	)
+func _on_continue_pressed() -> void:
+
+	SfxManager.play_click()
+	SaveManager.load_game()
+	PartyManager.load_saved_party()
+	var tracker = get_tree().get_first_node_in_group("QuestTracker")
+
+	if tracker:
+		tracker.refresh_from_quest_manager()
 
 
 func _on_login_button_pressed():

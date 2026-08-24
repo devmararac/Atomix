@@ -257,7 +257,6 @@ passby_press = true
 action = "Start"
 
 [node name="Continue" type="TouchScreenButton" parent="Panel" unique_id=1599034584]
-visible = false
 position = Vector2(92, 153)
 scale = Vector2(3.09375, 2.2708333)
 texture_normal = ExtResource("13_fgqbg")
@@ -266,4 +265,4 @@ texture_pressed = ExtResource("14_euk5f")
 [connection signal="pressed" from="AuthPanel/AuthButtons/LoginButton" to="." method="_on_login_button_pressed"]
 [connection signal="pressed" from="AuthPanel/AuthButtons/SignupButton" to="." method="_on_signup_button_pressed"]
 [connection signal="pressed" from="Panel/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="Panel/Continue" to="." method="_on_monitor_pressed"]
+[connection signal="pressed" from="Panel/Continue" to="." method="_on_continue_pressed"]

@@ -4,11 +4,20 @@ signal student_loaded(data)
 signal student_created(data)
 signal student_error(error)
 signal progress_updated(progress)
+signal progress_loaded(progress)
 
 const TOTAL_ELEMENTS := 118
 
 var student_data: Dictionary = {}
+
+# IMPORTANT:
+# This contains ONLY the progress currently loaded into the game.
+# It should NOT automatically contain Firebase data just because
+# the student logged in.
 var collected_elements: Array[String] = []
+
+# True only after the player explicitly presses LOAD.
+var progress_is_loaded: bool = false
 
 
 # ============================================================
@@ -24,10 +33,21 @@ func is_student_logged_in() -> bool:
 
 
 # ============================================================
-# LOAD STUDENT
+# LOAD STUDENT ACCOUNT
+# ============================================================
+# IMPORTANT:
+# This loads the student's account/profile information.
+#
+# It DOES NOT load saved game progress into the runtime.
+#
+# This means:
+# LOGIN -> student account loaded
+# START -> fresh runtime progress
+# LOAD -> saved progress explicitly loaded
 # ============================================================
 
 func load_student() -> void:
+
 	var uid := get_student_uid()
 
 	if uid.is_empty():
@@ -38,12 +58,21 @@ func load_student() -> void:
 
 	print("[StudentDataManager] Loading student: ", uid)
 
-	var students = Firebase.Firestore.collection("students")
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
+	)
 
 	var document: FirestoreDocument = await students.get_doc(uid)
 
+	# ========================================================
+	# STUDENT DOES NOT EXIST YET
+	# ========================================================
+
 	if document == null:
-		print("[StudentDataManager] Student document not found.")
+
+		print(
+			"[StudentDataManager] Student document not found."
+		)
 
 		student_data = {
 			"uid": uid,
@@ -54,22 +83,28 @@ func load_student() -> void:
 			}
 		}
 
-		collected_elements.clear()
+		# IMPORTANT:
+		# Start with NO runtime progress.
+		clear_runtime_progress()
 
 		student_created.emit(student_data)
 		return
+
+	# ========================================================
+	# LOAD STUDENT ACCOUNT DATA
+	# ========================================================
 
 	student_data = document.get_unsafe_document()
 
 	# Always make sure UID exists locally.
 	student_data["uid"] = uid
 
-
 	# ========================================================
-	# MAKE SURE PROGRESS EXISTS
+	# MAKE SURE PROGRESS EXISTS IN LOCAL STUDENT DATA
 	# ========================================================
 
 	if not student_data.has("progress"):
+
 		student_data["progress"] = {
 			"elements_total": TOTAL_ELEMENTS,
 			"elements_collected": 0,
@@ -87,39 +122,204 @@ func load_student() -> void:
 	if not progress.has("collected_elements"):
 		progress["collected_elements"] = []
 
+	student_data["progress"] = progress
 
 	# ========================================================
-	# LOAD COLLECTED ELEMENTS INTO MEMORY
+	# DO NOT LOAD SAVED ELEMENTS HERE
+	# ========================================================
+	#
+	# This is the important change.
+	#
+	# The Firebase progress remains inside student_data,
+	# but collected_elements stays empty until LOAD is pressed.
+	# ========================================================
+
+	clear_runtime_progress()
+
+	print("[StudentDataManager] Student account loaded.")
+	print("[StudentDataManager] UID: ", uid)
+	print("[StudentDataManager] Student data loaded.")
+	print(
+		"[StudentDataManager] Runtime collected elements: ",
+		collected_elements
+	)
+	print(
+		"[StudentDataManager] Progress loaded: ",
+		progress_is_loaded
+	)
+
+	await update_last_active()
+	student_loaded.emit(student_data)
+
+
+# ============================================================
+# CLEAR RUNTIME PROGRESS
+# ============================================================
+# Used when starting a NEW game/session.
+#
+# This does NOT delete anything from Firebase.
+# It only clears what the current game session is allowed
+# to see/use.
+# ============================================================
+
+func clear_runtime_progress() -> void:
+
+	collected_elements.clear()
+
+	progress_is_loaded = false
+
+	print(
+		"[StudentDataManager] Runtime progress cleared."
+	)
+
+	print(
+		"[StudentDataManager] Saved Firebase progress has NOT been deleted."
+	)
+
+
+# ============================================================
+# LOAD SAVED PROGRESS
+# ============================================================
+# This should ONLY be called when the player presses LOAD.
+#
+# This retrieves the saved progress from Firebase and places
+# it into the runtime collected_elements array.
+# ============================================================
+
+func load_saved_progress() -> bool:
+
+	var uid := get_student_uid()
+
+	if uid.is_empty():
+
+		student_error.emit({
+			"message": "No authenticated Firebase user."
+		})
+
+		return false
+
+	print(
+		"[StudentDataManager] Loading SAVED progress for: ",
+		uid
+	)
+
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
+	)
+
+	var document: FirestoreDocument = (
+		await students.get_doc(uid)
+	)
+
+	if document == null:
+
+		print(
+			"[StudentDataManager] Student document does not exist."
+		)
+
+		clear_runtime_progress()
+
+		return false
+
+	var data: Dictionary = (
+		document.get_unsafe_document()
+	)
+
+	# ========================================================
+	# MAKE SURE PROGRESS EXISTS
+	# ========================================================
+
+	var progress: Dictionary = data.get(
+		"progress",
+		{}
+	)
+
+	if not progress is Dictionary:
+		progress = {}
+
+	if not progress.has("elements_total"):
+		progress["elements_total"] = TOTAL_ELEMENTS
+
+	if not progress.has("elements_collected"):
+		progress["elements_collected"] = 0
+
+	if not progress.has("collected_elements"):
+		progress["collected_elements"] = []
+
+	# ========================================================
+	# LOAD ELEMENTS INTO RUNTIME
 	# ========================================================
 
 	collected_elements.clear()
 
-	var saved_elements = progress["collected_elements"]
+	var saved_elements = (
+		progress.get(
+			"collected_elements",
+			[]
+		)
+	)
 
 	if saved_elements is Array:
-		for symbol in saved_elements:
-			var element_symbol := str(symbol).strip_edges()
 
-			# Do not load empty symbols.
+		for symbol in saved_elements:
+
+			var element_symbol := (
+				str(symbol).strip_edges()
+			)
+
 			if element_symbol.is_empty():
 				continue
 
-			# Avoid duplicates.
 			if not collected_elements.has(element_symbol):
-				collected_elements.append(element_symbol)
 
+				collected_elements.append(
+					element_symbol
+				)
 
-	# Keep the count synchronized with the actual array.
-	progress["elements_collected"] = collected_elements.size()
+	# ========================================================
+	# SYNCHRONIZE COUNT
+	# ========================================================
+
+	progress["elements_collected"] = (
+		collected_elements.size()
+	)
+
 	student_data["progress"] = progress
 
+	# ========================================================
+	# MARK SAVED PROGRESS AS LOADED
+	# ========================================================
 
-	print("[StudentDataManager] Student loaded.")
-	print("[StudentDataManager] UID: ", uid)
-	print("[StudentDataManager] Data: ", student_data)
-	print("[StudentDataManager] Collected elements: ", collected_elements)
+	progress_is_loaded = true
 
-	student_loaded.emit(student_data)
+	print(
+		"[StudentDataManager] SAVED PROGRESS LOADED."
+	)
+
+	print(
+		"[StudentDataManager] Elements loaded: ",
+		collected_elements.size(),
+		"/",
+		TOTAL_ELEMENTS
+	)
+
+	print(
+		"[StudentDataManager] Collected elements: ",
+		collected_elements
+	)
+
+	progress_loaded.emit(progress)
+
+	return true
+
+
+# ============================================================
+# CHECK WHETHER SAVED PROGRESS HAS BEEN LOADED
+# ============================================================
+
+func is_progress_loaded() -> bool:
+
+	return progress_is_loaded
 
 
 # ============================================================
@@ -127,14 +327,17 @@ func load_student() -> void:
 # ============================================================
 
 func get_elements_collected() -> int:
+
 	return collected_elements.size()
 
 
 func get_elements_total() -> int:
+
 	return TOTAL_ELEMENTS
 
 
 func get_collected_elements() -> Array[String]:
+
 	return collected_elements.duplicate()
 
 
@@ -143,41 +346,74 @@ func get_collected_elements() -> Array[String]:
 # ============================================================
 
 func has_collected_element(symbol: String) -> bool:
+
+	# IMPORTANT:
+	# If LOAD has not been pressed, nothing from Firebase
+	# should be treated as collected.
+
+	if not progress_is_loaded:
+		return false
+
 	var clean_symbol := symbol.strip_edges()
 
 	if clean_symbol.is_empty():
 		return false
 
-	return collected_elements.has(clean_symbol)
+	return collected_elements.has(
+		clean_symbol
+	)
 
 
 # ============================================================
 # COLLECT ONE ELEMENT
 # ============================================================
+# IMPORTANT:
+# This function still exists for systems that legitimately
+# want to save student progress.
+#
+# CraftingUI should NOT call this anymore.
+# ============================================================
 
 func collect_element(symbol: String) -> void:
 
-	var clean_symbol := symbol.strip_edges()
+	var clean_symbol := (
+		symbol.strip_edges()
+	)
 
 	if clean_symbol.is_empty():
-		print("[StudentDataManager] Cannot collect empty element symbol.")
+
+		print(
+			"[StudentDataManager] Cannot collect empty element symbol."
+		)
+
 		return
 
 	# Already collected.
 	if collected_elements.has(clean_symbol):
+
 		print(
 			"[StudentDataManager] Element already collected: ",
 			clean_symbol
 		)
+
 		return
 
 	# Maximum reached.
 	if collected_elements.size() >= TOTAL_ELEMENTS:
-		print("[StudentDataManager] All elements already collected.")
+
+		print(
+			"[StudentDataManager] All elements already collected."
+		)
+
 		return
 
-	# Add the actual element symbol.
-	collected_elements.append(clean_symbol)
+	collected_elements.append(
+		clean_symbol
+	)
+
+	# Once a progress-changing action happens, the runtime
+	# now has active progress.
+	progress_is_loaded = true
 
 	print(
 		"[StudentDataManager] Element collected: ",
@@ -189,7 +425,6 @@ func collect_element(symbol: String) -> void:
 		collected_elements
 	)
 
-	# Save count + array.
 	await save_progress()
 
 
@@ -202,51 +437,69 @@ func save_progress() -> void:
 	var uid: String = get_student_uid()
 
 	if uid.is_empty():
+
 		student_error.emit({
 			"message": "No authenticated Firebase user."
 		})
+
 		return
 
-	var elements_collected := collected_elements.size()
+	var elements_collected := (
+		collected_elements.size()
+	)
 
-	print("[StudentDataManager] Saving progress for: ", uid)
+	print(
+		"[StudentDataManager] Saving progress for: ",
+		uid
+	)
+
 	print(
 		"[StudentDataManager] Elements: ",
 		elements_collected,
 		"/",
 		TOTAL_ELEMENTS
 	)
+
 	print(
 		"[StudentDataManager] Collected elements: ",
 		collected_elements
 	)
 
-
-	var students: FirestoreCollection = Firebase.Firestore.collection(
-		"students"
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
 	)
 
-	var document: FirestoreDocument = await students.get_doc(uid)
+	var document: FirestoreDocument = (
+		await students.get_doc(uid)
+	)
 
 	if document == null:
-		print("[StudentDataManager] Student document does not exist.")
+
+		print(
+			"[StudentDataManager] Student document does not exist."
+		)
 
 		student_error.emit({
 			"message": "Student document does not exist."
 		})
-		return
 
+		return
 
 	# ========================================================
 	# CREATE PROGRESS DATA
 	# ========================================================
 
 	var progress: Dictionary = {
-		"elements_total": TOTAL_ELEMENTS,
-		"elements_collected": elements_collected,
-		"collected_elements": collected_elements.duplicate()
-	}
 
+		"elements_total":
+			TOTAL_ELEMENTS,
+
+		"elements_collected":
+			elements_collected,
+
+		"collected_elements":
+			collected_elements.duplicate()
+	}
 
 	# ========================================================
 	# UPDATE FIRESTORE
@@ -257,20 +510,30 @@ func save_progress() -> void:
 		progress
 	)
 
-	print("[StudentDataManager] Updating Firestore document...")
-	print("[StudentDataManager] Progress: ", progress)
+	print(
+		"[StudentDataManager] Updating Firestore document..."
+	)
 
+	print(
+		"[StudentDataManager] Progress: ",
+		progress
+	)
 
-	var result: FirestoreDocument = await students.update(document)
+	var result: FirestoreDocument = (
+		await students.update(document)
+	)
 
 	if result == null:
-		print("[StudentDataManager] Failed to save progress.")
+
+		print(
+			"[StudentDataManager] Failed to save progress."
+		)
 
 		student_error.emit({
 			"message": "Unable to save student progress."
 		})
-		return
 
+		return
 
 	# ========================================================
 	# UPDATE LOCAL DATA
@@ -278,7 +541,11 @@ func save_progress() -> void:
 
 	student_data["progress"] = progress
 
-	print("[StudentDataManager] Progress saved successfully.")
+	progress_is_loaded = true
+
+	print(
+		"[StudentDataManager] Progress saved successfully."
+	)
 
 	progress_updated.emit(progress)
 
@@ -295,8 +562,8 @@ func set_progress(elements_collected: int) -> void:
 		TOTAL_ELEMENTS
 	)
 
-	# This function should only be used if you specifically
-	# want to change the count. Normally use collect_element().
+	# Keep this function for compatibility.
+	# The actual element list remains the source of truth.
 	await save_progress()
 
 
@@ -306,19 +573,25 @@ func set_progress(elements_collected: int) -> void:
 
 func remove_element(symbol: String) -> void:
 
-	var clean_symbol := symbol.strip_edges()
+	var clean_symbol := (
+		symbol.strip_edges()
+	)
 
 	if clean_symbol.is_empty():
 		return
 
 	if not collected_elements.has(clean_symbol):
+
 		print(
 			"[StudentDataManager] Element not collected: ",
 			clean_symbol
 		)
+
 		return
 
-	collected_elements.erase(clean_symbol)
+	collected_elements.erase(
+		clean_symbol
+	)
 
 	print(
 		"[StudentDataManager] Removed element: ",
@@ -341,6 +614,47 @@ func clear_collected_elements() -> void:
 
 	collected_elements.clear()
 
-	print("[StudentDataManager] All collected elements cleared.")
+	print(
+		"[StudentDataManager] All collected elements cleared."
+	)
 
 	await save_progress()
+
+
+func update_last_active() -> void:
+	var uid := get_student_uid()
+
+	if uid.is_empty():
+		return
+
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
+	)
+
+	var document: FirestoreDocument = await students.get_doc(uid)
+
+	if document == null:
+		print("[StudentDataManager] Cannot update last active. Student not found.")
+		return
+
+	var timestamp := int(
+		Time.get_unix_time_from_system()
+	)
+
+	document.add_or_update_field(
+		"last_active",
+		timestamp
+	)
+
+	var result: FirestoreDocument = await students.update(document)
+
+	if result == null:
+		print("[StudentDataManager] Failed to update last active.")
+		return
+
+	student_data["last_active"] = timestamp
+
+	print(
+		"[StudentDataManager] Last active updated: ",
+		timestamp
+	)

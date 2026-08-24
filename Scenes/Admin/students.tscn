@@ -249,9 +249,9 @@ vertical_alignment = 1
 
 [node name="Rank" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=225739511]
 layout_mode = 0
-offset_left = 935.0
+offset_left = 836.0
 offset_top = 14.0
-offset_right = 1092.0
+offset_right = 993.0
 offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
@@ -261,9 +261,9 @@ vertical_alignment = 1
 
 [node name="Elements Collected" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1318045409]
 layout_mode = 0
-offset_left = 1144.0
+offset_left = 986.0
 offset_top = 14.0
-offset_right = 1301.0
+offset_right = 1143.0
 offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
@@ -273,9 +273,9 @@ vertical_alignment = 1
 
 [node name="Progress" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1868927534]
 layout_mode = 0
-offset_left = 1393.0
+offset_left = 1232.0
 offset_top = 14.0
-offset_right = 1465.0
+offset_right = 1304.0
 offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
@@ -285,9 +285,9 @@ vertical_alignment = 1
 
 [node name="Status" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1458472231]
 layout_mode = 0
-offset_left = 1569.0
+offset_left = 1409.0
 offset_top = 14.0
-offset_right = 1624.0
+offset_right = 1464.0
 offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
@@ -297,9 +297,9 @@ vertical_alignment = 1
 
 [node name="LastActive" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1054529485]
 layout_mode = 0
-offset_left = 1688.0
+offset_left = 1531.0
 offset_top = 14.0
-offset_right = 1777.0
+offset_right = 1620.0
 offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17

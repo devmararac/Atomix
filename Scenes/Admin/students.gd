@@ -491,14 +491,99 @@ func setup_student_row(
 	)
 
 
+
 	# --------------------------------------------------------
-	# STATUS
+	# STATUS / LAST ACTIVE
 	# --------------------------------------------------------
 
-	status_label.text = "Active"
+	var last_active := int(
+		data.get(
+			"last_active",
+			0
+		)
+	)
 
-	last_active_label.text = "Recently"
+	if last_active <= 0:
+
+		status_label.text = "Inactive"
+		last_active_label.text = "Never"
+
+	else:
+
+		var current_time := int(
+			Time.get_unix_time_from_system()
+		)
+
+		var elapsed := current_time - last_active
+
+		# Active if logged in within the last 5 minutes.
+		if elapsed <= 300:
+
+			status_label.text = "Active"
+
+		else:
+
+			status_label.text = "Inactive"
+
+
+		last_active_label.text = format_last_active(
+			last_active
+		)
 
 
 func _on_texture_button_pressed() -> void:
 	hide()
+
+func format_last_active(timestamp: int) -> String:
+
+	if timestamp <= 0:
+		return "Never"
+
+	var current_time := int(
+		Time.get_unix_time_from_system()
+	)
+
+	var elapsed := current_time - timestamp
+
+	if elapsed < 0:
+		return "Just now"
+
+	if elapsed < 60:
+		return "Just now"
+
+	if elapsed < 3600:
+
+		var minutes := int(
+			elapsed / 60
+		)
+
+		return "%d min ago" % minutes
+
+	if elapsed < 86400:
+
+		var hours := int(
+			elapsed / 3600
+		)
+
+		return "%d hr ago" % hours
+
+	if elapsed < 604800:
+
+		var days := int(
+			elapsed / 86400
+		)
+
+		return "%d day%s ago" % [
+			days,
+			"" if days == 1 else "s"
+		]
+
+	var datetime := Time.get_datetime_dict_from_unix_time(
+		timestamp
+	)
+
+	return "%04d-%02d-%02d" % [
+		datetime.year,
+		datetime.month,
+		datetime.day
+	]
