@@ -79,6 +79,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -368.0
+offset_right = 2.0
+offset_bottom = 384.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 32
@@ -88,7 +92,7 @@ theme_override_constants/margin_bottom = 28
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/CenterContainer/Panel/MarginContainer" unique_id=1096639656]
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 7
 
 [node name="Title" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=967999447]
 layout_mode = 2
@@ -100,7 +104,7 @@ text = "Add Student"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
 theme_override_font_sizes/font_size = 16
-text = "Create a new student account."
+text = "Create a new Grade 11 student account."
 
 [node name="NameLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1228066776]
 layout_mode = 2
@@ -116,13 +120,41 @@ theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.23529
 theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
 placeholder_text = "Enter student's name"
 
-[node name="EmailLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=734061473]
+[node name="StudentIDLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1699421390]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+text = "Student ID"
+
+[node name="StudentIDInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=456907871]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter student ID"
+
+[node name="SectionLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=955978467]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+text = "Section"
+
+[node name="SectionInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1555044511]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter section"
+
+[node name="EmailLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1237269021]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_font_sizes/font_size = 16
 text = "Email"
 
-[node name="EmailInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1235458927]
+[node name="EmailInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1160770849]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
@@ -130,13 +162,13 @@ theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.23529
 theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
 placeholder_text = "student@example.com"
 
-[node name="PasswordLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=912370259]
+[node name="PasswordLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=70392774]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_font_sizes/font_size = 16
 text = "Password"
 
-[node name="PasswordInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=136670305]
+[node name="PasswordInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1390191632]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
@@ -145,13 +177,13 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
 placeholder_text = "Enter temporary password"
 secret = true
 
-[node name="ConfirmPasswordLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1413886086]
+[node name="ConfirmPasswordLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=810824910]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_font_sizes/font_size = 16
 text = "Confirm Password"
 
-[node name="ConfirmPasswordInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=135398378]
+[node name="ConfirmPasswordInput" type="LineEdit" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1409344881]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
@@ -160,7 +192,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
 placeholder_text = "Confirm password"
 secret = true
 
-[node name="StatusLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1194082152]
+[node name="StatusLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=257288586]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)

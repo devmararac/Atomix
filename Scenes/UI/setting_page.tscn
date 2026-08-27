@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://1ps7gp4ydn54"]
+
+[ext_resource type="Script" uid="uid://iv74ejmlya63" path="res://Scenes/UI/setting_page.gd" id="1_lfii0"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="2_vmhr5"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_f67gi"]
+[ext_resource type="Texture2D" uid="uid://dvgv8aqlc5bvu" path="res://Assets/UX/Buttons/Normal/logout_button.png" id="4_st3ob"]
+
+[node name="SettingPage" type="Control" unique_id=913569413]
+custom_minimum_size = Vector2(1418, 648)
+layout_mode = 3
+anchor_right = 0.716
+anchor_bottom = 0.90000004
+offset_right = -1417.68
+offset_bottom = -648.0
+script = ExtResource("1_lfii0")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1713863176]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vmhr5")
+
+[node name="Label" type="Label" parent="TextureRect" unique_id=1845490096]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 59.0
+offset_right = 184.0
+offset_bottom = 90.0
+theme_override_fonts/font = ExtResource("3_f67gi")
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+
+[node name="Logout" type="TextureButton" parent="TextureRect" unique_id=159266167]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 529.0
+offset_right = 790.0
+offset_bottom = 577.0
+texture_normal = ExtResource("4_st3ob")
+stretch_mode = 0
+
+[connection signal="pressed" from="TextureRect/Logout" to="." method="_on_logout_pressed"]

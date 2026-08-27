@@ -4,6 +4,7 @@ extends CanvasLayer
 const INVENTORY_PAGE = preload("res://Scenes/UI/inventory_page_new.tscn")
 const QUESTLOG_PAGE = preload("res://Scenes/UI/quest_log_panel.tscn")
 const ATOMON_PAGE = preload("res://Scenes/UI/atomon_page.tscn")
+const SETTING_PAGE = preload("res://Scenes/UI/setting_page.tscn")
 
 @onready var information_panel = $Root/MainMargin/HBoxContainer/ContentPanel/InformationPanel
 
@@ -53,7 +54,7 @@ func _on_player_pressed():
 
 
 func _on_settings_pressed():
-	pass
+	change_page(SETTING_PAGE)
 
 func close():
 	hud.show()
