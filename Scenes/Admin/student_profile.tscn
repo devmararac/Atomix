@@ -120,6 +120,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
@@ -129,13 +131,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer" unique_id=353073487]
 layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="Avatar" type="TextureRect" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=579034348]
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
+theme_override_constants/separation = 19
 
 [node name="StudentName" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=1593302881]
 layout_mode = 2
@@ -144,10 +140,32 @@ theme_override_font_sizes/font_size = 24
 text = "Student Name"
 horizontal_alignment = 1
 
+[node name="StudentID" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=2135000001]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
+text = "Student ID: -"
+horizontal_alignment = 1
+
 [node name="Email" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=886286483]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
 text = "student@email.com"
+horizontal_alignment = 1
+
+[node name="AcademicInfo" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=2135000002]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Section" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer/AcademicInfo" unique_id=2135000004]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
+text = "Section: -"
+horizontal_alignment = 1
+
+[node name="SchoolYear" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer/AcademicInfo" unique_id=2135000005]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
+text = "School Year: -"
 horizontal_alignment = 1
 
 [node name="Status" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=1497971804]
@@ -160,19 +178,6 @@ vertical_alignment = 1
 
 [node name="Separator" type="HSeparator" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=177102553]
 layout_mode = 2
-
-[node name="LevelTitle" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=996961972]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
-text = "LEVEL"
-horizontal_alignment = 1
-
-[node name="Level" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=1282546625]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-theme_override_font_sizes/font_size = 30
-text = "1"
-horizontal_alignment = 1
 
 [node name="RankTitle" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=118209171]
 layout_mode = 2
@@ -196,7 +201,7 @@ horizontal_alignment = 1
 [node name="LastActive" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/LeftPanel/MarginContainer/VBoxContainer" unique_id=1660608219]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-text = "Recently"
+text = "Never"
 horizontal_alignment = 1
 
 [node name="RightPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content" unique_id=1675110610]
@@ -210,6 +215,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
@@ -224,7 +230,7 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer" unique_id=913916731]
-custom_minimum_size = Vector2(0, 700)
+custom_minimum_size = Vector2(0, 850)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
@@ -234,14 +240,9 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
 [node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ProgressPanel" unique_id=321720958]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 12.0
-offset_bottom = 178.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 1412.0
+offset_bottom = 166.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -279,14 +280,10 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
 [node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ModulesPanel" unique_id=2045549491]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 141.5
-offset_bottom = 304.5
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_top = 106.0
+offset_right = 1413.0
+offset_bottom = 272.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -315,60 +312,103 @@ show_percentage = false
 [node name="ModulesProgressText" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ModulesPanel/MarginContainer/VBoxContainer" unique_id=1214378770]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 18
 text = "0%"
 horizontal_alignment = 1
 
-[node name="QuizzesPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1211138980]
+[node name="AssessmentsPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2135000010]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
-[node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/QuizzesPanel" unique_id=154443890]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 293.5
-offset_bottom = 422.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel" unique_id=2135000011]
+layout_mode = 0
+offset_top = 212.0
+offset_right = 325.0
+offset_bottom = 399.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/QuizzesPanel/MarginContainer" unique_id=814829074]
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer" unique_id=2135000012]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/QuizzesPanel/MarginContainer/VBoxContainer" unique_id=1300724748]
+[node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000013]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 22
-text = "Quizzes"
+text = "Assessments"
 
-[node name="Attempts" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/QuizzesPanel/MarginContainer/VBoxContainer" unique_id=848861313]
+[node name="TotalAssessments" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000014]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-text = "Attempts: 0"
+text = "Total Assessments: 0"
 
-[node name="Average" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/QuizzesPanel/MarginContainer/VBoxContainer" unique_id=1970418249]
+[node name="CompletedAssessments" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000015]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+text = "Completed: 0"
+
+[node name="AverageScore" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000016]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Average Score: 0%"
+
+[node name="LatestScore" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000017]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+text = "Latest Score: 0%"
+
+[node name="GameProgressPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2135000020]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel" unique_id=2135000021]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 383.0
+offset_right = 1411.0
+offset_bottom = 539.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel/MarginContainer" unique_id=2135000022]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel/MarginContainer/VBoxContainer" unique_id=2135000023]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 22
+text = "Game Progress"
+
+[node name="Coins" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel/MarginContainer/VBoxContainer" unique_id=2135000024]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+text = "Coins: 0"
+
+[node name="Party" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel/MarginContainer/VBoxContainer" unique_id=2135000025]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+text = "Party: 0 / 15"
+
+[node name="SaveStatus" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel/MarginContainer/VBoxContainer" unique_id=2135000026]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+text = "Save Status: No Save"
 
 [node name="ActivityPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=226389256]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
 [node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ActivityPanel" unique_id=633165961]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 436.0
-offset_bottom = 532.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_top = 552.0
+offset_right = 1414.0
+offset_bottom = 648.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -389,3 +429,33 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
 text = "No recent activity."
+
+[node name="AcademicHistoryPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2135000030]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AcademicHistoryPanel" unique_id=2135000031]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 665.0
+offset_right = 1412.0
+offset_bottom = 759.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AcademicHistoryPanel/MarginContainer" unique_id=2135000032]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AcademicHistoryPanel/MarginContainer/VBoxContainer" unique_id=2135000033]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 22
+text = "Academic History"
+
+[node name="History" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AcademicHistoryPanel/MarginContainer/VBoxContainer" unique_id=2135000034]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
+text = "No previous academic history."

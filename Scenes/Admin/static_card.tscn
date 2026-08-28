@@ -4,14 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://d4neppv7o8r3o" path="res://Assets/UX/Icons/icon_grad.png" id="2_wmuol"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
-bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.776, 0.627, 0.482, 1)
+bg_color = Color(0.91, 0.79, 0.63, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.47, 0.35, 0.235, 1)
 
-[sub_resource type="FontFile" id="FontFile_wmuol"]
+[sub_resource type="FontFile" id="FontFile_card"]
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
@@ -24,69 +24,61 @@ cache/0/spacing_bottom = 0
 cache/0/spacing_space = 0
 cache/0/spacing_glyph = 0
 cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/19/0/ascent = 0.0
-cache/0/19/0/descent = 0.0
-cache/0/19/0/underline_position = 0.0
-cache/0/19/0/underline_thickness = 0.0
-cache/0/19/0/scale = 1.0
 
-[node name="StatisticCard" type="Panel" unique_id=1748720836]
-custom_minimum_size = Vector2(320, 90)
+[node name="StatisticCard" type="Panel"]
+custom_minimum_size = Vector2(0, 82)
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_card")
 script = ExtResource("1_hp4ev")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=316354390]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=304620446]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 48
+theme_override_constants/separation = 10
 
-[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=1873464150]
-custom_minimum_size = Vector2(64, 32)
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("2_wmuol")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=714678449]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Title" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1564946609]
+[node name="Title" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-theme_override_fonts/font = SubResource("FontFile_wmuol")
-theme_override_font_sizes/font_size = 19
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = SubResource("FontFile_card")
+theme_override_font_sizes/font_size = 12
 text = "TOTAL STUDENTS"
+vertical_alignment = 1
 
-[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1347703552]
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-theme_override_fonts/font = SubResource("FontFile_wmuol")
-theme_override_font_sizes/font_size = 19
-text = "32"
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = SubResource("FontFile_card")
+theme_override_font_sizes/font_size = 24
+text = "0"
+vertical_alignment = 1
 
-[node name="Subtitle" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1841974563]
+[node name="Subtitle" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-theme_override_fonts/font = SubResource("FontFile_wmuol")
-theme_override_font_sizes/font_size = 19
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 0.65)
+theme_override_fonts/font = SubResource("FontFile_card")
+theme_override_font_sizes/font_size = 9
 text = "Enrolled this term"
+vertical_alignment = 1

@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bsykqcnrmnyji" path="res://Scenes/Admin/students.gd" id="1_43a65"]
 [ext_resource type="PackedScene" uid="uid://cm3qhq0evy8fk" path="res://Scenes/Admin/student_row.tscn" id="2_bu631"]
 [ext_resource type="PackedScene" uid="uid://bmiprdfdv1lmk" path="res://Scenes/Admin/add_student.tscn" id="3_m2ql7"]
+[ext_resource type="PackedScene" uid="uid://b6e0gujor6bkf" path="res://Scenes/Admin/student_profile.tscn" id="4_y54qe"]
+[ext_resource type="PackedScene" uid="uid://cnfgx0ew4kdjb" path="res://Scenes/Admin/import_students.tscn" id="5_import"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -92,7 +94,7 @@ text = "Students"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
 theme_override_font_sizes/font_size = 18
-text = "Manage student accounts and monitor their activity."
+text = "Manage Grade 11 student accounts and monitor their progress."
 
 [node name="ToolbarPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=985052336]
 custom_minimum_size = Vector2(0, 64)
@@ -169,9 +171,16 @@ text = "↻ Refresh"
 [node name="AddStudentButton" type="Button" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1086870938]
 custom_minimum_size = Vector2(130, 44)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
 text = "+ Add Student"
+
+[node name="ImportStudentButton" type="Button" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1086870939]
+custom_minimum_size = Vector2(150, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+text = "⇩ Import Students"
 
 [node name="TablePanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=1235994843]
 layout_mode = 2
@@ -211,71 +220,82 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="Number" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=815439092]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.26900002
-anchor_bottom = 0.731
+layout_mode = 0
 offset_left = 40.0
-offset_top = 0.01199913
+offset_top = 14.0
 offset_right = 90.0
-offset_bottom = -0.012001038
+offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
 text = "#"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="StudentID" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=920000001]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 12.0
+offset_right = 270.0
+offset_bottom = 36.0
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "Student ID"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Student" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1775513030]
 layout_mode = 0
-offset_left = 279.0
-offset_top = 17.0
-offset_right = 346.0
-offset_bottom = 41.0
+offset_left = 307.0
+offset_top = 14.0
+offset_right = 557.0
+offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
 text = "Student"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Email" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=313986615]
 layout_mode = 0
-offset_left = 670.0
-offset_top = 17.0
-offset_right = 717.0
-offset_bottom = 41.0
+offset_left = 593.0
+offset_top = 14.0
+offset_right = 873.0
+offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
 text = "Email"
-vertical_alignment = 1
-
-[node name="Rank" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=225739511]
-layout_mode = 0
-offset_left = 836.0
-offset_top = 14.0
-offset_right = 993.0
-offset_bottom = 38.0
-theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
-theme_override_font_sizes/font_size = 17
-text = "Rank"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Elements Collected" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1318045409]
+[node name="Section" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=920000002]
 layout_mode = 0
-offset_left = 986.0
+offset_left = 888.0
 offset_top = 14.0
-offset_right = 1143.0
+offset_right = 1008.0
 offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
-text = "Elements Collected"
+text = "Section"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ElementsCollected" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1318045409]
+layout_mode = 0
+offset_left = 1027.0
+offset_top = 14.0
+offset_right = 1177.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_font_sizes/font_size = 17
+text = "Elements"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Progress" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1868927534]
 layout_mode = 0
-offset_left = 1232.0
+offset_left = 1201.0
 offset_top = 14.0
-offset_right = 1304.0
+offset_right = 1321.0
 offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
@@ -285,9 +305,9 @@ vertical_alignment = 1
 
 [node name="Status" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1458472231]
 layout_mode = 0
-offset_left = 1409.0
+offset_left = 1376.0
 offset_top = 14.0
-offset_right = 1464.0
+offset_right = 1486.0
 offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
@@ -297,9 +317,9 @@ vertical_alignment = 1
 
 [node name="LastActive" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/Header/Columns/Control" unique_id=1054529485]
 layout_mode = 0
-offset_left = 1531.0
+offset_left = 1492.0
 offset_top = 14.0
-offset_right = 1620.0
+offset_right = 1622.0
 offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
 theme_override_font_sizes/font_size = 17
@@ -310,7 +330,6 @@ vertical_alignment = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer" unique_id=315756135]
 layout_mode = 2
 size_flags_vertical = 3
-horizontal_scroll_mode = 0
 
 [node name="Rows" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1347610020]
 layout_mode = 2
@@ -318,6 +337,9 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
 [node name="StudentContainer" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/ScrollContainer/Rows" unique_id=1654802566 instance=ExtResource("2_bu631")]
+layout_mode = 2
+
+[node name="StudentContainer2" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer/ScrollContainer/Rows" unique_id=9637668 instance=ExtResource("2_bu631")]
 layout_mode = 2
 
 [node name="EmptyState" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/TablePanel/MarginContainer/VBoxContainer" unique_id=1786010736]
@@ -345,13 +367,21 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AddStudent" parent="." unique_id=715330153 instance=ExtResource("3_m2ql7")]
+visible = false
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.349
-anchor_top = 0.028
-anchor_right = 0.661
-anchor_bottom = 0.96000004
-offset_left = 0.97998047
-offset_top = -0.15999985
-offset_right = 0.2199707
-offset_bottom = -0.2000122
+
+[node name="StudentProfile" parent="." unique_id=274702473 instance=ExtResource("4_y54qe")]
+visible = false
+layout_mode = 1
+
+[node name="ImportStudents" parent="." unique_id=274702474 instance=ExtResource("5_import")]
+visible = false
+layout_mode = 1
+
+[connection signal="text_changed" from="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SearchPanel/SearchInput" to="." method="_on_search_input_text_changed"]
+[connection signal="item_selected" from="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/FilterButton" to="." method="_on_filter_button_item_selected"]
+[connection signal="item_selected" from="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SortButton" to="." method="_on_sort_button_item_selected"]
+[connection signal="pressed" from="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/AddStudentButton" to="." method="_on_add_student_button_pressed"]
+[connection signal="pressed" from="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/ImportStudentButton" to="." method="_on_import_student_button_pressed"]
+[connection signal="student_created" from="AddStudent" to="." method="_on_student_created"]

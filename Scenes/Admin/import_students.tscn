@@ -1,0 +1,231 @@
+[gd_scene format=3 uid="uid://cnfgx0ew4kdjb"]
+
+[ext_resource type="Script" uid="uid://ds7q1x4rqxy68" path="res://Scenes/Admin/import_students.gd" id="1_import"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Panel"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.694118, 0.521569, 0.301961, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Drop"]
+bg_color = Color(0.95, 0.89, 0.78, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Input"]
+bg_color = Color(0.929412, 0.827451, 0.690196, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Cancel"]
+bg_color = Color(0.870588, 0.796078, 0.694118, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button"]
+bg_color = Color(0.470588, 0.352941, 0.235294, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[node name="ImportStudents" type="Control" unique_id=448496279]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_import")
+
+[node name="PageBackground" type="Panel" parent="." unique_id=1199530290]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Page")
+
+[node name="CenterContainer" type="CenterContainer" parent="PageBackground" unique_id=823775266]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PageBackground/CenterContainer" unique_id=1345636596]
+custom_minimum_size = Vector2(760, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground/CenterContainer/Panel" unique_id=686408488]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/CenterContainer/Panel/MarginContainer" unique_id=1126616280]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1042569300]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 30
+text = "Import Students"
+
+[node name="Subtitle" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=984546990]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
+theme_override_font_sizes/font_size = 16
+text = "Import multiple Grade 11 student accounts from a CSV file."
+
+[node name="Instructions" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1609726363]
+custom_minimum_size = Vector2(696, 22)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.8)
+theme_override_font_sizes/font_size = 15
+text = "CSV format: Student Name, Student ID, Section, Email, Password"
+autowrap_mode = 2
+
+[node name="DropPanel" type="Panel" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=692304242]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Drop")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/DropPanel" unique_id=971332693]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="FileIcon" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/DropPanel/VBoxContainer" unique_id=641692459]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 34
+text = "▣"
+horizontal_alignment = 1
+
+[node name="DropLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/DropPanel/VBoxContainer" unique_id=1898335606]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.85)
+theme_override_font_sizes/font_size = 18
+text = "Select a CSV file to import"
+horizontal_alignment = 1
+
+[node name="BrowseButton" type="Button" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/DropPanel/VBoxContainer" unique_id=941923300]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+text = "Browse CSV File"
+
+[node name="FileLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1629027601]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.8)
+theme_override_font_sizes/font_size = 15
+text = "No file selected."
+horizontal_alignment = 1
+
+[node name="PreviewLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1981617592]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 19
+text = "Import Preview"
+
+[node name="PreviewPanel" type="Panel" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=420594396]
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/PreviewPanel" unique_id=1016047180]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PreviewRows" type="VBoxContainer" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/PreviewPanel/ScrollContainer" unique_id=1036616095]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="StatusLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1561772913]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
+theme_override_font_sizes/font_size = 15
+text = "No students loaded."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=40664662]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CancelButton" type="Button" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons" unique_id=630346447]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Cancel")
+text = "Cancel"
+
+[node name="ImportButton" type="Button" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons" unique_id=1837471051]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+disabled = true
+text = "Import Students"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=265549017]
+title = "Open a File"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.csv ; CSV Files")
+
+[connection signal="pressed" from="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/DropPanel/VBoxContainer/BrowseButton" to="." method="_on_browse_button_pressed"]
+[connection signal="pressed" from="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons/ImportButton" to="." method="_on_import_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_selected"]

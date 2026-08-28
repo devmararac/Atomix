@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://d2cad6ejxbnbs"]
 
+[ext_resource type="Script" uid="uid://bbd6sb2wso10b" path="res://Scenes/Admin/dashboard.gd" id="1_cw7ig"]
 [ext_resource type="PackedScene" uid="uid://cqq24sm7b0057" path="res://Scenes/Admin/static_card.tscn" id="1_yor1h"]
-[ext_resource type="PackedScene" uid="uid://5tmw1yhoghsg" path="res://Scenes/Admin/student_row.tscn" id="2_u5q0m"]
+[ext_resource type="PackedScene" uid="uid://cm3qhq0evy8fk" path="res://Scenes/Admin/student_row.tscn" id="2_u5q0m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -46,6 +47,18 @@ corner_radius_bottom_left = 5
 bg_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf6h6"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="DashboardPage" type="Control" unique_id=51078753]
 layout_mode = 3
 anchors_preset = 15
@@ -53,6 +66,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_cw7ig")
 
 [node name="Background" type="Panel" parent="." unique_id=1213816843]
 layout_mode = 1
@@ -83,16 +97,16 @@ theme_override_constants/separation = 20
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="StatisticCard3" parent="Background/MarginContainer/VBoxContainer/StatsRow" unique_id=1520039697 instance=ExtResource("1_yor1h")]
+[node name="TotalStudent" parent="Background/MarginContainer/VBoxContainer/StatsRow" unique_id=1520039697 instance=ExtResource("1_yor1h")]
 layout_mode = 2
 
-[node name="StatisticCard4" parent="Background/MarginContainer/VBoxContainer/StatsRow" unique_id=1551553550 instance=ExtResource("1_yor1h")]
+[node name="Collection" parent="Background/MarginContainer/VBoxContainer/StatsRow" unique_id=1551553550 instance=ExtResource("1_yor1h")]
 layout_mode = 2
 
-[node name="StatisticCard" parent="Background/MarginContainer/VBoxContainer/StatsRow" unique_id=1748720836 instance=ExtResource("1_yor1h")]
+[node name="TopScore" parent="Background/MarginContainer/VBoxContainer/StatsRow" unique_id=1748720836 instance=ExtResource("1_yor1h")]
 layout_mode = 2
 
-[node name="StatisticCard2" parent="Background/MarginContainer/VBoxContainer/StatsRow" unique_id=2103253575 instance=ExtResource("1_yor1h")]
+[node name="NeedsAttention" parent="Background/MarginContainer/VBoxContainer/StatsRow" unique_id=2103253575 instance=ExtResource("1_yor1h")]
 layout_mode = 2
 
 [node name="LegendPanel" type="Panel" parent="Background/MarginContainer/VBoxContainer" unique_id=65357369]
@@ -256,20 +270,34 @@ theme_override_constants/separation = 0
 [node name="StudentContainer" parent="Background/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows" unique_id=860539921 instance=ExtResource("2_u5q0m")]
 layout_mode = 2
 
-[node name="StudentContainer2" parent="Background/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows" unique_id=1165700792 instance=ExtResource("2_u5q0m")]
-layout_mode = 2
+[node name="EmptyState" type="Panel" parent="Background/MarginContainer/VBoxContainer/StudentTable" unique_id=1231719179]
+visible = false
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 41.0
+offset_right = 1933.0
+offset_bottom = 221.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yf6h6")
 
-[node name="StudentContainer3" parent="Background/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows" unique_id=1452473869 instance=ExtResource("2_u5q0m")]
-layout_mode = 2
-
-[node name="StudentContainer4" parent="Background/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows" unique_id=632464552 instance=ExtResource("2_u5q0m")]
-layout_mode = 2
-
-[node name="StudentContainer5" parent="Background/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows" unique_id=251743897 instance=ExtResource("2_u5q0m")]
-layout_mode = 2
-
-[node name="StudentContainer6" parent="Background/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows" unique_id=636024311 instance=ExtResource("2_u5q0m")]
-layout_mode = 2
+[node name="Label" type="Label" parent="Background/MarginContainer/VBoxContainer/StudentTable/EmptyState" unique_id=603269661]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -25.0
+offset_right = 200.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.7)
+theme_override_font_sizes/font_size = 22
+text = "No students found."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Footer" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer" unique_id=1203395952]
 layout_mode = 2

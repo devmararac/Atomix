@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cm3qhq0evy8fk"]
 
+[ext_resource type="Script" uid="uid://cqnf1qfg8yr5" path="res://Scenes/Admin/student_row.gd.gd" id="1_68o33"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Row"]
 bg_color = Color(0.98, 0.93, 0.84, 1)
 border_width_left = 2
@@ -12,16 +14,23 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="StudentContainer" type="Panel" unique_id=879621695]
+[node name="StudentContainer" type="Panel" unique_id=9637668]
 custom_minimum_size = Vector2(0, 72)
+offset_right = 1908.0
+offset_bottom = 72.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_Row")
+script = ExtResource("1_68o33")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2026130024]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=689443587]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1491.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 16
@@ -29,127 +38,152 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 10
 
-[node name="Columns" type="HBoxContainer" parent="MarginContainer" unique_id=1386301208]
+[node name="Columns" type="HBoxContainer" parent="MarginContainer" unique_id=1280694554]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Control" type="Control" parent="MarginContainer/Columns" unique_id=1572695561]
+[node name="Control" type="Control" parent="MarginContainer/Columns" unique_id=6681828]
+custom_minimum_size = Vector2(1633, 52)
 layout_mode = 2
 
-[node name="Number" type="Label" parent="MarginContainer/Columns/Control" unique_id=1151031285]
+[node name="Number" type="Label" parent="MarginContainer/Columns/Control" unique_id=1054251967]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 0
 offset_top = 14.0
 offset_right = 100.0
 offset_bottom = 37.0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "01"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StudentInfo" type="HBoxContainer" parent="MarginContainer/Columns/Control" unique_id=1620267427]
+[node name="StudentInfo" type="HBoxContainer" parent="MarginContainer/Columns/Control" unique_id=49623257]
 custom_minimum_size = Vector2(960, 0)
 layout_mode = 0
-offset_left = 104.0
-offset_right = 1064.0
-offset_bottom = 52.0
+offset_left = 107.0
+offset_top = 1.0
+offset_right = 1067.0
+offset_bottom = 53.0
 theme_override_constants/separation = 10
 
-[node name="Control" type="Control" parent="MarginContainer/Columns/Control/StudentInfo" unique_id=464394906]
+[node name="Control" type="Control" parent="MarginContainer/Columns/Control/StudentInfo" unique_id=1204534584]
+custom_minimum_size = Vector2(420, 52)
 layout_mode = 2
 
-[node name="Avatar" type="TextureRect" parent="MarginContainer/Columns/Control/StudentInfo/Control" unique_id=2102275547]
-custom_minimum_size = Vector2(40, 40)
+[node name="StudentID" type="Label" parent="MarginContainer/Columns/Control/StudentInfo/Control" unique_id=1170096844]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 52.0
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="MarginContainer/Columns/Control/StudentInfo/Control" unique_id=2132297467]
-layout_mode = 0
-offset_left = 43.0
+offset_left = 11.0
 offset_top = 14.0
-offset_right = 348.0
+offset_right = 129.0
 offset_bottom = 37.0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-text = "qwertyuiopasdfghjklzxcvbnmqwerreter"
+theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
+text = "12345678910"
 horizontal_alignment = 1
 vertical_alignment = 1
+clip_text = true
 
-[node name="Email" type="Label" parent="MarginContainer/Columns/Control/StudentInfo/Control" unique_id=1697170041]
+[node name="Name" type="Label" parent="MarginContainer/Columns/Control/StudentInfo/Control" unique_id=1771730796]
 layout_mode = 0
-offset_left = 437.0
+offset_left = 152.0
 offset_top = 14.0
-offset_right = 716.0
+offset_right = 457.0
 offset_bottom = 37.0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-text = "john@email.com"
+theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
+text = "Student Name"
 horizontal_alignment = 1
 vertical_alignment = 1
+clip_text = true
 
-[node name="Rank" type="Label" parent="MarginContainer/Columns/Control" unique_id=567274900]
+[node name="Email" type="Label" parent="MarginContainer/Columns/Control" unique_id=940591082]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 0
+offset_left = 584.5
+offset_top = 15.0
+offset_right = 844.5
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
+text = "student@email.com"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Section" type="Label" parent="MarginContainer/Columns/Control" unique_id=1737519774]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 0
+offset_left = 874.5
+offset_top = 15.0
+offset_right = 984.5
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
+text = "Section"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Elements" type="Label" parent="MarginContainer/Columns/Control" unique_id=610433282]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 0
-offset_left = 838.0
-offset_top = 14.0
-offset_right = 958.0
-offset_bottom = 37.0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-text = "-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Elements" type="Label" parent="MarginContainer/Columns/Control" unique_id=2117779928]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 0
-offset_left = 985.0
-offset_top = 14.0
-offset_right = 1105.0
-offset_bottom = 37.0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+offset_left = 1024.5
+offset_top = 15.0
+offset_right = 1144.5
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "0 / 118"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ProgressContainer" type="VBoxContainer" parent="MarginContainer/Columns/Control" unique_id=158149701]
+[node name="ProgressContainer" type="VBoxContainer" parent="MarginContainer/Columns/Control" unique_id=2074653754]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 0
-offset_left = 1155.0
-offset_right = 1355.0
-offset_bottom = 52.0
+offset_left = 1141.5
+offset_top = 1.0
+offset_right = 1341.5
+offset_bottom = 53.0
 theme_override_constants/separation = 4
 
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Columns/Control/ProgressContainer" unique_id=1716548642]
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Columns/Control/ProgressContainer" unique_id=2123620890]
 layout_mode = 2
 show_percentage = false
 
-[node name="ProgressText" type="Label" parent="MarginContainer/Columns/Control/ProgressContainer" unique_id=1727593933]
+[node name="ProgressText" type="Label" parent="MarginContainer/Columns/Control/ProgressContainer" unique_id=1577420350]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "0%"
 horizontal_alignment = 1
 
-[node name="Status" type="Label" parent="MarginContainer/Columns/Control" unique_id=1457461215]
+[node name="Status" type="Label" parent="MarginContainer/Columns/Control" unique_id=1133705947]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 0
-offset_left = 1359.0
-offset_top = 14.0
-offset_right = 1479.0
-offset_bottom = 37.0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+offset_left = 1353.5
+offset_top = 15.0
+offset_right = 1473.5
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "Active"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LastActive" type="Label" parent="MarginContainer/Columns/Control" unique_id=1463371025]
+[node name="LastActive" type="Label" parent="MarginContainer/Columns/Control" unique_id=1799661093]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 0
-offset_left = 1483.0
-offset_top = 14.0
-offset_right = 1633.0
-offset_bottom = 37.0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+offset_left = 1466.0
+offset_top = 15.0
+offset_right = 1616.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "Recently"
 horizontal_alignment = 1
 vertical_alignment = 1
+clip_text = true
+
+[node name="ClickArea" type="Button" parent="." unique_id=1850250669]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]
