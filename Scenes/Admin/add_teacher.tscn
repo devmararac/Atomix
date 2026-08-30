@@ -1,0 +1,213 @@
+[gd_scene format=3 uid="uid://7be7jnmhbdnl"]
+
+[ext_resource type="Script" uid="uid://c6yyml061jos6" path="res://Scenes/Admin/add_teacher.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Form"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.694118, 0.521569, 0.301961, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Input"]
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776, 0.627, 0.482, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button"]
+bg_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="AddTeacher" type="Control" unique_id=1222835024]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="PageBackground" type="Panel" parent="." unique_id=39613438]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Page")
+
+[node name="FormPanel" type="Panel" parent="." unique_id=1973089124]
+layout_mode = 0
+offset_left = 602.0
+offset_top = 54.0
+offset_right = 1442.0
+offset_bottom = 664.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_Form")
+
+[node name="Title" type="Label" parent="FormPanel" unique_id=1744209260]
+layout_mode = 0
+offset_left = -577.0
+offset_top = -18.0
+offset_right = 183.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 32
+text = "Add Teacher"
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="FormPanel/Title" unique_id=685260865]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 44.0
+offset_right = 762.0
+offset_bottom = 68.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
+theme_override_font_sizes/font_size = 17
+text = "Create a teacher account and assign their sections."
+
+[node name="MarginContainer" type="MarginContainer" parent="FormPanel" unique_id=1393460623]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FormPanel/MarginContainer" unique_id=341222376]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Spacer1" type="Control" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1712355163]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1645224498]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 18
+text = "Teacher Name"
+
+[node name="NameInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=460694828]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter teacher name..."
+clear_button_enabled = true
+
+[node name="EmailLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=220243389]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 18
+text = "Email"
+
+[node name="EmailInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1695929465]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter teacher email..."
+clear_button_enabled = true
+
+[node name="PasswordLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=730633878]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 18
+text = "Password"
+
+[node name="PasswordInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1629403108]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter password..."
+clear_button_enabled = true
+secret = true
+
+[node name="SchoolYearLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1824790116]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 18
+text = "School Year"
+
+[node name="SchoolYearInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=927643944]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+text = "2026-2027"
+placeholder_text = "e.g. 2026-2027"
+clear_button_enabled = true
+
+[node name="SectionsLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1500331214]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 18
+text = "Assigned Sections"
+
+[node name="SectionsInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1464742191]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "e.g. 11-A, 11-B, 11-C"
+clear_button_enabled = true
+
+[node name="Spacer2" type="Control" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1547025332]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=794269406]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CancelButton" type="Button" parent="FormPanel/MarginContainer/VBoxContainer/ButtonContainer" unique_id=1916227563]
+custom_minimum_size = Vector2(150, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+text = "Cancel"
+
+[node name="CreateButton" type="Button" parent="FormPanel/MarginContainer/VBoxContainer/ButtonContainer" unique_id=679009677]
+custom_minimum_size = Vector2(180, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "Create Teacher"
+
+[node name="StatusLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1026233919]
+custom_minimum_size = Vector2(760, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[connection signal="pressed" from="FormPanel/MarginContainer/VBoxContainer/ButtonContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="FormPanel/MarginContainer/VBoxContainer/ButtonContainer/CreateButton" to="." method="_on_create_button_pressed"]

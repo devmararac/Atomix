@@ -1,0 +1,305 @@
+[gd_scene format=3 uid="uid://dqps142of7kg2"]
+
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_atom"]
+[ext_resource type="Script" uid="uid://b2ebgek7m1gws" path="res://Scripts/admin_dashboard.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://c3upxoky2bwoi" path="res://Assets/UX/Buttons/On-Pressed/base_button_pressed.png" id="3_pressed"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_font"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="5_x"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="6_x_pressed"]
+[ext_resource type="Texture2D" uid="uid://d17cvfb2mxgms" path="res://Assets/UX/Icons/icon_home.png" id="7_home"]
+[ext_resource type="Texture2D" uid="uid://soomem1fgoff" path="res://Assets/UX/Icons/icon_student.png" id="8_student"]
+[ext_resource type="Texture2D" uid="uid://c74uiphwecd4y" path="res://Assets/UX/Icons/icon_progress.png" id="9_progress"]
+[ext_resource type="Texture2D" uid="uid://dxg7ga6k8m7hs" path="res://Assets/UX/Icons/icon_quiz.png" id="10_quiz"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_AppBar"]
+bg_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+border_width_bottom = 4
+border_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Menu"]
+bg_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+
+[sub_resource type="Theme" id="Theme_Button"]
+
+[node name="AdminDashboard" type="Control" unique_id=2032489567]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_script")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1022514957]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[node name="AppBar" type="Panel" parent="." unique_id=144898384]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.11100001
+offset_bottom = -22.920006
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_AppBar")
+
+[node name="Menu" type="TextureButton" parent="AppBar" unique_id=524836092]
+layout_mode = 0
+offset_right = 104.0
+offset_bottom = 76.0
+
+[node name="MenuPanel" type="Panel" parent="." unique_id=595370765]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.11100001
+anchor_right = 0.136
+anchor_bottom = 1.0
+offset_top = -22.920006
+offset_right = -0.2800293
+theme_override_styles/panel = SubResource("StyleBoxFlat_Menu")
+
+[node name="ColorRect" type="ColorRect" parent="MenuPanel" unique_id=1601741659]
+layout_mode = 0
+offset_top = 5.0
+offset_right = 269.0
+offset_bottom = 116.0
+color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel" unique_id=590319568]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.50200003
+anchor_top = 0.027
+anchor_right = 0.50200003
+anchor_bottom = 0.027
+offset_left = -116.03801
+offset_top = -0.2800007
+offset_right = 115.96199
+offset_bottom = 700.0
+theme_override_constants/separation = 31
+
+[node name="DashboardButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=527746231]
+layout_mode = 2
+theme = SubResource("Theme_Button")
+texture_normal = ExtResource("1_atom")
+texture_focused = ExtResource("3_pressed")
+stretch_mode = 0
+
+[node name="DashboardLabel" type="Label" parent="MenuPanel/VBoxContainer/DashboardButton" unique_id=447157976]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.614
+anchor_top = 0.35
+anchor_right = 0.614
+anchor_bottom = 0.35
+offset_left = -83.448
+offset_right = 83.552
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 25
+text = "Dashboard"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/DashboardButton" unique_id=1982058701]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -13.904003
+offset_right = 14.095997
+offset_bottom = 31.0
+texture = ExtResource("7_home")
+expand_mode = 1
+
+[node name="TeachersButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=221698356]
+layout_mode = 2
+theme = SubResource("Theme_Button")
+texture_normal = ExtResource("1_atom")
+texture_focused = ExtResource("3_pressed")
+stretch_mode = 0
+
+[node name="TeachersLabel" type="Label" parent="MenuPanel/VBoxContainer/TeachersButton" unique_id=761553814]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.608
+anchor_top = 0.387
+anchor_right = 0.608
+anchor_bottom = 0.387
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 25
+text = "Teachers"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/TeachersButton" unique_id=216423291]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -13.904003
+offset_right = 14.095997
+offset_bottom = 31.0
+texture = ExtResource("8_student")
+expand_mode = 1
+
+[node name="StudentsButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=272299390]
+layout_mode = 2
+theme = SubResource("Theme_Button")
+texture_normal = ExtResource("1_atom")
+texture_focused = ExtResource("3_pressed")
+stretch_mode = 0
+
+[node name="StudentsLabel" type="Label" parent="MenuPanel/VBoxContainer/StudentsButton" unique_id=570471329]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.608
+anchor_top = 0.387
+anchor_right = 0.608
+anchor_bottom = 0.387
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 25
+text = "Students"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/StudentsButton" unique_id=911905866]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -13.904003
+offset_right = 14.095997
+offset_bottom = 31.0
+texture = ExtResource("8_student")
+expand_mode = 1
+
+[node name="ProgressButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1038759443]
+layout_mode = 2
+theme = SubResource("Theme_Button")
+texture_normal = ExtResource("1_atom")
+texture_focused = ExtResource("3_pressed")
+stretch_mode = 0
+
+[node name="ProgressLabel" type="Label" parent="MenuPanel/VBoxContainer/ProgressButton" unique_id=876077217]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.608
+anchor_top = 0.387
+anchor_right = 0.608
+anchor_bottom = 0.387
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 25
+text = "Progress"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/ProgressButton" unique_id=1004800062]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -13.904003
+offset_right = 14.095997
+offset_bottom = 31.0
+texture = ExtResource("9_progress")
+expand_mode = 1
+
+[node name="QuizModeButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1046978382]
+layout_mode = 2
+theme = SubResource("Theme_Button")
+texture_normal = ExtResource("1_atom")
+texture_focused = ExtResource("3_pressed")
+stretch_mode = 0
+
+[node name="QuizModeLabel" type="Label" parent="MenuPanel/VBoxContainer/QuizModeButton" unique_id=1306525501]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.608
+anchor_top = 0.387
+anchor_right = 0.608
+anchor_bottom = 0.387
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 25
+text = "QuizMode"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/QuizModeButton" unique_id=1606475398]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -22.904003
+offset_top = -5.0
+offset_right = 23.095997
+offset_bottom = 37.0
+texture = ExtResource("10_quiz")
+expand_mode = 1
+
+[node name="CloseButton" type="TextureButton" parent="." unique_id=1398065669]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.984
+anchor_top = 0.008
+anchor_right = 0.984
+anchor_bottom = 0.008
+offset_left = -25.320068
+offset_top = 0.23999977
+offset_right = 25.679932
+offset_bottom = 44.239998
+texture_normal = ExtResource("5_x")
+texture_pressed = ExtResource("6_x_pressed")
+stretch_mode = 0
+
+[node name="INFORMATIONPANEL" type="Panel" parent="." unique_id=966090705]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.13800001
+anchor_top = 0.083000004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.24002075
+offset_top = 0.23999786
+offset_right = -3.0
+offset_bottom = -2.0
+
+[connection signal="pressed" from="MenuPanel/VBoxContainer/DashboardButton" to="." method="_on_dashboard_button_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/TeachersButton" to="." method="_on_teachers_button_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/StudentsButton" to="." method="_on_students_button_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/ProgressButton" to="." method="_on_progress_button_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/QuizModeButton" to="." method="_on_quiz_mode_button_pressed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

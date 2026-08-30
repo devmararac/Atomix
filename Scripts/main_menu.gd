@@ -59,8 +59,8 @@ func _check_user_role() -> void:
 			)
 
 		"admin":
-			status_label.text = "Admin dashboard is not available yet."
-			print("[MainMenu] Admin account detected, but admin dashboard is not implemented.")
+			print("[MainMenu] Opening Admin Dashboard.")
+			get_tree().change_scene_to_file("res://Scenes/Admin/admin_dashboard.tscn")
 
 		_:
 			status_label.text = "Account role could not be determined."

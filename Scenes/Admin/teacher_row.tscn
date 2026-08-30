@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://1obluelh4vmt"]
+
+[ext_resource type="Script" uid="uid://bq35nkxjjdkwu" path="res://Scenes/Admin/teacher_row.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Row"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_bottom = 1
+border_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+
+[node name="TeacherRow" type="HBoxContainer" unique_id=184608605]
+custom_minimum_size = Vector2(0, 54)
+theme_override_constants/separation = 0
+script = ExtResource("1_script")
+
+[node name="Background" type="Panel" parent="." unique_id=1962578445]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Row")
+
+[node name="Control" type="Control" parent="." unique_id=617367704]
+layout_mode = 2
+
+[node name="Number" type="Label" parent="Control" unique_id=434090905]
+custom_minimum_size = Vector2(60, 54)
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Teacher" type="Label" parent="Control" unique_id=1655078239]
+custom_minimum_size = Vector2(220, 54)
+layout_mode = 0
+offset_left = 173.0
+offset_right = 393.0
+offset_bottom = 54.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 16
+text = "Teacher Name"
+vertical_alignment = 1
+
+[node name="Email" type="Label" parent="Control" unique_id=1712618534]
+custom_minimum_size = Vector2(280, 54)
+layout_mode = 0
+offset_left = 452.0
+offset_right = 732.0
+offset_bottom = 54.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 15
+text = "teacher@email.com"
+vertical_alignment = 1
+clip_text = true
+
+[node name="SchoolYear" type="Label" parent="Control" unique_id=1783049777]
+custom_minimum_size = Vector2(150, 54)
+layout_mode = 0
+offset_left = 704.0
+offset_right = 854.0
+offset_bottom = 54.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 15
+text = "2026-2027"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sections" type="Label" parent="Control" unique_id=453335000]
+custom_minimum_size = Vector2(180, 54)
+layout_mode = 0
+offset_left = 876.0
+offset_right = 1056.0
+offset_bottom = 54.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 15
+text = "Section A"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Status" type="Label" parent="Control" unique_id=1186598155]
+custom_minimum_size = Vector2(110, 54)
+layout_mode = 0
+offset_left = 1097.0
+offset_right = 1207.0
+offset_bottom = 54.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 15
+text = "Active"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LastActive" type="Label" parent="Control" unique_id=571015387]
+custom_minimum_size = Vector2(160, 54)
+layout_mode = 0
+offset_left = 1230.0
+offset_right = 1390.0
+offset_bottom = 54.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 14
+text = "Never"
+horizontal_alignment = 1
+vertical_alignment = 1

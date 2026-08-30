@@ -1700,6 +1700,32 @@ func firestore_patch_document(
 	)
 
 
+	var update_mask: Array[String] = []
+
+	for field_name in data.keys():
+		update_mask.append(str(field_name))
+
+
+	var update_mask_query := ""
+
+	for field_path in update_mask:
+
+		if not update_mask_query.is_empty():
+			update_mask_query += "&"
+
+		update_mask_query += (
+			"updateMask.fieldPaths="
+			+
+			field_path.uri_encode()
+		)
+
+
+	var url_with_mask := url
+
+	if not update_mask_query.is_empty():
+		url_with_mask += "?" + update_mask_query
+
+
 	var body := JSON.stringify({
 		"fields": firestore_fields.fields
 	})
@@ -1714,7 +1740,7 @@ func firestore_patch_document(
 
 
 	var error := http.request(
-		url,
+		url_with_mask,
 		headers,
 		HTTPClient.METHOD_PATCH,
 		body
