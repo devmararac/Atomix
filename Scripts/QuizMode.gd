@@ -1,5 +1,5 @@
 extends Node
-const QUIZ_CREATOR = preload("res://Scenes/Admin/quiz_creator.tscn")
+const QUIZ_CREATOR = preload("res://Scenes/Admin/Teacher/quiz_creator.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d2cad6ejxbnbs"]
 
-[ext_resource type="Script" uid="uid://bbd6sb2wso10b" path="res://Scenes/Admin/dashboard.gd" id="1_cw7ig"]
+[ext_resource type="Script" uid="uid://bbd6sb2wso10b" path="res://Scripts/Admin/Teacher/dashboard.gd" id="1_cw7ig"]
 [ext_resource type="PackedScene" uid="uid://cqq24sm7b0057" path="res://Scenes/Admin/static_card.tscn" id="1_yor1h"]
 [ext_resource type="PackedScene" uid="uid://cm3qhq0evy8fk" path="res://Scenes/Admin/student_row.tscn" id="2_u5q0m"]
 

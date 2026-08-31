@@ -2,7 +2,8 @@ extends Control
 
 const DASHBOARD = preload("res://Scenes/Admin/dashboard.tscn")
 const STUDENTS = preload("res://Scenes/Admin/students.tscn")
-const QUIZ_MODE = preload("res://Scenes/Admin/quiz_management.tscn")
+const LESSONS = preload("res://Scenes/Admin/Teacher/lesson_management.tscn")
+const QUIZ_MODE = preload("res://Scenes/Admin/Teacher/quiz_management.tscn")
 
 @onready var information_panel = $INFORMATIONPANEL
 @onready var selector := $MenuPanel/ColorRect
@@ -66,3 +67,13 @@ func _on_quiz_mode_button_pressed() -> void:
 	focus_button(button)
 	move_selector($MenuPanel/VBoxContainer/QuizModeButton)
 	show_page(QUIZ_MODE)
+
+
+func _on_lesson_button_pressed() -> void:
+	
+	var button = $MenuPanel/VBoxContainer/LessonButton
+	focus_button(button)
+	move_selector(
+		$MenuPanel/VBoxContainer/LessonButton
+	)
+	show_page(LESSONS)

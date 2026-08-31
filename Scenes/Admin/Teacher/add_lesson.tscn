@@ -1,0 +1,232 @@
+[gd_scene format=3 uid="uid://2nbmh6b63wlq"]
+
+[ext_resource type="Script" uid="uid://iqq8l0e6j2wu" path="res://Scripts/Admin/Teacher/add_lesson.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Form"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.694118, 0.521569, 0.301961, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Input"]
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button"]
+bg_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="AddLesson" type="Control" unique_id=1840600737]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="PageBackground" type="Panel" parent="." unique_id=188121946]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Page")
+
+[node name="Title" type="Label" parent="." unique_id=1965042206]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 28.0
+offset_right = 816.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 32
+text = "Add Lesson"
+
+[node name="Subtitle" type="Label" parent="Title" unique_id=68760091]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 45.0
+offset_right = 780.0
+offset_bottom = 75.0
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.8)
+theme_override_font_sizes/font_size = 17
+text = "Create a lesson for your students."
+
+[node name="FormPanel" type="Panel" parent="." unique_id=1452422701]
+layout_mode = 0
+offset_left = 418.0
+offset_top = 24.0
+offset_right = 1496.0
+offset_bottom = 674.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_Form")
+
+[node name="MarginContainer" type="MarginContainer" parent="FormPanel" unique_id=453028919]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = 16.0
+offset_right = -36.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FormPanel/MarginContainer" unique_id=1599111255]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TitleLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=2079914776]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Lesson Title"
+
+[node name="TitleInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1620763742]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter lesson title..."
+clear_button_enabled = true
+
+[node name="DescriptionLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1648485926]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Description"
+
+[node name="DescriptionInput" type="TextEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1647728772]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter lesson description..."
+
+[node name="SubjectLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1941604061]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Subject"
+
+[node name="SubjectInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=28340583]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "e.g. Chemistry"
+clear_button_enabled = true
+
+[node name="SectionLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=-1282510507]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Section"
+
+[node name="SectionInput" type="OptionButton" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=-1282510506]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+
+[node name="SchoolYearLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=110794465]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "School Year"
+
+[node name="SchoolYearInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=488126462]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+text = "2026-2027"
+placeholder_text = "e.g. 2026-2027"
+clear_button_enabled = true
+
+[node name="FileLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=2003083755]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Lesson File"
+
+[node name="FileNameLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=977352276]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+text = "No file selected"
+vertical_alignment = 1
+
+[node name="ChooseFileButton" type="Button" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1083080292]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "Choose Lesson File"
+
+[node name="Spacer" type="Control" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=961630081]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=2125219925]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CancelButton" type="Button" parent="FormPanel/MarginContainer/VBoxContainer/ButtonContainer" unique_id=502325695]
+custom_minimum_size = Vector2(150, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+text = "Cancel"
+
+[node name="CreateButton" type="Button" parent="FormPanel/MarginContainer/VBoxContainer/ButtonContainer" unique_id=1755489775]
+custom_minimum_size = Vector2(180, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "Create Lesson"
+
+[node name="StatusLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=742925177]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=2134028285]
+title = "Open a File"
+size = Vector2i(900, 600)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.pdf ; PDF Documents", "*.docx ; Word Documents", "*.pptx ; PowerPoint Presentations")
+use_native_dialog = true
+
+[connection signal="pressed" from="FormPanel/MarginContainer/VBoxContainer/ChooseFileButton" to="." method="_on_choose_file_button_pressed"]
+[connection signal="pressed" from="FormPanel/MarginContainer/VBoxContainer/ButtonContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="FormPanel/MarginContainer/VBoxContainer/ButtonContainer/CreateButton" to="." method="_on_create_button_pressed"]

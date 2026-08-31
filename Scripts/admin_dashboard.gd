@@ -3,9 +3,9 @@ extends Control
 # Pages that can be displayed inside INFORMATIONPANEL.
 
 const DASHBOARD = preload("res://Scenes/Admin/dashboard.tscn")
-const TEACHERS = preload("res://Scenes/Admin/teacher_management.tscn")
+const TEACHERS = preload("res://Scenes/Admin/HeadTeacher/teacher_management.tscn")
 const STUDENTS = preload("res://Scenes/Admin/students.tscn")
-const QUIZ_MODE = preload("res://Scenes/Admin/quiz_management.tscn")
+const QUIZ_MODE = preload("res://Scenes/Admin/Teacher/quiz_management.tscn")
 
 @onready var information_panel = $INFORMATIONPANEL
 @onready var selector := $MenuPanel/ColorRect

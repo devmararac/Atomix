@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://5k5vu51iamna" path="res://Scripts/QuizMode.gd" id="1_tlse4"]
 [ext_resource type="Texture2D" uid="uid://dxg7ga6k8m7hs" path="res://Assets/UX/Icons/icon_quiz.png" id="2_d1gt5"]
 [ext_resource type="Texture2D" uid="uid://oqodphq3t1kq" path="res://Assets/UX/Buttons/Normal/create_quiz.png" id="3_y42cc"]
-[ext_resource type="PackedScene" uid="uid://gfvq0twbbjla" path="res://Scenes/Admin/quiz_row.tscn" id="4_nijgf"]
+[ext_resource type="PackedScene" uid="uid://gfvq0twbbjla" path="res://Scenes/Admin/Teacher/quiz_row.tscn" id="4_nijgf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wisd"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)

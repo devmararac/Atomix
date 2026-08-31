@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b6e0gujor6bkf"]
 
-[ext_resource type="Script" uid="uid://cdunrv1fucpl5" path="res://Scenes/Admin/student_profile.gd" id="1_3uu1x"]
+[ext_resource type="Script" uid="uid://cdunrv1fucpl5" path="res://Scripts/Admin/Teacher/student_profile.gd" id="1_3uu1x"]
 [ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_y1xf8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Input"]

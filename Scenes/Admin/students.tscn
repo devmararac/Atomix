@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cyiv56m6swxwa"]
 
-[ext_resource type="Script" uid="uid://bsykqcnrmnyji" path="res://Scenes/Admin/students.gd" id="1_43a65"]
+[ext_resource type="Script" uid="uid://bsykqcnrmnyji" path="res://Scripts/Admin/Teacher/students.gd" id="1_43a65"]
 [ext_resource type="PackedScene" uid="uid://cm3qhq0evy8fk" path="res://Scenes/Admin/student_row.tscn" id="2_bu631"]
-[ext_resource type="PackedScene" uid="uid://bmiprdfdv1lmk" path="res://Scenes/Admin/add_student.tscn" id="3_m2ql7"]
+[ext_resource type="PackedScene" uid="uid://bmiprdfdv1lmk" path="res://Scenes/Admin/Teacher/add_student.tscn" id="3_m2ql7"]
 [ext_resource type="PackedScene" uid="uid://b6e0gujor6bkf" path="res://Scenes/Admin/student_profile.tscn" id="4_y54qe"]
-[ext_resource type="PackedScene" uid="uid://cnfgx0ew4kdjb" path="res://Scenes/Admin/import_students.tscn" id="5_import"]
+[ext_resource type="PackedScene" uid="uid://cnfgx0ew4kdjb" path="res://Scenes/Admin/Teacher/import_students.tscn" id="5_import"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)

@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://mjby1137gewn"]
+
+[ext_resource type="Script" uid="uid://cr15rlinx2g7b" path="res://Scripts/Admin/Teacher/lesson_management.gd" id="1_e4brx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_background"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header"]
+bg_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.870588, 0.796078, 0.694118, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="LessonManagement" type="Control" unique_id=602811949]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e4brx")
+
+[node name="Background" type="Panel" parent="." unique_id=511787465]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_background")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=109737239]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=593045105]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HeaderPanel" type="Panel" parent="MarginContainer/VBoxContainer" unique_id=1586681634]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_header")
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/HeaderPanel" unique_id=777425946]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.968627, 0.901961, 1)
+theme_override_font_sizes/font_size = 30
+text = "Lesson Management"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer" unique_id=794107292]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 18
+text = "Create, manage, and publish learning materials for your students."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActionContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=64135610]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="AddLessonButton" type="Button" parent="MarginContainer/VBoxContainer/ActionContainer" unique_id=1510325853]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+text = "＋ Add Lesson"
+
+[node name="RefreshButton" type="Button" parent="MarginContainer/VBoxContainer/ActionContainer" unique_id=1803321789]
+custom_minimum_size = Vector2(140, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+text = "Refresh"
+
+[node name="LessonScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=2054379323]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LessonList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/LessonScroll" unique_id=93663403]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="EmptyLabel" type="Label" parent="MarginContainer/VBoxContainer/LessonScroll/LessonList" unique_id=703089316]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 20
+text = "No lessons created yet."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=407055518]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ActionContainer/AddLessonButton" to="." method="_on_add_lesson_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ActionContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]

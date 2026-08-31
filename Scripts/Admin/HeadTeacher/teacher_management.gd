@@ -6,7 +6,8 @@ extends Control
 # ============================================================
 
 const TEACHER_ROW_SCENE: PackedScene = preload(
-	"res://Scenes/Admin/teacher_row.tscn"
+	"res://Scenes/Admin/HeadTeacher/teacher_row.tscn"
+	
 )
 
 

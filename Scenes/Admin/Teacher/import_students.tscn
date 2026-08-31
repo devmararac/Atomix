@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnfgx0ew4kdjb"]
 
-[ext_resource type="Script" uid="uid://ds7q1x4rqxy68" path="res://Scenes/Admin/import_students.gd" id="1_import"]
+[ext_resource type="Script" uid="uid://ds7q1x4rqxy68" path="res://Scripts/Admin/Teacher/import_students.gd" id="1_import"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
 bg_color = Color(0.968627, 0.886275, 0.772549, 1)
@@ -223,7 +223,12 @@ text = "Import Students"
 title = "Open a File"
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.csv ; CSV Files")
+filters = PackedStringArray(
+	"*.csv ; CSV Spreadsheet",
+	"*.xlsx ; Excel Workbook",
+	"*.tsv ; Tab-Separated Spreadsheet",
+	"*.txt ; Text Spreadsheet"
+)
 
 [connection signal="pressed" from="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/DropPanel/VBoxContainer/BrowseButton" to="." method="_on_browse_button_pressed"]
 [connection signal="pressed" from="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons/CancelButton" to="." method="_on_cancel_button_pressed"]

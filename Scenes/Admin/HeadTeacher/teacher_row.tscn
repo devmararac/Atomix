@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1obluelh4vmt"]
 
-[ext_resource type="Script" uid="uid://bq35nkxjjdkwu" path="res://Scenes/Admin/teacher_row.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://bq35nkxjjdkwu" path="res://Scripts/Admin/HeadTeacher/teacher_row.gd" id="1_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Row"]
 bg_color = Color(0.98, 0.93, 0.84, 1)

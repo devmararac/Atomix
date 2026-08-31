@@ -207,8 +207,6 @@ func create_student_document(
 
 		"student_id": student_id,
 
-		"grade_level": "",
-
 		"section": section,
 
 		"school_year": current_school_year,

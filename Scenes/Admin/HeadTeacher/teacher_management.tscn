@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://di7pr77fsrob7"]
 
-[ext_resource type="PackedScene" uid="uid://7be7jnmhbdnl" path="res://Scenes/Admin/add_teacher.tscn" id="1_add_teacher"]
-[ext_resource type="Script" uid="uid://bcc3pnjhy83xn" path="res://Scenes/Admin/teacher_management.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://bcc3pnjhy83xn" path="res://Scripts/Admin/HeadTeacher/teacher_management.gd" id="1_o805k"]
+[ext_resource type="PackedScene" uid="uid://7be7jnmhbdnl" path="res://Scenes/Admin/HeadTeacher/add_teacher.tscn" id="2_1r7nj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -56,7 +56,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_script")
+script = ExtResource("1_o805k")
 
 [node name="PageBackground" type="Panel" parent="." unique_id=788724809]
 layout_mode = 1
@@ -332,6 +332,6 @@ text = "No teachers found."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AddTeacher" parent="." unique_id=89370733 instance=ExtResource("1_add_teacher")]
+[node name="AddTeacher" parent="." unique_id=89370733 instance=ExtResource("2_1r7nj")]
 visible = false
 layout_mode = 1

@@ -54,13 +54,11 @@ func _check_user_role() -> void:
 
 			await get_tree().create_timer(0.3).timeout
 
-			get_tree().change_scene_to_file(
-				"res://Scenes/Admin/teacher_dashboard.tscn"
-			)
+			get_tree().change_scene_to_file("res://Scenes/Admin/Teacher/teacher_dashboard.tscn")
 
 		"admin":
 			print("[MainMenu] Opening Admin Dashboard.")
-			get_tree().change_scene_to_file("res://Scenes/Admin/admin_dashboard.tscn")
+			get_tree().change_scene_to_file("res://Scenes/Admin/HeadTeacher/admin_dashboard.tscn")
 
 		_:
 			status_label.text = "Account role could not be determined."
