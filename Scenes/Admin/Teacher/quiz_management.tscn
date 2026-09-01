@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://bwt1lwkaalkbj"]
 
-[ext_resource type="Script" uid="uid://5k5vu51iamna" path="res://Scripts/QuizMode.gd" id="1_tlse4"]
+[ext_resource type="Script" uid="uid://dictj3kx41184" path="res://Scripts/quiz_management.gd" id="1_quizmanagement"]
 [ext_resource type="Texture2D" uid="uid://dxg7ga6k8m7hs" path="res://Assets/UX/Icons/icon_quiz.png" id="2_d1gt5"]
 [ext_resource type="Texture2D" uid="uid://oqodphq3t1kq" path="res://Assets/UX/Buttons/Normal/create_quiz.png" id="3_y42cc"]
-[ext_resource type="PackedScene" uid="uid://gfvq0twbbjla" path="res://Scenes/Admin/Teacher/quiz_row.tscn" id="4_nijgf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wisd"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -59,7 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_tlse4")
+script = ExtResource("1_quizmanagement")
 
 [node name="QuizPanel" type="Panel" parent="." unique_id=213977910]
 layout_mode = 1
@@ -247,9 +246,5 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
-
-[node name="QuizRow" parent="QuizPanel/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows" unique_id=229974342 instance=ExtResource("4_nijgf")]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
 
 [connection signal="pressed" from="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton/RightSection/CreateQuiz" to="." method="_on_create_quiz_pressed"]

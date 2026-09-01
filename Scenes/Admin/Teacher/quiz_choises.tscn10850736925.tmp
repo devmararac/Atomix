@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://o6icxpf2ip7l"]
+
+[ext_resource type="Script" uid="uid://cl1fbv0h0tn3m" path="res://Scripts/quiz_choises.gd" id="1_8hrg5"]
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_jrpn4"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_8hrg5"]
+[ext_resource type="Texture2D" uid="uid://dofw7o474odev" path="res://Assets/UX/Buttons/Normal/move_button.png" id="3_2s1fx"]
+[ext_resource type="Texture2D" uid="uid://doyceaqqs7d22" path="res://Assets/UX/Buttons/On-Pressed/move_button_pressed.png" id="4_jlfg7"]
+
+[node name="QuizChoises" type="CanvasLayer" unique_id=597185157]
+script = ExtResource("1_8hrg5")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=502410553]
+anchors_preset = -1
+anchor_right = 0.25300002
+anchor_bottom = 0.41700003
+offset_left = 8.0
+offset_right = 7.059967
+offset_bottom = -0.24002075
+texture = ExtResource("1_jrpn4")
+
+[node name="Label" type="Label" parent="NinePatchRect" unique_id=505526870]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 26.0
+offset_right = 446.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 27
+text = "Choose What Type of Quiz to Make"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MultipleChoices" type="TextureButton" parent="NinePatchRect" unique_id=272762086]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 98.0
+offset_right = 221.0
+offset_bottom = 178.0
+texture_normal = ExtResource("3_2s1fx")
+texture_pressed = ExtResource("4_jlfg7")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="NinePatchRect/MultipleChoices" unique_id=1285291320]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 15.0
+offset_right = 140.0
+offset_bottom = 50.0
+theme_override_fonts/font = ExtResource("2_8hrg5")
+text = "Multiple Choices"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Identification" type="TextureButton" parent="NinePatchRect" unique_id=765415515]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 97.0
+offset_right = 430.0
+offset_bottom = 177.0
+texture_normal = ExtResource("3_2s1fx")
+texture_pressed = ExtResource("4_jlfg7")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="NinePatchRect/Identification" unique_id=2064965637]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 15.0
+offset_right = 141.0
+offset_bottom = 50.0
+theme_override_fonts/font = ExtResource("2_8hrg5")
+text = "Identification"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Enumeration" type="TextureButton" parent="NinePatchRect" unique_id=997147888]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 185.0
+offset_right = 222.0
+offset_bottom = 265.0
+texture_normal = ExtResource("3_2s1fx")
+texture_pressed = ExtResource("4_jlfg7")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="NinePatchRect/Enumeration" unique_id=1561829183]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 15.0
+offset_right = 143.0
+offset_bottom = 50.0
+theme_override_fonts/font = ExtResource("2_8hrg5")
+text = "Enumeration"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="True_False" type="TextureButton" parent="NinePatchRect" unique_id=1540155897]
+layout_mode = 0
+offset_left = 282.0
+offset_top = 185.0
+offset_right = 432.0
+offset_bottom = 265.0
+texture_normal = ExtResource("3_2s1fx")
+texture_pressed = ExtResource("4_jlfg7")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="NinePatchRect/True_False" unique_id=905492657]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 15.0
+offset_right = 140.0
+offset_bottom = 50.0
+theme_override_fonts/font = ExtResource("2_8hrg5")
+text = "True or False"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="pressed" from="NinePatchRect/MultipleChoices" to="." method="_on_multiple_choices_pressed"]
+[connection signal="pressed" from="NinePatchRect/Identification" to="." method="_on_identification_pressed"]
+[connection signal="pressed" from="NinePatchRect/Enumeration" to="." method="_on_enumeration_pressed"]
+[connection signal="pressed" from="NinePatchRect/True_False" to="." method="_on_true_false_pressed"]

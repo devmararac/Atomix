@@ -29,6 +29,12 @@ const LESSONS_PAGE = preload(
 	
 )
 
+const QUIZZ_PAGE = preload(
+	"res://Scenes/UI/quiz_page.tscn"
+	
+	
+)
+
 const SETTING_PAGE = preload(
 	"res://Scenes/UI/setting_page.tscn"
 )
@@ -54,41 +60,19 @@ const SETTING_PAGE = preload(
 	MenuVBox/InventoryButton
 )
 
-@onready var questlog_button = (
-	$Root/MainMargin/HBoxContainer/
-	NavigationPanel/NavigationMargin/
-	MenuVBox/QuestLogButton
-)
+@onready var questlog_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/QuestLogButton)
 
-@onready var atomon_button = (
-	$Root/MainMargin/HBoxContainer/
-	NavigationPanel/NavigationMargin/
-	MenuVBox/AtomonButton
-)
+@onready var atomon_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/AtomonButton)
 
-@onready var player_button = (
-	$Root/MainMargin/HBoxContainer/
-	NavigationPanel/NavigationMargin/
-	MenuVBox/PlayerButton
-)
+@onready var player_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/PlayerButton)
 
-@onready var lessons_button = (
-	$Root/MainMargin/HBoxContainer/
-	NavigationPanel/NavigationMargin/
-	MenuVBox/LessonsButton
-)
+@onready var lessons_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/LessonsButton)
 
-@onready var settings_button = (
-	$Root/MainMargin/HBoxContainer/
-	NavigationPanel/NavigationMargin/
-	MenuVBox/SettingsButton
-)
+@onready var quizz_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/QuizzButton)
 
-@onready var close_button = (
-	$Root/MainMargin/HBoxContainer/
-	NavigationPanel/NavigationMargin/
-	MenuVBox/CloseButton
-)
+@onready var settings_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/SettingsButton)
+
+@onready var close_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/CloseButton)
 
 
 # ============================================================
@@ -113,31 +97,6 @@ func _ready():
 	inventory_button.pressed.connect(
 		_on_inventory_pressed
 	)
-
-	questlog_button.pressed.connect(
-		_on_questlog_pressed
-	)
-
-	atomon_button.pressed.connect(
-		_on_atomon_pressed
-	)
-
-	player_button.pressed.connect(
-		_on_player_pressed
-	)
-
-	lessons_button.pressed.connect(
-		_on_lessons_pressed
-	)
-
-	settings_button.pressed.connect(
-		_on_settings_pressed
-	)
-
-	close_button.pressed.connect(
-		close
-	)
-
 
 	# Open Inventory by default.
 	_on_inventory_pressed()
@@ -178,7 +137,7 @@ func _on_inventory_pressed():
 # QUEST LOG
 # ============================================================
 
-func _on_questlog_pressed():
+func _on_quest_log_button_pressed() -> void:
 
 	print("[GameMenu] Quest Log selected.")
 
@@ -191,7 +150,7 @@ func _on_questlog_pressed():
 # ATOMON
 # ============================================================
 
-func _on_atomon_pressed():
+func _on_atomon_button_pressed() -> void:
 
 	print("[GameMenu] Atomon selected.")
 
@@ -204,7 +163,7 @@ func _on_atomon_pressed():
 # PLAYER
 # ============================================================
 
-func _on_player_pressed():
+func _on_player_button_pressed() -> void:
 
 	print("[GameMenu] Player selected.")
 
@@ -215,7 +174,7 @@ func _on_player_pressed():
 # LESSONS
 # ============================================================
 
-func _on_lessons_pressed():
+func _on_lessons_button_pressed() -> void:
 
 	print("[GameMenu] Lessons selected.")
 
@@ -223,26 +182,26 @@ func _on_lessons_pressed():
 		LESSONS_PAGE
 	)
 
+# ============================================================
+# QUIZZ
+# ============================================================
+func _on_quizz_button_pressed() -> void:
+	print("[GameMenu] Lessons selected.")
+	change_page(QUIZZ_PAGE)
 
 # ============================================================
 # SETTINGS
 # ============================================================
 
-func _on_settings_pressed():
-
-	print("[GameMenu] Settings selected.")
-
+func _on_settings_button_pressed() -> void:
 	change_page(
 		SETTING_PAGE
 	)
 
-
 # ============================================================
 # CLOSE
 # ============================================================
-
-func close():
-
+func _on_close_button_pressed() -> void:
 	print("[GameMenu] Closing menu.")
 
 	if hud:

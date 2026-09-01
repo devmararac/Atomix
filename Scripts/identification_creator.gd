@@ -19,6 +19,7 @@ var quiz_title: String = "Untitled Quiz"
 var quiz_section: String = ""
 
 var questions: Array[Dictionary] = []
+
 var current_question_index: int = 0
 
 
@@ -33,6 +34,9 @@ var assigned_sections: Array = []
 # NODE REFERENCES
 # ============================================================
 
+@onready var quiz_settings = \
+	$MarginContainer/VBoxContainer/QuizSettings
+
 @onready var quiz_title_input: LineEdit = \
 	$MarginContainer/VBoxContainer/QuizSettings/QuizTitle
 
@@ -42,55 +46,8 @@ var assigned_sections: Array = []
 @onready var question_text: TextEdit = \
 	$MarginContainer/VBoxContainer/QuestionPanel/QuestionMargin/QuestionText
 
-
-# ------------------------------------------------------------
-# ANSWER TEXT BOXES
-# ------------------------------------------------------------
-
-@onready var answer_a: TextEdit = \
-	$MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerA/Margin/VBox/AnswerText
-
-@onready var answer_b: TextEdit = \
-	$MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerB/Margin/VBox/AnswerText
-
-@onready var answer_c: TextEdit = \
-	$MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC/Margin/VBox/AnswerText
-
-@onready var answer_d: TextEdit = \
-	$MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerD/Margin/VBox/AnswerText
-
-
-# ------------------------------------------------------------
-# CORRECT ANSWER CHECKBOXES
-# ------------------------------------------------------------
-
-@onready var correct_a: CheckBox = \
-	$MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerA/Margin/VBox/TopBar/Correct
-
-@onready var correct_b: CheckBox = \
-	$MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerB/Margin/VBox/TopBar/Correct
-
-@onready var correct_c: CheckBox = \
-	$MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC/Margin/VBox/TopBar/Correct
-
-@onready var correct_d: CheckBox = \
-	$MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerD/Margin/VBox/TopBar/Correct
-
-
-# ------------------------------------------------------------
-# MULTIPLE ANSWERS
-# ------------------------------------------------------------
-
-@onready var multiple_answers: CheckBox = \
-	$MarginContainer/VBoxContainer/BottomBar/MultipleAnswers
-
-
-# ------------------------------------------------------------
-# BUTTONS
-# ------------------------------------------------------------
-
-@onready var add_answer_button: Button = \
-	$MarginContainer/VBoxContainer/BottomBar/AddAnswerButton
+@onready var answer_text: TextEdit = \
+	$MarginContainer/VBoxContainer/AnswerPanel/Margin/VBox/AnswerText
 
 @onready var save_button: Button = \
 	$MarginContainer/VBoxContainer/NavigationBar/SaveButton
@@ -108,7 +65,7 @@ var assigned_sections: Array = []
 
 func _ready() -> void:
 
-	print("[QuizCreator] Quiz Creator opened.")
+	print("[IdentificationCreator] Identification Quiz Creator opened.")
 
 	# --------------------------------------------------------
 	# Firestore URL
@@ -121,61 +78,36 @@ func _ready() -> void:
 		+ DATABASE_ID \
 		+ "/documents/quizzes"
 
-
 	# --------------------------------------------------------
-	# Multiple choice always has four answer boxes
-	# --------------------------------------------------------
-
-	if add_answer_button != null:
-		add_answer_button.hide()
-
-
-	# --------------------------------------------------------
-	# Load teacher sections
+	# Load teacher's assigned sections
 	# --------------------------------------------------------
 
 	await _load_teacher_sections()
-
 
 	# --------------------------------------------------------
 	# Connect buttons
 	# --------------------------------------------------------
 
-	if save_button != null:
-		if not save_button.pressed.is_connected(
+	if not save_button.pressed.is_connected(
+		_on_save_button_pressed
+	):
+		save_button.pressed.connect(
 			_on_save_button_pressed
-		):
-			save_button.pressed.connect(
-				_on_save_button_pressed
-			)
+	)
 
-
-	if next_button != null:
-		if not next_button.pressed.is_connected(
+	if not next_button.pressed.is_connected(
+		_on_next_button_pressed
+	):
+		next_button.pressed.connect(
 			_on_next_button_pressed
-		):
-			next_button.pressed.connect(
-				_on_next_button_pressed
-			)
+	)
 
-
-	if previous_button != null:
-		if not previous_button.pressed.is_connected(
+	if not previous_button.pressed.is_connected(
+		_on_previous_button_pressed
+	):
+		previous_button.pressed.connect(
 			_on_previous_button_pressed
-		):
-			previous_button.pressed.connect(
-				_on_previous_button_pressed
-			)
-
-
-	if multiple_answers != null:
-		if not multiple_answers.toggled.is_connected(
-			_on_multiple_answers_toggled
-		):
-			multiple_answers.toggled.connect(
-				_on_multiple_answers_toggled
-			)
-
+	)
 
 	_update_navigation_buttons()
 
@@ -187,9 +119,8 @@ func _ready() -> void:
 func _load_teacher_sections() -> void:
 
 	print(
-		"[QuizCreator] Loading teacher assigned sections."
+		"[IdentificationCreator] Loading teacher assigned sections."
 	)
-
 
 	# --------------------------------------------------------
 	# Check user role
@@ -198,21 +129,19 @@ func _load_teacher_sections() -> void:
 	var role = await AuthManager.get_user_role()
 
 	print(
-		"[QuizCreator] Current user role: ",
+		"[IdentificationCreator] Current user role: ",
 		role
 	)
-
 
 	if role != "teacher":
 
 		print(
-			"[QuizCreator] Current user is not a teacher."
+			"[IdentificationCreator] Current user is not a teacher."
 		)
 
 		_configure_default_sections()
 
 		return
-
 
 	# --------------------------------------------------------
 	# Get teacher UID
@@ -223,33 +152,29 @@ func _load_teacher_sections() -> void:
 	if uid.is_empty():
 
 		print(
-			"[QuizCreator] ERROR: Teacher UID is empty."
+			"[IdentificationCreator] ERROR: Teacher UID is empty."
 		)
 
 		_configure_default_sections()
 
 		return
 
-
 	print(
-		"[QuizCreator] Teacher detected. UID: ",
+		"[IdentificationCreator] Teacher detected. UID: ",
 		uid
 	)
 
-
 	# --------------------------------------------------------
-	# Get assigned sections
+	# Get assigned sections from TeacherDataManager
 	# --------------------------------------------------------
 
 	assigned_sections = \
 		await TeacherDataManager.get_current_teacher_sections()
 
-
 	print(
-		"[QuizCreator] Teacher assigned sections: ",
+		"[IdentificationCreator] Teacher assigned sections: ",
 		assigned_sections
 	)
-
 
 	# --------------------------------------------------------
 	# Configure dropdown
@@ -261,11 +186,10 @@ func _load_teacher_sections() -> void:
 		"Select Section"
 	)
 
-
 	if assigned_sections.is_empty():
 
 		print(
-			"[QuizCreator] WARNING: No assigned sections found."
+			"[IdentificationCreator] WARNING: No assigned sections found."
 		)
 
 	else:
@@ -278,15 +202,24 @@ func _load_teacher_sections() -> void:
 			if section_name.is_empty():
 				continue
 
+			# ------------------------------------------------
+			# DO NOT ADD GRADE LEVEL
+			#
+			# Firestore:
+			# assigned_sections = ["A"]
+			#
+			# Dropdown:
+			# A
+			# ------------------------------------------------
+
 			section_option.add_item(
 				section_name
 			)
 
 			print(
-				"[QuizCreator] Added assigned section: ",
+				"[IdentificationCreator] Added assigned section: ",
 				section_name
 			)
-
 
 	section_option.select(0)
 
@@ -298,9 +231,8 @@ func _load_teacher_sections() -> void:
 func _configure_default_sections() -> void:
 
 	print(
-		"[QuizCreator] Configuring default sections."
+		"[IdentificationCreator] Configuring default sections."
 	)
-
 
 	section_option.clear()
 
@@ -309,49 +241,18 @@ func _configure_default_sections() -> void:
 	)
 
 	section_option.add_item(
-		"11-A"
+		"A"
 	)
 
 	section_option.add_item(
-		"11-B"
+		"B"
 	)
 
 	section_option.add_item(
-		"11-C"
+		"C"
 	)
 
 	section_option.select(0)
-
-
-# ============================================================
-# CLOSE
-# ============================================================
-
-func _on_texture_button_pressed() -> void:
-
-	print(
-		"[QuizCreator] Closing."
-	)
-
-	queue_free()
-
-
-# ============================================================
-# GET QUIZ TITLE
-# ============================================================
-
-func _get_quiz_title() -> String:
-
-	if quiz_title_input == null:
-		return "Untitled Quiz"
-
-	var title := \
-		quiz_title_input.text.strip_edges()
-
-	if title.is_empty():
-		return "Untitled Quiz"
-
-	return title
 
 
 # ============================================================
@@ -375,6 +276,10 @@ func _get_section() -> String:
 # VALIDATE SECTION
 # ============================================================
 
+# ============================================================
+# VALIDATE SECTION
+# ============================================================
+
 func _is_valid_teacher_section(
 	selected_section: String
 ) -> bool:
@@ -382,6 +287,10 @@ func _is_valid_teacher_section(
 	if selected_section.is_empty():
 		return false
 
+	# --------------------------------------------------------
+	# Check selected section directly against teacher's
+	# assigned sections.
+	# --------------------------------------------------------
 
 	for section in assigned_sections:
 
@@ -391,60 +300,36 @@ func _is_valid_teacher_section(
 		if assigned_section.is_empty():
 			continue
 
+		# ----------------------------------------------------
+		# Direct comparison.
+		#
+		# assigned_sections:
+		# ["A"]
+		#
+		# selected_section:
+		# "A"
+		#
+		# Result:
+		# VALID
+		# ----------------------------------------------------
 
 		if assigned_section == selected_section:
 
-			print(
-				"[QuizCreator] Section validation passed: ",
-				selected_section
-			)
-
 			return true
-
-
-	print(
-		"[QuizCreator] Section validation failed: ",
-		selected_section
-	)
 
 	return false
 
-
 # ============================================================
-# GET ANSWER TEXTS
-# ============================================================
-
-func _get_answer_texts() -> Array[String]:
-
-	return [
-		answer_a.text.strip_edges(),
-		answer_b.text.strip_edges(),
-		answer_c.text.strip_edges(),
-		answer_d.text.strip_edges()
-	]
-
-
-# ============================================================
-# GET CORRECT ANSWERS
+# CLOSE
 # ============================================================
 
-func _get_correct_answers() -> Array[int]:
+func _on_texture_button_pressed() -> void:
 
-	var correct_answers: Array[int] = []
+	print(
+		"[IdentificationCreator] Closing."
+	)
 
-	if correct_a.button_pressed:
-		correct_answers.append(0)
-
-	if correct_b.button_pressed:
-		correct_answers.append(1)
-
-	if correct_c.button_pressed:
-		correct_answers.append(2)
-
-	if correct_d.button_pressed:
-		correct_answers.append(3)
-
-	return correct_answers
+	queue_free()
 
 
 # ============================================================
@@ -453,105 +338,42 @@ func _get_correct_answers() -> Array[int]:
 
 func _save_current_question() -> bool:
 
-	if question_text == null:
-		print(
-			"[QuizCreator] ERROR: Question field is missing."
-		)
-
-		return false
-
-
 	var question := \
 		question_text.text.strip_edges()
 
+	var answer := \
+		answer_text.text.strip_edges()
 
 	if question.is_empty():
 
 		print(
-			"[QuizCreator] ERROR: Question is empty."
+			"[IdentificationCreator] ERROR: Question is empty."
 		)
 
 		return false
 
-
-	# --------------------------------------------------------
-	# Get all four answers
-	# --------------------------------------------------------
-
-	var answers := _get_answer_texts()
-
-
-	# --------------------------------------------------------
-	# Validate answers
-	# --------------------------------------------------------
-
-	for i in range(answers.size()):
-
-		if answers[i].is_empty():
-
-			print(
-				"[QuizCreator] ERROR: Answer ",
-				char(65 + i),
-				" is empty."
-			)
-
-			return false
-
-
-	# --------------------------------------------------------
-	# Get correct answers
-	# --------------------------------------------------------
-
-	var correct_answers := \
-		_get_correct_answers()
-
-
-	if correct_answers.is_empty():
+	if answer.is_empty():
 
 		print(
-			"[QuizCreator] ERROR: No correct answer selected."
+			"[IdentificationCreator] ERROR: Correct answer is empty."
 		)
 
 		return false
-
-
-	# --------------------------------------------------------
-	# Check multiple-answer setting
-	# --------------------------------------------------------
-
-	if not multiple_answers.button_pressed:
-
-		if correct_answers.size() > 1:
-
-			print(
-				"[QuizCreator] ERROR: Multiple correct answers ",
-				"are selected but Multiple Correct Answers ",
-				"is disabled."
-			)
-
-			return false
-
-
-	# --------------------------------------------------------
-	# Build question data
-	# --------------------------------------------------------
 
 	var question_data := {
 
 		"question": question,
 
-		"type": "multiple_choice",
+		"type": "identification",
 
-		"answers": answers,
+		"answers": [
+			answer
+		],
 
-		"correct_answers": correct_answers
-
+		"correct_answers": [
+			0
+		]
 	}
-
-
-	# --------------------------------------------------------
-	# Store question
-	# --------------------------------------------------------
 
 	if current_question_index < questions.size():
 
@@ -564,13 +386,11 @@ func _save_current_question() -> bool:
 			question_data
 		)
 
-
 	print(
-		"[QuizCreator] Question ",
+		"[IdentificationCreator] Question ",
 		current_question_index + 1,
 		" stored."
 	)
-
 
 	return true
 
@@ -584,21 +404,14 @@ func _load_question(index: int) -> void:
 	if index < 0:
 		return
 
-
 	if index >= questions.size():
 
 		_clear_question()
 
 		return
 
-
 	var data: Dictionary = \
 		questions[index]
-
-
-	# --------------------------------------------------------
-	# Question
-	# --------------------------------------------------------
 
 	question_text.text = str(
 		data.get(
@@ -607,93 +420,23 @@ func _load_question(index: int) -> void:
 		)
 	)
 
-
-	# --------------------------------------------------------
-	# Answers
-	# --------------------------------------------------------
-
 	var answers: Array = \
 		data.get(
 			"answers",
 			[]
 		)
 
+	if answers.size() > 0:
 
-	answer_a.text = \
-		_get_answer_from_array(
-			answers,
-			0
+		answer_text.text = str(
+			answers[0]
 		)
 
-	answer_b.text = \
-		_get_answer_from_array(
-			answers,
-			1
-		)
+	else:
 
-	answer_c.text = \
-		_get_answer_from_array(
-			answers,
-			2
-		)
-
-	answer_d.text = \
-		_get_answer_from_array(
-			answers,
-			3
-		)
-
-
-	# --------------------------------------------------------
-	# Correct answers
-	# --------------------------------------------------------
-
-	var correct_answers: Array = \
-		data.get(
-			"correct_answers",
-			[]
-		)
-
-
-	correct_a.button_pressed = \
-		0 in correct_answers
-
-	correct_b.button_pressed = \
-		1 in correct_answers
-
-	correct_c.button_pressed = \
-		2 in correct_answers
-
-	correct_d.button_pressed = \
-		3 in correct_answers
-
-
-	# --------------------------------------------------------
-	# Multiple correct
-	# --------------------------------------------------------
-
-	multiple_answers.button_pressed = \
-		correct_answers.size() > 1
-
+		answer_text.text = ""
 
 	_update_navigation_buttons()
-
-
-# ============================================================
-# GET ANSWER FROM ARRAY
-# ============================================================
-
-func _get_answer_from_array(
-	answers: Array,
-	index: int
-) -> String:
-
-	if index >= answers.size():
-		return ""
-
-	return str(
-		answers[index]
-	)
 
 
 # ============================================================
@@ -704,43 +447,9 @@ func _clear_question() -> void:
 
 	question_text.text = ""
 
-	answer_a.text = ""
-	answer_b.text = ""
-	answer_c.text = ""
-	answer_d.text = ""
-
-	correct_a.button_pressed = false
-	correct_b.button_pressed = false
-	correct_c.button_pressed = false
-	correct_d.button_pressed = false
+	answer_text.text = ""
 
 	_update_navigation_buttons()
-
-
-# ============================================================
-# MULTIPLE ANSWERS TOGGLE
-# ============================================================
-
-func _on_multiple_answers_toggled(
-	enabled: bool
-) -> void:
-
-	print(
-		"[QuizCreator] Multiple correct answers: ",
-		enabled
-	)
-
-
-# ============================================================
-# ADD ANSWER BUTTON
-# ============================================================
-
-func _on_add_answer_button_pressed() -> void:
-
-	print(
-		"[QuizCreator] Multiple choice quizzes already ",
-		"use four answer options."
-	)
 
 
 # ============================================================
@@ -750,21 +459,12 @@ func _on_add_answer_button_pressed() -> void:
 func _on_next_button_pressed() -> void:
 
 	print(
-		"[QuizCreator] Next button pressed."
+		"[IdentificationCreator] Next button pressed."
 	)
 
-
-	# --------------------------------------------------------
-	# Save current question
-	# --------------------------------------------------------
-
 	if not _save_current_question():
+
 		return
-
-
-	# --------------------------------------------------------
-	# Move to next existing question
-	# --------------------------------------------------------
 
 	if current_question_index < questions.size() - 1:
 
@@ -774,11 +474,6 @@ func _on_next_button_pressed() -> void:
 			current_question_index
 		)
 
-
-	# --------------------------------------------------------
-	# Create new question
-	# --------------------------------------------------------
-
 	else:
 
 		current_question_index = \
@@ -786,14 +481,7 @@ func _on_next_button_pressed() -> void:
 
 		_clear_question()
 
-
 	_update_navigation_buttons()
-
-
-	print(
-		"[QuizCreator] Now editing question ",
-		current_question_index + 1
-	)
 
 
 # ============================================================
@@ -803,36 +491,28 @@ func _on_next_button_pressed() -> void:
 func _on_previous_button_pressed() -> void:
 
 	print(
-		"[QuizCreator] Previous button pressed."
+		"[IdentificationCreator] Previous button pressed."
 	)
-
 
 	if current_question_index <= 0:
 
 		print(
-			"[QuizCreator] Already at first question."
+			"[IdentificationCreator] Already at first question."
 		)
 
 		return
 
-
-	# --------------------------------------------------------
-	# Save current question if it already exists
-	# --------------------------------------------------------
-
 	if current_question_index < questions.size():
 
 		if not _save_current_question():
+
 			return
 
-
 	current_question_index -= 1
-
 
 	_load_question(
 		current_question_index
 	)
-
 
 	_update_navigation_buttons()
 
@@ -843,15 +523,12 @@ func _on_previous_button_pressed() -> void:
 
 func _update_navigation_buttons() -> void:
 
-	if previous_button == null \
-	or next_button == null:
-
+	if previous_button == null:
 		return
 
-
-	previous_button.disabled = \
+	previous_button.disabled = (
 		current_question_index <= 0
-
+	)
 
 	if current_question_index >= questions.size():
 
@@ -871,17 +548,16 @@ func _update_navigation_buttons() -> void:
 func _on_save_button_pressed() -> void:
 
 	print(
-		"[QuizCreator] Save button pressed."
+		"[IdentificationCreator] Save button pressed."
 	)
-
 
 	# --------------------------------------------------------
 	# Save current question
 	# --------------------------------------------------------
 
 	if not _save_current_question():
-		return
 
+		return
 
 	# --------------------------------------------------------
 	# Make sure quiz has questions
@@ -890,54 +566,30 @@ func _on_save_button_pressed() -> void:
 	if questions.is_empty():
 
 		print(
-			"[QuizCreator] ERROR: Quiz has no questions."
+			"[IdentificationCreator] ERROR: Quiz has no questions."
 		)
 
 		return
 
-
 	# --------------------------------------------------------
-	# Quiz settings
+	# Get selected section
 	# --------------------------------------------------------
 
-	quiz_title = \
-		_get_quiz_title()
-
-	quiz_section = \
-		_get_section()
-
-
-	print(
-		"[QuizCreator] Quiz title: ",
-		quiz_title
-	)
-
-	print(
-		"[QuizCreator] Section: ",
-		quiz_section
-	)
-
-	print(
-		"[QuizCreator] Total questions: ",
-		questions.size()
-	)
-
-
-	# --------------------------------------------------------
-	# Validate section
-	# --------------------------------------------------------
+	quiz_section = _get_section()
 
 	if quiz_section.is_empty():
 
 		print(
-			"[QuizCreator] ERROR: No section selected."
+			"[IdentificationCreator] ERROR: No section selected."
 		)
 
 		return
 
-
 	# --------------------------------------------------------
-	# Security check
+	# SECURITY CHECK
+	#
+	# Make sure the selected section actually belongs
+	# to the teacher.
 	# --------------------------------------------------------
 
 	if not _is_valid_teacher_section(
@@ -945,52 +597,48 @@ func _on_save_button_pressed() -> void:
 	):
 
 		print(
-			"[QuizCreator] ERROR: Selected section ",
-			"is not assigned to this teacher."
+			"[IdentificationCreator] ERROR: Selected section is not assigned to this teacher."
 		)
 
 		return
 
-
 	print(
-		"[QuizCreator] Selected teacher section: ",
+		"[IdentificationCreator] Selected teacher section: ",
 		quiz_section
 	)
 
+	print(
+		"[IdentificationCreator] Total questions: ",
+		questions.size()
+	)
 
 	# --------------------------------------------------------
 	# Firebase token
 	# --------------------------------------------------------
 
-	var token := \
-		_get_id_token()
-
+	var token := _get_id_token()
 
 	if token.is_empty():
 
 		print(
-			"[QuizCreator] ERROR: Firebase ID token is empty."
+			"[IdentificationCreator] ERROR: Firebase ID token is empty."
 		)
 
 		return
-
 
 	# --------------------------------------------------------
 	# UID
 	# --------------------------------------------------------
 
-	var uid := \
-		_get_uid()
-
+	var uid := _get_uid()
 
 	if uid.is_empty():
 
 		print(
-			"[QuizCreator] ERROR: User UID is empty."
+			"[IdentificationCreator] ERROR: User UID is empty."
 		)
 
 		return
-
 
 	# --------------------------------------------------------
 	# Quiz ID
@@ -999,20 +647,17 @@ func _on_save_button_pressed() -> void:
 	var quiz_id := \
 		_generate_quiz_id()
 
-
 	# --------------------------------------------------------
-	# Convert questions to Firestore
+	# Convert questions
 	# --------------------------------------------------------
 
 	var question_values: Array = []
-
 
 	for question_data in questions:
 
 		var question_map := {
 
 			"question": {
-
 				"stringValue": str(
 					question_data.get(
 						"question",
@@ -1022,15 +667,11 @@ func _on_save_button_pressed() -> void:
 			},
 
 			"type": {
-
-				"stringValue": "multiple_choice"
-
+				"stringValue": "identification"
 			},
 
 			"answers": {
-
 				"arrayValue": {
-
 					"values": \
 						_string_array_to_firestore(
 							question_data.get(
@@ -1038,15 +679,11 @@ func _on_save_button_pressed() -> void:
 								[]
 							)
 						)
-
 				}
-
 			},
 
 			"correct_answers": {
-
 				"arrayValue": {
-
 					"values": \
 						_int_array_to_firestore(
 							question_data.get(
@@ -1054,126 +691,82 @@ func _on_save_button_pressed() -> void:
 								[]
 							)
 						)
-
 				}
-
 			}
-
 		}
-
 
 		question_values.append(
 			{
 				"mapValue": {
-
 					"fields": question_map
-
 				}
 			}
 		)
 
-
 	# --------------------------------------------------------
-	# Firestore fields
+	# Quiz title
 	# --------------------------------------------------------
 
-	var fields := {
-
-		"quiz_id": {
-
-			"stringValue": \
-				quiz_id
-
-		},
-
-		"teacher_id": {
-
-			"stringValue": \
-				uid
-
-		},
-
-		"title": {
-
-			"stringValue": \
-				quiz_title
-
-		},
-
-		"section": {
-
-			"stringValue": \
-				quiz_section
-
-		},
-
-		"quiz_type": {
-
-			"stringValue": \
-				"multiple_choice"
-
-		},
-
-		"question_count": {
-
-			"integerValue": \
-				str(
-					questions.size()
-				)
-
-		},
-
-		"questions": {
-
-			"arrayValue": {
-
-				"values": \
-					question_values
-
-			}
-
-		},
-
-		"created_at": {
-
-			"timestampValue": \
-				_get_firestore_timestamp()
-
-		}
-
-	}
-
+	quiz_title = "Identification Quiz"
 
 	# --------------------------------------------------------
 	# Firestore document
 	# --------------------------------------------------------
 
-	var document := {
+	var fields := {
 
-		"fields": \
-			fields
+		"quiz_id": {
+			"stringValue": quiz_id
+		},
 
+		"teacher_id": {
+			"stringValue": uid
+		},
+
+		"title": {
+			"stringValue": quiz_title
+		},
+
+		"section": {
+			"stringValue": quiz_section
+		},
+
+		"quiz_type": {
+			"stringValue": "identification"
+		},
+
+		"question_count": {
+			"integerValue": str(
+				questions.size()
+			)
+		},
+
+		"questions": {
+			"arrayValue": {
+				"values": question_values
+			}
+		},
+
+		"created_at": {
+			"timestampValue":
+				_get_firestore_timestamp()
+		}
 	}
 
+	var document := {
+		"fields": fields
+	}
 
 	var json_body := \
-		JSON.stringify(
-			document
-		)
-
+		JSON.stringify(document)
 
 	# --------------------------------------------------------
 	# HTTP request
 	# --------------------------------------------------------
 
-	var http := \
-		HTTPRequest.new()
+	var http := HTTPRequest.new()
 
-
-	add_child(
-		http
-	)
-
+	add_child(http)
 
 	http.request_completed.connect(
 		_on_save_request_completed.bind(
@@ -1181,49 +774,41 @@ func _on_save_button_pressed() -> void:
 		)
 	)
 
-
 	var headers := PackedStringArray([
-
 		"Content-Type: application/json",
-
 		"Authorization: Bearer " + token
-
 	])
 
-
 	print(
-		"[QuizCreator] Saving quiz to Firestore."
+		"[IdentificationCreator] Saving quiz to Firestore."
 	)
 
 	print(
-		"[QuizCreator] Quiz ID: ",
+		"[IdentificationCreator] Quiz ID: ",
 		quiz_id
 	)
 
 	print(
-		"[QuizCreator] Teacher ID: ",
+		"[IdentificationCreator] Teacher ID: ",
 		uid
 	)
 
 	print(
-		"[QuizCreator] Section: ",
+		"[IdentificationCreator] Section: ",
 		quiz_section
 	)
 
-
-	var error := \
-		http.request(
-			firestore_url + "/" + quiz_id,
-			headers,
-			HTTPClient.METHOD_PATCH,
-			json_body
-		)
-
+	var error := http.request(
+		firestore_url + "/" + quiz_id,
+		headers,
+		HTTPClient.METHOD_PATCH,
+		json_body
+	)
 
 	if error != OK:
 
 		print(
-			"[QuizCreator] Failed to send request: ",
+			"[IdentificationCreator] Failed to send request: ",
 			error
 		)
 
@@ -1240,16 +825,13 @@ func _string_array_to_firestore(
 
 	var result: Array = []
 
-
 	for value in values:
 
 		result.append(
 			{
-				"stringValue": \
-					str(value)
+				"stringValue": str(value)
 			}
 		)
-
 
 	return result
 
@@ -1264,18 +846,15 @@ func _int_array_to_firestore(
 
 	var result: Array = []
 
-
 	for value in values:
 
 		result.append(
 			{
-				"integerValue": \
-					str(
-						int(value)
-					)
+				"integerValue": str(
+					int(value)
+				)
 			}
 		)
-
 
 	return result
 
@@ -1295,34 +874,30 @@ func _on_save_request_completed(
 	var response_text := \
 		body.get_string_from_utf8()
 
-
 	print(
-		"[QuizCreator] Firestore response: ",
+		"[IdentificationCreator] Firestore response: ",
 		response_code
 	)
 
 	print(
-		"[QuizCreator] Response body: ",
+		"[IdentificationCreator] Response body: ",
 		response_text
 	)
 
-
 	http.queue_free()
-
 
 	if response_code == 200:
 
 		print(
-			"[QuizCreator] QUIZ SAVED SUCCESSFULLY!"
+			"[IdentificationCreator] QUIZ SAVED SUCCESSFULLY!"
 		)
 
 		queue_free()
 
 		return
 
-
 	print(
-		"[QuizCreator] ERROR SAVING QUIZ."
+		"[IdentificationCreator] ERROR SAVING QUIZ."
 	)
 
 
@@ -1335,24 +910,21 @@ func _get_id_token() -> String:
 	if Firebase.Auth == null:
 
 		print(
-			"[QuizCreator] Firebase.Auth is null."
+			"[IdentificationCreator] Firebase.Auth is null."
 		)
 
 		return ""
-
 
 	var auth_data: Dictionary = \
 		Firebase.Auth.auth
 
-
 	if auth_data.is_empty():
 
 		print(
-			"[QuizCreator] Firebase.Auth.auth is empty."
+			"[IdentificationCreator] Firebase.Auth.auth is empty."
 		)
 
 		return ""
-
 
 	var token := str(
 		auth_data.get(
@@ -1360,7 +932,6 @@ func _get_id_token() -> String:
 			""
 		)
 	)
-
 
 	if token.is_empty():
 
@@ -1371,15 +942,13 @@ func _get_id_token() -> String:
 			)
 		)
 
-
 	if token.is_empty():
 
 		print(
-			"[QuizCreator] Could not find ID token."
+			"[IdentificationCreator] Could not find ID token."
 		)
 
 		return ""
-
 
 	return token
 
@@ -1390,15 +959,10 @@ func _get_id_token() -> String:
 
 func _get_uid() -> String:
 
-	if has_node(
-		"/root/AuthManager"
-	):
+	if has_node("/root/AuthManager"):
 
-		var auth_manager := \
-			get_node(
-				"/root/AuthManager"
-			)
-
+		var auth_manager = \
+			get_node("/root/AuthManager")
 
 		if auth_manager.has_method(
 			"get_uid"
@@ -1408,16 +972,14 @@ func _get_uid() -> String:
 				auth_manager.get_uid()
 			)
 
-
 			if not uid.is_empty():
-				return uid
 
+				return uid
 
 	if Firebase.Auth != null:
 
 		var auth_data: Dictionary = \
 			Firebase.Auth.auth
-
 
 		var uid := str(
 			auth_data.get(
@@ -1425,7 +987,6 @@ func _get_uid() -> String:
 				""
 			)
 		)
-
 
 		if uid.is_empty():
 
@@ -1436,9 +997,7 @@ func _get_uid() -> String:
 				)
 			)
 
-
 		return uid
-
 
 	return ""
 

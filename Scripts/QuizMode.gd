@@ -1,17 +1,15 @@
 extends Node
-const QUIZ_CREATOR = preload("res://Scenes/Admin/Teacher/quiz_creator.tscn")
 
-# Called when the node enters the scene tree for the first time.
+const QUIZ_CHOICES = preload(
+	"res://Scenes/Admin/Teacher/quiz_choises.tscn"
+)
+
+
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
 	pass
 
 
-
 func _on_create_quiz_pressed() -> void:
-	var creator := QUIZ_CREATOR.instantiate()
-	get_tree().current_scene.add_child(creator)
+	var choices := QUIZ_CHOICES.instantiate()
+
+	get_tree().current_scene.add_child(choices)

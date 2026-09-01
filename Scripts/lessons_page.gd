@@ -9,14 +9,22 @@ const PROJECT_ID := "atomix-f6c6b"
 const DATABASE_ID := "(default)"
 
 var firestore_lessons_url: String
+var firestore_quizzes_url: String
 var firestore_student_url: String
+
+
+# ============================================================
+# STUDENT DATA
+# ============================================================
+
+var student_section: String = ""
 
 
 # ============================================================
 # UI
 # ============================================================
 
-@onready var lesson_list: VBoxContainer = $MarginContainer/VBoxContainer/LessonScroll/LessonList
+@onready var lesson_list: VBoxContainer = $MarginContainer/VBoxContainer/ScrollContainer/LessonList
 @onready var status_label: Label = $MarginContainer/VBoxContainer/StatusLabel
 
 
@@ -28,6 +36,10 @@ func _ready() -> void:
 
 	print("[LessonsPage] Lessons page opened.")
 
+	# --------------------------------------------------------
+	# Lessons collection
+	# --------------------------------------------------------
+
 	firestore_lessons_url = (
 		"https://firestore.googleapis.com/v1/projects/"
 		+ PROJECT_ID
@@ -35,6 +47,22 @@ func _ready() -> void:
 		+ DATABASE_ID
 		+ "/documents/lessons"
 	)
+
+	# --------------------------------------------------------
+	# Quizzes collection
+	# --------------------------------------------------------
+
+	firestore_quizzes_url = (
+		"https://firestore.googleapis.com/v1/projects/"
+		+ PROJECT_ID
+		+ "/databases/"
+		+ DATABASE_ID
+		+ "/documents/quizzes"
+	)
+
+	# --------------------------------------------------------
+	# Student document
+	# --------------------------------------------------------
 
 	firestore_student_url = (
 		"https://firestore.googleapis.com/v1/projects/"
@@ -44,7 +72,11 @@ func _ready() -> void:
 		+ "/documents/students/"
 	)
 
-	load_student_section()
+	# --------------------------------------------------------
+	# Load student section
+	# --------------------------------------------------------
+
+	await load_student_section()
 
 
 # ============================================================
@@ -53,30 +85,78 @@ func _ready() -> void:
 
 func get_id_token() -> String:
 
-	var auth_data: Dictionary = Firebase.Firestore.auth
+	if Firebase.Auth != null:
 
-	if auth_data.is_empty():
+		var auth_data: Dictionary = Firebase.Auth.auth
 
-		print("[LessonsPage] Firestore auth is empty.")
+		if not auth_data.is_empty():
 
-		return ""
+			var token := str(
+				auth_data.get(
+					"idtoken",
+					""
+				)
+			)
+
+			if token.is_empty():
+
+				token = str(
+					auth_data.get(
+						"idToken",
+						""
+					)
+				)
+
+			if not token.is_empty():
+
+				print(
+					"[LessonsPage] Firebase ID token obtained. Length: ",
+					token.length()
+				)
+
+				return token
 
 
-	if not auth_data.has("idtoken"):
+	# --------------------------------------------------------
+	# Fallback to Firebase.Firestore.auth
+	# --------------------------------------------------------
 
-		print("[LessonsPage] Firebase ID token not found.")
+	if Firebase.Firestore != null:
 
-		return ""
+		var firestore_auth: Dictionary = Firebase.Firestore.auth
 
+		if not firestore_auth.is_empty():
 
-	var token := str(auth_data["idtoken"])
+			var token := str(
+				firestore_auth.get(
+					"idtoken",
+					""
+				)
+			)
+
+			if token.is_empty():
+
+				token = str(
+					firestore_auth.get(
+						"idToken",
+						""
+					)
+				)
+
+			if not token.is_empty():
+
+				print(
+					"[LessonsPage] Firebase Firestore ID token obtained."
+				)
+
+				return token
+
 
 	print(
-		"[LessonsPage] Firebase ID token obtained. Length: ",
-		token.length()
+		"[LessonsPage] Firebase ID token not found."
 	)
 
-	return token
+	return ""
 
 
 # ============================================================
@@ -85,23 +165,39 @@ func get_id_token() -> String:
 
 func load_student_section() -> void:
 
-	print("[LessonsPage] Loading student information...")
+	print(
+		"[LessonsPage] Loading student information..."
+	)
 
-	status_label.text = "Loading lessons..."
+	status_label.text = "Loading learning materials..."
+
+
+	# --------------------------------------------------------
+	# Get UID
+	# --------------------------------------------------------
 
 	var uid := AuthManager.get_uid()
 
 	if uid.is_empty():
 
-		print("[LessonsPage] ERROR: Student UID is empty.")
+		print(
+			"[LessonsPage] ERROR: Student UID is empty."
+		)
 
 		status_label.text = "Could not identify student."
 
 		return
 
 
-	print("[LessonsPage] Student UID: ", uid)
+	print(
+		"[LessonsPage] Student UID: ",
+		uid
+	)
 
+
+	# --------------------------------------------------------
+	# Get token
+	# --------------------------------------------------------
 
 	var token := get_id_token()
 
@@ -111,6 +207,10 @@ func load_student_section() -> void:
 
 		return
 
+
+	# --------------------------------------------------------
+	# Request student document
+	# --------------------------------------------------------
 
 	var url := firestore_student_url + uid
 
@@ -152,7 +252,9 @@ func load_student_section() -> void:
 
 	var response_body: PackedByteArray = response[3]
 
-	var response_text := response_body.get_string_from_utf8()
+	var response_text := (
+		response_body.get_string_from_utf8()
+	)
 
 	http.queue_free()
 
@@ -175,9 +277,15 @@ func load_student_section() -> void:
 		return
 
 
+	# --------------------------------------------------------
+	# Parse JSON
+	# --------------------------------------------------------
+
 	var json := JSON.new()
 
-	var parse_error := json.parse(response_text)
+	var parse_error := json.parse(
+		response_text
+	)
 
 	if parse_error != OK:
 
@@ -205,42 +313,56 @@ func load_student_section() -> void:
 	)
 
 
-	var section := get_firestore_string(
+	# --------------------------------------------------------
+	# Get student section
+	# --------------------------------------------------------
+
+	student_section = get_firestore_string(
 		fields,
 		"section",
 		""
-	)
+	).strip_edges()
 
 
 	print(
 		"[LessonsPage] Student section: ",
-		section
+		student_section
 	)
 
 
-	if section.is_empty():
+	if student_section.is_empty():
 
 		print(
 			"[LessonsPage] Student has no section."
 		)
 
-		status_label.text = "No section assigned to your account."
+		status_label.text = (
+			"No section assigned to your account."
+		)
 
 		return
 
 
-	load_lessons(section)
+	# --------------------------------------------------------
+	# Load both lessons and quizzes
+	# --------------------------------------------------------
+
+	await load_lessons(student_section)
+
+	await load_quizzes(student_section)
 
 
 # ============================================================
 # LOAD LESSONS
 # ============================================================
 
-func load_lessons(student_section: String) -> void:
+func load_lessons(
+	student_section_value: String
+) -> void:
 
 	print(
 		"[LessonsPage] Loading lessons for section: ",
-		student_section
+		student_section_value
 	)
 
 
@@ -291,7 +413,9 @@ func load_lessons(student_section: String) -> void:
 
 	var response_body: PackedByteArray = response[3]
 
-	var response_text := response_body.get_string_from_utf8()
+	var response_text := (
+		response_body.get_string_from_utf8()
+	)
 
 	http.queue_free()
 
@@ -316,7 +440,9 @@ func load_lessons(student_section: String) -> void:
 
 	var json := JSON.new()
 
-	var parse_error := json.parse(response_text)
+	var parse_error := json.parse(
+		response_text
+	)
 
 	if parse_error != OK:
 
@@ -333,7 +459,9 @@ func load_lessons(student_section: String) -> void:
 
 	if not data is Dictionary:
 
-		status_label.text = "No lessons found."
+		print(
+			"[LessonsPage] Invalid lessons response."
+		)
 
 		return
 
@@ -355,6 +483,10 @@ func load_lessons(student_section: String) -> void:
 
 	for document in documents:
 
+		if not document is Dictionary:
+			continue
+
+
 		var fields: Dictionary = document.get(
 			"fields",
 			{}
@@ -365,10 +497,14 @@ func load_lessons(student_section: String) -> void:
 			fields,
 			"section",
 			""
-		)
+		).strip_edges()
 
 
-		if lesson_section != student_section:
+		# ----------------------------------------------------
+		# Only show lessons for student's section
+		# ----------------------------------------------------
+
+		if lesson_section != student_section_value:
 
 			print(
 				"[LessonsPage] Skipping lesson section: ",
@@ -389,45 +525,239 @@ func load_lessons(student_section: String) -> void:
 		matching_lessons += 1
 
 
-	# ========================================================
-	# RESULT
-	# ========================================================
-
-	if matching_lessons == 0:
-
-		var empty_label := lesson_list.get_node_or_null(
-			"EmptyLabel"
-		) as Label
-
-		if empty_label:
-
-			empty_label.visible = true
+	print(
+		"[LessonsPage] Matching lessons: ",
+		matching_lessons
+	)
 
 
-		status_label.text = "No lessons available."
+# ============================================================
+# LOAD QUIZZES
+# ============================================================
 
-	else:
+func load_quizzes(
+	student_section_value: String
+) -> void:
 
-		var empty_label := lesson_list.get_node_or_null(
-			"EmptyLabel"
-		) as Label
+	print(
+		"[LessonsPage] Loading quizzes for section: ",
+		student_section_value
+	)
 
-		if empty_label:
 
-			empty_label.visible = false
+	var token := get_id_token()
 
+	if token.is_empty():
+
+		print(
+			"[LessonsPage] Cannot load quizzes: token is empty."
+		)
+
+		return
+
+
+	var headers := PackedStringArray([
+		"Authorization: Bearer " + token,
+		"Content-Type: application/json"
+	])
+
+
+	var http := HTTPRequest.new()
+
+	add_child(http)
+
+
+	var error := http.request(
+		firestore_quizzes_url,
+		headers,
+		HTTPClient.METHOD_GET
+	)
+
+
+	if error != OK:
+
+		print(
+			"[LessonsPage] Failed to request quizzes: ",
+			error
+		)
+
+		http.queue_free()
+
+		return
+
+
+	var response: Array = await http.request_completed
+
+	var response_code: int = response[1]
+
+	var response_body: PackedByteArray = response[3]
+
+	var response_text := (
+		response_body.get_string_from_utf8()
+	)
+
+	http.queue_free()
+
+
+	print(
+		"[LessonsPage] Firestore quizzes response: ",
+		response_code
+	)
+
+
+	if response_code != 200:
+
+		print(
+			"[LessonsPage] Quiz request failed: ",
+			response_text
+		)
+
+		return
+
+
+	# --------------------------------------------------------
+	# Parse JSON
+	# --------------------------------------------------------
+
+	var json := JSON.new()
+
+	var parse_error := json.parse(
+		response_text
+	)
+
+	if parse_error != OK:
+
+		print(
+			"[LessonsPage] Failed to parse quizzes."
+		)
+
+		return
+
+
+	var data = json.data
+
+	if not data is Dictionary:
+
+		print(
+			"[LessonsPage] Invalid quizzes response."
+		)
+
+		return
+
+
+	var documents: Array = data.get(
+		"documents",
+		[]
+	)
+
+
+	print(
+		"[LessonsPage] Total quizzes in Firestore: ",
+		documents.size()
+	)
+
+
+	var matching_quizzes := 0
+
+
+	# --------------------------------------------------------
+	# Check every quiz
+	# --------------------------------------------------------
+
+	for document in documents:
+
+		if not document is Dictionary:
+			continue
+
+
+		var fields: Dictionary = document.get(
+			"fields",
+			{}
+		)
+
+
+		var quiz_section := get_firestore_string(
+			fields,
+			"section",
+			""
+		).strip_edges()
+
+
+		print(
+			"[LessonsPage] Quiz section: ",
+			quiz_section
+		)
+
+
+		# ----------------------------------------------------
+		# Only show quizzes belonging to student's section
+		# ----------------------------------------------------
+
+		if quiz_section != student_section_value:
+
+			print(
+				"[LessonsPage] Skipping quiz from section: ",
+				quiz_section
+			)
+
+			continue
+
+
+		print(
+			"[LessonsPage] Quiz matches student section: ",
+			quiz_section
+		)
+
+
+		create_quiz_card(document)
+
+		matching_quizzes += 1
+
+
+	print(
+		"[LessonsPage] Matching quizzes: ",
+		matching_quizzes
+	)
+
+
+	# --------------------------------------------------------
+	# Final status
+	# --------------------------------------------------------
+
+	update_status()
+
+
+# ============================================================
+# UPDATE STATUS
+# ============================================================
+
+func update_status() -> void:
+
+	var item_count := lesson_list.get_child_count()
+
+
+	if item_count == 0:
 
 		status_label.text = (
-			str(matching_lessons)
-			+ " lesson(s) available."
+			"No learning materials available."
 		)
+
+		return
+
+
+	status_label.text = (
+		str(item_count)
+		+ " learning material(s) available."
+	)
 
 
 # ============================================================
 # CREATE LESSON CARD
 # ============================================================
 
-func create_lesson_card(document: Dictionary) -> void:
+func create_lesson_card(
+	document: Dictionary
+) -> void:
 
 	var fields: Dictionary = document.get(
 		"fields",
@@ -524,6 +854,22 @@ func create_lesson_card(document: Dictionary) -> void:
 
 
 	margin.add_child(content)
+
+
+	# ========================================================
+	# TYPE
+	# ========================================================
+
+	var type_label := Label.new()
+
+	type_label.text = "LEARNING MATERIAL"
+
+	type_label.add_theme_font_size_override(
+		"font_size",
+		14
+	)
+
+	content.add_child(type_label)
 
 
 	# ========================================================
@@ -626,6 +972,199 @@ func create_lesson_card(document: Dictionary) -> void:
 
 
 # ============================================================
+# CREATE QUIZ CARD
+# ============================================================
+
+func create_quiz_card(
+	document: Dictionary
+) -> void:
+
+	var fields: Dictionary = document.get(
+		"fields",
+		{}
+	)
+
+
+	# --------------------------------------------------------
+	# Get quiz information
+	# --------------------------------------------------------
+
+	var title := get_firestore_string(
+		fields,
+		"title",
+		"Untitled Quiz"
+	)
+
+
+	var section := get_firestore_string(
+		fields,
+		"section",
+		""
+	)
+
+
+	var quiz_type := get_firestore_string(
+		fields,
+		"quiz_type",
+		""
+	)
+
+
+	var quiz_id := get_firestore_string(
+		fields,
+		"quiz_id",
+		""
+	)
+
+
+	var question_count := get_firestore_integer(
+		fields,
+		"question_count",
+		0
+	)
+
+
+	# ========================================================
+	# CARD
+	# ========================================================
+
+	var card := PanelContainer.new()
+
+	card.custom_minimum_size = Vector2(
+		0,
+		125
+	)
+
+
+	var margin := MarginContainer.new()
+
+	margin.add_theme_constant_override(
+		"margin_left",
+		16
+	)
+
+	margin.add_theme_constant_override(
+		"margin_right",
+		16
+	)
+
+	margin.add_theme_constant_override(
+		"margin_top",
+		12
+	)
+
+	margin.add_theme_constant_override(
+		"margin_bottom",
+		12
+	)
+
+
+	card.add_child(margin)
+
+
+	var content := VBoxContainer.new()
+
+	content.add_theme_constant_override(
+		"separation",
+		5
+	)
+
+
+	margin.add_child(content)
+
+
+	# ========================================================
+	# TYPE
+	# ========================================================
+
+	var type_label := Label.new()
+
+	type_label.text = "QUIZ"
+
+	type_label.add_theme_font_size_override(
+		"font_size",
+		14
+	)
+
+	content.add_child(type_label)
+
+
+	# ========================================================
+	# TITLE
+	# ========================================================
+
+	var title_label := Label.new()
+
+	title_label.text = title
+
+	title_label.add_theme_font_size_override(
+		"font_size",
+		24
+	)
+
+	title_label.add_theme_color_override(
+		"font_color",
+		Color(
+			0.470588,
+			0.352941,
+			0.235294,
+			1
+		)
+	)
+
+	content.add_child(title_label)
+
+
+	# ========================================================
+	# INFORMATION
+	# ========================================================
+
+	var info_label := Label.new()
+
+	info_label.text = (
+		"Quiz Type: "
+		+ quiz_type
+		+ "    |    Section: "
+		+ section
+		+ "    |    Questions: "
+		+ str(question_count)
+	)
+
+	info_label.add_theme_font_size_override(
+		"font_size",
+		14
+	)
+
+	content.add_child(info_label)
+
+
+	# ========================================================
+	# QUIZ ID
+	# ========================================================
+
+	var id_label := Label.new()
+
+	id_label.text = (
+		"Quiz ID: "
+		+ quiz_id
+	)
+
+	id_label.add_theme_font_size_override(
+		"font_size",
+		12
+	)
+
+	content.add_child(id_label)
+
+
+	# ========================================================
+	# ADD TO LIST
+	# ========================================================
+
+	lesson_list.add_child(card)
+
+
+# ============================================================
 # FIRESTORE STRING HELPER
 # ============================================================
 
@@ -642,6 +1181,7 @@ func get_firestore_string(
 
 	var field_data = fields[field_name]
 
+
 	if not field_data is Dictionary:
 
 		return default_value
@@ -651,6 +1191,39 @@ func get_firestore_string(
 
 		return str(
 			field_data["stringValue"]
+		)
+
+
+	return default_value
+
+
+# ============================================================
+# FIRESTORE INTEGER HELPER
+# ============================================================
+
+func get_firestore_integer(
+	fields: Dictionary,
+	field_name: String,
+	default_value: int
+) -> int:
+
+	if not fields.has(field_name):
+
+		return default_value
+
+
+	var field_data = fields[field_name]
+
+
+	if not field_data is Dictionary:
+
+		return default_value
+
+
+	if field_data.has("integerValue"):
+
+		return int(
+			field_data["integerValue"]
 		)
 
 

@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://cyerusvute1t8"]
+
+[ext_resource type="Script" uid="uid://d1pnk5e7c2fyj" path="res://Scripts/quiz_taking_page.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="3_panel"]
+[ext_resource type="Texture2D" uid="uid://dxg7ga6k8m7hs" path="res://Assets/UX/Icons/icon_quiz.png" id="4_quiz_icon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.69411767, 0.52156866, 0.3019608, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_question"]
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.776, 0.627, 0.482, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_answer"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="QuizTakingPage" type="Control" unique_id=297683155]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="." unique_id=508309047]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_panel")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="QuizPanel" type="Panel" parent="." unique_id=158519572]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_main")
+
+[node name="MarginContainer" type="MarginContainer" parent="QuizPanel" unique_id=21298927]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizPanel/MarginContainer" unique_id=1543825592]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Header" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=505944519]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="QuizIcon" type="TextureRect" parent="QuizPanel/MarginContainer/VBoxContainer/Header" unique_id=726408644]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture = ExtResource("4_quiz_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="QuizTitle" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/Header" unique_id=1412607610]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 38
+text = "Quiz"
+vertical_alignment = 1
+
+[node name="QuestionCounter" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/Header" unique_id=711018256]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+text = "Question 1 / 1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="QuestionPanel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=642043769]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_question")
+
+[node name="MarginContainer" type="MarginContainer" parent="QuizPanel/MarginContainer/VBoxContainer/QuestionPanel" unique_id=1184130041]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 20
+
+[node name="QuestionLabel" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/QuestionPanel/MarginContainer" unique_id=1743909162]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 26
+text = "Question"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="AnswerScroll" type="ScrollContainer" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=433467704]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="AnswerContainer" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/AnswerScroll" unique_id=806139470]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="IdentificationInput" type="LineEdit" parent="QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer" unique_id=1945683428]
+visible = false
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_answer")
+placeholder_text = "Type your answer here..."
+
+[node name="EnumerationInput" type="TextEdit" parent="QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer" unique_id=847321506]
+visible = false
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.6509804, 0.56078434, 0.44705883, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_answer")
+placeholder_text = "Type your answers here, one item per line..."
+wrap_mode = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=2013808879]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BackButton" type="Button" parent="QuizPanel/MarginContainer/VBoxContainer/BottomBar" unique_id=1236463529]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+text = "← Back"
+
+[node name="NextButton" type="Button" parent="QuizPanel/MarginContainer/VBoxContainer/BottomBar" unique_id=621304614]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+text = "NEXT →"
+
+[node name="StatusLabel" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=1626027880]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+text = "Select your answer."
+horizontal_alignment = 1

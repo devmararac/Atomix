@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://gfvq0twbbjla"]
 
+[ext_resource type="Script" uid="uid://bslhpk6dbl4f0" path="res://Scripts/quiz_row.gd" id="1_quizrow"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_row"]
 bg_color = Color(0.8509804, 0.9254902, 1, 1)
 border_width_left = 2
@@ -13,6 +15,7 @@ corner_detail = 1
 custom_minimum_size = Vector2(0, 90)
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_row")
+script = ExtResource("1_quizrow")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1561820895]
 layout_mode = 2

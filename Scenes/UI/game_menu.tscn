@@ -145,21 +145,27 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
 text = "Player"
 
-[node name="LessonsButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox"]
-
+[node name="LessonsButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=623224229]
 custom_minimum_size = Vector2(0, 57)
 layout_mode = 2
-
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
-
 theme_override_fonts/font = ExtResource("4_iyb0i")
 theme_override_font_sizes/font_size = 25
-
 theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
-
 text = "Lessons"
+
+[node name="QuizzButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=153646127]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("4_iyb0i")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+text = "Quizz"
 
 [node name="SettingsButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1004195012]
 custom_minimum_size = Vector2(0, 57)
@@ -200,3 +206,11 @@ size_flags_vertical = 3
 theme_override_constants/margin_right = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Root" unique_id=636661614]
+
+[connection signal="pressed" from="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/QuestLogButton" to="." method="_on_quest_log_button_pressed"]
+[connection signal="pressed" from="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/AtomonButton" to="." method="_on_atomon_button_pressed"]
+[connection signal="pressed" from="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/PlayerButton" to="." method="_on_player_button_pressed"]
+[connection signal="pressed" from="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/LessonsButton" to="." method="_on_lessons_button_pressed"]
+[connection signal="pressed" from="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/QuizzButton" to="." method="_on_quizz_button_pressed"]
+[connection signal="pressed" from="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/CloseButton" to="." method="_on_close_button_pressed"]
