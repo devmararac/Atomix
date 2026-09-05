@@ -11,6 +11,15 @@ const GAME_MENU = preload("res://Scenes/UI/game_menu.tscn")
 
 func _ready() -> void:
 	quest_log_panel.hide()
+	
+	Dialogic.timeline_started.connect(_on_dialogue_started)
+	Dialogic.timeline_ended.connect(_on_dialogue_ended)
+
+func _on_dialogue_started() -> void:
+	visible = false
+
+func _on_dialogue_ended() -> void:
+	visible = true
 
 func show_hide_log() -> void:
 	SfxManager.play_click()

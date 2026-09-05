@@ -1,0 +1,200 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://xc3dtslwrpew"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_piwxn"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_exlai"]
+[ext_resource type="Texture2D" uid="uid://4j81ht2yhqhm" path="res://Assets/Atomon Portraits/neomare_neon.png" id="2_sq7db"]
+[ext_resource type="Texture2D" uid="uid://c6fkojudehyh4" path="res://Assets/Pets/neon_anim.png" id="4_h70gt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnlo4"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6c563"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eac7d"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k28db"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwxvk"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foefn"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbhev"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsuav"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbhgw"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_veuua"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnbsw"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4q57o"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gw1lb"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn1ne"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1xuj"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv8f6"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fe65b"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xq2yh"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts7py"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsn1c"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(512, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuocx"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(576, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_py5ho"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(640, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylak8"]
+atlas = ExtResource("4_h70gt")
+region = Rect2(704, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kvn3t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnlo4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6c563")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eac7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k28db")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwxvk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_foefn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbhev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsuav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbhgw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_veuua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnbsw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4q57o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gw1lb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn1ne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1xuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv8f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fe65b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xq2yh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ts7py")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsn1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xuocx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_py5ho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylak8")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_exlai")
+atom_name = "Neon"
+chemical_symbol = "Ne"
+atomic_number = 10
+alias = "Neomare"
+sprite_frames = SubResource("SpriteFrames_kvn3t")
+portrait = ExtResource("2_sq7db")
+atomic_mass = 20.1797
+density = 0.0008999
+ionization_energy = 21.5645
+electronegativity = 1e-09
+electron_affinity = 0.0
+valence_electrons = 8
+mass_number = 20
+element_type = "Noble Gas"
+block = "p"
+period = 2
+metadata/_custom_type_script = "uid://dvv118enrwub6"

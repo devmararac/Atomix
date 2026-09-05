@@ -5,4 +5,15 @@
 
 [resource]
 script = ExtResource("2_kyxao")
+atomic_mass = 183.84
+density = 19.25
+ionization_energy = 7.864
+electronegativity = 2.3600000000000003
+electron_affinity = 78.6
+valence_electrons = 6
+mass_number = 184
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 6
 metadata/_custom_type_script = "uid://dvv118enrwub6"

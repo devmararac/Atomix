@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c2cf20xml23cc"
+path="res://.godot/imported/Dianne_line26.mp3-c2f4eb8e1ec4363dd1b49866ee328afe.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line26.mp3"
+dest_files=["res://.godot/imported/Dianne_line26.mp3-c2f4eb8e1ec4363dd1b49866ee328afe.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,136 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://cwlap5axakv3u"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_gelpq"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_wm57q"]
+[ext_resource type="Texture2D" uid="uid://chbqluja67jpd" path="res://Assets/Pets/calcium_idle.png" id="3_oh165"]
+[ext_resource type="Texture2D" uid="uid://wj0n8uliyph" path="res://Assets/Pets/calcium_walk.png" id="4_thraw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_reqvf"]
+atlas = ExtResource("3_oh165")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wb3vp"]
+atlas = ExtResource("3_oh165")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ujdl"]
+atlas = ExtResource("3_oh165")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsj8i"]
+atlas = ExtResource("3_oh165")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86oqf"]
+atlas = ExtResource("3_oh165")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awtxh"]
+atlas = ExtResource("3_oh165")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfh6i"]
+atlas = ExtResource("4_thraw")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwlb3"]
+atlas = ExtResource("4_thraw")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ow6ll"]
+atlas = ExtResource("4_thraw")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gq8bg"]
+atlas = ExtResource("4_thraw")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hff25"]
+atlas = ExtResource("4_thraw")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pswi8"]
+atlas = ExtResource("4_thraw")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lgkh"]
+atlas = ExtResource("4_thraw")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbd5t"]
+atlas = ExtResource("4_thraw")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_71m10"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_reqvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wb3vp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ujdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsj8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86oqf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awtxh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfh6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwlb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ow6ll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gq8bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hff25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pswi8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lgkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbd5t")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_wm57q")
+atom_name = "Calcium"
+chemical_symbol = "Ca"
+atomic_number = 20
+alias = "Calclang"
+sprite_frames = SubResource("SpriteFrames_71m10")
+atomic_mass = 40.078
+density = 1.55
+ionization_energy = 6.1132
+electronegativity = 1.0
+electron_affinity = 2.3700000000000045
+valence_electrons = 2
+mass_number = 40
+element_type = "Alkaline Earth Metal"
+state = "Solid"
+period = 4
+metadata/_custom_type_script = "uid://dvv118enrwub6"

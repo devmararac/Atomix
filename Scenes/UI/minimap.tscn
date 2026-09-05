@@ -68,3 +68,13 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("5_87uwj")
 expand_mode = 1
+
+[node name="OpenMapButton" type="TextureButton" parent="MinimapUI" unique_id=1117610106]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="MinimapUI/OpenMapButton" to="." method="_on_open_map_button_pressed"]

@@ -5,7 +5,7 @@ extends Node
 # PARTY LIMITS
 # ============================================================
 
-const MAX_PARTY_SIZE: int = 15
+const MAX_PARTY_SIZE: int = 30
 const MAX_BATTLE_PARTY_SIZE: int = 5
 
 

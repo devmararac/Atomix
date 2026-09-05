@@ -1,0 +1,138 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://crfj8b2mukywr"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_pbjao"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_atoo8"]
+[ext_resource type="Texture2D" uid="uid://bfgant8o3g53g" path="res://Assets/Atomon Portraits/blime_bromine.png" id="2_eftvy"]
+[ext_resource type="Texture2D" uid="uid://ckf2cdbww6fvf" path="res://Assets/Pets/bromine_anim.png" id="4_gi43w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yt2n"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xeomm"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rca3l"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2agum"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60coq"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15qp6"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nekt"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n16el"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtynj"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skuty"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n21q"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15mr6"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucvju"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yv1io"]
+atlas = ExtResource("4_gi43w")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xtiyk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yt2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xeomm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rca3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2agum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60coq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15qp6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nekt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n16el")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtynj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skuty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n21q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15mr6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ucvju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yv1io")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_atoo8")
+atom_name = "Bromine"
+chemical_symbol = "Br"
+atomic_number = 35
+alias = "Blime"
+sprite_frames = SubResource("SpriteFrames_xtiyk")
+portrait = ExtResource("2_eftvy")
+atomic_mass = 79.90400000000001
+density = 3.1028
+ionization_energy = 11.8138
+electronegativity = 2.96
+electron_affinity = 324.6
+valence_electrons = 7
+mass_number = 80
+element_type = "Halogen"
+state = "Liquid"
+block = "p"
+period = 4
+metadata/_custom_type_script = "uid://dvv118enrwub6"

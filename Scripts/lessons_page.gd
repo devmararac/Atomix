@@ -176,7 +176,7 @@ func load_student_section() -> void:
 	# Get UID
 	# --------------------------------------------------------
 
-	var uid := AuthManager.get_uid()
+	var uid = AuthManager.get_uid()
 
 	if uid.is_empty():
 
@@ -212,7 +212,7 @@ func load_student_section() -> void:
 	# Request student document
 	# --------------------------------------------------------
 
-	var url := firestore_student_url + uid
+	var url = firestore_student_url + uid
 
 	var headers := PackedStringArray([
 		"Authorization: Bearer " + token,

@@ -49,13 +49,18 @@ FirebaseConfig="*uid://djexcsoc68yt2"
 [dialogic]
 
 directories/dch_directory={
+"Alfred": "res://Resources/Dialouges/Dialogic/Characters/Alfred.dch",
+"Angelo": "res://Resources/Dialouges/Dialogic/Characters/Angelo.dch",
 "Anne": "res://Resources/Dialouges/Dialogic/Characters/Anne.dch",
 "Beryll": "res://Resources/Dialouges/Dialogic/Characters/Beryll.dch",
+"Deejhay": "res://Resources/Dialouges/Dialogic/Characters/Deejhay.dch",
 "Dianne": "res://Resources/Dialouges/Dialogic/Characters/Dianne.dch",
+"Elysa": "res://Resources/Dialouges/Dialogic/Characters/Elysa.dch",
 "Felix": "res://Resources/Dialouges/Dialogic/Characters/Felix.dch",
 "Garry": "res://Resources/Dialouges/Dialogic/Characters/Garry.dch",
 "Player": "res://Resources/Dialouges/Dialogic/Characters/Player.dch",
 "Prof_Andrew": "res://Resources/Dialouges/Dialogic/Characters/Prof_Andrew.dch",
+"Trishania": "res://Resources/Dialouges/Dialogic/Characters/Trishania.dch",
 "linos": "res://Resources/Dialouges/Dialogic/Characters/linos.dch"
 }
 directories/dtl_directory={
@@ -63,6 +68,8 @@ directories/dtl_directory={
 "atomonia_entrance": "res://Resources/Dialouges/Dialogic/Timeline/atomonia_entrance.dtl",
 "beryll_introduction": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction.dtl",
 "beryll_introduction2": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction2.dtl",
+"dianne_line": "res://Resources/Dialouges/Dialogic/Timeline/Tutorial Scene/dianne_line.dtl",
+"dianne_line2": "res://Resources/Dialouges/Dialogic/Timeline/Tutorial Scene/dianne_line2.dtl",
 "dianne_test": "res://Resources/Dialouges/Dialogic/Timeline/dianne_test.dtl",
 "intro": "res://Resources/Dialouges/Dialogic/Timeline/intro.dtl",
 "linos_hydrogen_in_progress": "res://Resources/Dialouges/Dialogic/Timeline/linos_hydrogen_in_progress.dtl",

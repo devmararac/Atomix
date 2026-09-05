@@ -1,0 +1,138 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://cx703xrr32hth"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_jy1ax"]
+[ext_resource type="Texture2D" uid="uid://c7lbxvlseyver" path="res://Assets/Atomon Portraits/gallime_gallium.png" id="2_6mv2l"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_maceg"]
+[ext_resource type="Texture2D" uid="uid://bp72lyvas6b30" path="res://Assets/Pets/Gallium_anim.png" id="4_dby4k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nmr7"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpn2d"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yu41r"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj1vi"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jddrm"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmuvq"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6s7p"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fx7mu"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb85t"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0nua"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7k14"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akgor"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo0lv"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ob8uj"]
+atlas = ExtResource("4_dby4k")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y1538"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nmr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpn2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yu41r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vj1vi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jddrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmuvq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6s7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fx7mu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb85t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0nua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7k14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akgor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo0lv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ob8uj")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_maceg")
+atom_name = "Gallium"
+chemical_symbol = "Ga"
+atomic_number = 31
+alias = "Gallime"
+sprite_frames = SubResource("SpriteFrames_y1538")
+portrait = ExtResource("2_6mv2l")
+atomic_mass = 69.723
+density = 5.904
+ionization_energy = 5.9993
+electronegativity = 1.81
+electron_affinity = 41.0
+valence_electrons = 3
+mass_number = 69
+element_type = "Post-Transition Metal"
+state = "Solid"
+block = "p"
+period = 4
+metadata/_custom_type_script = "uid://dvv118enrwub6"

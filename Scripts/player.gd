@@ -11,7 +11,11 @@ var footstep_timer := 0.0
 @onready var attack_sound = $AttackSound
 var cardinal_direction: Vector2 = Vector2.DOWN
 var direction: Vector2 = Vector2.ZERO
-var move_speed: float = 70.0
+
+@export var move_speed: float = 70.0
+@export var acceleration: float = 500.0
+@export var deceleration: float = 700.0
+
 var state: String = "idle"
 var can_use_doors: bool = false
 var can_move = true
@@ -23,7 +27,6 @@ var is_playing_cutscene_animation := false
 @onready var sword_hitbox = $SwordHitbox
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast_2d = $RayCast2D
-
 
 func _ready() -> void:
 	call_deferred("apply_spawn")
@@ -76,10 +79,27 @@ func play_cutscene_footstep():
 func _on_dialogue_finished():
 	can_move = true
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if can_move:
-		velocity = direction * move_speed
+		var target_velocity := direction * move_speed
+
+		if direction != Vector2.ZERO:
+			velocity = velocity.move_toward(
+				target_velocity,
+				acceleration * delta
+			)
+		else:
+			velocity = velocity.move_toward(
+				Vector2.ZERO,
+				deceleration * delta
+			)
+
 		move_and_slide()
+	else:
+		velocity = velocity.move_toward(
+			Vector2.ZERO,
+			deceleration * delta
+		)
 
 
 func get_input() -> void:

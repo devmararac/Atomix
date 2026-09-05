@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_tqfic"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_du67r"]
+[ext_resource type="Texture2D" uid="uid://dro5l1siynyi8" path="res://Assets/Atomon Portraits/chloxic_chlorine.png" id="2_qksxc"]
 [ext_resource type="Texture2D" uid="uid://c2r1qlyinkfvk" path="res://Assets/Pets/Chlorine_idle.png" id="3_du67r"]
 [ext_resource type="Texture2D" uid="uid://cipjkn4q7sr3t" path="res://Assets/Pets/Chlorine_run.png" id="4_ud8o2"]
 [ext_resource type="Texture2D" uid="uid://gl5v5b1xupcd" path="res://Assets/UX/Icons/AtomicImage/silicon_Si.png" id="5_pdvyp"]
@@ -120,7 +121,20 @@ animations = [{
 [resource]
 script = ExtResource("2_du67r")
 atom_name = "Chlorine"
+chemical_symbol = "Cl"
+atomic_number = 17
 alias = "Chloxic"
 sprite_frames = SubResource("SpriteFrames_qsrtm")
 symbol = ExtResource("5_pdvyp")
+portrait = ExtResource("2_qksxc")
+atomic_mass = 35.449999999999996
+density = 0.003214
+ionization_energy = 12.9676
+electronegativity = 3.16
+electron_affinity = 349.0
+valence_electrons = 7
+mass_number = 35
+element_type = "Halogen"
+block = "p"
+period = 3
 metadata/_custom_type_script = "uid://dvv118enrwub6"

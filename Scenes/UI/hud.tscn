@@ -69,13 +69,13 @@ script = ExtResource("1_pc4p0")
 [node name="QuestTracker" type="NinePatchRect" parent="." unique_id=159889323]
 anchors_preset = -1
 anchor_left = 0.827
-anchor_top = 0.001
+anchor_top = 0.006
 anchor_right = 0.97900003
-anchor_bottom = 0.32200003
+anchor_bottom = 0.23200001
 offset_left = 0.539917
-offset_top = 0.27999997
+offset_top = -0.32000017
 offset_right = -0.42004395
-offset_bottom = 0.15997314
+offset_bottom = -0.040008545
 texture = ExtResource("1_0hfmd")
 patch_margin_left = 20
 patch_margin_top = 26

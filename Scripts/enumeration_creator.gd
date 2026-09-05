@@ -196,7 +196,7 @@ func _load_teacher_sections() -> void:
 	# Get teacher UID
 	# --------------------------------------------------------
 
-	var uid := AuthManager.get_uid()
+	var uid = AuthManager.get_uid()
 
 	if uid.is_empty():
 

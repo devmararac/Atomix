@@ -1,0 +1,96 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bmpcm1vxixg4e"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_7nfk1"]
+[ext_resource type="Texture2D" uid="uid://dbjetbud7t4l5" path="res://Assets/Atomon Portraits/coppcou_copper.png" id="2_fr5m7"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_khrd3"]
+[ext_resource type="Texture2D" uid="uid://co2ffe8o5ypdd" path="res://Assets/Pets/Copper_anim.png" id="4_v7aji"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlepe"]
+atlas = ExtResource("4_v7aji")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn5y4"]
+atlas = ExtResource("4_v7aji")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6dwie"]
+atlas = ExtResource("4_v7aji")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esl6b"]
+atlas = ExtResource("4_v7aji")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agmh8"]
+atlas = ExtResource("4_v7aji")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lg8nv"]
+atlas = ExtResource("4_v7aji")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isdv1"]
+atlas = ExtResource("4_v7aji")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lfpf"]
+atlas = ExtResource("4_v7aji")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bs7rb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlepe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pn5y4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6dwie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esl6b")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agmh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lg8nv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isdv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2lfpf")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_khrd3")
+atom_name = "Copper"
+chemical_symbol = "Cu"
+atomic_number = 29
+alias = "Coppcou"
+sprite_frames = SubResource("SpriteFrames_bs7rb")
+portrait = ExtResource("2_fr5m7")
+atomic_mass = 63.546
+density = 8.96
+ionization_energy = 7.7264
+electronegativity = 1.9
+electron_affinity = 118.4
+valence_electrons = 1
+mass_number = 64
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 4
+metadata/_custom_type_script = "uid://dvv118enrwub6"

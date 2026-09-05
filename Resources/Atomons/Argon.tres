@@ -1,0 +1,109 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bd2oikjagcatk"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_r2105"]
+[ext_resource type="Texture2D" uid="uid://d0ojioa0mnajp" path="res://Assets/Atomon Portraits/arbatt_argon.png" id="2_fe6sk"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_vw4wi"]
+[ext_resource type="Texture2D" uid="uid://dcs3dkp460yj1" path="res://Assets/Pets/argon_anim.png" id="4_l3h4w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ceq5"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cjfp"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xvwf"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywvmk"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7agl7"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h45hn"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnxct"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q1tn"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6fwb"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ty07s"]
+atlas = ExtResource("4_l3h4w")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58h6c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ceq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cjfp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xvwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywvmk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7agl7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h45hn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnxct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q1tn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6fwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ty07s")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_vw4wi")
+atom_name = "Argon"
+chemical_symbol = "Ar"
+atomic_number = 18
+alias = "Arbatt"
+sprite_frames = SubResource("SpriteFrames_58h6c")
+portrait = ExtResource("2_fe6sk")
+atomic_mass = 39.94799999999999
+density = 0.001784
+ionization_energy = 15.7596
+electronegativity = 1e-09
+electron_affinity = 0.0
+valence_electrons = 8
+mass_number = 40
+element_type = "Noble Gas"
+block = "p"
+period = 3
+metadata/_custom_type_script = "uid://dvv118enrwub6"

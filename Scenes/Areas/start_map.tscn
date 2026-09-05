@@ -14,10 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://db2ylo8k68p25" path="res://Scenes/NPCs/andrew.tscn" id="10_6akuu"]
 [ext_resource type="AudioStream" uid="uid://laeg7bjtd3bi" path="res://Assets/Music/Partys Cancelled - RoccoW _ Chiptune [No Copyright Music].mp3" id="11_ucnbf"]
 [ext_resource type="PackedScene" uid="uid://t8wudrnfvec0" path="res://Scenes/scene_trigger.tscn" id="12_3kusq"]
-[ext_resource type="Resource" uid="uid://b3t7logynq7t3" path="res://Resources/Atomons/lithium.tres" id="14_kjb13"]
-[ext_resource type="PackedScene" uid="uid://deb16wmoo5crf" path="res://Atomons/Atomon.tscn" id="18_rmbbm"]
 [ext_resource type="PackedScene" uid="uid://4uukj8h8cvw0" path="res://Scenes/Atomons/hydrogen_observation.tscn" id="19_qwoho"]
-[ext_resource type="Resource" uid="uid://bmaldmvsapygf" path="res://Resources/Atomons/Oxygen.tres" id="20_qwoho"]
 [ext_resource type="PackedScene" uid="uid://dmqd2wojxfyoi" path="res://Scenes/Pickables/PickItem.tscn" id="21_u7ab4"]
 [ext_resource type="Resource" uid="uid://dbfu76bgo27bq" path="res://Resources/Items/Glass_shard.tres" id="22_pc3gm"]
 [ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="23_ucnbf"]
@@ -25,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bn52xk2xw4mg8" path="res://Scenes/UI/minimap.tscn" id="26_ky5g8"]
 [ext_resource type="PackedScene" uid="uid://58her1ab75n5" path="res://Scenes/UI/hud.tscn" id="26_sp10x"]
 [ext_resource type="PackedScene" uid="uid://wi6lfrx4um8v" path="res://Scenes/Objects/Vegetation/Trees/tree.tscn" id="27_ky5g8"]
+[ext_resource type="Shader" uid="uid://dtg7lx50h7oty" path="res://Assets/VFX/warm_cozy.gdshader" id="27_rsgrb"]
 [ext_resource type="PackedScene" uid="uid://dqlebs6rggtl4" path="res://Scenes/Objects/water_plash.tscn" id="28_rsgrb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mj01m"]
@@ -2237,6 +2235,20 @@ size = Vector2(28, 11)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc3gm"]
 size = Vector2(10, 8)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kjb13"]
+shader = ExtResource("27_rsgrb")
+shader_parameter/warm_color = Color(0.41092443, 0.9250098, 0.8455286, 1)
+shader_parameter/warmth = 0.1
+shader_parameter/wind_color = Color(0.9, 0.95, 1, 1)
+shader_parameter/wind_strength = 0.350000016625
+shader_parameter/wind_speed = 0.9200000437
+shader_parameter/wind_density = 15.0
+shader_parameter/wind_thickness = 0.04900000162898
+shader_parameter/leaf_color = Color(0.2, 0.6509804, 0.18039216, 1)
+shader_parameter/leaf_amount = 5.0000002375
+shader_parameter/leaf_speed = 0.35
+shader_parameter/leaf_size = 0.00500000023749
+
 [node name="map" type="Node2D" unique_id=1186236317]
 y_sort_enabled = true
 script = ExtResource("1_rsgrb")
@@ -2755,11 +2767,6 @@ position = Vector2(760, 342)
 y_sort_enabled = true
 position = Vector2(186, 477)
 
-[node name="CharacterBody2D" parent="OBJECTS" unique_id=1785293783 instance=ExtResource("18_rmbbm")]
-z_index = 1
-position = Vector2(955, 555)
-data = ExtResource("14_kjb13")
-
 [node name="Andrew" parent="." unique_id=913658851 instance=ExtResource("10_6akuu")]
 position = Vector2(1007, 293)
 
@@ -2842,10 +2849,6 @@ dialogue_timeline = "observe_hydrogen_1"
 position = Vector2(1111, 409)
 dialogue_timeline = "observe_hydrogen_3"
 
-[node name="CharacterBody2D2" parent="." unique_id=499069344 instance=ExtResource("18_rmbbm")]
-position = Vector2(500, 43)
-data = ExtResource("20_qwoho")
-
 [node name="ItemPickUp" parent="." unique_id=1939754100 instance=ExtResource("21_u7ab4")]
 position = Vector2(780, 567)
 data = ExtResource("22_pc3gm")
@@ -2871,3 +2874,11 @@ position = Vector2(24, 249)
 [node name="Minimap" parent="." unique_id=438677015 instance=ExtResource("26_ky5g8")]
 visible = false
 player_path = NodePath("../OBJECTS/Player")
+
+[node name="Shader" type="ColorRect" parent="." unique_id=945659851]
+z_index = 3
+material = SubResource("ShaderMaterial_kjb13")
+offset_left = -16.0
+offset_top = -17.0
+offset_right = 1168.0
+offset_bottom = 672.0

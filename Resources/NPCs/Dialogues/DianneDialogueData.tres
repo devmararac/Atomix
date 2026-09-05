@@ -2,18 +2,15 @@
 
 [ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="1_77h28"]
 [ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="2_5p4n2"]
-[ext_resource type="Resource" uid="uid://ckvbf0vq0wyul" path="res://Resources/Dialouges/Dialogic/Timeline/dianne_test.dtl" id="2_jehso"]
-[ext_resource type="Resource" uid="uid://cenrrrdoi305r" path="res://Resources/Quest/quest_hydrogen_001.tres" id="2_qmpni"]
+[ext_resource type="Resource" uid="uid://cn6rsp2yb20vx" path="res://Resources/Dialouges/Dialogic/Timeline/Tutorial Scene/dianne_line.dtl" id="4_qmpni"]
 
 [sub_resource type="Resource" id="Resource_5p4n2"]
 script = ExtResource("1_77h28")
-conversation_name = "Test Offer"
-conversation_type = 2
-quest = ExtResource("2_qmpni")
-timeline = ExtResource("2_jehso")
+timeline = ExtResource("4_qmpni")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
 [resource]
 script = ExtResource("2_5p4n2")
+default_timeline = ExtResource("4_qmpni")
 conversations = Array[ExtResource("1_77h28")]([SubResource("Resource_5p4n2")])
 metadata/_custom_type_script = "uid://ckoa2l31dwe64"

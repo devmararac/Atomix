@@ -1,0 +1,146 @@
+[gd_resource type="Resource" script_class="NPCData" format=3 uid="uid://dy0w3huok6wvi"]
+
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_hptcd"]
+[ext_resource type="Resource" uid="uid://ckievlcv1d5gg" path="res://Resources/Dialouges/Dialogic/Characters/Elysa.dch" id="1_tarbf"]
+[ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_034pv"]
+[ext_resource type="Texture2D" uid="uid://ck430d0cey12d" path="res://Assets/NPC/Elysa_anim.png" id="3_034pv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tarbf"]
+atlas = ExtResource("3_034pv")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5n8n"]
+atlas = ExtResource("3_034pv")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sgq4"]
+atlas = ExtResource("3_034pv")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbtto"]
+atlas = ExtResource("3_034pv")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmt75"]
+atlas = ExtResource("3_034pv")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6q7io"]
+atlas = ExtResource("3_034pv")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e86hi"]
+atlas = ExtResource("3_034pv")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sip5"]
+atlas = ExtResource("3_034pv")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1iu7j"]
+atlas = ExtResource("3_034pv")
+region = Rect2(768, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0cfb"]
+atlas = ExtResource("3_034pv")
+region = Rect2(0, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3wuk"]
+atlas = ExtResource("3_034pv")
+region = Rect2(96, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysam5"]
+atlas = ExtResource("3_034pv")
+region = Rect2(192, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5prtm"]
+atlas = ExtResource("3_034pv")
+region = Rect2(288, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trxj5"]
+atlas = ExtResource("3_034pv")
+region = Rect2(384, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce1r4"]
+atlas = ExtResource("3_034pv")
+region = Rect2(480, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lovki"]
+atlas = ExtResource("3_034pv")
+region = Rect2(576, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_248pc"]
+atlas = ExtResource("3_034pv")
+region = Rect2(672, 64, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_68j60"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tarbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5n8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sgq4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbtto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmt75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6q7io")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e86hi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sip5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1iu7j")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0cfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3wuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysam5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5prtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trxj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ce1r4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lovki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_248pc")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_034pv")
+npc_id = "npc_data"
+display_name = "Elysa"
+sprite_frames = SubResource("SpriteFrames_68j60")
+dialogic_character = ExtResource("1_tarbf")
+metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

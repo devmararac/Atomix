@@ -3,6 +3,7 @@ class_name NPCBase
 
 @export var data: NPCData
 
+@onready var display_name = $NameContainer/Label
 @onready var sprite = $NpcSprite
 @onready var indicator = $NpcSprite/Indicator
 @onready var BubbleMarker = $BubbleMarker
@@ -11,6 +12,7 @@ class_name NPCBase
 
 signal destination_reached
 
+var joystick_controlled := false
 var is_moving := false
 var debug_path: PackedVector2Array = []
 
@@ -23,6 +25,8 @@ func setup_npc():
 	if data == null:
 		push_warning("NPCData missing.")
 		return
+	
+	display_name.text = data.display_name
 
 	if data.sprite_frames:
 		sprite.sprite_frames = data.sprite_frames
@@ -40,8 +44,27 @@ func hide_indicator():
 	indicator.visible = false
 
 func _physics_process(_delta):
+	if joystick_controlled:
+		var input_vector := Input.get_vector(
+			"left",
+			"right",
+			"up",
+			"down"
+		)
 
-	if !is_moving:
+		velocity = input_vector * data.move_speed
+
+		if input_vector != Vector2.ZERO:
+			sprite.play("walk")
+			sprite.flip_h = input_vector.x < 0
+		else:
+			velocity = Vector2.ZERO
+			sprite.play("idle")
+
+		move_and_slide()
+		return
+
+	if not is_moving:
 		return
 
 	if navigation_agent.is_navigation_finished():
@@ -53,15 +76,16 @@ func _physics_process(_delta):
 
 	var next_position = navigation_agent.get_next_path_position()
 	debug_path = navigation_agent.get_current_navigation_path()
+
 	if show_navigation_path:
 		queue_redraw()
-	
+
 	var direction = (next_position - global_position).normalized()
 
 	velocity = direction * data.move_speed
 	move_and_slide()
 
-	sprite.play("walking")
+	sprite.play("walk")
 	sprite.flip_h = velocity.x < 0
 
 func walk_to(target: Vector2):

@@ -1,8 +1,185 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bpl0udkq3wh1b"]
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_w41bl"]
+[ext_resource type="Texture2D" uid="uid://qpjlghmbitf3" path="res://Assets/Atomon Portraits/beetrog_nitrogen.png" id="2_t3mrf"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_tf2it"]
+[ext_resource type="Texture2D" uid="uid://bcj5bcy6obgu3" path="res://Assets/Pets/nitrogen_walk_idle.png" id="4_3mopq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cwjx"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csru4"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge8rt"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1votd"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpttu"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uksxs"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82mjt"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64nst"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_401vx"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wen0o"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ee8s2"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cu1vr"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqu68"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06o2x"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1kx6"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sorl0"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygf2k"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5h4r"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0hac"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_es7di"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5e7n"]
+atlas = ExtResource("4_3mopq")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jq2sl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cwjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csru4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge8rt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1votd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpttu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uksxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82mjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64nst")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_401vx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wen0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ee8s2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cu1vr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqu68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06o2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1kx6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sorl0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygf2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5h4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0hac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_es7di")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5e7n")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [resource]
 script = ExtResource("2_tf2it")
+atom_name = "Nitrogen"
+chemical_symbol = "N"
+atomic_number = 7
+alias = "Beetrog"
+sprite_frames = SubResource("SpriteFrames_jq2sl")
+portrait = ExtResource("2_t3mrf")
+atomic_mass = 14.007
+density = 0.0012506
+ionization_energy = 14.5341
+electronegativity = 3.04
+electron_affinity = -6.799999999999997
+valence_electrons = 5
+mass_number = 14
+block = "p"
+period = 2
 metadata/_custom_type_script = "uid://dvv118enrwub6"

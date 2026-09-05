@@ -1,0 +1,97 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://cjrtwx07skkmy"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_aac0l"]
+[ext_resource type="Texture2D" uid="uid://ryl8oadwlx0b" path="res://Assets/Atomon Portraits/aluglem_aluminium.png" id="2_ba1gt"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_ipl2n"]
+[ext_resource type="Texture2D" uid="uid://b4scp160tyn7b" path="res://Assets/Pets/Aluminum_Idle.png" id="4_weudn"]
+[ext_resource type="Texture2D" uid="uid://dwsm7b8s2iv1" path="res://Assets/Pets/Aluminum_Run.png" id="5_0prna"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnutt"]
+atlas = ExtResource("4_weudn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2ma8"]
+atlas = ExtResource("4_weudn")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq2aw"]
+atlas = ExtResource("4_weudn")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atl2n"]
+atlas = ExtResource("4_weudn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1fg5"]
+atlas = ExtResource("5_0prna")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofrvj"]
+atlas = ExtResource("5_0prna")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46yrp"]
+atlas = ExtResource("5_0prna")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pqv2"]
+atlas = ExtResource("5_0prna")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g8y2p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnutt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2ma8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq2aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atl2n")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1fg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofrvj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46yrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pqv2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_ipl2n")
+atom_name = "Aluminium"
+chemical_symbol = "Al"
+atomic_number = 13
+alias = "Aluglem"
+sprite_frames = SubResource("SpriteFrames_g8y2p")
+portrait = ExtResource("2_ba1gt")
+atomic_mass = 26.9815385
+density = 2.7
+ionization_energy = 5.9858
+electronegativity = 1.61
+electron_affinity = 42.5
+valence_electrons = 3
+mass_number = 27
+element_type = "Post-Transition Metal"
+state = "Solid"
+block = "p"
+rarity = 3
+metadata/_custom_type_script = "uid://dvv118enrwub6"

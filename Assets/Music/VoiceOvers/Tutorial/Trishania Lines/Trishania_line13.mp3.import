@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dmcj7np0xp4u3"
+path="res://.godot/imported/Trishania_line13.mp3-5a4879ec4fa39dc17aa8021b124ae6f1.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line13.mp3"
+dest_files=["res://.godot/imported/Trishania_line13.mp3-5a4879ec4fa39dc17aa8021b124ae6f1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

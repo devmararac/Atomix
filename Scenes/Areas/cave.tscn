@@ -5,14 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://Scenes/player.tscn" id="2_3usej"]
 [ext_resource type="Texture2D" uid="uid://dite4i1enj8qd" path="res://Assets/Structures/Vegitations/bushes_flower_rocks.png" id="2_g4geh"]
 [ext_resource type="PackedScene" uid="uid://t8wudrnfvec0" path="res://Scenes/scene_trigger.tscn" id="4_g4geh"]
-[ext_resource type="Shader" uid="uid://djgpqh4301gak" path="res://Assets/start_map.gdshader" id="7_byi4r"]
 [ext_resource type="AudioStream" uid="uid://bojhgomt3u6n8" path="res://Assets/Music/Kevin MacLeod - 8bit Dungeon Boss ♫ NO COPYRIGHT 8-bit Music.mp3" id="7_yxobr"]
-[ext_resource type="Script" uid="uid://cr0wlc65mawv2" path="res://Scripts/sub_viewport.gd" id="8_irpgf"]
-[ext_resource type="Texture2D" uid="uid://cpjbrhj3kah6b" path="res://Assets/UX/Icons/arrow_up-1.png" id="9_70pkq"]
 [ext_resource type="PackedScene" uid="uid://deb16wmoo5crf" path="res://Atomons/Atomon.tscn" id="9_h3csq"]
-[ext_resource type="Texture2D" uid="uid://cjhxs40ndhss4" path="res://Assets/UX/HUD/mini_map.png" id="10_twnyy"]
+[ext_resource type="Shader" uid="uid://bfjjrh42k4huc" path="res://Assets/VFX/dark_dusty.gdshader" id="12_70pkq"]
+[ext_resource type="PackedScene" uid="uid://bn52xk2xw4mg8" path="res://Scenes/UI/minimap.tscn" id="13_k27op"]
 [ext_resource type="Resource" uid="uid://c6ifad64lantw" path="res://Resources/Atomons/Iron.tres" id="13_twnyy"]
 [ext_resource type="PackedScene" uid="uid://dmqd2wojxfyoi" path="res://Scenes/Pickables/PickItem.tscn" id="14_8jeg0"]
+[ext_resource type="Texture2D" uid="uid://4itabwr7jsyy" path="res://Assets/Maps/atomonia_cave.png" id="14_k27op"]
 [ext_resource type="PackedScene" uid="uid://58her1ab75n5" path="res://Scenes/UI/hud.tscn" id="15_8jeg0"]
 [ext_resource type="Resource" uid="uid://dmxmt65f5xbmd" path="res://Resources/Items/Iron_ore.tres" id="15_adu4b"]
 
@@ -1604,8 +1603,23 @@ sources/0 = SubResource("TileSetAtlasSource_h3csq")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp6fm"]
 size = Vector2(160, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k27op"]
-shader = ExtResource("7_byi4r")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_twnyy"]
+shader = ExtResource("12_70pkq")
+shader_parameter/cave_dark_color = Color(0.05490196, 0.06666667, 0.07450981, 1)
+shader_parameter/cave_darkness = 2.0
+shader_parameter/player_light_position = Vector2(0.5, 0.5)
+shader_parameter/player_light_strength = 0.8730000414675
+shader_parameter/player_light_radius = 0.40100001741756003
+shader_parameter/fog_color = Color(0.29774055, 0.3402985, 0.36818573, 1)
+shader_parameter/fog_strength = 0.28800001368
+shader_parameter/fog_speed = 0.5
+shader_parameter/fog_density = 10.0
+shader_parameter/dust_color = Color(0.84705883, 0.8392157, 0.7529412, 1)
+shader_parameter/dust_amount = 1.0
+shader_parameter/dust_strength = 2.0
+shader_parameter/dust_speed = 0.0550000026125
+shader_parameter/dust_size = 0.0010000000475
+shader_parameter/dust_light_radius = 1.5
 
 [node name="cave" type="Node2D" unique_id=2045230059]
 script = ExtResource("1_70pkq")
@@ -1681,70 +1695,14 @@ data = ExtResource("15_adu4b")
 [node name="Player" parent="." unique_id=1857981194 instance=ExtResource("2_3usej")]
 position = Vector2(541, 630)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=542408815]
-
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=597407551]
-clip_contents = true
-layout_mode = 3
-anchor_left = 0.0050000004
-anchor_right = 0.0050000004
-offset_left = 0.09999943
-offset_top = -4.0
-offset_right = 322.1
-offset_bottom = 262.0
-grow_horizontal = 0
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Control" unique_id=512277115]
-material = SubResource("ShaderMaterial_k27op")
-clip_contents = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.29500002
-anchor_top = -0.33100003
-anchor_right = 1.2950001
-anchor_bottom = 1.3310001
-offset_left = -0.009994507
-offset_top = -0.051994324
-offset_right = 0.009979248
-offset_bottom = 0.051971436
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Control/SubViewportContainer" unique_id=863759786]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(560, 512)
-render_target_update_mode = 4
-script = ExtResource("8_irpgf")
-
-[node name="Camera2D" type="Camera2D" parent="CanvasLayer/Control/SubViewportContainer/SubViewport" unique_id=653310333]
-position = Vector2(113, -4)
-zoom = Vector2(0.6, 0.6)
-
-[node name="Marker" type="TextureRect" parent="CanvasLayer/Control" unique_id=723036208]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.46500003
-anchor_top = 0.45100003
-anchor_right = 0.535
-anchor_bottom = 0.549
-offset_left = 0.019989014
-offset_top = 0.033988953
-offset_right = -0.020004272
-offset_bottom = -0.03401184
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_70pkq")
-
-[node name="Map" type="TextureRect" parent="CanvasLayer/Control" unique_id=633177466]
-clip_children = 2
-clip_contents = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_twnyy")
-
 [node name="HUD" parent="." unique_id=116850924 instance=ExtResource("15_8jeg0")]
+
+[node name="Shader" type="ColorRect" parent="." unique_id=1145964804]
+z_index = 10
+material = SubResource("ShaderMaterial_twnyy")
+offset_right = 1980.0
+offset_bottom = 719.0
+
+[node name="Minimap" parent="." unique_id=438677015 instance=ExtResource("13_k27op")]
+player_path = NodePath("../Player")
+map_texture_path = ExtResource("14_k27op")

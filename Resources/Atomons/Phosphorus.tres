@@ -1,0 +1,138 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://by4fdtb12bx4v"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_yotu5"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_567le"]
+[ext_resource type="Texture2D" uid="uid://bv2oph4c7juh5" path="res://Assets/Atomon Portraits/magmous_phosphorous.png" id="2_654hh"]
+[ext_resource type="Texture2D" uid="uid://0tg320lajxuc" path="res://Assets/Pets/Phosphorous_Idle.png" id="4_fb64k"]
+[ext_resource type="Texture2D" uid="uid://b25ngn1lgwu8t" path="res://Assets/Pets/Phosphorous_Walk.png" id="5_pcrc1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxjd0"]
+atlas = ExtResource("4_fb64k")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n17t"]
+atlas = ExtResource("4_fb64k")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqh7d"]
+atlas = ExtResource("4_fb64k")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxqns"]
+atlas = ExtResource("4_fb64k")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f554r"]
+atlas = ExtResource("4_fb64k")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0hvd"]
+atlas = ExtResource("4_fb64k")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eq5u0"]
+atlas = ExtResource("5_pcrc1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbe58"]
+atlas = ExtResource("5_pcrc1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fkgv"]
+atlas = ExtResource("5_pcrc1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbf1t"]
+atlas = ExtResource("5_pcrc1")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv0q7"]
+atlas = ExtResource("5_pcrc1")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_it3iv"]
+atlas = ExtResource("5_pcrc1")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01lnb"]
+atlas = ExtResource("5_pcrc1")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opm5l"]
+atlas = ExtResource("5_pcrc1")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0x7ln"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxjd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n17t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqh7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxqns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f554r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0hvd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eq5u0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbe58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fkgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbf1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cv0q7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_it3iv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01lnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opm5l")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_567le")
+atom_name = "Phosphorus"
+chemical_symbol = "P"
+atomic_number = 15
+alias = "Magmous"
+sprite_frames = SubResource("SpriteFrames_0x7ln")
+portrait = ExtResource("2_654hh")
+atomic_mass = 30.973762
+density = 1.823
+ionization_energy = 10.4867
+electronegativity = 2.19
+electron_affinity = 72.037
+valence_electrons = 5
+mass_number = 31
+state = "Solid"
+block = "p"
+period = 3
+metadata/_custom_type_script = "uid://dvv118enrwub6"

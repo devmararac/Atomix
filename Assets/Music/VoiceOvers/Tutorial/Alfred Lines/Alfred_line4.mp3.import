@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cai17jrb7uk7j"
+path="res://.godot/imported/Alfred_line4.mp3-baa5f552ad905fc7f84806146acb9505.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line4.mp3"
+dest_files=["res://.godot/imported/Alfred_line4.mp3-baa5f552ad905fc7f84806146acb9505.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line1.mp3" volume="0.0"]
+Dianne: Hey there! Welcome to Atomix.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line2.mp3" volume="0.0"]
+Dianne: I'm Dianne, AtomiX's Project Manager!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line3.mp3" volume="0.0"]
+Dianne: Today, we'll show you the ropes around the game before you head out on your adventure.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line4.mp3" volume="0.0"]
+Dianne: Don't worry. I'll be here to guide you through everything you need to know. And the others will join us soon so stick around!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line5.mp3" volume="0.0"]
+Dianne: So, ready to get started?
+- Yes
+	[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line6.mp3" volume="0.0"]
+	Dianne: Alright! Then let's get this adventure started!
+	[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line7.mp3" volume="0.0"]
+	Dianne: Hmmm..... wait.. I can't move..
+	[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line8.mp3" volume="0.0"]
+	Dianne: Not kidding I really can't...
+	[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line9.mp3" volume="0.0"]
+	Dianne: Ohh wait! Maybe you can help me. 😅
+	[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line10.mp3" volume="0.0"]
+	Dianne: Yes! You're going to have to help me out!
+	[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line11.mp3" volume="0.0"]
+	Dianne: See that joystick? Give it a little push and let's see if you can get me moving!
+	[signal arg="show_joystick"]

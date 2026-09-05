@@ -7,7 +7,7 @@ extends CanvasLayer
 
 const TYPE_BACKGROUNDS = {
 	"Nonmetal": preload("res://Assets/UX/Icons/nonmetal.png"),
-	"Post-transition Metal": preload("res://Assets/UX/Icons/post_transition_metal.png"),
+	"Post-Transition Metal": preload("res://Assets/UX/Icons/post_transition_metal.png"),
 	"Metalloid": preload("res://Assets/UX/Icons/metalloids.png"),
 	"Noble Gas": preload("res://Assets/UX/Icons/noble_gas.png"),
 	"Halogen": preload("res://Assets/UX/Icons/halogen.png"),

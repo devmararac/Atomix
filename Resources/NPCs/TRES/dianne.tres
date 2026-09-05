@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cpjbrhj3kah6b" path="res://Assets/UX/Icons/arrow_up-1.png" id="1_5rnw1"]
 [ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_24kt4"]
+[ext_resource type="Resource" uid="uid://4v3ja1c2qvke" path="res://Resources/Dialouges/Dialogic/Characters/Dianne.dch" id="1_fmve3"]
 [ext_resource type="Resource" uid="uid://c2tbla42yvqfg" path="res://Resources/NPCs/Dialogues/DianneDialogueData.tres" id="1_tiyyf"]
 [ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_e31gr"]
 [ext_resource type="Texture2D" uid="uid://cbqmogpb74oxf" path="res://Assets/NPC/Dianne.png" id="3_e31gr"]
@@ -43,6 +44,38 @@ region = Rect2(672, 0, 96, 64)
 atlas = ExtResource("3_e31gr")
 region = Rect2(768, 0, 96, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_n47g2"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(0, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u25ht"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(96, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhbov"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(192, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogxsx"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(288, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bq7vy"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(384, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5allq"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(480, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lraak"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(576, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydx7f"]
+atlas = ExtResource("3_e31gr")
+region = Rect2(672, 64, 96, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_n47g2"]
 animations = [{
 "frames": [{
@@ -75,15 +108,45 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n47g2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u25ht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhbov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogxsx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bq7vy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5allq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lraak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydx7f")
+}],
+"loop": true,
+"name": &"walk",
 "speed": 7.0
 }]
 
 [resource]
 script = ExtResource("2_e31gr")
-npc_id = "npc_003"
+npc_id = "npc_leader"
 display_name = "Dianne"
 sprite_frames = SubResource("SpriteFrames_n47g2")
 interaction_icon = ExtResource("1_5rnw1")
+dialogic_character = ExtResource("1_fmve3")
 dialogue_data = ExtResource("1_tiyyf")
 quests = Array[ExtResource("1_24kt4")]([ExtResource("4_ho7wb")])
 metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

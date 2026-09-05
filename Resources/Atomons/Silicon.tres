@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://bshx5r6gn1vum" path="res://Resources/Moves/Dmg3.tres" id="4_o3cqq"]
 [ext_resource type="Resource" uid="uid://dwxntq7hagx57" path="res://Resources/Moves/Status Effect 4.tres" id="5_73pim"]
 [ext_resource type="Texture2D" uid="uid://b57m33wqvixp5" path="res://Assets/Pets/silicon_walk.png" id="5_wc074"]
+[ext_resource type="Texture2D" uid="uid://chyd0xi4jyolr" path="res://Assets/Atomon Portraits/pebblicon_silicon.png" id="6_cw3vv"]
 
 [sub_resource type="Resource" id="Resource_cw3vv"]
 script = ExtResource("1_dvmbn")
@@ -98,7 +99,7 @@ atomic_number = 14
 alias = "Pebblicon"
 sprite_frames = SubResource("SpriteFrames_qcj4i")
 symbol = ExtResource("1_qcj4i")
-portrait = SubResource("AtlasTexture_3qwvn")
+portrait = ExtResource("6_cw3vv")
 atomic_mass = 28.085
 density = 2.3296
 ionization_energy = 8.15169

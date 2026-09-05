@@ -2,7 +2,94 @@
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_k5w8e"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_44fok"]
+[ext_resource type="Texture2D" uid="uid://d38k1t2abf4ug" path="res://Assets/Atomon Portraits/fluorie_fluorine.png" id="2_iuixi"]
+[ext_resource type="Texture2D" uid="uid://dumnff6x3wm7n" path="res://Assets/Pets/Flourine-idle.png" id="3_44fok"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuixi"]
+atlas = ExtResource("3_44fok")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cghe"]
+atlas = ExtResource("3_44fok")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aa5ei"]
+atlas = ExtResource("3_44fok")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_piscb"]
+atlas = ExtResource("3_44fok")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ru2oa"]
+atlas = ExtResource("3_44fok")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eo476"]
+atlas = ExtResource("3_44fok")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loymb"]
+atlas = ExtResource("3_44fok")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llmmx"]
+atlas = ExtResource("3_44fok")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lc34b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iuixi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cghe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aa5ei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_piscb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ru2oa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eo476")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loymb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llmmx")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [resource]
 script = ExtResource("2_44fok")
+atom_name = "Fluorine"
+chemical_symbol = "F"
+atomic_number = 9
+alias = "Fluorie"
+sprite_frames = SubResource("SpriteFrames_lc34b")
+portrait = ExtResource("2_iuixi")
+atomic_mass = 18.998403
+density = 0.00169599999999999
+ionization_energy = 17.4228
+electronegativity = 3.98
+electron_affinity = 328.164
+valence_electrons = 7
+mass_number = 19
+element_type = "Halogen"
+block = "p"
+period = 2
 metadata/_custom_type_script = "uid://dvv118enrwub6"
