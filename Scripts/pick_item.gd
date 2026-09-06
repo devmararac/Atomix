@@ -53,4 +53,27 @@ func collect():
 		quantity
 	)
 
+	print(
+		"[ItemPickup] Collected item: ",
+		data.item_id,
+		" × ",
+		quantity
+	)
+
+	# ========================================================
+	# AUTOMATIC SAVE
+	# ========================================================
+
+	print(
+		"[ItemPickup] Requesting automatic save after item collection..."
+	)
+
+	await SaveManager.auto_save(
+		"Collected item: " + data.item_id
+	)
+
+	print(
+		"[ItemPickup] Item collection automatic save completed."
+	)
+
 	queue_free()

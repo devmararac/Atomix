@@ -2,6 +2,414 @@ extends Node
 
 var save_data: SaveData = null
 
+# ============================================================
+# AUTOMATIC SAVE STATE
+# ============================================================
+
+var auto_save_in_progress: bool = false
+var auto_save_queued: bool = false
+
+# ============================================================
+# AUTOMATIC SAVE
+# ============================================================
+
+func auto_save(reason: String = "") -> void:
+
+	print(
+		"[SaveManager] AUTO-SAVE REQUESTED",
+		" | Reason: ",
+		reason
+	)
+
+	# If a save is already happening, remember that another
+	# save was requested instead of starting multiple saves.
+	if auto_save_in_progress:
+
+		print(
+			"[SaveManager] Auto-save already in progress."
+		)
+
+		print(
+			"[SaveManager] Queuing another auto-save."
+		)
+
+		auto_save_queued = true
+
+		return
+
+
+	auto_save_in_progress = true
+
+	print(
+		"[SaveManager] Starting automatic save..."
+	)
+
+	await save_game()
+
+	auto_save_in_progress = false
+
+	print(
+		"[SaveManager] Automatic save finished."
+	)
+
+
+	# If another important action happened while saving,
+	# perform one more save using the latest game state.
+	if auto_save_queued:
+
+		print(
+			"[SaveManager] Another save was requested during saving."
+		)
+
+		auto_save_queued = false
+
+		await auto_save(
+			"Queued auto-save"
+		)
+
+# ============================================================
+# QUEST-ONLY AUTOMATIC SAVE
+# ============================================================
+
+func auto_save_quest_data(reason: String = "") -> void:
+
+	print(
+		"[SaveManager] QUEST-ONLY AUTO-SAVE REQUESTED",
+		" | Reason: ",
+		reason
+	)
+
+	# Wait for a normal full save to finish first.
+	if auto_save_in_progress:
+
+		print(
+			"[SaveManager] Full auto-save is currently running."
+		)
+
+		print(
+			"[SaveManager] Waiting before saving quest data..."
+		)
+
+		while auto_save_in_progress:
+			await get_tree().process_frame
+
+	print(
+		"[SaveManager] Starting quest-only automatic save..."
+	)
+
+	var success := await _save_quest_data_only()
+
+	if success:
+
+		print(
+			"[SaveManager] Quest-only automatic save completed."
+		)
+
+	else:
+
+		print(
+			"[SaveManager] Quest-only automatic save FAILED."
+		)
+
+
+# ============================================================
+# SAVE QUEST DATA ONLY
+# ============================================================
+
+func _save_quest_data_only() -> bool:
+
+	if not StudentDataManager.is_student_logged_in():
+
+		print(
+			"[SaveManager] Cannot save quest data. No student is logged in."
+		)
+
+		return false
+
+	var uid: String = (
+		StudentDataManager.get_student_uid()
+	)
+
+	if uid.is_empty():
+
+		print(
+			"[SaveManager] Cannot save quest data. UID is empty."
+		)
+
+		return false
+
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
+	)
+
+	var document: FirestoreDocument = (
+		await students.get_doc(uid)
+	)
+
+	if document == null:
+
+		print(
+			"[SaveManager] Student document does not exist: ",
+			uid
+		)
+
+		return false
+
+	# --------------------------------------------------------
+	# Build current quest data
+	# --------------------------------------------------------
+
+	var quest_data: Dictionary = {}
+
+	for quest_id in QuestManager.active_quests:
+
+		var quest: Quest = (
+			QuestManager.active_quests[quest_id]
+		)
+
+		if quest == null:
+			continue
+
+		quest_data[quest_id] = {
+			"quest_status": "active",
+			"data": quest.to_save_dict()
+		}
+
+
+	for quest_id in QuestManager.completed_quests:
+
+		var quest: Quest = (
+			QuestManager.completed_quests[quest_id]
+		)
+
+		if quest == null:
+			continue
+
+		quest_data[quest_id] = {
+			"quest_status": "completed",
+			"data": quest.to_save_dict()
+		}
+
+	print(
+		"[SaveManager] Quest data to save: ",
+		quest_data
+	)
+
+	# --------------------------------------------------------
+	# IMPORTANT:
+	# Get the existing game_state first.
+	#
+	# We do NOT create a new game_state.
+	# We do NOT change:
+	#   has_save
+	#   current_scene
+	#   player_position
+	#   coins
+	#   party
+	#   inventory
+	# --------------------------------------------------------
+
+	var existing_data: Dictionary = (
+		document.get_unsafe_document()
+	)
+
+	var existing_game_state: Dictionary = (
+		existing_data.get(
+			"game_state",
+			{}
+		)
+	)
+
+	if not existing_game_state is Dictionary:
+
+		existing_game_state = {}
+
+	# Only replace quest_data.
+	existing_game_state["quest_data"] = quest_data
+
+	# --------------------------------------------------------
+	# Upload only the updated game_state
+	# --------------------------------------------------------
+
+	document.add_or_update_field(
+		"game_state",
+		existing_game_state
+	)
+
+	print(
+		"[SaveManager] Saving QUEST DATA ONLY..."
+	)
+
+	var result: FirestoreDocument = (
+		await students.update(document)
+	)
+
+	if result == null:
+
+		print(
+			"[SaveManager] Failed to save quest data."
+		)
+
+		return false
+
+	print(
+		"[SaveManager] Quest data saved successfully."
+	)
+
+	return true
+
+# ============================================================
+# CURRENCY-ONLY AUTOMATIC SAVE
+# ============================================================
+
+func auto_save_currency(reason: String = "") -> void:
+
+	print(
+		"[SaveManager] CURRENCY-ONLY AUTO-SAVE REQUESTED",
+		" | Reason: ",
+		reason
+	)
+
+	# Wait for a normal full save to finish first.
+	if auto_save_in_progress:
+
+		print(
+			"[SaveManager] Full auto-save is currently running."
+		)
+
+		print(
+			"[SaveManager] Waiting before saving currency..."
+		)
+
+		while auto_save_in_progress:
+			await get_tree().process_frame
+
+	print(
+		"[SaveManager] Starting currency-only automatic save..."
+	)
+
+	var success := await _save_currency_only()
+
+	if success:
+
+		print(
+			"[SaveManager] Currency-only automatic save completed."
+		)
+
+	else:
+
+		print(
+			"[SaveManager] Currency-only automatic save FAILED."
+		)
+
+
+# ============================================================
+# SAVE CURRENCY ONLY
+# ============================================================
+
+func _save_currency_only() -> bool:
+
+	if not StudentDataManager.is_student_logged_in():
+
+		print(
+			"[SaveManager] Cannot save currency. No student is logged in."
+		)
+
+		return false
+
+	var uid: String = (
+		StudentDataManager.get_student_uid()
+	)
+
+	if uid.is_empty():
+
+		print(
+			"[SaveManager] Cannot save currency. UID is empty."
+		)
+
+		return false
+
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
+	)
+
+	var document: FirestoreDocument = (
+		await students.get_doc(uid)
+	)
+
+	if document == null:
+
+		print(
+			"[SaveManager] Student document does not exist: ",
+			uid
+		)
+
+		return false
+
+	# --------------------------------------------------------
+	# Get the existing game state.
+	#
+	# We only change the coins value.
+	# Everything else remains untouched.
+	# --------------------------------------------------------
+
+	var existing_data: Dictionary = (
+		document.get_unsafe_document()
+	)
+
+	var existing_game_state: Dictionary = (
+		existing_data.get(
+			"game_state",
+			{}
+		)
+	)
+
+	if not existing_game_state is Dictionary:
+
+		existing_game_state = {}
+
+	# --------------------------------------------------------
+	# Update ONLY coins.
+	# --------------------------------------------------------
+
+	existing_game_state["coins"] = CurrencyManager.coins
+
+	print(
+		"[SaveManager] Currency to save: ",
+		CurrencyManager.coins
+	)
+
+	# --------------------------------------------------------
+	# Put the updated game_state back into the document.
+	# --------------------------------------------------------
+
+	document.add_or_update_field(
+		"game_state",
+		existing_game_state
+	)
+
+	print(
+		"[SaveManager] Saving CURRENCY DATA ONLY..."
+	)
+
+	var result: FirestoreDocument = (
+		await students.update(document)
+	)
+
+	if result == null:
+
+		print(
+			"[SaveManager] Failed to save currency."
+		)
+
+		return false
+
+	print(
+		"[SaveManager] Currency saved successfully."
+	)
+
+	return true
+
 
 # ============================================================
 # SAVE GAME

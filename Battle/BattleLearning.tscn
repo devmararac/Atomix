@@ -1,0 +1,236 @@
+[gd_scene format=3 uid="uid://ct6gca8o40ky5"]
+
+[ext_resource type="Script" uid="uid://cxjkkyiq248yg" path="res://Battle/battle_learning.gd" id="1_hv0w2"]
+[ext_resource type="Texture2D" uid="uid://bs7y8uq0f2cuq" path="res://Assets/UX/HUD/Panels/quest_log_panel_left.png" id="2_frqri"]
+[ext_resource type="Texture2D" uid="uid://dofw7o474odev" path="res://Assets/UX/Buttons/Normal/move_button.png" id="3_frqri"]
+[ext_resource type="Texture2D" uid="uid://d3cpky1g21l5n" path="res://Assets/UX/HUD/Panels/quest_log_panel_right.png" id="3_smdlp"]
+[ext_resource type="Texture2D" uid="uid://bj31gnxsem511" path="res://Assets/UX/Buttons/Normal/continue_button.png" id="4_smdlp"]
+[ext_resource type="Texture2D" uid="uid://b5pccx46wypxe" path="res://Assets/UX/Buttons/On-Pressed/continue_button_pressed.png" id="5_os5hx"]
+
+[node name="BattleLearning" type="Control" unique_id=272628354]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hv0w2")
+
+[node name="Panel" type="NinePatchRect" parent="." unique_id=147186960]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer3" type="TextureRect" parent="Panel" unique_id=1357275562]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 2.0
+offset_right = 988.0
+offset_bottom = 720.0
+texture = ExtResource("2_frqri")
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer3" unique_id=1848698708]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 194.0
+offset_top = 50.0
+offset_right = 834.0
+offset_bottom = 133.0
+theme_override_font_sizes/font_size = 60
+text = "BATTLE LEARNING"
+horizontal_alignment = 1
+
+[node name="Lesson2" type="Label" parent="Panel/VBoxContainer3" unique_id=897392427]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 0
+offset_left = 114.0
+offset_top = 120.0
+offset_right = 877.0
+offset_bottom = 354.0
+theme_override_font_sizes/font_size = 25
+text = "Lesson:"
+autowrap_mode = 2
+
+[node name="Lesson" type="Label" parent="Panel/VBoxContainer3" unique_id=901977372]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 0
+offset_left = 116.0
+offset_top = 158.0
+offset_right = 879.0
+offset_bottom = 392.0
+theme_override_font_sizes/font_size = 25
+text = "Lesson"
+autowrap_mode = 2
+
+[node name="Question2" type="Label" parent="Panel/VBoxContainer3" unique_id=827116820]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.097
+anchor_top = 0.08800001
+anchor_right = 0.87200004
+anchor_bottom = 0.418
+offset_left = 24.872993
+offset_top = 311.81598
+offset_right = 13.848022
+offset_bottom = 311.79108
+theme_override_font_sizes/font_size = 25
+text = "Question:"
+autowrap_mode = 2
+
+[node name="Question" type="Label" parent="Panel/VBoxContainer3" unique_id=1511016806]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.097
+anchor_top = 0.08800001
+anchor_right = 0.87200004
+anchor_bottom = 0.418
+offset_left = 24.872993
+offset_top = 361.81598
+offset_right = 13.848022
+offset_bottom = 361.79108
+theme_override_font_sizes/font_size = 25
+text = "Question"
+autowrap_mode = 2
+
+[node name="VBoxContainer2" type="TextureRect" parent="Panel" unique_id=1612587030]
+layout_mode = 0
+offset_left = 988.0
+offset_top = 2.0
+offset_right = 1979.0
+offset_bottom = 720.0
+texture = ExtResource("3_smdlp")
+
+[node name="Feedback2" type="Label" parent="Panel/VBoxContainer2" unique_id=1008680739]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 0
+offset_left = 87.0
+offset_top = 289.0
+offset_right = 902.0
+offset_bottom = 359.0
+theme_override_font_sizes/font_size = 25
+text = "Feedback:"
+autowrap_mode = 2
+
+[node name="Feedback" type="Label" parent="Panel/VBoxContainer2" unique_id=788816230]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 0
+offset_left = 86.0
+offset_top = 328.0
+offset_right = 901.0
+offset_bottom = 398.0
+theme_override_font_sizes/font_size = 25
+text = "aasasdasdasdasdasd"
+autowrap_mode = 2
+
+[node name="Continue" type="TextureButton" parent="Panel/VBoxContainer2" unique_id=1648717399]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 0
+offset_left = 413.0
+offset_top = 529.0
+offset_right = 566.0
+offset_bottom = 602.0
+disabled = true
+texture_normal = ExtResource("4_smdlp")
+texture_pressed = ExtResource("5_os5hx")
+stretch_mode = 0
+
+[node name="Control" type="Control" parent="Panel/VBoxContainer2" unique_id=611162076]
+anchors_preset = 0
+offset_left = 109.0
+offset_top = 12.0
+offset_right = 109.0
+offset_bottom = 12.0
+
+[node name="Answer" type="TextureButton" parent="Panel/VBoxContainer2/Control" unique_id=342386891]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 0
+offset_left = 411.0
+offset_top = 61.0
+offset_right = 611.0
+offset_bottom = 141.0
+texture_normal = ExtResource("3_frqri")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer2/Control/Answer" unique_id=850600637]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 15.0
+offset_right = 187.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 25
+text = "Answer"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Answer4" type="TextureButton" parent="Panel/VBoxContainer2/Control" unique_id=1350381808]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 0
+offset_left = 135.0
+offset_top = 153.0
+offset_right = 335.0
+offset_bottom = 233.0
+texture_normal = ExtResource("3_frqri")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer2/Control/Answer4" unique_id=2035791832]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 15.0
+offset_right = 187.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 25
+text = "Answer"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Answer2" type="TextureButton" parent="Panel/VBoxContainer2/Control" unique_id=476554217]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 0
+offset_left = 411.0
+offset_top = 151.0
+offset_right = 611.0
+offset_bottom = 231.0
+texture_normal = ExtResource("3_frqri")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer2/Control/Answer2" unique_id=560183198]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 15.0
+offset_right = 187.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 25
+text = "Answer"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Answer3" type="TextureButton" parent="Panel/VBoxContainer2/Control" unique_id=347092951]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 0
+offset_left = 134.0
+offset_top = 61.0
+offset_right = 334.0
+offset_bottom = 141.0
+texture_normal = ExtResource("3_frqri")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer2/Control/Answer3" unique_id=328175917]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 15.0
+offset_right = 187.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 25
+text = "Answer"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

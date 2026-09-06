@@ -1,23 +1,23 @@
 extends CanvasLayer
 
-
 # ============================================================
+
 # TYPE BACKGROUNDS
+
 # ============================================================
 
 const TYPE_BACKGROUNDS = {
-	"Nonmetal": preload("res://Assets/UX/Icons/nonmetal.png"),
-	"Post-Transition Metal": preload("res://Assets/UX/Icons/post_transition_metal.png"),
-	"Metalloid": preload("res://Assets/UX/Icons/metalloids.png"),
-	"Noble Gas": preload("res://Assets/UX/Icons/noble_gas.png"),
-	"Halogen": preload("res://Assets/UX/Icons/halogen.png"),
-	"Alkali Metal": preload("res://Assets/UX/Icons/akali_metals.png"),
-	"Alkaline Earth Metal": preload("res://Assets/UX/Icons/alkaline_metal.png"),
-	"Transition Metal": preload("res://Assets/UX/Icons/transition_metal.png"),
-	"Lanthanide": preload("res://Assets/UX/Icons/lanthanide.png"),
-	"Actinide": preload("res://Assets/UX/Icons/actinide.png")
+"Nonmetal": preload("res://Assets/UX/Icons/nonmetal.png"),
+"Post-Transition Metal": preload("res://Assets/UX/Icons/post_transition_metal.png"),
+"Metalloid": preload("res://Assets/UX/Icons/metalloids.png"),
+"Noble Gas": preload("res://Assets/UX/Icons/noble_gas.png"),
+"Halogen": preload("res://Assets/UX/Icons/halogen.png"),
+"Alkali Metal": preload("res://Assets/UX/Icons/akali_metals.png"),
+"Alkaline Earth Metal": preload("res://Assets/UX/Icons/alkaline_metal.png"),
+"Transition Metal": preload("res://Assets/UX/Icons/transition_metal.png"),
+"Lanthanide": preload("res://Assets/UX/Icons/lanthanide.png"),
+"Actinide": preload("res://Assets/UX/Icons/actinide.png")
 }
-
 
 # ============================================================
 # STATE
@@ -25,78 +25,34 @@ const TYPE_BACKGROUNDS = {
 
 var selected_element: AtomonData
 
-
 # ============================================================
 # UI REFERENCES
 # ============================================================
 
 @onready var info_panel = $"TextureRect/Info Panel"
+@onready var element_background = ($"TextureRect/Info Panel/TextureRect/Container/TextureRect2")
+@onready var atomic_symbol = ($"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Atomic Symbol")
+@onready var atomic_number = ($"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Atomic Number")
+@onready var atomic_mass = ($"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Atomic Mass")
+@onready var atomic_name = ($"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Atomic Name")
+@onready var element_type = ($"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Type")
+@onready var craft_button = ($"TextureRect/Info Panel/Control/Craft Button")
+@onready var proton_count = ($"TextureRect/Info Panel/Control2/Materials/Proton/Proton Count")
+@onready var electron_count = ($"TextureRect/Info Panel/Control2/Materials/Electron/Electron Count")
+@onready var neutron_count = ($"TextureRect/Info Panel/Control2/Materials/Neutron/Neutron Count")
+@onready var atomic_core_count = ($"TextureRect/Info Panel/Control2/Materials/Atomic Core/Atomic Core Count")
+@onready var material_status = ($"TextureRect/Info Panel/Control2/Material Status")
+@onready var density_value = ($"TextureRect/Info Panel/TextureRect/Container/GridContainer/Density Value")
+@onready var ie_value = ($"TextureRect/Info Panel/TextureRect/Container/GridContainer/IE Value")
+@onready var electronegativity_value = ($"TextureRect/Info Panel/TextureRect/Container/GridContainer/Electronegativity Value")
+@onready var ea_value = ($"TextureRect/Info Panel/TextureRect/Container/GridContainer/EA Value")
+@onready var valence_electrons_value = ($"TextureRect/Info Panel/TextureRect/Container/GridContainer/VE Value")
+@onready var phase_value = ($"TextureRect/Info Panel/TextureRect/Container/GridContainer/Phase Value")
+@onready var period_value = ($"TextureRect/Info Panel/TextureRect/Container/GridContainer/Period Value")
+@onready var block_value = ($"TextureRect/Info Panel/TextureRect/Container/GridContainer/Block Value")
+@onready var radioactive_value = ($"TextureRect/Info Panel/TextureRect/Container/GridContainer/Radioactive Value")
 
-@onready var element_background = (
-	$"TextureRect/Info Panel/TextureRect/Container/TextureRect2"
-)
-
-@onready var atomic_symbol = (
-	$"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Atomic Symbol"
-)
-
-@onready var atomic_number = (
-	$"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Atomic Number"
-)
-
-@onready var atomic_mass = (
-	$"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Atomic Mass"
-)
-
-@onready var atomic_name = (
-	$"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Atomic Name"
-)
-
-@onready var element_type = (
-	$"TextureRect/Info Panel/TextureRect/Container/TextureRect2/Type"
-)
-
-@onready var craft_button = (
-	$"TextureRect/Info Panel/Control/Craft Button"
-)
-
-
-@onready var density_value = (
-	$"TextureRect/Info Panel/TextureRect/Container/GridContainer/Density Value"
-)
-
-@onready var ie_value = (
-	$"TextureRect/Info Panel/TextureRect/Container/GridContainer/IE Value"
-)
-
-@onready var electronegativity_value = (
-	$"TextureRect/Info Panel/TextureRect/Container/GridContainer/Electronegativity Value"
-)
-
-@onready var ea_value = (
-	$"TextureRect/Info Panel/TextureRect/Container/GridContainer/EA Value"
-)
-
-@onready var valence_electrons_value = (
-	$"TextureRect/Info Panel/TextureRect/Container/GridContainer/VE Value"
-)
-
-@onready var phase_value = (
-	$"TextureRect/Info Panel/TextureRect/Container/GridContainer/Phase Value"
-)
-
-@onready var period_value = (
-	$"TextureRect/Info Panel/TextureRect/Container/GridContainer/Period Value"
-)
-
-@onready var block_value = (
-	$"TextureRect/Info Panel/TextureRect/Container/GridContainer/Block Value"
-)
-
-@onready var radioactive_value = (
-	$"TextureRect/Info Panel/TextureRect/Container/GridContainer/Radioactive Value"
-)
-
+@export var hud: CanvasLayer
 
 # ============================================================
 # READY
@@ -104,6 +60,8 @@ var selected_element: AtomonData
 
 func _ready() -> void:
 
+	add_to_group("CraftingUI")
+	
 	print("CRAFTING UI READY")
 
 	setup_element_buttons()
@@ -121,27 +79,22 @@ func _ready() -> void:
 		)
 
 
-	# --------------------------------------------------------
-	# IMPORTANT
-	#
-	# Do NOT call StudentDataManager.load_student() here.
-	#
-	# Do NOT download Firebase data here.
-	#
-	# The crafting UI only displays the current runtime state.
-	#
-	# SaveManager.load_game() is responsible for restoring
-	# saved data.
-	# --------------------------------------------------------
-
 	_refresh_all_crafted_buttons()
+	
+	if hud:
+		hud.hide()
+	
+	if global.player:
+		global.player.can_move = false
+	
+	# ============================================================
 
+	# SETUP ELEMENT BUTTONS
 
-# ============================================================
-# SETUP ELEMENT BUTTONS
-# ============================================================
+	# ============================================================
 
 func setup_element_buttons() -> void:
+
 
 	var buttons: Array[Node] = []
 
@@ -188,14 +141,17 @@ func setup_element_buttons() -> void:
 			)
 
 
-# ============================================================
-# COLLECT ELEMENT BUTTONS
-# ============================================================
+	# ============================================================
+
+	# COLLECT ELEMENT BUTTONS
+
+	# ============================================================
 
 func collect_element_buttons(
 	parent: Node,
 	buttons: Array[Node]
-) -> void:
+	) -> void:
+
 
 	for child in parent.get_children():
 
@@ -216,13 +172,16 @@ func collect_element_buttons(
 			)
 
 
-# ============================================================
-# CONNECT ELEMENT BUTTONS
-# ============================================================
+	# ============================================================
+
+	# CONNECT ELEMENT BUTTONS
+
+	# ============================================================
 
 func connect_element_buttons(
 	parent: Node
-) -> void:
+	) -> void:
+
 
 	for child in parent.get_children():
 
@@ -251,13 +210,16 @@ func connect_element_buttons(
 			)
 
 
-# ============================================================
-# CHECK LOCAL CRAFTED STATE
-# ============================================================
+	# ============================================================
+
+	# CHECK LOCAL CRAFTED STATE
+
+	# ============================================================
 
 func is_element_crafted(
 	element: AtomonData
-) -> bool:
+	) -> bool:
+
 
 	if element == null:
 		return false
@@ -269,20 +231,6 @@ func is_element_crafted(
 	if symbol.is_empty():
 		return false
 
-
-	# --------------------------------------------------------
-	# IMPORTANT:
-	#
-	# The party is the current runtime source of truth.
-	#
-	# If the player crafted an Atomon this session,
-	# it exists here.
-	#
-	# If SaveManager.load_game() restored an Atomon,
-	# it also exists here.
-	#
-	# Firebase itself is NOT queried.
-	# --------------------------------------------------------
 
 	for atomon in PartyManager.party:
 
@@ -305,11 +253,14 @@ func is_element_crafted(
 	return false
 
 
-# ============================================================
-# REFRESH ALL CRAFTED BUTTONS
-# ============================================================
+	# ============================================================
+
+	# REFRESH ALL CRAFTED BUTTONS
+
+	# ============================================================
 
 func _refresh_all_crafted_buttons() -> void:
+
 
 	var buttons: Array[Node] = []
 
@@ -340,18 +291,205 @@ func _refresh_all_crafted_buttons() -> void:
 	)
 
 
+	# ============================================================
+	# UPDATE CRAFTING RECIPE
+	# ============================================================
+
+func _update_crafting_recipe(
+	element: AtomonData
+	) -> void:
+
+	if element == null:
+
+		proton_count.text = "0"
+		electron_count.text = "0"
+		neutron_count.text = "0"
+		atomic_core_count.text = "0"
+
+		return
+
+
+	var proton_required: int = (
+		element.atomic_number
+	)
+
+	var electron_required: int = (
+		element.atomic_number
+	)
+
+	var neutron_required: int = (
+		element.mass_number
+		- element.atomic_number
+	)
+
+	var atomic_core_required: int = 1
+
+
+	var proton_available: int = (
+		InventoryManager.get_item_count("proton")
+	)
+
+	var electron_available: int = (
+		InventoryManager.get_item_count("electron")
+	)
+
+	var neutron_available: int = (
+		InventoryManager.get_item_count("neutron")
+	)
+
+	var atomic_core_available: int = (
+		InventoryManager.get_item_count("atomic_core")
+	)
+
+
+	proton_count.text = _format_material_count(
+		proton_available,
+		proton_required
+	)
+
+	electron_count.text = _format_material_count(
+		electron_available,
+		electron_required
+	)
+
+	neutron_count.text = _format_material_count(
+		neutron_available,
+		neutron_required
+	)
+
+	atomic_core_count.text = _format_material_count(
+		atomic_core_available,
+		atomic_core_required
+	)
+
+
+	print(
+		"[CraftingUI] Recipe for ",
+		element.atom_name,
+		": Proton × ",
+		proton_required,
+		", Electron × ",
+		electron_required,
+		", Neutron × ",
+		neutron_required,
+		", Atomic Core × ",
+		atomic_core_required
+	)
+
+func _format_material_count(
+	have: int,
+	required: int
+	) -> String:
+
+	if have >= required:
+
+		return (
+			str(have)
+			+ " / "
+			+ str(required)
+			+ "  Ready"
+		)
+
+
+	var missing: int = (
+		required - have
+	)
+
+	return (
+		str(have)
+		+ " / "
+		+ str(required)
+		+ "  Missing "
+		+ str(missing)
+	)
+
+
 # ============================================================
+# UPDATE MATERIAL STATUS
+# ============================================================
+
+func _update_material_status(
+	element: AtomonData
+	) -> void:
+
+	if element == null:
+
+		material_status.text = (
+			"Select an element to see material requirements."
+		)
+
+		return
+
+
+	var requirements: Dictionary = (
+		_get_crafting_requirements(element)
+	)
+
+
+	var all_materials_available: bool = (
+		_has_required_materials(requirements)
+	)
+
+
+	if all_materials_available:
+
+		material_status.text = (
+			"READY TO CRAFT"
+		)
+
+	else:
+
+		material_status.text = (
+			"INSUFFICIENT MATERIALS"
+		)
+
+func _update_craft_button() -> void:
+
+	if selected_element == null:
+		craft_button.disabled = true
+		return
+
+	# Party is full
+	if PartyManager.party.size() >= PartyManager.MAX_PARTY_SIZE:
+		craft_button.disabled = true
+		return
+
+	# Check materials
+	var requirements: Dictionary = _get_crafting_requirements(
+		selected_element
+	)
+
+	if not _has_required_materials(requirements):
+		craft_button.disabled = true
+		return
+
+	# Everything is ready
+	craft_button.disabled = false
+
+
+# ============================================================
+
 # ELEMENT SELECTED
+
 # ============================================================
 
 func _on_element_selected(
 	element: AtomonData,
 	crafted: bool
-) -> void:
+	) -> void:
+
 
 	print(
 		"SELECTED ELEMENT: ",
 		element.atom_name
+	)
+
+	_update_crafting_recipe(
+		element
+	)
+
+	_update_material_status(
+		element
 	)
 
 	print(
@@ -360,13 +498,11 @@ func _on_element_selected(
 	)
 
 	selected_element = element
-
+	
+	_update_craft_button()
+	
 	info_panel.visible = true
 
-
-	# --------------------------------------------------------
-	# ALWAYS VERIFY AGAINST CURRENT PARTY
-	# --------------------------------------------------------
 
 	var actual_crafted := is_element_crafted(
 		element
@@ -379,10 +515,6 @@ func _on_element_selected(
 
 
 	if not actual_crafted:
-
-		# ====================================================
-		# UNCRAFTED
-		# ====================================================
 
 		element_background.texture = preload(
 			"res://Assets/UX/HUD/Panels/slot.png"
@@ -410,10 +542,6 @@ func _on_element_selected(
 
 		return
 
-
-	# ========================================================
-	# CRAFTED
-	# ========================================================
 
 	element_background.texture = (
 		TYPE_BACKGROUNDS.get(
@@ -486,9 +614,130 @@ func _on_element_selected(
 	)
 
 
-# ============================================================
-# CRAFT
-# ============================================================
+	# ============================================================
+
+	# GET CRAFTING REQUIREMENTS
+
+	# ============================================================
+
+func _get_crafting_requirements(
+	element: AtomonData
+	) -> Dictionary:
+
+
+	if element == null:
+		return {}
+
+
+	var requirements := {
+		"proton": element.atomic_number,
+		"electron": element.atomic_number,
+		"neutron": (
+			element.mass_number
+			- element.atomic_number
+		),
+		"atomic_core": 1
+	}
+
+	return requirements
+
+
+	# ============================================================
+
+	# CHECK CRAFTING MATERIALS
+
+	# ============================================================
+
+func _has_required_materials(
+	requirements: Dictionary
+	) -> bool:
+
+
+	for item_id in requirements:
+
+		var required_amount: int = (
+			int(requirements[item_id])
+		)
+
+		var available_amount: int = (
+			InventoryManager.get_item_count(
+				str(item_id)
+			)
+		)
+
+		print(
+			"[CraftingUI] Material check: ",
+			item_id,
+			" required=",
+			required_amount,
+			" available=",
+			available_amount
+		)
+
+		if available_amount < required_amount:
+
+			print(
+				"[CraftingUI] NOT ENOUGH ",
+				item_id,
+				". Required: ",
+				required_amount,
+				" Available: ",
+				available_amount
+			)
+
+			return false
+
+
+	return true
+
+
+	# ============================================================
+
+	# CONSUME CRAFTING MATERIALS
+
+	# ============================================================
+
+func _consume_crafting_materials(
+	requirements: Dictionary
+	) -> bool:
+
+
+	for item_id in requirements:
+
+		var required_amount: int = (
+			int(requirements[item_id])
+		)
+
+		var success := InventoryManager.remove_item_by_id(
+			str(item_id),
+			required_amount
+		)
+
+		if not success:
+
+			print(
+				"[CraftingUI] FAILED TO CONSUME: ",
+				item_id
+			)
+
+			return false
+
+		print(
+			"[CraftingUI] CONSUMED ",
+			item_id,
+			" × ",
+			required_amount
+		)
+
+
+	return true
+
+
+	# ============================================================
+
+	# CRAFT
+
+	# ============================================================
 
 func _on_craft_pressed() -> void:
 
@@ -528,17 +777,42 @@ func _on_craft_pressed() -> void:
 		return
 
 
+
+
 	# ========================================================
-	# CHECK IF ALREADY CRAFTED
+	# GET MATERIAL REQUIREMENTS
 	# ========================================================
 
-	if is_element_crafted(
+	var requirements := _get_crafting_requirements(
 		selected_element
+	)
+
+
+	# ========================================================
+	# CHECK MATERIALS
+	# ========================================================
+
+	if not _has_required_materials(
+		requirements
 	):
 
 		print(
-			"[CraftingUI] ALREADY CRAFTED: ",
-			selected_element.atom_name
+			"[CraftingUI] CRAFTING CANCELLED: insufficient materials."
+		)
+
+		return
+
+
+	# ========================================================
+	# CONSUME MATERIALS
+	# ========================================================
+
+	if not _consume_crafting_materials(
+		requirements
+	):
+
+		print(
+			"[CraftingUI] CRAFTING CANCELLED: material consumption failed."
 		)
 
 		return
@@ -589,16 +863,7 @@ func _on_craft_pressed() -> void:
 
 
 	# ========================================================
-	# IMPORTANT:
-	#
-	# DO NOT CALL:
-	#
-	# await StudentDataManager.collect_element(...)
-	#
-	# Crafting must NOT save to Firebase.
-	#
-	# SaveManager.save_game() will register the element
-	# and upload it when the player actually presses SAVE.
+	# CRAFT SUCCESS
 	# ========================================================
 
 	print(
@@ -606,7 +871,7 @@ func _on_craft_pressed() -> void:
 	)
 
 	print(
-		"[CraftingUI] Firebase was NOT updated."
+		"[CraftingUI] Materials successfully consumed."
 	)
 
 	print(
@@ -614,7 +879,21 @@ func _on_craft_pressed() -> void:
 		PartyManager.party.size()
 	)
 
+	
+	# ========================================================
+	# AUTOMATICALLY SAVE CRAFTING PROGRESS
+	# ========================================================
 
+	print(
+		"[CraftingUI] Saving progress after successful crafting..."
+	)
+
+	await SaveManager.auto_save("Crafted Atomon: " + selected_element.chemical_symbol)
+
+	print(
+		"[CraftingUI] Crafting progress saved successfully."
+	)
+	
 	# ========================================================
 	# UPDATE INFO PANEL
 	# ========================================================
@@ -623,29 +902,35 @@ func _on_craft_pressed() -> void:
 		selected_element,
 		true
 	)
+	
 
+	# ============================================================
 
-# ============================================================
-# CLOSE INFO PANEL
-# ============================================================
+	# CLOSE INFO PANEL
 
+	# ============================================================
 func _on_close_button_pressed() -> void:
+
 
 	info_panel.visible = false
 
 
-# ============================================================
-# CLOSE CRAFTING UI
-# ============================================================
+	# ============================================================
+
+	# CLOSE CRAFTING UI
+
+	# ============================================================
 
 func _on_close_crafting_pressed() -> void:
+
 
 	print(
 		"CLOSING CRAFTING UI"
 	)
-
-	queue_free()
-
+	if hud:
+		hud.show()
+	
 	if global.player:
-
 		global.player.can_move = true
+	
+	queue_free()

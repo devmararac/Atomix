@@ -50,6 +50,7 @@ func get_nearest_quest_target() -> Node:
 
 	if objective == null:
 		return null
+
 	var group_name := ""
 
 	match objective.type:
@@ -76,21 +77,53 @@ func get_nearest_quest_target() -> Node:
 	var closest_distance := INF
 
 	for node in get_tree().get_nodes_in_group(group_name):
-		match objective.type:
 
-			ObjectiveType.Type.COLLECTION:
-				if node.data.item_id != objective.target_id:
-					continue
+		# --------------------------------------------------------
+		# COLLECTION
+		# --------------------------------------------------------
+		if objective.type == ObjectiveType.Type.COLLECTION:
 
-			ObjectiveType.Type.TALK:
-				if node.data.npc_id != objective.target_id:
-					continue
+			if not "data" in node:
+				continue
 
-			_:
-				if node.target_id != objective.target_id:
-					continue
-				if node.target_id != objective.target_id:
-					continue
+			if node.data == null:
+				continue
+
+			if not "item_id" in node.data:
+				continue
+
+			if node.data.item_id != objective.target_id:
+				continue
+
+		# --------------------------------------------------------
+		# TALK
+		# --------------------------------------------------------
+		elif objective.type == ObjectiveType.Type.TALK:
+
+			if not "data" in node:
+				continue
+
+			if node.data == null:
+				continue
+
+			if not "npc_id" in node.data:
+				continue
+
+			if node.data.npc_id != objective.target_id:
+				continue
+
+		# --------------------------------------------------------
+		# OBSERVE / BATTLE / AREA
+		# --------------------------------------------------------
+		else:
+
+			# Some objects may be inside the group but aren't
+			# actual quest targets.
+			if not "target_id" in node:
+				continue
+
+			if node.target_id != objective.target_id:
+				continue
 
 		var distance = player.global_position.distance_to(node.global_position)
 

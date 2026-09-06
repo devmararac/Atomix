@@ -16,7 +16,8 @@ corner_radius_bottom_left = 8
 
 [node name="StudentContainer" type="Panel" unique_id=9637668]
 custom_minimum_size = Vector2(0, 72)
-offset_right = 1908.0
+offset_left = -3.0
+offset_right = 1905.0
 offset_bottom = 72.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_Row")
@@ -45,6 +46,7 @@ theme_override_constants/separation = 4
 [node name="Control" type="Control" parent="MarginContainer/Columns" unique_id=6681828]
 custom_minimum_size = Vector2(1633, 52)
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Number" type="Label" parent="MarginContainer/Columns/Control" unique_id=1054251967]
 custom_minimum_size = Vector2(100, 0)
@@ -52,6 +54,7 @@ layout_mode = 0
 offset_top = 14.0
 offset_right = 100.0
 offset_bottom = 37.0
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "01"
 horizontal_alignment = 1
@@ -69,6 +72,7 @@ theme_override_constants/separation = 10
 [node name="Control" type="Control" parent="MarginContainer/Columns/Control/StudentInfo" unique_id=1204534584]
 custom_minimum_size = Vector2(420, 52)
 layout_mode = 2
+mouse_filter = 1
 
 [node name="StudentID" type="Label" parent="MarginContainer/Columns/Control/StudentInfo/Control" unique_id=1170096844]
 layout_mode = 0
@@ -76,6 +80,7 @@ offset_left = 11.0
 offset_top = 14.0
 offset_right = 129.0
 offset_bottom = 37.0
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "12345678910"
 horizontal_alignment = 1
@@ -88,6 +93,7 @@ offset_left = 152.0
 offset_top = 14.0
 offset_right = 457.0
 offset_bottom = 37.0
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "Student Name"
 horizontal_alignment = 1
@@ -101,6 +107,7 @@ offset_left = 584.5
 offset_top = 15.0
 offset_right = 844.5
 offset_bottom = 38.0
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "student@email.com"
 horizontal_alignment = 1
@@ -114,6 +121,7 @@ offset_left = 874.5
 offset_top = 15.0
 offset_right = 984.5
 offset_bottom = 38.0
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "Section"
 horizontal_alignment = 1
@@ -127,6 +135,7 @@ offset_left = 1024.5
 offset_top = 15.0
 offset_right = 1144.5
 offset_bottom = 38.0
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "0 / 118"
 horizontal_alignment = 1
@@ -143,10 +152,12 @@ theme_override_constants/separation = 4
 
 [node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Columns/Control/ProgressContainer" unique_id=2123620890]
 layout_mode = 2
+mouse_filter = 1
 show_percentage = false
 
 [node name="ProgressText" type="Label" parent="MarginContainer/Columns/Control/ProgressContainer" unique_id=1577420350]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "0%"
 horizontal_alignment = 1
@@ -158,6 +169,7 @@ offset_left = 1353.5
 offset_top = 15.0
 offset_right = 1473.5
 offset_bottom = 38.0
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "Active"
 horizontal_alignment = 1
@@ -170,6 +182,7 @@ offset_left = 1466.0
 offset_top = 15.0
 offset_right = 1616.0
 offset_bottom = 38.0
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.35294124, 0.23529412, 1)
 text = "Recently"
 horizontal_alignment = 1
@@ -183,6 +196,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 flat = true
 

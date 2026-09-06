@@ -44,6 +44,12 @@ func _on_load_pressed() -> void:
 	
 
 func _on_menu_pressed() -> void:
+
+	# Do not open the Game Menu while another UI is active
+	if get_tree().get_first_node_in_group("CraftingUI") != null:
+		print("[HUD] Game Menu blocked because Crafting UI is open.")
+		return
+
 	var menu = GAME_MENU.instantiate()
 	menu.hud = self
 	get_tree().current_scene.add_child(menu)

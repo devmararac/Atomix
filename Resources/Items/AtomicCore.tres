@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://74e4p1g10q3u"]
 
 [ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_i7kkd"]
+[ext_resource type="Texture2D" uid="uid://y7ft4uvwjir4" path="res://Assets/UX/Items/atomon_core.png" id="1_oi5x5"]
 
 [resource]
 script = ExtResource("1_i7kkd")
 item_id = "atomic_core"
 item_name = "Atomic Core"
 description = "The central core of an atom, representing its nucleus. It contains protons and neutrons and provides the foundation for constructing an Atomon."
+icon = ExtResource("1_oi5x5")
 max_stack = 999
 category = "Crafting Material"
 metadata/_custom_type_script = "uid://c5udixdhxp1jw"

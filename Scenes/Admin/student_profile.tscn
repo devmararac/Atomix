@@ -237,6 +237,7 @@ theme_override_constants/separation = 16
 
 [node name="ProgressPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=591703850]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
 [node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ProgressPanel" unique_id=321720958]
@@ -254,22 +255,26 @@ theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ProgressPanel/MarginContainer/VBoxContainer" unique_id=204638138]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 22
 text = "Overall Progress"
 
 [node name="ElementsLabel" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ProgressPanel/MarginContainer/VBoxContainer" unique_id=259990484]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Elements Collected: 0 / 118"
 
 [node name="ProgressBar" type="ProgressBar" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ProgressPanel/MarginContainer/VBoxContainer" unique_id=1157627805]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+mouse_filter = 1
 show_percentage = false
 
 [node name="ProgressText" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ProgressPanel/MarginContainer/VBoxContainer" unique_id=1177165462]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 18
 text = "0%"
@@ -277,6 +282,7 @@ horizontal_alignment = 1
 
 [node name="ModulesPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1382944564]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
 [node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ModulesPanel" unique_id=2045549491]
@@ -295,22 +301,26 @@ theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ModulesPanel/MarginContainer/VBoxContainer" unique_id=455590715]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 22
 text = "Learning Modules"
 
 [node name="ModulesCompleted" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ModulesPanel/MarginContainer/VBoxContainer" unique_id=778233457]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Modules Completed: 0 / 8"
 
 [node name="ModulesProgress" type="ProgressBar" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ModulesPanel/MarginContainer/VBoxContainer" unique_id=1386630413]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+mouse_filter = 1
 show_percentage = false
 
 [node name="ModulesProgressText" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ModulesPanel/MarginContainer/VBoxContainer" unique_id=1214378770]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 18
 text = "0%"
@@ -318,6 +328,7 @@ horizontal_alignment = 1
 
 [node name="AssessmentsPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2135000010]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
 [node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel" unique_id=2135000011]
@@ -336,32 +347,38 @@ theme_override_constants/separation = 8
 
 [node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000013]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 22
 text = "Assessments"
 
 [node name="TotalAssessments" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000014]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Total Assessments: 0"
 
 [node name="CompletedAssessments" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000015]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Completed: 0"
 
 [node name="AverageScore" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000016]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Average Score: 0%"
 
 [node name="LatestScore" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AssessmentsPanel/MarginContainer/VBoxContainer" unique_id=2135000017]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Latest Score: 0%"
 
 [node name="GameProgressPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2135000020]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
 [node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel" unique_id=2135000021]
@@ -381,27 +398,32 @@ theme_override_constants/separation = 8
 
 [node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel/MarginContainer/VBoxContainer" unique_id=2135000023]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 22
 text = "Game Progress"
 
 [node name="Coins" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel/MarginContainer/VBoxContainer" unique_id=2135000024]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Coins: 0"
 
 [node name="Party" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel/MarginContainer/VBoxContainer" unique_id=2135000025]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Party: 0 / 15"
 
 [node name="SaveStatus" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/GameProgressPanel/MarginContainer/VBoxContainer" unique_id=2135000026]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 text = "Save Status: No Save"
 
 [node name="ActivityPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=226389256]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
 [node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ActivityPanel" unique_id=633165961]
@@ -420,6 +442,7 @@ theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ActivityPanel/MarginContainer/VBoxContainer" unique_id=1047487600]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 22
 text = "Recent Activity"
@@ -427,11 +450,13 @@ text = "Recent Activity"
 [node name="Activity" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/ActivityPanel/MarginContainer/VBoxContainer" unique_id=1646253406]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
 text = "No recent activity."
 
 [node name="AcademicHistoryPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2135000030]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_Inner")
 
 [node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AcademicHistoryPanel" unique_id=2135000031]
@@ -451,11 +476,13 @@ theme_override_constants/separation = 8
 
 [node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AcademicHistoryPanel/MarginContainer/VBoxContainer" unique_id=2135000033]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 22
 text = "Academic History"
 
 [node name="History" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/Content/RightPanel/MarginContainer/ScrollContainer/VBoxContainer/AcademicHistoryPanel/MarginContainer/VBoxContainer" unique_id=2135000034]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
 text = "No previous academic history."

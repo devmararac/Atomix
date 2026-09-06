@@ -19,11 +19,13 @@
 [ext_resource type="Texture2D" uid="uid://fjyw3abirwgm" path="res://Assets/UX/Icons/nonmetal.png" id="8_ioru3"]
 [ext_resource type="Texture2D" uid="uid://bo1alsg7amrsu" path="res://Assets/UX/Icons/post_transition_metal.png" id="9_7eel5"]
 [ext_resource type="Texture2D" uid="uid://dak7g7ojug004" path="res://Assets/UX/Icons/metalloids.png" id="10_wjn1u"]
-[ext_resource type="Texture2D" uid="uid://dtm28k6auf1cw" path="res://Assets/UX/Buttons/Normal/craft_button.png" id="11_bsyg3"]
 [ext_resource type="Texture2D" uid="uid://d2ysj01d7wu4" path="res://Assets/UX/Icons/halogen.png" id="11_m2v0a"]
 [ext_resource type="Texture2D" uid="uid://rsely784lcmd" path="res://Assets/UX/Icons/noble_gas.png" id="12_flb27"]
 [ext_resource type="Texture2D" uid="uid://dcivlvakyp1ae" path="res://Assets/UX/Icons/lanthanide.png" id="13_edkgq"]
 [ext_resource type="Texture2D" uid="uid://e3qutfk27y18" path="res://Assets/UX/Icons/actinide.png" id="14_l8nkd"]
+[ext_resource type="Texture2D" uid="uid://dawcayk1x4s8j" path="res://Assets/UX/Buttons/Normal/craft_button_disabled.png" id="22_l3xq3"]
+[ext_resource type="Texture2D" uid="uid://ctrrlrpealfi8" path="res://Assets/UX/Buttons/On-Pressed/craft_button_pressed.png" id="23_l3xq3"]
+[ext_resource type="Texture2D" uid="uid://ds5tt5qvjt5n6" path="res://Assets/UX/Buttons/Disabled/craft_button.png" id="24_28kaa"]
 
 [node name="CraftingUI" type="CanvasLayer" unique_id=627267472]
 script = ExtResource("1_jtxwl")
@@ -1348,13 +1350,13 @@ mouse_filter = 2
 
 [node name="Materials" type="GridContainer" parent="TextureRect/Info Panel/Control2" unique_id=1355207783]
 layout_mode = 0
-offset_left = 231.268
-offset_top = 314.0
-offset_right = 467.268
-offset_bottom = 458.66666
+offset_left = 129.268
+offset_top = 318.0
+offset_right = 502.268
+offset_bottom = 462.66666
 scale = Vector2(1.5, 1.5)
 theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 12
+theme_override_constants/v_separation = 10
 
 [node name="Label" type="Label" parent="TextureRect/Info Panel/Control2/Materials" unique_id=2126345225]
 layout_mode = 2
@@ -1384,7 +1386,7 @@ text = "X"
 [node name="Proton Count" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Proton" unique_id=387571016]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_vxolc")
-text = "1"
+text = "1 / 26 Missing  25"
 
 [node name="Electron" type="GridContainer" parent="TextureRect/Info Panel/Control2/Materials" unique_id=1613985420]
 layout_mode = 2
@@ -1404,7 +1406,7 @@ text = "X"
 [node name="Electron Count" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Electron" unique_id=1489455290]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_vxolc")
-text = "1"
+text = "1 / 26 Missing  25"
 
 [node name="Neutron" type="GridContainer" parent="TextureRect/Info Panel/Control2/Materials" unique_id=779454649]
 layout_mode = 2
@@ -1424,7 +1426,7 @@ text = "X"
 [node name="Neutron Count" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Neutron" unique_id=1071295945]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_vxolc")
-text = "1"
+text = "1 / 26 Missing  25"
 
 [node name="Atomic Core" type="GridContainer" parent="TextureRect/Info Panel/Control2/Materials" unique_id=1999043228]
 layout_mode = 2
@@ -1444,7 +1446,20 @@ text = "X"
 [node name="Atomic Core Count" type="Label" parent="TextureRect/Info Panel/Control2/Materials/Atomic Core" unique_id=1693535328]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_vxolc")
-text = "1"
+text = "1 / Ready"
+
+[node name="Material Status" type="Label" parent="TextureRect/Info Panel/Control2" unique_id=1390344846]
+layout_mode = 0
+offset_left = 22.268005
+offset_top = 517.0
+offset_right = 785.268
+offset_bottom = 559.0
+theme_override_fonts/font = ExtResource("4_vxolc")
+theme_override_font_sizes/font_size = 18
+text = "Select an element to see material requirements."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Control" type="Control" parent="TextureRect/Info Panel" unique_id=1506933234]
 layout_mode = 2
@@ -1456,7 +1471,9 @@ offset_left = 366.268
 offset_top = 565.0
 offset_right = 462.268
 offset_bottom = 613.0
-texture_normal = ExtResource("11_bsyg3")
+texture_normal = ExtResource("22_l3xq3")
+texture_pressed = ExtResource("23_l3xq3")
+texture_disabled = ExtResource("24_28kaa")
 
 [node name="Control3" type="Control" parent="TextureRect/Info Panel" unique_id=82754227]
 layout_mode = 2

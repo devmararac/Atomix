@@ -68,7 +68,7 @@ const SETTING_PAGE = preload(
 
 @onready var lessons_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/LessonsButton)
 
-@onready var quizz_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/QuizzButton)
+@onready var quiz_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/QuizButton)
 
 @onready var settings_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/SettingsButton)
 
@@ -92,7 +92,9 @@ func _ready():
 
 	if hud:
 		hud.hide()
-
+	
+	if global.player:
+		global.player.can_move = false
 
 	inventory_button.pressed.connect(
 		_on_inventory_pressed
@@ -185,7 +187,7 @@ func _on_lessons_button_pressed() -> void:
 # ============================================================
 # QUIZZ
 # ============================================================
-func _on_quizz_button_pressed() -> void:
+func _on_quiz_button_pressed() -> void:
 	print("[GameMenu] Lessons selected.")
 	change_page(QUIZZ_PAGE)
 
@@ -206,5 +208,8 @@ func _on_close_button_pressed() -> void:
 
 	if hud:
 		hud.show()
-
+	
+	if global.player:
+		global.player.can_move = true
+		
 	queue_free()

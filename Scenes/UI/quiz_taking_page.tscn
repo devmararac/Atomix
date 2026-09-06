@@ -159,24 +159,19 @@ visible = false
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("StyleBoxFlat_answer")
 placeholder_text = "Type your answer here..."
 
-[node name="EnumerationInput" type="TextEdit" parent="QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer" unique_id=847321506]
+[node name="EnumerationInput" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer" unique_id=847321506]
 visible = false
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-theme_override_colors/font_placeholder_color = Color(0.6509804, 0.56078434, 0.44705883, 1)
-theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 22
-theme_override_styles/normal = SubResource("StyleBoxFlat_answer")
-placeholder_text = "Type your answers here, one item per line..."
-wrap_mode = 2
+theme_override_constants/separation = 10
 
 [node name="BottomBar" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=2013808879]
 custom_minimum_size = Vector2(0, 65)

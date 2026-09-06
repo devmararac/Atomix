@@ -15,8 +15,12 @@
 [ext_resource type="AudioStream" uid="uid://laeg7bjtd3bi" path="res://Assets/Music/Partys Cancelled - RoccoW _ Chiptune [No Copyright Music].mp3" id="11_ucnbf"]
 [ext_resource type="PackedScene" uid="uid://t8wudrnfvec0" path="res://Scenes/scene_trigger.tscn" id="12_3kusq"]
 [ext_resource type="PackedScene" uid="uid://4uukj8h8cvw0" path="res://Scenes/Atomons/hydrogen_observation.tscn" id="19_qwoho"]
+[ext_resource type="Resource" uid="uid://0n86aw7oh7kl" path="res://Resources/Items/Proton.tres" id="19_rsgrb"]
+[ext_resource type="Resource" uid="uid://u7dq2rf4msib" path="res://Resources/Items/Electron.tres" id="20_kjb13"]
 [ext_resource type="PackedScene" uid="uid://dmqd2wojxfyoi" path="res://Scenes/Pickables/PickItem.tscn" id="21_u7ab4"]
+[ext_resource type="Resource" uid="uid://dpjnxs1d4138e" path="res://Resources/Items/Neutron.tres" id="21_ynirp"]
 [ext_resource type="Resource" uid="uid://dbfu76bgo27bq" path="res://Resources/Items/Glass_shard.tres" id="22_pc3gm"]
+[ext_resource type="Resource" uid="uid://74e4p1g10q3u" path="res://Resources/Items/AtomicCore.tres" id="22_tjqn4"]
 [ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="23_ucnbf"]
 [ext_resource type="Resource" uid="uid://dk5xx8427a8lg" path="res://Resources/NPCs/TRES/linos.tres" id="24_4i1l6"]
 [ext_resource type="PackedScene" uid="uid://bn52xk2xw4mg8" path="res://Scenes/UI/minimap.tscn" id="26_ky5g8"]
@@ -2286,6 +2290,7 @@ tile_map_data = PackedByteArray("AAAkAAMAAAAAAAIAAAAkAAAAAAAAAAAAAAA8ABoAAQAOAAY
 tile_set = SubResource("TileSet_6q3n4")
 
 [node name="Vegetation" type="TileMapLayer" parent="." unique_id=1808523560]
+visible = false
 tile_map_data = PackedByteArray("AAAoAAEAAAAAAAQAAAAoAAIAAAAAAAUAAAAnAAgAAAAAAAAAAAAnAAkAAAAAAAEAAAAoAAYAAAADAAIAAAAbAAIAAAADAAIAAAAgAAIAAAAEAAIAAAApAAIAAAAEAAIAAAAmAAUAAAAAAAIAAAAmAAYAAAAAAAMAAAAMAAIAAAADAAIAAAAmABYAAAADAAIAAAATAP//AAAGAAIAAAAUAAAAAAAHAAIAAAAPAAEAAAAMAAIAAAAbAAAAAAAMAAAAAABAABoAAAAMAAAAAAA7ABoAAAAMAAIAAAAfABkAAAAMAAIAAAAPABMAAAAMAAIAAAABABEAAAAMAAIAAAADAAcAAAAJAAIAAAAQAAAAAAALAAIAAAAQAAIAAAALAAEAAAAPAAIAAAAJAAAAAAAcAAEAAAAKAAIAAAAbAAEAAAAKAAEAAAAQAAsAAAALAAAAAAAKAAIAAAALAAEAAAApABsAAAAJAAIAAAAnABMAAAAFAAMAAAAmABMAAAAFAAMAAAAnABQAAAAFAAMAAAAlABMAAAAFAAMAAAAmABQAAAAFAAMAAAAnABUAAAAFAAMAAAAiAAoAAAAFAAMAAAAoAAwAAAAFAAMAAAAUAAQAAAAFAAMAAAATAAQAAAAFAAMAAAAOAAMAAAAFAAMAAAAVAAMAAAAFAAMAAAAUAAMAAAAFAAMAAAANAAMAAAAFAAMAAAAMAAMAAAAFAAMAAAAKAAcAAAAFAAMAAAASAAMAAAAFAAMAAAAOAAQAAAAFAAMAAAANAAQAAAAFAAMAAAANAAIAAAAFAAMAAAAYAAUAAAAFAAMAAAAJAAgAAAAFAAMAAAALAAQAAAAFAAMAAAAFAA8AAAAFAAMAAAAGAA8AAAAFAAMAAAANAA8AAAAFAAMAAAAOAA8AAAAFAAMAAAASAA8AAAAFAAMAAAAXABAAAAAFAAMAAAAUAA0AAAAFAAMAAAAbABEAAAAFAAMAAAAZABMAAAAFAAMAAAAdABUAAAAFAAMAAAAdABQAAAAFAAMAAAAZABAAAAAFAAMAAAAhABQAAAAFAAMAAAAhABIAAAAFAAMAAAAiABUAAAAFAAMAAAAhABYAAAAFAAMAAAAiABYAAAAFAAMAAAAjABYAAAAFAAMAAAAjABcAAAAFAAMAAAAhABcAAAAFAAMAAAAiABcAAAAFAAMAAAAkABgAAAAFAAMAAAAfABEAAAAFAAMAAAAeABEAAAAFAAMAAAAhABsAAAAJAAQAAAAeACYAAAAKAAQAAAAjABwAAAAKAAQAAAAcACgAAAAGAAQAAAAmACUAAAAGAAQAAFAnACIAAAAFAAQAAAAiACEAAAAFAAQAAAAgACMAAAAIAAQAAAAhAB8AAAAIAAQAAAAxACIAAAAIAAQAAAA7AB4AAAAIAAQAAABBACcAAAAIAAQAAAA6ABIAAAACAAMAAAA6ABMAAAACAAQAAAA7ABIAAAADAAMAAAA7ABMAAAADAAQAAAA2ABIAAAACAAMAAAA2ABMAAAACAAQAAAA3ABIAAAADAAMAAAA3ABMAAAADAAQAAAA2AA0AAAACAAMAAAA2AA4AAAACAAQAAAA3AA0AAAADAAMAAAA3AA4AAAADAAQAAAA6AA0AAAACAAMAAAA6AA4AAAACAAQAAAA7AA0AAAADAAMAAAA7AA4AAAADAAQAAAA3ABYAAAAEAAAAAAA4ABYAAAADAAAAAAA5ABYAAAACAAAAAAA6ABYAAAACAAEAAAA7ABYAAAAEAAEAAAA8ABYAAAAFAAMAAAA2ABYAAAAFAAMAAABDABMAAAAFAAMAAABEABMAAAAFAAMAAABEABQAAAAFAAMAAABDABQAAAAFAAMAAABFABMAAAAFAAMAAABFABQAAAAFAAMAAABHABAAAAAFAAMAAABHAA8AAAAFAAMAAABHAA4AAAAFAAMAAABHAA0AAAAFAAMAAABHABEAAAAFAAMAAABHABIAAAAFAAMAAABDAA8AAAAFAAMAAABEAA8AAAAFAAMAAAA/ABAAAAAFAAMAAAA+AA8AAAAFAAMAAAA=")
 tile_set = SubResource("TileSet_q6lx1")
 
@@ -2852,6 +2857,38 @@ dialogue_timeline = "observe_hydrogen_3"
 [node name="ItemPickUp" parent="." unique_id=1939754100 instance=ExtResource("21_u7ab4")]
 position = Vector2(780, 567)
 data = ExtResource("22_pc3gm")
+
+[node name="ProtonPickup" parent="." unique_id=543153470 instance=ExtResource("21_u7ab4")]
+position = Vector2(1105, 509)
+data = ExtResource("19_rsgrb")
+
+[node name="ProtonPickup2" parent="." unique_id=1372592465 instance=ExtResource("21_u7ab4")]
+position = Vector2(677, 117)
+data = ExtResource("19_rsgrb")
+
+[node name="ElectronPickup" parent="." unique_id=716251441 instance=ExtResource("21_u7ab4")]
+position = Vector2(982, 357)
+data = ExtResource("20_kjb13")
+
+[node name="ElectronPickup2" parent="." unique_id=782547490 instance=ExtResource("21_u7ab4")]
+position = Vector2(559, 133)
+data = ExtResource("20_kjb13")
+
+[node name="NeutronPickup" parent="." unique_id=559080962 instance=ExtResource("21_u7ab4")]
+position = Vector2(1069, 60)
+data = ExtResource("21_ynirp")
+
+[node name="NeutronPickup2" parent="." unique_id=1789787192 instance=ExtResource("21_u7ab4")]
+position = Vector2(521, 73)
+data = ExtResource("21_ynirp")
+
+[node name="AtomicCorePickup" parent="." unique_id=669577990 instance=ExtResource("21_u7ab4")]
+position = Vector2(314, 45)
+data = ExtResource("22_tjqn4")
+
+[node name="AtomicCorePickup2" parent="." unique_id=1310320973 instance=ExtResource("21_u7ab4")]
+position = Vector2(452, 101)
+data = ExtResource("22_tjqn4")
 
 [node name="ItemPickUp2" parent="." unique_id=262480489 instance=ExtResource("21_u7ab4")]
 position = Vector2(542, 461)

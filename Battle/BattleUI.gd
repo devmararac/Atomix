@@ -452,7 +452,60 @@ func _on_enemy_fainted() -> void:
 
 	# Save the player's current HP before ending the battle
 	BattleControllerGlobal.save_player_hp()
+
+	# ========================================================
+	# BATTLE REWARD
+	# ========================================================
+
+	var battle_reward := 10
+
+	CurrencyManager.add_coins(battle_reward)
+
+	battle_log.text = (
+		enemy_data.atom_name
+		+ " fainted!\n\n"
+		+ "You received "
+		+ str(battle_reward)
+		+ " coins!"
+	)
+
+	print(
+		"[BattleUI] Battle won!"
+	)
+
+	print(
+		"[BattleUI] Coins received: ",
+		battle_reward
+	)
+
+	print(
+		"[BattleUI] Current coins: ",
+		CurrencyManager.coins
+	)
+
+	# ========================================================
+	# AUTOMATIC SAVE
+	# ========================================================
+
+	print(
+		"[BattleUI] Requesting automatic save after battle reward..."
+	)
+
+	await SaveManager.auto_save_currency(
+		"Battle victory reward: +" + str(battle_reward) + " coins"
+	)
+
+
+	print(
+		"[BattleUI] Battle reward automatic save completed."
+	)
+
+	# ========================================================
+	# END BATTLE
+	# ========================================================
+
 	await get_tree().create_timer(1.5).timeout
+
 	BattleManager.end_battle()
 
 # ============================================================

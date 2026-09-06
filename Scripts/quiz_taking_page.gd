@@ -1,79 +1,86 @@
 extends Control
 
 # ============================================================
+
 # QUIZ DATA
+
 # ============================================================
 
 var quiz_data: Dictionary = {}
-
+var return_page: Control = null
 var questions: Array = []
 var current_question_index: int = 0
 var score: int = 0
 
+# True when the quiz has already been submitted.
+
+var quiz_completed: bool = false
+
+# Prevents submitting the same quiz multiple times.
+
+var saving_result: bool = false
+
 # Stores the student's selected answer for each question.
+
 # -1 means no answer selected.
+
 var selected_answers: Array = []
 
-# Stores text answers for identification/enumeration questions.
+# Stores text answers for identification questions.
+
 var text_answers: Array = []
 
+# Stores multiple text answers for enumeration questions.
+
+# Each question contains an Array of strings.
+
+var enumeration_answers: Array = []
 
 # ============================================================
+
+# FIREBASE CONFIG
+
+# ============================================================
+
+const PROJECT_ID: String = "atomix-f6c6b"
+const DATABASE_ID: String = "(default)"
+
+# ============================================================
+
 # UI REFERENCES
+
 # ============================================================
 
-@onready var quiz_title: Label = \
-	$QuizPanel/MarginContainer/VBoxContainer/Header/QuizTitle
+@onready var quiz_title: Label = $QuizPanel/MarginContainer/VBoxContainer/Header/QuizTitle
 
-@onready var question_counter: Label = \
-	$QuizPanel/MarginContainer/VBoxContainer/Header/QuestionCounter
+@onready var question_counter: Label = $QuizPanel/MarginContainer/VBoxContainer/Header/QuestionCounter
 
-@onready var question_label: Label = \
-	$QuizPanel/MarginContainer/VBoxContainer/QuestionPanel/MarginContainer/QuestionLabel
+@onready var question_label: Label = $QuizPanel/MarginContainer/VBoxContainer/QuestionPanel/MarginContainer/QuestionLabel
 
-@onready var answer_container: VBoxContainer = \
-	$QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer
+@onready var answer_container: VBoxContainer = $QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer
 
-@onready var identification_input: LineEdit = \
-	$QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer/IdentificationInput
+@onready var identification_input: LineEdit = $QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer/IdentificationInput
 
-@onready var enumeration_input: TextEdit = \
-	$QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer/EnumerationInput
+@onready var enumeration_input: VBoxContainer = $QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer/EnumerationInput
 
-@onready var back_button: Button = \
-	$QuizPanel/MarginContainer/VBoxContainer/BottomBar/BackButton
+@onready var back_button: Button = $QuizPanel/MarginContainer/VBoxContainer/BottomBar/BackButton
 
-@onready var next_button: Button = \
-	$QuizPanel/MarginContainer/VBoxContainer/BottomBar/NextButton
+@onready var next_button: Button = $QuizPanel/MarginContainer/VBoxContainer/BottomBar/NextButton
 
-@onready var status_label: Label = \
-	$QuizPanel/MarginContainer/VBoxContainer/StatusLabel
-
+@onready var status_label: Label = $QuizPanel/MarginContainer/VBoxContainer/StatusLabel
 
 # ============================================================
 # READY
 # ============================================================
-
 func _ready() -> void:
 
-	print("[QuizTakingPage] Quiz taking page opened.")
 
-	# --------------------------------------------------------
-	# Make sure this page is visible above normal Control nodes.
-	# --------------------------------------------------------
+	print("[QuizTakingPage] Quiz taking page opened.")
 
 	visible = true
 	z_index = 100
 
-	# --------------------------------------------------------
-	# Hide GameMenu / previous UI overlays.
-	# --------------------------------------------------------
-
 	_hide_previous_ui()
-
-	# --------------------------------------------------------
-	# Connect buttons
-	# --------------------------------------------------------
 
 	if not back_button.pressed.is_connected(_on_back_pressed):
 		back_button.pressed.connect(_on_back_pressed)
@@ -81,60 +88,32 @@ func _ready() -> void:
 	if not next_button.pressed.is_connected(_on_next_pressed):
 		next_button.pressed.connect(_on_next_pressed)
 
-	# --------------------------------------------------------
-	# Check quiz data
-	# --------------------------------------------------------
-
 	if quiz_data.is_empty():
 
-		print(
-			"[QuizTakingPage] ERROR: No quiz data received."
-		)
+		print("[QuizTakingPage] ERROR: No quiz data received.")
 
-		question_label.text = \
-			"Unable to load this quiz."
-
-		status_label.text = \
-			"No quiz data was provided."
+		question_label.text = "Unable to load this quiz."
+		status_label.text = "No quiz data was provided."
 
 		next_button.disabled = true
 
 		return
 
-	# --------------------------------------------------------
-	# Get questions
-	# --------------------------------------------------------
-
-	questions = quiz_data.get(
-		"questions",
-		[]
-	)
+	questions = quiz_data.get("questions", [])
 
 	if questions.is_empty():
 
-		print(
-			"[QuizTakingPage] ERROR: Quiz contains no questions."
-		)
+		print("[QuizTakingPage] ERROR: Quiz contains no questions.")
 
-		question_label.text = \
-			"This quiz has no questions."
-
-		status_label.text = \
-			"No questions are available."
+		question_label.text = "This quiz has no questions."
+		status_label.text = "No questions are available."
 
 		next_button.disabled = true
 
 		return
 
-	# --------------------------------------------------------
-	# Setup title
-	# --------------------------------------------------------
-
 	quiz_title.text = str(
-		quiz_data.get(
-			"title",
-			"Quiz"
-		)
+		quiz_data.get("title", "Quiz")
 	)
 
 	print(
@@ -147,83 +126,43 @@ func _ready() -> void:
 		questions.size()
 	)
 
-	# --------------------------------------------------------
-	# Prepare answer tracking
-	# --------------------------------------------------------
-
 	selected_answers.clear()
 	text_answers.clear()
+	enumeration_answers.clear()
 
 	for i in range(questions.size()):
 
 		selected_answers.append(-1)
 		text_answers.append("")
-
-	# --------------------------------------------------------
-	# Show first question
-	# --------------------------------------------------------
+		enumeration_answers.append([])
 
 	current_question_index = 0
 	score = 0
+	quiz_completed = false
+	saving_result = false
 
 	_show_question()
 
 
-# ============================================================
-# HIDE PREVIOUS UI
-# ============================================================
+	# ============================================================
+
+	# HIDE PREVIOUS UI
+
+	# ============================================================
 
 func _hide_previous_ui() -> void:
-
 	print(
-		"[QuizTakingPage] Hiding previous UI overlays."
+		"[QuizTakingPage] Previous UI is already handled by QuizPage."
 	)
 
-	var root := get_tree().root
+	# ============================================================
 
-	# --------------------------------------------------------
-	# Check every direct child of the root.
-	# --------------------------------------------------------
+	# SHOW QUESTION
 
-	for child in root.get_children():
-
-		if child == self:
-			continue
-
-		if child.name == "GameMenu":
-
-			if child is CanvasLayer:
-				child.visible = false
-
-				print(
-					"[QuizTakingPage] GameMenu CanvasLayer hidden."
-				)
-
-			elif child is Control:
-				child.visible = false
-
-				print(
-					"[QuizTakingPage] GameMenu Control hidden."
-				)
-
-		elif child.name == "QuizPage":
-
-			if child is CanvasLayer:
-				child.visible = false
-
-			elif child is Control:
-				child.visible = false
-
-			print(
-				"[QuizTakingPage] Previous QuizPage hidden."
-			)
-
-
-# ============================================================
-# SHOW QUESTION
-# ============================================================
+	# ============================================================
 
 func _show_question() -> void:
+
 
 	if current_question_index < 0:
 		return
@@ -234,11 +173,7 @@ func _show_question() -> void:
 	var question_data: Dictionary = \
 		questions[current_question_index]
 
-	# --------------------------------------------------------
-	# Question text
-	# --------------------------------------------------------
-
-	var question_text := str(
+	var question_text: String = str(
 		question_data.get(
 			"question",
 			"Question unavailable."
@@ -247,21 +182,13 @@ func _show_question() -> void:
 
 	question_label.text = question_text
 
-	# --------------------------------------------------------
-	# Question counter
-	# --------------------------------------------------------
-
 	question_counter.text = \
 		"Question " \
 		+ str(current_question_index + 1) \
 		+ " / " \
 		+ str(questions.size())
 
-	# --------------------------------------------------------
-	# Question type
-	# --------------------------------------------------------
-
-	var question_type := str(
+	var question_type: String = str(
 		question_data.get(
 			"type",
 			"multiple_choice"
@@ -276,7 +203,7 @@ func _show_question() -> void:
 	)
 
 	# --------------------------------------------------------
-	# Remove old dynamic answer controls.
+	# Remove dynamically-created answer controls.
 	# --------------------------------------------------------
 
 	for child in answer_container.get_children():
@@ -292,17 +219,21 @@ func _show_question() -> void:
 	await get_tree().process_frame
 
 	# --------------------------------------------------------
-	# Hide text inputs by default.
+	# Hide fixed inputs.
 	# --------------------------------------------------------
 
 	identification_input.visible = false
 	identification_input.text = ""
 
 	enumeration_input.visible = false
-	enumeration_input.text = ""
+
+	# Remove old enumeration input boxes.
+	for child in enumeration_input.get_children():
+
+		child.queue_free()
 
 	# --------------------------------------------------------
-	# Build question type.
+	# Build question based on type.
 	# --------------------------------------------------------
 
 	if _is_multiple_choice(question_type):
@@ -331,7 +262,7 @@ func _show_question() -> void:
 		_build_multiple_choice(question_data)
 
 	# --------------------------------------------------------
-	# Button text
+	# Button text.
 	# --------------------------------------------------------
 
 	if current_question_index == questions.size() - 1:
@@ -342,16 +273,7 @@ func _show_question() -> void:
 
 		next_button.text = "NEXT →"
 
-	# --------------------------------------------------------
-	# Status
-	# --------------------------------------------------------
-
-	status_label.text = \
-		"Select your answer."
-
-	# --------------------------------------------------------
-	# Restore previous answer.
-	# --------------------------------------------------------
+	status_label.text = "Select your answer."
 
 	_restore_previous_answer(
 		question_data,
@@ -359,13 +281,15 @@ func _show_question() -> void:
 	)
 
 
-# ============================================================
-# MULTIPLE CHOICE
-# ============================================================
+	# ============================================================
+
+	# MULTIPLE CHOICE
+
+	# ============================================================
 
 func _build_multiple_choice(
 	question_data: Dictionary
-) -> void:
+	) -> void:
 
 	var answers: Array = question_data.get(
 		"answers",
@@ -374,10 +298,9 @@ func _build_multiple_choice(
 
 	if answers.is_empty():
 
-		var label := Label.new()
+		var label: Label = Label.new()
 
-		label.text = \
-			"No answer choices available."
+		label.text = "No answer choices available."
 
 		label.horizontal_alignment = \
 			HORIZONTAL_ALIGNMENT_CENTER
@@ -386,11 +309,11 @@ func _build_multiple_choice(
 
 		return
 
-	var button_group := ButtonGroup.new()
+	var button_group: ButtonGroup = ButtonGroup.new()
 
 	for index in range(answers.size()):
 
-		var answer_button := Button.new()
+		var answer_button: Button = Button.new()
 
 		answer_button.custom_minimum_size = \
 			Vector2(0, 65)
@@ -398,8 +321,9 @@ func _build_multiple_choice(
 		answer_button.size_flags_horizontal = \
 			Control.SIZE_EXPAND_FILL
 
-		answer_button.text = \
-			str(answers[index])
+		answer_button.text = str(
+			answers[index]
+		)
 
 		answer_button.add_theme_font_size_override(
 			"font_size",
@@ -418,17 +342,20 @@ func _build_multiple_choice(
 		)
 
 
-# ============================================================
-# TRUE / FALSE
-# ============================================================
+	# ============================================================
+
+	# TRUE / FALSE
+
+	# ============================================================
 
 func _build_true_false(
 	question_data: Dictionary
-) -> void:
+	) -> void:
 
-	var button_group := ButtonGroup.new()
 
-	var true_button := Button.new()
+	var button_group: ButtonGroup = ButtonGroup.new()
+
+	var true_button: Button = Button.new()
 
 	true_button.custom_minimum_size = \
 		Vector2(0, 65)
@@ -454,7 +381,8 @@ func _build_true_false(
 		true_button
 	)
 
-	var false_button := Button.new()
+
+	var false_button: Button = Button.new()
 
 	false_button.custom_minimum_size = \
 		Vector2(0, 65)
@@ -481,13 +409,15 @@ func _build_true_false(
 	)
 
 
-# ============================================================
-# IDENTIFICATION
-# ============================================================
+	# ============================================================
+
+	# IDENTIFICATION
+
+	# ============================================================
 
 func _build_identification(
 	question_data: Dictionary
-) -> void:
+	) -> void:
 
 	identification_input.visible = true
 
@@ -499,34 +429,161 @@ func _build_identification(
 	)
 
 
-# ============================================================
-# ENUMERATION
-# ============================================================
+	# ============================================================
+
+	# ENUMERATION
+
+	# ============================================================
 
 func _build_enumeration(
 	question_data: Dictionary
-) -> void:
+	) -> void:
 
 	enumeration_input.visible = true
 
-	enumeration_input.placeholder_text = \
-		"Type your answers here..."
-
-	enumeration_input.custom_minimum_size = \
-		Vector2(0, 140)
-
-	print(
-		"[QuizTakingPage] Enumeration input enabled."
+	var answers: Array = question_data.get(
+		"answers",
+		[]
 	)
 
+	if answers.is_empty():
 
-# ============================================================
-# ANSWER SELECTED
-# ============================================================
+		print(
+			"[QuizTakingPage] Enumeration question has no required answers."
+		)
+
+		return
+
+	print(
+		"[QuizTakingPage] Creating ",
+		answers.size(),
+		" enumeration input boxes."
+	)
+
+	for index in range(answers.size()):
+
+		var answer_row: HBoxContainer = \
+			HBoxContainer.new()
+
+		answer_row.custom_minimum_size = \
+			Vector2(0, 60)
+
+		answer_row.size_flags_horizontal = \
+			Control.SIZE_EXPAND_FILL
+
+		# ----------------------------------------------------
+		# Answer number.
+		# ----------------------------------------------------
+
+		var answer_label: Label = Label.new()
+
+		answer_label.custom_minimum_size = \
+			Vector2(110, 60)
+
+		answer_label.text = \
+			"Answer " + str(index + 1)
+
+		answer_label.vertical_alignment = \
+			VERTICAL_ALIGNMENT_CENTER
+
+		answer_label.add_theme_font_size_override(
+			"font_size",
+			20
+		)
+
+		answer_row.add_child(
+			answer_label
+		)
+
+		# ----------------------------------------------------
+		# Student input.
+		# ----------------------------------------------------
+
+		var input: LineEdit = LineEdit.new()
+
+		input.custom_minimum_size = \
+			Vector2(0, 55)
+
+		input.size_flags_horizontal = \
+			Control.SIZE_EXPAND_FILL
+
+		input.placeholder_text = \
+			"Enter answer " + str(index + 1) + "..."
+
+		input.add_theme_font_size_override(
+			"font_size",
+			20
+		)
+
+		var style: StyleBoxFlat = \
+			StyleBoxFlat.new()
+
+		style.bg_color = Color(
+			0.968627,
+			0.886275,
+			0.772549,
+			1
+		)
+
+		style.border_width_left = 3
+		style.border_width_top = 3
+		style.border_width_right = 3
+		style.border_width_bottom = 3
+
+		style.border_color = Color(
+			0.7764706,
+			0.627451,
+			0.48235294,
+			1
+		)
+
+		style.corner_radius_top_left = 6
+		style.corner_radius_top_right = 6
+		style.corner_radius_bottom_left = 6
+		style.corner_radius_bottom_right = 6
+
+		input.add_theme_stylebox_override(
+			"normal",
+			style
+		)
+
+		input.add_theme_color_override(
+			"font_color",
+			Color(
+				0.47058824,
+				0.3529412,
+				0.23529412,
+				1
+			)
+		)
+
+		input.add_theme_font_override(
+			"font",
+			quiz_title.get_theme_font("font")
+		)
+
+		answer_row.add_child(
+			input
+		)
+
+		enumeration_input.add_child(
+			answer_row
+		)
+
+	print(
+		"[QuizTakingPage] Enumeration input boxes created: ",
+		answers.size()
+	)
+
+	# ============================================================
+
+	# ANSWER SELECTED
+
+	# ============================================================
 
 func _on_answer_selected(
 	answer_index: int
-) -> void:
+	) -> void:
 
 	if current_question_index < 0:
 		return
@@ -537,8 +594,7 @@ func _on_answer_selected(
 	selected_answers[current_question_index] = \
 		answer_index
 
-	status_label.text = \
-		"Answer selected."
+	status_label.text = "Answer selected."
 
 	print(
 		"[QuizTakingPage] Selected answer index: ",
@@ -546,11 +602,20 @@ func _on_answer_selected(
 	)
 
 
-# ============================================================
-# NEXT / SUBMIT
-# ============================================================
+	# ============================================================
+
+	# NEXT / SUBMIT
+
+	# ============================================================
 
 func _on_next_pressed() -> void:
+
+
+	if saving_result:
+		return
+
+	if quiz_completed:
+		return
 
 	if current_question_index < 0:
 		return
@@ -561,12 +626,13 @@ func _on_next_pressed() -> void:
 	var question_data: Dictionary = \
 		questions[current_question_index]
 
-	var question_type := str(
+	var question_type: String = str(
 		question_data.get(
 			"type",
 			"multiple_choice"
 		)
 	).strip_edges().to_lower()
+
 
 	# --------------------------------------------------------
 	# Identification
@@ -574,7 +640,7 @@ func _on_next_pressed() -> void:
 
 	if _is_identification(question_type):
 
-		var identification_answer := \
+		var identification_answer: String = \
 			identification_input.text.strip_edges()
 
 		if identification_answer.is_empty():
@@ -587,27 +653,66 @@ func _on_next_pressed() -> void:
 		text_answers[current_question_index] = \
 			identification_answer
 
+
 	# --------------------------------------------------------
 	# Enumeration
 	# --------------------------------------------------------
 
 	elif _is_enumeration(question_type):
 
-		var enumeration_answer := \
-			enumeration_input.text.strip_edges()
+		var answers: Array = question_data.get(
+			"answers",
+			[]
+		)
 
-		if enumeration_answer.is_empty():
+		var student_answers: Array[String] = []
+
+		for child in enumeration_input.get_children():
+
+			if not child is HBoxContainer:
+				continue
+
+			var row: HBoxContainer = child
+
+			for row_child in row.get_children():
+
+				if not row_child is LineEdit:
+					continue
+
+				var input: LineEdit = row_child
+
+				var answer_text: String = \
+					input.text.strip_edges()
+
+				if answer_text.is_empty():
+
+					status_label.text = \
+						"Please answer all fields."
+
+					return
+
+				student_answers.append(
+					answer_text
+				)
+
+		if student_answers.size() != answers.size():
 
 			status_label.text = \
-				"Please enter your answers."
+				"Please answer all fields."
 
 			return
 
-		text_answers[current_question_index] = \
-			enumeration_answer
+		enumeration_answers[current_question_index] = \
+			student_answers
+
+		print(
+			"[QuizTakingPage] Enumeration answers saved: ",
+			student_answers
+		)
+
 
 	# --------------------------------------------------------
-	# Multiple choice / True False
+	# MC / True-False
 	# --------------------------------------------------------
 
 	else:
@@ -619,82 +724,327 @@ func _on_next_pressed() -> void:
 
 			return
 
+
 	# --------------------------------------------------------
-	# Check answer
+	# Debug feedback.
 	# --------------------------------------------------------
 
 	_check_current_answer()
 
+
 	# --------------------------------------------------------
-	# Last question
+	# Submit.
 	# --------------------------------------------------------
 
 	if current_question_index >= questions.size() - 1:
 
-		_show_result()
+		await _submit_quiz()
 
 		return
 
+
 	# --------------------------------------------------------
-	# Next question
+	# Next question.
 	# --------------------------------------------------------
 
 	current_question_index += 1
 
 	_show_question()
+	# ============================================================
+
+	# SUBMIT QUIZ
+
+	# ============================================================
+func _submit_quiz() -> void:
+
+	if saving_result:
+		return
+
+	if quiz_completed:
+		return
+
+	saving_result = true
+
+	next_button.disabled = true
+	back_button.disabled = true
+
+	status_label.text = \
+		"Saving your quiz result..."
+
+	print(
+		"[QuizTakingPage] Submitting quiz result..."
+	)
+
+	# --------------------------------------------------------
+	# Calculate final score.
+	# --------------------------------------------------------
+
+	_calculate_final_score()
+
+	var total_questions: int = \
+		questions.size()
+
+	var percentage: float = 0.0
+
+	if total_questions > 0:
+
+		percentage = (
+			float(score)
+			/ float(total_questions)
+		) * 100.0
+
+	print(
+		"[QuizTakingPage] Score ready to save: ",
+		score,
+		" / ",
+		total_questions
+	)
+
+	print(
+		"[QuizTakingPage] Percentage ready to save: ",
+		percentage,
+		"%"
+	)
+
+	# --------------------------------------------------------
+	# Save to Firebase.
+	# --------------------------------------------------------
+
+	var save_success: bool = \
+		await _save_quiz_result(
+			score,
+			total_questions,
+			percentage
+		)
+
+	if not save_success:
+
+		saving_result = false
+
+		next_button.disabled = false
+		back_button.disabled = false
+
+		status_label.text = \
+			"Unable to save your result. Please try again."
+
+		print(
+			"[QuizTakingPage] ERROR: Quiz result was NOT saved."
+		)
+
+		return
+
+	# --------------------------------------------------------
+	# Firebase save succeeded.
+	# --------------------------------------------------------
+
+	print(
+		"[QuizTakingPage] Quiz result successfully saved."
+	)
+
+	saving_result = false
+	quiz_completed = true
+
+	_show_result()
 
 
-# ============================================================
-# CHECK CURRENT ANSWER
-# ============================================================
+	# ============================================================
+
+	# SAVE QUIZ RESULT TO FIREBASE
+
+	# ============================================================
+
+func _save_quiz_result(score: int, total_questions: int, percentage: float) -> bool:
+	var uid: String = _get_uid()
+	var id_token: String = _get_id_token()
+
+	if uid == "":
+		print("[QuizTakingPage] ERROR: Student UID is empty.")
+		return false
+
+	if id_token == "":
+		print("[QuizTakingPage] ERROR: Firebase ID token is empty.")
+		return false
+
+	if quiz_data == null:
+		print("[QuizTakingPage] ERROR: quiz_data is null.")
+		return false
+
+	var quiz_id: String = str(quiz_data.get("quiz_id", ""))
+
+	if quiz_id == "":
+		print("[QuizTakingPage] ERROR: Quiz ID is empty.")
+		return false
+
+	var quiz_title: String = str(quiz_data.get("title", "Untitled Quiz"))
+
+	var project_id: String = "atomix-f6c6b"
+	var database_id: String = "(default)"
+
+	# -----------------------------------------------------
+	# Firestore student document URL
+	# -----------------------------------------------------
+
+	var url: String = "https://firestore.googleapis.com/v1/projects/" \
+		+ project_id \
+		+ "/databases/" \
+		+ database_id \
+		+ "/documents/students/" \
+		+ uid
+
+	print("[QuizTakingPage] Saving assessment result to: ", url)
+
+	# -----------------------------------------------------
+	# Firestore timestamp
+	# -----------------------------------------------------
+
+	var timestamp: String = Time.get_datetime_string_from_system(true) + "Z"
+
+	# -----------------------------------------------------
+	# Build the quiz assessment entry
+	# -----------------------------------------------------
+
+	var quiz_entry: Dictionary = {
+		"mapValue": {
+			"fields": {
+				"quiz_id": {
+					"stringValue": quiz_id
+				},
+				"quiz_title": {
+					"stringValue": quiz_title
+				},
+				"score": {
+					"integerValue": str(score)
+				},
+				"total_questions": {
+					"integerValue": str(total_questions)
+				},
+				"percentage": {
+					"doubleValue": percentage
+				},
+				"completed": {
+					"booleanValue": true
+				},
+				"completed_at": {
+					"timestampValue": timestamp
+				}
+			}
+		}
+	}
+
+	# -----------------------------------------------------
+	# IMPORTANT:
+	# Only update this specific assessment entry.
+	#
+	# Example:
+	# assessment.quiz_123
+	#
+	# Existing assessment entries are NOT replaced.
+	# -----------------------------------------------------
+
+	var update_mask_field: String = "assessment.`" + quiz_id + "`"
+
+	var patch_url: String = url + "?updateMask.fieldPaths=" \
+		+ update_mask_field.uri_encode()
+
+	print("[QuizTakingPage] Updating only: ", update_mask_field)
+
+	var body: Dictionary = {
+		"fields": {
+			"assessment": {
+				"mapValue": {
+					"fields": {}
+				}
+			}
+		}
+	}
+
+	body["fields"]["assessment"]["mapValue"]["fields"][quiz_id] = quiz_entry
+
+	var headers: PackedStringArray = [
+		"Content-Type: application/json",
+		"Authorization: Bearer " + id_token
+	]
+
+	var http_request: HTTPRequest = HTTPRequest.new()
+	add_child(http_request)
+
+	var error: Error = http_request.request(
+		patch_url,
+		headers,
+		HTTPClient.METHOD_PATCH,
+		JSON.stringify(body)
+	)
+
+	if error != OK:
+		print("[QuizTakingPage] ERROR: Failed to send assessment request.")
+		print("[QuizTakingPage] Error code: ", error)
+		http_request.queue_free()
+		return false
+
+	var result: Array = await http_request.request_completed
+	http_request.queue_free()
+
+	var response_code: int = result[1]
+	var response_body: PackedByteArray = result[3]
+
+	print("[QuizTakingPage] Firebase assessment response: ", response_code)
+
+	if response_code >= 200 and response_code < 300:
+		print("[QuizTakingPage] Assessment result saved successfully.")
+		print("[QuizTakingPage] Quiz ID saved: ", quiz_id)
+		print("[QuizTakingPage] Score saved: ", score, " / ", total_questions)
+		print("[QuizTakingPage] Percentage saved: ", percentage, "%")
+		return true
+
+	print("[QuizTakingPage] ERROR: Firebase rejected assessment result.")
+	print("[QuizTakingPage] Response: ", response_body.get_string_from_utf8())
+
+	return false
+
+
+	# ============================================================
+
+	# CHECK CURRENT ANSWER
+
+	# ============================================================
 
 func _check_current_answer() -> void:
+
 
 	var question_data: Dictionary = \
 		questions[current_question_index]
 
-	var question_type := str(
+	var question_type: String = str(
 		question_data.get(
 			"type",
 			"multiple_choice"
 		)
 	).strip_edges().to_lower()
 
+
+	if _is_identification(question_type):
+
+		_check_identification_answer(
+			question_data
+		)
+
+		return
+
+
+	if _is_enumeration(question_type):
+
+		_check_enumeration_answer(
+			question_data
+		)
+
+		return
+
+
 	var correct_answers: Array = \
 		question_data.get(
 			"correct_answers",
 			[]
 		)
-
-	# --------------------------------------------------------
-	# Identification
-	# --------------------------------------------------------
-
-	if _is_identification(question_type):
-
-		_check_identification_answer(
-			question_data,
-			correct_answers
-		)
-
-		return
-
-	# --------------------------------------------------------
-	# Enumeration
-	# --------------------------------------------------------
-
-	if _is_enumeration(question_type):
-
-		_check_enumeration_answer(
-			question_data,
-			correct_answers
-		)
-
-		return
-
-	# --------------------------------------------------------
-	# Multiple choice / True False
-	# --------------------------------------------------------
 
 	if correct_answers.is_empty():
 
@@ -712,8 +1062,6 @@ func _check_current_answer() -> void:
 
 	if selected_index == correct_index:
 
-		score += 1
-
 		print(
 			"[QuizTakingPage] Correct answer."
 		)
@@ -725,14 +1073,22 @@ func _check_current_answer() -> void:
 		)
 
 
-# ============================================================
-# CHECK IDENTIFICATION
-# ============================================================
+	# ============================================================
+
+	# CHECK IDENTIFICATION
+
+	# ============================================================
 
 func _check_identification_answer(
-	question_data: Dictionary,
-	correct_answers: Array
-) -> void:
+	question_data: Dictionary
+	) -> void:
+
+
+	var correct_answers: Array = \
+		question_data.get(
+			"correct_answers",
+			[]
+		)
 
 	if correct_answers.is_empty():
 
@@ -742,13 +1098,11 @@ func _check_identification_answer(
 
 		return
 
-	var answers: Array = question_data.get(
-		"answers",
-		[]
-	)
-
-	var student_answer := \
-		identification_input.text.strip_edges().to_lower()
+	var answers: Array = \
+		question_data.get(
+			"answers",
+			[]
+		)
 
 	var correct_index: int = \
 		int(correct_answers[0])
@@ -759,13 +1113,17 @@ func _check_identification_answer(
 	if correct_index >= answers.size():
 		return
 
-	var correct_answer := str(
-		answers[correct_index]
-	).strip_edges().to_lower()
+	var student_answer: String = \
+		text_answers[current_question_index] \
+		.strip_edges() \
+		.to_lower()
+
+	var correct_answer: String = \
+		str(answers[correct_index]) \
+		.strip_edges() \
+		.to_lower()
 
 	if student_answer == correct_answer:
-
-		score += 1
 
 		print(
 			"[QuizTakingPage] Identification answer correct."
@@ -778,74 +1136,368 @@ func _check_identification_answer(
 		)
 
 
-# ============================================================
-# CHECK ENUMERATION
-# ============================================================
+	# ============================================================
+
+	# CHECK ENUMERATION
+
+	# ============================================================
 
 func _check_enumeration_answer(
-	question_data: Dictionary,
-	correct_answers: Array
-) -> void:
+	question_data: Dictionary
+	) -> void:
 
-	if correct_answers.is_empty():
+
+	var accepted_answers: Array = \
+		question_data.get(
+			"answers",
+			[]
+		)
+
+	if accepted_answers.is_empty():
 
 		print(
-			"[QuizTakingPage] Enumeration question has no answer."
+			"[QuizTakingPage] Enumeration question has no required answers."
 		)
 
 		return
 
-	var answers: Array = question_data.get(
-		"answers",
-		[]
+	if current_question_index >= enumeration_answers.size():
+
+		print(
+			"[QuizTakingPage] Enumeration answers unavailable."
+		)
+
+		return
+
+	var student_answers: Array = \
+		enumeration_answers[current_question_index]
+
+	var normalized_student: Array[String] = []
+
+	for answer in student_answers:
+
+		var cleaned: String = \
+			str(answer).strip_edges().to_lower()
+
+		if not cleaned.is_empty():
+
+			normalized_student.append(
+				cleaned
+			)
+
+	var normalized_accepted: Array[String] = []
+
+	for answer in accepted_answers:
+
+		var cleaned: String = \
+			str(answer).strip_edges().to_lower()
+
+		if not cleaned.is_empty():
+
+			normalized_accepted.append(
+				cleaned
+			)
+
+	if normalized_student.size() != \
+		normalized_accepted.size():
+
+		print(
+			"[QuizTakingPage] Enumeration answer count incorrect."
+		)
+
+		return
+
+	for answer in normalized_student:
+
+		if not normalized_accepted.has(answer):
+
+			print(
+				"[QuizTakingPage] Enumeration answer not accepted: ",
+				answer
+			)
+
+			return
+
+	print(
+		"[QuizTakingPage] Enumeration answer correct."
 	)
 
-	var student_answer := \
-		enumeration_input.text.strip_edges().to_lower()
+	# ============================================================
 
-	var correct_index: int = \
-		int(correct_answers[0])
+	# CALCULATE FINAL SCORE
 
-	if correct_index < 0:
-		return
+	# ============================================================
 
-	if correct_index >= answers.size():
-		return
-
-	var correct_answer := str(
-		answers[correct_index]
-	).strip_edges().to_lower()
-
-	if student_answer == correct_answer:
-
-		score += 1
-
-		print(
-			"[QuizTakingPage] Enumeration answer correct."
-		)
-
-	else:
-
-		print(
-			"[QuizTakingPage] Enumeration answer incorrect."
-		)
+func _calculate_final_score() -> void:
 
 
-# ============================================================
-# RESULT
-# ============================================================
+	score = 0
+
+	print(
+		"[QuizTakingPage] Calculating final score..."
+	)
+
+	for i in range(questions.size()):
+
+		var question_data: Dictionary = \
+			questions[i]
+
+		var question_type: String = str(
+			question_data.get(
+				"type",
+				"multiple_choice"
+			)
+		).strip_edges().to_lower()
+
+
+		# ====================================================
+		# ENUMERATION
+		# ====================================================
+
+		if _is_enumeration(question_type):
+
+			var accepted_answers: Array = \
+				question_data.get(
+					"answers",
+					[]
+				)
+
+			if accepted_answers.is_empty():
+
+				print(
+					"[QuizTakingPage] Question ",
+					i + 1,
+					": no required enumeration answers."
+				)
+
+				continue
+
+			if i >= enumeration_answers.size():
+
+				continue
+
+			var student_answers: Array = \
+				enumeration_answers[i]
+
+			var normalized_student: Array[String] = []
+
+			for answer in student_answers:
+
+				var cleaned: String = \
+					str(answer).strip_edges().to_lower()
+
+				if not cleaned.is_empty():
+
+					normalized_student.append(
+						cleaned
+					)
+
+			var normalized_accepted: Array[String] = []
+
+			for answer in accepted_answers:
+
+				var cleaned: String = \
+					str(answer).strip_edges().to_lower()
+
+				if not cleaned.is_empty():
+
+					normalized_accepted.append(
+						cleaned
+					)
+
+
+			var enumeration_correct: bool = true
+
+
+			if normalized_student.size() != \
+				normalized_accepted.size():
+
+				enumeration_correct = false
+
+
+			for answer in normalized_accepted:
+
+				if not normalized_student.has(answer):
+
+					enumeration_correct = false
+
+					print(
+						"[QuizTakingPage] Question ",
+						i + 1,
+						": missing answer = ",
+						answer
+					)
+
+
+			for answer in normalized_student:
+
+				if not normalized_accepted.has(answer):
+
+					enumeration_correct = false
+
+					print(
+						"[QuizTakingPage] Question ",
+						i + 1,
+						": unaccepted answer = ",
+						answer
+					)
+
+
+			if enumeration_correct:
+
+				score += 1
+
+				print(
+					"[QuizTakingPage] Question ",
+					i + 1,
+					": correct."
+				)
+
+			else:
+
+				print(
+					"[QuizTakingPage] Question ",
+					i + 1,
+					": incorrect."
+				)
+
+			continue
+
+
+		# ====================================================
+		# OTHER QUIZ TYPES
+		# ====================================================
+
+		var correct_answers: Array = \
+			question_data.get(
+				"correct_answers",
+				[]
+			)
+
+		if correct_answers.is_empty():
+
+			print(
+				"[QuizTakingPage] Question ",
+				i + 1,
+				": no correct answer configured."
+			)
+
+			continue
+
+		var correct_index: int = \
+			int(correct_answers[0])
+
+
+		# ====================================================
+		# IDENTIFICATION
+		# ====================================================
+
+		if _is_identification(question_type):
+
+			if i >= text_answers.size():
+				continue
+
+			var answers: Array = \
+				question_data.get(
+					"answers",
+					[]
+				)
+
+			if correct_index < 0:
+				continue
+
+			if correct_index >= answers.size():
+				continue
+
+			var identification_student: String = \
+				text_answers[i] \
+				.strip_edges() \
+				.to_lower()
+
+			var identification_correct: String = \
+				str(answers[correct_index]) \
+				.strip_edges() \
+				.to_lower()
+
+			if identification_student == \
+				identification_correct:
+
+				score += 1
+
+				print(
+					"[QuizTakingPage] Question ",
+					i + 1,
+					": correct."
+				)
+
+			else:
+
+				print(
+					"[QuizTakingPage] Question ",
+					i + 1,
+					": incorrect."
+				)
+
+			continue
+
+
+		# ====================================================
+		# MULTIPLE CHOICE / TRUE-FALSE
+		# ====================================================
+
+		if i >= selected_answers.size():
+			continue
+
+		var selected_index: int = \
+			int(selected_answers[i])
+
+		if selected_index == correct_index:
+
+			score += 1
+
+			print(
+				"[QuizTakingPage] Question ",
+				i + 1,
+				": correct."
+			)
+
+		else:
+
+			print(
+				"[QuizTakingPage] Question ",
+				i + 1,
+				": incorrect."
+			)
+
+
+	print(
+		"[QuizTakingPage] Final score calculated: ",
+		score,
+		" / ",
+		questions.size()
+	)
+
+
+	# ============================================================
+
+	# RESULT
+
+	# ============================================================
 
 func _show_result() -> void:
 
-	var total_questions := \
+
+	var total_questions: int = \
 		questions.size()
 
-	var percentage := 0.0
+	var percentage: float = 0.0
 
 	if total_questions > 0:
 
-		percentage = \
-			(float(score) / float(total_questions)) * 100.0
+		percentage = (
+			float(score)
+			/ float(total_questions)
+		) * 100.0
 
 	print(
 		"[QuizTakingPage] Quiz completed."
@@ -864,15 +1516,9 @@ func _show_result() -> void:
 		"%"
 	)
 
-	# --------------------------------------------------------
-	# Replace question UI
-	# --------------------------------------------------------
+	question_counter.text = "Completed"
 
-	question_counter.text = \
-		"Completed"
-
-	question_label.text = \
-		"QUIZ COMPLETE!"
+	question_label.text = "QUIZ COMPLETE!"
 
 	for child in answer_container.get_children():
 
@@ -889,11 +1535,7 @@ func _show_result() -> void:
 	identification_input.visible = false
 	enumeration_input.visible = false
 
-	# --------------------------------------------------------
-	# Score label
-	# --------------------------------------------------------
-
-	var score_label := Label.new()
+	var score_label: Label = Label.new()
 
 	score_label.custom_minimum_size = \
 		Vector2(0, 100)
@@ -923,33 +1565,33 @@ func _show_result() -> void:
 		score_label
 	)
 
-	# --------------------------------------------------------
-	# Buttons
-	# --------------------------------------------------------
-
 	next_button.visible = false
 
-	back_button.text = \
-		"← Back to Quizzes"
+	back_button.disabled = false
+	back_button.text = "← Back to Quizzes"
 
 	status_label.text = \
 		"Quiz completed."
 
 
-# ============================================================
-# RESTORE PREVIOUS ANSWER
-# ============================================================
+	# ============================================================
+
+	# RESTORE PREVIOUS ANSWER
+
+	# ============================================================
 
 func _restore_previous_answer(
 	question_data: Dictionary,
 	question_type: String
-) -> void:
+	) -> void:
+
 
 	if current_question_index < 0:
 		return
 
 	if current_question_index >= selected_answers.size():
 		return
+
 
 	# --------------------------------------------------------
 	# Identification
@@ -964,30 +1606,58 @@ func _restore_previous_answer(
 
 		return
 
+
 	# --------------------------------------------------------
 	# Enumeration
 	# --------------------------------------------------------
 
 	if _is_enumeration(question_type):
 
-		if current_question_index < text_answers.size():
+		if current_question_index >= \
+			enumeration_answers.size():
 
-			enumeration_input.text = \
-				text_answers[current_question_index]
+			return
+
+		var previous_answers: Array = \
+			enumeration_answers[current_question_index]
+
+		var input_index: int = 0
+
+		for child in enumeration_input.get_children():
+
+			if not child is HBoxContainer:
+				continue
+
+			var row: HBoxContainer = child
+
+			for row_child in row.get_children():
+
+				if not row_child is LineEdit:
+					continue
+
+				var input: LineEdit = row_child
+
+				if input_index < previous_answers.size():
+
+					input.text = \
+						str(previous_answers[input_index])
+
+				input_index += 1
 
 		return
 
+
 	# --------------------------------------------------------
-	# Multiple choice / True False
+	# Multiple Choice / True-False
 	# --------------------------------------------------------
 
-	var previous_answer := \
+	var previous_answer: int = \
 		int(selected_answers[current_question_index])
 
 	if previous_answer == -1:
 		return
 
-	var button_index := 0
+	var button_index: int = 0
 
 	for child in answer_container.get_children():
 
@@ -1005,13 +1675,16 @@ func _restore_previous_answer(
 		button_index += 1
 
 
-# ============================================================
-# QUESTION TYPE HELPERS
-# ============================================================
+	# ============================================================
+
+	# QUESTION TYPE HELPERS
+
+	# ============================================================
 
 func _is_multiple_choice(
 	question_type: String
-) -> bool:
+	) -> bool:
+
 
 	return (
 		question_type == "multiple choice"
@@ -1023,8 +1696,7 @@ func _is_multiple_choice(
 
 func _is_true_false(
 	question_type: String
-) -> bool:
-
+	) -> bool:
 	return (
 		question_type == "true or false"
 		or question_type == "true_false"
@@ -1032,10 +1704,10 @@ func _is_true_false(
 		or question_type == "truefalse"
 	)
 
-
 func _is_identification(
 	question_type: String
-) -> bool:
+	) -> bool:
+
 
 	return (
 		question_type == "identification"
@@ -1045,7 +1717,7 @@ func _is_identification(
 
 func _is_enumeration(
 	question_type: String
-) -> bool:
+	) -> bool:
 
 	return (
 		question_type == "enumeration"
@@ -1054,82 +1726,142 @@ func _is_enumeration(
 	)
 
 
-# ============================================================
-# BACK BUTTON
-# ============================================================
+	# ============================================================
+
+	# FIREBASE HELPERS
+
+	# ============================================================
+
+func _get_uid() -> String:
+
+
+	if AuthManager.has_method("get_uid"):
+
+		var uid_value: Variant = \
+			AuthManager.get_uid()
+
+		if uid_value != null:
+
+			return str(uid_value).strip_edges()
+
+	if "user_uid" in AuthManager:
+
+		var uid_value: Variant = \
+			AuthManager.user_uid
+
+		if uid_value != null:
+
+			return str(uid_value).strip_edges()
+
+	print(
+		"[QuizTakingPage] ERROR: Could not obtain student UID."
+	)
+
+	return ""
+
+
+func _get_id_token() -> String:
+
+
+	if Firebase.Firestore == null:
+
+		print(
+			"[QuizTakingPage] ERROR: Firebase.Firestore is null."
+		)
+
+		return ""
+
+	if Firebase.Firestore.auth == null:
+
+		print(
+			"[QuizTakingPage] ERROR: Firebase auth is null."
+		)
+
+		return ""
+
+	var auth_data: Dictionary = \
+		Firebase.Firestore.auth
+
+	var token_value: Variant = \
+		auth_data.get("idtoken", "")
+
+	if token_value == null:
+
+		return ""
+
+	return str(token_value).strip_edges()
+
+
+	# ============================================================
+
+	# BACK BUTTON
+
+	# ============================================================
 
 func _on_back_pressed() -> void:
 
-	print("[QuizTakingPage] Back button pressed.")
-
 	# --------------------------------------------------------
-	# Find the existing QuizPage.
-	# We do NOT instantiate quiz_page.tscn again.
+	# If quiz has been submitted, return to QuizPage
 	# --------------------------------------------------------
 
-	var quiz_page: Node = null
+	if quiz_completed:
 
-	# Check our parent first.
-	var parent_node := get_parent()
+		if return_page != null and is_instance_valid(return_page):
 
-	if parent_node != null:
+			return_page.visible = true
 
-		print(
-			"[QuizTakingPage] Parent: ",
-			parent_node.name
-		)
+			await return_page._load_completed_quizzes()
 
-		quiz_page = parent_node.get_node_or_null("QuizPage")
+			return_page._apply_sort()
 
-	# --------------------------------------------------------
-	# If QuizPage is not directly under our parent,
-	# search the parent hierarchy.
-	# --------------------------------------------------------
+			await return_page._build_quiz_list()
 
-	if quiz_page == null and parent_node != null:
+			queue_free()
 
-		var ancestor := parent_node.get_parent()
+		else:
 
-		while ancestor != null:
+			print(
+				"[QuizTakingPage] No return_page found."
+			)
 
-			quiz_page = ancestor.get_node_or_null("QuizPage")
-
-			if quiz_page != null:
-				break
-
-			ancestor = ancestor.get_parent()
-
-	# --------------------------------------------------------
-	# Show existing QuizPage if found.
-	# --------------------------------------------------------
-
-	if quiz_page != null:
-
-		print(
-			"[QuizTakingPage] Existing QuizPage found: ",
-			quiz_page.get_path()
-		)
-
-		if quiz_page is CanvasLayer:
-
-			quiz_page.visible = true
-
-		elif quiz_page is Control:
-
-			quiz_page.visible = true
-
-		# Remove the quiz-taking page.
-		queue_free()
+			queue_free()
 
 		return
 
 	# --------------------------------------------------------
-	# QuizPage was not found.
+	# If we are not on the first question,
+	# go back to the previous question
 	# --------------------------------------------------------
 
-	print(
-		"[QuizTakingPage] WARNING: Existing QuizPage not found."
-	)
+	if current_question_index > 0:
 
-	# Still close QuizTakingPage so the user is not trapped.
-	queue_free()
+		current_question_index -= 1
+
+		_show_question()
+
+		return
+
+	# --------------------------------------------------------
+	# We are on Question 1.
+	# Return to the existing QuizPage.
+	# --------------------------------------------------------
+
+	if return_page != null and is_instance_valid(return_page):
+
+		return_page.visible = true
+
+		await return_page._load_completed_quizzes()
+
+		return_page._apply_sort()
+
+		await return_page._build_quiz_list()
+
+		queue_free()
+
+	else:
+
+		print(
+			"[QuizTakingPage] No return_page found."
+		)
+
+		queue_free()

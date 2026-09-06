@@ -55,7 +55,11 @@ func _physics_process(_delta):
 		velocity = input_vector * data.move_speed
 
 		if input_vector != Vector2.ZERO:
-			sprite.play("walk")
+			if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("walk"):
+				sprite.play("walk")
+			else:
+				sprite.play("idle")
+
 			sprite.flip_h = input_vector.x < 0
 		else:
 			velocity = Vector2.ZERO
@@ -85,7 +89,11 @@ func _physics_process(_delta):
 	velocity = direction * data.move_speed
 	move_and_slide()
 
-	sprite.play("walk")
+	if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("walk"):
+		sprite.play("walk")
+	else:
+		sprite.play("idle")
+
 	sprite.flip_h = velocity.x < 0
 
 func walk_to(target: Vector2):
