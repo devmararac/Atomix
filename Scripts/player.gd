@@ -187,9 +187,13 @@ func _input(event: InputEvent) -> void:
 
 func handle_interaction():
 	var target = ray_cast_2d.get_collider()
+	print("[Interaction] Target: ", target)
 
+	
 	if target == null:
 		return
+	
+	print("[Interaction] Is QuestObject: ", target.is_in_group("QuestObjects"))
 	
 	if target is NPCBase:
 		can_move = false
