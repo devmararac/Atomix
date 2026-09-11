@@ -187,13 +187,9 @@ func _input(event: InputEvent) -> void:
 
 func handle_interaction():
 	var target = ray_cast_2d.get_collider()
-	print("[Interaction] Target: ", target)
 
-	
 	if target == null:
 		return
-	
-	print("[Interaction] Is QuestObject: ", target.is_in_group("QuestObjects"))
 	
 	if target is NPCBase:
 		can_move = false
@@ -223,6 +219,33 @@ func handle_interaction():
 
 	elif target.is_in_group("QuestObjects"):
 		target.interact()
+
+func move_to_cutscene_target(target: Marker2D):
+	if target == null:
+		return
+
+	is_cutscene_moving = true
+	can_move = false
+	direction = Vector2.ZERO
+
+	while global_position.distance_to(target.global_position) > 3.0:
+		var target_direction := global_position.direction_to(target.global_position)
+
+		velocity = target_direction * move_speed
+		move_and_slide()
+
+		# Update facing direction
+		if abs(target_direction.x) > abs(target_direction.y):
+			anim.flip_h = target_direction.x < 0
+
+		anim.play("walk")
+
+		await get_tree().physics_frame
+
+	velocity = Vector2.ZERO
+	is_cutscene_moving = false
+
+	anim.play("idle")
 
 func update_interaction_highlight():
 	var target = ray_cast_2d.get_collider()
@@ -256,3 +279,12 @@ func face_left():
 
 func face_right():
 	anim.flip_h = false
+
+func face_npc(target: Node2D):
+	if target == null:
+		return
+
+	if target.global_position.x < global_position.x:
+		face_left()
+	else:
+		face_right()

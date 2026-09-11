@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://xc3dtslwrpew"]
 
+[ext_resource type="AudioStream" uid="uid://l3lfwbyyxpi7" path="res://Assets/Music/SFX/CrySound/neon_cry.wav" id="1_h70gt"]
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_piwxn"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_exlai"]
 [ext_resource type="Texture2D" uid="uid://4j81ht2yhqhm" path="res://Assets/Atomon Portraits/neomare_neon.png" id="2_sq7db"]
@@ -197,4 +198,5 @@ mass_number = 20
 element_type = "Noble Gas"
 block = "p"
 period = 2
+cry_sound = ExtResource("1_h70gt")
 metadata/_custom_type_script = "uid://dvv118enrwub6"

@@ -76,3 +76,4 @@ var period := 1
 
 # Encyclopedia
 @export_multiline var description := ""
+@export var cry_sound: AudioStream

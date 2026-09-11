@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bd2oikjagcatk"]
 
+[ext_resource type="AudioStream" uid="uid://k0b1rpoxujmc" path="res://Assets/Music/SFX/CrySound/argon_cry.wav" id="1_l3h4w"]
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_r2105"]
 [ext_resource type="Texture2D" uid="uid://d0ojioa0mnajp" path="res://Assets/Atomon Portraits/arbatt_argon.png" id="2_fe6sk"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_vw4wi"]
@@ -106,4 +107,5 @@ mass_number = 40
 element_type = "Noble Gas"
 block = "p"
 period = 3
+cry_sound = ExtResource("1_l3h4w")
 metadata/_custom_type_script = "uid://dvv118enrwub6"

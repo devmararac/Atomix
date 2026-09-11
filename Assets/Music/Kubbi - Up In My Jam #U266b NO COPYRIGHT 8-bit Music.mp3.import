@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://m7e2w0txneux"
+path="res://.godot/imported/Kubbi - Up In My Jam #U266b NO COPYRIGHT 8-bit Music.mp3-4550b0b0341cabea462e42674615b715.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Kubbi - Up In My Jam #U266b NO COPYRIGHT 8-bit Music.mp3"
+dest_files=["res://.godot/imported/Kubbi - Up In My Jam #U266b NO COPYRIGHT 8-bit Music.mp3-4550b0b0341cabea462e42674615b715.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -4,6 +4,8 @@ extends Control
 @onready var book_anim: AnimatedSprite2D = $"Right Panel/Book BG"
 @onready var preview: AnimatedSprite2D = $"Right Panel/Atomon Sprite/AnimatedSprite2D"
 @onready var animation_timer: Timer = $"Right Panel/Atomon Sprite/Timer"
+@onready var cry_player: AudioStreamPlayer2D = $CryPlayer
+
 @onready var atomon_allias: Label = $"Right Panel/AtomonAllias"
 @onready var atomon_panel: Panel = $"Right Panel/Atomon Sprite"
 @onready var atomon_description: RichTextLabel = $"Right Panel/AtomonDescription"
@@ -14,6 +16,8 @@ var slots := []
 var book_opened := false
 
 func _ready() -> void:
+
+
 	atomon_allias.visible = false
 	atomon_panel.visible = false
 	atomon_description.visible = false

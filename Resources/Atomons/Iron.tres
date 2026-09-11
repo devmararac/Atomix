@@ -15,7 +15,6 @@ atlas = ExtResource("2_vfumv")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ali7o"]
-load_path = "res://.godot/imported/iron_attack.png-12a4bb0e282c8dcc77db7f0b8852c286.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2vc6"]
 atlas = SubResource("CompressedTexture2D_ali7o")

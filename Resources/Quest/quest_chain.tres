@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://c0j3d71p6j6gg"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_sxthk"]
+[ext_resource type="Resource" uid="uid://dqoq0v1lu5cxh" path="res://Resources/Objectives/ChainQuestOBJ/questchain_objective1.tres" id="2_v4m3q"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="3_uw2ed"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="4_vtto2"]
+
+[resource]
+script = ExtResource("4_vtto2")
+quest_id = "quest_chain_001"
+quest_name = "Learning About Atomons"
+quest_description = "Learn more about Atomons and the creatures that inhabit Atherion."
+objectives = Array[ExtResource("1_sxthk")]([ExtResource("2_v4m3q")])
+metadata/_custom_type_script = "uid://7rrmrho1w3gn"

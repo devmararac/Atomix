@@ -1,51 +1,92 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bopgpl7eas45l"]
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_da012"]
-[ext_resource type="Texture2D" uid="uid://chx0rfxik5dnj" path="res://Assets/Pets/Ghost-128x128.png" id="2_ds1m4"]
+[ext_resource type="Texture2D" uid="uid://bqqnxgwy508us" path="res://Assets/Atomon Portraits/whirlium_helium.png" id="2_nkmuu"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_o7d7g"]
 [ext_resource type="Texture2D" uid="uid://cv3y2ucbjs3cb" path="res://Assets/UX/HUD/Panels/slot.png" id="4_c63v4"]
+[ext_resource type="Texture2D" uid="uid://cxil1wcterkts" path="res://Assets/Pets/helium_anim.png" id="4_t0wiw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sfs85"]
-atlas = ExtResource("2_ds1m4")
-region = Rect2(0, 0, 256, 256)
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qpk2"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ktyxj"]
-atlas = ExtResource("2_ds1m4")
-region = Rect2(256, 0, 256, 256)
+[sub_resource type="AtlasTexture" id="AtlasTexture_bx0kr"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dyytm"]
-atlas = ExtResource("2_ds1m4")
-region = Rect2(512, 0, 256, 256)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2p51f"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6n80o"]
-atlas = ExtResource("2_ds1m4")
-region = Rect2(768, 0, 256, 256)
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2och"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0dosi"]
-atlas = ExtResource("2_ds1m4")
-region = Rect2(1024, 0, 256, 256)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs4wo"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2fi7"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqq4r"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o47r"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o032f"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gt66"]
+atlas = ExtResource("4_t0wiw")
+region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lc6o6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sfs85")
+"texture": SubResource("AtlasTexture_1qpk2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ktyxj")
+"texture": SubResource("AtlasTexture_bx0kr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dyytm")
+"texture": SubResource("AtlasTexture_2p51f")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6n80o")
+"texture": SubResource("AtlasTexture_e2och")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0dosi")
+"texture": SubResource("AtlasTexture_gs4wo")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2fi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqq4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o47r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o032f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gt66")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
 }]
 
 [resource]
@@ -53,9 +94,10 @@ script = ExtResource("2_o7d7g")
 atom_name = "Helium"
 chemical_symbol = "He"
 atomic_number = 2
+alias = "Whirlium"
 sprite_frames = SubResource("SpriteFrames_lc6o6")
 symbol = ExtResource("4_c63v4")
-portrait = SubResource("AtlasTexture_sfs85")
+portrait = ExtResource("2_nkmuu")
 atomic_mass = 4.002602
 density = 0.00017849999999999
 ionization_energy = 24.5874

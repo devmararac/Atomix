@@ -2,16 +2,42 @@
 
 [ext_resource type="Script" uid="uid://dxljf62hvxos4" path="res://Scripts/switch_atomon.gd" id="1_5idv1"]
 [ext_resource type="Texture2D" uid="uid://blobcx8hb08fa" path="res://Assets/UX/HUD/Panels/inventory_bg.png" id="1_rkkwk"]
-[ext_resource type="Texture2D" uid="uid://daq1gtorekc3d" path="res://Assets/UX/HUD/Panels/book_panel_big.png" id="2_qg8ou"]
 [ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="2_w5tlr"]
 [ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="3_5idv1"]
 [ext_resource type="PackedScene" uid="uid://fcbu6e35u8mi" path="res://Scenes/UI/party_slot.tscn" id="3_k2i2i"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="3_su2u3"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_u5003"]
 [ext_resource type="Texture2D" uid="uid://csw0ks17clkr5" path="res://Assets/Pets/hydrogen_idle.png" id="5_75pb0"]
 [ext_resource type="Texture2D" uid="uid://ban1cmvop5yw7" path="res://Assets/UX/HUD/Panels/atomon_sprite_textured.png" id="5_b71do"]
 [ext_resource type="Texture2D" uid="uid://cidoonudrtsja" path="res://Assets/UX/Buttons/Normal/switch_button.png" id="7_ehv6g"]
+[ext_resource type="Texture2D" uid="uid://bv8i0oxgiciix" path="res://Assets/UX/Icons/def.png" id="8_me6xy"]
 [ext_resource type="Texture2D" uid="uid://bd16babt3eeje" path="res://Assets/UX/Buttons/On-Pressed/switch_button_pressed.png" id="8_su2u3"]
+[ext_resource type="Texture2D" uid="uid://76rjun8ck50h" path="res://Assets/UX/Icons/atk.png" id="9_05ptl"]
 [ext_resource type="Texture2D" uid="uid://uidkxeenpya1" path="res://Assets/UX/Buttons/Normal/cancel_button.png" id="9_su2u3"]
+[ext_resource type="Texture2D" uid="uid://dumectpjifch1" path="res://Assets/UX/HUD/Bars/under_bar.png" id="9_vnqej"]
+[ext_resource type="Texture2D" uid="uid://ed21j0qe63x5" path="res://Assets/UX/Icons/hp.png" id="10_g1cyq"]
 [ext_resource type="Texture2D" uid="uid://cotqf6wpftukq" path="res://Assets/UX/Buttons/On-Pressed/cancel_button_pressed.png" id="10_u5003"]
+[ext_resource type="Texture2D" uid="uid://c75spid2wm4an" path="res://Assets/UX/Icons/s_atk.png" id="11_05ptl"]
+[ext_resource type="Texture2D" uid="uid://doalxucxr3cxx" path="res://Assets/UX/Icons/s_def.png" id="12_g1cyq"]
+[ext_resource type="Texture2D" uid="uid://cusa2lwfp2nax" path="res://Assets/UX/HUD/Panels/animated_book.png" id="12_msksi"]
+[ext_resource type="Texture2D" uid="uid://c4kw02i82231k" path="res://Assets/UX/Icons/spd.png" id="13_8iwhf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u5003"]
+texture = ExtResource("3_su2u3")
+texture_margin_top = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vnqej"]
+texture = ExtResource("3_su2u3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_23dxy"]
+texture = ExtResource("9_vnqej")
+texture_margin_top = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iprnb"]
+texture = ExtResource("3_su2u3")
+texture_margin_top = 9.0
+texture_margin_bottom = 9.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b71do"]
 atlas = ExtResource("5_75pb0")
@@ -49,6 +75,42 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_8iwhf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Book:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jgqc4"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Book:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.36),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5dxjk"]
+_data = {
+&"RESET": SubResource("Animation_8iwhf"),
+&"open": SubResource("Animation_jgqc4")
+}
+
 [node name="Canvas Layer" type="CanvasLayer" unique_id=1717074173]
 script = ExtResource("1_5idv1")
 
@@ -62,63 +124,100 @@ grow_vertical = 2
 
 [node name="BG" type="NinePatchRect" parent="NinePatchRect" unique_id=283729576]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -651.5
-offset_top = -322.5
-offset_right = 611.5
-offset_bottom = 282.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-texture = ExtResource("2_qg8ou")
+texture = ExtResource("1_rkkwk")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect/BG" unique_id=893542772]
+[node name="Slots Panel" type="Panel" parent="NinePatchRect/BG" unique_id=1330302073]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.25800002
-anchor_top = 0.083000004
-anchor_right = 0.25800002
-anchor_bottom = 0.083000004
-offset_left = -242.35403
-offset_top = 0.28499603
-offset_right = 241.64597
-offset_bottom = 476.285
+anchor_left = 0.040000003
+anchor_top = 0.049000002
+anchor_right = 0.275
+anchor_bottom = 0.95300007
+offset_left = 0.7999954
+offset_top = -0.2800026
+offset_right = -0.5
+offset_bottom = -0.16003418
+theme_override_styles/panel = SubResource("StyleBoxTexture_u5003")
 
-[node name="GridContainer" type="GridContainer" parent="NinePatchRect/BG/ScrollContainer" unique_id=1314887760]
+[node name="Party Selection" type="Label" parent="NinePatchRect/BG/Slots Panel" unique_id=652002149]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.034
+anchor_right = 0.5
+anchor_bottom = 0.034
+offset_left = -156.0
+offset_top = -0.13400078
+offset_right = 156.0
+offset_bottom = 31.866
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 31
+text = "PARTY SELECTION"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect/BG/Slots Panel" unique_id=893542772]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.026
+anchor_top = 0.112
+anchor_right = 0.9760001
+anchor_bottom = 0.97700006
+offset_left = -0.06400013
+offset_top = 0.08799744
+offset_right = 0.13595581
+offset_bottom = -0.027038574
+
+[node name="GridContainer" type="GridContainer" parent="NinePatchRect/BG/Slots Panel/ScrollContainer" unique_id=1314887760]
 layout_mode = 2
 theme_override_constants/v_separation = 25
 
-[node name="slot_1" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=766526209 instance=ExtResource("3_k2i2i")]
+[node name="slot_1" parent="NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer" unique_id=766526209 instance=ExtResource("3_k2i2i")]
 layout_mode = 2
 
-[node name="slot_2" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=1237802204 instance=ExtResource("3_k2i2i")]
+[node name="slot_2" parent="NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer" unique_id=1237802204 instance=ExtResource("3_k2i2i")]
 layout_mode = 2
 
-[node name="slot_3" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=1183647928 instance=ExtResource("3_k2i2i")]
+[node name="slot_3" parent="NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer" unique_id=1183647928 instance=ExtResource("3_k2i2i")]
 layout_mode = 2
 
-[node name="slot_4" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=942349078 instance=ExtResource("3_k2i2i")]
+[node name="slot_4" parent="NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer" unique_id=942349078 instance=ExtResource("3_k2i2i")]
 layout_mode = 2
 
-[node name="slot_5" parent="NinePatchRect/BG/ScrollContainer/GridContainer" unique_id=1998065792 instance=ExtResource("3_k2i2i")]
+[node name="slot_5" parent="NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer" unique_id=1998065792 instance=ExtResource("3_k2i2i")]
 layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="NinePatchRect/BG/Slots Panel" unique_id=796827613]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.089
+anchor_right = 0.5
+anchor_bottom = 0.089
+offset_left = -219.0
+offset_top = -1.9389992
+offset_right = 219.0
+offset_bottom = 2.0610008
+grow_horizontal = 2
 
 [node name="Details" type="Panel" parent="NinePatchRect/BG" unique_id=347135483]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.74700004
-anchor_top = 0.065000005
-anchor_right = 0.74700004
-anchor_bottom = 0.065000005
-offset_left = -252.96106
-offset_top = 0.17499542
-offset_right = 254.03894
-offset_bottom = 492.175
+anchor_left = 0.28300002
+anchor_top = 0.049000002
+anchor_right = 0.96300006
+anchor_bottom = 0.947
+offset_left = -0.34002686
+offset_top = -0.2800026
+offset_right = -0.7401123
+offset_bottom = 0.15997314
 grow_horizontal = 0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/BG/Details" unique_id=1086672773]
@@ -128,7 +227,401 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_rkkwk")
+texture = ExtResource("3_su2u3")
+
+[node name="Control" type="Control" parent="NinePatchRect/BG/Details" unique_id=725749584]
+layout_mode = 1
+anchor_left = 0.30200002
+anchor_top = 0.009000001
+anchor_right = 0.97
+anchor_bottom = 0.91300005
+offset_left = -0.4920349
+offset_top = 0.17699957
+offset_right = 0.38000488
+offset_bottom = 0.28894043
+
+[node name="Book" type="Sprite2D" parent="NinePatchRect/BG/Details/Control" unique_id=389114191]
+position = Vector2(450, 292.50003)
+scale = Vector2(1.5202703, 1.1206896)
+texture = ExtResource("12_msksi")
+hframes = 4
+
+[node name="NameType" type="Panel" parent="NinePatchRect/BG/Details" unique_id=1652615699]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34300002
+anchor_top = 0.15900001
+anchor_right = 0.596
+anchor_bottom = 0.252
+offset_left = 0.32196045
+offset_top = 0.12699127
+offset_right = -0.21600342
+offset_bottom = -0.044006348
+theme_override_styles/panel = SubResource("StyleBoxTexture_vnqej")
+
+[node name="Type" type="Label" parent="NinePatchRect/BG/Details/NameType" unique_id=1646411016]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.38000003
+anchor_top = 0.17600001
+anchor_right = 0.38000003
+anchor_bottom = 0.17600001
+offset_left = -110.600006
+offset_top = 22.439999
+offset_right = -43.600006
+offset_bottom = 41.44
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "Type"
+
+[node name="Name" type="Label" parent="NinePatchRect/BG/Details/NameType" unique_id=369312547]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.374
+anchor_top = 0.13800001
+anchor_right = 0.374
+anchor_bottom = 0.13800001
+offset_left = -109.68001
+offset_top = -0.2800007
+offset_right = -57.680008
+offset_bottom = 18.72
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "Name"
+
+[node name="HSeparator" type="HSeparator" parent="NinePatchRect/BG/Details/NameType" unique_id=561371526]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.46600002
+anchor_top = 0.22600001
+anchor_right = 0.46600002
+anchor_bottom = 0.22600001
+offset_left = -148.12001
+offset_top = 46.44
+offset_right = 170.87999
+offset_bottom = 57.44
+grow_horizontal = 2
+theme_override_styles/separator = SubResource("StyleBoxTexture_23dxy")
+
+[node name="Stats" type="Panel" parent="NinePatchRect/BG/Details" unique_id=1509796592]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34300002
+anchor_top = 0.275
+anchor_right = 0.597
+anchor_bottom = 0.804
+offset_left = 0.32196045
+offset_top = 0.07499695
+offset_right = -0.5620117
+offset_bottom = -0.18798828
+theme_override_styles/panel = SubResource("StyleBoxTexture_iprnb")
+
+[node name="HPLabel" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=1314647569]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.147
+anchor_top = 0.158
+anchor_right = 0.528
+anchor_bottom = 0.21300001
+offset_left = 0.022994995
+offset_top = -0.036003113
+offset_right = -84.67001
+offset_bottom = 0.1539917
+theme_override_colors/font_color = Color(0.44928497, 0.56407, 0.27147868, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "Health Points"
+
+[node name="HP" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=999543782]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.67200005
+anchor_top = 0.158
+anchor_right = 0.93000007
+anchor_bottom = 0.21300001
+offset_left = 0.034988403
+offset_top = -0.036003113
+offset_right = 0.05697632
+offset_bottom = 0.1539917
+theme_override_colors/font_color = Color(0.44928497, 0.56407, 0.27147868, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "HP Value"
+
+[node name="HPIcon" type="TextureRect" parent="NinePatchRect/BG/Details/Stats" unique_id=1297102187]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.14
+anchor_right = 0.133
+anchor_bottom = 0.22500001
+offset_left = -0.06599808
+offset_top = 0.11999893
+offset_right = -0.050998688
+offset_bottom = 0.049995422
+texture = ExtResource("10_g1cyq")
+
+[node name="AttackLabel" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=722748642]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.257
+anchor_right = 0.344
+anchor_bottom = 0.31300002
+offset_left = 0.06299591
+offset_top = 0.10600281
+offset_right = -31.091003
+offset_bottom = -0.04600525
+theme_override_colors/font_color = Color(0.8016961, 0.35505116, 0.36834925, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "Attack"
+
+[node name="Attack" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=1551722908]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.675
+anchor_top = 0.257
+anchor_right = 0.95900005
+anchor_bottom = 0.31300002
+offset_left = 0.012008667
+offset_top = 0.10600281
+offset_right = 0.16799927
+offset_bottom = -0.04600525
+theme_override_colors/font_color = Color(0.8016961, 0.35505116, 0.36834925, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "Atk Value"
+
+[node name="AttackIcon" type="TextureRect" parent="NinePatchRect/BG/Details/Stats" unique_id=2049840351]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.047000002
+anchor_top = 0.23700002
+anchor_right = 0.132
+anchor_bottom = 0.32200003
+offset_left = -0.03993988
+offset_top = -0.054008484
+offset_right = -0.02494049
+offset_bottom = -0.12400818
+texture = ExtResource("9_05ptl")
+
+[node name="DefenseLabel" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=1947803083]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.147
+anchor_top = 0.36800003
+anchor_right = 0.379
+anchor_bottom = 0.42400002
+offset_left = 0.022994995
+offset_top = 0.14398956
+offset_right = -44.089005
+offset_bottom = -0.008010864
+theme_override_colors/font_color = Color(0.4253219, 0.5092579, 0.7349695, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "Defense"
+
+[node name="Defense" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=1328287296]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.67200005
+anchor_top = 0.36800003
+anchor_right = 0.957
+anchor_bottom = 0.42400002
+offset_left = 0.034988403
+offset_top = 0.14398956
+offset_right = -0.1499939
+offset_bottom = -0.008010864
+theme_override_colors/font_color = Color(0.4253219, 0.5092579, 0.7349695, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "Def Value"
+
+[node name="DefenseIcon" type="TextureRect" parent="NinePatchRect/BG/Details/Stats" unique_id=699438228]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.047000002
+anchor_top = 0.342
+anchor_right = 0.132
+anchor_bottom = 0.42700002
+offset_left = -0.03993988
+offset_top = 0.035995483
+offset_right = -0.02494049
+offset_bottom = -0.03401184
+texture = ExtResource("8_me6xy")
+
+[node name="StatusLabel" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=239983473]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.50200003
+anchor_top = 0.038000003
+anchor_right = 0.50200003
+anchor_bottom = 0.038000003
+offset_left = -47.640015
+offset_top = 0.0039987564
+offset_right = 47.359985
+offset_bottom = 23.003998
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 22
+text = "STATUS"
+
+[node name="SpAttackLabel" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=512876657]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.46800002
+anchor_right = 0.37800002
+anchor_bottom = 0.523
+offset_left = -0.15000153
+offset_top = -0.056015015
+offset_right = -36.89801
+offset_bottom = -2.8659973
+theme_override_colors/font_color = Color(0.67949593, 0.14506781, 0.4553721, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "SAttack"
+
+[node name="SpAttack" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=77364606]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.674
+anchor_top = 0.46800002
+anchor_right = 0.99100006
+anchor_bottom = 0.523
+offset_left = 0.1659851
+offset_top = -0.056015015
+offset_right = -11.93103
+offset_bottom = -2.8659973
+theme_override_colors/font_color = Color(0.67949593, 0.14506781, 0.4553721, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "SAtk Value"
+
+[node name="SAttackIcon" type="TextureRect" parent="NinePatchRect/BG/Details/Stats" unique_id=1299727835]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.047000002
+anchor_top = 0.44400004
+anchor_right = 0.132
+anchor_bottom = 0.52900004
+offset_left = -0.027000427
+offset_top = 0.1519928
+offset_right = -0.012001038
+offset_bottom = 0.08198547
+texture = ExtResource("11_05ptl")
+
+[node name="SpDefenseLabel" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=1340808825]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.56700003
+anchor_right = 0.41300002
+anchor_bottom = 0.623
+offset_left = -0.15000153
+offset_top = 0.08598328
+offset_right = -48.833008
+offset_bottom = -3.0660095
+theme_override_colors/font_color = Color(0.08585293, 0.26164958, 0.39511323, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "SDefense"
+
+[node name="SpDefense" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=1586355627]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.674
+anchor_top = 0.56700003
+anchor_right = 0.99100006
+anchor_bottom = 0.623
+offset_left = 0.1659851
+offset_top = 0.08598328
+offset_right = -11.93103
+offset_bottom = -3.0660095
+theme_override_colors/font_color = Color(0.08585293, 0.26164958, 0.39511323, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "SDef Value"
+
+[node name="SDefenseIcon" type="TextureRect" parent="NinePatchRect/BG/Details/Stats" unique_id=1635036010]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.047000002
+anchor_top = 0.54700005
+anchor_right = 0.132
+anchor_bottom = 0.632
+offset_left = -0.027000427
+offset_top = -0.074020386
+offset_right = -0.012001038
+offset_bottom = -0.14401245
+texture = ExtResource("12_g1cyq")
+
+[node name="SpeedLabel" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=1636441785]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.675
+anchor_right = 0.314
+anchor_bottom = 0.731
+offset_left = -0.15000153
+offset_top = 0.1499939
+offset_right = -26.074005
+offset_bottom = -3.001999
+theme_override_colors/font_color = Color(0.7531634, 0.7667185, 0.23043141, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "Speed"
+
+[node name="Speed" type="Label" parent="NinePatchRect/BG/Details/Stats" unique_id=1417411435]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.674
+anchor_top = 0.675
+anchor_right = 0.95600003
+anchor_bottom = 0.731
+offset_left = 0.1659851
+offset_top = 0.1499939
+offset_right = -10.996002
+offset_bottom = -3.001999
+theme_override_colors/font_color = Color(0.7531634, 0.7667185, 0.23043141, 1)
+theme_override_fonts/font = ExtResource("4_u5003")
+theme_override_font_sizes/font_size = 18
+text = "Spd Value"
+
+[node name="SpeedIcon" type="TextureRect" parent="NinePatchRect/BG/Details/Stats" unique_id=718496665]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.047000002
+anchor_top = 0.65500003
+anchor_right = 0.132
+anchor_bottom = 0.74
+offset_left = -0.027000427
+offset_top = -0.010009766
+offset_right = -0.012001038
+offset_bottom = -0.08000183
+texture = ExtResource("13_8iwhf")
+
+[node name="VSeparator" type="VSeparator" parent="NinePatchRect/BG/Details/Stats" unique_id=1968128815]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.592
+anchor_top = 0.149
+anchor_right = 0.60400003
+anchor_bottom = 0.74600005
+offset_left = 0.12799072
+offset_top = 0.041999817
+offset_right = 0.035995483
+offset_bottom = -0.13201904
 
 [node name="Container" type="Control" parent="NinePatchRect/BG/Details" unique_id=1470178412]
 layout_mode = 1
@@ -141,10 +634,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 34.0
-offset_top = 33.0
-offset_right = 183.0
-offset_bottom = 178.0
+offset_left = 45.0
+offset_top = 57.0
+offset_right = 355.0
+offset_bottom = 343.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_b71do")
@@ -153,111 +646,45 @@ patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
 
-[node name="TextureRect" type="AnimatedSprite2D" parent="NinePatchRect/BG/Details/Container" unique_id=1543656830]
-position = Vector2(129, 129)
-scale = Vector2(3.750001, 3.6718755)
+[node name="TextureRect" type="AnimatedSprite2D" parent="NinePatchRect/BG/Details/Container/bg" unique_id=1543656830]
+position = Vector2(168, 163.00002)
+scale = Vector2(8.593752, 8.117188)
 sprite_frames = SubResource("SpriteFrames_su2u3")
 
-[node name="GridContainer3" type="GridContainer" parent="NinePatchRect/BG/Details/Container" unique_id=1352572199]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 7.025
-anchor_top = 1.0
-anchor_right = 7.025
-anchor_bottom = 1.0
-offset_left = -44.0
-offset_top = 5.0
-offset_right = 44.0
-offset_bottom = 28.0
-columns = 2
-
-[node name="Name" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer3" unique_id=369312547]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Name"
-
-[node name="Type" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer3" unique_id=1646411016]
-layout_mode = 2
-text = "Type"
-
 [node name="GridContainer4" type="GridContainer" parent="NinePatchRect/BG/Details/Container" unique_id=955618265]
+z_index = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 9.0
 anchor_top = 2.275
 anchor_right = 9.0
 anchor_bottom = 2.275
-offset_left = -124.0
-offset_right = 124.0
-offset_bottom = 77.0
+offset_left = 549.0
+offset_top = 112.0
+offset_right = 797.0
+offset_bottom = 189.0
 columns = 2
 
 [node name="GridContainer" type="GridContainer" parent="NinePatchRect/BG/Details/Container/GridContainer4" unique_id=1019283226]
 layout_mode = 2
 columns = 2
 
-[node name="HP" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer" unique_id=1314647569]
-layout_mode = 2
-text = "HP"
-
-[node name="HP2" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer" unique_id=999543782]
-layout_mode = 2
-text = "HP Value"
-
-[node name="Attack" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer" unique_id=722748642]
-layout_mode = 2
-text = "Atk"
-
-[node name="Attack2" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer" unique_id=1551722908]
-layout_mode = 2
-text = "Atk Value"
-
-[node name="Defense" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer" unique_id=1947803083]
-layout_mode = 2
-text = "Def"
-
-[node name="Defense2" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer" unique_id=1328287296]
-layout_mode = 2
-text = "Def Value"
-
 [node name="GridContainer2" type="GridContainer" parent="NinePatchRect/BG/Details/Container/GridContainer4" unique_id=2113464635]
 layout_mode = 2
 columns = 2
 
-[node name="SpAttack" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer2" unique_id=512876657]
-layout_mode = 2
-text = "SAtck"
-
-[node name="SpAttack2" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer2" unique_id=77364606]
-layout_mode = 2
-text = "SAtck Value"
-
-[node name="SpDefense" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer2" unique_id=1340808825]
-layout_mode = 2
-text = "SDef"
-
-[node name="SpDefense2" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer2" unique_id=1586355627]
-layout_mode = 2
-text = "SDef Value"
-
-[node name="Speed" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer2" unique_id=1636441785]
-layout_mode = 2
-text = "Spd"
-
-[node name="Speed2" type="Label" parent="NinePatchRect/BG/Details/Container/GridContainer4/GridContainer2" unique_id=1417411435]
-layout_mode = 2
-text = "Spd Value"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/BG/Details/Container" unique_id=889794265]
+z_index = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 3.5870001
 anchor_top = 6.425
 anchor_right = 3.5870001
 anchor_bottom = 6.425
-offset_left = -49.48001
-offset_right = 49.51999
-offset_bottom = 60.0
+offset_left = 1326.52
+offset_top = -44.0
+offset_right = 1425.52
+offset_bottom = 16.0
 alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="NinePatchRect/BG/Details/Container/VBoxContainer" unique_id=1151500083]
@@ -285,16 +712,17 @@ theme_override_font_sizes/font_size = 20
 text = "PP"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="NinePatchRect/BG/Details/Container" unique_id=414575916]
+z_index = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 9.362
 anchor_top = 6.3250003
 anchor_right = 9.362
 anchor_bottom = 6.3250003
-offset_left = -49.48001
-offset_top = -1.5258789e-05
-offset_right = 49.51999
-offset_bottom = 59.999985
+offset_left = 1326.52
+offset_top = -44.000015
+offset_right = 1425.52
+offset_bottom = 15.999985
 alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="NinePatchRect/BG/Details/Container/VBoxContainer2" unique_id=1134231850]
@@ -324,13 +752,13 @@ text = "PP"
 [node name="Switch" type="TextureButton" parent="NinePatchRect/BG/Details/Container" unique_id=820595935]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 4.4750004
-anchor_top = 10.0
-anchor_right = 4.4750004
-anchor_bottom = 10.0
-offset_left = -52.000015
-offset_right = 51.999985
-offset_bottom = 56.0
+anchor_left = 2.275
+anchor_top = 9.775001
+anchor_right = 8.650001
+anchor_bottom = 12.075001
+offset_top = -3.0517578e-05
+offset_right = -3.0517578e-05
+offset_bottom = -3.0517578e-05
 texture_normal = ExtResource("7_ehv6g")
 texture_pressed = ExtResource("8_su2u3")
 stretch_mode = 0
@@ -338,13 +766,13 @@ stretch_mode = 0
 [node name="Cancel" type="TextureButton" parent="NinePatchRect/BG/Details/Container" unique_id=532154226]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 8.6
-anchor_top = 9.975
-anchor_right = 8.6
-anchor_bottom = 9.975
-offset_left = -52.0
-offset_right = 52.0
-offset_bottom = 56.0
+anchor_left = 2.275
+anchor_top = 12.500001
+anchor_right = 8.650001
+anchor_bottom = 14.800001
+offset_top = -3.0517578e-05
+offset_right = -3.0517578e-05
+offset_bottom = -6.1035156e-05
 texture_normal = ExtResource("9_su2u3")
 texture_pressed = ExtResource("10_u5003")
 stretch_mode = 0
@@ -353,16 +781,20 @@ stretch_mode = 0
 oversampling_override = 1.0
 position = Vector2i(0, 36)
 
+[node name="BookAnimation" type="AnimationPlayer" parent="NinePatchRect/BG/Details" unique_id=787157854]
+libraries/ = SubResource("AnimationLibrary_5dxjk")
+
 [node name="CloseButton" type="TextureButton" parent="." unique_id=1218040698]
+z_index = 1
 anchors_preset = -1
-anchor_left = 0.753
-anchor_top = 0.13700001
-anchor_right = 0.753
-anchor_bottom = 0.13700001
-offset_left = 5.0599365
-offset_top = -31.640007
-offset_right = 59.059937
-offset_bottom = 19.359993
+anchor_left = 0.93900007
+anchor_top = 0.049000002
+anchor_right = 0.93900007
+anchor_bottom = 0.049000002
+offset_left = -45.220093
+offset_top = -0.2800026
+offset_right = 46.779907
+offset_bottom = 87.72
 grow_horizontal = 0
 texture_normal = ExtResource("2_w5tlr")
 texture_pressed = ExtResource("3_5idv1")

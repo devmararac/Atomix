@@ -19,11 +19,11 @@
 [ext_resource type="Texture2D" uid="uid://fjyw3abirwgm" path="res://Assets/UX/Icons/nonmetal.png" id="8_ioru3"]
 [ext_resource type="Texture2D" uid="uid://bo1alsg7amrsu" path="res://Assets/UX/Icons/post_transition_metal.png" id="9_7eel5"]
 [ext_resource type="Texture2D" uid="uid://dak7g7ojug004" path="res://Assets/UX/Icons/metalloids.png" id="10_wjn1u"]
+[ext_resource type="Texture2D" uid="uid://dtm28k6auf1cw" path="res://Assets/UX/Buttons/Normal/craft_button.png" id="11_bsyg3"]
 [ext_resource type="Texture2D" uid="uid://d2ysj01d7wu4" path="res://Assets/UX/Icons/halogen.png" id="11_m2v0a"]
 [ext_resource type="Texture2D" uid="uid://rsely784lcmd" path="res://Assets/UX/Icons/noble_gas.png" id="12_flb27"]
 [ext_resource type="Texture2D" uid="uid://dcivlvakyp1ae" path="res://Assets/UX/Icons/lanthanide.png" id="13_edkgq"]
 [ext_resource type="Texture2D" uid="uid://e3qutfk27y18" path="res://Assets/UX/Icons/actinide.png" id="14_l8nkd"]
-[ext_resource type="Texture2D" uid="uid://dawcayk1x4s8j" path="res://Assets/UX/Buttons/Normal/craft_button_disabled.png" id="22_l3xq3"]
 [ext_resource type="Texture2D" uid="uid://ctrrlrpealfi8" path="res://Assets/UX/Buttons/On-Pressed/craft_button_pressed.png" id="23_l3xq3"]
 [ext_resource type="Texture2D" uid="uid://ds5tt5qvjt5n6" path="res://Assets/UX/Buttons/Disabled/craft_button.png" id="24_28kaa"]
 
@@ -1471,7 +1471,7 @@ offset_left = 366.268
 offset_top = 565.0
 offset_right = 462.268
 offset_bottom = 613.0
-texture_normal = ExtResource("22_l3xq3")
+texture_normal = ExtResource("11_bsyg3")
 texture_pressed = ExtResource("23_l3xq3")
 texture_disabled = ExtResource("24_28kaa")
 

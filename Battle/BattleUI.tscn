@@ -24,6 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="16_c225n"]
 [ext_resource type="AudioStream" uid="uid://bssvvaqt0wwfo" path="res://Assets/Music/Run Bunny Run.mp3" id="16_gwo5a"]
 [ext_resource type="Script" uid="uid://vt7nk5gwohmi" path="res://Battle/BattleController.gd" id="21_4cw33"]
+[ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="25_4xqci"]
+[ext_resource type="Resource" uid="uid://dy0w3huok6wvi" path="res://Resources/NPCs/TRES/elysa.tres" id="26_qyglk"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c225n"]
 load_path = "res://.godot/imported/atomon_sprite.png-8d7a2f2bcbae16fdd9a5c61d790751e7.ctex"
@@ -569,6 +571,11 @@ stretch_mode = 0
 
 [node name="BattleController" type="Node" parent="." unique_id=1091136324]
 script = ExtResource("21_4cw33")
+
+[node name="BattleAnnouncer" parent="." unique_id=747614588 instance=ExtResource("25_4xqci")]
+position = Vector2(89, 211.00002)
+scale = Vector2(6, 6)
+data = ExtResource("26_qyglk")
 
 [connection signal="pressed" from="CanvasLayer/HUD/FriendlyAtomonInfo/TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MoveMenu/CommandPanel2/CloseButton" to="." method="_on_close_button_pressed"]

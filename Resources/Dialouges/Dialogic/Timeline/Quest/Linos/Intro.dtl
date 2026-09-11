@@ -1,0 +1,126 @@
+linos: Hey wait!
+[signal arg="player_move_to_target"]
+[signal arg="player_face_npc"]
+
+linos: I don't think I've seen you around here before.
+linos: You must be new here, huh?
+linos: Well, welcome to [color=#4F6B45]Atomonia[/color]. I'm Linos.
+linos: It's nice to meet you.
+- Nice to meet you too..
+	linos: Likewise!
+	linos: This village is located south east of Chemistria.
+	linos: So, you're new around here?
+- Where am I?
+	linos: This village is located south east of Chemistria.
+	linos: So, you're new around here?
+- What's going on?
+	linos: This village is located south east of Chemistria.
+	linos: Hmm? Are you ok stranger?
+	linos: You don't seem to be feeling fine.
+	linos: Are you new around here?
+linos: You look like you haven't been here before.
+linos: Have you been to Atomonia before?
+- No, never.
+	linos: I thought so.
+- I don't think so.
+	linos: Heh. That explains the confused look.
+- I'm not sure.
+	linos: Fair enough.
+linos: Wait... Where did you came from?
+[signal arg="emote:linos:curious"]
+linos: You came out on that direction right?
+linos: That path leads to a cliff...
+linos: How could anyone have come from there without entering through this path?
+linos: Unless....
+Player: Unless what??
+[signal arg="emote:linos:shocked"]
+linos: You're an intruder! You must be planning to harm our village!
+Player: WHAT!? Wait no...
+Player: Listen... I am just as clueless as you are about all of this..
+Player: First of all, I don't even know Atomonia.
+Player: Second, I don't even know where Chemistria is!
+Player: Is that even a real place??
+linos: What?
+linos: Of course Chemistria is real!
+linos: What kind of question is that?
+Player: I don't know...
+Player: I don't know where I am, I don't know how I got here, and now you're telling me I'm in a place I've never even heard of!
+linos: ...
+linos: You really don't know anything, do you?
+Player: Yeah... And I'm scared. I want to go back!
+linos: That is something even I don't know how to help you with...
+linos: We don't know how you got here, and why.
+linos: Atleast tell me where are you from? Maybe from a different continent perhaps?
+Player: I'm from Philippines...
+linos: Phili... what??
+Player: PHILIPPINES! A country I live in. You know,a small country on planet Earth.
+linos: Earth? Never heard of Philippines as a country and Earth as a planet my friend..
+linos: Our planet is called Atherion...
+Player: Atherion?
+Player: You're joking right??
+linos: Why would I lie about this? Atomonia is my village, Chemistria is my country and Atherion is my planet.
+Player: (Ohhh please no...)
+linos: You really don't know anything about this place, do you?
+Player: Not a single thing...
+linos: Well...
+linos: I suppose that's going to make things a little complicated.
+Player: Yeah. A LOT.
+[signal arg="emote:linos:worried"]
+linos: But we'll figure something out.
+[signal arg="atomon_walk"]
+[wait time="2.0"]
+Player: ........
+Player: Uh........
+Player: What is that?
+linos: What?
+Player: That thing!
+linos: Oh.
+linos: That's Hydrubbie.
+linos: A Hydrogen Atomon.
+Player: An... Atomon?
+linos: Yeah.
+Player: What is an Atomon? And Hydrogen? As in the element?
+linos: Oh, right.
+[signal arg="emote:linos:giggle"]
+linos: I keep forgetting you're not from around here.
+linos: Atomons are creatures that live all across Atherion.
+Player: Like animals?
+linos: In a way.
+linos: But they're quite different from ordinary animals.
+Player: Yeah.. I can totally see that..
+linos: Every Atomon is associated with an element.
+linos: Hydrogen, Oxygen, Carbon, Iron...
+linos: You know, the elements.
+Player: Yeah I know them of course. Atleast they are named the same here from my world.
+Player: But you're telling me those are creatures? Here?
+linos: Well, they're Atomons.
+Player: So that thing that just walked past us...
+linos: That's a Hydrogen Atomon.
+Player: And it just... walks around the village?
+linos: This one does.
+linos: It's actually a stray.
+linos: It started wandering around Atomonia some time ago.
+linos: Nobody really knows where it came from.
+linos: But it never caused any trouble.
+linos: The villagers got used to seeing it around, so we just let it stay.
+Player: So it's basically part of the village now?
+linos: Pretty much.
+Player: That's actually kind of cute.
+linos: You're already getting along with Hydrubbie.
+Player: I wouldn't go that far.
+linos: Anyway, you'll probably be seeing a lot more of them.
+Player: Somehow, I don't think that's going to make this place any less confusing.
+linos: You'll get used to it.
+Player: I hope so.
+Player: But I still have so many questions about Atomons.
+linos: Hmm...
+linos: Actually, I know someone who might be able to help.
+linos: There's someone in the village who knows quite a lot about Atomons.
+linos: He's probably the best person to ask if you want to understand them better.
+Player: Where can I find him?
+linos: He should be around Atomonia somewhere.
+linos: Pay him a visit when you get the chance.
+Player: Alright. I guess I could start there.
+linos: Good luck.
+linos: And don't worry. He'll probably have plenty to tell you.
+[signal arg="quest_accept:quest_chain_001"]

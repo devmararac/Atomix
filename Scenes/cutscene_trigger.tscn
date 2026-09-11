@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bq4xocjdqjntd"]
+
+[ext_resource type="Script" uid="uid://cywi5ah5bkytt" path="res://Scripts/Cutscene/cutscene_trigger.gd" id="1_n41pp"]
+
+[node name="Cutscene Trigger" type="Area2D" unique_id=1189239625]
+script = ExtResource("1_n41pp")

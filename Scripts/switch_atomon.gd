@@ -14,21 +14,30 @@ var current_battle_atomon: AtomonInstance
 var waiting_for_switch := false
 var force_switch := false
 
+@onready var book_area: Control = $NinePatchRect/BG/Details/Control
+@onready var book: Sprite2D = $NinePatchRect/BG/Details/Control/Book
+@onready var book_animation: AnimationPlayer = $NinePatchRect/BG/Details/BookAnimation
+
+var book_opened := false
+
+const BOOK_FRAME_SIZE := Vector2(592.0, 522.0)
 
 @onready var details_container = $NinePatchRect/BG/Details/Container
 @onready var confirm_dialog = $NinePatchRect/BG/Details/Container/ConfirmationDialog
-@onready var sprite = $NinePatchRect/BG/Details/Container/TextureRect
+@onready var sprite = $NinePatchRect/BG/Details/Container/bg/TextureRect
 
-@onready var name_label = $NinePatchRect/BG/Details/Container/GridContainer3/Name
-@onready var type_label = $NinePatchRect/BG/Details/Container/GridContainer3/Type
+@onready var name_type = $NinePatchRect/BG/Details/NameType
+@onready var name_label = $NinePatchRect/BG/Details/NameType/Name
+@onready var type_label = $NinePatchRect/BG/Details/NameType/Type
 
-@onready var hp = $NinePatchRect/BG/Details/Container/GridContainer4/GridContainer/HP2
-@onready var atk = $NinePatchRect/BG/Details/Container/GridContainer4/GridContainer/Attack2
-@onready var defense = $NinePatchRect/BG/Details/Container/GridContainer4/GridContainer/Defense2
+@onready var stats = $NinePatchRect/BG/Details/Stats
+@onready var hp = $NinePatchRect/BG/Details/Stats/HP
+@onready var atk = $NinePatchRect/BG/Details/Stats/Attack
+@onready var defense = $NinePatchRect/BG/Details/Stats/Defense
 
-@onready var sp_atk = $NinePatchRect/BG/Details/Container/GridContainer4/GridContainer2/SpAttack2
-@onready var sp_def = $NinePatchRect/BG/Details/Container/GridContainer4/GridContainer2/SpDefense2
-@onready var speed = $NinePatchRect/BG/Details/Container/GridContainer4/GridContainer2/Speed2
+@onready var sp_atk = $NinePatchRect/BG/Details/Stats/SpAttack
+@onready var sp_def = $NinePatchRect/BG/Details/Stats/SpDefense
+@onready var speed = $NinePatchRect/BG/Details/Stats/Speed
 
 @onready var move1 = $NinePatchRect/BG/Details/Container/VBoxContainer/GridContainer/Label
 @onready var pp1 = $NinePatchRect/BG/Details/Container/VBoxContainer/GridContainer/Label3
@@ -46,31 +55,44 @@ var force_switch := false
 @onready var cancel_button = $NinePatchRect/BG/Details/Container/Cancel
 
 @onready var slots = [
-	$NinePatchRect/BG/ScrollContainer/GridContainer/slot_1,
-	$NinePatchRect/BG/ScrollContainer/GridContainer/slot_2,
-	$NinePatchRect/BG/ScrollContainer/GridContainer/slot_3,
-	$NinePatchRect/BG/ScrollContainer/GridContainer/slot_4,
-	$NinePatchRect/BG/ScrollContainer/GridContainer/slot_5,
+	$"NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer/slot_1",
+	$"NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer/slot_2",
+	$"NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer/slot_3",
+	$"NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer/slot_4",
+	$"NinePatchRect/BG/Slots Panel/ScrollContainer/GridContainer/slot_5",
 ]
 
+
+
+	
 func _ready():
 
+	name_type.visible = false
+	stats.visible = false
 	details_container.hide()
-	
+
+	book_area.resized.connect(update_book_transform)
+	update_book_transform()
+
 	if not BattleControllerGlobal.hp_changed.is_connected(_on_hp_changed):
 		BattleControllerGlobal.hp_changed.connect(_on_hp_changed)
-	
+
 	if not BattleControllerGlobal.stats_changed.is_connected(_on_stats_changed):
 		BattleControllerGlobal.stats_changed.connect(_on_stats_changed)
+
 	var party = PartyManager.get_party()
+
 	for i in range(slots.size()):
 		if i < party.size():
+			slots[i].show()
 			slots[i].set_atomon(party[i])
+
 			slots[i].slot_clicked.connect(
 				func(_instance):
 					_on_slot_clicked(i)
 			)
 		else:
+			slots[i].hide()
 			slots[i].clear_slot()
 
 func _on_hp_changed():
@@ -81,12 +103,15 @@ func _on_hp_changed():
 	# Also refresh the party slots
 	refresh_slots()
 
-func refresh_slots():
+func refresh_slots() -> void:
 	var party = PartyManager.get_party()
+
 	for i in range(slots.size()):
 		if i < party.size():
+			slots[i].show()
 			slots[i].set_atomon(party[i])
 		else:
+			slots[i].hide()
 			slots[i].clear_slot()
 
 func _on_stats_changed() -> void:
@@ -95,12 +120,10 @@ func _on_stats_changed() -> void:
 	update_details(selected_atomon)
 	
 
-func _on_slot_clicked(index:int):
+func _on_slot_clicked(index: int):
 
 	selected_atomon = PartyManager.get_party()[index]
-
 	
-
 	if selected_atomon.current_hp <= 0:
 		waiting_for_switch = false
 		confirm_dialog.dialog_text = "%s has fainted!" % selected_atomon.data.atom_name
@@ -109,10 +132,27 @@ func _on_slot_clicked(index:int):
 
 	selected_index = index
 
+	# First click: open the book first
+	if not book_opened:
+
+		book_opened = true
+
+		# Start from the closed book
+		book.frame = 0
+
+		# Play opening animation
+		book_animation.play("open")
+
+		# Wait until the book reaches frame 3
+		await book_animation.animation_finished
+
+	# Only show details after the book has opened
 	details_container.show()
+	name_type.show()
+	stats.show()
+
 	update_details(selected_atomon)
-
-
+	
 func update_details(instance: AtomonInstance) -> void:
 
 	var data = instance.data
@@ -129,7 +169,7 @@ func update_details(instance: AtomonInstance) -> void:
 		sprite.play("idle")
 
 	# Basic Info
-	name_label.text = data.atom_name
+	name_label.text = "Element: " + data.atom_name
 	type_label.text = data.element_type
 
 	var max_hp = StatCalculator.get_hp(data)
@@ -185,6 +225,21 @@ func update_details(instance: AtomonInstance) -> void:
 			data.moves[3].max_uses
 		]
 
+func update_book_transform() -> void:
+
+	var container_size := book_area.size
+
+	if container_size.x <= 0.0 or container_size.y <= 0.0:
+		return
+
+	# Center the book inside the Control
+	book.position = container_size / 2.0
+
+	# Stretch independently to exactly match the Control
+	book.scale = Vector2(
+		container_size.x / BOOK_FRAME_SIZE.x,
+		container_size.y / BOOK_FRAME_SIZE.y
+	)
 
 func _on_switch_pressed():
 

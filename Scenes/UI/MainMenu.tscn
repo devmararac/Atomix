@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://doo7mciw56tpw" path="res://Assets/UX/HUD/Panels/main_panel.png" id="4_ynupv"]
 [ext_resource type="Texture2D" uid="uid://cntwpifdy45is" path="res://Assets/UX/Buttons/On-Pressed/start_button_pressed.png" id="5_744d7"]
 [ext_resource type="Texture2D" uid="uid://d2g8hi1viw8rr" path="res://Assets/UX/Buttons/Normal/login_button.png" id="6_hys1s"]
-[ext_resource type="AudioStream" uid="uid://d1u513vg34uhk" path="res://Assets/Music/Kevin MacLeod - Itty Bitty 8 Bit ♫ NO COPYRIGHT 8-bit Music.mp3" id="7_744d7"]
+[ext_resource type="AudioStream" uid="uid://d1u513vg34uhk" path="res://Assets/Music/Kevin MacLeod - Itty Bitty 8 Bit #U266b NO COPYRIGHT 8-bit Music.mp3" id="7_744d7"]
 [ext_resource type="Texture2D" uid="uid://cjjnuq13i5dll" path="res://Assets/UX/Buttons/On-Pressed/login_pressed.png" id="7_fgqbg"]
 [ext_resource type="Texture2D" uid="uid://b2n2075ljfgx4" path="res://Assets/UX/Buttons/Normal/SignUp_button.png" id="8_euk5f"]
 [ext_resource type="Texture2D" uid="uid://cwfu2b6vyg5oy" path="res://Assets/UX/Buttons/On-Pressed/SignUp_pressed.png" id="9_kdsd0"]

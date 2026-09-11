@@ -63,11 +63,41 @@ func setup_battle(player: AtomonInstance, enemy: AtomonData) -> void:
 	
 	enemy_data = enemy
 	
-	if player_instance.current_pp.size() != player_instance.data.moves.size():
-		player_instance.current_pp.clear()
+	# ========================================================
+	# PLAYER PP
+	# ========================================================
 
-		for move in player_instance.data.moves:
-			player_instance.current_pp.append(move.max_uses)
+	# Make sure current_pp has an entry for every move.
+	# Preserve saved PP values whenever they already exist.
+
+	while player_instance.current_pp.size() < player_instance.data.moves.size():
+		var index := player_instance.current_pp.size()
+		player_instance.current_pp.append(
+			player_instance.data.moves[index].max_uses
+		)
+
+	# Remove extra PP entries if there are more PP values
+	# than the current number of moves.
+	while player_instance.current_pp.size() > player_instance.data.moves.size():
+		player_instance.current_pp.pop_back()
+
+	print("========== BATTLE PP ==========")
+	print("Atomon: ", player_instance.data.atom_name)
+	print("Moves: ", player_instance.data.moves.size())
+	print("Current PP: ", player_instance.current_pp)
+
+	for i in range(player_instance.data.moves.size()):
+		print(
+			"Move ", i,
+			": ",
+			player_instance.data.moves[i].move_name,
+			" | PP: ",
+			player_instance.current_pp[i],
+			"/",
+			player_instance.data.moves[i].max_uses
+		)
+
+	print("================================")
 	
 	if player_instance == null:
 		push_error("BattleController: Player Atomon is null.")
@@ -82,12 +112,6 @@ func setup_battle(player: AtomonInstance, enemy: AtomonData) -> void:
 	# ========================================================
 	player_max_hp = StatCalculator.get_battle_hp(player_instance)
 	player_hp = player_instance.current_hp
-
-	# Restore HP only if the Atomon has never been initialized
-	if player_hp <= 0:
-		player_hp = player_max_hp
-		player_instance.current_hp = player_hp
-
 	# ========================================================
 	# PLAYER STATS
 	# ========================================================
@@ -336,10 +360,21 @@ func execute_move(move: MoveData, user_is_player: bool) -> void:
 
 func get_player_pp(move_index: int) -> int:
 	if player_instance == null:
+		print("[PP DEBUG] player_instance is NULL")
 		return 0
 
+	print("========== GET PLAYER PP ==========")
+	print("Player: ", player_instance.data.atom_name)
+	print("Move index: ", move_index)
+	print("Moves count: ", player_instance.data.moves.size())
+	print("Current PP: ", player_instance.current_pp)
+
 	if move_index < 0 or move_index >= player_instance.current_pp.size():
+		print("[PP DEBUG] INVALID INDEX -> returning 0")
 		return 0
+
+	print("[PP DEBUG] RETURNING PP: ", player_instance.current_pp[move_index])
+	print("===================================")
 
 	return player_instance.current_pp[move_index]
 

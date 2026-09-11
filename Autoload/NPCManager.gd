@@ -130,3 +130,26 @@ func get_objective_conversation(
 		return conversation
 
 	return null
+
+func play_battle_announcement(npc: NPCBase, timeline: StringName):
+
+	if npc == null:
+		return
+
+	if npc.data == null:
+		return
+
+	if global.player != null:
+		global.player.can_move = false
+
+	var layout = Dialogic.start(timeline)
+
+	if global.player and global.player.has_method("register_dialogic"):
+		global.player.register_dialogic(layout)
+
+	layout.register_character(
+		npc.data.dialogic_character,
+		npc.get_node("BubbleMarker")
+	)
+
+	return layout

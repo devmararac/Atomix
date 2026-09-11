@@ -64,8 +64,10 @@ directories/dch_directory={
 "linos": "res://Resources/Dialouges/Dialogic/Characters/linos.dch"
 }
 directories/dtl_directory={
+"Intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Linos/Intro.dtl",
 "StartingCutscene": "res://Resources/Dialouges/Dialogic/Timeline/StartingCutscene.dtl",
 "atomonia_entrance": "res://Resources/Dialouges/Dialogic/Timeline/atomonia_entrance.dtl",
+"battle_announce": "res://Resources/Dialouges/Dialogic/Timeline/battle_announce.dtl",
 "beryll_introduction": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction.dtl",
 "beryll_introduction2": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction2.dtl",
 "dianne_line": "res://Resources/Dialouges/Dialogic/Timeline/Tutorial Scene/dianne_line.dtl",
@@ -87,7 +89,9 @@ layout/style_directory={
 layout/style_list=["res://Resources/Dialouges/Dialogic/Styles/Dialogic_Style.tres", "res://Resources/Dialouges/Dialogic/Styles/text_bubble.tres"]
 glossary/default_case_sensitive=true
 layout/default_style="res://Resources/Dialouges/Dialogic/Styles/text_bubble.tres"
-variables={}
+variables={
+"battle_message": "This is a battle announcement!"
+}
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true

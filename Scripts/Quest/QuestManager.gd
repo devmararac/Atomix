@@ -17,7 +17,8 @@ signal quest_completed(quest_id: String)
 var quest_database := {
 	"quest_hydrogen_001": preload("res://Resources/Quest/quest_hydrogen_001.tres"),
 	"quest_collect_iron": preload("res://Resources/Quest/quest_collect_iron.tres"),
-	"story_quest_explore_dungeon": preload("res://Resources/Quest/explore_dungeon.tres")
+	"story_quest_explore_dungeon": preload("res://Resources/Quest/explore_dungeon.tres"),
+	"quest_chain_001": preload("res://Resources/Quest/quest_chain.tres")
 }
 
 # -------------------------------------------------------------------

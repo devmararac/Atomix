@@ -56,6 +56,7 @@ var switch_menu: CanvasLayer
 # BATTLE LOG
 # ============================================================
 @onready var battle_log: RichTextLabel = ($CanvasLayer/BattleLog)
+@onready var battle_announcer: NPCBase = $BattleAnnouncer
 
 # ============================================================
 # MENUS
@@ -136,6 +137,7 @@ func _ready() -> void:
 	# Initial message
 	# --------------------------------------------------------
 	battle_log.text = ("A wild " + enemy_data.atom_name + " appeared!")
+	announce(("A wild " + enemy_data.atom_name + " appeared!"))
 
 # ============================================================
 # CONNECT BATTLE CONTROLLER SIGNALS
@@ -312,8 +314,18 @@ func use_move(move_index: int) -> void:
 	if move_index >= player_moves.size():
 		return
 
-	if BattleControllerGlobal.get_player_pp(move_index) <= 0:
+	var current_pp = BattleControllerGlobal.get_player_pp(move_index)
+
+	print("========== USE MOVE DEBUG ==========")
+	print("Move index: ", move_index)
+	print("PP received by use_move: ", current_pp)
+	print("PP <= 0? ", current_pp <= 0)
+	print("PP > 0? ", current_pp > 0)
+	print("====================================")
+
+	if current_pp <= 0:
 		battle_log.text = "No PP left for this move!"
+		announce("No PP left for this move!")
 		return
 
 	var move: MoveData = (player_moves[move_index])
@@ -325,6 +337,7 @@ func use_move(move_index: int) -> void:
 	# --------------------------------------------------------
 	await animate_player_attack()
 	battle_log.text = (player_instance.data.atom_name + " used " + move.move_name + "!")
+	announce((player_instance.data.atom_name + " used " + move.move_name + "!"))
 
 	# --------------------------------------------------------
 	# Execute move
@@ -372,6 +385,7 @@ func enemy_turn() -> void:
 	var enemy_move: MoveData = (enemy_data.moves[randi() % enemy_data.moves.size()])
 	await animate_enemy_attack()
 	battle_log.text = (enemy_data.atom_name + " used " + enemy_move.move_name + "!")
+	announce((enemy_data.atom_name + " used " + enemy_move.move_name + "!"))
 	BattleControllerGlobal.execute_move(enemy_move, false)
 	BattleControllerGlobal.end_enemy_turn()
 	await get_tree().create_timer(0.5).timeout
@@ -403,12 +417,14 @@ func _on_hp_changed() -> void:
 # ============================================================
 func _on_player_damaged(amount: int) -> void:
 	battle_log.text = (player_instance.data.atom_name + " took " + str(amount) + " damage!")
+	announce((player_instance.data.atom_name + " took " + str(amount) + " damage!"))
 
 # ============================================================
 # ENEMY DAMAGED
 # ============================================================
 func _on_enemy_damaged(amount: int) -> void:
 	battle_log.text = (enemy_data.atom_name + " took " + str(amount) + " damage!")
+	announce((enemy_data.atom_name + " took " + str(amount) + " damage!"))
 
 # ============================================================
 # PLAYER HEALED
@@ -416,37 +432,54 @@ func _on_enemy_damaged(amount: int) -> void:
 func _on_player_healed(amount: int) -> void:
 
 	battle_log.text = (player_instance.data.atom_name + " recovered " + str(amount) + " HP!")
+	announce((player_instance.data.atom_name + " recovered " + str(amount) + " HP!"))
 
 # ============================================================
 # ENEMY HEALED
 # ============================================================
 func _on_enemy_healed(amount: int) -> void:
 	battle_log.text = (enemy_data.atom_name + " recovered " + str(amount) + " HP!")
+	announce((enemy_data.atom_name + " recovered " + str(amount) + " HP!"))
 
 # ============================================================
 # PLAYER FAINTED
 # ============================================================
 func _on_player_fainted() -> void:
-	battle_log.text = (player_instance.data.atom_name + " fainted!")
+	battle_log.text = player_instance.data.atom_name + " fainted!"
+	announce(player_instance.data.atom_name + " fainted!")
+
 	command_ui.visible = false
 	move_menu.visible = false
+
 	await get_tree().create_timer(1.5).timeout
 
+	# --------------------------------------------------------
+	# Check if another Atomon is available
+	# --------------------------------------------------------
 	if PartyManager.has_available_atomon():
+		# Let the player choose the replacement.
 		open_party_menu()
-	else:
-		battle_log.text = ("No Atomons left!")
+		return
 
-		await get_tree().create_timer(1.0).timeout
-		BattleManager.end_battle()
-		command_ui.visible = false
-		move_menu.visible = false
+	# --------------------------------------------------------
+	# No Atomons remaining
+	# --------------------------------------------------------
+	battle_log.text = "No Atomons left!"
+	announce("No Atomons left!")
+
+	await get_tree().create_timer(1.0).timeout
+
+	BattleManager.end_battle()
+
+	command_ui.visible = false
+	move_menu.visible = false
 
 # ============================================================
 # ENEMY FAINTED
 # ============================================================
 func _on_enemy_fainted() -> void:
 	battle_log.text = (enemy_data.atom_name + " fainted!")
+	announce((enemy_data.atom_name + " fainted!"))
 	command_ui.visible = false
 	move_menu.visible = false
 
@@ -579,6 +612,7 @@ func refresh_player() -> void:
 		return
 		
 	battle_log.text = ( "Go! " + new_player.data.atom_name + "!")
+	announce(( "Go! " + new_player.data.atom_name + "!"))
 
 	if player_atomon != null:
 		player_atomon.queue_free()
@@ -619,6 +653,7 @@ func _on_switch_menu_closed() -> void:
 # ============================================================
 func _on_run_pressed() -> void:
 	battle_log.text = ("You ran away!")
+	announce(("You ran away!"))
 	# Save the HP the Atomon currently has
 	BattleControllerGlobal.save_player_hp()
 	await get_tree().create_timer(1.0).timeout
@@ -655,3 +690,10 @@ func _on_excite_button_pressed() -> void:
 	print("battle_controller = ", BattleControllerGlobal)
 
 	BattleControllerGlobal.on_excitement_button_pressed()
+
+func announce(message: String) -> void:
+	print("BATTLE ANNOUNCER: ", message)
+	if battle_announcer == null:
+		return
+	Dialogic.VAR.battle_message = message
+	NpcManager.play_battle_announcement(battle_announcer, &"battle_announce")

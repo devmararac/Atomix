@@ -327,3 +327,6 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_1561x")
 text = "Test"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CryPlayer" type="AudioStreamPlayer2D" parent="." unique_id=2104218796]
+

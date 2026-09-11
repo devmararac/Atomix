@@ -3,18 +3,33 @@ class_name NPCBase
 
 @export var data: NPCData
 
+@onready var emote: Sprite2D = $Emote
 @onready var display_name = $NameContainer/Label
 @onready var sprite = $NpcSprite
 @onready var indicator = $NpcSprite/Indicator
 @onready var BubbleMarker = $BubbleMarker
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @export var show_navigation_path := false
+const ANGRY = preload("res://Assets/Emotes/angry.png")
+const WORRIED = preload("res://Assets/Emotes/worried.png")
+const WEIRDED = preload("res://Assets/Emotes/weirded.png")
+const THANKFUL = preload("res://Assets/Emotes/thankful.png")
+const SLEEPY = preload("res://Assets/Emotes/sleepy.png")
+const SHOCKED = preload("res://Assets/Emotes/shocked.png")
+const LOL = preload("res://Assets/Emotes/lol.png")
+const KISS = preload("res://Assets/Emotes/kiss.png")
+const HAPPY = preload("res://Assets/Emotes/happy.png")
+const GIGGLE = preload("res://Assets/Emotes/giggle.png")
+const CURIOUS = preload("res://Assets/Emotes/curious.png")
+const CLOWN = preload("res://Assets/Emotes/clown.png")
+const ANNOYED = preload("res://Assets/Emotes/annoyed.png")
 
 signal destination_reached
 
 var joystick_controlled := false
 var is_moving := false
 var debug_path: PackedVector2Array = []
+var emote_tween: Tween
 
 func _ready():
 	setup_npc()
@@ -119,3 +134,106 @@ func _draw():
 
 	for point in debug_path:
 		draw_circle(to_local(point), 4, Color.YELLOW)
+
+func show_emote(texture: Texture2D, duration: float = 2.5) -> void:
+	if emote_tween:
+		emote_tween.kill()
+
+	emote.texture = texture
+	emote.show()
+
+	var base_position := emote.position
+	emote.position = base_position + Vector2(0, 10)
+	emote.scale = Vector2(0.8, 0.8)
+	emote.modulate.a = 1.0
+
+	emote_tween = create_tween()
+
+	# Pop up
+	emote_tween.set_trans(Tween.TRANS_BACK)
+	emote_tween.set_ease(Tween.EASE_OUT)
+	emote_tween.tween_property(
+		emote,
+		"position",
+		base_position,
+		0.35
+	)
+
+	# Scale up slightly
+	emote_tween.parallel().tween_property(
+		emote,
+		"scale",
+		Vector2.ONE,
+		0.35
+	)
+
+	# Small bounce
+	emote_tween.tween_property(
+		emote,
+		"position",
+		base_position + Vector2(0, -5),
+		0.12
+	)
+
+	emote_tween.tween_property(
+		emote,
+		"position",
+		base_position,
+		0.12
+	)
+
+	# Stay visible
+	emote_tween.tween_interval(duration)
+
+	# Fade out
+	emote_tween.tween_property(
+		emote,
+		"modulate:a",
+		0.0,
+		0.25
+	)
+
+	# Hide and reset
+	emote_tween.tween_callback(func():
+		emote.hide()
+		emote.texture = null
+		emote.modulate.a = 1.0
+		emote.scale = Vector2.ONE
+		emote.position = base_position
+	)
+
+func play_emote(emote_name: String, duration: float = 2.5) -> void:
+	var texture: Texture2D
+
+	match emote_name.to_lower():
+		"angry":
+			texture = ANGRY
+		"annoyed":
+			texture = ANNOYED
+		"clown":
+			texture = CLOWN
+		"curious":
+			texture = CURIOUS
+		"giggle":
+			texture = GIGGLE
+		"happy":
+			texture = HAPPY
+		"kiss":
+			texture = KISS
+		"lol":
+			texture = LOL
+		"shocked":
+			texture = SHOCKED
+		"sleepy":
+			texture = SLEEPY
+		"thankful":
+			texture = THANKFUL
+		"weirded":
+			texture = WEIRDED
+		"worried":
+			texture = WORRIED
+		_:
+			push_warning("Unknown NPC emote: " + emote_name)
+			return
+
+	show_emote(texture, duration)

@@ -2,8 +2,22 @@
 
 [ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_hptcd"]
 [ext_resource type="Resource" uid="uid://ckievlcv1d5gg" path="res://Resources/Dialouges/Dialogic/Characters/Elysa.dch" id="1_tarbf"]
+[ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="2_7sgq4"]
 [ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_034pv"]
 [ext_resource type="Texture2D" uid="uid://ck430d0cey12d" path="res://Assets/NPC/Elysa_anim.png" id="3_034pv"]
+[ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="3_bbtto"]
+[ext_resource type="Resource" uid="uid://ble3rrpj4ayxe" path="res://Resources/Dialouges/Dialogic/Timeline/battle_announce.dtl" id="3_bmt75"]
+
+[sub_resource type="Resource" id="Resource_bmt75"]
+script = ExtResource("2_7sgq4")
+timeline = ExtResource("3_bmt75")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[sub_resource type="Resource" id="Resource_6q7io"]
+script = ExtResource("3_bbtto")
+default_timeline = ExtResource("3_bmt75")
+conversations = Array[ExtResource("2_7sgq4")]([SubResource("Resource_bmt75")])
+metadata/_custom_type_script = "uid://ckoa2l31dwe64"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tarbf"]
 atlas = ExtResource("3_034pv")
@@ -143,4 +157,5 @@ npc_id = "npc_data"
 display_name = "Elysa"
 sprite_frames = SubResource("SpriteFrames_68j60")
 dialogic_character = ExtResource("1_tarbf")
+dialogue_data = SubResource("Resource_6q7io")
 metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

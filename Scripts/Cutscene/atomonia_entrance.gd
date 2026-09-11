@@ -235,4 +235,4 @@ func _on_touch_screen_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Areas/start_map.tscn")
 
 func _on_touch_screen_button_2_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Admin/teacher_dashboard.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Admin/dashboard.tscn")

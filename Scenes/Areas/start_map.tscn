@@ -23,10 +23,13 @@
 [ext_resource type="Resource" uid="uid://74e4p1g10q3u" path="res://Resources/Items/AtomicCore.tres" id="22_tjqn4"]
 [ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="23_ucnbf"]
 [ext_resource type="Resource" uid="uid://dk5xx8427a8lg" path="res://Resources/NPCs/TRES/linos.tres" id="24_4i1l6"]
+[ext_resource type="PackedScene" uid="uid://deb16wmoo5crf" path="res://Atomons/Atomon.tscn" id="25_sp10x"]
 [ext_resource type="PackedScene" uid="uid://bn52xk2xw4mg8" path="res://Scenes/UI/minimap.tscn" id="26_ky5g8"]
 [ext_resource type="PackedScene" uid="uid://58her1ab75n5" path="res://Scenes/UI/hud.tscn" id="26_sp10x"]
+[ext_resource type="PackedScene" uid="uid://bq4xocjdqjntd" path="res://Scenes/cutscene_trigger.tscn" id="27_kjb13"]
 [ext_resource type="PackedScene" uid="uid://wi6lfrx4um8v" path="res://Scenes/Objects/Vegetation/Trees/tree.tscn" id="27_ky5g8"]
 [ext_resource type="Shader" uid="uid://dtg7lx50h7oty" path="res://Assets/VFX/warm_cozy.gdshader" id="27_rsgrb"]
+[ext_resource type="Resource" uid="uid://1s83vhkm1bd2" path="res://Resources/Atomons/hydrogen.tres" id="27_ynirp"]
 [ext_resource type="PackedScene" uid="uid://dqlebs6rggtl4" path="res://Scenes/Objects/water_plash.tscn" id="28_rsgrb"]
 [ext_resource type="PackedScene" uid="uid://c4kb7j4v20s3b" path="res://Scenes/Objects/Structures/store.tscn" id="29_kjb13"]
 
@@ -2254,6 +2257,9 @@ shader_parameter/leaf_amount = 5.0000002375
 shader_parameter/leaf_speed = 0.35
 shader_parameter/leaf_size = 0.00500000023749
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ynirp"]
+size = Vector2(34, 11)
+
 [node name="map" type="Node2D" unique_id=1186236317]
 y_sort_enabled = true
 script = ExtResource("1_rsgrb")
@@ -2769,7 +2775,7 @@ position = Vector2(726, 355)
 z_index = 1
 position = Vector2(760, 342)
 
-[node name="Player" parent="OBJECTS" unique_id=1857981194 instance=ExtResource("8_13obq")]
+[node name="Player" parent="OBJECTS" unique_id=1857981194 groups=["Player"] instance=ExtResource("8_13obq")]
 y_sort_enabled = true
 position = Vector2(186, 477)
 
@@ -2921,5 +2927,35 @@ offset_top = -14.0
 offset_right = 1125.0
 offset_bottom = 675.0
 
+[node name="Cutscene Trigger" parent="." unique_id=1189239625 node_paths=PackedStringArray("npc", "cutscene_camera", "cutscene_atomon", "cutscene_atomon_target", "player_target", "npc_target", "hud") instance=ExtResource("27_kjb13")]
+position = Vector2(184, 288)
+cutscene_timeline = "uid://jmj1l6vbhq4"
+npc = NodePath("../NpcBase")
+cutscene_camera = NodePath("../Cutscene Camera")
+cutscene_atomon = NodePath("../Hydrogen")
+cutscene_atomon_target = NodePath("../AtomonTarget")
+player_target = NodePath("../PlayerTarget")
+npc_target = NodePath("../NPCTarget")
+hud = NodePath("../HUD")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cutscene Trigger" unique_id=1250571311]
+shape = SubResource("RectangleShape2D_ynirp")
+
+[node name="Cutscene Camera" type="Camera2D" parent="." unique_id=1919707405]
+position = Vector2(184, 288)
+zoom = Vector2(7, 7)
+
+[node name="PlayerTarget" type="Marker2D" parent="." unique_id=2081862168]
+position = Vector2(187, 214)
+
+[node name="NPCTarget" type="Marker2D" parent="." unique_id=1176169110]
+
+[node name="AtomonTarget" type="Marker2D" parent="." unique_id=1745981211]
+position = Vector2(143, 235)
+
+[node name="Hydrogen" parent="." unique_id=1785293783 instance=ExtResource("25_sp10x")]
+position = Vector2(63, 220)
+data = ExtResource("27_ynirp")
+
 [node name="Store" parent="." unique_id=1082374117 groups=["QuestObjects"] instance=ExtResource("29_kjb13")]
-position = Vector2(967, 26)
+position = Vector2(971, 21)

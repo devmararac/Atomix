@@ -12,7 +12,11 @@ var previous_scene := ""
 var previous_position := Vector2.ZERO
 
 
-func start_battle(enemy: AtomonData) -> void:
+func start_battle(
+	enemy: AtomonData,
+	scene_path: String,
+	player_position: Vector2
+) -> void:
 
 	var battle_party: Array[AtomonInstance] = PartyManager.get_battle_party()
 
@@ -20,18 +24,25 @@ func start_battle(enemy: AtomonData) -> void:
 		push_error("No Atomons available for battle.")
 		return
 
-	# The first Atomon in the current party order is sent into battle
-	player_instance = PartyManager.get_battle_party()[0]
-	PartyManager.active_index = 0
+	# Find the first Atomon that is not fainted
+	player_instance = null
+
+	for i in range(battle_party.size()):
+		var atmon: AtomonInstance = battle_party[i]
+
+		if atmon != null and atmon.current_hp > 0:
+			player_instance = atmon
+			PartyManager.active_index = i
+			break
+
+	if player_instance == null:
+		push_error("No healthy Atomons available for battle.")
+		return
 
 	print(
 		"BATTLE STARTING WITH: ",
 		player_instance.data.atom_name
 	)
-
-	if player_instance == null:
-		push_warning("Cannot start battle: player has no Atomon.")
-		return
 
 	if enemy == null:
 		push_warning("Cannot start battle: enemy data is missing.")
@@ -39,11 +50,15 @@ func start_battle(enemy: AtomonData) -> void:
 
 	enemy_data = enemy
 
-	previous_scene = get_tree().current_scene.scene_file_path
-	previous_position = global.player.global_position
+	# Save the scene and position BEFORE changing scenes
+	previous_scene = scene_path
+	previous_position = player_position
+
+	print("RETURN SCENE: ", previous_scene)
+	print("RETURN POSITION: ", previous_position)
 
 	get_tree().change_scene_to_file(
-		"res://Battle/BattleUI.tscn"
+        "res://Battle/BattleUI.tscn"
 	)
 	
 

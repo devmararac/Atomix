@@ -181,7 +181,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_kayym")
 }],
 "loop": true,
-"name": &"walking",
+"name": &"walk",
 "speed": 6.0
 }]
 

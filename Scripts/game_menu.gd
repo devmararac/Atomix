@@ -213,3 +213,4 @@ func _on_close_button_pressed() -> void:
 		global.player.can_move = true
 		
 	queue_free()
+	SfxManager.close()

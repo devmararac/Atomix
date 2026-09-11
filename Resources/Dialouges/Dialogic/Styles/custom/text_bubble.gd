@@ -8,6 +8,7 @@ extends Control
 @onready var name_label: Label = (%NameLabel as Label)
 @onready var name_label_box: PanelContainer = (%NameLabelPanel as PanelContainer)
 @onready var name_label_holder: HBoxContainer = $DialogText/NameLabelPositioner
+@onready var bubble_pop: AudioStreamPlayer = $BubblePop
 
 var node_to_point_at: Node = null:
 	set(val):
@@ -96,6 +97,9 @@ func open() -> void:
 	set_process(true)
 	show()
 	text.enabled = true
+	
+	if bubble_pop != null:
+		bubble_pop.play()
 	var open_tween := create_tween().set_parallel(true)
 	open_tween.tween_property(self, "scale", Vector2.ONE, 0.1).from(Vector2.ZERO)
 	open_tween.tween_property(self, "modulate:a", 1.0, 0.1).from(0.0)

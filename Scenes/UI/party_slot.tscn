@@ -1,8 +1,21 @@
 [gd_scene format=3 uid="uid://fcbu6e35u8mi"]
 
-[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_qawp2"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="1_ral00"]
+[ext_resource type="Texture2D" uid="uid://dvnjhko28534e" path="res://Assets/UX/HUD/Panels/slot_big.png" id="1_s6xam"]
 [ext_resource type="Script" uid="uid://075sai0h4bnf" path="res://Scripts/party_slot.gd" id="2_o20bk"]
+[ext_resource type="Texture2D" uid="uid://4gkicblfys6k" path="res://Assets/UX/HUD/Panels/slot_big_pressed.png" id="2_w5o2l"]
 [ext_resource type="Texture2D" uid="uid://csw0ks17clkr5" path="res://Assets/Pets/hydrogen_idle.png" id="3_ral00"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="6_j6236"]
+[ext_resource type="Texture2D" uid="uid://dumectpjifch1" path="res://Assets/UX/HUD/Bars/under_bar.png" id="7_p361a"]
+[ext_resource type="Texture2D" uid="uid://djtm76gfbyc4w" path="res://Assets/UX/HUD/Bars/new_info_bar.png" id="8_y7hmg"]
+[ext_resource type="Texture2D" uid="uid://cvlrvv7fcxwfm" path="res://Assets/UX/HUD/Bars/new_hp_bar.png" id="9_xlpdh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w5o2l"]
+texture = ExtResource("1_ral00")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s6xam"]
 atlas = ExtResource("3_ral00")
@@ -41,40 +54,82 @@ animations = [{
 }]
 
 [node name="Party Slot" type="TextureButton" unique_id=766526209]
-custom_minimum_size = Vector2(473, 120)
-offset_right = 550.0
+custom_minimum_size = Vector2(350, 120)
+offset_right = 430.0
 offset_bottom = 120.0
-texture_normal = ExtResource("1_qawp2")
-texture_pressed = ExtResource("1_qawp2")
+mouse_filter = 1
+texture_normal = ExtResource("2_w5o2l")
+texture_pressed = ExtResource("1_s6xam")
 stretch_mode = 0
 script = ExtResource("2_o20bk")
 
-[node name="AtomonPortrait" type="AnimatedSprite2D" parent="." unique_id=126823613]
-position = Vector2(96.000015, 59)
-scale = Vector2(3.15625, 2.46875)
+[node name="Atomon BG" type="Panel" parent="." unique_id=1437524226]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.014
+anchor_top = 0.067
+anchor_right = 0.284
+anchor_bottom = 0.933
+offset_left = -0.01999998
+offset_top = -0.03999996
+offset_right = -0.12000275
+offset_bottom = 0.039993286
+theme_override_styles/panel = SubResource("StyleBoxTexture_w5o2l")
+
+[node name="AtomonPortrait" type="AnimatedSprite2D" parent="Atomon BG" unique_id=126823613]
+position = Vector2(56, 52.000004)
+scale = Vector2(2.640625, 2.46875)
 sprite_frames = SubResource("SpriteFrames_3aa6h")
 
 [node name="Name" type="Label" parent="." unique_id=11307252]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.335
-anchor_top = 0.29200003
-anchor_right = 0.836
-anchor_bottom = 0.483
-offset_left = -0.25
-offset_top = -0.04000473
-offset_right = 0.19998169
-offset_bottom = 0.0399971
+anchor_left = 0.326
+anchor_top = 0.158
+anchor_right = 0.82800007
+anchor_bottom = 0.29200003
+offset_left = -0.18000793
+offset_top = 0.03999901
+offset_right = -0.16003418
+offset_bottom = -0.04000473
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("6_j6236")
+theme_override_font_sizes/font_size = 20
 text = "Name"
 
-[node name="HP" type="Label" parent="." unique_id=2030307325]
+[node name="HPContainer" type="VBoxContainer" parent="." unique_id=1879063747]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.335
-anchor_top = 0.53300005
-anchor_right = 0.84000003
-anchor_bottom = 0.725
-offset_left = -0.25
-offset_top = 0.039993286
-offset_right = -3.0517578e-05
+anchor_left = 0.326
+anchor_top = 0.48
+anchor_right = 0.91
+anchor_bottom = 0.82
+theme_override_constants/separation = 4
+
+[node name="HPHeader" type="HBoxContainer" parent="HPContainer" unique_id=778841690]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HPLabel" type="Label" parent="HPContainer/HPHeader" unique_id=423309884]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_j6236")
+theme_override_font_sizes/font_size = 16
 text = "HP"
+
+[node name="HPValue" type="Label" parent="HPContainer/HPHeader" unique_id=1040225854]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_j6236")
+theme_override_font_sizes/font_size = 16
+text = "30 / 30"
+horizontal_alignment = 2
+
+[node name="HPBar" type="TextureProgressBar" parent="HPContainer" unique_id=69180613]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+nine_patch_stretch = true
+texture_under = ExtResource("7_p361a")
+texture_over = ExtResource("8_y7hmg")
+texture_progress = ExtResource("9_xlpdh")
