@@ -1,9 +1,7 @@
 extends Control
 
 # ============================================================
-
 # QUIZ DATA
-
 # ============================================================
 
 var quiz_data: Dictionary = {}
@@ -13,60 +11,51 @@ var current_question_index: int = 0
 var score: int = 0
 
 # True when the quiz has already been submitted.
-
 var quiz_completed: bool = false
 
 # Prevents submitting the same quiz multiple times.
-
 var saving_result: bool = false
 
 # Stores the student's selected answer for each question.
-
 # -1 means no answer selected.
-
 var selected_answers: Array = []
 
 # Stores text answers for identification questions.
-
 var text_answers: Array = []
 
 # Stores multiple text answers for enumeration questions.
-
 # Each question contains an Array of strings.
-
 var enumeration_answers: Array = []
 
 # ============================================================
+# QUIZ TIMER
+# ============================================================
+# Default quiz duration: 5 minutes.
+# This can later be supplied by the teacher when creating a quiz.
+const DEFAULT_TIME_LIMIT: int = 300
 
+var time_remaining: int = DEFAULT_TIME_LIMIT
+var quiz_timer: Timer = null
+var timer_label: Label = null
+
+# ============================================================
 # FIREBASE CONFIG
-
 # ============================================================
 
 const PROJECT_ID: String = "atomix-f6c6b"
 const DATABASE_ID: String = "(default)"
 
 # ============================================================
-
 # UI REFERENCES
-
 # ============================================================
-
 @onready var quiz_title: Label = $QuizPanel/MarginContainer/VBoxContainer/Header/QuizTitle
-
 @onready var question_counter: Label = $QuizPanel/MarginContainer/VBoxContainer/Header/QuestionCounter
-
 @onready var question_label: Label = $QuizPanel/MarginContainer/VBoxContainer/QuestionPanel/MarginContainer/QuestionLabel
-
 @onready var answer_container: VBoxContainer = $QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer
-
 @onready var identification_input: LineEdit = $QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer/IdentificationInput
-
 @onready var enumeration_input: VBoxContainer = $QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer/EnumerationInput
-
 @onready var back_button: Button = $QuizPanel/MarginContainer/VBoxContainer/BottomBar/BackButton
-
 @onready var next_button: Button = $QuizPanel/MarginContainer/VBoxContainer/BottomBar/NextButton
-
 @onready var status_label: Label = $QuizPanel/MarginContainer/VBoxContainer/StatusLabel
 
 # ============================================================
@@ -99,7 +88,13 @@ func _ready() -> void:
 
 		return
 
-	questions = quiz_data.get("questions", [])
+	questions = quiz_data.get("questions", []).duplicate()
+
+	questions.shuffle()
+
+	print(
+	    "[QuizTakingPage] Question order randomized."
+	)
 
 	if questions.is_empty():
 
@@ -115,12 +110,16 @@ func _ready() -> void:
 	quiz_title.text = str(
 		quiz_data.get("title", "Quiz")
 	)
-
+	
+	_setup_quiz_timer()
+	
 	print(
 		"[QuizTakingPage] Quiz title: ",
 		quiz_title.text
 	)
-
+	
+	
+	
 	print(
 		"[QuizTakingPage] Total questions: ",
 		questions.size()
@@ -762,7 +761,9 @@ func _submit_quiz() -> void:
 
 	if quiz_completed:
 		return
-
+	
+	_stop_quiz_timer()
+	
 	saving_result = true
 
 	next_button.disabled = true
@@ -1573,11 +1574,264 @@ func _show_result() -> void:
 	status_label.text = \
 		"Quiz completed."
 
+# ============================================================
+# QUIZ TIMER
+# ============================================================
+
+func _setup_quiz_timer() -> void:
+
+	# --------------------------------------------------------
+	# Get time limit from quiz data.
+	#
+	# If the teacher has not configured one yet,
+	# use the default 5-minute limit.
+	# --------------------------------------------------------
+
+	time_remaining = int(
+		quiz_data.get(
+			"time_limit",
+			DEFAULT_TIME_LIMIT
+		)
+	)
+
+	if time_remaining <= 0:
+		time_remaining = DEFAULT_TIME_LIMIT
+
+	# --------------------------------------------------------
+	# Create timer.
+	# --------------------------------------------------------
+
+	quiz_timer = Timer.new()
+
+	quiz_timer.wait_time = 1.0
+	quiz_timer.one_shot = false
+
+	add_child(quiz_timer)
+
+	quiz_timer.timeout.connect(
+		_on_quiz_timer_timeout
+	)
+
+	# --------------------------------------------------------
+	# Create timer label.
+	#
+	# This means we do not need to modify the TSCN yet.
+	# --------------------------------------------------------
+
+	timer_label = Label.new()
+
+	timer_label.text = _format_time(time_remaining)
+
+	timer_label.horizontal_alignment = (
+		HORIZONTAL_ALIGNMENT_CENTER
+	)
+
+	timer_label.vertical_alignment = (
+		VERTICAL_ALIGNMENT_CENTER
+	)
+
+	timer_label.add_theme_font_size_override("font_size", 24)
+
+	timer_label.custom_minimum_size = Vector2( 180, 50)
+
+	# --------------------------------------------------------
+	# Put timer near the top-right of the quiz panel.
+	# --------------------------------------------------------
+
+	timer_label.set_anchors_preset(
+		Control.PRESET_TOP_RIGHT
+	)
+
+	timer_label.position = Vector2(-210, 20)
+
+	add_child(timer_label)
+
+	_update_timer_display()
+
+	quiz_timer.start()
+
+	print("[QuizTakingPage] Quiz timer started." )
+
+	print("[QuizTakingPage] Time limit: ", time_remaining, " seconds.")
+
+
+func _on_quiz_timer_timeout() -> void:
+
+	if quiz_completed:
+		return
+
+	if saving_result:
+		return
+
+	if time_remaining <= 0:
+		return
+
+	time_remaining -= 1
+
+	_update_timer_display()
+
+	if time_remaining <= 0:
+
+		print( "[QuizTakingPage] TIME LIMIT REACHED.")
+
+		status_label.text = ("Time is up! Submitting your quiz...")
+
+		await _submit_quiz_when_time_expires()
+
+
+func _update_timer_display() -> void:
+
+	if timer_label == null:
+		return
+
+	timer_label.text = _format_time(
+		time_remaining
+	)
+
+	# --------------------------------------------------------
+	# Change the text when time is running low.
+	# --------------------------------------------------------
+
+	if time_remaining <= 30:
+
+		timer_label.add_theme_color_override("font_color", Color(0.85,   0.15,  0.15, 1))
+
+	elif time_remaining <= 60:
+
+		timer_label.add_theme_color_override( "font_color", Color( 0.9,  0.55, 0.1,1))
+
+	else:
+
+		timer_label.remove_theme_color_override("font_color")
+
+
+func _format_time(seconds: int) -> String:
+
+	var minutes: int = seconds / 60
+	var remaining_seconds: int = seconds % 60
+
+	return ( "%02d:%02d" % [minutes, remaining_seconds])
+
+
+func _stop_quiz_timer() -> void:
+
+	if quiz_timer != null:
+
+		quiz_timer.stop()
+
+	print( "[QuizTakingPage] Quiz timer stopped."  )
+
+
+func _submit_quiz_when_time_expires() -> void:
+
+	if quiz_completed:
+		return
+
+	if saving_result:
+		return
+
+	# --------------------------------------------------------
+	# Stop timer first so it cannot trigger again.
+	# --------------------------------------------------------
+
+	_stop_quiz_timer()
+
+	# --------------------------------------------------------
+	# Save whatever answer is currently visible.
+	#
+	# We intentionally do NOT require the answer to be filled.
+	# Unanswered questions will simply score 0.
+	# --------------------------------------------------------
+
+	_save_current_answer_without_validation()
+
+	print("[QuizTakingPage] Auto-submitting because time expired." )
+
+	await _submit_quiz()
+
+
+func _save_current_answer_without_validation() -> void:
+
+	if current_question_index < 0:
+		return
+
+	if current_question_index >= questions.size():
+		return
+
+	var question_data: Dictionary = (
+		questions[current_question_index]
+	)
+
+	var question_type: String = str(
+		question_data.get(
+			"type",
+            "multiple_choice"
+		)
+	).strip_edges().to_lower()
+
+	# --------------------------------------------------------
+	# Identification
+	# --------------------------------------------------------
+
+	if _is_identification(question_type):
+
+		if current_question_index >= text_answers.size():
+			return
+
+		text_answers[current_question_index] = (
+			identification_input.text.strip_edges()
+		)
+
+		return
+
+	# --------------------------------------------------------
+	# Enumeration
+	# --------------------------------------------------------
+
+	if _is_enumeration(question_type):
+
+		if current_question_index >= enumeration_answers.size():
+			return
+
+		var student_answers: Array[String] = []
+
+		for child in enumeration_input.get_children():
+
+			if not child is HBoxContainer:
+				continue
+
+			var row: HBoxContainer = child
+
+			for row_child in row.get_children():
+
+				if not row_child is LineEdit:
+					continue
+
+				var input: LineEdit = row_child
+
+				student_answers.append(
+					input.text.strip_edges()
+				)
+
+		enumeration_answers[current_question_index] = (
+			student_answers
+		)
+
+		return
+
+	# --------------------------------------------------------
+	# Multiple Choice / True-False
+	#
+	# These answers are already stored immediately when
+	# the student clicks an answer.
+	# --------------------------------------------------------
+
+	print(
+        "[QuizTakingPage] Current answer saved before timeout."
+	)
 
 	# ============================================================
-
 	# RESTORE PREVIOUS ANSWER
-
 	# ============================================================
 
 func _restore_previous_answer(
@@ -1799,7 +2053,10 @@ func _get_id_token() -> String:
 	# ============================================================
 
 func _on_back_pressed() -> void:
-
+	
+	if not quiz_completed:
+		_stop_quiz_timer()
+	
 	# --------------------------------------------------------
 	# If quiz has been submitted, return to QuizPage
 	# --------------------------------------------------------

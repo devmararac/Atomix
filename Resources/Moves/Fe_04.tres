@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://ds73ch3sl21l6"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Script" uid="uid://cgnlftqbacyqr" path="res://Resources/Scripts/Actions/StatusAction.gd" id="3"]
+[ext_resource type="Resource" uid="uid://t7b613mvw6op" path="res://Resources/Moves/StatusEffects/Corrode.tres" id="4"]
+[ext_resource type="Script" uid="uid://xti26ayd3sst" path="res://Resources/Scripts/Effects/MoveEffect.gd" id="5"]
+
+[sub_resource type="Resource" id="StatusAction"]
+script = ExtResource("3")
+effects = Array[ExtResource("5")]([ExtResource("4")])
+metadata/_custom_type_script = "uid://cgnlftqbacyqr"
+
+[resource]
+script = ExtResource("2")
+move_name = "Rust"
+description = "Rust applies the Corrode effect to the target."
+actions = Array[ExtResource("1")]([SubResource("StatusAction")])
+metadata/skill_id = "Fe_04"
+metadata/element = "Iron"
+metadata/slot = 4
+metadata/category = "status"
+metadata/effect_name = "Corrode"
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

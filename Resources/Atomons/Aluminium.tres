@@ -3,8 +3,12 @@
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_aac0l"]
 [ext_resource type="Texture2D" uid="uid://ryl8oadwlx0b" path="res://Assets/Atomon Portraits/aluglem_aluminium.png" id="2_ba1gt"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_ipl2n"]
+[ext_resource type="Resource" uid="uid://c0boqsnus7gar" path="res://Resources/Moves/Al_01.tres" id="2_k2ma8"]
+[ext_resource type="Resource" uid="uid://dw3qc6g8roqf" path="res://Resources/Moves/Al_02.tres" id="3_uq2aw"]
+[ext_resource type="Resource" uid="uid://b38kxkwosaxqb" path="res://Resources/Moves/Al_03.tres" id="4_atl2n"]
 [ext_resource type="Texture2D" uid="uid://b4scp160tyn7b" path="res://Assets/Pets/Aluminum_Idle.png" id="4_weudn"]
 [ext_resource type="Texture2D" uid="uid://dwsm7b8s2iv1" path="res://Assets/Pets/Aluminum_Run.png" id="5_0prna"]
+[ext_resource type="Resource" uid="uid://vpnl2xv52tm3" path="res://Resources/Moves/Al_04.tres" id="5_m1fg5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lnutt"]
 atlas = ExtResource("4_weudn")
@@ -93,5 +97,6 @@ mass_number = 27
 element_type = "Post-Transition Metal"
 state = "Solid"
 block = "p"
+moves = Array[ExtResource("1_aac0l")]([ExtResource("2_k2ma8"), ExtResource("3_uq2aw"), ExtResource("4_atl2n"), ExtResource("5_m1fg5")])
 rarity = 3
 metadata/_custom_type_script = "uid://dvv118enrwub6"

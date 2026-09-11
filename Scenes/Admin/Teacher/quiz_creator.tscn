@@ -252,9 +252,11 @@ placeholder_text = "Type answer option here..."
 [node name="AnswerC" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers" unique_id=2094197866]
 custom_minimum_size = Vector2(240, 217)
 layout_mode = 2
+mouse_filter = 1
 
 [node name="AnswerCBg" type="ColorRect" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC" unique_id=1751379151]
 layout_mode = 2
+mouse_filter = 1
 color = Color(0.235294, 0.639216, 0.67451, 1)
 
 [node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC" unique_id=695410941]

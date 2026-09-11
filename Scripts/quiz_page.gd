@@ -1,9 +1,8 @@
 extends Control
 
+
 # ============================================================
-
 # FIRESTORE
-
 # ============================================================
 
 const PROJECT_ID := "atomix-f6c6b"
@@ -11,35 +10,28 @@ const DATABASE_ID := "(default)"
 
 var firestore_url: String = ""
 
+
 # ============================================================
-
 # QUIZ DATA
-
 # ============================================================
 
 var quizzes: Array[Dictionary] = []
 
 # Stores quiz IDs that this student has already completed.
-
+#
 # Example:
-
 # {
-
-# "quiz_123": true,
-
-# "quiz_456": true
-
+#     "quiz_123": true,
+#     "quiz_456": true
 # }
-
 var completed_quiz_ids: Dictionary = {}
 
 var quiz_loading: bool = false
 var student_section: String = ""
 
+
 # ============================================================
-
 # UI REFERENCES
-
 # ============================================================
 
 @onready var title_label: Label = $QuizPanel/MarginContainer/VBoxContainer/Header/Title
@@ -60,13 +52,13 @@ var student_section: String = ""
 
 @onready var status_label: Label = $QuizPanel/MarginContainer/VBoxContainer/StatusLabel
 
+
 # ============================================================
-
 # READY
-
 # ============================================================
 
 func _ready() -> void:
+
 	print("[QuizPage] Quiz page opened.")
 
 	# --------------------------------------------------------
@@ -88,7 +80,6 @@ func _ready() -> void:
 	if not refresh_button.pressed.is_connected(
 		_on_refresh_pressed
 	):
-
 		refresh_button.pressed.connect(
 			_on_refresh_pressed
 		)
@@ -96,7 +87,6 @@ func _ready() -> void:
 	if not search_bar.text_changed.is_connected(
 		_on_search_text_changed
 	):
-
 		search_bar.text_changed.connect(
 			_on_search_text_changed
 		)
@@ -104,7 +94,6 @@ func _ready() -> void:
 	if not filter_button.item_selected.is_connected(
 		_on_filter_selected
 	):
-
 		filter_button.item_selected.connect(
 			_on_filter_selected
 		)
@@ -112,7 +101,6 @@ func _ready() -> void:
 	if not sort_button.item_selected.is_connected(
 		_on_sort_selected
 	):
-
 		sort_button.item_selected.connect(
 			_on_sort_selected
 		)
@@ -165,17 +153,15 @@ func _ready() -> void:
 	# Load quizzes
 	# --------------------------------------------------------
 
-	load_quizzes()
+	await load_quizzes()
 
 
 # ============================================================
-
 # FILTER BUTTON
-
 # ============================================================
 
 func _setup_filter_button() -> void:
-	
+
 	filter_button.clear()
 
 	filter_button.add_item("All Quiz Types")
@@ -187,9 +173,7 @@ func _setup_filter_button() -> void:
 
 
 # ============================================================
-
 # SORT BUTTON
-
 # ============================================================
 
 func _setup_sort_button() -> void:
@@ -205,13 +189,10 @@ func _setup_sort_button() -> void:
 
 
 # ============================================================
-
 # LOAD STUDENT SECTION
-
 # ============================================================
 
 func _load_student_section() -> void:
-
 
 	print(
 		"[QuizPage] Loading student information..."
@@ -350,12 +331,16 @@ func _load_student_section() -> void:
 
 
 # ============================================================
-# LOAD COMPLETED QUIZZES FROM STUDENT ASSESSMENT
+# LOAD COMPLETED QUIZZES
 # ============================================================
 
 func _load_completed_quizzes() -> void:
 
 	completed_quiz_ids.clear()
+
+	print(
+		"[QuizPage] Loading completed quiz records..."
+	)
 
 	var uid: String = _get_uid()
 
@@ -417,7 +402,8 @@ func _load_completed_quizzes() -> void:
 
 		return
 
-	var response: Array = await http.request_completed
+	var response: Array = \
+		await http.request_completed
 
 	http.queue_free()
 
@@ -471,13 +457,17 @@ func _load_completed_quizzes() -> void:
 		return
 
 	# --------------------------------------------------------
-	# Get the assessment map.
+	# Get assessment map
 	# --------------------------------------------------------
 
 	if not fields.has("assessment"):
 
 		print(
 			"[QuizPage] No assessment field found."
+		)
+
+		print(
+			"[QuizPage] Completed quiz count: 0"
 		)
 
 		return
@@ -519,19 +509,22 @@ func _load_completed_quizzes() -> void:
 			"[QuizPage] No assessment records found."
 		)
 
+		print(
+			"[QuizPage] Completed quiz count: 0"
+		)
+
 		return
 
 	# --------------------------------------------------------
-	# Check every quiz result.
+	# Read every assessment entry
 	# --------------------------------------------------------
 
-	for quiz_id in assessment_fields.keys():
+	for assessment_key in assessment_fields.keys():
 
 		var quiz_entry = \
-			assessment_fields[quiz_id]
+			assessment_fields[assessment_key]
 
 		if not quiz_entry is Dictionary:
-
 			continue
 
 		var quiz_map = \
@@ -541,7 +534,6 @@ func _load_completed_quizzes() -> void:
 			)
 
 		if not quiz_map is Dictionary:
-
 			continue
 
 		var quiz_fields = \
@@ -551,8 +543,11 @@ func _load_completed_quizzes() -> void:
 			)
 
 		if not quiz_fields is Dictionary:
-
 			continue
+
+		# ----------------------------------------------------
+		# Check completed flag
+		# ----------------------------------------------------
 
 		var completed: bool = \
 			_get_boolean_field(
@@ -562,7 +557,16 @@ func _load_completed_quizzes() -> void:
 
 		if not completed:
 
+			print(
+				"[QuizPage] Assessment entry is not completed: ",
+				str(assessment_key)
+			)
+
 			continue
+
+		# ----------------------------------------------------
+		# Try saved quiz_id first
+		# ----------------------------------------------------
 
 		var saved_quiz_id: String = \
 			_get_string_field(
@@ -574,17 +578,19 @@ func _load_completed_quizzes() -> void:
 			saved_quiz_id.strip_edges()
 
 		# ----------------------------------------------------
-		# Prefer the saved quiz_id field.
+		# If quiz_id is missing, use assessment map key
 		# ----------------------------------------------------
 
 		if saved_quiz_id.is_empty():
 
-			saved_quiz_id = str(
-				quiz_id
-			)
+			saved_quiz_id = \
+				str(assessment_key).strip_edges()
+
+		# ----------------------------------------------------
+		# Store completed quiz
+		# ----------------------------------------------------
 
 		if saved_quiz_id.is_empty():
-
 			continue
 
 		completed_quiz_ids[saved_quiz_id] = true
@@ -594,21 +600,23 @@ func _load_completed_quizzes() -> void:
 			saved_quiz_id
 		)
 
+	# --------------------------------------------------------
+	# FINAL COUNT
+	# --------------------------------------------------------
+
 	print(
 		"[QuizPage] Completed quiz count: ",
 		completed_quiz_ids.size()
 	)
 
+
 # ============================================================
-
-# GET QUIZ ID FROM PROGRESS DOCUMENT NAME
-
+# GET QUIZ ID FROM DOCUMENT NAME
 # ============================================================
 
 func _get_quiz_id_from_document_name(
-document_name: String
+	document_name: String
 ) -> String:
-
 
 	if document_name.is_empty():
 		return ""
@@ -625,13 +633,10 @@ document_name: String
 
 
 # ============================================================
-
 # LOAD QUIZZES
-
 # ============================================================
 
 func load_quizzes() -> void:
-
 
 	if quiz_loading:
 		return
@@ -774,6 +779,9 @@ func load_quizzes() -> void:
 
 	for document in documents:
 
+		if not document is Dictionary:
+			continue
+
 		var fields: Dictionary = \
 			document.get(
 				"fields",
@@ -834,20 +842,17 @@ func load_quizzes() -> void:
 
 	_apply_sort()
 
-	_build_quiz_list()
+	await _build_quiz_list()
 
 
 # ============================================================
-
 # PARSE QUIZ DOCUMENT
-
 # ============================================================
 
 func _parse_quiz_document(
 	fields: Dictionary,
 	document: Dictionary
-	) -> Dictionary:
-
+) -> Dictionary:
 
 	var quiz: Dictionary = {}
 
@@ -855,7 +860,25 @@ func _parse_quiz_document(
 		_get_string_field(
 			fields,
 			"quiz_id"
-		)
+		).strip_edges()
+
+	# --------------------------------------------------------
+	# Fallback: get ID from Firestore document name
+	# --------------------------------------------------------
+
+	if str(
+		quiz["quiz_id"]
+	).is_empty():
+
+		quiz["quiz_id"] = \
+			_get_quiz_id_from_document_name(
+				str(
+					document.get(
+						"name",
+						""
+					)
+				)
+			)
 
 	quiz["teacher_id"] = \
 		_get_string_field(
@@ -928,16 +951,14 @@ func _parse_quiz_document(
 	return quiz
 
 
-	# ============================================================
-
-	# GET QUESTIONS
-
-	# ============================================================
+# ============================================================
+# GET QUESTIONS
+# ============================================================
 
 func _get_questions_field(
 	fields: Dictionary,
 	field_name: String
-	) -> Array:
+) -> Array:
 
 	if not fields.has(field_name):
 		return []
@@ -1029,13 +1050,15 @@ func _get_questions_field(
 	return result
 
 
-	# ============================================================
-
-	# BUILD QUIZ LIST
-
-	# ============================================================
+# ============================================================
+# BUILD QUIZ LIST
+# ============================================================
 
 func _build_quiz_list() -> void:
+
+	# --------------------------------------------------------
+	# Clear old buttons
+	# --------------------------------------------------------
 
 	for child in quiz_list.get_children():
 
@@ -1044,7 +1067,7 @@ func _build_quiz_list() -> void:
 	await get_tree().process_frame
 
 	# --------------------------------------------------------
-	# Calculate available and completed quizzes
+	# Calculate available/completed quizzes
 	# --------------------------------------------------------
 
 	var available_count: int = 0
@@ -1060,7 +1083,13 @@ func _build_quiz_list() -> void:
 				)
 			).strip_edges()
 
-		if completed_quiz_ids.has(quiz_id):
+		var is_completed: bool = \
+			_is_quiz_completed(
+				quiz_id,
+				quiz
+			)
+
+		if is_completed:
 
 			completed_count += 1
 
@@ -1069,7 +1098,26 @@ func _build_quiz_list() -> void:
 			available_count += 1
 
 	# --------------------------------------------------------
-	# Update status label
+	# Print counts for debugging
+	# --------------------------------------------------------
+
+	print(
+		"[QuizPage] Available quiz count: ",
+		available_count
+	)
+
+	print(
+		"[QuizPage] Completed quiz count used by UI: ",
+		completed_count
+	)
+
+	print(
+		"[QuizPage] Total quiz count: ",
+		quizzes.size()
+	)
+
+	# --------------------------------------------------------
+	# Update status
 	# --------------------------------------------------------
 
 	status_label.text = \
@@ -1095,16 +1143,68 @@ func _build_quiz_list() -> void:
 		)
 
 
-	# ============================================================
+# ============================================================
+# CHECK IF QUIZ IS COMPLETED
+# ============================================================
 
-	# CREATE QUIZ ITEM
+func _is_quiz_completed(
+	quiz_id: String,
+	quiz: Dictionary
+) -> bool:
 
-	# ============================================================
+	quiz_id = quiz_id.strip_edges()
+
+	# --------------------------------------------------------
+	# Normal quiz ID check
+	# --------------------------------------------------------
+
+	if not quiz_id.is_empty():
+
+		if completed_quiz_ids.has(
+			quiz_id
+		):
+
+			return true
+
+	# --------------------------------------------------------
+	# Check Firestore document ID fallback
+	# --------------------------------------------------------
+
+	var document_name: String = \
+		str(
+			quiz.get(
+				"document_name",
+				""
+			)
+		)
+
+	var document_quiz_id := \
+		_get_quiz_id_from_document_name(
+			document_name
+		)
+
+	document_quiz_id = \
+		document_quiz_id.strip_edges()
+
+	if not document_quiz_id.is_empty():
+
+		if completed_quiz_ids.has(
+			document_quiz_id
+		):
+
+			return true
+
+	return false
+
+
+# ============================================================
+# CREATE QUIZ ITEM
+# ============================================================
 
 func _create_quiz_list_item(
 	quiz: Dictionary,
 	index: int
-	) -> void:
+) -> void:
 
 	var button := Button.new()
 
@@ -1150,8 +1250,9 @@ func _create_quiz_list_item(
 		).strip_edges()
 
 	var is_completed: bool = \
-		completed_quiz_ids.has(
-			quiz_id
+		_is_quiz_completed(
+			quiz_id,
+			quiz
 		)
 
 	if is_completed:
@@ -1194,14 +1295,11 @@ func _create_quiz_list_item(
 	)
 
 
-	# ============================================================
-
-	# QUIZ SELECTED
-
-	# ============================================================
+# ============================================================
+# QUIZ SELECTED
+# ============================================================
 
 func _on_quiz_selected(index: int) -> void:
-
 
 	if index < 0:
 		return
@@ -1209,7 +1307,8 @@ func _on_quiz_selected(index: int) -> void:
 	if index >= quizzes.size():
 		return
 
-	var quiz: Dictionary = quizzes[index]
+	var quiz: Dictionary = \
+		quizzes[index]
 
 	var quiz_id: String = \
 		str(
@@ -1220,10 +1319,13 @@ func _on_quiz_selected(index: int) -> void:
 		).strip_edges()
 
 	# --------------------------------------------------------
-	# Prevent opening a completed quiz.
+	# Prevent opening completed quiz
 	# --------------------------------------------------------
 
-	if completed_quiz_ids.has(quiz_id):
+	if _is_quiz_completed(
+		quiz_id,
+		quiz
+	):
 
 		print(
 			"[QuizPage] Quiz is already completed: ",
@@ -1249,7 +1351,7 @@ func _on_quiz_selected(index: int) -> void:
 	)
 
 	# --------------------------------------------------------
-	# Open the quiz-taking page
+	# Open quiz-taking page
 	# --------------------------------------------------------
 
 	var quiz_scene := preload(
@@ -1259,11 +1361,10 @@ func _on_quiz_selected(index: int) -> void:
 	var quiz_taking_page = \
 		quiz_scene.instantiate()
 
-	# Give the selected quiz to the quiz-taking page.
 	quiz_taking_page.quiz_data = quiz
 
 	# --------------------------------------------------------
-	# Keep the SAME QuizPage alive.
+	# Keep SAME QuizPage alive
 	# --------------------------------------------------------
 
 	visible = false
@@ -1272,7 +1373,7 @@ func _on_quiz_selected(index: int) -> void:
 		Control.MOUSE_FILTER_IGNORE
 
 	# --------------------------------------------------------
-	# Add QuizTakingPage to the SAME parent as QuizPage.
+	# Add QuizTakingPage to same parent
 	# --------------------------------------------------------
 
 	var parent_node := get_parent()
@@ -1297,7 +1398,7 @@ func _on_quiz_selected(index: int) -> void:
 	)
 
 	# --------------------------------------------------------
-	# Tell QuizTakingPage which QuizPage to return to.
+	# Tell QuizTakingPage which QuizPage to return to
 	# --------------------------------------------------------
 
 	quiz_taking_page.set(
@@ -1310,16 +1411,13 @@ func _on_quiz_selected(index: int) -> void:
 	)
 
 
-	# ============================================================
-
-	# SEARCH
-
-	# ============================================================
+# ============================================================
+# SEARCH
+# ============================================================
 
 func _on_search_text_changed(
 	new_text: String
-	) -> void:
-
+) -> void:
 
 	var search_text := \
 		new_text.strip_edges().to_lower()
@@ -1331,27 +1429,25 @@ func _on_search_text_changed(
 
 		var button: Button = child
 
-		var visible := true
+		var visible_state := true
 
 		if not search_text.is_empty():
 
-			visible = \
+			visible_state = \
 				button.text.to_lower().contains(
 					search_text
 				)
 
-		button.visible = visible
+		button.visible = visible_state
 
 
-	# ============================================================
-
-	# FILTER
-
-	# ============================================================
+# ============================================================
+# FILTER
+# ============================================================
 
 func _on_filter_selected(
 	index: int
-	) -> void:
+) -> void:
 
 	var selected_type := ""
 
@@ -1376,8 +1472,7 @@ func _on_filter_selected(
 
 func _apply_filter(
 	selected_type: String
-	) -> void:
-
+) -> void:
 
 	for index in range(
 		quiz_list.get_child_count()
@@ -1390,6 +1485,9 @@ func _apply_filter(
 			continue
 
 		var button: Button = child
+
+		if index >= quizzes.size():
+			continue
 
 		if selected_type.is_empty():
 
@@ -1409,24 +1507,20 @@ func _apply_filter(
 			quiz_type == selected_type
 
 
-	# ============================================================
-
-	# SORT
-
-	# ============================================================
+# ============================================================
+# SORT
+# ============================================================
 
 func _on_sort_selected(
 	_index: int
-	) -> void:
-
+) -> void:
 
 	_apply_sort()
 
-	_build_quiz_list()
+	await _build_quiz_list()
 
 
 func _apply_sort() -> void:
-
 
 	var sort_index := \
 		sort_button.selected
@@ -1457,7 +1551,7 @@ func _apply_sort() -> void:
 func _sort_newest(
 	a: Dictionary,
 	b: Dictionary
-	) -> bool:
+) -> bool:
 
 	return str(
 		a.get(
@@ -1475,8 +1569,7 @@ func _sort_newest(
 func _sort_oldest(
 	a: Dictionary,
 	b: Dictionary
-	) -> bool:
-
+) -> bool:
 
 	return str(
 		a.get(
@@ -1494,8 +1587,7 @@ func _sort_oldest(
 func _sort_title_ascending(
 	a: Dictionary,
 	b: Dictionary
-	) -> bool:
-
+) -> bool:
 
 	return str(
 		a.get(
@@ -1513,8 +1605,7 @@ func _sort_title_ascending(
 func _sort_title_descending(
 	a: Dictionary,
 	b: Dictionary
-	) -> bool:
-
+) -> bool:
 
 	return str(
 		a.get(
@@ -1529,14 +1620,11 @@ func _sort_title_descending(
 	).to_lower()
 
 
-	# ============================================================
-
-	# REFRESH
-
-	# ============================================================
+# ============================================================
+# REFRESH
+# ============================================================
 
 func _on_refresh_pressed() -> void:
-
 
 	print(
 		"[QuizPage] Refreshing quizzes..."
@@ -1545,23 +1633,26 @@ func _on_refresh_pressed() -> void:
 	status_label.text = \
 		"Refreshing quiz progress..."
 
-	# Reload completion records first.
+	# --------------------------------------------------------
+	# Reload completion records FIRST
+	# --------------------------------------------------------
+
 	await _load_completed_quizzes()
 
-	# Then reload quizzes.
-	load_quizzes()
+	# --------------------------------------------------------
+	# Reload quizzes
+	# --------------------------------------------------------
+
+	await load_quizzes()
 
 
-	# ============================================================
-
-	# SHOW NO QUIZZES
-
-	# ============================================================
+# ============================================================
+# SHOW NO QUIZZES
+# ============================================================
 
 func _show_no_quizzes(
 	message: String
-	) -> void:
-
+) -> void:
 
 	quizzes.clear()
 
@@ -1572,17 +1663,14 @@ func _show_no_quizzes(
 	status_label.text = message
 
 
-	# ============================================================
-
-	# STRING FIELD
-
-	# ============================================================
+# ============================================================
+# STRING FIELD
+# ============================================================
 
 func _get_string_field(
 	fields: Dictionary,
 	field_name: String
-	) -> String:
-
+) -> String:
 
 	if not fields.has(field_name):
 		return ""
@@ -1607,17 +1695,14 @@ func _get_string_field(
 	return ""
 
 
-	# ============================================================
-
-	# INTEGER FIELD
-
-	# ============================================================
+# ============================================================
+# INTEGER FIELD
+# ============================================================
 
 func _get_integer_field(
 	fields: Dictionary,
 	field_name: String
-	) -> int:
-
+) -> int:
 
 	if not fields.has(field_name):
 		return 0
@@ -1642,17 +1727,14 @@ func _get_integer_field(
 	return 0
 
 
-	# ============================================================
-
-	# BOOLEAN FIELD
-
-	# ============================================================
+# ============================================================
+# BOOLEAN FIELD
+# ============================================================
 
 func _get_boolean_field(
 	fields: Dictionary,
 	field_name: String
-	) -> bool:
-
+) -> bool:
 
 	if not fields.has(field_name):
 		return false
@@ -1671,17 +1753,14 @@ func _get_boolean_field(
 	return false
 
 
-	# ============================================================
-
-	# STRING ARRAY FIELD
-
-	# ============================================================
+# ============================================================
+# STRING ARRAY FIELD
+# ============================================================
 
 func _get_string_array_field(
 	fields: Dictionary,
 	field_name: String
-	) -> Array:
-
+) -> Array:
 
 	var result: Array = []
 
@@ -1727,17 +1806,14 @@ func _get_string_array_field(
 	return result
 
 
-	# ============================================================
-
-	# INTEGER ARRAY FIELD
-
-	# ============================================================
+# ============================================================
+# INTEGER ARRAY FIELD
+# ============================================================
 
 func _get_integer_array_field(
 	fields: Dictionary,
 	field_name: String
-	) -> Array:
-
+) -> Array:
 
 	var result: Array = []
 
@@ -1791,14 +1867,11 @@ func _get_integer_array_field(
 	return result
 
 
-	# ============================================================
-
-	# FIREBASE UID
-
-	# ============================================================
+# ============================================================
+# FIREBASE UID
+# ============================================================
 
 func _get_uid() -> String:
-
 
 	if StudentDataManager != null:
 
@@ -1865,11 +1938,9 @@ func _get_uid() -> String:
 	return ""
 
 
-	# ============================================================
-
-	# FIREBASE ID TOKEN
-
-	# ============================================================
+# ============================================================
+# FIREBASE ID TOKEN
+# ============================================================
 
 func _get_id_token() -> String:
 

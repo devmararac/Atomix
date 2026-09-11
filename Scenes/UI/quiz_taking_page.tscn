@@ -168,7 +168,6 @@ placeholder_text = "Type your answer here..."
 
 [node name="EnumerationInput" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/AnswerScroll/AnswerContainer" unique_id=847321506]
 visible = false
-custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10

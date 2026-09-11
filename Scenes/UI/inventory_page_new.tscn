@@ -261,123 +261,163 @@ columns = 8
 
 [node name="ItemSlot" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=935584709 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot2" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1411281046 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot3" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=2003561541 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot4" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1586036085 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot5" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1383301618 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot6" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1669023001 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot7" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=891061599 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot8" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=929184394 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot9" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=498456857 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot10" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=790019414 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot11" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=849674889 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot12" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=935644471 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot13" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1408081822 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot14" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1474520063 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot15" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1874731878 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot16" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1011960322 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot17" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1109762765 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot18" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1781639537 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot19" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=2102972139 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot20" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=2062860376 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot21" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=2096322000 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot22" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=637105958 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot23" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=2084978189 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot24" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1749909072 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot25" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=236966350 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot26" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=632848269 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot27" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=320519002 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot28" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=407115350 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot29" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1025560477 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot30" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1028323137 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot31" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1257142233 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot32" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=366880943 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot33" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=716859367 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot34" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=108897177 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot35" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=896155110 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot36" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1723633328 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot37" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1363432376 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot38" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=624700480 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot39" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1827951951 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ItemSlot40" parent="Left Panel/ScrollContainer/SlotContainer" unique_id=1149020189 instance=ExtResource("4_lba28")]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Right Panel" type="Panel" parent="." unique_id=1499745043]
 layout_mode = 1

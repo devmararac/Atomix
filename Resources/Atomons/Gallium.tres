@@ -3,7 +3,11 @@
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_jy1ax"]
 [ext_resource type="Texture2D" uid="uid://c7lbxvlseyver" path="res://Assets/Atomon Portraits/gallime_gallium.png" id="2_6mv2l"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_maceg"]
+[ext_resource type="Resource" uid="uid://doem7ds2xj4d6" path="res://Resources/Moves/Ga_01.tres" id="2_yu41r"]
+[ext_resource type="Resource" uid="uid://boesxup740aag" path="res://Resources/Moves/Ga_02.tres" id="3_vj1vi"]
 [ext_resource type="Texture2D" uid="uid://bp72lyvas6b30" path="res://Assets/Pets/Gallium_anim.png" id="4_dby4k"]
+[ext_resource type="Resource" uid="uid://72u63ygxfne1" path="res://Resources/Moves/Ga_03.tres" id="4_jddrm"]
+[ext_resource type="Resource" uid="uid://dbcdgxgkn6kji" path="res://Resources/Moves/Ga_04.tres" id="5_tmuvq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4nmr7"]
 atlas = ExtResource("4_dby4k")
@@ -135,4 +139,5 @@ element_type = "Post-Transition Metal"
 state = "Solid"
 block = "p"
 period = 4
+moves = Array[ExtResource("1_jy1ax")]([ExtResource("2_yu41r"), ExtResource("3_vj1vi"), ExtResource("4_jddrm"), ExtResource("5_tmuvq")])
 metadata/_custom_type_script = "uid://dvv118enrwub6"

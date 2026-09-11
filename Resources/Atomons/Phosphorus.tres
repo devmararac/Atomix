@@ -1,9 +1,13 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://by4fdtb12bx4v"]
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_yotu5"]
+[ext_resource type="Resource" uid="uid://cl37ex1kbsxg1" path="res://Resources/Moves/P_01.tres" id="2_5n17t"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_567le"]
 [ext_resource type="Texture2D" uid="uid://bv2oph4c7juh5" path="res://Assets/Atomon Portraits/magmous_phosphorous.png" id="2_654hh"]
+[ext_resource type="Resource" uid="uid://crxxjww5ks223" path="res://Resources/Moves/P_02.tres" id="3_mqh7d"]
 [ext_resource type="Texture2D" uid="uid://0tg320lajxuc" path="res://Assets/Pets/Phosphorous_Idle.png" id="4_fb64k"]
+[ext_resource type="Resource" uid="uid://cdwt003u7i4iu" path="res://Resources/Moves/P_03.tres" id="4_uxqns"]
+[ext_resource type="Resource" uid="uid://b4bk0u28pglgc" path="res://Resources/Moves/P_04.tres" id="5_f554r"]
 [ext_resource type="Texture2D" uid="uid://b25ngn1lgwu8t" path="res://Assets/Pets/Phosphorous_Walk.png" id="5_pcrc1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qxjd0"]
@@ -135,4 +139,5 @@ mass_number = 31
 state = "Solid"
 block = "p"
 period = 3
+moves = Array[ExtResource("1_yotu5")]([ExtResource("2_5n17t"), ExtResource("3_mqh7d"), ExtResource("4_uxqns"), ExtResource("5_f554r")])
 metadata/_custom_type_script = "uid://dvv118enrwub6"

@@ -4,7 +4,11 @@
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_r2105"]
 [ext_resource type="Texture2D" uid="uid://d0ojioa0mnajp" path="res://Assets/Atomon Portraits/arbatt_argon.png" id="2_fe6sk"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_vw4wi"]
+[ext_resource type="Resource" uid="uid://bvbhol7dymu5l" path="res://Resources/Moves/Ar_01.tres" id="3_ywvmk"]
+[ext_resource type="Resource" uid="uid://shy3knduyket" path="res://Resources/Moves/Ar_02.tres" id="4_7agl7"]
 [ext_resource type="Texture2D" uid="uid://dcs3dkp460yj1" path="res://Assets/Pets/argon_anim.png" id="4_l3h4w"]
+[ext_resource type="Resource" uid="uid://dyi24y5jur2fp" path="res://Resources/Moves/Ar_03.tres" id="5_h45hn"]
+[ext_resource type="Resource" uid="uid://bh74800ng2t45" path="res://Resources/Moves/Ar_04.tres" id="6_pnxct"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ceq5"]
 atlas = ExtResource("4_l3h4w")
@@ -107,5 +111,6 @@ mass_number = 40
 element_type = "Noble Gas"
 block = "p"
 period = 3
+moves = Array[ExtResource("1_r2105")]([ExtResource("3_ywvmk"), ExtResource("4_7agl7"), ExtResource("5_h45hn"), ExtResource("6_pnxct")])
 cry_sound = ExtResource("1_l3h4w")
 metadata/_custom_type_script = "uid://dvv118enrwub6"

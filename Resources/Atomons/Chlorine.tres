@@ -3,8 +3,12 @@
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_tqfic"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_du67r"]
 [ext_resource type="Texture2D" uid="uid://dro5l1siynyi8" path="res://Assets/Atomon Portraits/chloxic_chlorine.png" id="2_qksxc"]
+[ext_resource type="Resource" uid="uid://d17fcn4pplyx7" path="res://Resources/Moves/Cl_01.tres" id="2_qsrtm"]
+[ext_resource type="Resource" uid="uid://dm2jsnwhiftbc" path="res://Resources/Moves/Cl_02.tres" id="3_4stk0"]
 [ext_resource type="Texture2D" uid="uid://c2r1qlyinkfvk" path="res://Assets/Pets/Chlorine_idle.png" id="3_du67r"]
+[ext_resource type="Resource" uid="uid://b8vu66u3r5vp1" path="res://Resources/Moves/Cl_03.tres" id="4_flg11"]
 [ext_resource type="Texture2D" uid="uid://cipjkn4q7sr3t" path="res://Assets/Pets/Chlorine_run.png" id="4_ud8o2"]
+[ext_resource type="Resource" uid="uid://bgt2xymw4bo5w" path="res://Resources/Moves/Cl_04.tres" id="5_6ryxc"]
 [ext_resource type="Texture2D" uid="uid://gl5v5b1xupcd" path="res://Assets/UX/Icons/AtomicImage/silicon_Si.png" id="5_pdvyp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ud8o2"]
@@ -137,4 +141,5 @@ mass_number = 35
 element_type = "Halogen"
 block = "p"
 period = 3
+moves = Array[ExtResource("1_tqfic")]([ExtResource("2_qsrtm"), ExtResource("3_4stk0"), ExtResource("4_flg11"), ExtResource("5_6ryxc")])
 metadata/_custom_type_script = "uid://dvv118enrwub6"

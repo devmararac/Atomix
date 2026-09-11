@@ -1,30 +1,15 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://b3t7logynq7t3"]
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_eeq8w"]
-[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="2_en52p"]
+[ext_resource type="Resource" uid="uid://d2c8jh5kdqdbf" path="res://Resources/Moves/Li_01.tres" id="2_ate31"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_li51x"]
-[ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="3_ttp37"]
-[ext_resource type="Resource" uid="uid://d0ef24qu8lsjb" path="res://Resources/Moves/Dmg2.tres" id="4_oalnc"]
-[ext_resource type="Resource" uid="uid://dkjgjf3eljlf1" path="res://Resources/Moves/Heal1.tres" id="5_805st"]
-[ext_resource type="Resource" uid="uid://elx6np0ias51" path="res://Resources/Moves/Status Effect 1.tres" id="6_7nky3"]
+[ext_resource type="Resource" uid="uid://bk01vt3wq18sa" path="res://Resources/Moves/Li_02.tres" id="3_c6hvg"]
+[ext_resource type="Resource" uid="uid://bu4443v8q0bp2" path="res://Resources/Moves/Li_03.tres" id="4_c5foc"]
+[ext_resource type="Resource" uid="uid://l4vw13dgp4lk" path="res://Resources/Moves/Li_04.tres" id="5_arvx7"]
 [ext_resource type="Texture2D" uid="uid://8r74fjlwkib6" path="res://Assets/Atomon Portraits/liggorr_lithium.png" id="7_c6hvg"]
 [ext_resource type="Texture2D" uid="uid://da653armnwpqy" path="res://Assets/Pets/Lithium-walk.png" id="8_oalnc"]
 [ext_resource type="Texture2D" uid="uid://ct10edbjpkamm" path="res://Assets/UX/Icons/AtomicImage/icon_case.png" id="9_805st"]
 [ext_resource type="Texture2D" uid="uid://rfmt66htqnxw" path="res://Assets/Pets/Lithium-idle.png" id="9_c5foc"]
-
-[sub_resource type="Resource" id="Resource_6pjqj"]
-script = ExtResource("3_ttp37")
-power = 50
-metadata/_custom_type_script = "uid://bi06gqxjn2rug"
-
-[sub_resource type="Resource" id="Resource_3hewa"]
-script = ExtResource("1_eeq8w")
-move_name = "Damage 1"
-description = "Bomb"
-accuracy = 80
-priority = 1
-actions = Array[ExtResource("2_en52p")]([SubResource("Resource_6pjqj")])
-metadata/_custom_type_script = "uid://c3r52ktnjg7y"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_arvx7"]
 atlas = ExtResource("9_c5foc")
@@ -184,5 +169,5 @@ mass_number = 7
 element_type = "Alkali Metal"
 state = "Solid"
 period = 2
-moves = Array[ExtResource("1_eeq8w")]([SubResource("Resource_3hewa"), ExtResource("4_oalnc"), ExtResource("5_805st"), ExtResource("6_7nky3")])
+moves = Array[ExtResource("1_eeq8w")]([ExtResource("2_ate31"), ExtResource("3_c6hvg"), ExtResource("4_c5foc"), ExtResource("5_arvx7")])
 metadata/_custom_type_script = "uid://dvv118enrwub6"

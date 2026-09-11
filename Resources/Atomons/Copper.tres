@@ -1,9 +1,13 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bmpcm1vxixg4e"]
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_7nfk1"]
+[ext_resource type="Resource" uid="uid://dg5wwy4fflgkx" path="res://Resources/Moves/Cu_01.tres" id="2_6dwie"]
 [ext_resource type="Texture2D" uid="uid://dbjetbud7t4l5" path="res://Assets/Atomon Portraits/coppcou_copper.png" id="2_fr5m7"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_khrd3"]
+[ext_resource type="Resource" uid="uid://cfenf01mrbolt" path="res://Resources/Moves/Cu_02.tres" id="3_esl6b"]
+[ext_resource type="Resource" uid="uid://cewarhhbblm2a" path="res://Resources/Moves/Cu_03.tres" id="4_agmh8"]
 [ext_resource type="Texture2D" uid="uid://co2ffe8o5ypdd" path="res://Assets/Pets/Copper_anim.png" id="4_v7aji"]
+[ext_resource type="Resource" uid="uid://bgk0lj3gq1b8i" path="res://Resources/Moves/Cu_04.tres" id="5_lg8nv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mlepe"]
 atlas = ExtResource("4_v7aji")
@@ -93,4 +97,5 @@ element_type = "Transition Metal"
 state = "Solid"
 block = "d"
 period = 4
+moves = Array[ExtResource("1_7nfk1")]([ExtResource("2_6dwie"), ExtResource("3_esl6b"), ExtResource("4_agmh8"), ExtResource("5_lg8nv")])
 metadata/_custom_type_script = "uid://dvv118enrwub6"

@@ -3,7 +3,11 @@
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_pbjao"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_atoo8"]
 [ext_resource type="Texture2D" uid="uid://bfgant8o3g53g" path="res://Assets/Atomon Portraits/blime_bromine.png" id="2_eftvy"]
+[ext_resource type="Resource" uid="uid://dj2a0wdk02sip" path="res://Resources/Moves/Br_01.tres" id="2_rca3l"]
+[ext_resource type="Resource" uid="uid://5in10kooxrk" path="res://Resources/Moves/Br_02.tres" id="3_2agum"]
+[ext_resource type="Resource" uid="uid://bfunmooso2wre" path="res://Resources/Moves/Br_03.tres" id="4_60coq"]
 [ext_resource type="Texture2D" uid="uid://ckf2cdbww6fvf" path="res://Assets/Pets/bromine_anim.png" id="4_gi43w"]
+[ext_resource type="Resource" uid="uid://c7s77kjkoa0r2" path="res://Resources/Moves/Br_04.tres" id="5_15qp6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7yt2n"]
 atlas = ExtResource("4_gi43w")
@@ -135,4 +139,5 @@ element_type = "Halogen"
 state = "Liquid"
 block = "p"
 period = 4
+moves = Array[ExtResource("1_pbjao")]([ExtResource("2_rca3l"), ExtResource("3_2agum"), ExtResource("4_60coq"), ExtResource("5_15qp6")])
 metadata/_custom_type_script = "uid://dvv118enrwub6"

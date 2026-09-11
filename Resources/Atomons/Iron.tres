@@ -2,13 +2,31 @@
 
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1_0ro7n"]
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_lsvay"]
-[ext_resource type="Resource" uid="uid://djuhi7rkms4ir" path="res://Resources/Moves/Dmg4.tres" id="2_8v47u"]
+[ext_resource type="Resource" uid="uid://bjm6qa0ovx281" path="res://Resources/Moves/Fe_01.tres" id="2_m6hku"]
 [ext_resource type="Texture2D" uid="uid://bte4enammcpdx" path="res://Assets/Pets/Golem_Armor_Idle.png" id="2_vfumv"]
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="3_1gpsy"]
 [ext_resource type="Texture2D" uid="uid://c782m3jfqn8mu" path="res://Assets/Pets/Golem_Armor_Run.png" id="3_lsvay"]
-[ext_resource type="Resource" uid="uid://c4kshjloxfye0" path="res://Resources/Moves/Dmg5.tres" id="3_m6hku"]
-[ext_resource type="Resource" uid="uid://bnqpl71mflxr8" path="res://Resources/Moves/Dmg1.tres" id="4_1gpsy"]
+[ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="4_kva43"]
 [ext_resource type="Texture2D" uid="uid://c28mtsfje07on" path="res://Assets/UX/Icons/AtomicImage/iron_Fe.png" id="5_ali7o"]
-[ext_resource type="Resource" uid="uid://cse5knam3fi4m" path="res://Resources/Moves/Heal5.tres" id="5_kva43"]
+[ext_resource type="Resource" uid="uid://tbtib68c6ndt" path="res://Resources/Moves/Fe_03.tres" id="5_d2vc6"]
+[ext_resource type="Resource" uid="uid://ds73ch3sl21l6" path="res://Resources/Moves/Fe_04.tres" id="6_slacj"]
+
+[sub_resource type="Resource" id="DamageAction"]
+script = ExtResource("4_kva43")
+power = 65
+damage_type = "Special"
+metadata/_custom_type_script = "uid://bi06gqxjn2rug"
+
+[sub_resource type="Resource" id="Resource_ghmmt"]
+script = ExtResource("1_lsvay")
+move_name = "Iron Hammer"
+description = "Iron Hammer deals 65 damage as a signature attack."
+actions = Array[ExtResource("3_1gpsy")]([SubResource("DamageAction")])
+metadata/skill_id = "Fe_02"
+metadata/element = "Iron"
+metadata/slot = 2
+metadata/category = "damage"
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ali7o"]
 atlas = ExtResource("2_vfumv")
@@ -183,7 +201,7 @@ element_type = "Transition Metal"
 state = "Solid"
 block = "d"
 period = 4
-moves = Array[ExtResource("1_lsvay")]([ExtResource("2_8v47u"), ExtResource("3_m6hku"), ExtResource("4_1gpsy"), ExtResource("5_kva43")])
+moves = Array[ExtResource("1_lsvay")]([ExtResource("2_m6hku"), SubResource("Resource_ghmmt"), ExtResource("5_d2vc6"), ExtResource("6_slacj")])
 description = "A dense, metallic-based Atomon forged from raw ore deposits deep within cavern layers. 
 
 Its body is reinforced with naturally formed iron plating, making it highly resistant to physical impact. 

@@ -5,39 +5,26 @@
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_mrh51"]
 [ext_resource type="Texture2D" uid="uid://csw0ks17clkr5" path="res://Assets/Pets/hydrogen_idle.png" id="3_mrh51"]
 [ext_resource type="Script" uid="uid://bi06gqxjn2rug" path="res://Resources/Scripts/Actions/DamageAction.gd" id="3_q2hpa"]
+[ext_resource type="Resource" uid="uid://tmx0012" path="res://Resources/Moves/H_02.tres" id="3_s6aje"]
+[ext_resource type="Resource" uid="uid://tmx0013" path="res://Resources/Moves/H_03.tres" id="4_2j6cy"]
 [ext_resource type="Texture2D" uid="uid://bhla4rhfrcjvu" path="res://Assets/UX/Icons/AtomicImage/hydrogen_H.png" id="4_t34n2"]
-[ext_resource type="Resource" uid="uid://bmp3krn62o2le" path="res://Resources/Moves/Na.tres" id="6_xkd1v"]
+[ext_resource type="Resource" uid="uid://tmx0014" path="res://Resources/Moves/H_04.tres" id="5_5yk4w"]
 
-[sub_resource type="Resource" id="Resource_6pjqj"]
+[sub_resource type="Resource" id="DamageAction"]
 script = ExtResource("3_q2hpa")
 power = 30
 damage_type = "Special"
 metadata/_custom_type_script = "uid://bi06gqxjn2rug"
 
-[sub_resource type="Resource" id="Resource_x4tl5"]
-script = ExtResource("1_28k1t")
-move_name = "Damage 1"
-description = "Bomb"
-accuracy = 80
-priority = 1
-actions = Array[ExtResource("2_eqdnw")]([SubResource("Resource_6pjqj")])
-metadata/_custom_type_script = "uid://c3r52ktnjg7y"
-
-[sub_resource type="Resource" id="Resource_3n4p7"]
-script = ExtResource("1_28k1t")
-move_name = "He"
-description = "Balloon"
-metadata/_custom_type_script = "uid://c3r52ktnjg7y"
-
-[sub_resource type="Resource" id="Resource_rp6q6"]
-script = ExtResource("3_q2hpa")
-metadata/_custom_type_script = "uid://bi06gqxjn2rug"
-
 [sub_resource type="Resource" id="Resource_s6aje"]
 script = ExtResource("1_28k1t")
-move_name = "C"
-description = "Soda"
-actions = Array[ExtResource("2_eqdnw")]([SubResource("Resource_rp6q6")])
+move_name = "Proton Strike"
+description = "Proton Strike deals 30 damage to the target."
+actions = Array[ExtResource("2_eqdnw")]([SubResource("DamageAction")])
+metadata/skill_id = "H_01"
+metadata/element = "Hydrogen"
+metadata/slot = 1
+metadata/category = "damage"
 metadata/_custom_type_script = "uid://c3r52ktnjg7y"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t34n2"]
@@ -121,7 +108,7 @@ density = 8.987999999999996e-05
 ionization_energy = 13.59844
 electron_affinity = 72.78
 valence_electrons = 1
-moves = Array[ExtResource("1_28k1t")]([SubResource("Resource_x4tl5"), SubResource("Resource_3n4p7"), SubResource("Resource_s6aje"), ExtResource("6_xkd1v")])
+moves = Array[ExtResource("1_28k1t")]([SubResource("Resource_s6aje"), ExtResource("3_s6aje"), ExtResource("4_2j6cy"), ExtResource("5_5yk4w")])
 description = "Hydrogen is the first Atomon ever discovered and is considered the building block of many stronger species. 
 
 It prefers to travel in groups and rarely stays still for long. 

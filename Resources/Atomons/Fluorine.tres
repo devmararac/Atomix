@@ -3,7 +3,11 @@
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_k5w8e"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_44fok"]
 [ext_resource type="Texture2D" uid="uid://d38k1t2abf4ug" path="res://Assets/Atomon Portraits/fluorie_fluorine.png" id="2_iuixi"]
+[ext_resource type="Resource" uid="uid://cvmg1l1fi5gn" path="res://Resources/Moves/F_01.tres" id="2_ru2oa"]
 [ext_resource type="Texture2D" uid="uid://dumnff6x3wm7n" path="res://Assets/Pets/Flourine-idle.png" id="3_44fok"]
+[ext_resource type="Resource" uid="uid://bnxxotfwalsa" path="res://Resources/Moves/F_02.tres" id="3_eo476"]
+[ext_resource type="Resource" uid="uid://cuuu8lnwlcl6w" path="res://Resources/Moves/F_03.tres" id="4_loymb"]
+[ext_resource type="Resource" uid="uid://bhgps2mk3nl0q" path="res://Resources/Moves/F_04.tres" id="5_llmmx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iuixi"]
 atlas = ExtResource("3_44fok")
@@ -92,4 +96,5 @@ mass_number = 19
 element_type = "Halogen"
 block = "p"
 period = 2
+moves = Array[ExtResource("1_k5w8e")]([ExtResource("2_ru2oa"), ExtResource("3_eo476"), ExtResource("4_loymb"), ExtResource("5_llmmx")])
 metadata/_custom_type_script = "uid://dvv118enrwub6"

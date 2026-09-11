@@ -494,6 +494,14 @@ func display_element_progress() -> void:
 	)
 
 
+	print(
+		"[StudentProfile] Element progress: ",
+		collected,
+		"/",
+		total
+	)
+
+
 # ============================================================
 # MODULE PROGRESS
 # ============================================================
@@ -519,22 +527,28 @@ func display_module_progress() -> void:
 	var lesson_progress: Dictionary = lesson_value
 
 
-	if lesson_progress.is_empty():
+	# --------------------------------------------------------
+	# IMPORTANT:
+	# The current database only contains:
+	#
+	# lesson_progress
+	#     name
+	#
+	# There are currently no individual module records.
+	#
+	# Therefore we must NOT pretend there are 8 modules.
+	# --------------------------------------------------------
 
-		set_module_progress(
-			0,
-			0
-		)
-
-		return
-
-
-	var total_modules: int = lesson_progress.size()
-
+	var total_modules: int = 0
 	var completed_modules: int = 0
 
 
 	for lesson_id in lesson_progress:
+
+		if lesson_id == "name":
+
+			continue
+
 
 		var lesson_value_data = lesson_progress[
 			lesson_id
@@ -544,6 +558,9 @@ func display_module_progress() -> void:
 		if not lesson_value_data is Dictionary:
 
 			continue
+
+
+		total_modules += 1
 
 
 		var lesson: Dictionary = lesson_value_data
@@ -571,6 +588,14 @@ func display_module_progress() -> void:
 	)
 
 
+	print(
+		"[StudentProfile] Module progress: ",
+		completed_modules,
+		"/",
+		total_modules
+	)
+
+
 # ============================================================
 # SET MODULE PROGRESS
 # ============================================================
@@ -590,7 +615,9 @@ func set_module_progress(
 		modules_progress.max_value = 100
 		modules_progress.value = 0
 
-		modules_progress_text.text = "0%"
+		modules_progress_text.text = (
+			"No module progress yet"
+		)
 
 		return
 
@@ -658,36 +685,147 @@ func display_assessment() -> void:
 	var assessment: Dictionary = assessment_value
 
 
-	var total_assessments: int = int(
-		assessment.get(
-			"total_assessments",
-			0
+	# ========================================================
+	# DO NOT USE THE SUMMARY FIELDS
+	#
+	# The database currently contains stale values:
+	#
+	# total_assessments = 0
+	# completed_assessments = 0
+	# average_score = 0
+	# latest_score = 0
+	#
+	# Instead, inspect every quiz_xxx record.
+	# ========================================================
+
+	var total_assessments: int = 0
+	var completed_assessments: int = 0
+
+	var score_total: float = 0.0
+	var latest_score: float = 0.0
+
+	var latest_timestamp: int = 0
+
+
+	for assessment_id in assessment:
+
+		var assessment_entry = assessment[
+			assessment_id
+		]
+
+
+		# Only process actual quiz records.
+		if not str(assessment_id).begins_with(
+			"quiz_"
+		):
+
+			continue
+
+
+		if not assessment_entry is Dictionary:
+
+			continue
+
+
+		var quiz: Dictionary = assessment_entry
+
+
+		total_assessments += 1
+
+
+		var completed: bool = bool(
+			quiz.get(
+				"completed",
+				false
+			)
 		)
-	)
 
 
-	var completed_assessments: int = int(
-		assessment.get(
-			"completed_assessments",
-			0
+		if not completed:
+
+			continue
+
+
+		completed_assessments += 1
+
+
+		var percentage: float = float(
+			quiz.get(
+				"percentage",
+				0.0
+			)
 		)
-	)
 
 
-	var average_score: float = float(
-		assessment.get(
-			"average_score",
-			0.0
+		score_total += percentage
+
+
+		# ----------------------------------------------------
+		# Determine the latest completed assessment.
+		# ----------------------------------------------------
+
+		var completed_timestamp: int = get_timestamp_from_value(
+			quiz.get(
+				"completed_at",
+				0
+			)
 		)
-	)
 
 
-	var latest_score: float = float(
-		assessment.get(
-			"latest_score",
-			0.0
+		if completed_timestamp >= latest_timestamp:
+
+			latest_timestamp = completed_timestamp
+
+			latest_score = percentage
+
+
+		print(
+			"[StudentProfile] Assessment found: ",
+			str(
+				quiz.get(
+					"quiz_title",
+					assessment_id
+				)
+			),
+			" | Score: ",
+			quiz.get(
+				"score",
+				0
+			),
+			"/",
+			quiz.get(
+				"total_questions",
+				0
+			),
+			" | ",
+			percentage,
+			"%"
 		)
-	)
+
+
+	var average_score: float = 0.0
+
+
+	if completed_assessments > 0:
+
+		average_score = (
+			score_total
+			/
+			float(completed_assessments)
+		)
+
+
+	# If there are completed assessments but no
+	# recognizable timestamp, use the last encountered
+	# completed quiz as a fallback.
+	if (
+		completed_assessments > 0
+		and latest_timestamp == 0
+	):
+
+		latest_score = get_latest_assessment_percentage(
+			assessment
+		)
 
 
 	set_assessment(
@@ -695,6 +833,33 @@ func display_assessment() -> void:
 		completed_assessments,
 		average_score,
 		latest_score
+	)
+
+
+	print(
+		"[StudentProfile] Real assessment statistics:"
+	)
+
+	print(
+		"  Total: ",
+		total_assessments
+	)
+
+	print(
+		"  Completed: ",
+		completed_assessments
+	)
+
+	print(
+		"  Average: ",
+		average_score,
+		"%"
+	)
+
+	print(
+		"  Latest: ",
+		latest_score,
+		"%"
 	)
 
 
@@ -730,16 +895,153 @@ func set_assessment(
 	)
 
 
-	print(
-		"[StudentProfile] Assessments: ",
-		completed,
-		"/",
-		total,
-		" | Average: ",
-		average,
-		" | Latest: ",
-		latest
-	)
+# ============================================================
+# GET TIMESTAMP FROM FIREBASE VALUE
+# ============================================================
+
+func get_timestamp_from_value(
+	value
+) -> int:
+
+	# --------------------------------------------------------
+	# Integer timestamp
+	# --------------------------------------------------------
+
+	if value is int:
+
+		return int(value)
+
+
+	# --------------------------------------------------------
+	# Float timestamp
+	# --------------------------------------------------------
+
+	if value is float:
+
+		return int(value)
+
+
+	# --------------------------------------------------------
+	# Firebase timestamp dictionary
+	#
+	# Possible format:
+	# {
+	#     "seconds": 1234567890,
+	#     "nanos": 0
+	# }
+	# --------------------------------------------------------
+
+	if value is Dictionary:
+
+		var timestamp_data: Dictionary = value
+
+
+		if timestamp_data.has("seconds"):
+
+			var seconds_value = timestamp_data.get(
+				"seconds",
+				0
+			)
+
+
+			if seconds_value is int:
+
+				return int(seconds_value)
+
+
+			if seconds_value is float:
+
+				return int(seconds_value)
+
+
+			if str(seconds_value).is_valid_int():
+
+				return int(
+					str(seconds_value)
+				)
+
+
+	# --------------------------------------------------------
+	# String
+	# --------------------------------------------------------
+
+	if value is String:
+
+		var text: String = value.strip_edges()
+
+
+		if text.is_empty():
+
+			return 0
+
+
+		if text.is_valid_int():
+
+			return int(text)
+
+
+		if text.is_valid_float():
+
+			return int(
+				float(text)
+			)
+
+
+	return 0
+
+
+# ============================================================
+# FALLBACK LATEST ASSESSMENT
+# ============================================================
+
+func get_latest_assessment_percentage(
+	assessment: Dictionary
+) -> float:
+
+	var latest_percentage: float = 0.0
+
+
+	for assessment_id in assessment:
+
+		if not str(assessment_id).begins_with(
+			"quiz_"
+		):
+
+			continue
+
+
+		var assessment_entry = assessment[
+			assessment_id
+		]
+
+
+		if not assessment_entry is Dictionary:
+
+			continue
+
+
+		var quiz: Dictionary = assessment_entry
+
+
+		if not bool(
+			quiz.get(
+				"completed",
+				false
+			)
+		):
+
+			continue
+
+
+		latest_percentage = float(
+			quiz.get(
+				"percentage",
+				0.0
+			)
+		)
+
+
+	return latest_percentage
 
 
 # ============================================================
@@ -766,6 +1068,10 @@ func display_game_progress() -> void:
 	var game_state: Dictionary = game_state_value
 
 
+	# ========================================================
+	# COINS
+	# ========================================================
+
 	var coins: int = int(
 		game_state.get(
 			"coins",
@@ -779,6 +1085,10 @@ func display_game_progress() -> void:
 		% coins
 	)
 
+
+	# ========================================================
+	# PARTY
+	# ========================================================
 
 	var party_count: int = 0
 
@@ -799,6 +1109,10 @@ func display_game_progress() -> void:
 		% party_count
 	)
 
+
+	# ========================================================
+	# SAVE STATUS
+	# ========================================================
 
 	var has_save: bool = bool(
 		game_state.get(
@@ -833,6 +1147,10 @@ func display_recent_activity() -> void:
 	)
 
 
+	# ========================================================
+	# EXPLICIT RECENT ACTIVITY
+	# ========================================================
+
 	if activity_value is Array:
 
 		var activities: Array = activity_value
@@ -844,36 +1162,97 @@ func display_recent_activity() -> void:
 				"No recent activity."
 			)
 
-			return
+		else:
+
+			var activity_text: String = ""
 
 
-		var activity_text: String = ""
+			for item in activities:
+
+				activity_text += (
+					str(item)
+					+
+					"\n"
+				)
 
 
-		for item in activities:
-
-			activity_text += (
-				str(item)
-				+
-				"\n"
+			activity_label.text = (
+				activity_text.strip_edges()
 			)
-
-
-		activity_label.text = activity_text.strip_edges()
 
 		return
 
 
-	var game_state_value = student_data.get(
+	# ========================================================
+	# BUILD ACTIVITY FROM REAL SAVED GAME DATA
+	# ========================================================
+
+	var activity_lines: Array[String] = []
+
+
+	# --------------------------------------------------------
+	# Quest activity
+	# --------------------------------------------------------
+
+	var quest_value = student_data.get(
 		"game_state",
 		{}
 	)
 
 
-	if game_state_value is Dictionary:
+	if quest_value is Dictionary:
 
-		var game_state: Dictionary = game_state_value
+		var game_state: Dictionary = quest_value
 
+
+		var quest_data_value = game_state.get(
+			"quest_data",
+			{}
+		)
+
+
+		if quest_data_value is Dictionary:
+
+			var quest_data: Dictionary = quest_data_value
+
+
+			for quest_id in quest_data:
+
+				var quest_value_data = quest_data[
+					quest_id
+				]
+
+
+				if not quest_value_data is Dictionary:
+
+					continue
+
+
+				var quest: Dictionary = quest_value_data
+
+
+				var quest_status: String = str(
+					quest.get(
+						"quest_status",
+						""
+					)
+				).to_lower()
+
+
+				if quest_status == "completed":
+
+					activity_lines.append(
+						"✓ Quest completed: "
+						+
+						get_readable_quest_name(
+							str(quest_id)
+						)
+					)
+
+
+		# ----------------------------------------------------
+		# Current game location
+		# ----------------------------------------------------
 
 		var current_scene: String = str(
 			game_state.get(
@@ -882,6 +1261,21 @@ func display_recent_activity() -> void:
 			)
 		)
 
+
+		if not current_scene.is_empty():
+
+			activity_lines.append(
+				"Current location: "
+				+
+				get_scene_name(
+					current_scene
+				)
+			)
+
+
+		# ----------------------------------------------------
+		# Save status
+		# ----------------------------------------------------
 
 		var has_save: bool = bool(
 			game_state.get(
@@ -893,22 +1287,22 @@ func display_recent_activity() -> void:
 
 		if has_save:
 
-			activity_label.text = (
-				"Game save available.\n"
-				+
-				"Current scene: "
-				+
-				get_scene_name(
-					current_scene
-				)
+			activity_lines.append(
+				"Game progress saved."
 			)
 
-			return
 
+	if activity_lines.is_empty():
 
-	activity_label.text = (
-		"No recent activity."
-	)
+		activity_label.text = (
+			"No recent activity."
+		)
+
+	else:
+
+		activity_label.text = (
+			"\n".join(activity_lines)
+		)
 
 
 # ============================================================
@@ -919,13 +1313,13 @@ func display_academic_history() -> void:
 
 	var history_value = student_data.get(
 		"academic_history",
-		null
+		{}
 	)
 
 
-	if history_value is Array:
+	if history_value is Dictionary:
 
-		var history: Array = history_value
+		var history: Dictionary = history_value
 
 
 		if history.is_empty():
@@ -940,7 +1334,49 @@ func display_academic_history() -> void:
 		var history_text: String = ""
 
 
-		for item in history:
+		for history_id in history:
+
+			var history_entry = history[
+				history_id
+			]
+
+
+			history_text += (
+				str(history_id)
+				+
+				": "
+				+
+				str(history_entry)
+				+
+				"\n"
+			)
+
+
+		history_label.text = (
+			history_text.strip_edges()
+		)
+
+		return
+
+
+	if history_value is Array:
+
+		var history_array: Array = history_value
+
+
+		if history_array.is_empty():
+
+			history_label.text = (
+				"No previous academic history."
+			)
+
+			return
+
+
+		var history_text: String = ""
+
+
+		for item in history_array:
 
 			history_text += (
 				str(item)
@@ -949,16 +1385,18 @@ func display_academic_history() -> void:
 			)
 
 
-		history_label.text = history_text.strip_edges()
+		history_label.text = (
+			history_text.strip_edges()
+		)
 
 		return
 
 
 	if history_value is String:
 
-		if not str(history_value).is_empty():
+		if not history_value.strip_edges().is_empty():
 
-			history_label.text = str(
+			history_label.text = (
 				history_value
 			)
 
@@ -968,6 +1406,23 @@ func display_academic_history() -> void:
 	history_label.text = (
 		"No previous academic history."
 	)
+
+
+# ============================================================
+# READABLE QUEST NAME
+# ============================================================
+
+func get_readable_quest_name(
+	quest_id: String
+) -> String:
+
+	var result: String = quest_id.replace(
+		"_",
+		" "
+	)
+
+
+	return result.capitalize()
 
 
 # ============================================================

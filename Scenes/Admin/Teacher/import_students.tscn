@@ -223,12 +223,7 @@ text = "Import Students"
 title = "Open a File"
 file_mode = 0
 access = 2
-filters = PackedStringArray(
-	"*.csv ; CSV Spreadsheet",
-	"*.xlsx ; Excel Workbook",
-	"*.tsv ; Tab-Separated Spreadsheet",
-	"*.txt ; Text Spreadsheet"
-)
+filters = PackedStringArray("*.csv ; CSV Spreadsheet", "*.xlsx ; Excel Workbook", "*.tsv ; Tab-Separated Spreadsheet", "*.txt ; Text Spreadsheet")
 
 [connection signal="pressed" from="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/DropPanel/VBoxContainer/BrowseButton" to="." method="_on_browse_button_pressed"]
 [connection signal="pressed" from="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons/CancelButton" to="." method="_on_cancel_button_pressed"]

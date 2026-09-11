@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_54jaf"]
 [ext_resource type="Texture2D" uid="uid://cpbgghdj7few2" path="res://Assets/Atomon Portraits/mergrumm_mercury.png" id="2_iohhj"]
+[ext_resource type="Resource" uid="uid://c1s314cerlg03" path="res://Resources/Moves/Hg_01.tres" id="2_iqgaa"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_j6tf6"]
+[ext_resource type="Resource" uid="uid://bxxki1nluce6" path="res://Resources/Moves/Hg_02.tres" id="3_lhev7"]
 [ext_resource type="Texture2D" uid="uid://c45qq7san0w6q" path="res://Assets/Pets/Mercury_idle.png" id="4_8owtt"]
+[ext_resource type="Resource" uid="uid://dnfaovs3g6qno" path="res://Resources/Moves/Hg_03.tres" id="4_fw8iy"]
+[ext_resource type="Resource" uid="uid://b0l1erbm8ep47" path="res://Resources/Moves/Hg_04.tres" id="5_2fxqp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qgxie"]
 atlas = ExtResource("4_8owtt")
@@ -135,4 +139,5 @@ element_type = "Transition Metal"
 state = "Liquid"
 block = "d"
 period = 6
+moves = Array[ExtResource("1_54jaf")]([ExtResource("2_iqgaa"), ExtResource("3_lhev7"), ExtResource("4_fw8iy"), ExtResource("5_2fxqp")])
 metadata/_custom_type_script = "uid://dvv118enrwub6"
