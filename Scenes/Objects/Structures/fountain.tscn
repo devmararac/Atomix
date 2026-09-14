@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://1qjqgpg3k4u7"]
+
+[ext_resource type="Texture2D" uid="uid://d3gwbol4e4q5" path="res://Assets/Structures/Wood Stuffs/Fountain.png" id="1_y423o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vrxow"]
+size = Vector2(38, 39)
+
+[node name="Fountain" type="StaticBody2D" unique_id=1402792950]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=289665857]
+texture = ExtResource("1_y423o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=399699193]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_vrxow")
