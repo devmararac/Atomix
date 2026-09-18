@@ -1029,6 +1029,37 @@ func upload_to_firebase() -> bool:
 			save_data.quest_data
 	}
 
+	# ========================================================
+	# PLAYER PROFILE
+	# ========================================================
+
+	document.add_or_update_field(
+		"display_name",
+		PlayerManager.display_name
+	)
+
+	document.add_or_update_field(
+		"character_id",
+		(
+			PlayerManager.selected_character.character_id
+			if PlayerManager.selected_character != null
+			else ""
+		)
+	)
+
+	print(
+		"[SaveManager] Player display name: ",
+		PlayerManager.display_name
+	)
+
+	print(
+		"[SaveManager] Player character ID: ",
+		(
+			PlayerManager.selected_character.character_id
+			if PlayerManager.selected_character != null
+			else ""
+		)
+	)
 
 	# ========================================================
 	# UPDATE FIRESTORE
@@ -1077,7 +1108,6 @@ func upload_to_firebase() -> bool:
 
 		return false
 
-
 	# ========================================================
 	# UPDATE LOCAL STUDENT DATA
 	# ========================================================
@@ -1100,6 +1130,8 @@ func upload_to_firebase() -> bool:
 	)
 
 	return true
+
+
 
 
 # ============================================================
@@ -1137,9 +1169,115 @@ func download_from_firebase() -> bool:
 
 		return false
 
+
+	# ========================================================
+	# GET FIRESTORE DATA
+	# ========================================================
+
 	var data: Dictionary = (
 		document.get_unsafe_document()
 	)
+
+
+	# ========================================================
+	# PLAYER PROFILE
+	# ========================================================
+
+	var saved_display_name := str(
+		data.get(
+			"display_name",
+			""
+		)
+	).strip_edges()
+
+	var saved_character_id := str(
+		data.get(
+			"character_id",
+			""
+		)
+	).strip_edges()
+
+
+	# ========================================================
+	# RESTORE DISPLAY NAME
+	# ========================================================
+
+	PlayerManager.display_name = (
+		saved_display_name
+	)
+
+
+	# ========================================================
+	# RESTORE SELECTED CHARACTER
+	# ========================================================
+
+	if not saved_character_id.is_empty():
+
+		match saved_character_id:
+
+			"character_01":
+
+				PlayerManager.selected_character = preload(
+					"res://Resources/Characters/Default.tres"
+				)
+
+			"character_02":
+
+				PlayerManager.selected_character = preload(
+					"res://Resources/Characters/Alfred.tres"
+				)
+
+			#"character_03":
+
+				#PlayerManager.selected_character = preload(
+					#"res://Resources/Characters/Character03.tres"
+				#)
+
+			#"character_04":
+
+				#PlayerManager.selected_character = preload(
+					#"res://Resources/Characters/Character04.tres"
+				#)
+
+			_:
+
+				print(
+					"[SaveManager] Unknown character ID: ",
+					saved_character_id
+				)
+
+
+	# ========================================================
+	# UPDATE LOCAL STUDENT DATA
+	# ========================================================
+
+	StudentDataManager.student_data["display_name"] = (
+		saved_display_name
+	)
+
+	StudentDataManager.student_data["character_id"] = (
+		saved_character_id
+	)
+
+
+	print(
+		"[SaveManager] ===== PLAYER PROFILE LOADED ====="
+	)
+
+	print(
+		"[SaveManager] Display Name: ",
+		PlayerManager.display_name
+	)
+
+	print(
+		"[SaveManager] Character ID: ",
+		saved_character_id
+	)
+
+
+	# ========================================================
+	# CHECK GAME STATE
+	# ========================================================
 
 	if not data.has("game_state"):
 
@@ -1387,6 +1525,10 @@ func download_from_firebase() -> bool:
 			"[SaveManager] Firebase quest data is invalid."
 		)
 
+
+	# ========================================================
+	# DOWNLOAD COMPLETE
+	# ========================================================
 
 	print(
 		"[SaveManager] Game state downloaded."

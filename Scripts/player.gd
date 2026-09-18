@@ -12,6 +12,7 @@ var footstep_timer := 0.0
 var cardinal_direction: Vector2 = Vector2.DOWN
 var direction: Vector2 = Vector2.ZERO
 
+@onready var display_name = $NameContainer/Label
 @export var move_speed: float = 70.0
 @export var acceleration: float = 500.0
 @export var deceleration: float = 700.0
@@ -28,7 +29,29 @@ var is_playing_cutscene_animation := false
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast_2d = $RayCast2D
 
+func apply_selected_character() -> void:
+	# Apply selected character sprite
+	if PlayerManager.selected_character != null:
+		anim.sprite_frames = PlayerManager.selected_character.sprite_frames
+		anim.play("idle")
+
+		print(
+			"[Player] Character applied: ",
+			PlayerManager.selected_character.character_name
+		)
+
+	# Apply display name
+	if PlayerManager.display_name != "":
+		display_name.text = PlayerManager.display_name
+
+		print(
+			"[Player] Display name applied: ",
+			PlayerManager.display_name
+		)
+
 func _ready() -> void:
+	apply_selected_character()
+
 	call_deferred("apply_spawn")
 	call_deferred("enable_doors")
 	global.player = self

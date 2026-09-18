@@ -20,6 +20,10 @@ const QUESTLOG_PAGE = preload(
 	"res://Scenes/UI/quest_log_panel.tscn"
 )
 
+const PLAYER_PAGE = preload(
+	"res://Scenes/UI/player_page.tscn"
+)
+
 const ATOMON_PAGE = preload(
 	"res://Scenes/UI/atomon_page.tscn"
 )
@@ -133,6 +137,7 @@ func _on_inventory_pressed():
 	change_page(
 		INVENTORY_PAGE
 	)
+	SfxManager.play_click()
 
 
 # ============================================================
@@ -146,6 +151,7 @@ func _on_quest_log_button_pressed() -> void:
 	change_page(
 		QUESTLOG_PAGE
 	)
+	SfxManager.play_click()
 
 
 # ============================================================
@@ -159,6 +165,7 @@ func _on_atomon_button_pressed() -> void:
 	change_page(
 		ATOMON_PAGE
 	)
+	SfxManager.play_click()
 
 
 # ============================================================
@@ -169,7 +176,10 @@ func _on_player_button_pressed() -> void:
 
 	print("[GameMenu] Player selected.")
 
-	# Player page is not implemented yet.
+	change_page(
+		PLAYER_PAGE
+	)
+	SfxManager.play_click()
 
 
 # ============================================================
@@ -183,6 +193,7 @@ func _on_lessons_button_pressed() -> void:
 	change_page(
 		LESSONS_PAGE
 	)
+	SfxManager.play_click()
 
 # ============================================================
 # QUIZZ
@@ -190,6 +201,7 @@ func _on_lessons_button_pressed() -> void:
 func _on_quiz_button_pressed() -> void:
 	print("[GameMenu] Lessons selected.")
 	change_page(QUIZZ_PAGE)
+	SfxManager.play_click()
 
 # ============================================================
 # SETTINGS
@@ -199,6 +211,7 @@ func _on_settings_button_pressed() -> void:
 	change_page(
 		SETTING_PAGE
 	)
+	SfxManager.play_click()
 
 # ============================================================
 # CLOSE

@@ -15,20 +15,20 @@ anchor_right = 0.25300002
 anchor_bottom = 0.41700003
 offset_left = 861.0
 offset_top = 257.0
-offset_right = 860.05994
-offset_bottom = 256.75998
+offset_right = 1052.0599
+offset_bottom = 344.75998
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_jrpn4")
 
 [node name="Label" type="Label" parent="NinePatchRect" unique_id=505526870]
 layout_mode = 0
-offset_left = 52.0
-offset_top = 26.0
-offset_right = 446.0
-offset_bottom = 85.0
+offset_left = 166.0
+offset_top = 37.0
+offset_right = 560.0
+offset_bottom = 96.0
 theme_override_fonts/font = ExtResource("2_8hrg5")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 35
 text = "Choose What Type of Quiz to Make"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -36,21 +36,22 @@ autowrap_mode = 2
 
 [node name="MultipleChoices" type="TextureButton" parent="NinePatchRect" unique_id=272762086]
 layout_mode = 0
-offset_left = 71.0
-offset_top = 98.0
-offset_right = 221.0
-offset_bottom = 178.0
+offset_left = 86.0
+offset_top = 135.0
+offset_right = 296.0
+offset_bottom = 235.0
 texture_normal = ExtResource("3_2s1fx")
 texture_pressed = ExtResource("4_jlfg7")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="NinePatchRect/MultipleChoices" unique_id=1285291320]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 15.0
-offset_right = 140.0
-offset_bottom = 50.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 194.0
+offset_bottom = 67.0
 theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 25
 text = "Multiple Choices"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -58,21 +59,22 @@ autowrap_mode = 2
 
 [node name="Identification" type="TextureButton" parent="NinePatchRect" unique_id=765415515]
 layout_mode = 0
-offset_left = 280.0
-offset_top = 97.0
-offset_right = 430.0
-offset_bottom = 177.0
+offset_left = 404.0
+offset_top = 134.0
+offset_right = 614.0
+offset_bottom = 234.0
 texture_normal = ExtResource("3_2s1fx")
 texture_pressed = ExtResource("4_jlfg7")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="NinePatchRect/Identification" unique_id=2064965637]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 15.0
-offset_right = 141.0
-offset_bottom = 50.0
+offset_left = 14.0
+offset_top = 19.0
+offset_right = 197.0
+offset_bottom = 63.0
 theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 25
 text = "Identification"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -80,21 +82,22 @@ autowrap_mode = 2
 
 [node name="Enumeration" type="TextureButton" parent="NinePatchRect" unique_id=997147888]
 layout_mode = 0
-offset_left = 70.0
-offset_top = 185.0
-offset_right = 222.0
-offset_bottom = 265.0
+offset_left = 89.0
+offset_top = 245.0
+offset_right = 299.0
+offset_bottom = 345.0
 texture_normal = ExtResource("3_2s1fx")
 texture_pressed = ExtResource("4_jlfg7")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="NinePatchRect/Enumeration" unique_id=1561829183]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 15.0
-offset_right = 143.0
-offset_bottom = 50.0
+offset_left = 13.0
+offset_top = 19.0
+offset_right = 197.0
+offset_bottom = 62.0
 theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 25
 text = "Enumeration"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -102,21 +105,22 @@ autowrap_mode = 2
 
 [node name="True_False" type="TextureButton" parent="NinePatchRect" unique_id=1540155897]
 layout_mode = 0
-offset_left = 282.0
-offset_top = 185.0
-offset_right = 432.0
-offset_bottom = 265.0
+offset_left = 405.0
+offset_top = 242.0
+offset_right = 615.0
+offset_bottom = 342.0
 texture_normal = ExtResource("3_2s1fx")
 texture_pressed = ExtResource("4_jlfg7")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="NinePatchRect/True_False" unique_id=905492657]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 15.0
-offset_right = 140.0
-offset_bottom = 50.0
+offset_left = 14.0
+offset_top = 19.0
+offset_right = 197.0
+offset_bottom = 62.0
 theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 25
 text = "True or False"
 horizontal_alignment = 1
 vertical_alignment = 1

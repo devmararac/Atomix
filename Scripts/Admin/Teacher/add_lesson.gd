@@ -184,7 +184,7 @@ func _load_teacher_sections() -> void:
 		"[AddLesson] Teacher detected. Loading assigned sections."
 	)
 
-	var uid := AuthManager.get_uid()
+	var uid = AuthManager.get_uid()
 
 	if uid.is_empty():
 
@@ -510,7 +510,7 @@ func _on_create_button_pressed() -> void:
 	# GET TEACHER UID
 	# ========================================================
 
-	var teacher_id := AuthManager.get_uid()
+	var teacher_id = AuthManager.get_uid()
 
 	if teacher_id.is_empty():
 

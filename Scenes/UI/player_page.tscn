@@ -1,0 +1,400 @@
+[gd_scene format=3 uid="uid://dme7im7ekf3yl"]
+
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="1_0f3ru"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_font"]
+[ext_resource type="Script" uid="uid://cwvoubttsikb6" path="res://Scripts/player_page.gd" id="1_ssc8k"]
+[ext_resource type="Texture2D" uid="uid://duxxvum0v2a6x" path="res://Assets/UX/HUD/Panels/player_preview.png" id="3_85sk6"]
+[ext_resource type="PackedScene" uid="uid://b5qi11rfhw83q" path="res://Scenes/UI/atomon_slots.tscn" id="3_d2m4v"]
+[ext_resource type="Texture2D" uid="uid://2r0gbk7sknio" path="res://Assets/UX/HUD/Panels/id_2.png" id="3_olbmm"]
+[ext_resource type="Texture2D" uid="uid://x1puis175pwq" path="res://Assets/UX/HUD/Panels/logo_icon.png" id="5_kwgmc"]
+[ext_resource type="Texture2D" uid="uid://1g7siqtu7jm8" path="res://Assets/UX/HUD/Panels/text_value2.png" id="7_am31b"]
+[ext_resource type="Texture2D" uid="uid://cce8e7xd2p2jf" path="res://Assets/UX/HUD/Panels/profile.png" id="8_d2600"]
+[ext_resource type="Texture2D" uid="uid://d3cpky1g21l5n" path="res://Assets/UX/HUD/Panels/quest_log_panel_right.png" id="9_am31b"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_85sk6"]
+texture = ExtResource("3_olbmm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8t768"]
+texture = ExtResource("7_am31b")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nwkyd"]
+texture = ExtResource("7_am31b")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ualy"]
+bg_color = Color(0.050980393, 0.24313726, 0.4627451, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.050980393, 0.24313726, 0.4627451, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+corner_detail = 20
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d2600"]
+texture = ExtResource("9_am31b")
+texture_margin_left = 22.0
+texture_margin_top = 26.0
+texture_margin_right = 34.0
+texture_margin_bottom = 38.0
+
+[node name="Control" type="Control" unique_id=2101471363]
+custom_minimum_size = Vector2(1418, 648)
+layout_mode = 3
+anchor_right = 0.716
+anchor_bottom = 0.90000004
+offset_right = 0.3199463
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ssc8k")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=195778805]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_0f3ru")
+
+[node name="PlayerPage" type="Panel" parent="." unique_id=1052393257]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013
+anchor_top = 0.040000003
+anchor_right = 0.989
+anchor_bottom = 0.961
+offset_left = -10.74
+offset_top = -10.956007
+offset_right = -10.220093
+offset_bottom = 47.235962
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerInfoPanel" type="Panel" parent="PlayerPage" unique_id=1026079410]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.26000002
+anchor_top = 0.127
+anchor_right = 0.99300003
+anchor_bottom = 0.88900006
+offset_left = 0.33911133
+offset_top = -0.14900208
+offset_right = -0.49047852
+offset_bottom = -0.2590332
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_85sk6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerPage/PlayerInfoPanel" unique_id=1537632159]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.066
+anchor_top = 0.67300004
+anchor_right = 0.689
+anchor_bottom = 0.91400003
+offset_left = 0.07600403
+offset_top = 0.17297363
+offset_right = 0.3540039
+offset_bottom = -0.08602905
+theme_override_constants/separation = 10
+
+[node name="AtomonSlots" type="HBoxContainer" parent="PlayerPage/PlayerInfoPanel/VBoxContainer" unique_id=318562047]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Slot" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=2030275118 instance=ExtResource("3_d2m4v")]
+layout_mode = 2
+
+[node name="Slot2" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=1349702373 instance=ExtResource("3_d2m4v")]
+layout_mode = 2
+
+[node name="Slot3" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=1723346334 instance=ExtResource("3_d2m4v")]
+layout_mode = 2
+
+[node name="Slot4" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=2080399829 instance=ExtResource("3_d2m4v")]
+layout_mode = 2
+
+[node name="Slot5" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=2043493052 instance=ExtResource("3_d2m4v")]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PlayerPage/PlayerInfoPanel" unique_id=1393051725]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.87000006
+anchor_top = 0.754
+anchor_right = 0.943
+anchor_bottom = 0.91
+offset_left = -0.18005371
+offset_top = -0.2460022
+offset_right = -0.20202637
+offset_bottom = -0.090026855
+texture = ExtResource("5_kwgmc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="PlayerPage/PlayerInfoPanel" unique_id=1659517432]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.112
+anchor_top = 0.541
+anchor_right = 0.257
+anchor_bottom = 0.595
+offset_left = 0.4319992
+offset_top = 0.040985107
+offset_right = 0.40200806
+offset_bottom = 0.0949707
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.34045205, 0.2502261, 0.15972564, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 26
+text = "PLAYER ID"
+
+[node name="DisplayNameLabel" type="Label" parent="PlayerPage/PlayerInfoPanel" unique_id=1252406084]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.326
+anchor_top = 0.096
+anchor_right = 0.55600005
+anchor_bottom = 0.20400001
+offset_left = 0.43600464
+offset_top = 0.09600067
+offset_right = 0.21594238
+offset_bottom = 0.20399475
+theme_override_colors/font_color = Color(0.34901962, 0.25882354, 0.16470589, 0.64705884)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_8t768")
+text = "DISPLAY NAME:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DisplayNameValue" type="Label" parent="PlayerPage/PlayerInfoPanel" unique_id=1205979287]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.56700003
+anchor_top = 0.096
+anchor_right = 0.94400007
+anchor_bottom = 0.20400001
+offset_left = 0.061950684
+offset_top = 0.09600067
+offset_right = -0.21606445
+offset_bottom = 0.20399475
+theme_override_colors/font_color = Color(0.3492615, 0.2571109, 0.16469374, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_nwkyd")
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StudentNameLabel" type="Label" parent="PlayerPage/PlayerInfoPanel" unique_id=1220371481]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.326
+anchor_top = 0.23600002
+anchor_right = 0.55600005
+anchor_bottom = 0.34500003
+offset_left = 0.43600464
+offset_top = 0.23599243
+offset_right = 0.21594238
+offset_bottom = -0.15501404
+theme_override_colors/font_color = Color(0.34901962, 0.25882354, 0.16470589, 0.64705884)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_nwkyd")
+text = "STUDENT NAME:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StudentNameValue" type="Label" parent="PlayerPage/PlayerInfoPanel" unique_id=660316202]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.56700003
+anchor_top = 0.23600002
+anchor_right = 0.94400007
+anchor_bottom = 0.34500003
+offset_left = 0.061950684
+offset_top = 0.23599243
+offset_right = -0.21606445
+offset_bottom = -0.15501404
+theme_override_colors/font_color = Color(0.3492615, 0.2571109, 0.16469374, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_nwkyd")
+text = "Student"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressLabel" type="Label" parent="PlayerPage/PlayerInfoPanel" unique_id=1415680020]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.326
+anchor_top = 0.37500003
+anchor_right = 0.55600005
+anchor_bottom = 0.483
+offset_left = 0.43600464
+offset_top = -0.12501526
+offset_right = 0.21594238
+offset_bottom = -0.016998291
+theme_override_colors/font_color = Color(0.34901962, 0.25882354, 0.16470589, 0.64705884)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_nwkyd")
+text = "PROGRESS:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressValue" type="Label" parent="PlayerPage/PlayerInfoPanel" unique_id=1545240516]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.56700003
+anchor_top = 0.37500003
+anchor_right = 0.94400007
+anchor_bottom = 0.483
+offset_left = 0.061950684
+offset_top = -0.12501526
+offset_right = -0.21606445
+offset_bottom = -0.016998291
+theme_override_colors/font_color = Color(0.3492615, 0.2571109, 0.16469374, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_nwkyd")
+text = "Atomonia Explorer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActiveAtomonsLabel" type="Label" parent="PlayerPage/PlayerInfoPanel" unique_id=275841963]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.068
+anchor_top = 0.633
+anchor_right = 0.23600002
+anchor_bottom = 0.669
+offset_left = 0.04799652
+offset_top = 0.1329956
+offset_right = -0.3040161
+offset_bottom = 0.16897583
+theme_override_colors/font_color = Color(0.34901962, 0.25882354, 0.16470589, 0.64705884)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 17
+text = "ACTIVE ATOMONS"
+
+[node name="Profile" type="TextureRect" parent="PlayerPage/PlayerInfoPanel" unique_id=353261604]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07
+anchor_top = 0.094000004
+anchor_right = 0.3
+anchor_bottom = 0.52500004
+offset_left = 0.019996643
+offset_top = 0.093997955
+offset_right = -0.2000122
+offset_bottom = 0.024993896
+texture = ExtResource("8_d2600")
+expand_mode = 1
+
+[node name="HSeparator" type="HSeparator" parent="PlayerPage/PlayerInfoPanel" unique_id=452342638]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.067
+anchor_top = 0.611
+anchor_right = 0.94000006
+anchor_bottom = 0.619
+offset_left = 0.06199646
+offset_top = 0.11099243
+offset_right = -0.16003418
+offset_bottom = 0.11898804
+theme_override_styles/separator = SubResource("StyleBoxFlat_0ualy")
+
+[node name="CharacterPanel" type="Panel" parent="PlayerPage" unique_id=913818000]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.014
+anchor_top = 0.127
+anchor_right = 0.252
+anchor_bottom = 0.86700004
+offset_left = 0.6171684
+offset_top = -0.18500519
+offset_right = -0.58496094
+offset_bottom = 0.15100098
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_d2600")
+
+[node name="Label" type="Label" parent="PlayerPage/CharacterPanel" unique_id=725608832]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.037
+anchor_right = 0.75000006
+anchor_bottom = 0.087000005
+offset_left = 0.07649994
+offset_top = 0.05366707
+offset_right = -0.07652283
+offset_bottom = -0.19813538
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 24
+text = "CHARACTER"
+horizontal_alignment = 1
+
+[node name="Preview" type="TextureRect" parent="PlayerPage/CharacterPanel" unique_id=6733103]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.085
+anchor_right = 0.95400006
+anchor_bottom = 0.96700007
+offset_left = -0.109270096
+offset_top = -0.19205856
+offset_right = 0.10205078
+offset_bottom = 0.006164551
+texture = ExtResource("3_85sk6")
+expand_mode = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerPage/CharacterPanel" unique_id=1733870825]
+position = Vector2(160.306, 256.036)
+
+[node name="Title" type="Label" parent="PlayerPage" unique_id=680903741]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.014
+anchor_top = 0.052
+anchor_right = 0.9850001
+anchor_bottom = 0.105000004
+offset_left = 0.6171684
+offset_top = -0.060001373
+offset_right = 0.27929688
+offset_bottom = 0.22499847
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 34
+text = "PLAYER"
+horizontal_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="PlayerPage" unique_id=1353004524]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.108
+anchor_right = 0.5
+anchor_bottom = 0.108
+offset_left = -672.24396
+offset_top = -3.7400055
+offset_right = 671.75604
+offset_bottom = 0.2599945

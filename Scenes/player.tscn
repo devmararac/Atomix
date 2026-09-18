@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://b7n3aiykhvntg" path="res://Resources/Dialouges/Dialogic/Characters/Player.dch" id="2_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://h7645c2xaxl7" path="res://Assets/Player/base_attack.png" id="2_pu2lt"]
 [ext_resource type="Texture2D" uid="uid://db7r44i8rlylt" path="res://Assets/Player/base_jump.png" id="4_h4iuc"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="10_gymyn"]
 [ext_resource type="Texture2D" uid="uid://ot3igj31d13s" path="res://Assets/UX/Icons/arrow_animated.png" id="10_tx1dd"]
 [ext_resource type="Script" uid="uid://beq2qqb8susg2" path="res://Scripts/objective_arrow.gd" id="12_7dp3o"]
 [ext_resource type="AudioStream" uid="uid://k682hfq1gbo2" path="res://Assets/Music/SFX/07_human_atk_sword_2.wav" id="13_ukyrk"]
@@ -322,6 +323,13 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_pu2lt"]
+font = ExtResource("10_gymyn")
+font_size = 20
+font_color = Color(0.09411765, 0.078431375, 0.14509805, 1)
+outline_size = 4
+outline_color = Color(0.92156863, 0.827451, 0.7058824, 1)
+
 [node name="Player" type="CharacterBody2D" unique_id=1857981194]
 z_index = 1
 collision_layer = 11
@@ -331,9 +339,8 @@ dialogic_character = ExtResource("2_f1ek2")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1236284597]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_qqcod")
-animation = &"jump"
+animation = &"walk"
 autoplay = "idle"
-frame_progress = 0.6700987
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1070887428]
 position = Vector2(0, -6)
@@ -381,6 +388,33 @@ stream = ExtResource("14_7dp3o")
 
 [node name="BubbleMarker" type="Marker2D" parent="." unique_id=1793308347]
 position = Vector2(11, -13)
+
+[node name="NameContainer" type="Control" parent="." unique_id=172952376]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -33.0
+offset_top = -27.0
+offset_right = 33.0
+offset_bottom = -16.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="NameContainer" unique_id=37892394]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 263.99997
+offset_bottom = 43.999992
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+text = "TEST"
+label_settings = SubResource("LabelSettings_pu2lt")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="Detection_Area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="Detection_Area" to="." method="_on_detection_area_body_exited"]

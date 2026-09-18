@@ -93,7 +93,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Create, manage, and publish learning materials for your students."
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -106,6 +106,7 @@ theme_override_constants/separation = 15
 [node name="AddLessonButton" type="Button" parent="MarginContainer/VBoxContainer/ActionContainer" unique_id=1510325853]
 custom_minimum_size = Vector2(180, 50)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "＋ Add Lesson"
@@ -113,6 +114,7 @@ text = "＋ Add Lesson"
 [node name="RefreshButton" type="Button" parent="MarginContainer/VBoxContainer/ActionContainer" unique_id=1803321789]
 custom_minimum_size = Vector2(140, 50)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Refresh"

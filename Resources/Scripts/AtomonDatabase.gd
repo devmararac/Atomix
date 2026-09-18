@@ -13,7 +13,7 @@ const ELEMENTS := {
 	"Cu": preload("res://Resources/Atomons/Copper.tres"),
 	"F": preload("res://Resources/Atomons/Fluorine.tres"),
 	"Ga": preload("res://Resources/Atomons/Gallium.tres"),
-	#"He": preload("res://Resources/Atomons/helium.tres"),
+	"He": preload("res://Resources/Atomons/helium.tres"),
 	"H": preload("res://Resources/Atomons/hydrogen.tres"),
 	"Fe": preload("res://Resources/Atomons/Iron.tres"),
 	"Li": preload("res://Resources/Atomons/lithium.tres"),

@@ -708,7 +708,7 @@ func _consume_crafting_materials(
 			int(requirements[item_id])
 		)
 
-		var success := InventoryManager.remove_item_by_id(
+		var success = InventoryManager.remove_item_by_id(
 			str(item_id),
 			required_amount
 		)

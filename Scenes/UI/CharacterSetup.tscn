@@ -1,0 +1,335 @@
+[gd_scene format=3 uid="uid://cid404efa22lq"]
+
+[ext_resource type="Script" uid="uid://b1urqucmocxay" path="res://Scripts/character_setup.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="2_kdwn1"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_aqbfo"]
+[ext_resource type="Texture2D" uid="uid://blobcx8hb08fa" path="res://Assets/UX/HUD/Panels/inventory_bg.png" id="4_d66up"]
+[ext_resource type="Texture2D" uid="uid://duxxvum0v2a6x" path="res://Assets/UX/HUD/Panels/player_preview.png" id="5_biidb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ycyq2"]
+texture = ExtResource("2_kdwn1")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.470588, 0.352941, 0.235294, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.968627, 0.886275, 0.772549, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.309804, 0.419608, 0.270588, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.968627, 0.886275, 0.772549, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lineedit"]
+content_margin_left = 18.0
+content_margin_right = 18.0
+bg_color = Color(1, 0.952941, 0.858824, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.470588, 0.352941, 0.235294, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start"]
+bg_color = Color(0.309804, 0.419608, 0.270588, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.470588, 0.352941, 0.235294, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start_hover"]
+bg_color = Color(0.380392, 0.501961, 0.321569, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.470588, 0.352941, 0.235294, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="CharacterSetup" type="CanvasLayer" unique_id=1535572768]
+layer = 20
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="." unique_id=731384895]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_kdwn1")
+
+[node name="Input Panel" type="Panel" parent="." unique_id=1237751231]
+custom_minimum_size = Vector2(700, 0)
+anchors_preset = -1
+anchor_left = 0.026
+anchor_top = 0.082
+anchor_right = 0.69500005
+anchor_bottom = 0.92600006
+offset_left = -0.47999954
+offset_top = -0.040000916
+offset_right = -0.100097656
+offset_bottom = 0.27996826
+theme_override_styles/panel = SubResource("StyleBoxTexture_ycyq2")
+
+[node name="Title" type="Label" parent="Input Panel" unique_id=1117376117]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.019000001
+anchor_top = 0.049000002
+anchor_right = 0.35300002
+anchor_bottom = 0.109000005
+offset_left = -0.17500114
+offset_top = 0.20799828
+offset_right = 0.2749939
+offset_bottom = -0.27200317
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 36
+text = "CREATE YOUR PLAYER"
+horizontal_alignment = 1
+
+[node name="TitleSeparator" type="HSeparator" parent="Input Panel" unique_id=391678925]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.135
+anchor_right = 0.5
+anchor_bottom = 0.135
+offset_left = -603.0
+offset_top = -5.080002
+offset_right = 603.0
+offset_bottom = 4.919998
+grow_horizontal = 2
+
+[node name="CharacterLabel" type="Label" parent="Input Panel" unique_id=2079753023]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.037
+anchor_top = 0.19900002
+anchor_right = 0.238
+anchor_bottom = 0.25
+offset_left = -0.025001526
+offset_top = 0.007987976
+offset_right = 0.6499939
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 22
+text = "SELECT CHARACTER"
+horizontal_alignment = 1
+
+[node name="CharacterButtons" type="GridContainer" parent="Input Panel" unique_id=472367384]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.042000003
+anchor_top = 0.25
+anchor_right = 0.95800006
+anchor_bottom = 0.35500002
+offset_left = -0.15000534
+offset_right = 0.14990234
+offset_bottom = 0.1599884
+grow_horizontal = 2
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 12
+columns = 6
+
+[node name="Character01" type="Button" parent="Input Panel/CharacterButtons" unique_id=194259370]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.886275, 0.772549, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "CHARACTER 1"
+
+[node name="Character02" type="Button" parent="Input Panel/CharacterButtons" unique_id=1388604869]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.886275, 0.772549, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "CHARACTER 2"
+
+[node name="Character03" type="Button" parent="Input Panel/CharacterButtons" unique_id=452557025]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.886275, 0.772549, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "CHARACTER 3"
+
+[node name="Character04" type="Button" parent="Input Panel/CharacterButtons" unique_id=363513252]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.886275, 0.772549, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "CHARACTER 4"
+
+[node name="SelectedLabel" type="Label" parent="Input Panel" unique_id=1804316924]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.84300005
+anchor_top = 0.19100001
+anchor_right = 0.97
+anchor_bottom = 0.257
+offset_left = 0.024902344
+offset_top = -0.12800598
+offset_right = -0.25
+offset_bottom = -0.2559967
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.309804, 0.419608, 0.270588, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 20
+text = "Selected: None"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameLabel" type="Label" parent="Input Panel" unique_id=2140732952]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.051000003
+anchor_top = 0.41000003
+anchor_right = 0.186
+anchor_bottom = 0.46100003
+offset_left = 0.42499542
+offset_top = -0.28001404
+offset_right = 0.5499878
+offset_bottom = -0.2880249
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 22
+text = "DISPLAY NAME"
+horizontal_alignment = 1
+
+[node name="DisplayName" type="LineEdit" parent="Input Panel" unique_id=767030865]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.037
+anchor_top = 0.467
+anchor_right = 0.49100003
+anchor_bottom = 0.56200004
+offset_left = -0.025001526
+offset_top = 0.06399536
+offset_right = 0.4249878
+offset_bottom = 0.3039856
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("StyleBoxFlat_lineedit")
+placeholder_text = "Enter your display name..."
+max_length = 20
+
+[node name="StartButton" type="Button" parent="Input Panel" unique_id=1088200387]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.273
+anchor_top = 0.84000003
+anchor_right = 0.72700006
+anchor_bottom = 0.947
+offset_left = -0.2250061
+offset_top = 0.27996826
+offset_right = 0.22491455
+offset_bottom = 0.22399902
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.968627, 0.886275, 0.772549, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_start")
+theme_override_styles/hover = SubResource("StyleBoxFlat_start_hover")
+text = "CONTINUE"
+
+[node name="Character Preview" type="Panel" parent="." unique_id=2001499378]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_left = 0.698
+anchor_top = 0.082
+anchor_right = 0.975
+anchor_bottom = 0.92600006
+offset_left = 0.95996094
+offset_top = -0.040000916
+offset_right = 0.5
+offset_bottom = 0.27996826
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="TextureRect" parent="Character Preview" unique_id=1891738638]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_d66up")
+
+[node name="Title" type="Label" parent="Character Preview/BG" unique_id=132991008]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.096
+anchor_top = 0.066
+anchor_right = 0.90400004
+anchor_bottom = 0.125
+offset_left = -0.10800171
+offset_top = -0.12799835
+offset_right = 0.10797119
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 36
+text = "CHARACTER PREVIEW"
+horizontal_alignment = 1
+
+[node name="Preview BG" type="TextureRect" parent="Character Preview" unique_id=940062702]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.093
+anchor_top = 0.155
+anchor_right = 0.90700006
+anchor_bottom = 0.94400007
+offset_left = 0.035999298
+offset_top = -0.23999786
+offset_right = -0.03604126
+offset_bottom = 0.047973633
+texture = ExtResource("5_biidb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Character Preview/Preview BG" unique_id=964479417]
+position = Vector2(228, 230)

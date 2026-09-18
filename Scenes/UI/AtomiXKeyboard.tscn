@@ -1,0 +1,850 @@
+[gd_scene format=3 uid="uid://bcf7fnjm27jgh"]
+
+[ext_resource type="Script" uid="uid://ccuhrqc226mna" path="res://Scripts/LineEdit/atomi_x_keyboard.gd" id="1_keyboard"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_nicopaint"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="2_xv28w"]
+[ext_resource type="Texture2D" uid="uid://cv3y2ucbjs3cb" path="res://Assets/UX/HUD/Panels/slot.png" id="4_qq40g"]
+[ext_resource type="Texture2D" uid="uid://cd8ibfrdd7n5p" path="res://Assets/UX/HUD/Panels/slot_pressed.png" id="5_hjckk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xv28w"]
+texture = ExtResource("2_xv28w")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eiewf"]
+texture = ExtResource("4_qq40g")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ihjf"]
+texture = ExtResource("5_hjckk")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
+[node name="AtomiXKeyboard" type="Control" unique_id=826149002]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -387.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_keyboard")
+
+[node name="Background" type="Panel" parent="." unique_id=852883383]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.027
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.10000038
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_xv28w")
+
+[node name="InputPreview" type="LineEdit" parent="." unique_id=1446302565]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 12.0
+offset_right = 1962.0
+offset_bottom = 67.0
+focus_mode = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.3669213, 0.27093574, 0.17470413, 1)
+theme_override_colors/font_uneditable_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_selected_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_outline_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/caret_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/selection_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/clear_button_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/clear_button_color_pressed = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 25
+editable = false
+
+[node name="Q" type="Button" parent="." unique_id=1190886809]
+layout_mode = 0
+offset_right = 43.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "Q"
+
+[node name="W" type="Button" parent="." unique_id=1370832937]
+layout_mode = 0
+offset_right = 46.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "W"
+
+[node name="E" type="Button" parent="." unique_id=1285317838]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "E"
+
+[node name="R" type="Button" parent="." unique_id=169361947]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "R"
+
+[node name="T" type="Button" parent="." unique_id=1049533194]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "T"
+
+[node name="Y" type="Button" parent="." unique_id=365228910]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "Y"
+
+[node name="U" type="Button" parent="." unique_id=664325927]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "U"
+
+[node name="I" type="Button" parent="." unique_id=492817368]
+layout_mode = 0
+offset_right = 21.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "I"
+
+[node name="O" type="Button" parent="." unique_id=1655983005]
+layout_mode = 0
+offset_right = 41.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "O"
+
+[node name="P" type="Button" parent="." unique_id=1399890497]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "P"
+
+[node name="A" type="Button" parent="." unique_id=1270291740]
+layout_mode = 0
+offset_right = 41.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "A"
+
+[node name="S" type="Button" parent="." unique_id=893736412]
+layout_mode = 0
+offset_right = 33.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "S"
+
+[node name="D" type="Button" parent="." unique_id=766133649]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "D"
+
+[node name="F" type="Button" parent="." unique_id=1815639568]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "F"
+
+[node name="G" type="Button" parent="." unique_id=544501138]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "G"
+
+[node name="H" type="Button" parent="." unique_id=1747838251]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "H"
+
+[node name="J" type="Button" parent="." unique_id=1487435674]
+layout_mode = 0
+offset_right = 31.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "J"
+
+[node name="K" type="Button" parent="." unique_id=1717696340]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "K"
+
+[node name="L" type="Button" parent="." unique_id=762564778]
+layout_mode = 0
+offset_right = 33.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "L"
+
+[node name="Z" type="Button" parent="." unique_id=1993421396]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "Z"
+
+[node name="X" type="Button" parent="." unique_id=1390560131]
+layout_mode = 0
+offset_right = 41.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "X"
+
+[node name="C" type="Button" parent="." unique_id=763912806]
+layout_mode = 0
+offset_right = 41.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "C"
+
+[node name="V" type="Button" parent="." unique_id=449910750]
+layout_mode = 0
+offset_right = 43.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "V"
+
+[node name="B" type="Button" parent="." unique_id=227048631]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "B"
+
+[node name="N" type="Button" parent="." unique_id=1189566701]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "N"
+
+[node name="M" type="Button" parent="." unique_id=1794583444]
+layout_mode = 0
+offset_right = 43.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "M"
+
+[node name="Shift" type="Button" parent="." unique_id=2000000001]
+layout_mode = 0
+offset_right = 108.0
+offset_bottom = 40.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "SHIFT"
+
+[node name="At" type="Button" parent="." unique_id=2000000002]
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "@"
+
+[node name="Dot" type="Button" parent="." unique_id=2000000003]
+layout_mode = 0
+offset_right = 19.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "."
+
+[node name="Space" type="Button" parent="." unique_id=2000000004]
+layout_mode = 0
+offset_right = 124.0
+offset_bottom = 40.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "SPACE"
+
+[node name="Backspace" type="Button" parent="." unique_id=2000000005]
+layout_mode = 0
+offset_right = 54.0
+offset_bottom = 57.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "⌫"
+
+[node name="Enter" type="Button" parent="." unique_id=2000000006]
+layout_mode = 0
+offset_right = 122.0
+offset_bottom = 40.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "ENTER"
+
+[node name="Mode" type="Button" parent="." unique_id=2000000007]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 40.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "123"
+
+[node name="N1" type="Button" parent="." unique_id=2000000010]
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "1"
+
+[node name="N2" type="Button" parent="." unique_id=2000000011]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "2"
+
+[node name="N3" type="Button" parent="." unique_id=2000000012]
+layout_mode = 0
+offset_right = 33.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "3"
+
+[node name="N4" type="Button" parent="." unique_id=2000000013]
+layout_mode = 0
+offset_right = 33.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "4"
+
+[node name="N5" type="Button" parent="." unique_id=2000000014]
+layout_mode = 0
+offset_right = 31.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "5"
+
+[node name="N6" type="Button" parent="." unique_id=2000000015]
+layout_mode = 0
+offset_right = 33.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "6"
+
+[node name="N7" type="Button" parent="." unique_id=2000000016]
+layout_mode = 0
+offset_right = 33.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "7"
+
+[node name="N8" type="Button" parent="." unique_id=2000000017]
+layout_mode = 0
+offset_right = 33.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "8"
+
+[node name="N9" type="Button" parent="." unique_id=2000000018]
+layout_mode = 0
+offset_right = 33.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "9"
+
+[node name="N0" type="Button" parent="." unique_id=2000000019]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 48.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "0"
+
+[node name="Hash" type="Button" parent="." unique_id=2000000020]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "#"
+
+[node name="Dollar" type="Button" parent="." unique_id=2000000021]
+layout_mode = 0
+offset_right = 28.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "$"
+
+[node name="Percent" type="Button" parent="." unique_id=2000000022]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "%"
+
+[node name="Ampersand" type="Button" parent="." unique_id=2000000023]
+layout_mode = 0
+offset_right = 37.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "&"
+
+[node name="Asterisk" type="Button" parent="." unique_id=2000000024]
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "*"
+
+[node name="Minus" type="Button" parent="." unique_id=2000000025]
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "-"
+
+[node name="Plus" type="Button" parent="." unique_id=2000000026]
+layout_mode = 0
+offset_right = 31.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "+"
+
+[node name="LeftParen" type="Button" parent="." unique_id=2000000027]
+layout_mode = 0
+offset_right = 22.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "("
+
+[node name="RightParen" type="Button" parent="." unique_id=2000000028]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = ")"
+
+[node name="Exclamation" type="Button" parent="." unique_id=2000000030]
+layout_mode = 0
+offset_right = 19.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "!"
+
+[node name="Quote" type="Button" parent="." unique_id=2000000031]
+layout_mode = 0
+offset_right = 26.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "\""
+
+[node name="Apostrophe" type="Button" parent="." unique_id=2000000032]
+layout_mode = 0
+offset_right = 19.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "'"
+
+[node name="Colon" type="Button" parent="." unique_id=2000000033]
+layout_mode = 0
+offset_right = 19.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = ":"
+
+[node name="Semicolon" type="Button" parent="." unique_id=2000000034]
+layout_mode = 0
+offset_right = 19.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = ";"
+
+[node name="Slash" type="Button" parent="." unique_id=2000000035]
+layout_mode = 0
+offset_right = 28.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "/"
+
+[node name="Question" type="Button" parent="." unique_id=2000000036]
+layout_mode = 0
+offset_right = 28.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = "?"
+
+[node name="Comma" type="Button" parent="." unique_id=2000000037]
+layout_mode = 0
+offset_right = 19.0
+offset_bottom = 44.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.30096966, 0.21945453, 0.13764235, 1)
+theme_override_colors/font_pressed_color = Color(0.9088832, 0.73505604, 0.48345733, 1)
+theme_override_fonts/font = ExtResource("2_nicopaint")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
+text = ","

@@ -229,7 +229,7 @@ func _select_item(item_id: String) -> void:
 
 func _update_owned_count() -> void:
 
-	var amount := InventoryManager.get_item_count(
+	var amount = InventoryManager.get_item_count(
 		selected_item_id
 	)
 

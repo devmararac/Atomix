@@ -658,3 +658,156 @@ func update_last_active() -> void:
 		"[StudentDataManager] Last active updated: ",
 		timestamp
 	)
+
+# ============================================================
+# SAVE PLAYER PROFILE
+# ============================================================
+# Saves the player's in-game display name and selected
+# character to the student's Firestore document.
+#
+# IMPORTANT:
+# This does NOT modify:
+# - progress
+# - game_state
+# - assessment
+# - lesson_progress
+# - student name
+# - email
+#
+# It only updates:
+# - display_name
+# - character_id
+# ============================================================
+
+func save_player_profile(
+	new_display_name: String,
+	new_character_id: String
+) -> bool:
+
+	var uid := get_student_uid()
+
+	if uid.is_empty():
+
+		student_error.emit({
+			"message": "No authenticated Firebase user."
+		})
+
+		return false
+
+	var clean_display_name := new_display_name.strip_edges()
+	var clean_character_id := new_character_id.strip_edges()
+
+	if clean_display_name.is_empty():
+
+		print(
+			"[StudentDataManager] Cannot save empty display name."
+		)
+
+		student_error.emit({
+			"message": "Display name cannot be empty."
+		})
+
+		return false
+
+	if clean_character_id.is_empty():
+
+		print(
+			"[StudentDataManager] Cannot save empty character ID."
+		)
+
+		student_error.emit({
+			"message": "Character ID cannot be empty."
+		})
+
+		return false
+
+	print(
+		"[StudentDataManager] Saving player profile..."
+	)
+
+	print(
+		"[StudentDataManager] Display Name: ",
+		clean_display_name
+	)
+
+	print(
+		"[StudentDataManager] Character ID: ",
+		clean_character_id
+	)
+
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
+	)
+
+	var document: FirestoreDocument = (
+		await students.get_doc(uid)
+	)
+
+	if document == null:
+
+		print(
+			"[StudentDataManager] Student document does not exist."
+		)
+
+		student_error.emit({
+			"message": "Student document does not exist."
+		})
+
+		return false
+
+	# ========================================================
+	# UPDATE ONLY PLAYER PROFILE FIELDS
+	# ========================================================
+
+	document.add_or_update_field(
+		"display_name",
+		clean_display_name
+	)
+
+	document.add_or_update_field(
+		"character_id",
+		clean_character_id
+	)
+
+	print(
+		"[StudentDataManager] Updating player profile in Firestore..."
+	)
+
+	var result: FirestoreDocument = (
+		await students.update(document)
+	)
+
+	if result == null:
+
+		print(
+			"[StudentDataManager] Failed to save player profile."
+		)
+
+		student_error.emit({
+			"message": "Unable to save player profile."
+		})
+
+		return false
+
+	# ========================================================
+	# UPDATE LOCAL STUDENT DATA
+	# ========================================================
+
+	student_data["display_name"] = clean_display_name
+	student_data["character_id"] = clean_character_id
+
+	print(
+		"[StudentDataManager] Player profile saved successfully."
+	)
+
+	print(
+		"[StudentDataManager] Display Name: ",
+		student_data["display_name"]
+	)
+
+	print(
+		"[StudentDataManager] Character ID: ",
+		student_data["character_id"]
+	)
+
+	return true

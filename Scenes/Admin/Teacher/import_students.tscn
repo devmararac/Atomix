@@ -111,14 +111,14 @@ text = "Import Students"
 [node name="Subtitle" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=984546990]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "Import multiple Grade 11 student accounts from a CSV file."
 
 [node name="Instructions" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1609726363]
 custom_minimum_size = Vector2(696, 22)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.8)
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 20
 text = "CSV format: Student Name, Student ID, Section, Email, Password"
 autowrap_mode = 2
 
@@ -146,7 +146,7 @@ horizontal_alignment = 1
 [node name="DropLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/DropPanel/VBoxContainer" unique_id=1898335606]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.85)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Select a CSV file to import"
 horizontal_alignment = 1
 
@@ -154,20 +154,21 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
 text = "Browse CSV File"
 
 [node name="FileLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1629027601]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.8)
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 20
 text = "No file selected."
 horizontal_alignment = 1
 
 [node name="PreviewLabel" type="Label" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=1981617592]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
-theme_override_font_sizes/font_size = 19
+theme_override_font_sizes/font_size = 20
 text = "Import Preview"
 
 [node name="PreviewPanel" type="Panel" parent="PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer" unique_id=420594396]
@@ -192,7 +193,7 @@ theme_override_constants/separation = 4
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 20
 text = "No students loaded."
 horizontal_alignment = 1
 vertical_alignment = 1

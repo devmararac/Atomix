@@ -2333,6 +2333,12 @@ func create_student_document(
 		"name":
 			student_name,
 
+		"display_name":
+			"",
+
+		"character_id":
+			"",
+
 		"email":
 			email,
 
@@ -2403,28 +2409,20 @@ func create_student_document(
 
 			"current_scene":
 				"res://Scenes/Areas/start_map.tscn",
-
 			"player_position": {
-
 				"x":
 					0.0,
-
 				"y":
 					0.0
 			},
-
 			"coins":
 				0,
-
 			"active_index":
 				0,
-
 			"party":
 				[],
-
 			"inventory":
 				[],
-
 			"quest_data":
 				{}
 		}

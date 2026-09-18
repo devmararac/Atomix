@@ -101,7 +101,7 @@ theme_override_constants/separation = 5
 [node name="TitleLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=2079914776]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Lesson Title"
 
 [node name="TitleInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1620763742]
@@ -115,7 +115,7 @@ clear_button_enabled = true
 [node name="DescriptionLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1648485926]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Description"
 
 [node name="DescriptionInput" type="TextEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1647728772]
@@ -128,7 +128,7 @@ placeholder_text = "Enter lesson description..."
 [node name="SubjectLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=1941604061]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Subject"
 
 [node name="SubjectInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=28340583]
@@ -142,7 +142,7 @@ clear_button_enabled = true
 [node name="SectionLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=-1282510507]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Section"
 
 [node name="SectionInput" type="OptionButton" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=-1282510506]
@@ -154,7 +154,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
 [node name="SchoolYearLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=110794465]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "School Year"
 
 [node name="SchoolYearInput" type="LineEdit" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=488126462]
@@ -169,14 +169,14 @@ clear_button_enabled = true
 [node name="FileLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=2003083755]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Lesson File"
 
 [node name="FileNameLabel" type="Label" parent="FormPanel/MarginContainer/VBoxContainer" unique_id=977352276]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "No file selected"
 vertical_alignment = 1
 

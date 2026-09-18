@@ -4,6 +4,7 @@ extends Control
 @onready var buttons_start = $Panel/Start
 @onready var buttons_cont = $Panel/Continue
 
+@onready var atomix_keyboard = $AtomiXKeyboard
 @onready var email_input = $AuthPanel/Email/EmailInput
 @onready var password_input = $AuthPanel/Password/PasswordInput
 @onready var status_label = $AuthPanel/StatusLabel
@@ -26,7 +27,10 @@ func _ready() -> void:
 	StudentDataManager.student_created.connect(_on_student_created)
 	StudentDataManager.student_error.connect(_on_student_error)
 
-
+	# AtomiX custom keyboard
+	email_input.focus_entered.connect(_on_email_input_focus_entered)
+	password_input.focus_entered.connect(_on_password_input_focus_entered)
+	
 func _on_login_success(auth_result):
 	login_in_progress = false
 
@@ -36,6 +40,12 @@ func _on_login_success(auth_result):
 	print("[MainMenu] Checking user role...")
 
 	call_deferred("_check_user_role")
+
+func _on_email_input_focus_entered() -> void:
+	atomix_keyboard.show_for(email_input)
+
+func _on_password_input_focus_entered() -> void:
+	atomix_keyboard.show_for(password_input)
 
 func _check_user_role() -> void:
 	print("[MainMenu] Getting user role...")
@@ -105,7 +115,7 @@ func _on_student_error(error) -> void:
 func _on_start_pressed() -> void:
 	await get_tree().create_timer(0.5).timeout
 	get_tree().change_scene_to_file(
-		"res://Scenes/Cutscenes/tutorial.tscn"
+		"res://Scenes/UI/CharacterSetup.tscn"
 	)
 
 
