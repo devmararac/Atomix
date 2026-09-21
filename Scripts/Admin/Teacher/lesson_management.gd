@@ -256,6 +256,29 @@ func _get_id_token() -> String:
 	return ""
 
 # ============================================================
+# GET CURRENT TEACHER UID
+# ============================================================
+
+func _get_current_teacher_id() -> String:
+	var auth_manager = get_node_or_null("/root/AuthManager")
+
+	if auth_manager == null:
+		print("[LessonManagement] ERROR: AuthManager not found.")
+		return ""
+
+	if not auth_manager.is_logged_in():
+		print("[LessonManagement] ERROR: User is not logged in.")
+		return ""
+
+	var uid := str(auth_manager.get_uid()).strip_edges()
+
+	if uid.is_empty():
+		print("[LessonManagement] ERROR: Current teacher UID is empty.")
+		return ""
+
+	return uid
+
+# ============================================================
 # FIRESTORE RESPONSE
 # ============================================================
 
@@ -403,7 +426,97 @@ func _on_lessons_request_completed(
 	)
 
 
+	# ============================================================
+	# FILTER LESSONS BY TEACHER OWNER
+	# ============================================================
+
+	var current_teacher_id := _get_current_teacher_id()
+
+	if current_teacher_id.is_empty():
+
+		print(
+			"[LessonManagement] ERROR: Cannot determine current teacher."
+		)
+
+		status_label.text = (
+			"Unable to identify the teacher account."
+		)
+
+		return
+
+
+	print(
+		"[LessonManagement] Current teacher UID: ",
+		current_teacher_id
+	)
+
+
+	var teacher_lessons: Array = []
+
+
 	for document in documents:
+
+		if not document is Dictionary:
+			continue
+
+		var fields: Dictionary = document.get(
+			"fields",
+			{}
+		)
+
+		var lesson_teacher_id := get_firestore_string(
+			fields,
+			"teacher_id",
+			""
+		).strip_edges()
+
+
+		# --------------------------------------------------------
+		# ONLY SHOW LESSONS OWNED BY THIS TEACHER
+		# --------------------------------------------------------
+
+		if lesson_teacher_id != current_teacher_id:
+
+			print(
+				"[LessonManagement] Skipping lesson owned by: ",
+				lesson_teacher_id
+			)
+
+			continue
+
+
+		teacher_lessons.append(
+			document
+		)
+
+
+	# ============================================================
+	# DISPLAY TEACHER LESSONS
+	# ============================================================
+
+	print(
+		"[LessonManagement] Lessons owned by current teacher: ",
+		teacher_lessons.size()
+	)
+
+
+	if teacher_lessons.is_empty():
+
+		var empty_label := lesson_list.get_node_or_null(
+			"EmptyLabel"
+		) as Label
+
+		if empty_label:
+			empty_label.visible = true
+
+		status_label.text = (
+			"No lessons created by this teacher yet."
+		)
+
+		return
+
+
+	for document in teacher_lessons:
 
 		create_lesson_card(
 			document
@@ -411,7 +524,7 @@ func _on_lessons_request_completed(
 
 
 	status_label.text = (
-		str(documents.size())
+		str(teacher_lessons.size())
 		+ " lesson(s) loaded."
 	)
 

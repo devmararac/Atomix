@@ -450,7 +450,7 @@ func _update_craft_button() -> void:
 		return
 
 	# Party is full
-	if PartyManager.party.size() >= PartyManager.MAX_PARTY_SIZE:
+	if PartyManager.party.size() >= PartyManager.MAX_COLLECTION_SIZE:
 		craft_button.disabled = true
 		return
 
@@ -767,7 +767,7 @@ func _on_craft_pressed() -> void:
 
 	if (
 		PartyManager.party.size()
-		>= PartyManager.MAX_PARTY_SIZE
+		>= PartyManager.MAX_COLLECTION_SIZE
 	):
 
 		print(

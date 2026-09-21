@@ -316,9 +316,34 @@ func _on_load_quizzes_completed(
 	)
 
 
-	# ========================================================
-	# CONVERT FIRESTORE DOCUMENTS
-	# ========================================================
+	# ============================================================
+	# GET CURRENT TEACHER
+	# ============================================================
+
+	var current_teacher_id := _get_current_teacher_id()
+
+	if current_teacher_id.is_empty():
+
+		print(
+			"[QuizManagement] ERROR: Cannot determine current teacher."
+		)
+
+		display_quizzes()
+
+		http.queue_free()
+
+		return
+
+
+	print(
+		"[QuizManagement] Current teacher UID: ",
+		current_teacher_id
+	)
+
+
+	# ============================================================
+	# CONVERT ONLY THIS TEACHER'S QUIZZES
+	# ============================================================
 
 	for document in documents:
 
@@ -333,6 +358,28 @@ func _on_load_quizzes_completed(
 
 
 		if fields.is_empty():
+			continue
+
+
+		var document_teacher_id := _firestore_string(
+			fields.get(
+				"teacher_id",
+				{}
+			)
+		).strip_edges()
+
+
+		# --------------------------------------------------------
+		# ONLY SHOW QUIZZES OWNED BY CURRENT TEACHER
+		# --------------------------------------------------------
+
+		if document_teacher_id != current_teacher_id:
+
+			print(
+				"[QuizManagement] Skipping quiz owned by: ",
+				document_teacher_id
+			)
+
 			continue
 
 
@@ -351,17 +398,20 @@ func _on_load_quizzes_completed(
 
 
 		print(
-			"[QuizManagement] Loaded quiz: ",
-			quiz.get("title", "Untitled Quiz")
+			"[QuizManagement] Loaded teacher quiz: ",
+			quiz.get(
+				"title",
+				"Untitled Quiz"
+			)
 		)
 
 
 	http.queue_free()
 
 
-	# ========================================================
+	# ============================================================
 	# DISPLAY
-	# ========================================================
+	# ============================================================
 
 	display_quizzes()
 
@@ -940,3 +990,26 @@ func _get_id_token() -> String:
 
 
 	return token
+
+# ============================================================
+# GET CURRENT TEACHER UID
+# ============================================================
+
+func _get_current_teacher_id() -> String:
+	var auth_manager = get_node_or_null("/root/AuthManager")
+
+	if auth_manager == null:
+		print("[QuizManagement] ERROR: AuthManager not found.")
+		return ""
+
+	if not auth_manager.is_logged_in():
+		print("[QuizManagement] ERROR: User is not logged in.")
+		return ""
+
+	var uid := str(auth_manager.get_uid()).strip_edges()
+
+	if uid.is_empty():
+		print("[QuizManagement] ERROR: Current teacher UID is empty.")
+		return ""
+
+	return uid

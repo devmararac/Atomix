@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://qnc0ep532s86"]
+
+[ext_resource type="Script" uid="uid://c4loexpfa57su" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_qpu81"]
+[ext_resource type="Resource" uid="uid://1s83vhkm1bd2" path="res://Resources/Atomons/hydrogen.tres" id="2_6c2xq"]
+[ext_resource type="Resource" uid="uid://bmaldmvsapygf" path="res://Resources/Atomons/Oxygen.tres" id="3_hdlwi"]
+[ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="4_r8gbr"]
+
+[sub_resource type="Resource" id="Resource_oudoo"]
+script = ExtResource("1_qpu81")
+element = ExtResource("2_6c2xq")
+amount = 2
+metadata/_custom_type_script = "uid://c4loexpfa57su"
+
+[sub_resource type="Resource" id="Resource_c6x8i"]
+script = ExtResource("1_qpu81")
+element = ExtResource("3_hdlwi")
+metadata/_custom_type_script = "uid://c4loexpfa57su"
+
+[resource]
+script = ExtResource("4_r8gbr")
+requirements = Array[ExtResource("1_qpu81")]([SubResource("Resource_oudoo"), SubResource("Resource_c6x8i")])
+compound_name = "Water"
+chemical_formula = "H2O"
+fusion_skill_name = "Covalent"
+fusion_damage = 85
+octet_rule_explanation = "Oxygen has 6 valence electrons and needs 2 more electrons to complete its outer shell. Each Hydrogen atom has 1 valence electron and needs 1 more to fill its first shell. Two Hydrogen atoms share electrons with one Oxygen atom, forming two covalent bonds. Through this sharing, Hydrogen achieves a stable first shell with 2 electrons, while Oxygen achieves a stable outer shell with 8 electrons. This follows the Octet Rule."
+fusion_description = "Hydrogen and Oxygen combine to form water. Two Hydrogen Atomons and one Oxygen Atomon are required for this fusion. The resulting fusion releases a powerful Water Burst attack."
+metadata/_custom_type_script = "uid://5xhwjx66wmcw"

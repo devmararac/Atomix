@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://bi0fxgn4cot8u"]
+
+[ext_resource type="Script" uid="uid://dtp4xpqafibme" path="res://Scripts/party_management.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_font"]
+[ext_resource type="Texture2D" uid="uid://cidoonudrtsja" path="res://Assets/UX/Buttons/Normal/switch_button.png" id="3_mhui5"]
+[ext_resource type="Texture2D" uid="uid://uidkxeenpya1" path="res://Assets/UX/Buttons/Normal/cancel_button.png" id="4_cjgv5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_background"]
+bg_color = Color(0.035, 0.055, 0.075, 0.96)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.94, 0.89, 0.78, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.35, 0.26, 0.16, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="PartyManagement" type="Control" unique_id=1209651746]
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="Panel" parent="." unique_id=1433421301]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_background")
+
+[node name="Panel" type="Panel" parent="." unique_id=1375050159]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -590.0
+offset_top = -310.0
+offset_right = 590.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Title" type="Label" parent="Panel" unique_id=2116081621]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 25.0
+offset_right = 1145.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.35, 0.26, 0.16, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 32
+text = "MANAGE CARRIED ATOMONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SelectionCount" type="Label" parent="Panel" unique_id=1590139936]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 72.0
+offset_right = 1145.0
+offset_bottom = 105.0
+theme_override_colors/font_color = Color(0.35, 0.26, 0.16, 0.75)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 20
+text = "CARRIED: 0 / 8"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Instruction" type="Label" parent="Panel" unique_id=983687257]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 105.0
+offset_right = 1145.0
+offset_bottom = 135.0
+theme_override_colors/font_color = Color(0.35, 0.26, 0.16, 0.75)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 16
+text = "Select up to 8 Atomons to carry. The first 5 become your Battle Party; the remaining 3 are Reserve."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=2038088302]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 145.0
+offset_right = 1145.0
+offset_bottom = 530.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Panel/ScrollContainer" unique_id=63282812]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="SwitchButton" type="TextureButton" parent="Panel" unique_id=644770138]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 538.0
+offset_right = 570.0
+offset_bottom = 600.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_mhui5")
+stretch_mode = 0
+
+[node name="CancelButton" type="TextureButton" parent="Panel" unique_id=462248025]
+layout_mode = 0
+offset_left = 630.0
+offset_top = 538.0
+offset_right = 801.0
+offset_bottom = 600.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_cjgv5")
+stretch_mode = 0

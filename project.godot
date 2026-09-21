@@ -46,6 +46,7 @@ StudentDataManager="*uid://cg20foxv38bnr"
 TeacherDataManager="*uid://1fvwit8ssfmp"
 FirebaseConfig="*uid://djexcsoc68yt2"
 PlayerManager="*uid://wwnlhr1cbhww"
+FusionManager="*uid://bmnqlysm3ka2n"
 
 [dialogic]
 

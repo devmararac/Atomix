@@ -483,7 +483,7 @@ func _create_teachers_document(
 
 		"created_at": {
 			"integerValue": str(
-				Time.get_unix_time_from_system()
+				int(Time.get_unix_time_from_system())
 			)
 		}
 	}

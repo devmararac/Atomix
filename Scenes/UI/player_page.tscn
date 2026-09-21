@@ -98,38 +98,69 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_85sk6")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerPage/PlayerInfoPanel" unique_id=1537632159]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.066
-anchor_top = 0.67300004
-anchor_right = 0.689
-anchor_bottom = 0.91400003
-offset_left = 0.07600403
-offset_top = 0.17297363
-offset_right = 0.3540039
-offset_bottom = -0.08602905
-theme_override_constants/separation = 10
+[node name="ScrollContainer" type="ScrollContainer" parent="PlayerPage/PlayerInfoPanel" unique_id=173362768]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 339.0
+offset_right = 973.0
+offset_bottom = 458.0
 
-[node name="AtomonSlots" type="HBoxContainer" parent="PlayerPage/PlayerInfoPanel/VBoxContainer" unique_id=318562047]
-custom_minimum_size = Vector2(0, 110)
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerPage/PlayerInfoPanel/ScrollContainer" unique_id=1537632159]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="BattlePartyLabel" type="Label" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer" unique_id=856328403]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.34901962, 0.25882354, 0.16470589, 0.64705884)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 17
+text = "BATTLE PARTY  5 / 5"
+vertical_alignment = 1
+
+[node name="BattlePartySlots" type="HBoxContainer" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer" unique_id=1393503924]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="Slot" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=2030275118 instance=ExtResource("3_d2m4v")]
+[node name="Slot" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots" unique_id=2030275118 instance=ExtResource("3_d2m4v")]
 layout_mode = 2
 
-[node name="Slot2" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=1349702373 instance=ExtResource("3_d2m4v")]
+[node name="Slot2" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots" unique_id=1349702373 instance=ExtResource("3_d2m4v")]
 layout_mode = 2
 
-[node name="Slot3" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=1723346334 instance=ExtResource("3_d2m4v")]
+[node name="Slot3" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots" unique_id=1723346334 instance=ExtResource("3_d2m4v")]
 layout_mode = 2
 
-[node name="Slot4" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=2080399829 instance=ExtResource("3_d2m4v")]
+[node name="Slot4" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots" unique_id=2080399829 instance=ExtResource("3_d2m4v")]
 layout_mode = 2
 
-[node name="Slot5" parent="PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots" unique_id=2043493052 instance=ExtResource("3_d2m4v")]
+[node name="Slot5" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots" unique_id=2043493052 instance=ExtResource("3_d2m4v")]
+layout_mode = 2
+
+[node name="ReserveLabel" type="Label" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer" unique_id=932481039]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.34901962, 0.25882354, 0.16470589, 0.64705884)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 17
+text = "RESERVE  3 / 3"
+vertical_alignment = 1
+
+[node name="ReserveSlots" type="HBoxContainer" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer" unique_id=1324904486]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Slot6" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/ReserveSlots" unique_id=-1264692178 instance=ExtResource("3_d2m4v")]
+layout_mode = 2
+
+[node name="Slot7" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/ReserveSlots" unique_id=-1245264923 instance=ExtResource("3_d2m4v")]
+layout_mode = 2
+
+[node name="Slot8" parent="PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/ReserveSlots" unique_id=-1241620962 instance=ExtResource("3_d2m4v")]
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="PlayerPage/PlayerInfoPanel" unique_id=1393051725]
@@ -231,7 +262,7 @@ offset_left = 0.061950684
 offset_top = 0.23599243
 offset_right = -0.21606445
 offset_bottom = -0.15501404
-theme_override_colors/font_color = Color(0.3492615, 0.2571109, 0.16469374, 1)
+theme_override_colors/font_color = Color(0.3492615, 0.2571109, 0.16470589, 1)
 theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxTexture_nwkyd")
@@ -284,13 +315,13 @@ anchor_left = 0.068
 anchor_top = 0.633
 anchor_right = 0.23600002
 anchor_bottom = 0.669
-offset_left = 0.04799652
-offset_top = 0.1329956
-offset_right = -0.3040161
-offset_bottom = 0.16897583
+offset_left = 3.0479965
+offset_top = -8.867004
+offset_right = 2.695984
+offset_bottom = -8.831024
 theme_override_colors/font_color = Color(0.34901962, 0.25882354, 0.16470589, 0.64705884)
 theme_override_fonts/font = ExtResource("1_font")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 25
 text = "ACTIVE ATOMONS"
 
 [node name="Profile" type="TextureRect" parent="PlayerPage/PlayerInfoPanel" unique_id=353261604]
@@ -311,9 +342,9 @@ expand_mode = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.067
-anchor_top = 0.611
+anchor_top = 0.596
 anchor_right = 0.94000006
-anchor_bottom = 0.619
+anchor_bottom = 0.604
 offset_left = 0.06199646
 offset_top = 0.11099243
 offset_right = -0.16003418

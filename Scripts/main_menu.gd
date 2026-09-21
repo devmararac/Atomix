@@ -20,9 +20,6 @@ func _ready() -> void:
 	AuthManager.login_success.connect(_on_login_success)
 	AuthManager.login_failed.connect(_on_login_failed)
 
-	AuthManager.signup_success.connect(_on_signup_success)
-	AuthManager.signup_failed.connect(_on_signup_failed)
-
 	StudentDataManager.student_loaded.connect(_on_student_loaded)
 	StudentDataManager.student_created.connect(_on_student_created)
 	StudentDataManager.student_error.connect(_on_student_error)
@@ -160,40 +157,7 @@ func _on_login_button_pressed():
 
 	AuthManager.login(email, password)
 
-
-func _on_signup_button_pressed():
-	var email = email_input.text.strip_edges()
-	var password = password_input.text
-
-	if email.is_empty():
-		status_label.text = "Please enter your email."
-		return
-
-	if password.is_empty():
-		status_label.text = "Please enter your password."
-		return
-
-	if password.length() < 6:
-		status_label.text = "Password must be at least 6 characters."
-		return
-
-	status_label.text = "Creating account..."
-
-	AuthManager.signup(email, password)
-
-
 func _on_login_failed(message):
 	login_in_progress = false
 
 	status_label.text = message
-
-
-func _on_signup_failed(message):
-	status_label.text = message
-
-
-func _on_signup_success(auth_result):
-	status_label.text = "Account created!"
-
-	# Treat successful signup as a successful login.
-	_on_login_success(auth_result)

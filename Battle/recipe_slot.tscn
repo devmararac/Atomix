@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://dtt3smfkt21rk"]
+
+[ext_resource type="Texture2D" uid="uid://4gkicblfys6k" path="res://Assets/UX/HUD/Panels/slot_big_pressed.png" id="1_yvbt7"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="2_u0t14"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_x4u8m"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mqu3g"]
+texture = ExtResource("2_u0t14")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_bottom = 9.0
+
+[node name="RecipeSlot" type="TextureButton" unique_id=483526695]
+offset_left = 42.0
+offset_top = 4.0
+offset_right = 829.0
+offset_bottom = 124.0
+mouse_filter = 1
+texture_normal = ExtResource("1_yvbt7")
+stretch_mode = 0
+
+[node name="CompoundName" type="Panel" parent="." unique_id=826614156]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.014
+anchor_top = 0.067
+anchor_right = 0.284
+anchor_bottom = 0.933
+offset_left = 10.981999
+offset_top = 0.96000004
+offset_right = 10.881989
+offset_bottom = 1.0399933
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_mqu3g")
+
+[node name="CompundName" type="Label" parent="CompoundName" unique_id=1539781354]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 203.0
+offset_bottom = 95.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.25, 0.25, 0.25, 1)
+theme_override_fonts/font = ExtResource("3_x4u8m")
+theme_override_font_sizes/font_size = 16
+text = "Compound name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CompundName" type="Label" parent="." unique_id=1961110932]
+layout_mode = 0
+offset_left = 263.0
+offset_top = 5.0
+offset_right = 778.0
+offset_bottom = 115.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.25, 0.25, 0.25, 1)
+theme_override_fonts/font = ExtResource("3_x4u8m")
+theme_override_font_sizes/font_size = 16
+text = "FusionRequirements"
+vertical_alignment = 1

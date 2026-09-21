@@ -234,22 +234,8 @@ func _load_teacher_sections() -> void:
 			if section_name.is_empty():
 				continue
 
-			# ------------------------------------------------
-			# Convert A -> 11-A
-			# Convert B -> 11-B
-			# Convert C -> 11-C
-			# ------------------------------------------------
 
-			var display_section := section_name
-
-			if not section_name.begins_with("11-"):
-
-				display_section = "11-" + section_name
-
-
-			section_input.add_item(
-				display_section
-			)
+			section_input.add_item(section_name)
 
 	section_input.select(0)
 
@@ -263,9 +249,9 @@ func _configure_default_sections() -> void:
 	section_input.clear()
 
 	section_input.add_item("Select Section")
-	section_input.add_item("11-A")
-	section_input.add_item("11-B")
-	section_input.add_item("11-C")
+	section_input.add_item("A")
+	section_input.add_item("B")
+	section_input.add_item("C")
 
 	section_input.select(0)
 

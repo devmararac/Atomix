@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://b5fsn2ti1cki0" path="res://Assets/UX/Buttons/On-Pressed/run_button_pressed.png" id="15_vghoh"]
 [ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="16_c225n"]
 [ext_resource type="AudioStream" uid="uid://bssvvaqt0wwfo" path="res://Assets/Music/Run Bunny Run.mp3" id="16_gwo5a"]
+[ext_resource type="Texture2D" uid="uid://ch326y5f315s" path="res://Assets/UX/Buttons/Disabled/fusion_button.png" id="20_qyglk"]
 [ext_resource type="Script" uid="uid://vt7nk5gwohmi" path="res://Battle/BattleController.gd" id="21_4cw33"]
 [ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="25_4xqci"]
 [ext_resource type="Resource" uid="uid://dy0w3huok6wvi" path="res://Resources/NPCs/TRES/elysa.tres" id="26_qyglk"]
@@ -553,6 +554,7 @@ custom_minimum_size = Vector2(220, 67)
 layout_mode = 2
 texture_normal = ExtResource("10_k0oc4")
 texture_pressed = ExtResource("11_ejqjo")
+texture_disabled = ExtResource("20_qyglk")
 stretch_mode = 0
 
 [node name="Atomons" type="TextureButton" parent="CommandUI/GridContainer" unique_id=1591039315]
@@ -584,5 +586,6 @@ data = ExtResource("26_qyglk")
 [connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move3" to="." method="_on_move_3_pressed"]
 [connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move4" to="." method="_on_move_4_pressed"]
 [connection signal="pressed" from="CommandUI/GridContainer/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="CommandUI/GridContainer/Fusion" to="." method="_on_fusion_pressed"]
 [connection signal="pressed" from="CommandUI/GridContainer/Atomons" to="." method="_on_atomons_pressed"]
 [connection signal="pressed" from="CommandUI/GridContainer/Run" to="." method="_on_run_pressed"]

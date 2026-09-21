@@ -1,25 +1,42 @@
 extends Control
 
+const PARTY_MANAGEMENT_SCENE := preload(
+	"res://Scenes/UI/party_management.tscn"
+)
 
 @onready var display_name_value: Label = $PlayerPage/PlayerInfoPanel/DisplayNameValue
 @onready var student_name_value: Label = $PlayerPage/PlayerInfoPanel/StudentNameValue
 @onready var progress_value: Label = $PlayerPage/PlayerInfoPanel/ProgressValue
-@onready var active_atomon_slots = $PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots
 
 @onready var character_background: TextureRect = $PlayerPage/CharacterPanel/Preview
 @onready var character_preview: AnimatedSprite2D = $PlayerPage/CharacterPanel/AnimatedSprite2D
-@onready var atomon_slots: Array[Node] = [
-	$PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots/Slot,
-	$PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots/Slot2,
-	$PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots/Slot3,
-	$PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots/Slot4,
-	$PlayerPage/PlayerInfoPanel/VBoxContainer/AtomonSlots/Slot5
+
+@onready var battle_atomon_slots: Array[Node] = [
+	$PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots/Slot,
+	$PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots/Slot2,
+	$PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots/Slot3,
+	$PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots/Slot4,
+	$PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/BattlePartySlots/Slot5
 ]
+
+@onready var reserve_atomon_slots: Array[Node] = [
+	$PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/ReserveSlots/Slot6,
+	$PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/ReserveSlots/Slot7,
+	$PlayerPage/PlayerInfoPanel/ScrollContainer/VBoxContainer/ReserveSlots/Slot8
+]
+
+var selected_party_slot_index: int = -1
+
 
 func _ready() -> void:
 	update_player_page()
-	refresh_active_atomons()
+	refresh_carried_atomons()
+	connect_party_slots()
 
+
+# ============================================================
+# PLAYER INFORMATION
+# ============================================================
 
 func update_player_page() -> void:
 	update_player_information()
@@ -28,21 +45,13 @@ func update_player_page() -> void:
 
 func update_player_information() -> void:
 
-	# -----------------------------------------
-	# DISPLAY NAME
-	# -----------------------------------------
-
 	if PlayerManager.display_name != "":
 		display_name_value.text = PlayerManager.display_name
 	else:
 		display_name_value.text = "Player"
 
-
-	# -----------------------------------------
-	# STUDENT NAME
-	# -----------------------------------------
-
 	if StudentDataManager.student_data.has("name"):
+
 		var student_name := str(
 			StudentDataManager.student_data["name"]
 		).strip_edges()
@@ -51,78 +60,143 @@ func update_player_information() -> void:
 			student_name_value.text = student_name
 		else:
 			student_name_value.text = "Student"
+
 	else:
 		student_name_value.text = "Student"
 
-
-	# -----------------------------------------
-	# PROGRESS
-	# -----------------------------------------
-
 	var collected := StudentDataManager.collected_elements.size()
 
-	progress_value.text = str(collected) + " / " + str(
-		StudentDataManager.TOTAL_ELEMENTS
-	) + " Elements"
+	progress_value.text = (
+		str(collected)
+		+ " / "
+		+ str(StudentDataManager.TOTAL_ELEMENTS)
+		+ " Elements"
+	)
 
+
+# ============================================================
+# CHARACTER PREVIEW
+# ============================================================
 
 func update_character_preview() -> void:
 
 	if PlayerManager.selected_character == null:
-		print("[PlayerPage] No selected character.")
 		return
 
-	var frames: SpriteFrames = PlayerManager.selected_character.sprite_frames
+	var frames: SpriteFrames = (
+		PlayerManager.selected_character.sprite_frames
+	)
 
 	if frames == null:
-		print("[PlayerPage] ERROR: SpriteFrames is null.")
 		return
 
-	# Apply selected character
 	character_preview.sprite_frames = frames
-
-	# Scale 32x32 pixel character for the Player Page
 	character_preview.scale = Vector2(8, 8)
 
-	# Play idle
 	if frames.has_animation("idle"):
+
 		character_preview.animation = "idle"
 		character_preview.frame = 0
 		character_preview.play("idle")
+
 	else:
-		print("[PlayerPage] ERROR: Selected character has no idle animation.")
 		return
 
-	# Make sure the sprite is visible
 	character_preview.visible = true
 
-	# Center the character inside the preview texture
 	var preview_center := (
 		character_background.position
 		+ character_background.size / 2.0
 	)
 
 	character_preview.position = preview_center
-	print(
-		"[PlayerPage] Character preview applied: ",
-		PlayerManager.selected_character.character_name
-	)
+
+
+# ============================================================
+# PARTY SLOT CONNECTIONS
+# ============================================================
+
+func connect_party_slots() -> void:
+
+	for i in range(battle_atomon_slots.size()):
+
+		var slot: Node = battle_atomon_slots[i]
+
+		if slot.has_signal("slot_clicked"):
+
+			slot.slot_clicked.connect(
+				_on_party_slot_clicked.bind(i)
+			)
+
+	for i in range(reserve_atomon_slots.size()):
+
+		var slot: Node = reserve_atomon_slots[i]
+
+		if slot.has_signal("slot_clicked"):
+
+			slot.slot_clicked.connect(
+				_on_party_slot_clicked.bind(
+					5 + i
+				)
+			)
+
+
+# ============================================================
+# PARTY SLOT CLICKED
+# ============================================================
+
+func _on_party_slot_clicked(
+	_current_atomon: AtomonInstance,
+	carried_index: int
+) -> void:
+
+	selected_party_slot_index = carried_index
 
 	print(
-		"[PlayerPage] Character centered at: ",
-		character_preview.position
+		"[PlayerPage] Opening party management for carried slot ",
+		carried_index + 1
 	)
 
-func refresh_active_atomons() -> void:
+	var party_management = (
+		PARTY_MANAGEMENT_SCENE.instantiate()
+	)
 
-	var battle_party: Array[AtomonInstance] = PartyManager.get_battle_party()
+	add_child(party_management)
 
-	for i in range(atomon_slots.size()):
+	party_management.set_target_index(
+		carried_index
+	)
 
-		var slot = atomon_slots[i]
+	party_management.atomon_selected.connect(
+		_on_management_atomon_selected
+	)
 
-		if i < battle_party.size():
-			var atomon: AtomonInstance = battle_party[i]
+
+# ============================================================
+# REFRESH CARRIED ATOMONS
+# ============================================================
+
+func refresh_carried_atomons() -> void:
+
+	refresh_battle_party()
+	refresh_reserve_party()
+
+
+func refresh_battle_party() -> void:
+
+	var carried_party: Array[AtomonInstance] = (
+		PartyManager.get_carried_party()
+	)
+
+	for i in range(battle_atomon_slots.size()):
+
+		var slot: Node = battle_atomon_slots[i]
+
+		if i < carried_party.size():
+
+			var atomon: AtomonInstance = (
+				carried_party[i]
+			)
 
 			if atomon != null:
 				_update_atomon_slot(slot, atomon)
@@ -132,12 +206,48 @@ func refresh_active_atomons() -> void:
 		else:
 			_clear_atomon_slot(slot)
 
-func _update_atomon_slot(slot: Node, atomon: AtomonInstance) -> void:
+
+func refresh_reserve_party() -> void:
+
+	var carried_party: Array[AtomonInstance] = (
+		PartyManager.get_carried_party()
+	)
+
+	for i in range(reserve_atomon_slots.size()):
+
+		var slot: Node = reserve_atomon_slots[i]
+
+		var carried_index := (
+			PartyManager.MAX_BATTLE_PARTY_SIZE
+			+ i
+		)
+
+		if carried_index < carried_party.size():
+
+			var atomon: AtomonInstance = (
+				carried_party[carried_index]
+			)
+
+			if atomon != null:
+				_update_atomon_slot(slot, atomon)
+			else:
+				_clear_atomon_slot(slot)
+
+		else:
+			_clear_atomon_slot(slot)
+
+
+func _update_atomon_slot(
+	slot: Node,
+	atomon: AtomonInstance
+) -> void:
 
 	if not slot.has_method("set_atomon"):
+
 		push_warning(
 			"PlayerPage: Atomon slot does not have set_atomon()."
 		)
+
 		return
 
 	slot.set_atomon(atomon)
@@ -145,5 +255,74 @@ func _update_atomon_slot(slot: Node, atomon: AtomonInstance) -> void:
 
 func _clear_atomon_slot(slot: Node) -> void:
 
-	if slot.has_method("clear"):
-		slot.clear()
+	if slot.has_method("clear_slot"):
+		slot.clear_slot()
+
+
+# ============================================================
+# ATOMON SELECTED FROM MANAGEMENT
+# ============================================================
+
+func _on_management_atomon_selected(
+	atomon: AtomonInstance
+) -> void:
+
+	if atomon == null:
+		return
+
+	if selected_party_slot_index < 0:
+		return
+
+	print(
+		"[PlayerPage] Changing carried slot ",
+		selected_party_slot_index + 1,
+		" to ",
+		atomon.data.alias
+	)
+
+	var success := (
+		PartyManager.set_atomon_in_carried_slot(
+			selected_party_slot_index,
+			atomon
+		)
+	)
+
+	if not success:
+
+		print(
+			"[PlayerPage] Failed to change carried Atomon."
+		)
+
+		selected_party_slot_index = -1
+		return
+
+	print(
+		"[PlayerPage] Carried slot changed successfully."
+	)
+
+	refresh_carried_atomons()
+
+	save_party_changes()
+
+	selected_party_slot_index = -1
+
+
+# ============================================================
+# SAVE
+# ============================================================
+
+func save_party_changes() -> void:
+
+	if SaveManager == null:
+
+		push_warning(
+			"[PlayerPage] SaveManager is not available."
+		)
+
+		return
+
+	SaveManager.save_game()
+
+	print(
+		"[PlayerPage] Carried party changes saved."
+	)
