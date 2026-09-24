@@ -82,12 +82,12 @@ custom_minimum_size = Vector2(860, 0)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="RecipeSlot" parent="FusionPanel/RecipeScroll/RecipeList" unique_id=483526695 instance=ExtResource("5_7p7bb")]
+[node name="RecipeSlot2" parent="FusionPanel/RecipeScroll/RecipeList" unique_id=483526695 instance=ExtResource("5_7p7bb")]
 layout_mode = 0
-offset_left = 58.0
-offset_top = 8.0
-offset_right = 845.0
-offset_bottom = 128.0
+offset_left = 68.0
+offset_top = 0.0
+offset_right = 815.0
+offset_bottom = 120.0
 
 [node name="NoRecipesLabel" type="Label" parent="FusionPanel" unique_id=2038736229]
 visible = false

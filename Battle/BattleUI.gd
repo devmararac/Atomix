@@ -1,4 +1,3 @@
-
 extends Control
 
 # ============================================================
@@ -31,47 +30,49 @@ var switch_menu: CanvasLayer
 # ============================================================
 # BATTLEFIELD
 # ============================================================
-@onready var enemy_container: Panel = ($BattleField/EnemyContainer)
-@onready var enemy_spawn_point: Marker2D = ($BattleField/EnemyContainer/SpawnPoint)
-@onready var friendly_container: Panel = ($BattleField/FriendlyAtomonContainer)
-@onready var friendly_spawn_point: Marker2D = ($BattleField/FriendlyAtomonContainer/SpawnPoint)
+@onready var enemy_container: Panel = $BattleField/EnemyContainer
+@onready var enemy_spawn_point: Marker2D = $BattleField/EnemyContainer/SpawnPoint
+@onready var friendly_container: Panel = $BattleField/FriendlyAtomonContainer
+@onready var friendly_spawn_point: Marker2D = $BattleField/FriendlyAtomonContainer/SpawnPoint
 
 # ============================================================
 # ENEMY UI
 # ============================================================
-@onready var enemy_name_label: Label = ($CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonName)
-@onready var enemy_level_label: Label = ($CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonLevel/EALevel)
-@onready var enemy_hp_bar: TextureProgressBar = ($CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonHP)
-@onready var enemy_hp_text: Label = ($CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonHPText)
+@onready var enemy_name_label: Label = $CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonName
+@onready var enemy_level_label: Label = $CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonLevel/EALevel
+@onready var enemy_hp_bar: TextureProgressBar = $CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonHP
+@onready var enemy_hp_text: Label = $CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonHPText
 
 # ============================================================
 # PLAYER UI
 # ============================================================
-@onready var player_name_label: Label = ($CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonName)
-@onready var player_level_label: Label = ($CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonLevel/FALevel)
-@onready var player_hp_bar: TextureProgressBar = ($CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonHP)
-@onready var player_hp_text: Label = ($CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonHPText)
-@onready var exp_bar: TextureProgressBar = ($CanvasLayer/HUD/FriendlyAtomonInfo/EXPBar)
+@onready var player_name_label: Label = $CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonName
+@onready var player_level_label: Label = $CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonLevel/FALevel
+@onready var player_hp_bar: TextureProgressBar = $CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonHP
+@onready var player_hp_text: Label = $CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonHPText
+@onready var exp_bar: TextureProgressBar = $CanvasLayer/HUD/FriendlyAtomonInfo/EXPBar
 
 # ============================================================
 # BATTLE LOG
 # ============================================================
-@onready var battle_log: RichTextLabel = ($CanvasLayer/BattleLog)
+@onready var battle_log: RichTextLabel = $CanvasLayer/BattleLog
 @onready var battle_announcer: NPCBase = $BattleAnnouncer
+@onready var battle_controller: BattleController = $BattleController
+@onready var fusion_enemy_target: Marker2D = $BattleField/EnemyContainer/SpawnPoint
 
 # ============================================================
 # MENUS
 # ============================================================
-@onready var command_ui: Control = ($CommandUI)
-@onready var move_menu: PanelContainer = ($CanvasLayer/MoveMenu)
-
+@onready var command_ui: Control = $CommandUI
+@onready var move_menu: PanelContainer = $CanvasLayer/MoveMenu
+@onready var fusion_button: TextureButton = $CommandUI/GridContainer/Fusion
 # ============================================================
 # MOVE BUTTONS
 # ============================================================
-@onready var move_button_1: Button = ($CanvasLayer/MoveMenu/VBoxContainer/Move1)
-@onready var move_button_2: Button = ($CanvasLayer/MoveMenu/VBoxContainer/Move2)
-@onready var move_button_3: Button = ($CanvasLayer/MoveMenu/VBoxContainer/Move3)
-@onready var move_button_4: Button = ($CanvasLayer/MoveMenu/VBoxContainer/Move4)
+@onready var move_button_1: Button = $CanvasLayer/MoveMenu/VBoxContainer/Move1
+@onready var move_button_2: Button = $CanvasLayer/MoveMenu/VBoxContainer/Move2
+@onready var move_button_3: Button = $CanvasLayer/MoveMenu/VBoxContainer/Move3
+@onready var move_button_4: Button = $CanvasLayer/MoveMenu/VBoxContainer/Move4
 
 # ============================================================
 # CURRENT MOVES
@@ -91,15 +92,15 @@ func _ready() -> void:
 	# --------------------------------------------------------
 	# Get battle data
 	# --------------------------------------------------------
-	player_instance = (BattleManager.player_instance)
-	enemy_data = (BattleManager.enemy_data)
+	player_instance = BattleManager.player_instance
+	enemy_data = BattleManager.enemy_data
 
 	# --------------------------------------------------------
 	# Validate player
 	# --------------------------------------------------------
 	if player_instance == null:
 		push_error("BattleUI: Player Atomon is null.")
-		battle_log.text = ("No Atomon is available for battle.")
+		battle_log.text = "No Atomon is available for battle."
 		return
 
 	# --------------------------------------------------------
@@ -107,13 +108,16 @@ func _ready() -> void:
 	# --------------------------------------------------------
 	if enemy_data == null:
 		push_error("BattleUI: Enemy Atomon is null.")
-		battle_log.text = ("No enemy Atomon is available.")
+		battle_log.text = "No enemy Atomon is available."
 		return
 
 	# --------------------------------------------------------
 	# Setup battle controller
 	# --------------------------------------------------------
-	BattleControllerGlobal.setup_battle(player_instance, enemy_data)
+	BattleControllerGlobal.setup_battle(
+		player_instance,
+		enemy_data
+	)
 
 	# --------------------------------------------------------
 	# Connect signals
@@ -133,7 +137,7 @@ func _ready() -> void:
 	setup_enemy_ui()
 	setup_move_buttons()
 	update_hp_ui()
-	
+
 	# --------------------------------------------------------
 	# Initial menu state
 	# --------------------------------------------------------
@@ -143,8 +147,13 @@ func _ready() -> void:
 	# --------------------------------------------------------
 	# Initial message
 	# --------------------------------------------------------
-	battle_log.text = ("A wild " + enemy_data.atom_name + " appeared!")
-	announce(("A wild " + enemy_data.atom_name + " appeared!"))
+	battle_log.text = (
+		"A wild " + enemy_data.atom_name + " appeared!"
+	)
+
+	announce(
+		"A wild " + enemy_data.atom_name + " appeared!"
+	)
 
 	# --------------------------------------------------------
 	# Fusion
@@ -173,24 +182,26 @@ func connect_battle_controller_signals() -> void:
 
 	if not BattleControllerGlobal.player_fainted.is_connected(_on_player_fainted):
 		BattleControllerGlobal.player_fainted.connect(_on_player_fainted)
-		
+
 	if not BattleControllerGlobal.enemy_fainted.is_connected(_on_enemy_fainted):
 		BattleControllerGlobal.enemy_fainted.connect(_on_enemy_fainted)
-	
+
 	if not BattleControllerGlobal.stats_changed.is_connected(_on_stats_changed):
 		BattleControllerGlobal.stats_changed.connect(_on_stats_changed)
-	
+
 
 # ============================================================
 # SETUP PLAYER ATOMON
 # ============================================================
 func setup_player_atomon() -> void:
-	player_atomon = (ATOMON_SCENE.instantiate())
+	player_atomon = ATOMON_SCENE.instantiate()
+
 	friendly_container.add_child(player_atomon)
-	player_atomon.position = (friendly_spawn_point.position)
+
+	player_atomon.position = friendly_spawn_point.position
 	player_atomon.battle_mode = true
 	player_atomon.setup(player_instance.data)
-	player_atomon.scale = (BATTLE_SCALE)
+	player_atomon.scale = BATTLE_SCALE
 
 	var player_sprite: AnimatedSprite2D = (
 		player_atomon.get_node("AnimatedSprite2D")
@@ -198,19 +209,22 @@ func setup_player_atomon() -> void:
 
 	# Player faces right
 	player_sprite.flip_h = false
-	player_start_position = (player_atomon.position)
+
+	player_start_position = player_atomon.position
 
 
 # ============================================================
 # SETUP ENEMY ATOMON
 # ============================================================
 func setup_enemy_atomon() -> void:
-	enemy_atomon = (ATOMON_SCENE.instantiate())
+	enemy_atomon = ATOMON_SCENE.instantiate()
+
 	enemy_container.add_child(enemy_atomon)
-	enemy_atomon.position = (enemy_spawn_point.position)
+
+	enemy_atomon.position = enemy_spawn_point.position
 	enemy_atomon.battle_mode = true
 	enemy_atomon.setup(enemy_data)
-	enemy_atomon.scale = (BATTLE_SCALE)
+	enemy_atomon.scale = BATTLE_SCALE
 
 	var enemy_sprite: AnimatedSprite2D = (
 		enemy_atomon.get_node("AnimatedSprite2D")
@@ -218,14 +232,15 @@ func setup_enemy_atomon() -> void:
 
 	# Enemy faces left
 	enemy_sprite.flip_h = true
-	enemy_start_position = (enemy_atomon.position)
+
+	enemy_start_position = enemy_atomon.position
 
 
 # ============================================================
 # SETUP PLAYER UI
 # ============================================================
 func setup_player_ui() -> void:
-	player_name_label.text = (player_instance.data.atom_name)
+	player_name_label.text = player_instance.data.atom_name
 
 	update_excited_ui()
 
@@ -234,7 +249,7 @@ func setup_player_ui() -> void:
 # SETUP ENEMY UI
 # ============================================================
 func setup_enemy_ui() -> void:
-	enemy_name_label.text = (enemy_data.atom_name)
+	enemy_name_label.text = enemy_data.atom_name
 	enemy_level_label.text = "1"
 
 
@@ -242,7 +257,7 @@ func setup_enemy_ui() -> void:
 # SETUP MOVE BUTTONS
 # ============================================================
 func setup_move_buttons() -> void:
-	player_moves = (player_instance.data.moves)
+	player_moves = player_instance.data.moves
 
 	# --------------------------------------------------------
 	# Move 1
@@ -254,10 +269,10 @@ func setup_move_buttons() -> void:
 			move_button_1.get_node("Move1")
 		)
 
-		label_1.text = (player_moves[0].move_name)
+		label_1.text = player_moves[0].move_name
 	else:
 		move_button_1.visible = false
-		
+
 	# --------------------------------------------------------
 	# Move 2
 	# --------------------------------------------------------
@@ -268,10 +283,10 @@ func setup_move_buttons() -> void:
 			move_button_2.get_node("Move2")
 		)
 
-		label_2.text = (player_moves[1].move_name)
+		label_2.text = player_moves[1].move_name
 	else:
 		move_button_2.visible = false
-		
+
 	# --------------------------------------------------------
 	# Move 3
 	# --------------------------------------------------------
@@ -282,7 +297,7 @@ func setup_move_buttons() -> void:
 			move_button_3.get_node("Move3")
 		)
 
-		label_3.text = (player_moves[2].move_name)
+		label_3.text = player_moves[2].move_name
 	else:
 		move_button_3.visible = false
 
@@ -296,7 +311,7 @@ func setup_move_buttons() -> void:
 			move_button_4.get_node("Move4")
 		)
 
-		label_4.text = (player_moves[3].move_name)
+		label_4.text = player_moves[3].move_name
 	else:
 		move_button_4.visible = false
 
@@ -304,7 +319,7 @@ func setup_move_buttons() -> void:
 # ============================================================
 # UPDATE HP UI
 # ============================================================
-func update_hp_ui() -> void:  
+func update_hp_ui() -> void:
 	var player_hp: int = (
 		BattleControllerGlobal.get_player_hp()
 	)
@@ -312,7 +327,7 @@ func update_hp_ui() -> void:
 	var player_max_hp: int = (
 		BattleControllerGlobal.get_player_max_hp()
 	)
-	
+
 	var enemy_hp: int = (
 		BattleControllerGlobal.get_enemy_hp()
 	)
@@ -324,6 +339,7 @@ func update_hp_ui() -> void:
 	# Player HP
 	player_hp_bar.max_value = player_max_hp
 	player_hp_bar.value = player_hp
+
 	player_hp_text.text = (
 		str(player_hp) + "/" + str(player_max_hp)
 	)
@@ -331,6 +347,7 @@ func update_hp_ui() -> void:
 	# Enemy HP
 	enemy_hp_bar.max_value = enemy_max_hp
 	enemy_hp_bar.value = enemy_hp
+
 	enemy_hp_text.text = (
 		str(enemy_hp) + "/" + str(enemy_max_hp)
 	)
@@ -350,11 +367,14 @@ func _on_attack_pressed() -> void:
 func _on_move_1_pressed() -> void:
 	use_move(0)
 
+
 func _on_move_2_pressed() -> void:
 	use_move(1)
 
+
 func _on_move_3_pressed() -> void:
 	use_move(2)
+
 
 func _on_move_4_pressed() -> void:
 	use_move(3)
@@ -386,7 +406,7 @@ func use_move(move_index: int) -> void:
 		announce("No PP left for this move!")
 		return
 
-	var move: MoveData = (player_moves[move_index])
+	var move: MoveData = player_moves[move_index]
 
 	move_menu.visible = false
 	command_ui.visible = false
@@ -651,7 +671,7 @@ func _on_player_fainted() -> void:
 # ENEMY FAINTED
 # ============================================================
 func _on_enemy_fainted() -> void:
-	battle_log.text = (enemy_data.atom_name + " fainted!")
+	battle_log.text = enemy_data.atom_name + " fainted!"
 
 	announce(
 		enemy_data.atom_name + " fainted!"
@@ -732,7 +752,7 @@ func open_party_menu() -> void:
 	if switch_menu != null:
 		return
 
-	switch_menu = (SWITCH_MENU.instantiate())
+	switch_menu = SWITCH_MENU.instantiate()
 	add_child(switch_menu)
 
 	switch_menu.current_battle_atomon = player_instance
@@ -755,7 +775,7 @@ func _on_atomon_selected(index: int) -> void:
 	await switch_atomon(index, force_switch)
 
 	switch_menu = null
-	
+
 	# Show commands after switching
 	command_ui.visible = true
 	move_menu.visible = false
@@ -780,7 +800,9 @@ func switch_atomon(
 		return
 
 	# Update BattleController
-	BattleControllerGlobal.switch_player_atomon(player_instance)
+	BattleControllerGlobal.switch_player_atomon(
+		player_instance
+	)
 
 	# Refresh battle sprite and UI
 	refresh_player()
@@ -798,8 +820,8 @@ func refresh_player() -> void:
 
 	if new_player == null:
 		return
-		
-	battle_log.text = ("Go! " + new_player.data.atom_name)
+
+	battle_log.text = "Go! " + new_player.data.atom_name
 
 	announce(
 		"Go! " + new_player.data.atom_name + "!"
@@ -807,7 +829,7 @@ func refresh_player() -> void:
 
 	if player_atomon != null:
 		player_atomon.queue_free()
-		
+
 	player_atomon = ATOMON_SCENE.instantiate()
 
 	friendly_container.add_child(player_atomon)
@@ -816,7 +838,7 @@ func refresh_player() -> void:
 	player_atomon.battle_mode = true
 	player_atomon.position = friendly_spawn_point.position
 	player_atomon.scale = BATTLE_SCALE
-	
+
 	var player_sprite: AnimatedSprite2D = (
 		player_atomon.get_node("AnimatedSprite2D")
 	)
@@ -826,7 +848,7 @@ func refresh_player() -> void:
 
 	# Update UI
 	player_name_label.text = new_player.data.atom_name
-	
+
 	var thresholds = (
 		StatCalculator.get_energy_thresholds(
 			new_player.data
@@ -944,25 +966,58 @@ func announce(message: String) -> void:
 func _on_fusion_pressed() -> void:
 	print("[BattleUI] Fusion button pressed.")
 
+	# --------------------------------------------------------
+	# Fusion can only be used once per battle.
+	# --------------------------------------------------------
 	if fusion_used_this_battle:
 		print("[BattleUI] Fusion has already been used this battle.")
 		return
 
+	# --------------------------------------------------------
+	# Hide the normal BattleUI.
+	# --------------------------------------------------------
+	hide_battle_ui()
+
+	# --------------------------------------------------------
+	# Create Fusion Menu.
+	# --------------------------------------------------------
 	var fusion_menu_scene := preload(
 		"res://Battle/FusionMenu.tscn"
 	)
 
 	var fusion_menu := fusion_menu_scene.instantiate()
 
-	# Listen for the correct Fusion composition.
+	# --------------------------------------------------------
+	# Correct Atomon combination.
+	# --------------------------------------------------------
 	if fusion_menu.has_signal("fusion_components_selected"):
 		fusion_menu.fusion_components_selected.connect(
 			_on_fusion_components_selected
 		)
 
+	# --------------------------------------------------------
+	# Player cancelled/closed Fusion Menu.
+	# --------------------------------------------------------
+	if fusion_menu.has_signal("fusion_menu_cancelled"):
+		fusion_menu.fusion_menu_cancelled.connect(
+			_on_fusion_menu_cancelled
+		)
+
 	get_tree().current_scene.add_child(fusion_menu)
 
 	print("[BattleUI] Fusion Menu opened.")
+
+
+# ============================================================
+# FUSION MENU CANCELLED
+# ============================================================
+func _on_fusion_menu_cancelled() -> void:
+	print(
+		"[BattleUI] Fusion Menu cancelled. "
+		+ "Restoring BattleUI."
+	)
+
+	show_battle_ui()
 
 
 # ============================================================
@@ -1015,44 +1070,57 @@ func open_fusion_learning(
 	selected_atomons: Array[AtomonInstance]
 ) -> void:
 
+	if recipe == null:
+		return
+
 	print(
 		"[BattleUI] Opening Octet Rule challenge for ",
 		recipe.chemical_formula
 	)
 
-	# Hide the normal BattleUI.
-	visible = false
+	hide_battle_ui()
 
 	var learning_scene := preload(
 		"res://Battle/BattleLearning.tscn"
 	)
 
-	# Create a separate CanvasLayer for the learning screen.
 	var learning_layer := CanvasLayer.new()
 	learning_layer.name = "BattleLearningLayer"
 	learning_layer.layer = 100
 
-	get_tree().current_scene.add_child(learning_layer)
+	get_tree().current_scene.add_child(
+		learning_layer
+	)
 
-	# Create the actual learning screen.
 	var learning_screen := learning_scene.instantiate()
 
-	learning_layer.add_child(learning_screen)
+	learning_layer.add_child(
+		learning_screen
+	)
 
-	# Make the learning screen fill the viewport.
 	if learning_screen is Control:
-		learning_screen.set_anchors_preset(Control.PRESET_FULL_RECT)
-		learning_screen.position = Vector2.ZERO
-		learning_screen.size = get_viewport().get_visible_rect().size
-
-	# Listen for the result.
-	if learning_screen.has_signal("fusion_challenge_finished"):
-		learning_screen.fusion_challenge_finished.connect(
-			_on_fusion_challenge_finished.bind(learning_layer)
+		learning_screen.set_anchors_preset(
+			Control.PRESET_FULL_RECT
 		)
 
-	# Give the Fusion data to BattleLearning.
-	if learning_screen.has_method("setup_fusion_challenge"):
+		learning_screen.position = Vector2.ZERO
+
+		learning_screen.size = (
+			get_viewport().get_visible_rect().size
+		)
+
+	if learning_screen.has_signal(
+		"fusion_challenge_finished"
+	):
+		learning_screen.fusion_challenge_finished.connect(
+			_on_fusion_challenge_finished.bind(
+				learning_layer
+			)
+		)
+
+	if learning_screen.has_method(
+		"setup_fusion_challenge"
+	):
 		learning_screen.setup_fusion_challenge(
 			recipe,
 			selected_atomons
@@ -1073,24 +1141,57 @@ func _on_fusion_challenge_finished(
 	selected_atomons: Array[AtomonInstance],
 	learning_layer: CanvasLayer
 ) -> void:
+	
+	
+	print(
+		"[BattleUI] Fusion challenge finished."
+	)
 
-	# Remove the entire learning overlay.
+	if success:
+		print("[BattleUI] Octet Rule challenge passed for ", recipe.chemical_formula)
+
+		# Disable Fusion after it has been successfully used once.
+		fusion_button.disabled = true
+
+		battle_log.text = "Fusion successful!"
+
+		# Continue with the Fusion attack...
+
 	if learning_layer != null:
 		learning_layer.queue_free()
 
-	# Bring the normal BattleUI back.
-	visible = true
+	show_battle_ui()
 
 	if recipe == null:
 		return
 
+	# ========================================================
+	# FAILED CHALLENGE
+	# ========================================================
 	if not success:
-		print("[BattleUI] Octet Rule challenge failed.")
 
-		battle_log.text = "Fusion failed! Review the Octet Rule."
-		announce("Fusion failed!")
+		print(
+			"[BattleUI] Octet Rule challenge failed."
+		)
+
+		battle_log.text = (
+			"Fusion failed! Review the Octet Rule."
+		)
+
+		announce(
+			"Fusion failed!"
+		)
+
+		fusion_used_this_battle = false
+
+		command_ui.visible = true
+		move_menu.visible = false
 
 		return
+
+	# ========================================================
+	# SUCCESSFUL CHALLENGE
+	# ========================================================
 
 	print(
 		"[BattleUI] Octet Rule challenge passed for ",
@@ -1102,9 +1203,186 @@ func _on_fusion_challenge_finished(
 		+ recipe.fusion_skill_name
 	)
 
-	announce("Fusion successful!")
+	announce(
+		"Fusion successful!"
+	)
 
 	print(
 		"[BattleUI] Fusion attack ready: ",
 		recipe.fusion_skill_name
 	)
+
+	# Fusion becomes used only after successful challenge.
+	fusion_used_this_battle = true
+
+	# Execute actual Fusion Skill.
+	execute_fusion_skill(
+		recipe,
+		selected_atomons
+	)
+
+	
+# ============================================================
+# EXECUTE FUSION SKILL
+# ============================================================
+func execute_fusion_skill(
+	recipe: FusionRecipe,
+	selected_atomons: Array[AtomonInstance]
+) -> void:
+
+	if recipe == null:
+		return
+
+	if selected_atomons.is_empty():
+		return
+
+	if recipe.projectile_scene == null:
+		push_error(
+			"[BattleUI] Fusion recipe has no projectile scene: "
+			+ recipe.chemical_formula
+		)
+		return
+
+	# ========================================================
+	# CALCULATE FUSION DAMAGE
+	# ========================================================
+
+	var fusion_damage := recipe.get_fusion_damage(
+		selected_atomons.size()
+	)
+
+	print(
+		"[BattleUI] Fusion Skill: ",
+		recipe.fusion_skill_name
+	)
+
+	print(
+		"[BattleUI] Fusion Components: ",
+		selected_atomons.size()
+	)
+
+	print(
+		"[BattleUI] Fusion Damage: ",
+		fusion_damage
+	)
+
+	# ========================================================
+	# CREATE PROJECTILE
+	# ========================================================
+
+	var projectile := recipe.projectile_scene.instantiate()
+
+	if projectile == null:
+		push_error(
+			"[BattleUI] Failed to instantiate Fusion projectile."
+		)
+		return
+
+	$BattleField/BattleEffects.add_child(projectile)
+	projectile.scale = Vector2(15, 15)
+
+	# ========================================================
+	# CONNECT PROJECTILE FINISHED SIGNAL
+	# ========================================================
+
+	if projectile.has_signal("projectile_finished"):
+		projectile.projectile_finished.connect(
+			_on_fusion_projectile_finished.bind(
+				projectile,
+				fusion_damage,
+				recipe
+			)
+		)
+	else:
+		push_error(
+			"[BattleUI] Fusion projectile has no "
+			+ "projectile_finished signal."
+		)
+
+		projectile.queue_free()
+		return
+
+	# ========================================================
+	# LAUNCH PROJECTILE
+	# ========================================================
+
+	if projectile.has_method("launch"):
+
+		var start_position := (
+			friendly_spawn_point.global_position
+		)
+
+		var target_position := (
+			fusion_enemy_target.global_position
+		)
+
+		projectile.launch(
+			start_position,
+			target_position
+		)
+
+	else:
+		push_error(
+			"[BattleUI] Fusion projectile does not "
+			+ "have launch()."
+		)
+
+		projectile.queue_free()
+
+
+# ============================================================
+# FUSION PROJECTILE FINISHED
+# ============================================================
+func _on_fusion_projectile_finished(
+	projectile: Node,
+	fusion_damage: int,
+	recipe: FusionRecipe
+) -> void:
+
+	print(
+		"[BattleUI] Fusion projectile reached enemy."
+	)
+
+	print(
+		"[BattleUI] Applying Fusion damage: ",
+		fusion_damage
+	)
+
+	# --------------------------------------------------------
+	# Apply damage through the existing battle controller.
+	# --------------------------------------------------------
+	BattleControllerGlobal.damage_enemy(
+		fusion_damage
+	)
+
+	# --------------------------------------------------------
+	# Clean up projectile.
+	# --------------------------------------------------------
+	if is_instance_valid(projectile):
+		projectile.queue_free()
+
+	# --------------------------------------------------------
+	# Battle log.
+	# --------------------------------------------------------
+	battle_log.text = (
+		recipe.fusion_skill_name
+		+ " dealt "
+		+ str(fusion_damage)
+		+ " damage!"
+	)
+
+	announce(
+		recipe.fusion_skill_name
+		+ "!"
+	)
+	
+
+# ============================================================
+# BATTLE UI VISIBILITY
+# ============================================================
+func hide_battle_ui() -> void:
+	visible = false
+
+
+func show_battle_ui() -> void:
+	visible = true

@@ -7,8 +7,6 @@ class_name FusionRecipe
 # ============================================================
 # Defines one complete Skill Fusion recipe.
 #
-# The recipe supports ANY number of different elements.
-#
 # Examples:
 #
 # H₂O:
@@ -24,8 +22,10 @@ class_name FusionRecipe
 #   Carbon ×1
 #   Oxygen ×3
 #
-# This allows the Fusion system to scale beyond two-element
-# compounds.
+# The recipe contains both the chemical information and
+# the Skill Fusion information.
+#
+# BattleLearning generates its challenge from this recipe.
 # ============================================================
 
 
@@ -63,9 +63,28 @@ var bond_type: String = "Covalent"
 
 @export_group("Skill Fusion")
 
+# Name of the Fusion Skill.
 @export var fusion_skill_name: String = ""
 
+# Base damage of the Fusion Skill.
 @export var fusion_damage: int = 0
+
+# Additional damage for every Atomon used in the Fusion.
+#
+# Example:
+#
+# Base Damage = 20
+# Damage Per Atomon = 10
+# 3 Atomons used:
+#
+# 20 + (3 × 10) = 50 damage
+@export var damage_per_atomon: int = 10
+
+# Projectile/visual effect used by the Fusion Skill.
+#
+# Example:
+# res://Battle/FusionProjectiles/WaterProjectile.tscn
+@export var projectile_scene: PackedScene
 
 
 # ============================================================
@@ -74,8 +93,10 @@ var bond_type: String = "Covalent"
 
 @export_group("Octet Rule")
 
+# Explanation of the Octet Rule for this Fusion.
 @export_multiline var octet_rule_explanation: String = ""
 
+# Explanation of how/why the elements form the compound.
 @export_multiline var fusion_description: String = ""
 
 
@@ -84,8 +105,12 @@ var bond_type: String = "Covalent"
 # ============================================================
 
 func is_valid() -> bool:
-	# A recipe must have at least two different element
-	# requirements.
+
+	# --------------------------------------------------------
+	# ELEMENT REQUIREMENTS
+	# --------------------------------------------------------
+
+	# A recipe must have at least two different elements.
 	if requirements.size() < 2:
 		return false
 
@@ -95,6 +120,7 @@ func is_valid() -> bool:
 
 		if not requirement.is_valid():
 			return false
+
 
 	# Make sure the same element isn't accidentally added
 	# more than once.
@@ -106,11 +132,21 @@ func is_valid() -> bool:
 
 		used_elements.append(requirement.element)
 
+
+	# --------------------------------------------------------
+	# CHEMICAL RESULT
+	# --------------------------------------------------------
+
 	if compound_name.is_empty():
 		return false
 
 	if chemical_formula.is_empty():
 		return false
+
+
+	# --------------------------------------------------------
+	# SKILL FUSION
+	# --------------------------------------------------------
 
 	if fusion_skill_name.is_empty():
 		return false
@@ -118,7 +154,50 @@ func is_valid() -> bool:
 	if fusion_damage <= 0:
 		return false
 
+	if damage_per_atomon < 0:
+		return false
+
+
+	# --------------------------------------------------------
+	# OCTET RULE LESSON
+	# --------------------------------------------------------
+
+	if octet_rule_explanation.is_empty():
+		return false
+
+	if fusion_description.is_empty():
+		return false
+
+
 	return true
+
+
+# ============================================================
+# GET FUSION DAMAGE
+# ============================================================
+# Calculates the final damage based on how many Atomons
+# participated in the Fusion Skill.
+#
+# Example:
+#
+# Base Damage = 20
+# Damage Per Atomon = 10
+# Selected Atomons = 3
+#
+# Final Damage:
+#
+# 20 + (3 × 10)
+# = 50
+# ============================================================
+
+func get_fusion_damage(atomon_count: int) -> int:
+
+	if atomon_count <= 0:
+		return 0
+
+	return fusion_damage + (
+		atomon_count * damage_per_atomon
+	)
 
 
 # ============================================================
@@ -134,6 +213,7 @@ func get_element_type_count() -> int:
 # ============================================================
 
 func contains_element(element: AtomonData) -> bool:
+
 	if element == null:
 		return false
 
@@ -149,6 +229,7 @@ func contains_element(element: AtomonData) -> bool:
 # ============================================================
 
 func get_required_amount(element: AtomonData) -> int:
+
 	if element == null:
 		return 0
 
@@ -163,7 +244,10 @@ func get_required_amount(element: AtomonData) -> int:
 # GET REQUIREMENT FOR AN ELEMENT
 # ============================================================
 
-func get_requirement(element: AtomonData) -> FusionElementRequirement:
+func get_requirement(
+	element: AtomonData
+) -> FusionElementRequirement:
+
 	if element == null:
 		return null
 
@@ -177,8 +261,8 @@ func get_requirement(element: AtomonData) -> FusionElementRequirement:
 # ============================================================
 # CHECK A COMPLETE SET OF ELEMENT COUNTS
 # ============================================================
-# This function is useful later when FusionManager checks
-# whether the player's party contains everything needed.
+# This function checks whether a collection of available
+# elements contains everything required by the recipe.
 #
 # Example H₂O:
 #
@@ -197,12 +281,18 @@ func get_requirement(element: AtomonData) -> FusionElementRequirement:
 # false
 # ============================================================
 
-func has_required_elements(available_counts: Dictionary) -> bool:
+func has_required_elements(
+	available_counts: Dictionary
+) -> bool:
+
 	if not is_valid():
 		return false
 
 	for requirement in requirements:
-		var element_id := requirement.element.chemical_symbol
+
+		var element_id := (
+			requirement.element.chemical_symbol
+		)
 
 		var available_amount: int = int(
 			available_counts.get(element_id, 0)
@@ -236,16 +326,20 @@ func has_required_elements(available_counts: Dictionary) -> bool:
 # ============================================================
 
 func get_required_element_counts() -> Dictionary:
+
 	var counts: Dictionary = {}
 
 	for requirement in requirements:
+
 		if requirement == null:
 			continue
 
 		if requirement.element == null:
 			continue
 
-		var symbol := requirement.element.chemical_symbol
+		var symbol := (
+			requirement.element.chemical_symbol
+		)
 
 		counts[symbol] = requirement.amount
 
@@ -259,9 +353,11 @@ func get_required_element_counts() -> Dictionary:
 # ============================================================
 
 func get_required_elements() -> Array[AtomonData]:
+
 	var elements: Array[AtomonData] = []
 
 	for requirement in requirements:
+
 		if requirement == null:
 			continue
 

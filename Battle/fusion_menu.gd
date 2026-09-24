@@ -1,10 +1,13 @@
-
 extends CanvasLayer
 
 signal fusion_components_selected(
 	recipe: FusionRecipe,
 	selected_atomons: Array[AtomonInstance]
 )
+
+# Emitted ONLY when the player manually closes/cancels
+# the Fusion Menu.
+signal fusion_menu_cancelled
 
 const RECIPE_SLOT_SCENE := preload("res://Battle/recipe_slot.tscn")
 
@@ -366,6 +369,7 @@ func get_selected_counts() -> Dictionary:
 
 	return counts
 
+
 func build_counts_text(counts: Dictionary) -> String:
 	if counts.is_empty():
 		return "None"
@@ -383,6 +387,7 @@ func build_counts_text(counts: Dictionary) -> String:
 			)
 
 	return " + ".join(parts)
+
 
 # ============================================================
 # CONFIRM FUSION
@@ -590,6 +595,10 @@ func handle_correct_selection() -> void:
 		selected_atomons
 	)
 
+	# This is NOT considered a cancellation.
+	#
+	# Therefore we intentionally do NOT emit
+	# fusion_menu_cancelled here.
 	close_menu()
 
 
@@ -643,6 +652,14 @@ func clear_recipe_list() -> void:
 # ============================================================
 
 func _on_close_pressed() -> void:
+	# This means the player intentionally cancelled/closed
+	# the Fusion Menu.
+	print(
+		"[FusionMenu] Fusion Menu cancelled by player."
+	)
+
+	fusion_menu_cancelled.emit()
+
 	close_menu()
 
 

@@ -93,7 +93,6 @@ offset_bottom = 0.07998657
 position = Vector2(25, 75)
 
 [node name="BattleEffects" type="Node2D" parent="BattleField" unique_id=1118640751]
-visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1252201629]
 
