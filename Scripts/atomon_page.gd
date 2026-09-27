@@ -68,6 +68,11 @@ func _on_slot_clicked(atomon: AtomonInstance):
 	animation_timer.stop()
 	
 	var data = atomon.data
+	
+	if data.cry_sound != null:
+		cry_player.stop()
+		cry_player.stream = data.cry_sound
+		cry_player.play()
 
 	preview.sprite_frames = data.sprite_frames
 	preview.scale = Vector2(5, 5)

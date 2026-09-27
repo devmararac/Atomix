@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dictj3kx41184" path="res://Scripts/quiz_management.gd" id="1_quizmanagement"]
 [ext_resource type="Texture2D" uid="uid://dxg7ga6k8m7hs" path="res://Assets/UX/Icons/icon_quiz.png" id="2_d1gt5"]
-[ext_resource type="Texture2D" uid="uid://oqodphq3t1kq" path="res://Assets/UX/Buttons/Normal/create_quiz.png" id="3_y42cc"]
+[ext_resource type="Texture2D" uid="uid://ddvvh20hdw4bm" path="res://Assets/UX/Buttons/Normal/arrow_back.png" id="2_tukxh"]
+[ext_resource type="Texture2D" uid="uid://de6w58oatvft8" path="res://Assets/UX/Buttons/On-Pressed/arrow_back_pressed.png" id="3_gjb6x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wisd"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -11,6 +12,12 @@ border_width_top = 6
 border_width_right = 6
 border_width_bottom = 6
 border_color = Color(0.69411767, 0.52156866, 0.3019608, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t3ks8"]
+texture = ExtResource("2_tukxh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d86xi"]
+texture = ExtResource("3_gjb6x")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcse7"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -46,10 +53,6 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrrnp"]
-bg_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-corner_detail = 1
 
 [node name="QuizManagement" type="Control" unique_id=950356207]
 layout_mode = 3
@@ -87,6 +90,13 @@ layout_mode = 2
 [node name="Icon_QuizButton" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=680296847]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BackButton" type="Button" parent="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton" unique_id=123456789]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_t3ks8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d86xi")
 
 [node name="LeftSection" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton" unique_id=1516823095]
 layout_mode = 2
@@ -106,20 +116,6 @@ theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_font_sizes/font_size = 56
 text = "QUIZ MANAGEMENT"
 vertical_alignment = 1
-
-[node name="RightSection" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton" unique_id=1822067664]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 2
-
-[node name="CreateQuiz" type="TextureButton" parent="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton/RightSection" unique_id=968731480]
-layout_mode = 2
-texture_normal = ExtResource("3_y42cc")
-stretch_mode = 0
-
-[node name="SPACER" type="Control" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=1988308536]
-custom_minimum_size = Vector2(95, 89)
-layout_mode = 2
 
 [node name="ToolbarPanel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=1443800728]
 custom_minimum_size = Vector2(0, 64)
@@ -218,33 +214,26 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "↻ Refresh"
 
-[node name="StudentTable" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=892006163]
-self_modulate = Color(1, 1, 1, 0)
+[node name="QuizList" type="Control" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=892006163]
+clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer/StudentTable" unique_id=820706160]
+[node name="ScrollContainer" type="ScrollContainer" parent="QuizPanel/MarginContainer/VBoxContainer/QuizList" unique_id=106848351]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.106000006
-offset_bottom = -0.06800079
-theme_override_styles/panel = SubResource("StyleBoxFlat_jrrnp")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="QuizPanel/MarginContainer/VBoxContainer/StudentTable" unique_id=106848351]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.106000006
-anchor_right = 1.0
+anchor_left = 0.068
+anchor_right = 0.93200004
 anchor_bottom = 1.0
-offset_top = -0.06800079
-offset_bottom = -23.0
+offset_left = 0.07998657
+offset_right = -0.080078125
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
-[node name="Rows" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/StudentTable/ScrollContainer" unique_id=34248658]
+[node name="QuizGrid" type="GridContainer" parent="QuizPanel/MarginContainer/VBoxContainer/QuizList/ScrollContainer" unique_id=34248658]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[connection signal="pressed" from="QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton/RightSection/CreateQuiz" to="." method="_on_create_quiz_pressed"]
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 3

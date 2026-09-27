@@ -20,7 +20,7 @@ func setup_quiz(data: Dictionary) -> void:
 	quiz_title.text = data.get("title", "Untitled Quiz")
 
 	var question_count: int = data.get("question_count", 0)
-	var quiz_type: String = data.get("type", "Unknown")
+	var quiz_type: String = data.get("quiz_type", "Unknown")
 
 	quiz_info.text = "%d Questions • %s" % [question_count, quiz_type]
 

@@ -19,6 +19,7 @@ extends Node
 # entries.
 const MAX_COLLECTION_SIZE: int = 118
 
+const MAX_PARTY_SIZE: int = 30
 # Maximum number of Atomons currently carried.
 const MAX_CARRIED_ATOMONS: int = 8
 

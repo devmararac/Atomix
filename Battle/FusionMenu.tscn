@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dn26vw0o0ksms"]
 
-[ext_resource type="Script" uid="uid://duig3mjgmyu8k" path="res://Battle/fusion_menu.gd" id="1_xs1h8"]
+[ext_resource type="Script" uid="uid://cx0kj64s6k005" path="res://Battle/fusion_menu.gd" id="1_xs1h8"]
 [ext_resource type="Texture2D" uid="uid://doo7mciw56tpw" path="res://Assets/UX/HUD/Panels/main_panel.png" id="2_main_panel"]
 [ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="3_close"]
 [ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="4_close_pressed"]
@@ -82,12 +82,12 @@ custom_minimum_size = Vector2(860, 0)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="RecipeSlot2" parent="FusionPanel/RecipeScroll/RecipeList" unique_id=483526695 instance=ExtResource("5_7p7bb")]
+[node name="RecipeSlot" parent="FusionPanel/RecipeScroll/RecipeList" unique_id=483526695 instance=ExtResource("5_7p7bb")]
 layout_mode = 0
-offset_left = 68.0
-offset_top = 0.0
-offset_right = 815.0
-offset_bottom = 120.0
+offset_left = 58.0
+offset_top = 8.0
+offset_right = 845.0
+offset_bottom = 128.0
 
 [node name="NoRecipesLabel" type="Label" parent="FusionPanel" unique_id=2038736229]
 visible = false

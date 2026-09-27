@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://6ybvy0icfy1h"]
+
+[ext_resource type="Script" uid="uid://bgmyi762ycwmh" path="res://Battle/FusionProjectiles/FusionSkillProjectile.gd" id="1_ojl7b"]
+[ext_resource type="Texture2D" uid="uid://bsdhbkxkdnty" path="res://Assets/SkillFusion/WaterAttack.png" id="2_ojl7b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81h3r"]
+atlas = ExtResource("2_ojl7b")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fiq7s"]
+atlas = ExtResource("2_ojl7b")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fi6m"]
+atlas = ExtResource("2_ojl7b")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4lgl"]
+atlas = ExtResource("2_ojl7b")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryygq"]
+atlas = ExtResource("2_ojl7b")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mij7a"]
+atlas = ExtResource("2_ojl7b")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cua3c"]
+atlas = ExtResource("2_ojl7b")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0orp"]
+atlas = ExtResource("2_ojl7b")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s0orp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81h3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fiq7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fi6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4lgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryygq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mij7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cua3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0orp")
+}],
+"loop": false,
+"name": &"default",
+"speed": 9.0
+}]
+
+[node name="H2O" type="Node2D" unique_id=82883447]
+script = ExtResource("1_ojl7b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2000762611]
+sprite_frames = SubResource("SpriteFrames_s0orp")
+autoplay = "default"
+frame = 7
+frame_progress = 1.0

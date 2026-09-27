@@ -4,35 +4,25 @@
 [ext_resource type="Script" uid="uid://ccwj7dj11v1yt" path="res://Scripts/game_menu.gd" id="1_m6y3d"]
 [ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="3_qropo"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_iyb0i"]
+[ext_resource type="Texture2D" uid="uid://dc3i2o4lhnvxu" path="res://Assets/UX/Buttons/Normal/updated_button.png" id="5_pg4b3"]
+[ext_resource type="Texture2D" uid="uid://cxjuhf5abqbsr" path="res://Assets/UX/Buttons/On-Pressed/updated_button_pressed.png" id="6_00427"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pg4b3"]
 texture = ExtResource("3_qropo")
 texture_margin_top = 5.0
 texture_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qropo"]
-bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.57, 0.4617, 0.3534, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q1vqg"]
+texture = ExtResource("5_pg4b3")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyb0i"]
-bg_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hmxcy"]
+texture = ExtResource("6_00427")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_00427"]
+texture = ExtResource("5_pg4b3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fjbns"]
+texture = ExtResource("6_00427")
 
 [node name="GameMenu" type="CanvasLayer" unique_id=1664760916]
 script = ExtResource("1_m6y3d")
@@ -108,8 +98,8 @@ theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 theme_override_fonts/font = ExtResource("4_iyb0i")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_q1vqg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hmxcy")
 text = "Inventory"
 
 [node name="QuestLogButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1114144049]
@@ -119,8 +109,8 @@ theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 theme_override_fonts/font = ExtResource("4_iyb0i")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_00427")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fjbns")
 text = "Quest Log"
 
 [node name="AtomonButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1238209825]
@@ -130,8 +120,8 @@ theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 theme_override_fonts/font = ExtResource("4_iyb0i")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_00427")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fjbns")
 text = "Atomon"
 
 [node name="PlayerButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1456508289]
@@ -141,8 +131,8 @@ theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 theme_override_fonts/font = ExtResource("4_iyb0i")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_00427")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fjbns")
 text = "Player"
 
 [node name="LessonsButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=623224229]
@@ -152,8 +142,8 @@ theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 theme_override_fonts/font = ExtResource("4_iyb0i")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_00427")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fjbns")
 text = "Lessons"
 
 [node name="QuizButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=153646127]
@@ -163,8 +153,8 @@ theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 theme_override_fonts/font = ExtResource("4_iyb0i")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_00427")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fjbns")
 text = "Quiz"
 
 [node name="SettingsButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1004195012]
@@ -174,8 +164,8 @@ theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 theme_override_fonts/font = ExtResource("4_iyb0i")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_00427")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fjbns")
 text = "Settings"
 
 [node name="Spacer" type="Control" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=107100130]
@@ -189,8 +179,8 @@ theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 theme_override_fonts/font = ExtResource("4_iyb0i")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_00427")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fjbns")
 text = "Close"
 
 [node name="ContentPanel" type="PanelContainer" parent="Root/MainMargin/HBoxContainer" unique_id=2145609724]

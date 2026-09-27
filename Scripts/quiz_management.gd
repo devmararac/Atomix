@@ -1,18 +1,12 @@
 extends Control
 
-
 # ============================================================
 # SCENES
 # ============================================================
 
-const QUIZ_CHOICES = preload(
-	"res://Scenes/Admin/Teacher/quiz_choises.tscn"
+const QUIZ_CARD = preload(
+	"res://Scenes/Admin/Teacher/quiz_card.tscn"
 )
-
-const QUIZ_ROW = preload(
-	"res://Scenes/Admin/Teacher/quiz_row.tscn"
-)
-
 
 # ============================================================
 # FIRESTORE
@@ -28,8 +22,8 @@ var firestore_url: String
 # NODE REFERENCES
 # ============================================================
 
-@onready var rows: VBoxContainer = \
-	$QuizPanel/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows
+@onready var quiz_grid: GridContainer = \
+	$QuizPanel/MarginContainer/VBoxContainer/QuizList/ScrollContainer/QuizGrid
 
 @onready var search_bar: LineEdit = \
 	$QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SearchPanel/SearchBar
@@ -42,7 +36,9 @@ var firestore_url: String
 
 @onready var refresh_button: Button = \
 	$QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/RefreshPanel/RefreshButton
-
+@onready var back_button: Button = \
+	$QuizPanel/MarginContainer/VBoxContainer/Icon_QuizButton/BackButton
+	
 
 # ============================================================
 # QUIZ DATA
@@ -73,6 +69,7 @@ func _ready() -> void:
 	_connect_buttons()
 
 	load_quizzes()
+	back_button.pressed.connect(_on_back_button_pressed)
 
 
 # ============================================================
@@ -316,34 +313,9 @@ func _on_load_quizzes_completed(
 	)
 
 
-	# ============================================================
-	# GET CURRENT TEACHER
-	# ============================================================
-
-	var current_teacher_id := _get_current_teacher_id()
-
-	if current_teacher_id.is_empty():
-
-		print(
-			"[QuizManagement] ERROR: Cannot determine current teacher."
-		)
-
-		display_quizzes()
-
-		http.queue_free()
-
-		return
-
-
-	print(
-		"[QuizManagement] Current teacher UID: ",
-		current_teacher_id
-	)
-
-
-	# ============================================================
-	# CONVERT ONLY THIS TEACHER'S QUIZZES
-	# ============================================================
+	# ========================================================
+	# CONVERT FIRESTORE DOCUMENTS
+	# ========================================================
 
 	for document in documents:
 
@@ -358,28 +330,6 @@ func _on_load_quizzes_completed(
 
 
 		if fields.is_empty():
-			continue
-
-
-		var document_teacher_id := _firestore_string(
-			fields.get(
-				"teacher_id",
-				{}
-			)
-		).strip_edges()
-
-
-		# --------------------------------------------------------
-		# ONLY SHOW QUIZZES OWNED BY CURRENT TEACHER
-		# --------------------------------------------------------
-
-		if document_teacher_id != current_teacher_id:
-
-			print(
-				"[QuizManagement] Skipping quiz owned by: ",
-				document_teacher_id
-			)
-
 			continue
 
 
@@ -398,20 +348,17 @@ func _on_load_quizzes_completed(
 
 
 		print(
-			"[QuizManagement] Loaded teacher quiz: ",
-			quiz.get(
-				"title",
-				"Untitled Quiz"
-			)
+			"[QuizManagement] Loaded quiz: ",
+			quiz.get("title", "Untitled Quiz")
 		)
 
 
 	http.queue_free()
 
 
-	# ============================================================
+	# ========================================================
 	# DISPLAY
-	# ============================================================
+	# ========================================================
 
 	display_quizzes()
 
@@ -652,10 +599,10 @@ func _firestore_integer(
 func display_quizzes() -> void:
 
 	# --------------------------------------------------------
-	# Remove old rows
+	# Remove existing quiz cards
 	# --------------------------------------------------------
 
-	for child in rows.get_children():
+	for child in quiz_grid.get_children():
 
 		child.queue_free()
 
@@ -672,30 +619,39 @@ func display_quizzes() -> void:
 
 
 	# --------------------------------------------------------
-	# Create rows
+	# Create quiz cards
 	# --------------------------------------------------------
 
 	for quiz in filtered_quizzes:
 
-		var row := QUIZ_ROW.instantiate()
+		var card = QUIZ_CARD.instantiate()
 
-		rows.add_child(row)
+		if card == null:
+
+			push_error(
+				"[QuizManagement] Failed to instantiate quiz card."
+			)
+
+			continue
+
+
+		quiz_grid.add_child(card)
 
 
 		# ----------------------------------------------------
-		# Pass quiz data to quiz_row.gd
+		# Pass quiz data to quiz_card.gd
 		# ----------------------------------------------------
 
-		if row.has_method("setup_quiz"):
+		if card.has_method("setup_quiz"):
 
-			row.setup_quiz(
+			card.setup_quiz(
 				quiz
 			)
 
 		else:
 
-			print(
-				"[QuizManagement] WARNING: quiz_row.tscn does not have setup_quiz()."
+			push_error(
+				"[QuizManagement] quiz_card.tscn does not have setup_quiz()."
 			)
 
 
@@ -913,27 +869,6 @@ func _on_refresh_pressed() -> void:
 
 	load_quizzes()
 
-
-# ============================================================
-# CREATE QUIZ
-# ============================================================
-
-func _on_create_quiz_pressed() -> void:
-
-	print(
-		"[QuizManagement] Create Quiz pressed."
-	)
-
-
-	var choices := \
-		QUIZ_CHOICES.instantiate()
-
-
-	get_tree().current_scene.add_child(
-		choices
-	)
-
-
 # ============================================================
 # FIREBASE ID TOKEN
 # ============================================================
@@ -992,24 +927,36 @@ func _get_id_token() -> String:
 	return token
 
 # ============================================================
-# GET CURRENT TEACHER UID
+# BACK TO QUIZ MODE
 # ============================================================
 
-func _get_current_teacher_id() -> String:
-	var auth_manager = get_node_or_null("/root/AuthManager")
+func _on_back_button_pressed() -> void:
+	print("[QuizManagement] Returning to Quiz Mode.")
 
-	if auth_manager == null:
-		print("[QuizManagement] ERROR: AuthManager not found.")
-		return ""
+	var dashboard := get_parent().get_parent()
 
-	if not auth_manager.is_logged_in():
-		print("[QuizManagement] ERROR: User is not logged in.")
-		return ""
+	if not is_instance_valid(dashboard):
+		push_error("[QuizManagement] Dashboard reference is invalid.")
+		return
 
-	var uid := str(auth_manager.get_uid()).strip_edges()
+	print(
+		"[QuizManagement] Dashboard found: ",
+		dashboard.name
+	)
 
-	if uid.is_empty():
-		print("[QuizManagement] ERROR: Current teacher UID is empty.")
-		return ""
+	var quiz_mode_scene := load(
+		"res://Scenes/Admin/Teacher/quiz_mode.tscn"
+	) as PackedScene
 
-	return uid
+	if quiz_mode_scene == null:
+		push_error(
+			"[QuizManagement] Failed to load quiz_mode.tscn."
+		)
+		return
+
+	print(
+		"[QuizManagement] Loaded QuizMode: ",
+		quiz_mode_scene.resource_path
+	)
+
+	dashboard.show_page(quiz_mode_scene)

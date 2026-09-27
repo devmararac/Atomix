@@ -72,4 +72,5 @@ func clear_slot() -> void:
 
 func _pressed() -> void:
 
-	slot_clicked.emit(atomon)
+	if atomon:
+		slot_clicked.emit(atomon)

@@ -200,7 +200,7 @@ offset_right = -0.3665161
 offset_bottom = 0.12963867
 
 [node name="LoginButton" type="TouchScreenButton" parent="AuthPanel/AuthButtons" unique_id=1047824731]
-position = Vector2(206.35385, -3.0242615)
+position = Vector2(206.354, -3.024)
 scale = Vector2(1.8521284, 1.4380054)
 texture_normal = ExtResource("6_hys1s")
 texture_pressed = ExtResource("7_fgqbg")

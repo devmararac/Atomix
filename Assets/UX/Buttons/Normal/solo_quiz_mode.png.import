@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cexmp7ueueeiq"
-path="res://.godot/imported/select_button.png-4af4587a6fc4a5d42e83565c8d0a16b7.ctex"
+uid="uid://cwok1k4ytxvlw"
+path="res://.godot/imported/solo_quiz_mode.png-68062727e0e78b614195991ab83dc766.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UX/Buttons/Normal/select_button.png"
-dest_files=["res://.godot/imported/select_button.png-4af4587a6fc4a5d42e83565c8d0a16b7.ctex"]
+source_file="res://Assets/UX/Buttons/Normal/solo_quiz_mode.png"
+dest_files=["res://.godot/imported/solo_quiz_mode.png-68062727e0e78b614195991ab83dc766.ctex"]
 
 [params]
 

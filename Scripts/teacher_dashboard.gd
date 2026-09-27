@@ -3,7 +3,7 @@ extends Control
 const DASHBOARD = preload("res://Scenes/Admin/dashboard.tscn")
 const STUDENTS = preload("res://Scenes/Admin/students.tscn")
 const LESSONS = preload("res://Scenes/Admin/Teacher/lesson_management.tscn")
-const QUIZ_MODE = preload("res://Scenes/Admin/Teacher/quiz_management.tscn")
+const QUIZ_MODE = preload("res://Scenes/Admin/Teacher/quiz_mode.tscn")
 
 @onready var information_panel = $INFORMATIONPANEL
 @onready var selector := $MenuPanel/ColorRect
@@ -17,21 +17,54 @@ func _ready() -> void:
 	_on_dashboard_button_pressed()
 
 func show_page(scene: PackedScene) -> void:
-	var new_page = scene.instantiate()
-	new_page.set_anchors_preset(Control.PRESET_FULL_RECT)
-	new_page.modulate.a = 0
+	print("========================================")
+	print("[Dashboard] show_page()")
+	print("[Dashboard] Scene: ", scene)
 
-	if current_page:
-		var out = create_tween()
-		out.tween_property(current_page, "modulate:a", 0.0, 0.08)
-		await out.finished
+	if scene == null:
+		push_error("[Dashboard] Scene is NULL.")
+		return
+
+	print("[Dashboard] Resource path: ", scene.resource_path)
+
+	var new_page = scene.instantiate()
+
+	if new_page == null:
+		push_error(
+			"[Dashboard] instantiate() returned NULL!"
+		)
+		return
+
+	print(
+		"[Dashboard] Successfully instantiated: ",
+		new_page.name
+	)
+
+	if not new_page is Control:
+		push_error(
+			"[Dashboard] Root is not Control."
+		)
+		new_page.queue_free()
+		return
+
+	var page := new_page as Control
+
+	page.set_anchors_preset(
+		Control.PRESET_FULL_RECT
+	)
+
+	page.modulate.a = 0.0
+
+	if current_page and is_instance_valid(current_page):
 		current_page.queue_free()
 
-	current_page = new_page
+	current_page = page
 	information_panel.add_child(current_page)
 
-	var fade = create_tween()
-	fade.tween_property(current_page, "modulate:a", 1.0, 0.08)
+	page.modulate.a = 1.0
+
+	print("[Dashboard] Page displayed: ", page.name)
+	print("========================================")
 
 func move_selector(button: Control) -> void:
 	selector.visible = true

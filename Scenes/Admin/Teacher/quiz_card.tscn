@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://x3lg5dqyr6r8"]
+
+[ext_resource type="Script" uid="uid://dkso4kxm87dyd" path="res://Scripts/Admin/Teacher/quiz_card.gd" id="1_w25kg"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_wydd3"]
+[ext_resource type="Texture2D" uid="uid://dc3i2o4lhnvxu" path="res://Assets/UX/Buttons/Normal/updated_button.png" id="3_48dqg"]
+[ext_resource type="Texture2D" uid="uid://cxjuhf5abqbsr" path="res://Assets/UX/Buttons/On-Pressed/updated_button_pressed.png" id="4_abqt1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w25kg"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 5
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_llrgd"]
+texture = ExtResource("3_48dqg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecfx7"]
+texture = ExtResource("4_abqt1")
+
+[node name="QuizCard" type="PanelContainer" unique_id=1020437252]
+custom_minimum_size = Vector2(0, 220)
+offset_top = 1.0
+offset_right = 291.0
+offset_bottom = 221.0
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_w25kg")
+script = ExtResource("1_w25kg")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1442049099]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=712467763]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="QuizTitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1598409841]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 24
+text = "Organic Chemistry Review"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+max_lines_visible = 2
+
+[node name="QuizInfo" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1878750470]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.75)
+theme_override_font_sizes/font_size = 16
+text = "20 Questions • Multiple Choice"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=322056254]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="ViewButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2143951332]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_wydd3")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxTexture_llrgd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ecfx7")
+text = "VIEW QUIZ"

@@ -33,7 +33,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -387.0
+offset_top = -556.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_keyboard")
@@ -56,7 +56,7 @@ offset_top = 12.0
 offset_right = 1962.0
 offset_bottom = 67.0
 focus_mode = 0
-mouse_filter = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.3669213, 0.27093574, 0.17470413, 1)
 theme_override_colors/font_uneditable_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_selected_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
@@ -848,3 +848,9 @@ theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxTexture_eiewf")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8ihjf")
 text = ","
+
+[node name="PreviewCaret" type="ColorRect" parent="." unique_id=1640141915]
+layout_mode = 0
+offset_right = 3.0
+offset_bottom = 40.0
+mouse_filter = 2

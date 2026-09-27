@@ -20,6 +20,9 @@ func _ready() -> void:
 	AuthManager.login_success.connect(_on_login_success)
 	AuthManager.login_failed.connect(_on_login_failed)
 
+	AuthManager.signup_success.connect(_on_signup_success)
+	AuthManager.signup_failed.connect(_on_signup_failed)
+
 	StudentDataManager.student_loaded.connect(_on_student_loaded)
 	StudentDataManager.student_created.connect(_on_student_created)
 	StudentDataManager.student_error.connect(_on_student_error)
@@ -161,3 +164,46 @@ func _on_login_failed(message):
 	login_in_progress = false
 
 	status_label.text = message
+
+
+func _on_signup_failed(message):
+	status_label.text = message
+
+
+func _on_signup_success(auth_result):
+	status_label.text = "Account created!"
+
+	# Treat successful signup as a successful login.
+	_on_login_success(auth_result)
+
+func _input(event: InputEvent) -> void:
+	if not atomix_keyboard.visible:
+		return
+
+	var tap_position := Vector2.ZERO
+
+	if event is InputEventMouseButton:
+		if event.button_index != MOUSE_BUTTON_LEFT or not event.pressed:
+			return
+
+		tap_position = event.position
+
+	elif event is InputEventScreenTouch:
+		if not event.pressed:
+			return
+
+		tap_position = event.position
+
+	else:
+		return
+
+	if atomix_keyboard.get_global_rect().has_point(tap_position):
+		return
+
+	if email_input.get_global_rect().has_point(tap_position):
+		return
+
+	if password_input.get_global_rect().has_point(tap_position):
+		return
+
+	atomix_keyboard.hide_keyboard()

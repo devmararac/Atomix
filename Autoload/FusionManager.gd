@@ -79,7 +79,7 @@ func get_recipe_by_formula(formula: String) -> FusionRecipe:
 func get_party_element_counts() -> Dictionary:
 	var counts: Dictionary = {}
 
-	var carried_party := PartyManager.get_carried_party()
+	var carried_party = PartyManager.get_carried_party()
 
 	for atomon in carried_party:
 		if atomon == null:
@@ -131,7 +131,7 @@ func get_fusion_atomon_candidates(recipe: FusionRecipe) -> Dictionary:
 	if not can_fuse_recipe(recipe):
 		return result
 
-	var carried_party := PartyManager.get_carried_party()
+	var carried_party = PartyManager.get_carried_party()
 
 	for requirement in recipe.requirements:
 		if requirement == null:

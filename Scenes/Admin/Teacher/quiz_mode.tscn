@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://b8lwaeaubpmhn"]
+
+[ext_resource type="Script" uid="uid://gfkbyp6npbdo" path="res://Scripts/Admin/Teacher/quiz_mode.gd" id="1_2wryy"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="2_u5yov"]
+[ext_resource type="Texture2D" uid="uid://cwok1k4ytxvlw" path="res://Assets/UX/Buttons/Normal/solo_quiz_mode.png" id="3_lasxu"]
+[ext_resource type="Texture2D" uid="uid://wpifcohmv4n4" path="res://Assets/UX/Buttons/On-Pressed/solo_quiz_mode_pressed.png" id="4_kwjaq"]
+[ext_resource type="Texture2D" uid="uid://bupxt8rjh1pw" path="res://Assets/UX/Buttons/Normal/group_quiz_mode.png" id="5_40ij8"]
+[ext_resource type="Texture2D" uid="uid://dhgkmqm7w7i4r" path="res://Assets/UX/Buttons/On-Pressed/group_quiz_mode_pressed.png" id="6_u5yov"]
+[ext_resource type="Texture2D" uid="uid://oqodphq3t1kq" path="res://Assets/UX/Buttons/Normal/create_quiz.png" id="8_6qfx5"]
+[ext_resource type="Texture2D" uid="uid://p531ehh8ro5w" path="res://Assets/UX/Buttons/On-Pressed/create_quiz_pressed.png" id="9_5goq0"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3oy65"]
+texture = ExtResource("2_u5yov")
+
+[node name="QuizMode" type="Control" unique_id=883570408]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2wryy")
+
+[node name="ModePanel" type="Panel" parent="." unique_id=2125443897]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_3oy65")
+
+[node name="MarginContainer" type="MarginContainer" parent="ModePanel" unique_id=1968209814]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = 30.0
+offset_right = -35.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModePanel/MarginContainer" unique_id=507868011]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="ModePanel/MarginContainer/VBoxContainer" unique_id=1936518665]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="BackButton" type="TextureButton" parent="ModePanel/MarginContainer/VBoxContainer/Header" unique_id=876363506]
+custom_minimum_size = Vector2(60, 55)
+layout_mode = 2
+tooltip_text = "Back"
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="ModePanel/MarginContainer/VBoxContainer/Header" unique_id=86184198]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "QUIZ MODE"
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="ModePanel/MarginContainer/VBoxContainer" unique_id=1014449924]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.8)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 17
+text = "Choose how you want to conduct your quiz."
+vertical_alignment = 1
+
+[node name="ModeCards" type="HBoxContainer" parent="ModePanel/MarginContainer/VBoxContainer" unique_id=1099263373]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 18
+
+[node name="SoloQuiz" type="TextureButton" parent="ModePanel/MarginContainer/VBoxContainer/ModeCards" unique_id=13729797]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Start a Solo Quiz"
+texture_normal = ExtResource("3_lasxu")
+texture_pressed = ExtResource("4_kwjaq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="GroupQuiz" type="TextureButton" parent="ModePanel/MarginContainer/VBoxContainer/ModeCards" unique_id=1814958227]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Start a Group Quiz"
+texture_normal = ExtResource("5_40ij8")
+texture_pressed = ExtResource("6_u5yov")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="CreateQuiz" type="TextureButton" parent="ModePanel/MarginContainer/VBoxContainer/ModeCards" unique_id=224339501]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Create a new Quiz"
+texture_normal = ExtResource("8_6qfx5")
+texture_pressed = ExtResource("9_5goq0")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Footer" type="Control" parent="ModePanel/MarginContainer/VBoxContainer" unique_id=1617691905]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2

@@ -1,132 +1,320 @@
 [gd_scene format=3 uid="uid://o6icxpf2ip7l"]
 
 [ext_resource type="Script" uid="uid://cl1fbv0h0tn3m" path="res://Scripts/quiz_choises.gd" id="1_8hrg5"]
-[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_jrpn4"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_8hrg5"]
-[ext_resource type="Texture2D" uid="uid://dofw7o474odev" path="res://Assets/UX/Buttons/Normal/move_button.png" id="3_2s1fx"]
-[ext_resource type="Texture2D" uid="uid://doyceaqqs7d22" path="res://Assets/UX/Buttons/On-Pressed/move_button_pressed.png" id="4_jlfg7"]
+[ext_resource type="Texture2D" uid="uid://dc3i2o4lhnvxu" path="res://Assets/UX/Buttons/Normal/updated_button.png" id="3_jrpn4"]
+[ext_resource type="Texture2D" uid="uid://cxjuhf5abqbsr" path="res://Assets/UX/Buttons/On-Pressed/updated_button_pressed.png" id="4_8hrg5"]
+[ext_resource type="Texture2D" uid="uid://x2cfwtml51b0" path="res://Assets/UX/Icons/MultipleChoice.png" id="5_way4f"]
+[ext_resource type="Texture2D" uid="uid://cftxsrt145al" path="res://Assets/UX/Icons/Identification.png" id="6_qdaje"]
+[ext_resource type="Texture2D" uid="uid://d2a64h2afn8ky" path="res://Assets/UX/Icons/Enumeration.png" id="7_4wv8q"]
+[ext_resource type="Texture2D" uid="uid://3qeblvyuctxp" path="res://Assets/UX/Icons/TrueOrFalse.png" id="8_a4jmr"]
+[ext_resource type="Texture2D" uid="uid://ddvvh20hdw4bm" path="res://Assets/UX/Buttons/Normal/arrow_back.png" id="9_4wv8q"]
+[ext_resource type="Texture2D" uid="uid://de6w58oatvft8" path="res://Assets/UX/Buttons/On-Pressed/arrow_back_pressed.png" id="10_a4jmr"]
 
-[node name="QuizChoises" type="CanvasLayer" unique_id=597185157]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.96, 0.93, 0.87, 1)
+border_width_right = 8
+border_color = Color(0.47, 0.35, 0.235, 1)
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+shadow_color = Color(0, 0, 0, 0.25)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_separator"]
+bg_color = Color(0.47, 0.35, 0.235, 0.25)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="QuizChoises" type="CanvasLayer" unique_id=1708792691]
+layer = 20
 script = ExtResource("1_8hrg5")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=502410553]
-anchors_preset = -1
-anchor_right = 0.25300002
-anchor_bottom = 0.41700003
-offset_left = 861.0
-offset_top = 257.0
-offset_right = 1052.0599
-offset_bottom = 344.75998
+[node name="DimBackground" type="ColorRect" parent="." unique_id=196760489]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_jrpn4")
+color = Color(0, 0, 0, 0.28)
 
-[node name="Label" type="Label" parent="NinePatchRect" unique_id=505526870]
-layout_mode = 0
-offset_left = 166.0
-offset_top = 37.0
-offset_right = 560.0
-offset_bottom = 96.0
+[node name="QuizPanel" type="Panel" parent="." unique_id=1718967740]
+anchors_preset = -1
+anchor_right = 0.34
+anchor_bottom = 1.0
+offset_right = -0.2000122
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="QuizPanel" unique_id=1375874945]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizPanel/MarginContainer" unique_id=11233346]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=565529011]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
 theme_override_fonts/font = ExtResource("2_8hrg5")
-theme_override_font_sizes/font_size = 35
-text = "Choose What Type of Quiz to Make"
+theme_override_font_sizes/font_size = 30
+text = "CHOOSE QUIZ TYPE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=2117307769]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 0.75)
+theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 16
+text = "Choose the type of quiz you want to create."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="MultipleChoices" type="TextureButton" parent="NinePatchRect" unique_id=272762086]
-layout_mode = 0
-offset_left = 86.0
-offset_top = 135.0
-offset_right = 296.0
-offset_bottom = 235.0
-texture_normal = ExtResource("3_2s1fx")
-texture_pressed = ExtResource("4_jlfg7")
+[node name="Separator" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=326981202]
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_separator")
+
+[node name="MultipleChoices" type="TextureButton" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=387327932]
+custom_minimum_size = Vector2(0, 105)
+layout_mode = 2
+texture_normal = ExtResource("3_jrpn4")
+texture_pressed = ExtResource("4_8hrg5")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="NinePatchRect/MultipleChoices" unique_id=1285291320]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 12.0
-offset_right = 194.0
-offset_bottom = 67.0
+[node name="MCLabel" type="TextureRect" parent="QuizPanel/MarginContainer/VBoxContainer/MultipleChoices" unique_id=283164880]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08800001
+anchor_top = 0.19000001
+anchor_right = 0.18800001
+anchor_bottom = 0.71400005
+offset_top = 0.049999237
+offset_bottom = 0.02999878
+texture = ExtResource("5_way4f")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/MultipleChoices" unique_id=1751337858]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.462
+anchor_right = 0.5
+anchor_bottom = 0.462
+offset_left = -103.5
+offset_top = -29.510002
+offset_right = 103.5
+offset_bottom = 29.489998
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/MultipleChoices/VBoxContainer" unique_id=196665254]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
 theme_override_fonts/font = ExtResource("2_8hrg5")
-theme_override_font_sizes/font_size = 25
-text = "Multiple Choices"
+theme_override_font_sizes/font_size = 21
+text = "MULTIPLE CHOICE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/MultipleChoices/VBoxContainer" unique_id=1489676165]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 0.75)
+theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 14
+text = "Select one correct answer from several choices."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Identification" type="TextureButton" parent="NinePatchRect" unique_id=765415515]
-layout_mode = 0
-offset_left = 404.0
-offset_top = 134.0
-offset_right = 614.0
-offset_bottom = 234.0
-texture_normal = ExtResource("3_2s1fx")
-texture_pressed = ExtResource("4_jlfg7")
+[node name="Identification" type="TextureButton" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=115128463]
+custom_minimum_size = Vector2(0, 105)
+layout_mode = 2
+texture_normal = ExtResource("3_jrpn4")
+texture_pressed = ExtResource("4_8hrg5")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="NinePatchRect/Identification" unique_id=2064965637]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 19.0
-offset_right = 197.0
-offset_bottom = 63.0
+[node name="IDLabel" type="TextureRect" parent="QuizPanel/MarginContainer/VBoxContainer/Identification" unique_id=944594010]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08800001
+anchor_top = 0.19000001
+anchor_right = 0.18800001
+anchor_bottom = 0.71400005
+offset_top = 0.049999237
+offset_bottom = 0.02999878
+texture = ExtResource("6_qdaje")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/Identification" unique_id=431805650]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.45200002
+anchor_right = 0.5
+anchor_bottom = 0.45200002
+offset_left = -92.5
+offset_top = -29.460003
+offset_right = 92.5
+offset_bottom = 29.539997
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/Identification/VBoxContainer" unique_id=1049463759]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
 theme_override_fonts/font = ExtResource("2_8hrg5")
-theme_override_font_sizes/font_size = 25
-text = "Identification"
+theme_override_font_sizes/font_size = 21
+text = "IDENTIFICATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/Identification/VBoxContainer" unique_id=1815058240]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 0.75)
+theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 14
+text = "Type the correct answer."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Enumeration" type="TextureButton" parent="NinePatchRect" unique_id=997147888]
-layout_mode = 0
-offset_left = 89.0
-offset_top = 245.0
-offset_right = 299.0
-offset_bottom = 345.0
-texture_normal = ExtResource("3_2s1fx")
-texture_pressed = ExtResource("4_jlfg7")
+[node name="Enumeration" type="TextureButton" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=124079575]
+custom_minimum_size = Vector2(0, 105)
+layout_mode = 2
+texture_normal = ExtResource("3_jrpn4")
+texture_pressed = ExtResource("4_8hrg5")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="NinePatchRect/Enumeration" unique_id=1561829183]
-layout_mode = 0
-offset_left = 13.0
-offset_top = 19.0
-offset_right = 197.0
-offset_bottom = 62.0
+[node name="ENUMLabel" type="TextureRect" parent="QuizPanel/MarginContainer/VBoxContainer/Enumeration" unique_id=1286434627]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08800001
+anchor_top = 0.19000001
+anchor_right = 0.18800001
+anchor_bottom = 0.71400005
+offset_top = 0.049999237
+offset_bottom = 0.02999878
+texture = ExtResource("7_4wv8q")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/Enumeration" unique_id=1212682784]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -31.5
+offset_right = 82.5
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/Enumeration/VBoxContainer" unique_id=891612773]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
 theme_override_fonts/font = ExtResource("2_8hrg5")
-theme_override_font_sizes/font_size = 25
-text = "Enumeration"
+theme_override_font_sizes/font_size = 21
+text = "ENUMERATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/Enumeration/VBoxContainer" unique_id=433603201]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 0.75)
+theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 11
+text = "Provide multiple answers for the question."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="True_False" type="TextureButton" parent="NinePatchRect" unique_id=1540155897]
-layout_mode = 0
-offset_left = 405.0
-offset_top = 242.0
-offset_right = 615.0
-offset_bottom = 342.0
-texture_normal = ExtResource("3_2s1fx")
-texture_pressed = ExtResource("4_jlfg7")
+[node name="True_False" type="TextureButton" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=1465770891]
+custom_minimum_size = Vector2(0, 105)
+layout_mode = 2
+texture_normal = ExtResource("3_jrpn4")
+texture_pressed = ExtResource("4_8hrg5")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="NinePatchRect/True_False" unique_id=905492657]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 19.0
-offset_right = 197.0
-offset_bottom = 62.0
+[node name="ENUMLabel" type="TextureRect" parent="QuizPanel/MarginContainer/VBoxContainer/True_False" unique_id=1713689781]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08800001
+anchor_top = 0.19000001
+anchor_right = 0.282
+anchor_bottom = 0.71400005
+offset_top = 0.049999237
+offset_bottom = 0.02999878
+texture = ExtResource("8_a4jmr")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/True_False" unique_id=2134048128]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.5
+offset_top = -30.5
+offset_right = 88.5
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/True_False/VBoxContainer" unique_id=633997444]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
 theme_override_fonts/font = ExtResource("2_8hrg5")
-theme_override_font_sizes/font_size = 25
-text = "True or False"
+theme_override_font_sizes/font_size = 21
+text = "TRUE OR FALSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer/True_False/VBoxContainer" unique_id=1229523538]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = ExtResource("2_8hrg5")
+theme_override_font_sizes/font_size = 12
+text = "Choose whether the statement is true or false."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[connection signal="pressed" from="NinePatchRect/MultipleChoices" to="." method="_on_multiple_choices_pressed"]
-[connection signal="pressed" from="NinePatchRect/Identification" to="." method="_on_identification_pressed"]
-[connection signal="pressed" from="NinePatchRect/Enumeration" to="." method="_on_enumeration_pressed"]
-[connection signal="pressed" from="NinePatchRect/True_False" to="." method="_on_true_false_pressed"]
+[node name="BackButton" type="TextureButton" parent="QuizPanel" unique_id=1168800184]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.080000006
+anchor_top = 0.072000004
+anchor_right = 0.080000006
+anchor_bottom = 0.072000004
+offset_left = -51.800003
+offset_top = -39.840004
+offset_right = 52.199997
+offset_bottom = 39.159996
+texture_normal = ExtResource("9_4wv8q")
+texture_pressed = ExtResource("10_a4jmr")
+stretch_mode = 0
+
+[connection signal="pressed" from="QuizPanel/MarginContainer/VBoxContainer/MultipleChoices" to="." method="_on_multiple_choices_pressed"]
+[connection signal="pressed" from="QuizPanel/MarginContainer/VBoxContainer/Identification" to="." method="_on_identification_pressed"]
+[connection signal="pressed" from="QuizPanel/MarginContainer/VBoxContainer/Enumeration" to="." method="_on_enumeration_pressed"]
+[connection signal="pressed" from="QuizPanel/MarginContainer/VBoxContainer/True_False" to="." method="_on_true_false_pressed"]
+[connection signal="pressed" from="QuizPanel/BackButton" to="." method="_on_back_button_pressed"]
