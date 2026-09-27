@@ -3,11 +3,25 @@ extends Node
 var save_data: SaveData = null
 
 # ============================================================
+# SAVED CARRIED PARTY
+# ============================================================
+#
+# Stores the unique instance_id of each Atomon currently
+# carried by the player.
+#
+# This allows the exact Battle Party + Reserve arrangement
+# to be restored after loading.
+#
+var saved_carried_party_ids: Array[String] = []
+
+
+# ============================================================
 # AUTOMATIC SAVE STATE
 # ============================================================
 
 var auto_save_in_progress: bool = false
 var auto_save_queued: bool = false
+
 
 # ============================================================
 # AUTOMATIC SAVE
@@ -21,8 +35,6 @@ func auto_save(reason: String = "") -> void:
 		reason
 	)
 
-	# If a save is already happening, remember that another
-	# save was requested instead of starting multiple saves.
 	if auto_save_in_progress:
 
 		print(
@@ -36,7 +48,6 @@ func auto_save(reason: String = "") -> void:
 		auto_save_queued = true
 
 		return
-
 
 	auto_save_in_progress = true
 
@@ -52,9 +63,6 @@ func auto_save(reason: String = "") -> void:
 		"[SaveManager] Automatic save finished."
 	)
 
-
-	# If another important action happened while saving,
-	# perform one more save using the latest game state.
 	if auto_save_queued:
 
 		print(
@@ -68,6 +76,395 @@ func auto_save(reason: String = "") -> void:
 		)
 
 # ============================================================
+# BATTLE AUTO-SAVE
+# ============================================================
+#
+# Used while the player is inside a battle.
+#
+# Normal save_game() requires global.player because it saves
+# the player's current map position.
+#
+# During battle, global.player may not exist.
+#
+# This function therefore saves:
+# - Atomon HP
+# - Atomon PP
+# - Atomon state
+# - Party
+# - Carried party
+# - Coins
+# - Inventory
+# - Quest data
+#
+# while preserving the already-saved map scene and position.
+# ============================================================
+
+func auto_save_battle_state(reason: String = "") -> bool:
+
+	print(
+		"[SaveManager] ========================================"
+	)
+
+	print(
+		"[SaveManager] BATTLE AUTO-SAVE REQUESTED"
+	)
+
+	print(
+		"[SaveManager] Reason: ",
+		reason
+	)
+
+	print(
+		"[SaveManager] ========================================"
+	)
+
+	if not StudentDataManager.is_student_logged_in():
+
+		print(
+			"[SaveManager] Battle auto-save cancelled. No student is logged in."
+		)
+
+		return false
+
+	var uid: String = (
+		StudentDataManager.get_student_uid()
+	)
+
+	if uid.is_empty():
+
+		print(
+			"[SaveManager] Battle auto-save cancelled. UID is empty."
+		)
+
+		return false
+
+	# --------------------------------------------------------
+	# IMPORTANT:
+	#
+	# Save the current Atomon state BEFORE serializing the
+	# party.
+	#
+	# This makes sure the latest HP is written into the
+	# AtomonInstance.
+	# --------------------------------------------------------
+
+	if has_node("/root/BattleControllerGlobal"):
+
+		if BattleControllerGlobal.has_method("save_player_hp"):
+
+			BattleControllerGlobal.save_player_hp()
+
+			print(
+				"[SaveManager] Current battle Atomon HP synchronized."
+			)
+
+	# --------------------------------------------------------
+	# Firestore
+	# --------------------------------------------------------
+
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
+	)
+
+	var document: FirestoreDocument = (
+		await students.get_doc(uid)
+	)
+
+	if document == null:
+
+		print(
+			"[SaveManager] Battle auto-save failed. Student document does not exist."
+		)
+
+		return false
+
+	var existing_data: Dictionary = (
+		document.get_unsafe_document()
+	)
+
+	var existing_game_state: Dictionary = (
+		existing_data.get(
+			"game_state",
+			{}
+		)
+	)
+
+	if not existing_game_state is Dictionary:
+
+		existing_game_state = {}
+
+	# ========================================================
+	# PARTY
+	# ========================================================
+
+	var firebase_party: Array = []
+
+	for atomon in PartyManager.party:
+
+		if atomon == null:
+			continue
+
+		if atomon.data == null:
+			continue
+
+		var atomon_dict := (
+			atomon.to_save_dict()
+		)
+
+		if atomon_dict.is_empty():
+			continue
+
+		firebase_party.append(
+			atomon_dict
+		)
+
+	print(
+		"[SaveManager] Battle save party size: ",
+		firebase_party.size()
+	)
+
+	# ========================================================
+	# CARRIED PARTY
+	# ========================================================
+
+	var carried_party_ids: Array[String] = []
+
+	for carried_atomon in PartyManager.get_carried_party():
+
+		if carried_atomon == null:
+			continue
+
+		if carried_atomon.instance_id.is_empty():
+			continue
+
+		carried_party_ids.append(
+			carried_atomon.instance_id
+		)
+
+	print(
+		"[SaveManager] Battle save carried party IDs: ",
+		carried_party_ids
+	)
+
+	# ========================================================
+	# INVENTORY
+	# ========================================================
+
+	var firebase_inventory: Array = []
+
+	for item in InventoryManager.inventory:
+
+		if item == null:
+			continue
+
+		var item_dict := (
+			item.to_save_dict()
+		)
+
+		if item_dict.is_empty():
+			continue
+
+		firebase_inventory.append(
+			item_dict
+		)
+
+	print(
+		"[SaveManager] Battle save inventory size: ",
+		firebase_inventory.size()
+	)
+
+	# ========================================================
+	# QUEST DATA
+	# ========================================================
+
+	var quest_data: Dictionary = {}
+
+	for quest_id in QuestManager.active_quests:
+
+		var quest: Quest = (
+			QuestManager.active_quests[quest_id]
+		)
+
+		if quest == null:
+			continue
+
+		quest_data[quest_id] = {
+			"quest_status": "active",
+			"data": quest.to_save_dict()
+		}
+
+	for quest_id in QuestManager.completed_quests:
+
+		var quest: Quest = (
+			QuestManager.completed_quests[quest_id]
+		)
+
+		if quest == null:
+			continue
+
+		quest_data[quest_id] = {
+			"quest_status": "completed",
+			"data": quest.to_save_dict()
+		}
+
+	# ========================================================
+	# COINS
+	# ========================================================
+
+	var current_coins: int = (
+		CurrencyManager.coins
+	)
+
+	print(
+		"[SaveManager] Battle save coins: ",
+		current_coins
+	)
+
+	# ========================================================
+	# PROGRESS
+	# ========================================================
+
+	_sync_collected_elements_from_party()
+
+	var collected_elements: Array = (
+		StudentDataManager.get_collected_elements()
+	)
+
+	var progress: Dictionary = {
+
+		"elements_total":
+			StudentDataManager.TOTAL_ELEMENTS,
+
+		"elements_collected":
+			collected_elements.size(),
+
+		"collected_elements":
+			collected_elements.duplicate()
+	}
+
+	# ========================================================
+	# PRESERVE EXISTING MAP INFORMATION
+	# ========================================================
+	#
+	# We DO NOT replace current_scene with the battle scene.
+	#
+	# We also preserve the last saved player position.
+	# ========================================================
+
+	var saved_scene := str(
+		existing_game_state.get(
+			"current_scene",
+			"res://Scenes/Areas/start_map.tscn"
+		)
+	)
+
+	var saved_position = (
+		existing_game_state.get(
+			"player_position",
+			{
+				"x": 0.0,
+				"y": 0.0
+			}
+		)
+	)
+
+	# ========================================================
+	# BUILD UPDATED GAME STATE
+	# ========================================================
+
+	var game_state: Dictionary = (
+		existing_game_state.duplicate(true)
+	)
+
+	game_state["has_save"] = true
+
+	game_state["current_scene"] = saved_scene
+
+	game_state["player_position"] = saved_position
+
+	game_state["coins"] = current_coins
+
+	game_state["active_index"] = (
+		PartyManager.active_index
+	)
+
+	game_state["party"] = (
+		firebase_party
+	)
+
+	game_state["carried_party"] = (
+		carried_party_ids
+	)
+
+	game_state["inventory"] = (
+		firebase_inventory
+	)
+
+	game_state["quest_data"] = (
+		quest_data
+	)
+
+	# ========================================================
+	# UPLOAD
+	# ========================================================
+
+	document.add_or_update_field(
+		"game_state",
+		game_state
+	)
+
+	document.add_or_update_field(
+		"progress",
+		progress
+	)
+
+	print(
+		"[SaveManager] Uploading battle state..."
+	)
+
+	var result: FirestoreDocument = (
+		await students.update(document)
+	)
+
+	if result == null:
+
+		print(
+			"[SaveManager] BATTLE AUTO-SAVE FAILED."
+		)
+
+		return false
+
+	# ========================================================
+	# UPDATE LOCAL STUDENT DATA
+	# ========================================================
+
+	StudentDataManager.student_data["progress"] = (
+		progress
+	)
+
+	StudentDataManager.progress_updated.emit(
+		progress
+	)
+
+	print(
+		"[SaveManager] ========================================"
+	)
+
+	print(
+		"[SaveManager] BATTLE AUTO-SAVE COMPLETED SUCCESSFULLY"
+	)
+
+	print(
+		"[SaveManager] HP/PP/Party/Inventory/Coins/Quests saved."
+	)
+
+	print(
+		"[SaveManager] ========================================"
+	)
+
+	return true
+
+# ============================================================
 # QUEST-ONLY AUTOMATIC SAVE
 # ============================================================
 
@@ -79,7 +476,6 @@ func auto_save_quest_data(reason: String = "") -> void:
 		reason
 	)
 
-	# Wait for a normal full save to finish first.
 	if auto_save_in_progress:
 
 		print(
@@ -175,7 +571,6 @@ func _save_quest_data_only() -> bool:
 			"data": quest.to_save_dict()
 		}
 
-
 	for quest_id in QuestManager.completed_quests:
 
 		var quest: Quest = (
@@ -196,17 +591,7 @@ func _save_quest_data_only() -> bool:
 	)
 
 	# --------------------------------------------------------
-	# IMPORTANT:
-	# Get the existing game_state first.
-	#
-	# We do NOT create a new game_state.
-	# We do NOT change:
-	#   has_save
-	#   current_scene
-	#   player_position
-	#   coins
-	#   party
-	#   inventory
+	# Get existing game state
 	# --------------------------------------------------------
 
 	var existing_data: Dictionary = (
@@ -224,11 +609,10 @@ func _save_quest_data_only() -> bool:
 
 		existing_game_state = {}
 
-	# Only replace quest_data.
 	existing_game_state["quest_data"] = quest_data
 
 	# --------------------------------------------------------
-	# Upload only the updated game_state
+	# Upload only updated game_state
 	# --------------------------------------------------------
 
 	document.add_or_update_field(
@@ -258,6 +642,7 @@ func _save_quest_data_only() -> bool:
 
 	return true
 
+
 # ============================================================
 # CURRENCY-ONLY AUTOMATIC SAVE
 # ============================================================
@@ -270,7 +655,6 @@ func auto_save_currency(reason: String = "") -> void:
 		reason
 	)
 
-	# Wait for a normal full save to finish first.
 	if auto_save_in_progress:
 
 		print(
@@ -346,13 +730,6 @@ func _save_currency_only() -> bool:
 
 		return false
 
-	# --------------------------------------------------------
-	# Get the existing game state.
-	#
-	# We only change the coins value.
-	# Everything else remains untouched.
-	# --------------------------------------------------------
-
 	var existing_data: Dictionary = (
 		document.get_unsafe_document()
 	)
@@ -368,20 +745,12 @@ func _save_currency_only() -> bool:
 
 		existing_game_state = {}
 
-	# --------------------------------------------------------
-	# Update ONLY coins.
-	# --------------------------------------------------------
-
 	existing_game_state["coins"] = CurrencyManager.coins
 
 	print(
 		"[SaveManager] Currency to save: ",
 		CurrencyManager.coins
 	)
-
-	# --------------------------------------------------------
-	# Put the updated game_state back into the document.
-	# --------------------------------------------------------
 
 	document.add_or_update_field(
 		"game_state",
@@ -418,26 +787,51 @@ func _save_currency_only() -> bool:
 func save_game() -> void:
 
 	if not StudentDataManager.is_student_logged_in():
-		print("[SaveManager] Cannot save. No student is logged in.")
+
+		print(
+			"[SaveManager] Cannot save. No student is logged in."
+		)
+
 		return
 
 	if global.player == null:
-		print("[SaveManager] Cannot save. Player does not exist.")
+
+		print(
+			"[SaveManager] Cannot save. Player does not exist."
+		)
+
 		return
 
-	var uid: String = StudentDataManager.get_student_uid()
+	var uid: String = (
+		StudentDataManager.get_student_uid()
+	)
 
 	if uid.is_empty():
-		print("[SaveManager] Cannot save. Student UID is empty.")
+
+		print(
+			"[SaveManager] Cannot save. Student UID is empty."
+		)
+
 		return
 
-	print("[SaveManager] ========================================")
-	print("[SaveManager] STARTING SAVE")
-	print("[SaveManager] UID: ", uid)
-	print("[SaveManager] ========================================")
+	print(
+		"[SaveManager] ========================================"
+	)
+
+	print(
+		"[SaveManager] STARTING SAVE"
+	)
+
+	print(
+		"[SaveManager] UID: ",
+		uid
+	)
+
+	print(
+		"[SaveManager] ========================================"
+	)
 
 	save_data = SaveData.new()
-
 
 	# ========================================================
 	# PLAYER
@@ -448,19 +842,36 @@ func save_game() -> void:
 	save_data.current_scene = get_tree().current_scene.scene_file_path
 	save_data.player_position = global.player.global_position
 
-	print("[SaveManager] Scene: ", save_data.current_scene)
-	print("[SaveManager] Position: ", save_data.player_position)
-	print("[SaveManager] Coins: ", save_data.coins)
+	print(
+		"[SaveManager] Scene: ",
+		save_data.current_scene
+	)
 
+	print(
+		"[SaveManager] Position: ",
+		save_data.player_position
+	)
+
+	print(
+		"[SaveManager] Coins: ",
+		save_data.coins
+	)
 
 	# ========================================================
-	# PARTY
+	# PARTY / COMPLETE COLLECTION
 	# ========================================================
 
-	save_data.party = PartyManager.party.duplicate(true)
-	save_data.active_index = PartyManager.active_index
+	save_data.party = (
+		PartyManager.party.duplicate(true)
+	)
 
-	print("[SaveManager] ===== SAVING PARTY =====")
+	save_data.active_index = (
+		PartyManager.active_index
+	)
+
+	print(
+		"[SaveManager] ===== SAVING PARTY ====="
+	)
 
 	for atomon in PartyManager.party:
 
@@ -475,7 +886,9 @@ func save_game() -> void:
 			atomon.data.chemical_symbol,
 			" -> ",
 			atomon.data.atom_name,
-			" PP: ",
+			" | ID: ",
+			atomon.instance_id,
+			" | PP: ",
 			atomon.current_pp
 		)
 
@@ -484,17 +897,8 @@ func save_game() -> void:
 		save_data.party.size()
 	)
 
-
 	# ========================================================
 	# COLLECTED ELEMENTS
-	#
-	# IMPORTANT:
-	# CraftingUI does NOT save to Firebase.
-	#
-	# We only synchronize the LOCAL collected-elements array
-	# from the current party here.
-	#
-	# Firebase receives this only during save_game().
 	# ========================================================
 
 	_sync_collected_elements_from_party()
@@ -504,18 +908,18 @@ func save_game() -> void:
 		StudentDataManager.get_collected_elements()
 	)
 
-
 	# ========================================================
 	# INVENTORY
 	# ========================================================
 
-	save_data.inventory = InventoryManager.inventory.duplicate(true)
+	save_data.inventory = (
+		InventoryManager.inventory.duplicate(true)
+	)
 
 	print(
 		"[SaveManager] Inventory size: ",
 		save_data.inventory.size()
 	)
-
 
 	# ========================================================
 	# QUESTS
@@ -523,14 +927,11 @@ func save_game() -> void:
 
 	save_data.quest_data.clear()
 
-
-	# --------------------------------------------------------
-	# ACTIVE QUESTS
-	# --------------------------------------------------------
-
 	for quest_id in QuestManager.active_quests:
 
-		var quest: Quest = QuestManager.active_quests[quest_id]
+		var quest: Quest = (
+			QuestManager.active_quests[quest_id]
+		)
 
 		if quest == null:
 			continue
@@ -540,14 +941,11 @@ func save_game() -> void:
 			"data": quest.to_save_dict()
 		}
 
-
-	# --------------------------------------------------------
-	# COMPLETED QUESTS
-	# --------------------------------------------------------
-
 	for quest_id in QuestManager.completed_quests:
 
-		var quest: Quest = QuestManager.completed_quests[quest_id]
+		var quest: Quest = (
+			QuestManager.completed_quests[quest_id]
+		)
 
 		if quest == null:
 			continue
@@ -557,12 +955,10 @@ func save_game() -> void:
 			"data": quest.to_save_dict()
 		}
 
-
 	print(
 		"[SaveManager] Quest data: ",
 		save_data.quest_data
 	)
-
 
 	# ========================================================
 	# UPLOAD EVERYTHING
@@ -572,15 +968,31 @@ func save_game() -> void:
 
 	if success:
 
-		print("[SaveManager] ========================================")
-		print("[SaveManager] SAVE COMPLETED SUCCESSFULLY")
-		print("[SaveManager] ========================================")
+		print(
+			"[SaveManager] ========================================"
+		)
+
+		print(
+			"[SaveManager] SAVE COMPLETED SUCCESSFULLY"
+		)
+
+		print(
+			"[SaveManager] ========================================"
+		)
 
 	else:
 
-		print("[SaveManager] ========================================")
-		print("[SaveManager] SAVE FAILED")
-		print("[SaveManager] ========================================")
+		print(
+			"[SaveManager] ========================================"
+		)
+
+		print(
+			"[SaveManager] SAVE FAILED"
+		)
+
+		print(
+			"[SaveManager] ========================================"
+		)
 
 
 # ============================================================
@@ -615,9 +1027,12 @@ func _sync_collected_elements_from_party() -> void:
 			StudentDataManager.collected_elements.size()
 			>= StudentDataManager.TOTAL_ELEMENTS
 		):
+
 			break
 
-		StudentDataManager.collected_elements.append(symbol)
+		StudentDataManager.collected_elements.append(
+			symbol
+		)
 
 		print(
 			"[SaveManager] Locally registered crafted element: ",
@@ -637,7 +1052,11 @@ func _sync_collected_elements_from_party() -> void:
 func load_game() -> void:
 
 	if not StudentDataManager.is_student_logged_in():
-		print("[SaveManager] Cannot load. No student is logged in.")
+
+		print(
+			"[SaveManager] Cannot load. No student is logged in."
+		)
+
 		return
 
 	print(
@@ -662,7 +1081,6 @@ func load_game() -> void:
 
 		return
 
-
 	# ========================================================
 	# COINS
 	# ========================================================
@@ -671,14 +1089,13 @@ func load_game() -> void:
 		save_data.coins
 	)
 
-
 	# ========================================================
-	# CLEAR CURRENT PARTY BEFORE RESTORING SAVE
+	# CLEAR CURRENT PARTY
 	# ========================================================
 
 	PartyManager.party.clear()
+	PartyManager.carried_party.clear()
 	PartyManager.active_index = 0
-
 
 	# ========================================================
 	# INVENTORY
@@ -691,7 +1108,6 @@ func load_game() -> void:
 	)
 
 	apply_saved_inventory_state()
-
 
 	# ========================================================
 	# CHANGE TO SAVED SCENE
@@ -718,7 +1134,6 @@ func load_game() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 
-
 	# ========================================================
 	# RESTORE PLAYER POSITION
 	# ========================================================
@@ -740,22 +1155,47 @@ func load_game() -> void:
 			"[SaveManager] Player not found after scene load."
 		)
 
-
 	# ========================================================
-	# RESTORE PARTY
-	#
-	# Party must be rebuilt from Firebase save data.
+	# RESTORE COMPLETE COLLECTION
 	# ========================================================
 
 	_restore_saved_party()
 
+	# ========================================================
+	# RESTORE EXACT CARRIED PARTY
+	# ========================================================
+
+	_restore_carried_party()
 
 	# ========================================================
-	# RESTORE PARTY INSTANCE STATE
+	# TEST FUSION REQUIREMENTS
 	# ========================================================
 
-	apply_saved_party_state()
+	FusionManager.print_party_element_counts()
 
+	var h2o_recipe := FusionManager.get_recipe_by_formula(
+		"H2O"
+	)
+
+	if h2o_recipe != null:
+
+		print(
+			"[FusionManager] H2O Requirements: ",
+			h2o_recipe.get_required_element_counts()
+		)
+
+		print(
+			"[FusionManager] Can Fuse H2O: ",
+			FusionManager.can_fuse_recipe(
+				h2o_recipe
+			)
+		)
+
+		FusionManager.print_fusion_atomon_candidates(
+			h2o_recipe
+		)
+
+	FusionManager.print_available_fusions()
 
 	# ========================================================
 	# RESTORE INVENTORY INSTANCE STATE
@@ -763,13 +1203,11 @@ func load_game() -> void:
 
 	apply_saved_inventory_state()
 
-
 	# ========================================================
 	# RESTORE QUEST STATE
 	# ========================================================
 
 	apply_saved_quest_state()
-
 
 	print(
 		"[SaveManager] Game loading completed."
@@ -777,13 +1215,14 @@ func load_game() -> void:
 
 
 # ============================================================
-# RESTORE SAVED PARTY SPECIES
+# RESTORE SAVED PARTY
 # ============================================================
 
 func _restore_saved_party() -> void:
 
-	if save_data == null:
-		return
+	print(
+		"[SaveManager] ===== RESTORING PARTY ====="
+	)
 
 	var firebase_party: Array = (
 		save_data.firebase_party_data
@@ -792,61 +1231,33 @@ func _restore_saved_party() -> void:
 	if firebase_party.is_empty():
 
 		print(
-			"[SaveManager] No saved party to restore."
+			"[SaveManager] No Firebase party data to restore."
 		)
 
 		return
 
-	print(
-		"[SaveManager] ===== RESTORING PARTY ====="
+	# --------------------------------------------------------
+	# Clear current PartyManager state.
+	# --------------------------------------------------------
+
+	PartyManager.party.clear()
+	PartyManager.carried_party.clear()
+	PartyManager.active_index = 0
+
+	# --------------------------------------------------------
+	# IMPORTANT:
+	#
+	# load_saved_collection() recreates each Atomon and applies
+	# the saved instance_id and Atomon state.
+	# --------------------------------------------------------
+
+	PartyManager.load_saved_collection(
+		firebase_party
 	)
 
-	for saved_atom in firebase_party:
-
-		if not saved_atom is Dictionary:
-			continue
-
-		var symbol := str(
-			saved_atom.get(
-				"chemical_symbol",
-				""
-			)
-		).strip_edges()
-
-		if symbol.is_empty():
-			continue
-
-		if not AtomonDatabase.ELEMENTS.has(symbol):
-
-			print(
-				"[SaveManager] Element not found in database: ",
-				symbol
-			)
-
-			continue
-
-		var element: AtomonData = (
-			AtomonDatabase.ELEMENTS[symbol]
-		)
-
-		var atomon: AtomonInstance = (
-			PartyManager.add_species(element)
-		)
-
-		if atomon == null:
-
-			print(
-				"[SaveManager] Failed to restore: ",
-				symbol
-			)
-
-			continue
-
-		print(
-			"[SaveManager] Restored Atomon species: ",
-			symbol
-		)
-
+	# --------------------------------------------------------
+	# Restore active index.
+	# --------------------------------------------------------
 
 	if PartyManager.party.size() > 0:
 
@@ -856,10 +1267,14 @@ func _restore_saved_party() -> void:
 			PartyManager.party.size() - 1
 		)
 
+	print(
+		"[SaveManager] Final restored collection size: ",
+		PartyManager.party.size()
+	)
 
 	print(
-		"[SaveManager] Final restored party size: ",
-		PartyManager.party.size()
+		"[SaveManager] Default carried party size after collection restore: ",
+		PartyManager.get_carried_party().size()
 	)
 
 
@@ -906,9 +1321,8 @@ func upload_to_firebase() -> bool:
 
 		return false
 
-
 	# ========================================================
-	# SERIALIZE PARTY
+	# SERIALIZE COMPLETE PARTY
 	# ========================================================
 
 	var firebase_party: Array = []
@@ -933,7 +1347,6 @@ func upload_to_firebase() -> bool:
 		"[SaveManager] Firebase party size: ",
 		firebase_party.size()
 	)
-
 
 	# ========================================================
 	# SERIALIZE INVENTORY
@@ -961,7 +1374,6 @@ func upload_to_firebase() -> bool:
 		"[SaveManager] Firebase inventory size: ",
 		firebase_inventory.size()
 	)
-
 
 	# ========================================================
 	# PROGRESS
@@ -992,6 +1404,43 @@ func upload_to_firebase() -> bool:
 		progress
 	)
 
+	# ========================================================
+	# SAVE CARRIED PARTY
+	# ========================================================
+	#
+	# Save the exact individual Atomon IDs and their order.
+	#
+	# Example:
+	#
+	# carried_party:
+	# [
+	#     "H_123_456",
+	#     "O_123_789",
+	#     "Li_123_111"
+	# ]
+	#
+	# The order is important because the first 5 are the
+	# Battle Party and the remaining 3 are Reserve.
+	# ========================================================
+
+	var carried_party_ids: Array[String] = []
+
+	for carried_atomon in PartyManager.get_carried_party():
+
+		if carried_atomon == null:
+			continue
+
+		if carried_atomon.instance_id.is_empty():
+			continue
+
+		carried_party_ids.append(
+			carried_atomon.instance_id
+		)
+
+	print(
+		"[SaveManager] Carried party IDs: ",
+		carried_party_ids
+	)
 
 	# ========================================================
 	# GAME STATE
@@ -1021,6 +1470,9 @@ func upload_to_firebase() -> bool:
 
 		"party":
 			firebase_party,
+
+		"carried_party":
+			carried_party_ids,
 
 		"inventory":
 			firebase_inventory,
@@ -1075,7 +1527,6 @@ func upload_to_firebase() -> bool:
 		progress
 	)
 
-
 	print(
 		"[SaveManager] Uploading game state..."
 	)
@@ -1094,7 +1545,6 @@ func upload_to_firebase() -> bool:
 		"[SaveManager] Progress: ",
 		progress
 	)
-
 
 	var result: FirestoreDocument = (
 		await students.update(document)
@@ -1120,7 +1570,6 @@ func upload_to_firebase() -> bool:
 		progress
 	)
 
-
 	print(
 		"[SaveManager] Game state uploaded successfully."
 	)
@@ -1130,8 +1579,6 @@ func upload_to_firebase() -> bool:
 	)
 
 	return true
-
-
 
 
 # ============================================================
@@ -1169,15 +1616,13 @@ func download_from_firebase() -> bool:
 
 		return false
 
-
 	# ========================================================
-	# GET FIRESTORE DATA
+	# GET FIREBASE DATA
 	# ========================================================
 
 	var data: Dictionary = (
 		document.get_unsafe_document()
 	)
-
 
 	# ========================================================
 	# PLAYER PROFILE
@@ -1197,7 +1642,6 @@ func download_from_firebase() -> bool:
 		)
 	).strip_edges()
 
-
 	# ========================================================
 	# RESTORE DISPLAY NAME
 	# ========================================================
@@ -1205,7 +1649,6 @@ func download_from_firebase() -> bool:
 	PlayerManager.display_name = (
 		saved_display_name
 	)
-
 
 	# ========================================================
 	# RESTORE SELECTED CHARACTER
@@ -1227,25 +1670,12 @@ func download_from_firebase() -> bool:
 					"res://Resources/Characters/Alfred.tres"
 				)
 
-			#"character_03":
-
-				#PlayerManager.selected_character = preload(
-					#"res://Resources/Characters/Character03.tres"
-				#)
-
-			#"character_04":
-
-				#PlayerManager.selected_character = preload(
-					#"res://Resources/Characters/Character04.tres"
-				#)
-
 			_:
 
 				print(
 					"[SaveManager] Unknown character ID: ",
 					saved_character_id
 				)
-
 
 	# ========================================================
 	# UPDATE LOCAL STUDENT DATA
@@ -1258,7 +1688,6 @@ func download_from_firebase() -> bool:
 	StudentDataManager.student_data["character_id"] = (
 		saved_character_id
 	)
-
 
 	print(
 		"[SaveManager] ===== PLAYER PROFILE LOADED ====="
@@ -1273,7 +1702,6 @@ func download_from_firebase() -> bool:
 		"[SaveManager] Character ID: ",
 		saved_character_id
 	)
-
 
 	# ========================================================
 	# CHECK GAME STATE
@@ -1290,7 +1718,6 @@ func download_from_firebase() -> bool:
 	var game_state: Dictionary = (
 		data["game_state"]
 	)
-
 
 	# ========================================================
 	# CHECK SAVE
@@ -1316,13 +1743,11 @@ func download_from_firebase() -> bool:
 
 		return false
 
-
 	# ========================================================
 	# CREATE SAVE DATA
 	# ========================================================
 
 	save_data = SaveData.new()
-
 
 	# ========================================================
 	# PLAYER
@@ -1335,7 +1760,6 @@ func download_from_firebase() -> bool:
 		)
 	)
 
-
 	var position_data: Dictionary = (
 		game_state.get(
 			"player_position",
@@ -1345,7 +1769,6 @@ func download_from_firebase() -> bool:
 			}
 		)
 	)
-
 
 	save_data.player_position = Vector2(
 
@@ -1364,7 +1787,6 @@ func download_from_firebase() -> bool:
 		)
 	)
 
-
 	# ========================================================
 	# COINS
 	# ========================================================
@@ -1376,7 +1798,6 @@ func download_from_firebase() -> bool:
 		)
 	)
 
-
 	# ========================================================
 	# ACTIVE INDEX
 	# ========================================================
@@ -1387,7 +1808,6 @@ func download_from_firebase() -> bool:
 			0
 		)
 	)
-
 
 	# ========================================================
 	# PARTY
@@ -1411,6 +1831,50 @@ func download_from_firebase() -> bool:
 			firebase_party.duplicate(true)
 		)
 
+	# ========================================================
+	# CARRIED PARTY
+	# ========================================================
+	#
+	# This was missing from the current project.
+	#
+	# We restore the unique instance IDs so the exact carried
+	# party arrangement can be reconstructed after loading.
+	# ========================================================
+
+	var firebase_carried_party = (
+		game_state.get(
+			"carried_party",
+			[]
+		)
+	)
+
+	saved_carried_party_ids.clear()
+
+	if firebase_carried_party is Array:
+
+		for carried_id in firebase_carried_party:
+
+			var clean_id := str(
+				carried_id
+			).strip_edges()
+
+			if clean_id.is_empty():
+				continue
+
+			saved_carried_party_ids.append(
+				clean_id
+			)
+
+		print(
+			"[SaveManager] Firebase carried party IDs: ",
+			saved_carried_party_ids
+		)
+
+	else:
+
+		print(
+			"[SaveManager] No valid carried party data found."
+		)
 
 	# ========================================================
 	# INVENTORY
@@ -1433,7 +1897,6 @@ func download_from_firebase() -> bool:
 		save_data.firebase_inventory_data = (
 			firebase_inventory.duplicate(true)
 		)
-
 
 	# ========================================================
 	# PROGRESS
@@ -1476,7 +1939,6 @@ func download_from_firebase() -> bool:
 						clean_symbol
 					)
 
-
 		firebase_progress["elements_collected"] = (
 			StudentDataManager.collected_elements.size()
 		)
@@ -1495,7 +1957,6 @@ func download_from_firebase() -> bool:
 		print(
 			"[SaveManager] No valid progress data found."
 		)
-
 
 	# ========================================================
 	# QUESTS
@@ -1524,7 +1985,6 @@ func download_from_firebase() -> bool:
 		print(
 			"[SaveManager] Firebase quest data is invalid."
 		)
-
 
 	# ========================================================
 	# DOWNLOAD COMPLETE
@@ -1559,11 +2019,21 @@ func download_from_firebase() -> bool:
 		firebase_party.size()
 	)
 
+	print(
+		"[SaveManager] Carried party entries: ",
+		saved_carried_party_ids.size()
+	)
+
 	return true
 
 
 # ============================================================
 # APPLY SAVED PARTY STATE
+#
+# Kept for compatibility with any other code that may call it.
+#
+# Uses instance_id instead of chemical_symbol so duplicate
+# elements are restored correctly.
 # ============================================================
 
 func apply_saved_party_state() -> void:
@@ -1587,50 +2057,62 @@ func apply_saved_party_state() -> void:
 		"[SaveManager] Applying saved party state..."
 	)
 
-
 	for saved_atom in firebase_party:
 
 		if not saved_atom is Dictionary:
 			continue
 
-		var symbol := str(
+		var saved_instance_id := str(
 			saved_atom.get(
-				"chemical_symbol",
+				"instance_id",
 				""
 			)
-		)
+		).strip_edges()
 
-		if symbol.is_empty():
+		if saved_instance_id.is_empty():
+
+			print(
+				"[SaveManager] Saved Atomon has no instance ID."
+			)
+
 			continue
 
+		var found_atomon: AtomonInstance = null
 
 		for atomon in PartyManager.party:
 
 			if atomon == null:
 				continue
 
-			if atomon.data == null:
+			if atomon.instance_id != saved_instance_id:
 				continue
 
-			if atomon.data.chemical_symbol != symbol:
-				continue
-
-
-			atomon.apply_save_dict(
-				saved_atom
-			)
-
-			print(
-				"[SaveManager] Restored state: ",
-				symbol,
-				" -> ",
-				atomon.data.atom_name,
-				" PP: ",
-				atomon.current_pp
-			)
-
+			found_atomon = atomon
 			break
 
+		if found_atomon == null:
+
+			print(
+				"[SaveManager] Could not find Atomon instance: ",
+				saved_instance_id
+			)
+
+			continue
+
+		found_atomon.apply_save_dict(
+			saved_atom
+		)
+
+		print(
+			"[SaveManager] Restored state: ",
+			found_atomon.data.chemical_symbol,
+			" -> ",
+			found_atomon.data.atom_name,
+			" | ID: ",
+			found_atomon.instance_id,
+			" | PP: ",
+			found_atomon.current_pp
+		)
 
 	if PartyManager.party.size() > 0:
 
@@ -1643,6 +2125,115 @@ func apply_saved_party_state() -> void:
 	print(
 		"[SaveManager] Saved party state applied."
 	)
+
+
+# ============================================================
+# RESTORE CARRIED PARTY
+# ============================================================
+
+func _restore_carried_party() -> void:
+
+	print(
+		"[SaveManager] ===== RESTORING CARRIED PARTY ====="
+	)
+
+	if saved_carried_party_ids.is_empty():
+
+		print(
+			"[SaveManager] No saved carried party IDs."
+		)
+
+		return
+
+	print(
+		"[SaveManager] Saved carried IDs: ",
+		saved_carried_party_ids
+	)
+
+	var restored_carried_party: Array[AtomonInstance] = []
+
+	# --------------------------------------------------------
+	# Follow the exact order stored in Firebase.
+	# --------------------------------------------------------
+
+	for saved_id in saved_carried_party_ids:
+
+		var found_atomon: AtomonInstance = null
+
+		for atomon in PartyManager.party:
+
+			if atomon == null:
+				continue
+
+			if atomon.instance_id != saved_id:
+				continue
+
+			found_atomon = atomon
+			break
+
+		if found_atomon == null:
+
+			print(
+				"[SaveManager] Could not restore carried Atomon ID: ",
+				saved_id
+			)
+
+			continue
+
+		restored_carried_party.append(
+			found_atomon
+		)
+
+		print(
+			"[SaveManager] Carried Atomon restored: ",
+			found_atomon.data.chemical_symbol,
+			" | ID: ",
+			found_atomon.instance_id
+		)
+
+	# --------------------------------------------------------
+	# Replace automatically-created carried party with the
+	# exact saved carried party.
+	# --------------------------------------------------------
+
+	if restored_carried_party.is_empty():
+
+		print(
+			"[SaveManager] No carried Atomons could be restored."
+		)
+
+		return
+
+	var success := PartyManager.set_carried_party(
+		restored_carried_party
+	)
+
+	if success:
+
+		print(
+			"[SaveManager] Carried party restored successfully."
+		)
+
+		print(
+			"[SaveManager] Carried party size: ",
+			PartyManager.get_carried_party().size()
+		)
+
+		print(
+			"[SaveManager] Battle party size: ",
+			PartyManager.get_battle_party().size()
+		)
+
+		print(
+			"[SaveManager] Reserve party size: ",
+			PartyManager.get_reserve_party().size()
+		)
+
+	else:
+
+		print(
+			"[SaveManager] FAILED to restore carried party."
+		)
 
 
 # ============================================================
@@ -1682,7 +2273,6 @@ func apply_saved_inventory_state() -> void:
 
 		return
 
-
 	for saved_item in firebase_inventory:
 
 		if not saved_item is Dictionary:
@@ -1692,7 +2282,6 @@ func apply_saved_inventory_state() -> void:
 			)
 
 			continue
-
 
 		var item_id := str(
 			saved_item.get(
@@ -1709,7 +2298,6 @@ func apply_saved_inventory_state() -> void:
 
 			continue
 
-
 		var item_data: ItemData = (
 			ItemDatabase.get_item(item_id)
 		)
@@ -1722,7 +2310,6 @@ func apply_saved_inventory_state() -> void:
 			)
 
 			continue
-
 
 		var item_instance := (
 			ItemInstance.new()
@@ -1744,7 +2331,6 @@ func apply_saved_inventory_state() -> void:
 			" x",
 			item_instance.quantity
 		)
-
 
 	print(
 		"[SaveManager] FINAL INVENTORY COUNT: ",
@@ -1782,7 +2368,6 @@ func apply_saved_quest_state() -> void:
 	QuestManager.completed_quests.clear()
 	QuestManager.tracked_quest = null
 
-
 	for quest_id in save_data.quest_data:
 
 		var saved_entry = (
@@ -1792,14 +2377,12 @@ func apply_saved_quest_state() -> void:
 		if not saved_entry is Dictionary:
 			continue
 
-
 		var quest_status := str(
 			saved_entry.get(
 				"quest_status",
 				""
 			)
 		)
-
 
 		var saved_quest_data = (
 			saved_entry.get(
@@ -1810,7 +2393,6 @@ func apply_saved_quest_state() -> void:
 
 		if not saved_quest_data is Dictionary:
 			continue
-
 
 		if not QuestManager.quest_database.has(
 			quest_id
@@ -1823,18 +2405,15 @@ func apply_saved_quest_state() -> void:
 
 			continue
 
-
 		var quest: Quest = (
 			QuestManager
 			.quest_database[quest_id]
 			.duplicate(true)
 		)
 
-
 		quest.apply_save_dict(
 			saved_quest_data
 		)
-
 
 		if quest_status == "active":
 
@@ -1847,7 +2426,6 @@ func apply_saved_quest_state() -> void:
 				quest_id
 			)
 
-
 		elif quest_status == "completed":
 
 			QuestManager.completed_quests[
@@ -1858,7 +2436,6 @@ func apply_saved_quest_state() -> void:
 				"[SaveManager] RESTORED COMPLETED QUEST: ",
 				quest_id
 			)
-
 
 	if not QuestManager.active_quests.is_empty():
 
@@ -1871,7 +2448,6 @@ func apply_saved_quest_state() -> void:
 		QuestManager.set_tracked_quest(
 			first_quest
 		)
-
 
 	print(
 		"[SaveManager] Active quests restored: ",

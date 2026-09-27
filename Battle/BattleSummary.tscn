@@ -1,0 +1,405 @@
+[gd_scene format=3 uid="uid://dsvbd054lcrui"]
+
+[ext_resource type="Script" uid="uid://bxlkp0y27kuq3" path="res://Battle/BattleSummary.gd" id="1_summary"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="3_panel"]
+[ext_resource type="Texture2D" uid="uid://blobcx8hb08fa" path="res://Assets/UX/HUD/Panels/inventory_bg.png" id="4_background"]
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="5_inner"]
+[ext_resource type="Texture2D" uid="uid://bj31gnxsem511" path="res://Assets/UX/Buttons/Normal/continue_button.png" id="6_continue"]
+[ext_resource type="Texture2D" uid="uid://b5pccx46wypxe" path="res://Assets/UX/Buttons/On-Pressed/continue_button_pressed.png" id="7_continue_pressed"]
+
+[node name="BattleSummary" type="Control" unique_id=1896528558]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_summary")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1775127384]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 12.0
+offset_right = 2.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.094, 0.102, 0.161, 0.94)
+
+[node name="CardBackground" type="TextureRect" parent="." unique_id=906881085]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -568.0
+offset_top = -353.0
+offset_right = 276.0
+offset_bottom = 347.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_background")
+expand_mode = 1
+
+[node name="FormBG" type="TextureRect" parent="CardBackground" unique_id=1701590663]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 31.0
+offset_right = 814.0
+offset_bottom = 665.0
+texture = ExtResource("5_inner")
+
+[node name="ReviewPage" type="Control" parent="CardBackground/FormBG" unique_id=1410545652]
+anchors_preset = 0
+offset_right = 784.0
+offset_bottom = 634.0
+
+[node name="Title" type="TextureRect" parent="CardBackground/FormBG/ReviewPage" unique_id=986189957]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 46.0
+offset_right = 754.0
+offset_bottom = 139.0
+texture = ExtResource("3_panel")
+expand_mode = 1
+
+[node name="Header" type="Label" parent="CardBackground/FormBG/ReviewPage/Title" unique_id=481394141]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 7.0
+offset_right = 698.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 25
+text = "BATTLE REVIEW"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BattleName" type="Label" parent="CardBackground/FormBG/ReviewPage/Title" unique_id=737827763]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 37.0
+offset_right = 698.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+text = "Battle with Atomon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WhatYouLearnedPanel" type="TextureRect" parent="CardBackground/FormBG/ReviewPage" unique_id=1218734196]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 149.0
+offset_right = 390.0
+offset_bottom = 389.0
+texture = ExtResource("3_panel")
+expand_mode = 1
+
+[node name="Header" type="Label" parent="CardBackground/FormBG/ReviewPage/WhatYouLearnedPanel" unique_id=1418030381]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 15.0
+offset_right = 351.0
+offset_bottom = 43.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 21
+text = "WHAT YOU LEARNED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CardBackground/FormBG/ReviewPage/WhatYouLearnedPanel" unique_id=2068204203]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 50.0
+offset_right = 347.0
+offset_bottom = 229.0
+horizontal_scroll_mode = 0
+
+[node name="Content" type="Label" parent="CardBackground/FormBG/ReviewPage/WhatYouLearnedPanel/ScrollContainer" unique_id=545144716]
+custom_minimum_size = Vector2(305, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "Learning content"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="BattleLessonPanel" type="TextureRect" parent="CardBackground/FormBG/ReviewPage" unique_id=389790388]
+layout_mode = 0
+offset_left = 394.0
+offset_top = 149.0
+offset_right = 755.0
+offset_bottom = 389.0
+texture = ExtResource("3_panel")
+expand_mode = 1
+
+[node name="Header" type="Label" parent="CardBackground/FormBG/ReviewPage/BattleLessonPanel" unique_id=2015268711]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 15.0
+offset_right = 351.0
+offset_bottom = 43.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 21
+text = "BATTLE LESSON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CardBackground/FormBG/ReviewPage/BattleLessonPanel" unique_id=2015268712]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 50.0
+offset_right = 347.0
+offset_bottom = 229.0
+horizontal_scroll_mode = 0
+
+[node name="Content" type="Label" parent="CardBackground/FormBG/ReviewPage/BattleLessonPanel/ScrollContainer" unique_id=45484480]
+custom_minimum_size = Vector2(305, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "Battle lesson"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="KeyIdeaPanel" type="TextureRect" parent="CardBackground/FormBG/ReviewPage" unique_id=1223863271]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 399.0
+offset_right = 755.0
+offset_bottom = 539.0
+texture = ExtResource("3_panel")
+expand_mode = 1
+
+[node name="Header" type="Label" parent="CardBackground/FormBG/ReviewPage/KeyIdeaPanel" unique_id=1114253716]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 12.0
+offset_right = 716.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 21
+text = "KEY IDEA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CardBackground/FormBG/ReviewPage/KeyIdeaPanel" unique_id=1114253717]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 45.0
+offset_right = 712.0
+offset_bottom = 128.0
+horizontal_scroll_mode = 0
+
+[node name="Content" type="Label" parent="CardBackground/FormBG/ReviewPage/KeyIdeaPanel/ScrollContainer" unique_id=131841492]
+custom_minimum_size = Vector2(660, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "Key idea"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ResultPage" type="Control" parent="CardBackground/FormBG" unique_id=1056351977]
+visible = false
+anchors_preset = 0
+offset_right = 784.0
+offset_bottom = 634.0
+
+[node name="Title" type="TextureRect" parent="CardBackground/FormBG/ResultPage" unique_id=2141442212]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 46.0
+offset_right = 754.0
+offset_bottom = 139.0
+texture = ExtResource("3_panel")
+expand_mode = 1
+
+[node name="Header" type="Label" parent="CardBackground/FormBG/ResultPage/Title" unique_id=1016516163]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 7.0
+offset_right = 698.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 25
+text = "BATTLE RESULTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Result" type="Label" parent="CardBackground/FormBG/ResultPage/Title" unique_id=625839114]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 37.0
+offset_right = 698.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+text = "VICTORY!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultPanel" type="TextureRect" parent="CardBackground/FormBG/ResultPage" unique_id=778234464]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 149.0
+offset_right = 755.0
+offset_bottom = 409.0
+texture = ExtResource("3_panel")
+expand_mode = 1
+
+[node name="ResultContent" type="VBoxContainer" parent="CardBackground/FormBG/ResultPage/ResultPanel" unique_id=1101344750]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 30.0
+offset_right = 686.0
+offset_bottom = 235.0
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="BattleStatus" type="Label" parent="CardBackground/FormBG/ResultPage/ResultPanel/ResultContent" unique_id=134560435]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 27
+text = "Victory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyResult" type="Label" parent="CardBackground/FormBG/ResultPage/ResultPanel/ResultContent" unique_id=2125213022]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+text = "Argon defeated"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="AtomonsRemainingTitle" type="Label" parent="CardBackground/FormBG/ResultPage/ResultPanel/ResultContent" unique_id=2011985258]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+text = "ATOMONS REMAINING"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AtomonsRemaining" type="Label" parent="CardBackground/FormBG/ResultPage/ResultPanel/ResultContent" unique_id=924121701]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 25
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BattleRewards" type="TextureRect" parent="CardBackground/FormBG/ResultPage" unique_id=779838551]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 419.0
+offset_right = 755.0
+offset_bottom = 539.0
+texture = ExtResource("3_panel")
+expand_mode = 1
+
+[node name="Separator" type="HSeparator" parent="CardBackground/FormBG/ResultPage/BattleRewards" unique_id=493939389]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 48.0
+offset_right = 697.0
+offset_bottom = 52.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardBackground/FormBG/ResultPage/BattleRewards" unique_id=2078717789]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 12.0
+offset_right = 697.0
+offset_bottom = 106.0
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Title" type="Label" parent="CardBackground/FormBG/ResultPage/BattleRewards/VBoxContainer" unique_id=1172419017]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 24
+text = "REWARDS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rewards" type="HBoxContainer" parent="CardBackground/FormBG/ResultPage/BattleRewards/VBoxContainer" unique_id=2086232780]
+layout_mode = 2
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="Coins" type="Label" parent="CardBackground/FormBG/ResultPage/BattleRewards/VBoxContainer/Rewards" unique_id=1378818537]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 17
+text = "+15 Coins"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reward1" type="Label" parent="CardBackground/FormBG/ResultPage/BattleRewards/VBoxContainer/Rewards" unique_id=92957304]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 17
+text = "+3 Protons"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reward2" type="Label" parent="CardBackground/FormBG/ResultPage/BattleRewards/VBoxContainer/Rewards" unique_id=2043788246]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 17
+text = "+2 Electrons"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="TextureButton" parent="CardBackground" unique_id=1602062899]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 576.0
+offset_right = 483.0
+offset_bottom = 624.0
+texture_normal = ExtResource("6_continue")
+texture_pressed = ExtResource("7_continue_pressed")
+
+[node name="ContinueButton2" type="TextureButton" parent="CardBackground" unique_id=702034402]
+visible = false
+layout_mode = 0
+offset_left = 387.0
+offset_top = 576.0
+offset_right = 483.0
+offset_bottom = 624.0
+texture_normal = ExtResource("6_continue")
+texture_pressed = ExtResource("7_continue_pressed")

@@ -1,6 +1,27 @@
 extends Node
 
-const FUSION_RECIPE_FOLDER := "res://Resources/Fusion/"
+
+# ========================================================
+# FUSION RECIPE RESOURCES
+# ========================================================
+
+# IMPORTANT:
+# These preload() references make sure Godot includes the
+# Fusion Recipe resources when exporting to Android.
+#
+# Add future Fusion Recipe .tres files to this array.
+const FUSION_RECIPE_RESOURCES: Array[Resource] = [
+	preload("res://Resources/Fusion/H2O.tres"),
+	preload("res://Resources/Fusion/CO2.tres"),
+	#	preload("res://Resources/Fusion/NaCl.tres"),
+	preload("res://Resources/Fusion/NH3.tres"),
+	preload("res://Resources/Fusion/CH4.tres"),
+	preload("res://Resources/Fusion/C2H4.tres"),
+	preload("res://Resources/Fusion/C3H4.tres"),
+	preload("res://Resources/Fusion/C2H6.tres"),
+	preload("res://Resources/Fusion/H2.tres")
+]
+
 
 var fusion_recipes: Array[FusionRecipe] = []
 
@@ -16,44 +37,76 @@ func _ready() -> void:
 func load_fusion_recipes() -> void:
 	fusion_recipes.clear()
 
-	var directory := DirAccess.open(FUSION_RECIPE_FOLDER)
+	print("")
+	print("========================================")
+	print("[FusionManager] LOADING FUSION RECIPES")
+	print("========================================")
 
-	if directory == null:
-		push_error("[FusionManager] Could not open folder: " + FUSION_RECIPE_FOLDER)
-		return
+	for resource in FUSION_RECIPE_RESOURCES:
 
-	directory.list_dir_begin()
+		if resource == null:
+			print("[FusionManager] NULL resource!")
+			continue
 
-	var file_name := directory.get_next()
+		print(
+			"[FusionManager] Checking resource: ",
+			resource.resource_path
+		)
 
-	while file_name != "":
-		if not directory.current_is_dir():
-			if file_name.ends_with(".tres"):
-				var recipe_path := FUSION_RECIPE_FOLDER + file_name
-				var recipe = load(recipe_path)
+		if not resource is FusionRecipe:
 
-				if recipe is FusionRecipe:
-					if recipe.is_valid():
-						fusion_recipes.append(recipe)
+			push_warning(
+				"[FusionManager] Resource is not a FusionRecipe: ",
+				resource.resource_path
+			)
 
-						print(
-							"[FusionManager] Loaded Fusion Recipe: ",
-							recipe.chemical_formula
-						)
-					else:
-						push_warning(
-							"[FusionManager] Invalid Fusion Recipe: ",
-							recipe_path
-						)
+			continue
 
-		file_name = directory.get_next()
+		var recipe: FusionRecipe = resource as FusionRecipe
 
-	directory.list_dir_end()
+		print(
+			"[FusionManager] Formula: ",
+			recipe.chemical_formula
+		)
+
+		print(
+			"[FusionManager] Compound: ",
+			recipe.compound_name
+		)
+
+		print(
+			"[FusionManager] Requirements: ",
+			recipe.get_required_element_counts()
+		)
+
+		print(
+			"[FusionManager] Valid: ",
+			recipe.is_valid()
+		)
+
+		if recipe.is_valid():
+
+			fusion_recipes.append(recipe)
+
+			print(
+				"[FusionManager] Loaded Fusion Recipe: ",
+				recipe.chemical_formula
+			)
+
+		else:
+
+			push_warning(
+				"[FusionManager] INVALID Fusion Recipe: "
+				+ recipe.chemical_formula
+			)
 
 	print(
 		"[FusionManager] Total Fusion Recipes Loaded: ",
 		fusion_recipes.size()
 	)
+
+	print("========================================")
+	print("")
 
 
 # ========================================================
@@ -118,6 +171,49 @@ func can_fuse_recipe(recipe: FusionRecipe) -> bool:
 
 	return recipe.has_required_elements(available_counts)
 
+
+# ========================================================
+# CHECK ACTIVE ATOMON FOR FUSION
+# ========================================================
+
+func active_atomon_can_use_recipe(recipe: FusionRecipe) -> bool:
+	if recipe == null:
+		return false
+
+	if not recipe.is_valid():
+		return false
+
+	var active_atomon: AtomonInstance = (
+		PartyManager.get_active_atomon()
+	)
+
+	if active_atomon == null:
+		return false
+
+	if active_atomon.data == null:
+		return false
+
+	var active_symbol: String = (
+		active_atomon.data.chemical_symbol
+	)
+
+	for requirement in recipe.requirements:
+		if requirement == null:
+			continue
+
+		if requirement.element == null:
+			continue
+
+		var required_symbol: String = (
+			requirement.element.chemical_symbol
+		)
+
+		if required_symbol == active_symbol:
+			return true
+
+	return false
+
+
 # ========================================================
 # GET ATOMON INSTANCES FOR A FUSION
 # ========================================================
@@ -129,6 +225,9 @@ func get_fusion_atomon_candidates(recipe: FusionRecipe) -> Dictionary:
 		return result
 
 	if not can_fuse_recipe(recipe):
+		return result
+
+	if not active_atomon_can_use_recipe(recipe):
 		return result
 
 	var carried_party = PartyManager.get_carried_party()
@@ -171,8 +270,13 @@ func get_available_fusion_recipes() -> Array[FusionRecipe]:
 	var available: Array[FusionRecipe] = []
 
 	for recipe in fusion_recipes:
-		if can_fuse_recipe(recipe):
-			available.append(recipe)
+		if not can_fuse_recipe(recipe):
+			continue
+
+		if not active_atomon_can_use_recipe(recipe):
+			continue
+
+		available.append(recipe)
 
 	return available
 
@@ -184,7 +288,10 @@ func get_available_fusion_recipes() -> Array[FusionRecipe]:
 func print_available_fusions() -> void:
 	var available := get_available_fusion_recipes()
 
-	print("[FusionManager] Available Fusion Recipes: ", available.size())
+	print(
+		"[FusionManager] Available Fusion Recipes: ",
+		available.size()
+	)
 
 	for recipe in available:
 		print(
@@ -192,7 +299,11 @@ func print_available_fusions() -> void:
 			recipe.chemical_formula
 		)
 
+
 func print_fusion_atomon_candidates(recipe: FusionRecipe) -> void:
 	var candidates := get_fusion_atomon_candidates(recipe)
 
-	print("[FusionManager] Fusion Atomon Candidates: ", candidates)
+	print(
+		"[FusionManager] Fusion Atomon Candidates: ",
+		candidates
+	)

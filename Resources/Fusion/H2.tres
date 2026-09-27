@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://bjw2jmtslyrb3"]
+
+[ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_1r7kh"]
+[ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_n5qia"]
+[ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="1_recipe"]
+[ext_resource type="Resource" uid="uid://cjakvshncruuq" path="res://Resources/Atomons/Test/Hydrogen.tres" id="2_b7pdb"]
+
+[sub_resource type="Resource" id="Resource_1r7kh"]
+script = ExtResource("1_n5qia")
+element = ExtResource("2_b7pdb")
+amount = 2
+metadata/_custom_type_script = "uid://jx3pgq7p2xsx"
+
+[resource]
+script = ExtResource("1_recipe")
+requirements = Array[ExtResource("1_n5qia")]([SubResource("Resource_1r7kh")])
+compound_name = "Hydrogen Gas"
+chemical_formula = "H2"
+fusion_skill_name = "Hydrogen Burst"
+fusion_damage = 70
+damage_per_atomon = 20
+projectile_scene = ExtResource("1_1r7kh")
+octet_rule_explanation = "Two hydrogen atoms share their electrons to form a covalent bond. Each hydrogen atom achieves a stable duet of electrons."
+fusion_description = "Two hydrogen atoms combine through a covalent bond to form hydrogen gas."
+metadata/_custom_type_script = "uid://5xhwjx66wmcw"

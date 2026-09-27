@@ -195,9 +195,45 @@ func get_fusion_damage(atomon_count: int) -> int:
 	if atomon_count <= 0:
 		return 0
 
-	return fusion_damage + (
-		atomon_count * damage_per_atomon
+	# --------------------------------------------------------
+	# DIMINISHING DAMAGE SCALING
+	# --------------------------------------------------------
+	# More Atomons still make the Fusion stronger, but each
+	# additional Atomon contributes less than the previous one.
+	#
+	# This prevents large chemical formulas from becoming
+	# disproportionately powerful.
+	# --------------------------------------------------------
+
+	var scaling_multiplier := 1.0
+
+	match atomon_count:
+		1:
+			scaling_multiplier = 0.50
+		2:
+			scaling_multiplier = 1.00
+		3:
+			scaling_multiplier = 1.50
+		4:
+			scaling_multiplier = 1.90
+		5:
+			scaling_multiplier = 2.25
+		6:
+			scaling_multiplier = 2.55
+		7:
+			scaling_multiplier = 2.80
+		8:
+			scaling_multiplier = 3.00
+		_:
+			# Future recipes with more than 8 Atomons
+			# use the maximum scaling.
+			scaling_multiplier = 3.00
+
+	var bonus_damage := int(
+		damage_per_atomon * scaling_multiplier
 	)
+
+	return fusion_damage + bonus_damage
 
 
 # ============================================================

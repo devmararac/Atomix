@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bi0fxgn4cot8u"]
 
-[ext_resource type="Script" uid="uid://dtp4xpqafibme" path="res://Scripts/party_management.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://ddlug8uvvydrp" path="res://Scripts/party_management.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_font"]
 [ext_resource type="Texture2D" uid="uid://cidoonudrtsja" path="res://Assets/UX/Buttons/Normal/switch_button.png" id="3_mhui5"]
 [ext_resource type="Texture2D" uid="uid://uidkxeenpya1" path="res://Assets/UX/Buttons/Normal/cancel_button.png" id="4_cjgv5"]

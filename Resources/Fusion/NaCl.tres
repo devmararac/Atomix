@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://cyh54voa33ld8"]
+
+[ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_cmtdf"]
+[ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="1_recipe"]
+[ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_tdocs"]
+
+[resource]
+script = ExtResource("1_recipe")
+compound_name = "Sodium Chloride"
+chemical_formula = "NaCl"
+bond_type = "Ionic"
+fusion_skill_name = "Salt Burst"
+fusion_damage = 80
+damage_per_atomon = 20
+projectile_scene = ExtResource("1_tdocs")
+octet_rule_explanation = "Sodium has 1 valence electron and tends to lose it, while chlorine has 7 valence electrons and tends to gain 1 electron. This electron transfer allows both atoms to achieve a more stable outer electron arrangement."
+fusion_description = "Sodium and chlorine combine through ionic bonding to form sodium chloride, commonly known as table salt."
+metadata/_custom_type_script = "uid://5xhwjx66wmcw"

@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://4q5p3tdxy63n"]
+
+[ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_padf8"]
+[ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="1_recipe"]
+[ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_u2mc8"]
+[ext_resource type="Resource" uid="uid://dtg3rx6tcwi10" path="res://Resources/Atomons/Carbon.tres" id="2_carbon"]
+[ext_resource type="Resource" uid="uid://cjakvshncruuq" path="res://Resources/Atomons/Test/Hydrogen.tres" id="3_mn1ov"]
+
+[sub_resource type="Resource" id="Resource_u2mc8"]
+script = ExtResource("1_padf8")
+element = ExtResource("2_carbon")
+amount = 2
+metadata/_custom_type_script = "uid://jx3pgq7p2xsx"
+
+[sub_resource type="Resource" id="Resource_j4d6o"]
+script = ExtResource("1_padf8")
+element = ExtResource("3_mn1ov")
+amount = 6
+metadata/_custom_type_script = "uid://jx3pgq7p2xsx"
+
+[resource]
+script = ExtResource("1_recipe")
+requirements = Array[ExtResource("1_padf8")]([SubResource("Resource_u2mc8"), SubResource("Resource_j4d6o")])
+compound_name = "Ethane"
+chemical_formula = "C2H6"
+fusion_skill_name = "Ethane Burst"
+fusion_damage = 70
+damage_per_atomon = 20
+projectile_scene = ExtResource("1_u2mc8")
+octet_rule_explanation = "Each carbon atom has 4 valence electrons. The carbon atoms share electrons with each other and with hydrogen atoms, allowing each carbon to reach a stable octet while hydrogen atoms reach stable duets."
+fusion_description = "Two carbon atoms and six hydrogen atoms form ethane through covalent bonding."
+metadata/_custom_type_script = "uid://5xhwjx66wmcw"

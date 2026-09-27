@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://dugef554v7xft"]
+
+[ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_bvo1f"]
+[ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="1_recipe"]
+[ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_vj518"]
+[ext_resource type="Resource" uid="uid://bpl0udkq3wh1b" path="res://Resources/Atomons/Nitrogen.tres" id="2_nitrogen"]
+[ext_resource type="Resource" uid="uid://cjakvshncruuq" path="res://Resources/Atomons/Test/Hydrogen.tres" id="3_vachu"]
+
+[sub_resource type="Resource" id="Resource_vj518"]
+script = ExtResource("1_bvo1f")
+element = ExtResource("2_nitrogen")
+metadata/_custom_type_script = "uid://jx3pgq7p2xsx"
+
+[sub_resource type="Resource" id="Resource_kt23a"]
+script = ExtResource("1_bvo1f")
+element = ExtResource("3_vachu")
+amount = 3
+metadata/_custom_type_script = "uid://jx3pgq7p2xsx"
+
+[resource]
+script = ExtResource("1_recipe")
+requirements = Array[ExtResource("1_bvo1f")]([SubResource("Resource_vj518"), SubResource("Resource_kt23a")])
+compound_name = "Ammonia"
+chemical_formula = "NH3"
+fusion_skill_name = "Ammonia Burst"
+fusion_damage = 90
+damage_per_atomon = 20
+projectile_scene = ExtResource("1_vj518")
+octet_rule_explanation = "Nitrogen has 5 valence electrons and forms three covalent bonds with hydrogen. The shared electrons help nitrogen reach an octet while each hydrogen reaches a stable duet."
+fusion_description = "One nitrogen atom combines with three hydrogen atoms through covalent bonding to form ammonia."
+metadata/_custom_type_script = "uid://5xhwjx66wmcw"

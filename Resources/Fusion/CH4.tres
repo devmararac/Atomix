@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://crqqj4tio1sn5"]
+
+[ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="1_recipe"]
+[ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_tc4k7"]
+[ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_w7e0h"]
+[ext_resource type="Resource" uid="uid://dtg3rx6tcwi10" path="res://Resources/Atomons/Carbon.tres" id="2_carbon"]
+[ext_resource type="Resource" uid="uid://cjakvshncruuq" path="res://Resources/Atomons/Test/Hydrogen.tres" id="3_51jch"]
+
+[sub_resource type="Resource" id="Resource_w7e0h"]
+script = ExtResource("1_tc4k7")
+element = ExtResource("2_carbon")
+metadata/_custom_type_script = "uid://jx3pgq7p2xsx"
+
+[sub_resource type="Resource" id="Resource_e5t2s"]
+script = ExtResource("1_tc4k7")
+element = ExtResource("3_51jch")
+amount = 4
+metadata/_custom_type_script = "uid://jx3pgq7p2xsx"
+
+[resource]
+script = ExtResource("1_recipe")
+requirements = Array[ExtResource("1_tc4k7")]([SubResource("Resource_w7e0h"), SubResource("Resource_e5t2s")])
+compound_name = "Methane"
+chemical_formula = "CH4"
+fusion_skill_name = "Methane Burst"
+fusion_damage = 100
+damage_per_atomon = 20
+projectile_scene = ExtResource("1_w7e0h")
+octet_rule_explanation = "Carbon has 4 valence electrons and forms four covalent bonds with hydrogen. The shared electrons allow carbon to complete its octet, while each hydrogen reaches a duet."
+fusion_description = "One carbon atom forms four covalent bonds with four hydrogen atoms to produce methane."
+metadata/_custom_type_script = "uid://5xhwjx66wmcw"

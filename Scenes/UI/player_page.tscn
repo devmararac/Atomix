@@ -99,11 +99,15 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_85sk6")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PlayerPage/PlayerInfoPanel" unique_id=173362768]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.689
+anchor_right = 0.96000004
+anchor_bottom = 0.92200005
 offset_left = 71.0
-offset_top = 339.0
-offset_right = 973.0
-offset_bottom = 458.0
+offset_top = 0.18899536
+offset_right = -0.44006348
+offset_bottom = -0.07803345
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerPage/PlayerInfoPanel/ScrollContainer" unique_id=1537632159]
 layout_mode = 2

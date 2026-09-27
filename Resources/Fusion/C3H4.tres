@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://dlofyuon3l8gt"]
+
+[ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_pu7oe"]
+[ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="1_recipe"]
+[ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_y0jgy"]
+[ext_resource type="Resource" uid="uid://dtg3rx6tcwi10" path="res://Resources/Atomons/Carbon.tres" id="2_carbon"]
+[ext_resource type="Resource" uid="uid://cjakvshncruuq" path="res://Resources/Atomons/Test/Hydrogen.tres" id="3_ns06r"]
+
+[sub_resource type="Resource" id="Resource_y0jgy"]
+script = ExtResource("1_pu7oe")
+element = ExtResource("2_carbon")
+amount = 3
+metadata/_custom_type_script = "uid://jx3pgq7p2xsx"
+
+[sub_resource type="Resource" id="Resource_2gx44"]
+script = ExtResource("1_pu7oe")
+element = ExtResource("3_ns06r")
+amount = 4
+metadata/_custom_type_script = "uid://jx3pgq7p2xsx"
+
+[resource]
+script = ExtResource("1_recipe")
+requirements = Array[ExtResource("1_pu7oe")]([SubResource("Resource_y0jgy"), SubResource("Resource_2gx44")])
+compound_name = "Propyne"
+chemical_formula = "C3H4"
+fusion_skill_name = "Propyne Burst"
+fusion_damage = 120
+damage_per_atomon = 20
+projectile_scene = ExtResource("1_y0jgy")
+octet_rule_explanation = "Carbon atoms form covalent bonds by sharing electrons. In propyne, the carbon atoms use shared electrons to form the bonding arrangement while the terminal carbon also bonds with hydrogen."
+fusion_description = "Three carbon atoms and four hydrogen atoms form propyne through covalent bonding."
+metadata/_custom_type_script = "uid://5xhwjx66wmcw"
