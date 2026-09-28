@@ -64,7 +64,7 @@ func update_player_information() -> void:
 	else:
 		student_name_value.text = "Student"
 
-	var collected := StudentDataManager.collected_elements.size()
+	var collected: int = StudentDataManager.collected_elements.size()
 
 	progress_value.text = (
 		str(collected)
@@ -217,7 +217,7 @@ func refresh_reserve_party() -> void:
 
 		var slot: Node = reserve_atomon_slots[i]
 
-		var carried_index := (
+		var carried_index: int = (
 			PartyManager.MAX_BATTLE_PARTY_SIZE
 			+ i
 		)
@@ -280,7 +280,7 @@ func _on_management_atomon_selected(
 		atomon.data.alias
 	)
 
-	var success := (
+	var success: bool = (
 		PartyManager.set_atomon_in_carried_slot(
 			selected_party_slot_index,
 			atomon
@@ -302,10 +302,9 @@ func _on_management_atomon_selected(
 
 	refresh_carried_atomons()
 
-	save_party_changes()
+	await save_party_changes()
 
 	selected_party_slot_index = -1
-
 
 # ============================================================
 # SAVE
@@ -314,15 +313,13 @@ func _on_management_atomon_selected(
 func save_party_changes() -> void:
 
 	if SaveManager == null:
-
 		push_warning(
 			"[PlayerPage] SaveManager is not available."
 		)
-
 		return
 
-	SaveManager.save_game()
+	print("[PlayerPage] Saving carried party...")
 
-	print(
-		"[PlayerPage] Carried party changes saved."
-	)
+	await SaveManager.save_game()
+
+	print("[PlayerPage] Carried party changes saved successfully.")

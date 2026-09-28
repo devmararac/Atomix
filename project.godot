@@ -53,6 +53,7 @@ FusionManager="*uid://bmnqlysm3ka2n"
 
 directories/dch_directory={
 "Alfred": "res://Resources/Dialouges/Dialogic/Characters/Alfred.dch",
+"Andrew": "res://Resources/Dialouges/Dialogic/Characters/Andrew.dch",
 "Angelo": "res://Resources/Dialouges/Dialogic/Characters/Angelo.dch",
 "Anne": "res://Resources/Dialouges/Dialogic/Characters/Anne.dch",
 "Beryll": "res://Resources/Dialouges/Dialogic/Characters/Beryll.dch",
@@ -67,9 +68,10 @@ directories/dch_directory={
 "linos": "res://Resources/Dialouges/Dialogic/Characters/linos.dch"
 }
 directories/dtl_directory={
-"Intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Linos/Intro.dtl",
+"Intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/Intro.dtl",
 "StartingCutscene": "res://Resources/Dialouges/Dialogic/Timeline/StartingCutscene.dtl",
 "atomonia_entrance": "res://Resources/Dialouges/Dialogic/Timeline/atomonia_entrance.dtl",
+"atomonia_expert": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/atomonia_expert.dtl",
 "battle_announce": "res://Resources/Dialouges/Dialogic/Timeline/battle_announce.dtl",
 "beryll_introduction": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction.dtl",
 "beryll_introduction2": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction2.dtl",
@@ -139,7 +141,7 @@ window/canvas_textures/default_texture_filter=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/godot-firebase/plugin.cfg", "res://addons/virtual_joystick/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/godot-firebase/plugin.cfg", "res://addons/spritefusion/plugin.cfg", "res://addons/virtual_joystick/plugin.cfg")
 
 [global]
 

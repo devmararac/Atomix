@@ -304,7 +304,7 @@ func _on_continue_pressed() -> void:
 	# SAVE PLAYER PROFILE TO FIREBASE
 	# ========================================================
 
-	var success := await StudentDataManager.save_player_profile(
+	var success: bool = await StudentDataManager.save_player_profile(
 		name,
 		selected_character.character_id
 	)

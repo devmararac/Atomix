@@ -11,16 +11,15 @@
 [ext_resource type="Texture2D" uid="uid://b1y3ycf1m1vav" path="res://Assets/Structures/Wood Stuffs/Props.png" id="5_np2xp"]
 [ext_resource type="Texture2D" uid="uid://bgm21diis22x6" path="res://Assets/Structures/Vegitations/Trees.png" id="7_w7jjh"]
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://Scenes/player.tscn" id="8_13obq"]
-[ext_resource type="PackedScene" uid="uid://db2ylo8k68p25" path="res://Scenes/NPCs/andrew.tscn" id="10_6akuu"]
 [ext_resource type="AudioStream" uid="uid://laeg7bjtd3bi" path="res://Assets/Music/Partys Cancelled - RoccoW _ Chiptune [No Copyright Music].mp3" id="11_ucnbf"]
 [ext_resource type="PackedScene" uid="uid://t8wudrnfvec0" path="res://Scenes/scene_trigger.tscn" id="12_3kusq"]
 [ext_resource type="PackedScene" uid="uid://4uukj8h8cvw0" path="res://Scenes/Atomons/hydrogen_observation.tscn" id="19_qwoho"]
-[ext_resource type="Resource" uid="uid://0n86aw7oh7kl" path="res://Resources/Items/Proton.tres" id="19_rsgrb"]
-[ext_resource type="Resource" uid="uid://u7dq2rf4msib" path="res://Resources/Items/Electron.tres" id="20_kjb13"]
+[ext_resource type="Resource" uid="uid://0n86aw7oh7kl" path="res://Resources/Items/Crafting/ATOMON_REQ/Proton.tres" id="19_rsgrb"]
+[ext_resource type="Resource" uid="uid://u7dq2rf4msib" path="res://Resources/Items/Crafting/ATOMON_REQ/Electron.tres" id="20_kjb13"]
 [ext_resource type="PackedScene" uid="uid://dmqd2wojxfyoi" path="res://Scenes/Pickables/PickItem.tscn" id="21_u7ab4"]
-[ext_resource type="Resource" uid="uid://dpjnxs1d4138e" path="res://Resources/Items/Neutron.tres" id="21_ynirp"]
-[ext_resource type="Resource" uid="uid://dbfu76bgo27bq" path="res://Resources/Items/Glass_shard.tres" id="22_pc3gm"]
-[ext_resource type="Resource" uid="uid://74e4p1g10q3u" path="res://Resources/Items/AtomicCore.tres" id="22_tjqn4"]
+[ext_resource type="Resource" uid="uid://dpjnxs1d4138e" path="res://Resources/Items/Crafting/ATOMON_REQ/Neutron.tres" id="21_ynirp"]
+[ext_resource type="Resource" uid="uid://dbfu76bgo27bq" path="res://Resources/Items/Crafting/CRAFT_ITEM_REQ/Glass_shard.tres" id="22_pc3gm"]
+[ext_resource type="Resource" uid="uid://74e4p1g10q3u" path="res://Resources/Items/Crafting/ATOMON_REQ/AtomicCore.tres" id="22_tjqn4"]
 [ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="23_ucnbf"]
 [ext_resource type="Resource" uid="uid://dk5xx8427a8lg" path="res://Resources/NPCs/TRES/linos.tres" id="24_4i1l6"]
 [ext_resource type="PackedScene" uid="uid://deb16wmoo5crf" path="res://Atomons/Atomon.tscn" id="25_sp10x"]
@@ -32,6 +31,11 @@
 [ext_resource type="Resource" uid="uid://1s83vhkm1bd2" path="res://Resources/Atomons/hydrogen.tres" id="27_ynirp"]
 [ext_resource type="PackedScene" uid="uid://dqlebs6rggtl4" path="res://Scenes/Objects/water_plash.tscn" id="28_rsgrb"]
 [ext_resource type="PackedScene" uid="uid://c4kb7j4v20s3b" path="res://Scenes/Objects/Structures/store.tscn" id="29_kjb13"]
+[ext_resource type="Resource" uid="uid://c5munup5fw673" path="res://Resources/Items/Consumables/apple.tres" id="33_q0fcu"]
+[ext_resource type="Resource" uid="uid://b086u6h0i2lky" path="res://Resources/Items/Consumables/coffee.tres" id="34_lska0"]
+[ext_resource type="Resource" uid="uid://rdw2kcamkcig" path="res://Resources/Items/Consumables/grapes.tres" id="35_twyxd"]
+[ext_resource type="Resource" uid="uid://bjyqjvbh7juja" path="res://Resources/Items/Consumables/watermelon.tres" id="36_70qg0"]
+[ext_resource type="Resource" uid="uid://bfbg8hpv1n4j5" path="res://Resources/NPCs/TRES/andrew.tres" id="36_q0fcu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mj01m"]
 texture = ExtResource("1_313yg")
@@ -2313,7 +2317,7 @@ tile_map_data = PackedByteArray("AAAKABcAAAADAAMAAAALABcAAAAEAAMAAAALABgAAAAEAAQ
 tile_set = SubResource("TileSet_w7jjh")
 
 [node name="Props" type="TileMapLayer" parent="." unique_id=1751983140]
-tile_map_data = PackedByteArray("AAAgAAcAAAAAAAAAAAAgAAgAAAAAAAEAAAAhAAcAAAABAAAAAAAhAAgAAAABAAEAAAAnAAkAAAAFAAAAAAAnAAoAAAAFAAEAAAAoAAkAAAAGAAAAAAAoAAoAAAAGAAEAAAApAAkAAAAHAAAAAAApAAoAAAAHAAEAAAASAAsAAAACAAYAAAAfABIAAAACAAYAAAAeABIAAAADAAYAAABEAAIAAAAIAAAAAABEAAMAAAAIAAEAAABFAAIAAAAJAAAAAABFAAMAAAAJAAEAAABGAAIAAAAKAAAAAABGAAMAAAAKAAEAAABEAAAAAAAAAAAAAABEAAEAAAAAAAEAAABFAAAAAAABAAAAAABFAAEAAAABAAEAAABGAAAAAAACAAIAAABGAAEAAAACAAMAAABHAAAAAAADAAIAAABHAAEAAAADAAMAAAAoAAEAAAACAAIAAAAoAAIAAAACAAMAAAApAAEAAAADAAIAAAApAAIAAAADAAMAAAAGAAsAAAACAAIAAAAGAAwAAAACAAMAAAAHAAsAAAADAAIAAAAHAAwAAAADAAMAAAAIAAgAAAAAAAQAAAAIAAkAAAAAAAUAAAAJAAgAAAABAAQAAAAJAAkAAAABAAUAAAAJAAcAAAABAAkAAAAZAAcAAAABAAkAAABHAAIAAAABAAkAAAAIAAwAAAAAAAoAAAAmAAsAAAACAAIAAAAmAAwAAAACAAMAAAAnAAsAAAADAAIAAAAnAAwAAAADAAMAAAAiAP//AAACAAAAAAAiAAAAAAACAAEAAAAjAP//AAADAAAAAAAjAAAAAAADAAEAAAApABwAAAAAAAkAAAA=")
+tile_map_data = PackedByteArray("AAAgAAcAAAAAAAAAAAAgAAgAAAAAAAEAAAAhAAcAAAABAAAAAAAhAAgAAAABAAEAAAASAAsAAAACAAYAAAAfABIAAAACAAYAAAAeABIAAAADAAYAAABEAAIAAAAIAAAAAABEAAMAAAAIAAEAAABFAAIAAAAJAAAAAABFAAMAAAAJAAEAAABGAAIAAAAKAAAAAABGAAMAAAAKAAEAAABEAAAAAAAAAAAAAABEAAEAAAAAAAEAAABFAAAAAAABAAAAAABFAAEAAAABAAEAAABGAAAAAAACAAIAAABGAAEAAAACAAMAAABHAAAAAAADAAIAAABHAAEAAAADAAMAAAAoAAEAAAACAAIAAAAoAAIAAAACAAMAAAApAAEAAAADAAIAAAApAAIAAAADAAMAAAAGAAsAAAACAAIAAAAGAAwAAAACAAMAAAAHAAsAAAADAAIAAAAHAAwAAAADAAMAAAAIAAgAAAAAAAQAAAAIAAkAAAAAAAUAAAAJAAgAAAABAAQAAAAJAAkAAAABAAUAAAAJAAcAAAABAAkAAAAZAAcAAAABAAkAAABHAAIAAAABAAkAAAAIAAwAAAAAAAoAAAAiAP//AAACAAAAAAAiAAAAAAACAAEAAAAjAP//AAADAAAAAAAjAAAAAAADAAEAAAApABwAAAAAAAkAAAA=")
 tile_set = SubResource("TileSet_5qtum")
 
 [node name="OBJECTS" type="Node2D" parent="." unique_id=1409393285]
@@ -2778,8 +2782,12 @@ position = Vector2(760, 342)
 y_sort_enabled = true
 position = Vector2(186, 477)
 
-[node name="Andrew" parent="." unique_id=913658851 instance=ExtResource("10_6akuu")]
-position = Vector2(1007, 293)
+[node name="NpcBase2" parent="OBJECTS" unique_id=924365017 instance=ExtResource("23_ucnbf")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(991, 286)
+data = ExtResource("36_q0fcu")
+movement_mode = 1
 
 [node name="Scene_Trigger" parent="." unique_id=1986080103 instance=ExtResource("12_3kusq")]
 position = Vector2(64, 205)
@@ -2929,6 +2937,7 @@ offset_bottom = 675.0
 [node name="Cutscene Trigger" parent="." unique_id=1189239625 node_paths=PackedStringArray("npc", "cutscene_camera", "cutscene_atomon", "cutscene_atomon_target", "player_target", "npc_target", "hud") instance=ExtResource("27_kjb13")]
 position = Vector2(184, 288)
 cutscene_timeline = "uid://jmj1l6vbhq4"
+cutscene_id = "intro"
 npc = NodePath("../NpcBase")
 cutscene_camera = NodePath("../Cutscene Camera")
 cutscene_atomon = NodePath("../Hydrogen")
@@ -2957,4 +2966,20 @@ position = Vector2(63, 220)
 data = ExtResource("27_ynirp")
 
 [node name="Store" parent="." unique_id=1082374117 groups=["QuestObjects"] instance=ExtResource("29_kjb13")]
-position = Vector2(971, 21)
+position = Vector2(642, 178)
+
+[node name="ItemPickUp4" parent="." unique_id=171822534 instance=ExtResource("21_u7ab4")]
+position = Vector2(280, 147)
+data = ExtResource("33_q0fcu")
+
+[node name="ItemPickUp5" parent="." unique_id=1479248982 instance=ExtResource("21_u7ab4")]
+position = Vector2(367, 157)
+data = ExtResource("34_lska0")
+
+[node name="ItemPickUp6" parent="." unique_id=104765280 instance=ExtResource("21_u7ab4")]
+position = Vector2(444, 175)
+data = ExtResource("35_twyxd")
+
+[node name="ItemPickUp7" parent="." unique_id=231124707 instance=ExtResource("21_u7ab4")]
+position = Vector2(501, 223)
+data = ExtResource("36_70qg0")

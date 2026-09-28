@@ -1,6 +1,90 @@
 extends Node
 
 
+# ============================================================
+# REGISTERED NPCs
+# ============================================================
+
+var registered_npcs: Array[NPCBase] = []
+
+
+# ============================================================
+# NPC REGISTRATION
+# ============================================================
+
+func register_npc(npc: NPCBase) -> void:
+
+	if npc == null:
+		return
+
+	if registered_npcs.has(npc):
+		return
+
+	registered_npcs.append(npc)
+
+
+func unregister_npc(npc: NPCBase) -> void:
+
+	if npc == null:
+		return
+
+	registered_npcs.erase(npc)
+
+
+# ============================================================
+# QUEST INDICATORS
+# ============================================================
+
+func refresh_quest_indicators() -> void:
+
+	for npc in registered_npcs:
+
+		if npc == null:
+			continue
+
+		if not is_instance_valid(npc):
+			continue
+
+		if npc.data == null:
+			npc.hide_quest_indicator()
+			continue
+
+		if has_active_quest_target(npc.data.npc_id):
+			npc.show_quest_indicator()
+		else:
+			npc.hide_quest_indicator()
+
+
+func has_active_quest_target(npc_id: String) -> bool:
+
+	if npc_id.is_empty():
+		return false
+
+	for quest in QuestManager.get_active_quests():
+
+		if quest == null:
+			continue
+
+		var objective = quest.get_active_objective()
+
+		if objective == null:
+			continue
+
+		if objective.type != ObjectiveType.Type.TALK:
+			continue
+
+		if objective.target_id != npc_id:
+			continue
+
+		return true
+
+	return false
+
+
+# ============================================================
+# INTERACTION
+# ============================================================
+
 func interact(npc: NPCBase):
 
 	if npc.data == null:
@@ -31,19 +115,28 @@ func play_conversation(npc: NPCBase, conversation: NPCConversation):
 
 	if conversation == null:
 		return
-	
+
 	if conversation.timeline == null:
 		return
-		
+
+	# Stop NPC movement.
+	npc.set_dialogue_active(true)
+
+	# Stop player movement.
 	if global.player != null:
 		global.player.can_move = false
-	
+
 	var layout = Dialogic.start(conversation.timeline)
-	
+
 	if global.player and global.player.has_method("register_dialogic"):
 		global.player.register_dialogic(layout)
 
-	layout.register_character(npc.data.dialogic_character, npc.get_node("BubbleMarker")) 
+	layout.register_character(
+		npc.data.dialogic_character,
+		npc.get_node("BubbleMarker")
+	)
+
+
 	return layout
 
 func get_best_conversation(npc: NPCBase) -> NPCConversation:

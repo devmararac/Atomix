@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b086u6h0i2lky"]
+
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_j48wr"]
+[ext_resource type="Texture2D" uid="uid://bgsgpwo4uq41h" path="res://Assets/UX/Items/Consumables/coffee.png" id="1_ur1eh"]
+
+[resource]
+script = ExtResource("1_j48wr")
+item_id = "coffee"
+item_name = "Coffee"
+description = "A warm, aromatic drink with a rich, bitter flavor that helps restore a little energy and keeps the drinker alert."
+icon = ExtResource("1_ur1eh")
+buy_price = 25
+sell_price = 12
+category = 1
+consumable = true
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

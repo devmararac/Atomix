@@ -160,15 +160,20 @@ func _update_joystick(touch_position: Vector2) -> void:
 		if output.y > 0:
 			Input.action_press(action_down, output.y)
 
-func _reset():
+func _reset() -> void:
 	is_pressed = false
 	output = Vector2.ZERO
 	_touch_index = -1
+
 	_tip.modulate = _default_color
 	_base.position = _base_default_position
 	_tip.position = _tip_default_position
-	# Release actions
+
 	if use_input_actions:
-		for action in [action_left, action_right, action_down, action_up]:
-			if Input.is_action_pressed(action):
-				Input.action_release(action)
+		Input.action_release(action_left)
+		Input.action_release(action_right)
+		Input.action_release(action_up)
+		Input.action_release(action_down)
+
+func _exit_tree() -> void:
+	_reset()

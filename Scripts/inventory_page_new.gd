@@ -57,7 +57,7 @@ func select_item(item: ItemInstance):
 	item_name.text = item.data.item_name
 	description.text = item.data.description
 
-	use_button.disabled = !item.data.usable
+	use_button.disabled = !item.data.consumable
 	discard_button.disabled = item.data.quest_item
 	animate_item_icon()
 

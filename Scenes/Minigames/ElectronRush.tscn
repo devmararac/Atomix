@@ -1,0 +1,165 @@
+[gd_scene format=3 uid="uid://cwut5uqrmc8xg"]
+
+[ext_resource type="Script" uid="uid://x13yj6vel5me" path="res://Scripts/Minigames/ElectronRush.gd" id="1_crt5f"]
+
+[node name="ElectronRush" type="Control" unique_id=782888020]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_crt5f")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1283547052]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.055, 0.07, 0.095, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1661319016]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 24.0
+offset_right = -32.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="MarginContainer" unique_id=8958741]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/MainVBox" unique_id=623859738]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ScorePanel" type="VBoxContainer" parent="MarginContainer/MainVBox/Header" unique_id=2013011413]
+custom_minimum_size = Vector2(150, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MainVBox/Header/ScorePanel" unique_id=1566554204]
+layout_mode = 2
+text = "SCORE"
+horizontal_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="MarginContainer/MainVBox/Header/ScorePanel" unique_id=1858432486]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+
+[node name="StreakPanel" type="VBoxContainer" parent="MarginContainer/MainVBox/Header" unique_id=339674844]
+custom_minimum_size = Vector2(150, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MainVBox/Header/StreakPanel" unique_id=98226837]
+layout_mode = 2
+text = "STREAK"
+horizontal_alignment = 1
+
+[node name="StreakValue" type="Label" parent="MarginContainer/MainVBox/Header/StreakPanel" unique_id=393866384]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+
+[node name="RoundPanel" type="VBoxContainer" parent="MarginContainer/MainVBox/Header" unique_id=1954663437]
+custom_minimum_size = Vector2(150, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MainVBox/Header/RoundPanel" unique_id=649383719]
+layout_mode = 2
+text = "ROUND"
+horizontal_alignment = 1
+
+[node name="RoundValue" type="Label" parent="MarginContainer/MainVBox/Header/RoundPanel" unique_id=1573862944]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0/8"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/MainVBox/Header" unique_id=137512018]
+layout_mode = 2
+text = "BACK"
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/MainVBox" unique_id=357274793]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+max_value = 7.0
+value = 7.0
+show_percentage = false
+
+[node name="QuestionPanel" type="PanelContainer" parent="MarginContainer/MainVBox" unique_id=1137583669]
+custom_minimum_size = Vector2(0, 390)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuestionVBox" type="VBoxContainer" parent="MarginContainer/MainVBox/QuestionPanel" unique_id=1498008810]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SymbolLabel" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=1806770144]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 52
+text = "?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ElementLabel" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=707394924]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Electron Rush"
+horizontal_alignment = 1
+
+[node name="AtomicLabel" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=406693540]
+layout_mode = 2
+text = "Atomic Number: ?"
+horizontal_alignment = 1
+
+[node name="ElectronsContainer" type="HBoxContainer" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=409653227]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="QuestionLabel" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=1069667069]
+layout_mode = 2
+text = "How many valence electrons does this Atomon have?"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Choices" type="HBoxContainer" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=1523169799]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="FeedbackLabel" type="Label" parent="MarginContainer/MainVBox" unique_id=564025546]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="MarginContainer/MainVBox" unique_id=1195187718]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "START GAME"
+
+[connection signal="pressed" from="MarginContainer/MainVBox/Header/Button" to="." method="_on_button_pressed"]

@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://cnr6s2w05ju3c"]
 
 [ext_resource type="Script" uid="uid://bc1uc5j8yudh1" path="res://Scenes/UI/shop_ui.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://cgackw4bwt5yv" path="res://Assets/UX/Items/proton.png" id="2_uc064"]
-[ext_resource type="Texture2D" uid="uid://cn2pey2fm8vq4" path="res://Assets/UX/Items/neutron.png" id="3_5smyu"]
-[ext_resource type="Texture2D" uid="uid://0x4bu62h3ath" path="res://Assets/UX/Items/electron.png" id="4_je541"]
-[ext_resource type="Texture2D" uid="uid://y7ft4uvwjir4" path="res://Assets/UX/Items/atomon_core.png" id="5_3j5rp"]
-[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="6_close"]
-[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="7_je541"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="2_close"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="2_ocftj"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="3_close_pressed"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="5_je541"]
+[ext_resource type="Texture2D" uid="uid://dc3i2o4lhnvxu" path="res://Assets/UX/Buttons/Normal/updated_button.png" id="6_3j5rp"]
+[ext_resource type="Texture2D" uid="uid://cxjuhf5abqbsr" path="res://Assets/UX/Buttons/On-Pressed/updated_button_pressed.png" id="7_0c1cl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleShopOuter"]
-bg_color = Color(0.902, 0.612, 0.412, 1)
+bg_color = Color(0.7318807, 0.44536525, 0.23628047, 1)
 border_width_left = 6
 border_width_top = 6
 border_width_right = 6
@@ -20,20 +20,41 @@ corner_radius_top_right = 18
 corner_radius_bottom_right = 18
 corner_radius_bottom_left = 18
 
-[sub_resource type="StyleBoxFlat" id="StyleInner"]
-bg_color = Color(0.988, 0.835, 0.682, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.62, 0.36, 0.2, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uc064"]
+texture = ExtResource("2_ocftj")
 
-[sub_resource type="StyleBoxFlat" id="StyleShelf"]
+[sub_resource type="StyleBoxFlat" id="StyleHeader"]
 bg_color = Color(0.83, 0.5, 0.29, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.38, 0.2, 0.1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleCoin"]
+bg_color = Color(1, 0.93, 0.82, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.38, 0.2, 0.1, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dlcd5"]
+texture = ExtResource("6_3j5rp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_larpm"]
+texture = ExtResource("7_0c1cl")
+
+[sub_resource type="StyleBoxFlat" id="StyleTabHover"]
+bg_color = Color(0.9, 0.61, 0.41, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -44,8 +65,14 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleCoinBox"]
-bg_color = Color(1, 0.93, 0.82, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7lj3"]
+texture = ExtResource("6_3j5rp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0jyl"]
+texture = ExtResource("7_0c1cl")
+
+[sub_resource type="StyleBoxFlat" id="StyleList"]
+bg_color = Color(0.83, 0.5, 0.29, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -55,6 +82,18 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleScroll"]
+bg_color = Color(0.988, 0.835, 0.682, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.62, 0.36, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleDetail"]
 bg_color = Color(1, 0.93, 0.82, 1)
@@ -68,8 +107,8 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StylePrice"]
-bg_color = Color(0.902, 0.612, 0.412, 1)
+[sub_resource type="StyleBoxFlat" id="StyleDisplay"]
+bg_color = Color(0.83, 0.5, 0.29, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -79,6 +118,42 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleQuantityButton"]
+bg_color = Color(0.76, 0.43, 0.25, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.38, 0.2, 0.1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleQuantityHover"]
+bg_color = Color(0.9, 0.61, 0.41, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.38, 0.2, 0.1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleQuantity"]
+bg_color = Color(0.9, 0.61, 0.41, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.38, 0.2, 0.1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBuy"]
 bg_color = Color(0.38, 0.63, 0.32, 1)
@@ -121,13 +196,20 @@ layer = 200
 script = ExtResource("1_script")
 
 [node name="Background" type="ColorRect" parent="." unique_id=607760118]
-offset_right = 1980.0
-offset_bottom = 720.0
-color = Color(0.16, 0.09, 0.05, 0.78)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.20784314, 0.12156863, 0.07450981, 0)
 
 [node name="ShopPanel" type="Panel" parent="." unique_id=1353444872]
-offset_right = 1980.0
-offset_bottom = 720.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleShopOuter")
 
 [node name="ShopInterior" type="Panel" parent="ShopPanel" unique_id=1184319788]
@@ -137,264 +219,488 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleInner")
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_uc064")
 
-[node name="Sign" type="Panel" parent="ShopPanel" unique_id=418101359]
-layout_mode = 0
-offset_left = 45.0
-offset_top = 25.0
-offset_right = 1935.0
-offset_bottom = 105.0
-theme_override_styles/panel = SubResource("StyleShelf")
+[node name="Header" type="Panel" parent="ShopPanel" unique_id=418101359]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.023000002
+anchor_top = 0.065000005
+anchor_right = 0.97700006
+anchor_bottom = 0.17600001
+offset_left = -0.54000473
+offset_top = 0.19999695
+offset_right = 0.539917
+offset_bottom = 0.27999115
+theme_override_styles/panel = SubResource("StyleHeader")
 
-[node name="SignText" type="Label" parent="ShopPanel/Sign" unique_id=72392374]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 2.0
-offset_right = 1870.0
-offset_bottom = 47.0
+[node name="Title" type="Label" parent="ShopPanel/Header" unique_id=1529403420]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.1
+anchor_right = 0.344
+anchor_bottom = 0.66200006
+offset_left = -0.24000168
+offset_right = -0.16003418
+offset_bottom = -5.9600067
 theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 32
 text = "ATOMON SHOP"
-horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SignSubtitle" type="Label" parent="ShopPanel/Sign" unique_id=1007008229]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 46.0
-offset_right = 1870.0
-offset_bottom = 74.0
+[node name="Subtitle" type="Label" parent="ShopPanel/Header" unique_id=718406514]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.017
+anchor_top = 0.57500005
+anchor_right = 0.344
+anchor_bottom = 0.87500006
+offset_left = -0.13000107
+offset_right = -0.16003418
 theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
-theme_override_font_sizes/font_size = 15
-text = "CRAFTING MATERIALS & SUPPLIES"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 14
+text = "MATERIALS • SUPPLIES • CRAFTING"
 
-[node name="CoinBox" type="Panel" parent="ShopPanel" unique_id=1056525047]
-layout_mode = 0
-offset_left = 1625.0
-offset_top = 39.0
-offset_right = 1840.0
-offset_bottom = 89.0
-theme_override_styles/panel = SubResource("StyleCoinBox")
+[node name="CoinBox" type="Panel" parent="ShopPanel/Header" unique_id=1826097865]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.80200005
+anchor_top = 0.15
+anchor_right = 0.94200003
+anchor_bottom = 0.85
+offset_left = -0.7800293
+offset_right = -0.38000488
+theme_override_styles/panel = SubResource("StyleCoin")
 
-[node name="Coins" type="Label" parent="ShopPanel/CoinBox" unique_id=1838029001]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 2.0
-offset_right = 210.0
-offset_bottom = 48.0
+[node name="Coins" type="Label" parent="ShopPanel/Header/CoinBox" unique_id=1136630853]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.5
+offset_top = -25.0
+offset_right = 124.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 22
 text = "Coins: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CloseButton" type="TextureButton" parent="ShopPanel" unique_id=1492971007]
-layout_mode = 0
-offset_left = 1865.0
-offset_top = 36.0
-offset_right = 1920.0
-offset_bottom = 91.0
-texture_normal = ExtResource("6_close")
-texture_hover = ExtResource("7_je541")
+[node name="CloseButton" type="TextureButton" parent="ShopPanel" unique_id=309096327]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.929
+anchor_top = 0.082
+anchor_right = 0.96000004
+anchor_bottom = 0.165
+offset_left = 0.57995605
+offset_top = -0.040000916
+offset_right = -0.8000488
+offset_bottom = 0.19999695
+texture_normal = ExtResource("2_close")
+texture_hover = ExtResource("3_close_pressed")
 stretch_mode = 0
 
-[node name="Content" type="Control" parent="ShopPanel" unique_id=2126873124]
-anchors_preset = 0
-offset_left = 45.0
-offset_top = 125.0
-offset_right = 1935.0
-offset_bottom = 645.0
+[node name="CategoryTabs" type="HBoxContainer" parent="ShopPanel" unique_id=2118332778]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.028
+anchor_top = 0.194
+anchor_right = 0.97200006
+anchor_bottom = 0.26000002
+offset_left = -0.44000244
+offset_top = 0.31999207
+offset_right = 0.43981934
+offset_bottom = -0.2000122
+theme_override_constants/separation = 10
 
-[node name="ProductsPanel" type="Panel" parent="ShopPanel/Content" unique_id=2079751802]
-layout_mode = 0
-offset_right = 650.0
-offset_bottom = 520.0
-theme_override_styles/panel = SubResource("StyleShelf")
+[node name="All" type="Button" parent="ShopPanel/CategoryTabs" unique_id=2035249611]
+custom_minimum_size = Vector2(150, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_je541")
+theme_override_font_sizes/font_size = 23
+theme_override_styles/normal = SubResource("StyleBoxTexture_dlcd5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_larpm")
+theme_override_styles/hover = SubResource("StyleTabHover")
+text = "ALL"
+icon_alignment = 1
 
-[node name="ProductsTitle" type="Label" parent="ShopPanel/Content/ProductsPanel" unique_id=1007380966]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 15.0
-offset_right = 630.0
-offset_bottom = 52.0
+[node name="Materials" type="Button" parent="ShopPanel/CategoryTabs" unique_id=1944292794]
+custom_minimum_size = Vector2(180, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_je541")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_j7lj3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_v0jyl")
+theme_override_styles/hover = SubResource("StyleTabHover")
+text = "MATERIALS"
+
+[node name="Consumables" type="Button" parent="ShopPanel/CategoryTabs" unique_id=1947694219]
+custom_minimum_size = Vector2(190, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_je541")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_j7lj3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_v0jyl")
+theme_override_styles/hover = SubResource("StyleTabHover")
+text = "CONSUMABLES"
+
+[node name="Crafting" type="Button" parent="ShopPanel/CategoryTabs" unique_id=686854611]
+custom_minimum_size = Vector2(170, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_je541")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_j7lj3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_v0jyl")
+theme_override_styles/hover = SubResource("StyleTabHover")
+text = "CRAFTING"
+
+[node name="Special" type="Button" parent="ShopPanel/CategoryTabs" unique_id=2083814967]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_je541")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_j7lj3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_v0jyl")
+theme_override_styles/hover = SubResource("StyleTabHover")
+text = "SPECIAL"
+
+[node name="Content" type="Control" parent="ShopPanel" unique_id=1472232900]
+layout_mode = 1
+anchor_left = 0.023000002
+anchor_top = 0.28100002
+anchor_right = 0.97700006
+anchor_bottom = 0.933
+offset_left = -0.54000473
+offset_top = -0.32000732
+offset_right = 0.539917
+offset_bottom = 0.23999023
+
+[node name="ProductsPanel" type="Panel" parent="ShopPanel/Content" unique_id=270109926]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.418
+anchor_bottom = 1.0
+offset_right = -0.020019531
+theme_override_styles/panel = SubResource("StyleList")
+
+[node name="ProductsTitle" type="Label" parent="ShopPanel/Content/ProductsPanel" unique_id=1651456265]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.026
+anchor_right = 0.975
+anchor_bottom = 0.102000006
+offset_left = 0.25
+offset_top = -0.22000027
+offset_right = -0.25
+offset_bottom = 0.05999756
 theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
-theme_override_font_sizes/font_size = 27
-text = "PRODUCTS"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 23
+text = "SHOP ITEMS"
 vertical_alignment = 1
 
-[node name="ShelfLine4" type="ColorRect" parent="ShopPanel/Content/ProductsPanel" unique_id=1464609098]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 205.0
-offset_right = 630.0
-offset_bottom = 211.0
+[node name="ItemCount" type="Label" parent="ShopPanel/Content/ProductsPanel" unique_id=393040741]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.69600004
+anchor_top = 0.030000001
+anchor_right = 0.96800005
+anchor_bottom = 0.094000004
+offset_left = 0.15997314
+offset_top = -0.10000038
+offset_right = 0.27996826
+offset_bottom = -0.1800003
+theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 16
+text = "0 ITEMS"
+horizontal_alignment = 2
+
+[node name="Separator" type="ColorRect" parent="ShopPanel/Content/ProductsPanel" unique_id=2124275920]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.117000006
+anchor_right = 0.5
+anchor_bottom = 0.117000006
+offset_left = -377.0
+offset_top = -2.9900017
+offset_right = 377.0
+offset_bottom = 0.0099983215
 color = Color(0.38, 0.2, 0.1, 1)
 
-[node name="ShelfLine1" type="ColorRect" parent="ShopPanel/Content/ProductsPanel" unique_id=2085986165]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 400.0
-offset_right = 630.0
-offset_bottom = 406.0
-color = Color(0.38, 0.2, 0.1, 1)
+[node name="ScrollContainer" type="ScrollContainer" parent="ShopPanel/Content/ProductsPanel" unique_id=956816770]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.019000001
+anchor_top = 0.13800001
+anchor_right = 0.98100007
+anchor_bottom = 0.96800005
+offset_left = -0.010001183
+offset_top = 0.13999176
+offset_right = 0.0099487305
+offset_bottom = 0.039978027
+theme_override_styles/panel = SubResource("StyleScroll")
+horizontal_scroll_mode = 0
 
-[node name="Electron" type="TextureButton" parent="ShopPanel/Content/ProductsPanel" unique_id=870843579]
-layout_mode = 0
-offset_left = 75.0
-offset_top = 105.0
-offset_right = 175.0
-offset_bottom = 205.0
-texture_normal = ExtResource("4_je541")
-stretch_mode = 0
+[node name="ItemGrid" type="GridContainer" parent="ShopPanel/Content/ProductsPanel/ScrollContainer" unique_id=103333338]
+custom_minimum_size = Vector2(735, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
 
-[node name="Neutron" type="TextureButton" parent="ShopPanel/Content/ProductsPanel" unique_id=945847368]
-layout_mode = 0
-offset_left = 275.0
-offset_top = 105.0
-offset_right = 375.0
-offset_bottom = 205.0
-texture_normal = ExtResource("3_5smyu")
-stretch_mode = 0
-
-[node name="Proton" type="TextureButton" parent="ShopPanel/Content/ProductsPanel" unique_id=1781385444]
-layout_mode = 0
-offset_left = 475.0
-offset_top = 105.0
-offset_right = 575.0
-offset_bottom = 205.0
-texture_normal = ExtResource("2_uc064")
-stretch_mode = 0
-
-[node name="AtomicCore" type="TextureButton" parent="ShopPanel/Content/ProductsPanel" unique_id=1246203467]
-layout_mode = 0
-offset_left = 75.0
-offset_top = 300.0
-offset_right = 175.0
-offset_bottom = 400.0
-texture_normal = ExtResource("5_3j5rp")
-stretch_mode = 0
-
-[node name="DetailPanel" type="Panel" parent="ShopPanel/Content" unique_id=174839446]
-layout_mode = 0
-offset_left = 680.0
-offset_right = 1890.0
-offset_bottom = 520.0
+[node name="DetailPanel" type="Panel" parent="ShopPanel/Content" unique_id=892857493]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43100002
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.40997314
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleDetail")
 
-[node name="SectionTitle" type="Label" parent="ShopPanel/Content/DetailPanel" unique_id=698949136]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 14.0
-offset_right = 1180.0
-offset_bottom = 42.0
+[node name="SectionTitle" type="Label" parent="ShopPanel/Content/DetailPanel" unique_id=1417009709]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.023000002
+anchor_top = 0.026
+anchor_right = 0.97700006
+anchor_bottom = 0.074
+offset_left = 0.2749977
+offset_top = -0.22000027
+offset_right = -0.2750244
+offset_bottom = 0.22000122
 theme_override_colors/font_color = Color(0.62, 0.36, 0.2, 1)
-theme_override_font_sizes/font_size = 16
-text = "PRODUCT INFORMATION"
+theme_override_font_sizes/font_size = 14
+text = "ITEM INFORMATION"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="ItemName" type="Label" parent="ShopPanel/Content/DetailPanel" unique_id=1539987818]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 45.0
-offset_right = 1180.0
-offset_bottom = 95.0
-theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
-theme_override_font_sizes/font_size = 36
-text = "PROTON"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="DisplayBox" type="Panel" parent="ShopPanel/Content/DetailPanel" unique_id=221740790]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.023000002
+anchor_top = 0.089
+anchor_right = 0.97700006
+anchor_bottom = 0.372
+offset_left = 0.2749977
+offset_top = 0.16999817
+offset_right = -0.2750244
+offset_bottom = 0.1599884
+theme_override_styles/panel = SubResource("StyleDisplay")
 
-[node name="PriceBox" type="Panel" parent="ShopPanel/Content/DetailPanel" unique_id=1275454276]
-layout_mode = 0
-offset_left = 1030.0
-offset_top = 12.0
-offset_right = 1175.0
-offset_bottom = 67.0
-theme_override_styles/panel = SubResource("StylePrice")
+[node name="ItemIcon" type="TextureRect" parent="ShopPanel/Content/DetailPanel/DisplayBox" unique_id=861040601]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.020000001
+anchor_top = 0.075
+anchor_right = 0.141
+anchor_bottom = 0.94000006
+offset_left = -0.5000019
+offset_top = 0.024999619
+offset_right = 0.47499084
+offset_bottom = -0.020004272
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Price" type="Label" parent="ShopPanel/Content/DetailPanel/PriceBox" unique_id=1519248241]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 2.0
-offset_right = 140.0
-offset_bottom = 52.0
-theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
-theme_override_font_sizes/font_size = 23
-text = "5 COINS"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="DisplayBox" type="Panel" parent="ShopPanel/Content/DetailPanel" unique_id=1659895855]
-layout_mode = 0
-offset_left = 300.0
-offset_top = 115.0
-offset_right = 910.0
-offset_bottom = 195.0
-theme_override_styles/panel = SubResource("StyleShelf")
-
-[node name="DisplayText" type="Label" parent="ShopPanel/Content/DetailPanel/DisplayBox" unique_id=1789402836]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 2.0
-offset_right = 600.0
-offset_bottom = 78.0
+[node name="ItemName" type="Label" parent="ShopPanel/Content/DetailPanel/DisplayBox" unique_id=226314618]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16100001
+anchor_top = 0.18800001
+anchor_right = 0.9760001
+anchor_bottom = 0.504
+offset_left = -0.025009155
+offset_top = -0.0040016174
+offset_right = -0.40008545
+offset_bottom = -0.03199768
 theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 30
 text = "PROTON"
-horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Description" type="Label" parent="ShopPanel/Content/DetailPanel" unique_id=1710510037]
-layout_mode = 0
-offset_left = 70.0
-offset_top = 215.0
-offset_right = 1140.0
-offset_bottom = 285.0
-theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
+[node name="Price" type="Label" parent="ShopPanel/Content/DetailPanel/DisplayBox" unique_id=573927102]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16100001
+anchor_top = 0.541
+anchor_right = 0.9760001
+anchor_bottom = 0.81200004
+offset_left = -0.025009155
+offset_top = 0.04699707
+offset_right = -0.40008545
+offset_bottom = 0.0039978027
+theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
 theme_override_font_sizes/font_size = 19
-text = "A proton is a positively charged
-particle found in the atomic nucleus."
-horizontal_alignment = 1
+text = "5 COINS EACH"
 vertical_alignment = 1
 
-[node name="Owned" type="Label" parent="ShopPanel/Content/DetailPanel" unique_id=504117507]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 315.0
-offset_right = 1150.0
-offset_bottom = 355.0
+[node name="Description" type="Label" parent="ShopPanel/Content/DetailPanel" unique_id=1390998918]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.042000003
+anchor_top = 0.404
+anchor_right = 0.95800006
+anchor_bottom = 0.521
+offset_left = -0.15000153
+offset_top = 0.11999512
+offset_right = 0.14990234
+offset_bottom = 0.12998962
+theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 17
+text = "Select an item to view its description."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Owned" type="Label" parent="ShopPanel/Content/DetailPanel" unique_id=1879800372]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.042000003
+anchor_top = 0.536
+anchor_right = 0.95800006
+anchor_bottom = 0.6
+offset_left = -0.15000153
+offset_top = 0.07998657
+offset_right = 0.14990234
 theme_override_colors/font_color = Color(0.55, 0.31, 0.16, 1)
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 17
 text = "Owned: 0"
 horizontal_alignment = 1
+
+[node name="QuantityTitle" type="Label" parent="ShopPanel/Content/DetailPanel" unique_id=454392110]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.042000003
+anchor_top = 0.62100005
+anchor_right = 0.95800006
+anchor_bottom = 0.67700005
+offset_left = -0.15000153
+offset_top = 0.12997437
+offset_right = 0.14990234
+offset_bottom = -0.19003296
+theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 15
+text = "QUANTITY"
+horizontal_alignment = 1
+
+[node name="QuantityControls" type="HBoxContainer" parent="ShopPanel/Content/DetailPanel" unique_id=955019820]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.26500002
+anchor_top = 0.69100004
+anchor_right = 0.735
+anchor_bottom = 0.79800004
+offset_left = 0.12496948
+offset_top = 0.22998047
+offset_right = -0.125
+offset_bottom = -0.060028076
+theme_override_constants/separation = 8
+
+[node name="Minus" type="Button" parent="ShopPanel/Content/DetailPanel/QuantityControls" unique_id=114022700]
+custom_minimum_size = Vector2(65, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleQuantityButton")
+theme_override_styles/hover = SubResource("StyleQuantityHover")
+text = "−"
+
+[node name="QuantityBox" type="Panel" parent="ShopPanel/Content/DetailPanel/QuantityControls" unique_id=2123594629]
+custom_minimum_size = Vector2(125, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleQuantity")
+
+[node name="Quantity" type="Label" parent="ShopPanel/Content/DetailPanel/QuantityControls/QuantityBox" unique_id=1531563813]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 22
+text = "1"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Buy" type="Button" parent="ShopPanel/Content/DetailPanel" unique_id=307160489]
-layout_mode = 0
-offset_left = 500.0
-offset_top = 390.0
-offset_right = 690.0
-offset_bottom = 450.0
+[node name="Plus" type="Button" parent="ShopPanel/Content/DetailPanel/QuantityControls" unique_id=937130307]
+custom_minimum_size = Vector2(65, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleQuantityButton")
+theme_override_styles/hover = SubResource("StyleQuantityHover")
+text = "+"
+
+[node name="Max" type="Button" parent="ShopPanel/Content/DetailPanel/QuantityControls" unique_id=1165659845]
+custom_minimum_size = Vector2(100, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.93, 0.82, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleQuantityButton")
+theme_override_styles/hover = SubResource("StyleQuantityHover")
+text = "MAX"
+
+[node name="TotalPrice" type="Label" parent="ShopPanel/Content/DetailPanel" unique_id=316136599]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.042000003
+anchor_top = 0.81900007
+anchor_right = 0.95800006
+anchor_bottom = 0.883
+offset_left = -0.15000153
+offset_top = 0.06997681
+offset_right = 0.14990234
+offset_bottom = -0.010009766
+theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 20
+text = "TOTAL: 5 COINS"
+horizontal_alignment = 1
+
+[node name="Buy" type="Button" parent="ShopPanel/Content/DetailPanel" unique_id=1158879263]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.372
+anchor_top = 0.89400005
+anchor_right = 0.628
+anchor_bottom = 0.98300004
+offset_left = 0.099975586
+offset_top = -0.1800232
+offset_right = -0.10003662
+offset_bottom = -0.010009766
 theme_override_colors/font_color = Color(1, 0.96, 0.88, 1)
 theme_override_colors/font_disabled_color = Color(0.82, 0.82, 0.8, 1)
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 21
 theme_override_styles/normal = SubResource("StyleBuy")
 theme_override_styles/hover = SubResource("StyleBuyHover")
 theme_override_styles/disabled = SubResource("StyleBuyDisabled")
-text = "BUY"
+text = "BUY 1"
 
-[node name="MessageLabel" type="Label" parent="ShopPanel" unique_id=96521980]
-layout_mode = 0
-offset_left = 250.0
-offset_top = 665.0
-offset_right = 1730.0
-offset_bottom = 705.0
+[node name="MessageLabel" type="Label" parent="ShopPanel" unique_id=955928567]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.689
+anchor_top = 0.2
+anchor_right = 0.96800005
+anchor_bottom = 0.26200002
+offset_left = -0.2199707
+offset_right = 0.35986328
+offset_bottom = 0.35998535
 theme_override_colors/font_color = Color(0.38, 0.2, 0.1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 vertical_alignment = 1

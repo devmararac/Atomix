@@ -1,0 +1,148 @@
+[gd_resource type="Resource" script_class="NPCData" format=3 uid="uid://bfbg8hpv1n4j5"]
+
+[ext_resource type="Resource" uid="uid://ca3qmoc2i8ch8" path="res://Resources/Dialouges/Dialogic/Characters/Andrew.dch" id="1_8cbfp"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_np64e"]
+[ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_0wbd8"]
+[ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="2_5062h"]
+[ext_resource type="Resource" uid="uid://cj3cgk7hsdikv" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/atomonia_expert.dtl" id="3_mvaob"]
+[ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="4_nkfes"]
+[ext_resource type="Texture2D" uid="uid://bygos6eoe7ql0" path="res://Assets/NPC/professor_andrew.png" id="4_ufuj8"]
+
+[sub_resource type="Resource" id="Resource_mprig"]
+script = ExtResource("2_5062h")
+timeline = ExtResource("3_mvaob")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[sub_resource type="Resource" id="Resource_b8tho"]
+script = ExtResource("4_nkfes")
+default_timeline = ExtResource("3_mvaob")
+conversations = Array[ExtResource("2_5062h")]([SubResource("Resource_mprig")])
+metadata/_custom_type_script = "uid://ckoa2l31dwe64"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7ksj"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5062h"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvaob"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkfes"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mprig"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8tho"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xokm8"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3etky"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ef5p1"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0gbj"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5nwh"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lo4ed"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngw8g"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d56dw"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5wpc"]
+atlas = ExtResource("4_ufuj8")
+region = Rect2(224, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_degdh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7ksj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5062h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvaob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nkfes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mprig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8tho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xokm8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3etky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ef5p1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0gbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5nwh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lo4ed")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngw8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d56dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5wpc")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_0wbd8")
+npc_id = "andrew"
+display_name = "Andrew"
+sprite_frames = SubResource("SpriteFrames_degdh")
+dialogic_character = ExtResource("1_8cbfp")
+dialogue_data = SubResource("Resource_b8tho")
+can_wander = true
+metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

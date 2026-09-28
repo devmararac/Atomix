@@ -1,0 +1,28 @@
+Player: Hey.. uhh...
+Player: Are you the Atomon Expert Linos mentioned?
+Andrew: May I ask who might you be??
+Player: I just got here, and I’m not familiar with this place yet...
+Player: Linos said I have to know some stuff, especially about Atomons, like that weird thing I saw...
+Player: He called it Hydrogas... what was it again?
+Andrew: Ahhh, Hydrubbie. The Hydrogen Atomon that wanders around this place.
+Andrew: It’s kind of hard to miss. That little thing is always running around, but never caused trouble wherever it goes.
+Player: So... it’s an Atomon?
+Andrew: Correct! Atomons are living manifestations of the elements themselves.
+Andrew: Each one is associated with an element, and their properties are closely related to it.
+Andrew: And by the way, “Atomon” is derived from two words\: “Atomic” and “Monster.” So, Atomon means “Atomic Monster.”
+Player: So Hydrubie is... Hydrogen?
+Andrew: Precisely! Hydrogen. The lightest element there is.
+Andrew: Although don't let its size fool you. Hydrogen may be simple, but it plays a very important role in chemistry.
+Player: Chemistry...
+Andrew: Ah, yes. You’ll be hearing that word quite often around here.
+Andrew: If you're going to travel through Chemistria, you ought to understand the elements and the Atomons that represent them.
+Player: I guess I have a lot to learn...
+Andrew: Indeed you do!
+Andrew: But don't worry. That's what I'm here for.
+Player: How did this happen?
+Andrew: What happened?
+Player: This whole Atomon thing? How did elements become such creatures?
+Andrew: You're really clueless, huh? I mean, even the children in this place knows what happened three years ago....
+Player: What? What happened back then?
+Andrew: It all started on that night....
+[signal arg="play_atomon_origin"]

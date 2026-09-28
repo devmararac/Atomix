@@ -2589,4 +2589,3 @@ volume_db = -15.0
 autoplay = true
 
 [node name="HUD" parent="." unique_id=116850924 instance=ExtResource("15_kn5sb")]
-visible = false

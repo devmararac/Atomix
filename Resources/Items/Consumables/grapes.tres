@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://rdw2kcamkcig"]
+
+[ext_resource type="Texture2D" uid="uid://b7jpjipjh6yqy" path="res://Assets/UX/Items/Consumables/grapes.png" id="1_0avy0"]
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_otw0h"]
+
+[resource]
+script = ExtResource("1_otw0h")
+item_id = "grapes"
+item_name = "Grapes"
+description = "A bunch of small, juicy fruits with a naturally sweet and refreshing flavor."
+icon = ExtResource("1_0avy0")
+buy_price = 20
+sell_price = 10
+category = 1
+consumable = true
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

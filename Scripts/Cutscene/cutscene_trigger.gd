@@ -2,6 +2,7 @@ extends Area2D
 
 @export_file("*.dtl") var cutscene_timeline: String
 @export var trigger_once: bool = true
+@export var cutscene_id: String = ""
 
 @export_category("Cutscene")
 @export var npc: NPCBase
@@ -29,33 +30,42 @@ func _ready():
 	Dialogic.timeline_ended.connect(_on_cutscene_finished)
 
 func _on_body_entered(body):
-	
 	print("CUTSCENE TRIGGER ENTERED BY: ", body.name)
 	print("Player groups: ", body.get_groups())
-	
-	if triggered and trigger_once:
-		return
-	
+
 	if not body.is_in_group("Player"):
 		return
-	
+
+	# --------------------------------------------------------
+	# PERSISTENT CUTSCENE CHECK
+	# --------------------------------------------------------
+	if trigger_once and SaveManager.is_cutscene_completed(cutscene_id):
+		print(
+			"Cutscene already completed: ",
+			cutscene_id
+		)
+		return
+
+	if triggered and trigger_once:
+		return
+
 	triggered = true
-	
+
 	if cutscene_timeline == "":
 		push_warning("CutsceneTrigger has no timeline assigned.")
 		return
-	
+
 	if global.player != null:
 		global.player.can_move = false
-	
+
 	if hud != null:
 		hud.visible = false
-	
+
 	if cutscene_camera != null:
 		await pan_to_cutscene_camera()
-	
+
 	dialogic_layout = Dialogic.start(cutscene_timeline)
-	
+
 	if npc != null:
 		var bubble_marker = npc.get_node_or_null("BubbleMarker")
 
@@ -64,10 +74,10 @@ func _on_body_entered(body):
 				npc.data.dialogic_character,
 				bubble_marker
 			)
-		
+
 	if global.player and global.player.has_method("register_dialogic"):
 		global.player.register_dialogic(dialogic_layout)
-	
+
 	await get_tree().process_frame
 
 func pan_to_cutscene_camera():
@@ -167,6 +177,16 @@ func _on_cutscene_finished():
 		global.player.can_move = true
 		global.player.is_cutscene_moving = false
 		global.player.velocity = Vector2.ZERO
+
+	# --------------------------------------------------------
+	# MARK CUTSCENE AS COMPLETED
+	# --------------------------------------------------------
+	if trigger_once and not cutscene_id.is_empty():
+		SaveManager.complete_cutscene(cutscene_id)
+
+		await SaveManager.auto_save(
+			"Completed cutscene: " + cutscene_id
+		)
 
 	print("Cutscene finished.")
 

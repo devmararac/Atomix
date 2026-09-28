@@ -38,7 +38,7 @@ func craft(recipe: CraftingRecipe) -> bool:
 	InventoryManager.remove_item_by_id("atomic_core", recipe.atomic_core_cost)
 
 	# Let PartyManager create and initialize the AtomonInstance.
-	var atomon := PartyManager.add_species(recipe.result)
+	var atomon: AtomonInstance = PartyManager.add_species(recipe.result)
 
 	if atomon == null:
 		print("Failed to add Atomon to party.")

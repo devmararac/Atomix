@@ -755,7 +755,7 @@ func _on_player_fainted() -> void:
 
 	print("[BattleUI] Saving battle state after defeat...")
 
-	var battle_save_success := await SaveManager.auto_save_battle_state(
+	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
 		"Battle defeat: all Atomons fainted"
 	)
 
@@ -928,7 +928,7 @@ func _on_enemy_fainted() -> void:
 		"[BattleUI] Requesting battle auto-save..."
 	)
 
-	var battle_save_success := await SaveManager.auto_save_battle_state(
+	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
 		"Battle victory: +"
 		+ str(battle_reward)
 		+ " coins and material rewards"
@@ -952,7 +952,7 @@ func _on_enemy_fainted() -> void:
 
 	await get_tree().create_timer(1.0).timeout
 
-	var remaining := count_remaining_atomons()
+	var remaining: int = count_remaining_atomons()
 
 	show_battle_summary(
 		"Victory",
@@ -1170,7 +1170,7 @@ func _on_run_pressed() -> void:
 		"[BattleUI] Saving battle state after escape..."
 	)
 
-	var battle_save_success := await SaveManager.auto_save_battle_state(
+	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
 		"Battle escaped: saving Atomon state"
 	)
 
@@ -1192,7 +1192,7 @@ func _on_run_pressed() -> void:
 	# Show escaped summary
 	# --------------------------------------------------------
 
-	var remaining := count_remaining_atomons()
+	var remaining: int = count_remaining_atomons()
 
 	show_battle_summary(
 		"Escaped",
@@ -1298,19 +1298,19 @@ func _on_fusion_pressed() -> void:
 	# Check if the active Atomon can use any Fusion.
 	# --------------------------------------------------------
 
-	var available_fusions := (
+	var available_fusions: Array[FusionRecipe] = (
 		FusionManager.get_available_fusion_recipes()
 	)
 
 	if available_fusions.is_empty():
 
-		var active_atomon := (
+		var active_atomon: AtomonInstance = (
 			PartyManager.get_active_atomon()
 		)
 
 		if active_atomon != null and active_atomon.data != null:
 
-			var active_symbol := (
+			var active_symbol: String = (
 				active_atomon.data.chemical_symbol
 			)
 

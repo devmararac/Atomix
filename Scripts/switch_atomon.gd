@@ -88,7 +88,7 @@ func _ready() -> void:
 	# Battle switching must use the first 5 carried Atomons.
 	# --------------------------------------------------------
 
-	var battle_party := PartyManager.get_battle_party()
+	var battle_party: Array[AtomonInstance] = PartyManager.get_battle_party()
 
 	for i in range(slots.size()):
 
@@ -127,7 +127,7 @@ func _on_hp_changed() -> void:
 
 func refresh_slots() -> void:
 
-	var battle_party := PartyManager.get_battle_party()
+	var battle_party: Array[AtomonInstance] = PartyManager.get_battle_party()
 
 	for i in range(slots.size()):
 
@@ -160,7 +160,7 @@ func _on_stats_changed() -> void:
 
 func _on_slot_clicked(index: int) -> void:
 
-	var battle_party := PartyManager.get_battle_party()
+	var battle_party: Array[AtomonInstance] = PartyManager.get_battle_party()
 
 	# --------------------------------------------------------
 	# Safety check

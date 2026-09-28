@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cpjbrhj3kah6b" path="res://Assets/UX/Icons/arrow_up-1.png" id="7_j7sc1"]
 [ext_resource type="Texture2D" uid="uid://cjhxs40ndhss4" path="res://Assets/UX/HUD/mini_map.png" id="8_02vcs"]
 [ext_resource type="PackedScene" uid="uid://dmqd2wojxfyoi" path="res://Scenes/Pickables/PickItem.tscn" id="8_qt3q3"]
-[ext_resource type="Resource" uid="uid://b7lxvkp5cxt6f" path="res://Resources/Items/Letter.tres" id="9_hbq4a"]
+[ext_resource type="Resource" uid="uid://b7lxvkp5cxt6f" path="res://Resources/Items/QuestItems/Letter.tres" id="9_hbq4a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_17dvw"]
 texture = ExtResource("1_loj1x")

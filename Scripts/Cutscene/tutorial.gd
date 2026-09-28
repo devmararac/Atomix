@@ -79,6 +79,14 @@ func _ready() -> void:
 )
 
 func _process(delta: float) -> void:
+	print(
+		"[DIANNE DEBUG] ",
+		"Animation=", dianne.sprite.animation,
+		" | Playing=", dianne.sprite.is_playing(),
+		" | Frame=", dianne.sprite.frame,
+		" | Velocity=", dianne.velocity,
+		" | Joystick=", dianne.joystick_controlled
+	)
 	if joystick_tutorial_active:
 		minimap.visible = false
 	
@@ -272,8 +280,10 @@ func complete_joystick_tutorial() -> void:
 	# Dianne is no longer controllable
 	dianne.joystick_controlled = false
 	dianne.velocity = Vector2.ZERO
-	dianne.sprite.play("idle")
-	
+
+	# Allow scripted walking while the current dialogue layout is still active
+	dianne.dialogue_active = false
+
 	await walk_dianne_back()
 	
 	# Start Part 2

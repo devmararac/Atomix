@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bj22gacek1ub7"]
 
 [ext_resource type="Script" uid="uid://ck5456nb0p4vs" path="res://Scripts/Quest/QuestItem.gd" id="1_ftxbf"]
-[ext_resource type="Texture2D" uid="uid://b4rmf7s45j5gv" path="res://Assets/UX/Items/Item_set_1.png" id="1_p344h"]
+[ext_resource type="Texture2D" uid="uid://b4rmf7s45j5gv" path="res://Assets/UX/Items/Crafting/CRAFT_ITEM_REQ/Item_set_1.png" id="1_p344h"]
 [ext_resource type="Texture2D" uid="uid://dwt00aq1b4scn" path="res://Assets/UX/Icons/indicator_bounce - Copy.png" id="3_igc33"]
 [ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="3_ohqdc"]
 

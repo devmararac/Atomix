@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dpjnxs1d4138e"]
+
+[ext_resource type="Texture2D" uid="uid://cn2pey2fm8vq4" path="res://Assets/UX/Items/Crafting/ATOMON_REQ/neutron.png" id="1_cksit"]
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="2_woss8"]
+
+[resource]
+script = ExtResource("2_woss8")
+item_id = "neutron"
+item_name = "Neutron"
+description = "A neutral subatomic particle used to construct an atom's nucleus. The number of neutrons contributes to an atom's mass number.  Neutron are used to complete an atom during Atomon crafting."
+icon = ExtResource("1_cksit")
+buy_price = 5
+sell_price = 2
+category = 4
+crafting_recipe = true
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

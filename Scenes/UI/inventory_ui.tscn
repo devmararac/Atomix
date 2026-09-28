@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="7_2v6ut"]
 [ext_resource type="Texture2D" uid="uid://drweuyyjw3rcg" path="res://Assets/UX/HUD/dialog_1.png" id="8_366ti"]
 [ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="8_mejda"]
-[ext_resource type="Texture2D" uid="uid://wn1428hjddjs" path="res://Assets/UX/Items/coin.png" id="9_366ti"]
+[ext_resource type="Texture2D" uid="uid://wn1428hjddjs" path="res://Assets/UX/Items/Key Items/coin.png" id="9_366ti"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kyjlm"]
 texture = ExtResource("2_o62ck")

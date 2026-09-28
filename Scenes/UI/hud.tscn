@@ -25,8 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://b0deicj16u8gm" path="res://Assets/UX/HUD/close.png" id="21_y7nnf"]
 [ext_resource type="Texture2D" uid="uid://cq0wtxqc848xe" path="res://Assets/UX/HUD/close_pressed.png" id="22_yv5wq"]
 [ext_resource type="AudioStream" uid="uid://nc0rgldh1q75" path="res://Assets/Music/SFX/click.wav" id="25_n5w8m"]
+[ext_resource type="Texture2D" uid="uid://4gkicblfys6k" path="res://Assets/UX/HUD/Panels/slot_big_pressed.png" id="26_yxyk2"]
 [ext_resource type="Script" uid="uid://r2e52tv6o0w4" path="res://Scripts/hot_bar.gd" id="27_yxyk2"]
-[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="28_q8e8b"]
 [ext_resource type="PackedScene" uid="uid://b7216b326p7rv" path="res://Scenes/UI/item_slot.tscn" id="29_f1jpe"]
 [ext_resource type="Texture2D" uid="uid://e684byx18ghc" path="res://Assets/UX/HUD/Panels/slot - Copy.png" id="30_mgdch"]
 [ext_resource type="Texture2D" uid="uid://c1ci74yagfgra" path="res://Assets/UX/HUD/Panels/slot_pressed - Copy.png" id="31_k32gu"]
@@ -59,7 +59,7 @@ texture = ExtResource("22_yv5wq")
 texture = ExtResource("21_y7nnf")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yl4g0"]
-texture = ExtResource("28_q8e8b")
+texture = ExtResource("26_yxyk2")
 texture_margin_left = 9.0
 texture_margin_right = 9.0
 
@@ -340,15 +340,14 @@ stream = ExtResource("25_n5w8m")
 volume_db = -18.2
 
 [node name="HotBar" type="Panel" parent="." unique_id=897005149]
-anchors_preset = -1
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.9
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.9
-offset_left = -473.0
-offset_top = -59.0
-offset_right = 472.0
-offset_bottom = 59.0
+anchor_bottom = 1.0
+offset_left = -474.0
+offset_top = -131.0
+offset_right = 474.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_yl4g0")

@@ -1,5 +1,7 @@
 extends Control
 
+const MINIGAMES_SCENE = preload("res://Scenes/UI/minigames.tscn")
+
 @onready var auth_panel = $AuthPanel
 @onready var buttons_start = $Panel/Start
 @onready var buttons_cont = $Panel/Continue
@@ -207,3 +209,7 @@ func _input(event: InputEvent) -> void:
 		return
 
 	atomix_keyboard.hide_keyboard()
+
+func _on_button_pressed() -> void:
+	var minigames = MINIGAMES_SCENE.instantiate()
+	add_child(minigames)

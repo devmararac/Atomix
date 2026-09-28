@@ -50,6 +50,8 @@ func apply_selected_character() -> void:
 		)
 
 func _ready() -> void:
+	direction = Vector2.ZERO
+	velocity = Vector2.ZERO
 	apply_selected_character()
 
 	call_deferred("apply_spawn")

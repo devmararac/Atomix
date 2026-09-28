@@ -2,6 +2,8 @@ extends Node
 
 var save_data: SaveData = null
 
+var completed_cutscenes: Dictionary = {}
+
 # ============================================================
 # SAVED CARRIED PARTY
 # ============================================================
@@ -207,9 +209,9 @@ func auto_save_battle_state(reason: String = "") -> bool:
 		if atomon.data == null:
 			continue
 
-		var atomon_dict := (
-			atomon.to_save_dict()
-		)
+		var atomon_dict: Dictionary = (
+		atomon.to_save_dict()
+	)
 
 		if atomon_dict.is_empty():
 			continue
@@ -257,9 +259,9 @@ func auto_save_battle_state(reason: String = "") -> bool:
 		if item == null:
 			continue
 
-		var item_dict := (
-			item.to_save_dict()
-		)
+		var item_dict: Dictionary = (
+		item.to_save_dict()
+	)
 
 		if item_dict.is_empty():
 			continue
@@ -996,6 +998,33 @@ func save_game() -> void:
 
 
 # ============================================================
+# CUTSCENE STATE
+# ============================================================
+
+func is_cutscene_completed(cutscene_id: String) -> bool:
+	if cutscene_id.is_empty():
+		return false
+
+	return completed_cutscenes.has(cutscene_id)
+
+
+func complete_cutscene(cutscene_id: String) -> void:
+	if cutscene_id.is_empty():
+		return
+
+	completed_cutscenes[cutscene_id] = true
+
+	print(
+		"[SaveManager] Cutscene completed: ",
+		cutscene_id
+	)
+
+
+func clear_completed_cutscenes() -> void:
+	completed_cutscenes.clear()
+
+
+# ============================================================
 # SYNC COLLECTED ELEMENTS FROM CURRENT PARTY
 # ============================================================
 
@@ -1173,9 +1202,9 @@ func load_game() -> void:
 
 	FusionManager.print_party_element_counts()
 
-	var h2o_recipe := FusionManager.get_recipe_by_formula(
+	var h2o_recipe: FusionRecipe = FusionManager.get_recipe_by_formula(
 		"H2O"
-	)
+		)
 
 	if h2o_recipe != null:
 
@@ -1478,7 +1507,10 @@ func upload_to_firebase() -> bool:
 			firebase_inventory,
 
 		"quest_data":
-			save_data.quest_data
+			save_data.quest_data,
+
+		"completed_cutscenes":
+			completed_cutscenes.duplicate(true)
 	}
 
 	# ========================================================
@@ -1959,6 +1991,27 @@ func download_from_firebase() -> bool:
 		)
 
 	# ========================================================
+	# CUTSCENES
+	# ========================================================
+
+	var firebase_cutscenes = (
+		game_state.get(
+			"completed_cutscenes",
+			{}
+		)
+	)
+
+	if firebase_cutscenes is Dictionary:
+		completed_cutscenes = firebase_cutscenes.duplicate(true)
+	else:
+		completed_cutscenes.clear()
+
+	print(
+		"[SaveManager] Completed cutscenes loaded: ",
+		completed_cutscenes
+	)
+
+	# ========================================================
 	# QUESTS
 	# ========================================================
 
@@ -2204,9 +2257,9 @@ func _restore_carried_party() -> void:
 
 		return
 
-	var success := PartyManager.set_carried_party(
+	var success: bool = PartyManager.set_carried_party(
 		restored_carried_party
-	)
+		)
 
 	if success:
 

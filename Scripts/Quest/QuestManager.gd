@@ -38,6 +38,9 @@ var tracked_quest: Quest = null
 func _ready():
 	Dialogic.signal_event.connect(_on_dialogic_signal)
 
+func refresh_npc_quest_indicators() -> void:
+	NpcManager.refresh_quest_indicators()
+
 func _on_dialogic_signal(argument: String):
 
 	if argument.begins_with("quest_accept:"):
@@ -71,7 +74,7 @@ func accept_quest(quest_id: String) -> void:
 
 	quest_updated.emit(quest.quest_id)
 	quest_list_updated.emit()
-
+	refresh_npc_quest_indicators()
 	# ========================================================
 	# QUEST ACCEPTANCE SAVE
 	# ========================================================
@@ -324,6 +327,7 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> voi
 
 			if quest.is_completed():
 				handle_quest_completion(quest)
+		refresh_npc_quest_indicators()
 
 
 # ============================================================
@@ -460,3 +464,4 @@ func load_save_data(data: Dictionary) -> void:
 		tracked_quest_changed.emit(tracked_quest)
 
 	quest_list_updated.emit()
+	refresh_npc_quest_indicators()

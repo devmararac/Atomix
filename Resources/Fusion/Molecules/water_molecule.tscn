@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://dmapjrkc32es6"]
+
+[ext_resource type="Script" uid="uid://d1gypbkau0my2" path="res://Resources/Fusion/Molecules/water_molecule.gd" id="1_8qvd5"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_font"]
+[ext_resource type="PackedScene" uid="uid://cddxp0oc6umqk" path="res://Resources/Fusion/fusion_molecule_slot.tscn" id="2_slot"]
+
+[node name="WaterMolecule" type="Control" unique_id=795646655]
+custom_minimum_size = Vector2(680, 430)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_8qvd5")
+
+[node name="MoleculeTitle" type="Label" parent="." unique_id=170940168]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 680.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0.95686275, 0.94509804, 0.9019608, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 24
+text = "MOLECULAR FORMATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Formula" type="Label" parent="." unique_id=769720900]
+layout_mode = 0
+offset_top = 46.0
+offset_right = 680.0
+offset_bottom = 78.0
+theme_override_colors/font_color = Color(0.95686275, 0.94509804, 0.9019608, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 20
+text = "H₂O  •  WATER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BondLeft" type="Line2D" parent="." unique_id=130292404]
+position = Vector2(47.98529, 32.967743)
+scale = Vector2(0.8088235, 0.61290324)
+points = PackedVector2Array(265.83636, 252.94736, 311, 212)
+width = 8.0
+default_color = Color(0.78, 0.72, 0.58, 0.9)
+antialiased = true
+
+[node name="BondRight" type="Line2D" parent="." unique_id=875411932]
+position = Vector2(0, -70)
+points = PackedVector2Array(381, 233, 416, 259)
+width = 8.0
+default_color = Color(0.78, 0.72, 0.58, 0.9)
+antialiased = true
+
+[node name="HydrogenSlot01" parent="." unique_id=1118239231 instance=ExtResource("2_slot")]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 174.0
+offset_right = 280.0
+offset_bottom = 264.0
+required_element = "H"
+
+[node name="ElementLabel2" type="Label" parent="HydrogenSlot01" unique_id=1428132851]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.95686275, 0.94509804, 0.9019608, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 24
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OxygenSlot" parent="." unique_id=687832228 instance=ExtResource("2_slot")]
+layout_mode = 0
+offset_left = 295.0
+offset_top = 104.0
+offset_right = 385.0
+offset_bottom = 194.0
+required_element = "O"
+
+[node name="ElementLabel2" type="Label" parent="OxygenSlot" unique_id=32366055]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.95686275, 0.94509804, 0.9019608, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 24
+text = "O"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HydrogenSlot02" parent="." unique_id=387613728 instance=ExtResource("2_slot")]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 174.0
+offset_right = 490.0
+offset_bottom = 264.0
+required_element = "H"
+
+[node name="ElementLabel2" type="Label" parent="HydrogenSlot02" unique_id=955506661]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.95686275, 0.94509804, 0.9019608, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 24
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="." unique_id=658201645]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 269.0
+offset_right = 640.0
+offset_bottom = 309.0
+theme_override_colors/font_color = Color(0.95686275, 0.94509804, 0.9019608, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 16
+text = "Drag the required Atomons into their corresponding positions."
+horizontal_alignment = 1
+vertical_alignment = 1

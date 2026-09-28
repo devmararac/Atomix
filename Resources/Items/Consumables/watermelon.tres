@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bjyqjvbh7juja"]
+
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="1_6qmjg"]
+[ext_resource type="Texture2D" uid="uid://beoni678ptekk" path="res://Assets/UX/Items/Consumables/watermelon.png" id="1_ibb3a"]
+
+[resource]
+script = ExtResource("1_6qmjg")
+item_id = "watermelon"
+item_name = "Watermelon"
+description = "A large, juicy fruit with a sweet, refreshing flavor. Its high water content makes it perfect for cooling down and restoring energy."
+icon = ExtResource("1_ibb3a")
+buy_price = 30
+sell_price = 15
+category = 1
+consumable = true
+metadata/_custom_type_script = "uid://c5udixdhxp1jw"

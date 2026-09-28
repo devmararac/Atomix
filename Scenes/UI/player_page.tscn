@@ -101,13 +101,14 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_85sk6")
 [node name="ScrollContainer" type="ScrollContainer" parent="PlayerPage/PlayerInfoPanel" unique_id=173362768]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.689
+anchor_left = 0.07
+anchor_top = 0.665
 anchor_right = 0.96000004
-anchor_bottom = 0.92200005
-offset_left = 71.0
-offset_top = 0.18899536
+anchor_bottom = 0.91800004
+offset_left = 0.019996643
+offset_top = 0.16497803
 offset_right = -0.44006348
-offset_bottom = -0.07803345
+offset_bottom = -0.08203125
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerPage/PlayerInfoPanel/ScrollContainer" unique_id=1537632159]
 layout_mode = 2
