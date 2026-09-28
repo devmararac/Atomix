@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://dnn7v1x53mvlo"]
 
 [ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_80ovh"]
-[ext_resource type="Resource" uid="uid://1s83vhkm1bd2" path="res://Resources/Atomons/hydrogen.tres" id="2_brka4"]
+[ext_resource type="Resource" uid="uid://1s83vhkm1bd2" path="res://Resources/Atomons/Hydrogen.tres" id="2_brka4"]
 [ext_resource type="Resource" uid="uid://cvxtapb2pn0tj" path="res://Resources/Atomons/Chlorine.tres" id="3_5vl37"]
 [ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="4_4iv6q"]
 

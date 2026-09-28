@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://hbbit8d0mfqm"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_font"]
+[ext_resource type="Script" uid="uid://b1b0kg8vnfaun" path="res://Resources/Fusion/Molecules/generic_molecule.gd" id="1_lunyi"]
+
+[node name="GenericMolecule" type="Control" unique_id=1188378]
+custom_minimum_size = Vector2(460, 280)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 742.0
+offset_bottom = 368.0
+mouse_filter = 2
+script = ExtResource("1_lunyi")
+
+[node name="MoleculeTitle" type="Label" parent="." unique_id=1884980001]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.95686275, 0.94509804, 0.9019608, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 20
+text = "MOLECULAR FORMATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Formula" type="Label" parent="." unique_id=1192171577]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 742.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.95686275, 0.94509804, 0.9019608, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 17
+text = "MOLECULE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoleculeScroll" type="ScrollContainer" parent="." unique_id=1875329104]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 60.0
+offset_right = 752.0
+offset_bottom = 278.0
+mouse_filter = 0
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 2
+
+[node name="MoleculeContent" type="Control" parent="MoleculeScroll" unique_id=1875329105]
+custom_minimum_size = Vector2(742, 500)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BondContainer" type="Control" parent="MoleculeScroll/MoleculeContent" unique_id=1875329106]
+anchors_preset = 0
+offset_right = 742.0
+offset_bottom = 500.0
+mouse_filter = 2
+
+[node name="SlotContainer" type="Control" parent="MoleculeScroll/MoleculeContent" unique_id=1875329107]
+anchors_preset = 0
+offset_right = 742.0
+offset_bottom = 500.0
+mouse_filter = 2
+
+[node name="Hint" type="Label" parent="." unique_id=1074400780]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 285.0
+offset_right = 752.0
+offset_bottom = 310.0
+theme_override_colors/font_color = Color(0.95686275, 0.94509804, 0.9019608, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 17
+text = "Drag the required Atomons into their corresponding positions."
+horizontal_alignment = 1
+vertical_alignment = 1

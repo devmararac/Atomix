@@ -19,7 +19,8 @@ const FUSION_RECIPE_RESOURCES: Array[Resource] = [
 	preload("res://Resources/Fusion/C2H4.tres"),
 	preload("res://Resources/Fusion/C3H4.tres"),
 	preload("res://Resources/Fusion/C2H6.tres"),
-	preload("res://Resources/Fusion/H2.tres")
+	preload("res://Resources/Fusion/H2.tres"),
+	preload("res://Resources/Fusion/HCL.tres")
 ]
 
 

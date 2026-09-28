@@ -64,6 +64,7 @@ var bond_type: String = "Covalent"
 @export_group("Skill Fusion")
 
 # Name of the Fusion Skill.
+@export var fusion_skill_id: String = ""
 @export var fusion_skill_name: String = ""
 
 # Base damage of the Fusion Skill.
