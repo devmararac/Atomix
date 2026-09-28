@@ -63,9 +63,13 @@ var bond_type: String = "Covalent"
 
 @export_group("Skill Fusion")
 
-# Name of the Fusion Skill.
+# Name/ID of the Fusion Skill.
 @export var fusion_skill_id: String = ""
 @export var fusion_skill_name: String = ""
+
+# Button used to display the Fusion Skill.
+@export var button_texture_normal: Texture2D
+@export var button_texture_pressed: Texture2D
 
 # Base damage of the Fusion Skill.
 @export var fusion_damage: int = 0

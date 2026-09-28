@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://dnn7v1x53mvlo"]
 
+[ext_resource type="Texture2D" uid="uid://dkmjubbd065y8" path="res://Assets/UX/Buttons/SkillButtons/acid_splash.png" id="1_5vl37"]
 [ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_80ovh"]
+[ext_resource type="Texture2D" uid="uid://dctmm5er2arb5" path="res://Assets/UX/Buttons/SkillButtons/acid_splash_pressed.png" id="2_4iv6q"]
 [ext_resource type="Resource" uid="uid://1s83vhkm1bd2" path="res://Resources/Atomons/Hydrogen.tres" id="2_brka4"]
 [ext_resource type="Resource" uid="uid://cvxtapb2pn0tj" path="res://Resources/Atomons/Chlorine.tres" id="3_5vl37"]
 [ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="4_4iv6q"]
@@ -22,6 +24,8 @@ compound_name = "Hydrochloric Acid"
 chemical_formula = "HCl"
 fusion_skill_id = "acid_splash"
 fusion_skill_name = "Acid Splash"
+button_texture_normal = ExtResource("1_5vl37")
+button_texture_pressed = ExtResource("2_4iv6q")
 fusion_damage = 100
 damage_per_atomon = 15
 octet_rule_explanation = "Hydrogen has 1 valence electron and needs 1 more electron to complete its first shell. Chlorine has 7 valence electrons and needs 1 more electron to complete its outer shell. Hydrogen and chlorine share one pair of electrons, forming a single covalent bond. Through this sharing, Hydrogen achieves 2 electrons in its first shell and Chlorine achieves 8 electrons in its outer shell. This follows the Octet Rule."

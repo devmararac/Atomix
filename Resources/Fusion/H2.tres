@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://bjw2jmtslyrb3"]
 
 [ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_1r7kh"]
+[ext_resource type="Texture2D" uid="uid://crwr8s68mjym2" path="res://Assets/UX/Buttons/SkillButtons/(H+H)HydrogenRush.png" id="1_dryd7"]
 [ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_n5qia"]
 [ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="1_recipe"]
 [ext_resource type="Resource" uid="uid://cjakvshncruuq" path="res://Resources/Atomons/Test/Hydrogen.tres" id="2_b7pdb"]
@@ -16,7 +17,10 @@ script = ExtResource("1_recipe")
 requirements = Array[ExtResource("1_n5qia")]([SubResource("Resource_1r7kh")])
 compound_name = "Hydrogen Gas"
 chemical_formula = "H2"
+fusion_skill_id = "hydrogen_burst"
 fusion_skill_name = "Hydrogen Burst"
+button_texture_normal = ExtResource("1_dryd7")
+button_texture_pressed = ExtResource("1_dryd7")
 fusion_damage = 70
 damage_per_atomon = 20
 projectile_scene = ExtResource("1_1r7kh")

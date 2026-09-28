@@ -32,31 +32,19 @@ func update_skill_button() -> void:
 	if recipe == null:
 		return
 
-	var skill_id := recipe.fusion_skill_id
-
-	if skill_id.is_empty():
+	if recipe.fusion_skill_id.is_empty():
 		push_warning(
 			"[RecipeSlot] Recipe has no Fusion Skill ID."
 		)
 		return
 
-	if not FusionSkillDatabase.has_skill(skill_id):
-		push_warning(
-			"[RecipeSlot] Unknown Fusion Skill: " + skill_id
-		)
-		return
+	# Button textures are now stored directly in the
+	# FusionRecipe resource instead of FusionSkillDatabase.
+	if recipe.button_texture_normal != null:
+		texture_normal = recipe.button_texture_normal
 
-	var normal_texture := \
-		FusionSkillDatabase.get_button_texture_normal(skill_id)
-
-	var pressed_texture := \
-		FusionSkillDatabase.get_button_texture_pressed(skill_id)
-
-	if normal_texture != null:
-		texture_normal = normal_texture
-
-	if pressed_texture != null:
-		texture_pressed = pressed_texture
+	if recipe.button_texture_pressed != null:
+		texture_pressed = recipe.button_texture_pressed
 
 
 # ============================================================

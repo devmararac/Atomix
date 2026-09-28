@@ -25,6 +25,53 @@ const SKILLS := {
 				"res://Resources/Fusion/Molecules/water_molecule.tscn"
 			),
 	},
+	
+	"ammonia_cloud": {
+		"display_name": "Ammonia Cloud",
+
+		"button_texture_normal":
+			preload(
+				"res://Assets/UX/Buttons/SkillButtons/(N+H³)AmmoniaCloud.png"
+				
+			),
+
+		"button_texture_pressed":
+			preload(
+				"res://Assets/UX/Buttons/SkillButtons/(N+H³)AmmoniaCloud.png"
+				
+			),
+
+		"molecule_scene":
+			preload(
+				"res://Assets/UX/Buttons/SkillButtons/(N+H³)AmmoniaCloud.png"
+				
+			),
+	},
+	
+	"methane_burst": {
+		"display_name": "Methane Burst",
+
+		"button_texture_normal":
+			preload(
+				"res://Assets/UX/Buttons/SkillButtons/(C+H⁴)MethaneBurst.png"
+				
+				
+			),
+
+		"button_texture_pressed":
+			preload(
+				"res://Assets/UX/Buttons/SkillButtons/(C+H⁴)MethaneBurst.png"
+				
+				
+			),
+
+		"molecule_scene":
+			preload(
+				"res://Assets/UX/Buttons/SkillButtons/(C+H⁴)MethaneBurst.png"
+				
+				
+			),
+	},
 
 	"acid_splash": {
 		"display_name": "Acid Splash",

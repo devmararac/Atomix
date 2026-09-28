@@ -1,8 +1,10 @@
 [gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://ced2irep1xdqt"]
 
 [ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_6c2xq"]
+[ext_resource type="Texture2D" uid="uid://cnmkortpwc51n" path="res://Assets/UX/Buttons/SkillButtons/water_burst.png" id="1_r8gbr"]
 [ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_tjle7"]
 [ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="2_dr8nr"]
+[ext_resource type="Texture2D" uid="uid://0glddfo04ck" path="res://Assets/UX/Buttons/SkillButtons/water_burst_pressed.png" id="2_oudoo"]
 [ext_resource type="Resource" uid="uid://1s83vhkm1bd2" path="res://Resources/Atomons/Hydrogen.tres" id="2_qpu81"]
 [ext_resource type="Resource" uid="uid://bmaldmvsapygf" path="res://Resources/Atomons/Oxygen.tres" id="3_6c2xq"]
 
@@ -24,6 +26,8 @@ compound_name = "Water"
 chemical_formula = "H2O"
 fusion_skill_id = "water_burst"
 fusion_skill_name = "Water Burst"
+button_texture_normal = ExtResource("1_r8gbr")
+button_texture_pressed = ExtResource("2_oudoo")
 fusion_damage = 85
 projectile_scene = ExtResource("1_6c2xq")
 octet_rule_explanation = "Oxygen has 6 valence electrons and needs 2 more electrons to complete its outer shell. Each Hydrogen atom has 1 valence electron and needs 1 more to fill its first shell. Two Hydrogen atoms share electrons with one Oxygen atom, forming two covalent bonds. Through this sharing, Hydrogen achieves a stable first shell with 2 electrons, while Oxygen achieves a stable outer shell with 8 electrons. This follows the Octet Rule."

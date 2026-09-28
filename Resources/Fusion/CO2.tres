@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://cqmuy8bovwluh"]
 
+[ext_resource type="Texture2D" uid="uid://cujthofxw6qo1" path="res://Assets/UX/Buttons/SkillButtons/(C+O²)CO2Gas.png" id="1_1faal"]
 [ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_projectile"]
 [ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="2_requirement"]
 [ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="3_recipe"]
@@ -22,7 +23,10 @@ script = ExtResource("3_recipe")
 requirements = Array[ExtResource("2_requirement")]([SubResource("Resource_carbon"), SubResource("Resource_oxygen")])
 compound_name = "Carbon Dioxide"
 chemical_formula = "CO2"
+fusion_skill_id = "carbon_burst"
 fusion_skill_name = "Carbon Burst"
+button_texture_normal = ExtResource("1_1faal")
+button_texture_pressed = ExtResource("1_1faal")
 fusion_damage = 85
 projectile_scene = ExtResource("1_projectile")
 octet_rule_explanation = "Carbon has 4 valence electrons and needs 4 more electrons to complete its octet. Each Oxygen atom has 6 valence electrons and needs 2 more electrons. Carbon and two Oxygen atoms share electrons, forming two double covalent bonds. Through this sharing, Carbon and each Oxygen atom achieve stable outer electron shells."

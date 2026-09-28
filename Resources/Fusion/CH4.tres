@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://crqqj4tio1sn5"]
 
+[ext_resource type="Texture2D" uid="uid://cdjcnbf71psxk" path="res://Assets/UX/Buttons/SkillButtons/(C+H⁴)MethaneBurst.png" id="1_e5t2s"]
 [ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="1_recipe"]
 [ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_tc4k7"]
 [ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_w7e0h"]
@@ -22,7 +23,10 @@ script = ExtResource("1_recipe")
 requirements = Array[ExtResource("1_tc4k7")]([SubResource("Resource_w7e0h"), SubResource("Resource_e5t2s")])
 compound_name = "Methane"
 chemical_formula = "CH4"
+fusion_skill_id = "methane_burst"
 fusion_skill_name = "Methane Burst"
+button_texture_normal = ExtResource("1_e5t2s")
+button_texture_pressed = ExtResource("1_e5t2s")
 fusion_damage = 100
 damage_per_atomon = 20
 projectile_scene = ExtResource("1_w7e0h")

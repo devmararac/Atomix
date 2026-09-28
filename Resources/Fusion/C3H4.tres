@@ -23,6 +23,7 @@ script = ExtResource("1_recipe")
 requirements = Array[ExtResource("1_pu7oe")]([SubResource("Resource_y0jgy"), SubResource("Resource_2gx44")])
 compound_name = "Propyne"
 chemical_formula = "C3H4"
+fusion_skill_id = "propyne_burst"
 fusion_skill_name = "Propyne Burst"
 fusion_damage = 120
 damage_per_atomon = 20

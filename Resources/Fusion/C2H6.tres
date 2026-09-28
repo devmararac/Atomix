@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="FusionRecipe" format=3 uid="uid://4q5p3tdxy63n"]
 
+[ext_resource type="Texture2D" uid="uid://brpwrltn64qi0" path="res://Assets/UX/Buttons/SkillButtons/(C2+H6)EthaneFlame.png" id="1_j4d6o"]
 [ext_resource type="Script" uid="uid://jx3pgq7p2xsx" path="res://Resources/Scripts/FusionElementRequirement.gd" id="1_padf8"]
 [ext_resource type="Script" uid="uid://5xhwjx66wmcw" path="res://Resources/Scripts/FusionRecipe.gd" id="1_recipe"]
 [ext_resource type="PackedScene" uid="uid://6ybvy0icfy1h" path="res://Resources/SkillAnimations/FusionSkills/H2O.tscn" id="1_u2mc8"]
@@ -23,7 +24,10 @@ script = ExtResource("1_recipe")
 requirements = Array[ExtResource("1_padf8")]([SubResource("Resource_u2mc8"), SubResource("Resource_j4d6o")])
 compound_name = "Ethane"
 chemical_formula = "C2H6"
+fusion_skill_id = "ethane_burst"
 fusion_skill_name = "Ethane Burst"
+button_texture_normal = ExtResource("1_j4d6o")
+button_texture_pressed = ExtResource("1_j4d6o")
 fusion_damage = 70
 damage_per_atomon = 20
 projectile_scene = ExtResource("1_u2mc8")

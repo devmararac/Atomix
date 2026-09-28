@@ -9,6 +9,7 @@ script = ExtResource("1_recipe")
 compound_name = "Sodium Chloride"
 chemical_formula = "NaCl"
 bond_type = "Ionic"
+fusion_skill_id = "salt_burst"
 fusion_skill_name = "Salt Burst"
 fusion_damage = 80
 damage_per_atomon = 20
