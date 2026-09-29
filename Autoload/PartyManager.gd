@@ -1,6 +1,5 @@
 extends Node
 
-
 # ============================================================
 # PARTY / COLLECTION LIMITS
 # ============================================================
@@ -180,7 +179,7 @@ func load_saved_party() -> void:
 
 	for symbol in symbols:
 
-		if not AtomonDatabase.ELEMENTS.has(symbol):
+		if not AtomonDatabase.has_element(symbol):
 
 			print(
 				"[PartyManager] No element data for: ",
@@ -190,7 +189,7 @@ func load_saved_party() -> void:
 			continue
 
 		var species: AtomonData = (
-			AtomonDatabase.ELEMENTS[symbol]
+			AtomonDatabase.get_element(symbol)
 		)
 
 		if species == null:
@@ -250,7 +249,7 @@ func load_saved_collection(saved_collection: Array) -> void:
 		if chemical_symbol.is_empty():
 			continue
 
-		if not AtomonDatabase.ELEMENTS.has(
+		if not AtomonDatabase.has_element(
 			chemical_symbol
 		):
 
@@ -262,9 +261,9 @@ func load_saved_collection(saved_collection: Array) -> void:
 			continue
 
 		var species: AtomonData = (
-			AtomonDatabase.ELEMENTS[
+			AtomonDatabase.get_element(
 				chemical_symbol
-			]
+			)
 		)
 
 		if species == null:

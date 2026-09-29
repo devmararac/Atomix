@@ -14,7 +14,7 @@ const ELEMENTS := {
 	"F": preload("res://Resources/Atomons/Fluorine.tres"),
 	"Ga": preload("res://Resources/Atomons/Gallium.tres"),
 	"He": preload("res://Resources/Atomons/helium.tres"),
-	"H": preload("res://Resources/Atomons/hydrogen.tres"),
+	"H": preload("res://Resources/Atomons/Hydrogen.tres"),
 	"Fe": preload("res://Resources/Atomons/Iron.tres"),
 	"Li": preload("res://Resources/Atomons/lithium.tres"),
 	"Hg": preload("res://Resources/Atomons/Mercury.tres"),
@@ -26,5 +26,11 @@ const ELEMENTS := {
 	#"W": preload("res://Resources/Atomons/Tungsten.tres"),
 }
 
+static func get_element(symbol: String) -> AtomonData:
+	return ELEMENTS.get(symbol, null)
+
+
+static func has_element(symbol: String) -> bool:
+	return ELEMENTS.has(symbol)
 
 #"": preload(),
