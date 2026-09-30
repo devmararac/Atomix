@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cuwc0p51ebvvr" path="res://Assets/UX/HUD/Panels/leaderboard_banners.png" id="5_yf6ji"]
 [ext_resource type="PackedScene" uid="uid://djl5rm1snk3f1" path="res://Scenes/UI/rank_slot.tscn" id="6_7ajj7"]
 [ext_resource type="Texture2D" uid="uid://mx5g2wjcrjij" path="res://Assets/UX/HUD/Panels/big.png" id="7_r85ew"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="9_pdq5e"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="10_xb4b2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ujo2p"]
 texture = ExtResource("1_bl5mr")
@@ -116,7 +118,7 @@ popup/item_2/id = 2
 popup/item_3/text = "Quiz Score"
 popup/item_3/id = 3
 
-[node name="Secttion" type="HBoxContainer" parent="Panel" unique_id=1268163730]
+[node name="Section" type="HBoxContainer" parent="Panel" unique_id=1268163730]
 layout_mode = 0
 offset_left = 179.0
 offset_top = 39.0
@@ -125,7 +127,7 @@ offset_bottom = 99.0
 theme_override_constants/separation = 55
 alignment = 1
 
-[node name="SectionLabel" type="Label" parent="Panel/Secttion" unique_id=2062757395]
+[node name="SectionLabel" type="Label" parent="Panel/Section" unique_id=2062757395]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_7ajj7")
@@ -133,7 +135,7 @@ theme_override_font_sizes/font_size = 32
 text = "SECTION:"
 vertical_alignment = 1
 
-[node name="SectionOption" type="OptionButton" parent="Panel/Secttion" unique_id=2023980758]
+[node name="SectionOption" type="OptionButton" parent="Panel/Section" unique_id=2023980758]
 custom_minimum_size = Vector2(280, 52)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -276,9 +278,9 @@ vertical_alignment = 1
 [node name="Name" type="Label" parent="Panel/Details" unique_id=1769597783]
 layout_mode = 0
 offset_left = 22.0
-offset_top = 177.0
+offset_top = 164.0
 offset_right = 744.0
-offset_bottom = 228.0
+offset_bottom = 215.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_7ajj7")
 theme_override_font_sizes/font_size = 50
@@ -289,9 +291,9 @@ vertical_alignment = 1
 [node name="TextureRect" type="TextureRect" parent="Panel/Details" unique_id=370166576]
 layout_mode = 0
 offset_left = 218.0
-offset_top = 237.0
+offset_top = 229.0
 offset_right = 551.0
-offset_bottom = 327.0
+offset_bottom = 319.0
 texture = ExtResource("5_yf6ji")
 
 [node name="Rank" type="Label" parent="Panel/Details/TextureRect" unique_id=452394757]
@@ -310,9 +312,9 @@ vertical_alignment = 1
 [node name="Section" type="Label" parent="Panel/Details" unique_id=2035698431]
 layout_mode = 0
 offset_left = 22.0
-offset_top = 112.0
+offset_top = 104.0
 offset_right = 744.0
-offset_bottom = 155.0
+offset_bottom = 147.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_7ajj7")
 theme_override_font_sizes/font_size = 34
@@ -323,9 +325,10 @@ vertical_alignment = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/Details" unique_id=344925368]
 layout_mode = 0
 offset_left = 25.0
-offset_top = 358.0
+offset_top = 339.0
 offset_right = 738.0
-offset_bottom = 519.0
+offset_bottom = 698.0
+theme_override_constants/separation = 7
 alignment = 1
 
 [node name="AtomonCollected" type="HBoxContainer" parent="Panel/Details/VBoxContainer" unique_id=1177490601]
@@ -484,3 +487,28 @@ theme_override_font_sizes/font_size = 42
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="Panel/Details" unique_id=1688715385]
+layout_mode = 0
+offset_left = 706.0
+offset_top = 32.0
+offset_right = 746.0
+offset_bottom = 72.0
+texture_normal = ExtResource("9_pdq5e")
+texture_pressed = ExtResource("10_xb4b2")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CloseLeaderboard" type="TextureButton" parent="Panel" unique_id=427143118]
+layout_mode = 0
+offset_left = 1916.0
+offset_top = 11.0
+offset_right = 1960.0
+offset_bottom = 57.0
+texture_normal = ExtResource("9_pdq5e")
+texture_pressed = ExtResource("10_xb4b2")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="Panel/Details/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Panel/CloseLeaderboard" to="." method="_on_close_leaderboard_pressed"]

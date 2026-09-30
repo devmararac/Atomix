@@ -7,6 +7,7 @@ const TEACHERS = preload("res://Scenes/Admin/HeadTeacher/teacher_management.tscn
 const STUDENTS = preload("res://Scenes/Admin/students.tscn")
 const QUIZ_MODE = preload("res://Scenes/Admin/Teacher/quiz_management.tscn")
 
+
 @onready var information_panel = $INFORMATIONPANEL
 @onready var selector := $MenuPanel/ColorRect
 
@@ -14,6 +15,10 @@ var current_page: Control
 
 func _ready() -> void:
 	selector.visible = false
+
+	# Check for a new school year before showing admin data.
+	# This archives the previous year's active students once.
+	await SchoolYearManager.ensure_due_student_archives()
 
 	# Automatically open Dashboard when Admin Dashboard loads.
 	var dashboard_button: Control = $MenuPanel/VBoxContainer/DashboardButton
@@ -91,16 +96,15 @@ func _on_students_button_pressed() -> void:
 	show_page(STUDENTS)
 
 
-func _on_progress_button_pressed() -> void:
-	var button = $MenuPanel/VBoxContainer/ProgressButton
+func _on_settings_button_pressed() -> void:
+	var button = $MenuPanel/VBoxContainer/SettingsButton
 
 
 	focus_button(button)
 	move_selector(button)
 
 
-func _on_quiz_mode_button_pressed() -> void:
-	var button = $MenuPanel/VBoxContainer/QuizModeButton
+
 
 
 	focus_button(button)

@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://d17cvfb2mxgms" path="res://Assets/UX/Icons/icon_home.png" id="7_home"]
 [ext_resource type="Texture2D" uid="uid://soomem1fgoff" path="res://Assets/UX/Icons/icon_student.png" id="8_student"]
 [ext_resource type="Texture2D" uid="uid://c74uiphwecd4y" path="res://Assets/UX/Icons/icon_progress.png" id="9_progress"]
-[ext_resource type="Texture2D" uid="uid://dxg7ga6k8m7hs" path="res://Assets/UX/Icons/icon_quiz.png" id="10_quiz"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_AppBar"]
 bg_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
@@ -194,14 +193,14 @@ offset_bottom = 31.0
 texture = ExtResource("8_student")
 expand_mode = 1
 
-[node name="ProgressButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1038759443]
+[node name="SettingsButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1038759443]
 layout_mode = 2
 theme = SubResource("Theme_Button")
 texture_normal = ExtResource("1_atom")
 texture_focused = ExtResource("3_pressed")
 stretch_mode = 0
 
-[node name="ProgressLabel" type="Label" parent="MenuPanel/VBoxContainer/ProgressButton" unique_id=876077217]
+[node name="ProgressLabel" type="Label" parent="MenuPanel/VBoxContainer/SettingsButton" unique_id=876077217]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.608
@@ -214,11 +213,11 @@ offset_bottom = 26.0
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 25
-text = "Progress"
+text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/ProgressButton" unique_id=1004800062]
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/SettingsButton" unique_id=1004800062]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.172
@@ -229,44 +228,6 @@ offset_left = -13.904003
 offset_right = 14.095997
 offset_bottom = 31.0
 texture = ExtResource("9_progress")
-expand_mode = 1
-
-[node name="QuizModeButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1046978382]
-layout_mode = 2
-theme = SubResource("Theme_Button")
-texture_normal = ExtResource("1_atom")
-texture_focused = ExtResource("3_pressed")
-stretch_mode = 0
-
-[node name="QuizModeLabel" type="Label" parent="MenuPanel/VBoxContainer/QuizModeButton" unique_id=1306525501]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.608
-anchor_top = 0.387
-anchor_right = 0.608
-anchor_bottom = 0.387
-offset_left = -75.0
-offset_right = 75.0
-offset_bottom = 26.0
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-theme_override_fonts/font = ExtResource("4_font")
-theme_override_font_sizes/font_size = 25
-text = "QuizMode"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/QuizModeButton" unique_id=1606475398]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.172
-anchor_top = 0.3
-anchor_right = 0.172
-anchor_bottom = 0.3
-offset_left = -22.904003
-offset_top = -5.0
-offset_right = 23.095997
-offset_bottom = 37.0
-texture = ExtResource("10_quiz")
 expand_mode = 1
 
 [node name="CloseButton" type="TextureButton" parent="." unique_id=1398065669]
@@ -300,6 +261,5 @@ offset_bottom = -2.0
 [connection signal="pressed" from="MenuPanel/VBoxContainer/DashboardButton" to="." method="_on_dashboard_button_pressed"]
 [connection signal="pressed" from="MenuPanel/VBoxContainer/TeachersButton" to="." method="_on_teachers_button_pressed"]
 [connection signal="pressed" from="MenuPanel/VBoxContainer/StudentsButton" to="." method="_on_students_button_pressed"]
-[connection signal="pressed" from="MenuPanel/VBoxContainer/ProgressButton" to="." method="_on_progress_button_pressed"]
-[connection signal="pressed" from="MenuPanel/VBoxContainer/QuizModeButton" to="." method="_on_quiz_mode_button_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

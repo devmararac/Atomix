@@ -87,7 +87,10 @@ func _on_profile_pressed() -> void:
 func _on_logout_pressed() -> void:
 	logout_button.disabled = true
 
-	await get_tree().create_timer(0.5).timeout
+	# Explicit logout removes Firebase's saved auth session.
+	AuthManager.logout()
+
+	await get_tree().create_timer(0.2).timeout
 
 	get_tree().change_scene_to_file(
 		"res://Scenes/UI/MainMenu.tscn"

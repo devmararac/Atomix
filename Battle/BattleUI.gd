@@ -756,7 +756,8 @@ func _on_player_fainted() -> void:
 	print("[BattleUI] Saving battle state after defeat...")
 
 	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
-		"Battle defeat: all Atomons fainted"
+		"Battle defeat: all Atomons fainted",
+		"defeat"
 	)
 
 	if battle_save_success:
@@ -931,7 +932,8 @@ func _on_enemy_fainted() -> void:
 	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
 		"Battle victory: +"
 		+ str(battle_reward)
-		+ " coins and material rewards"
+		+ " coins and material rewards",
+		"victory"
 	)
 
 	if battle_save_success:
@@ -1171,7 +1173,8 @@ func _on_run_pressed() -> void:
 	)
 
 	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
-		"Battle escaped: saving Atomon state"
+		"Battle escaped: saving Atomon state",
+		"escape"
 	)
 
 	if battle_save_success:

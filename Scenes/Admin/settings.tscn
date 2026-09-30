@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c6hf6ytc0beei"]
+
+[ext_resource type="Script" uid="uid://3tvtlneb4mu" path="res://Scripts/Admin/settings.gd" id="1_hgefv"]
+[ext_resource type="Texture2D" uid="uid://bvxk12g0m0ty8" path="res://Assets/UX/Buttons/Normal/new_logOUT.png" id="2_uxs0o"]
+[ext_resource type="Texture2D" uid="uid://bevllswym1c25" path="res://Assets/UX/Buttons/On-Pressed/new_logOUT_pressed.png" id="3_ole4d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xlwh"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[node name="Settings" type="Control" unique_id=378063068]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hgefv")
+
+[node name="PageBackground" type="Panel" parent="." unique_id=797063322]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8xlwh")
+
+[node name="LogoutButton" type="TextureButton" parent="PageBackground" unique_id=1576681425]
+layout_mode = 0
+offset_left = 930.0
+offset_top = 585.0
+offset_right = 1185.0
+offset_bottom = 664.0
+texture_normal = ExtResource("2_uxs0o")
+texture_pressed = ExtResource("3_ole4d")
+stretch_mode = 0
+
+[connection signal="pressed" from="PageBackground/LogoutButton" to="." method="_on_logout_button_pressed"]

@@ -4,6 +4,7 @@ const DASHBOARD = preload("res://Scenes/Admin/dashboard.tscn")
 const STUDENTS = preload("res://Scenes/Admin/students.tscn")
 const LESSONS = preload("res://Scenes/Admin/Teacher/lesson_management.tscn")
 const QUIZ_MODE = preload("res://Scenes/Admin/Teacher/quiz_mode.tscn")
+const SETTINGS = preload("res://Scenes/Admin/settings.tscn")
 
 @onready var information_panel = $INFORMATIONPANEL
 @onready var selector := $MenuPanel/ColorRect
@@ -110,3 +111,12 @@ func _on_lesson_button_pressed() -> void:
 		$MenuPanel/VBoxContainer/LessonButton
 	)
 	show_page(LESSONS)
+
+
+func _on_settings_pressed() -> void:
+	var button = $MenuPanel/VBoxContainer/Settings
+	focus_button(button)
+	move_selector(
+		$MenuPanel/VBoxContainer/Settings
+	)
+	show_page(SETTINGS)

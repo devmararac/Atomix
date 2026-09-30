@@ -20,6 +20,7 @@ signal students_imported
 
 var imported_students: Array[Dictionary] = []
 var is_importing: bool = false
+var current_teacher_uid: String = ""
 
 
 # ============================================================
@@ -28,6 +29,13 @@ var is_importing: bool = false
 
 func _ready() -> void:
 	hide()
+
+	current_teacher_uid = AuthManager.get_uid()
+
+	print(
+		"[ImportStudents] Current teacher UID: ",
+		current_teacher_uid
+	)
 
 	import_button.disabled = true
 
@@ -2172,6 +2180,14 @@ func update_existing_student(
 
 		return "unchanged"
 
+	var is_reenrolling := str(existing_student.get("status", "")) == "archived"
+	var enrollment_timestamp := int(existing_student.get("enrolled_at", 0))
+	var archive_timestamp := int(existing_student.get("archive_at", 0))
+
+	if is_reenrolling or enrollment_timestamp <= 0 or archive_timestamp <= 0:
+		enrollment_timestamp = int(Time.get_unix_time_from_system())
+		archive_timestamp = SchoolYearManager.get_archive_timestamp(enrollment_timestamp)
+
 	var user_update := {
 		"name":
 			file_student["name"],
@@ -2181,6 +2197,12 @@ func update_existing_student(
 
 		"school_year":
 			file_student["school_year"],
+
+		"enrolled_at":
+			enrollment_timestamp,
+
+		"archive_at":
+			archive_timestamp,
 
 		"role":
 			"student",
@@ -2225,14 +2247,21 @@ func update_existing_student(
 		"student_id":
 			file_student["student_id"],
 
-		"grade_level":
-			"11",
 
 		"section":
 			file_student["section"],
+			
+		"teacher_id":
+			current_teacher_uid,
 
 		"school_year":
 			file_student["school_year"],
+
+		"enrolled_at":
+			enrollment_timestamp,
+
+		"archive_at":
+			archive_timestamp,
 
 		"status":
 			"active"
@@ -2256,6 +2285,33 @@ func update_existing_student(
 		)
 
 		return "failed"
+		
+	# ========================================================
+	# UPDATE LEADERBOARD INFORMATION
+	# ========================================================
+
+	var leaderboard_update := {
+		"uid": uid,
+		"name": file_student["name"],
+		"section": file_student["section"],
+		"teacher_id": current_teacher_uid,
+		"status": "active"
+	}
+
+	var leaderboard_success := await firestore_patch_document(
+		"leaderboard",
+		uid,
+		leaderboard_update
+	)
+
+	if not leaderboard_success:
+		print(
+			"[ImportStudents] WARNING: Failed to update leaderboard document."
+		)
+	else:
+		print(
+			"[ImportStudents] Leaderboard information updated."
+		)
 
 	print(
 		"[ImportStudents] Student updated successfully: ",
@@ -2298,6 +2354,12 @@ func create_student_document(
 
 		"school_year":
 			school_year,
+
+		"enrolled_at":
+			timestamp,
+
+		"archive_at":
+			SchoolYearManager.get_archive_timestamp(timestamp),
 
 		"created_at":
 			timestamp,
@@ -2348,14 +2410,17 @@ func create_student_document(
 		"student_id":
 			student_id,
 
-		"grade_level":
-			"11",
-
 		"section":
 			section,
 
 		"school_year":
 			school_year,
+
+		"enrolled_at":
+			timestamp,
+
+		"archive_at":
+			SchoolYearManager.get_archive_timestamp(timestamp),
 
 		"status":
 			"active",
@@ -2397,6 +2462,13 @@ func create_student_document(
 
 			"latest_score":
 				0.0
+		},
+
+		"battle_stats": {
+			"battles_played": 0,
+			"battles_won": 0,
+			"battles_lost": 0,
+			"battles_escaped": 0
 		},
 
 		"academic_history":
@@ -2451,6 +2523,57 @@ func create_student_document(
 		"[ImportStudents] Student document created: ",
 		student_name
 	)
+	
+	# ========================================================
+	# CREATE LEADERBOARD DOCUMENT
+	# ========================================================
+
+	var leaderboard = Firebase.Firestore.collection("leaderboard")
+
+	var leaderboard_data := {
+		"uid": uid,
+		"name": student_name,
+		"section": section,
+		"teacher_id": current_teacher_uid,
+		"status": "active",
+
+		"elements_collected": 0,
+		"elements_total": 118,
+
+		"battles_played": 0,
+		"battles_won": 0,
+		"battles_lost": 0,
+		"battles_escaped": 0,
+
+		"win_rate": 0.0,
+
+		"average_quiz_score": 0.0,
+		"completed_quizzes": 0,
+		"total_quizzes": 0,
+
+		"overall_score": 0.0
+	}
+
+	print(
+		"[ImportStudents] Creating leaderboard document..."
+	)
+
+	var leaderboard_document: FirestoreDocument = await leaderboard.add(
+		uid,
+		leaderboard_data
+	)
+
+	if leaderboard_document == null:
+
+		print(
+			"[ImportStudents] WARNING: Failed to create leaderboard document."
+		)
+
+	else:
+
+		print(
+			"[ImportStudents] Leaderboard document created."
+		)
 
 	return true
 

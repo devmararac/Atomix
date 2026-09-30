@@ -5,7 +5,7 @@ signal student_created
 
 @onready var name_input: LineEdit = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/NameInput
 @onready var student_id_input: LineEdit = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/StudentIDInput
-@onready var section_input: LineEdit = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/SectionInput
+@onready var section_input: OptionButton = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/SectionInput
 @onready var email_input: LineEdit = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/EmailInput
 @onready var password_input: LineEdit = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/PasswordInput
 @onready var confirm_password_input: LineEdit = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/ConfirmPasswordInput
@@ -13,9 +13,20 @@ signal student_created
 @onready var cancel_button: Button = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons/CancelButton
 @onready var create_button: Button = $PageBackground/CenterContainer/Panel/MarginContainer/VBoxContainer/Buttons/CreateButton
 
+var assigned_sections: Array = []
+var current_teacher_uid: String = ""
 
 func _ready() -> void:
 	hide()
+
+	current_teacher_uid = AuthManager.get_uid()
+
+	print(
+		"[AddStudent] Current teacher UID: ",
+		current_teacher_uid
+	)
+
+	await _load_teacher_sections()
 	
 # ============================================================
 # FIREBASE AUTH
@@ -134,7 +145,8 @@ func create_student_document(
 	)
 
 	# Change this later to come from the teacher/admin UI.
-	var current_school_year := "2026-2027"
+	var current_school_year := SchoolYearManager.get_school_year_for_timestamp(timestamp)
+	var archive_at := SchoolYearManager.get_archive_timestamp(timestamp)
 
 
 	# ========================================================
@@ -151,6 +163,8 @@ func create_student_document(
 		# Account management
 		"status": "active",
 		"school_year": current_school_year,
+		"enrolled_at": timestamp,
+		"archive_at": archive_at,
 		"created_at": timestamp,
 		"last_active": 0
 	}
@@ -208,8 +222,14 @@ func create_student_document(
 		"student_id": student_id,
 
 		"section": section,
+		
+		"teacher_id": current_teacher_uid,
 
 		"school_year": current_school_year,
+
+		"enrolled_at": timestamp,
+
+		"archive_at": archive_at,
 
 		# ----------------------------------------------------
 		# ACCOUNT STATUS
@@ -282,6 +302,13 @@ func create_student_document(
 			"average_score": 0.0,
 
 			"latest_score": 0.0
+		},
+
+		"battle_stats": {
+			"battles_played": 0,
+			"battles_won": 0,
+			"battles_lost": 0,
+			"battles_escaped": 0
 		},
 
 
@@ -432,7 +459,54 @@ func create_student_document(
 
 		return false
 
+	# ========================================================
+	# CREATE LEADERBOARD DOCUMENT
+	# ========================================================
 
+	var leaderboard = Firebase.Firestore.collection("leaderboard")
+
+	var leaderboard_data := {
+		"uid": uid,
+		"name": student_name,
+		"section": section,
+		"teacher_id": current_teacher_uid,
+		"status": "active",
+
+		"elements_collected": 0,
+		"elements_total": 118,
+
+		"battles_played": 0,
+		"battles_won": 0,
+		"battles_lost": 0,
+		"battles_escaped": 0,
+
+		"win_rate": 0.0,
+
+		"average_quiz_score": 0.0,
+		"completed_quizzes": 0,
+		"total_quizzes": 0,
+
+		"overall_score": 0.0
+	}
+
+	print(
+		"[AddStudent] Creating leaderboard document..."
+	)
+
+	var leaderboard_document: FirestoreDocument = await leaderboard.add(
+		uid,
+		leaderboard_data
+	)
+
+	if leaderboard_document == null:
+		print(
+			"[AddStudent] WARNING: Leaderboard document could not be created."
+		)
+	else:
+		print(
+			"[AddStudent] Leaderboard document created."
+	)
+	
 	print(
 		"[AddStudent] Students document created."
 	)
@@ -458,7 +532,13 @@ func show_status(message: String) -> void:
 func _on_create_button_pressed() -> void:
 	var student_name: String = name_input.text.strip_edges()
 	var student_id: String = student_id_input.text.strip_edges()
-	var section: String = section_input.text.strip_edges()
+	var section: String = ""
+
+	if section_input.selected > 0:
+		section = section_input.get_item_text(
+			section_input.selected
+		).strip_edges()
+		
 	var email: String = email_input.text.strip_edges()
 	var password: String = password_input.text
 	var confirm_password: String = confirm_password_input.text
@@ -476,7 +556,7 @@ func _on_create_button_pressed() -> void:
 		return
 
 	if section.is_empty():
-		show_status("Please enter the student's section.")
+		show_status("Please select the student's section.")
 		return
 	
 	if email.is_empty():
@@ -563,6 +643,57 @@ func _on_create_button_pressed() -> void:
 
 	student_created.emit()
 
+
+func _load_teacher_sections() -> void:
+	print("[AddStudent] Loading teacher assigned sections...")
+
+	var role = await AuthManager.get_user_role()
+
+	if role != "teacher":
+		print("[AddStudent] Current user is not a teacher.")
+		_configure_empty_sections()
+		return
+
+	var uid := AuthManager.get_uid()
+
+	if uid.is_empty():
+		print("[AddStudent] ERROR: Teacher UID is empty.")
+		_configure_empty_sections()
+		return
+
+	print("[AddStudent] Teacher UID: ", uid)
+
+	assigned_sections = await TeacherDataManager.get_current_teacher_sections()
+
+	print(
+		"[AddStudent] Assigned sections: ",
+		assigned_sections
+	)
+
+	section_input.clear()
+	section_input.disabled = false
+	section_input.add_item("Select Section")
+
+	for section in assigned_sections:
+		var section_name := str(section).strip_edges()
+
+		if section_name.is_empty():
+			continue
+
+		section_input.add_item(section_name)
+
+	section_input.select(0)
+
+	# No valid sections were found.
+	if section_input.item_count <= 1:
+		_configure_empty_sections()
+
+
+func _configure_empty_sections() -> void:
+	section_input.clear()
+	section_input.add_item("No Sections Assigned")
+	section_input.select(0)
+	section_input.disabled = true
 
 func _on_cancel_button_pressed() -> void:
 	hide()

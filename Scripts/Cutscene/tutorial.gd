@@ -373,4 +373,4 @@ func _on_dialogic_signal(arg: String) -> void:
 
 
 func _on_texture_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Cutscenes/classroom_cutscene.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Areas/start_map.tscn")

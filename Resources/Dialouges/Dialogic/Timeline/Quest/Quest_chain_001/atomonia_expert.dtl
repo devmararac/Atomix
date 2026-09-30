@@ -26,3 +26,86 @@ Andrew: You're really clueless, huh? I mean, even the children in this place kno
 Player: What? What happened back then?
 Andrew: It all started on that night....
 [signal arg="play_atomon_origin"]
+Andrew: ...And that was the beginning of the Atomons.
+Player: So that's what happened...
+Player: But there's still something I don't understand.
+Andrew: What's that?
+Player: You said Atomons are connected to elements.
+Player: What exactly are elements?
+Andrew: Good question.
+Andrew: Before you can understand Atomons, you need to understand what they're based on.
+Andrew: Chemistry is the study of matter and the changes it undergoes.
+Player: Matter?
+Andrew: Anything that has mass and takes up space.
+Andrew: Everything around you is made of matter.
+Andrew: The ground beneath your feet, the water you drink, the air you breathe...
+Andrew: Even Atomons are connected to matter and its building blocks.
+Player: So Atomons are made of matter?
+Andrew: Not exactly.
+Andrew: Think of Atomons as living manifestations of the elements.
+Andrew: To understand them, you first need to understand atoms.
+Player: Atoms?
+Andrew: Atoms are the basic building blocks of matter.
+Andrew: Different kinds of atoms make up different elements.
+Player: So Hydrogen has its own kind of atom?
+Andrew: Exactly.
+Andrew: Hydrogen is an element because it contains only one type of atom.
+Player: And that's why Hydrubbie represents Hydrogen?
+Andrew: Precisely.
+Andrew: Each element has its own properties.
+Player: Properties?
+Andrew: Properties are characteristics that help us describe and identify a substance.
+Andrew: Some properties can be observed without changing the substance.
+Andrew: Those are called physical properties.
+Player: Like what?
+Andrew: Its appearance, mass, temperature, density, or state of matter.
+Player: State of matter?
+Andrew: You know them already.
+Andrew: Solid. Liquid. Gas.
+Player: So Atomons can have different states too?
+Andrew: In a way, yes.
+Andrew: Look at Hydrubbie
+Andrew: Hydrogen normally exists as a gas under ordinary conditions.
+Player: So its state is connected to the element it represents?
+Andrew: Correct.
+Andrew: The properties of an element help determine how its Atomon behaves.
+Player: That explains why every Atomon can be different.
+Andrew: Exactly.
+Andrew: But matter isn't always in the same state.
+Andrew: When energy is added or removed, matter can change from one state to another.
+Player: Like ice turning into water?
+Andrew: That's right.
+Andrew: Solid to liquid is melting.
+Andrew: Liquid to gas is boiling or vaporization.
+Andrew: And gas can become liquid through condensation.
+Player: So energy is involved in those changes?
+Andrew: Always remember that.
+Andrew: Energy is the ability to do work.
+Andrew: Matter can gain or lose energy, and that can affect how its particles behave.
+Player: Particles?
+Andrew: The particles in a solid are packed closely together and mainly vibrate.
+Andrew: In a liquid, they can move past one another.
+Andrew: In a gas, they move much more freely and are farther apart.
+Player: So when matter gains energy, its particles can move more?
+Andrew: Exactly.
+Andrew: You're starting to understand.
+Player: And what about chemical changes?
+Andrew: That's another important part of chemistry.
+Andrew: In a chemical reaction, atoms are rearranged.
+Andrew: The substances you start with are called reactants.
+Andrew: The substances formed are called products.
+Player: But the atoms don't just disappear?
+Andrew: Correct.
+Andrew: Matter is conserved.
+Andrew: The atoms are rearranged, but they are not simply destroyed or created during an ordinary chemical reaction.
+Player: So chemistry is basically about understanding how matter behaves and changes?
+Andrew: That's a good way to put it.
+Andrew: And that's only the beginning.
+Player: There's more?
+Andrew: Much more.
+Andrew: If you want to travel through Chemistria and understand the Atomons you encounter...
+Andrew: You'll need to learn how to identify matter, recognize its properties, and understand how energy affects it.
+Player: I think I'm beginning to see why Linos sent me here.
+Andrew: Good.
+Andrew: Then let's see how much you've actually learned.
+[signal arg="quest_chain_001_module_01_complete"]
