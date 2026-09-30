@@ -336,3 +336,13 @@ volume_db = -5.0
 autoplay = true
 
 [node name="Minimap" parent="." unique_id=438677015 instance=ExtResource("11_eul43")]
+
+[node name="TextureButton" type="Button" parent="." unique_id=851082204]
+offset_left = 806.0
+offset_top = 292.0
+offset_right = 835.0
+offset_bottom = 314.0
+theme_override_font_sizes/font_size = 10
+text = "Skip"
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

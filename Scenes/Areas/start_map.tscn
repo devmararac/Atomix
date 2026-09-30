@@ -28,7 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bq4xocjdqjntd" path="res://Scenes/cutscene_trigger.tscn" id="27_kjb13"]
 [ext_resource type="PackedScene" uid="uid://wi6lfrx4um8v" path="res://Scenes/Objects/Vegetation/Trees/tree.tscn" id="27_ky5g8"]
 [ext_resource type="Shader" uid="uid://dtg7lx50h7oty" path="res://Assets/VFX/warm_cozy.gdshader" id="27_rsgrb"]
-[ext_resource type="Resource" uid="uid://1s83vhkm1bd2" path="res://Resources/Atomons/hydrogen.tres" id="27_ynirp"]
+[ext_resource type="Resource" uid="uid://1s83vhkm1bd2" path="res://Resources/Atomons/Hydrogen.tres" id="27_ynirp"]
 [ext_resource type="PackedScene" uid="uid://dqlebs6rggtl4" path="res://Scenes/Objects/water_plash.tscn" id="28_rsgrb"]
 [ext_resource type="PackedScene" uid="uid://c4kb7j4v20s3b" path="res://Scenes/Objects/Structures/store.tscn" id="29_kjb13"]
 [ext_resource type="Resource" uid="uid://c5munup5fw673" path="res://Resources/Items/Consumables/apple.tres" id="33_q0fcu"]
@@ -36,6 +36,7 @@
 [ext_resource type="Resource" uid="uid://rdw2kcamkcig" path="res://Resources/Items/Consumables/grapes.tres" id="35_twyxd"]
 [ext_resource type="Resource" uid="uid://bjyqjvbh7juja" path="res://Resources/Items/Consumables/watermelon.tres" id="36_70qg0"]
 [ext_resource type="Resource" uid="uid://bfbg8hpv1n4j5" path="res://Resources/NPCs/TRES/andrew.tres" id="36_q0fcu"]
+[ext_resource type="PackedScene" uid="uid://cqqntj6ioteyb" path="res://Scenes/Objects/Structures/leaderboard_sign.tscn" id="37_lska0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mj01m"]
 texture = ExtResource("1_313yg")
@@ -2789,6 +2790,10 @@ position = Vector2(991, 286)
 data = ExtResource("36_q0fcu")
 movement_mode = 1
 
+[node name="LeaderboardSign" parent="." unique_id=2040535907 groups=["QuestObjects"] instance=ExtResource("37_lska0")]
+z_index = 2
+position = Vector2(315, 33)
+
 [node name="Scene_Trigger" parent="." unique_id=1986080103 instance=ExtResource("12_3kusq")]
 position = Vector2(64, 205)
 target_scene = "res://Scenes/Areas/linos_house.tscn"
@@ -2897,7 +2902,7 @@ position = Vector2(521, 73)
 data = ExtResource("21_ynirp")
 
 [node name="AtomicCorePickup" parent="." unique_id=669577990 instance=ExtResource("21_u7ab4")]
-position = Vector2(314, 45)
+position = Vector2(212, 98)
 data = ExtResource("22_tjqn4")
 
 [node name="AtomicCorePickup2" parent="." unique_id=1310320973 instance=ExtResource("21_u7ab4")]

@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://cqqntj6ioteyb"]
+
+[ext_resource type="Script" uid="uid://ojcf867565bk" path="res://Scripts/leaderboard_sign.gd" id="1_dhni8"]
+[ext_resource type="Texture2D" uid="uid://5e677sgr4dfu" path="res://Assets/Structures/Wood Stuffs/sign.png" id="1_v47rn"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="2_a5ufv"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_a5ufv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5jqt4"]
+size = Vector2(27, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
+atlas = ExtResource("2_a5ufv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
+atlas = ExtResource("2_a5ufv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
+atlas = ExtResource("2_a5ufv")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
+atlas = ExtResource("2_a5ufv")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
+atlas = ExtResource("2_a5ufv")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nm8h7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d07v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyadn")
+}],
+"loop": true,
+"name": &"highlight",
+"speed": 9.0
+}]
+
+[node name="LeaderboardSign" type="StaticBody2D" unique_id=2040535907]
+script = ExtResource("1_dhni8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=658170985]
+texture = ExtResource("1_v47rn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=87512003]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_5jqt4")
+
+[node name="Highlight" type="AnimatedSprite2D" parent="." unique_id=449633332]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7921569)
+position = Vector2(-9.536743e-07, 0)
+scale = Vector2(1.5234374, 1.125)
+sprite_frames = SubResource("SpriteFrames_nm8h7")
+animation = &"highlight"
+autoplay = "highlight"
+
+[node name="Label" type="Label" parent="." unique_id=2135493934]
+offset_left = -40.0
+offset_top = -21.0
+offset_right = 40.0
+offset_bottom = -10.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_a5ufv")
+theme_override_font_sizes/font_size = 10
+text = "LEADERBOARD"

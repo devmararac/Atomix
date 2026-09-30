@@ -1,0 +1,486 @@
+[gd_scene format=3 uid="uid://dceyykyhmf02a"]
+
+[ext_resource type="Texture2D" uid="uid://cpscw5gmqmc3u" path="res://Assets/UX/HUD/Panels/inventory_bg_whitte.png" id="1_bl5mr"]
+[ext_resource type="Script" uid="uid://dsm7u74pi2kxy" path="res://Scripts/leaderboard.gd" id="1_yf6ji"]
+[ext_resource type="Texture2D" uid="uid://c7bkbj12r6t28" path="res://Assets/UX/HUD/Panels/leaderboard_title.png" id="2_bl5mr"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_7ajj7"]
+[ext_resource type="Texture2D" uid="uid://cj0htpcc064nv" path="res://Assets/UX/HUD/Panels/leaderboard_panel.png" id="4_r85ew"]
+[ext_resource type="Texture2D" uid="uid://cuwc0p51ebvvr" path="res://Assets/UX/HUD/Panels/leaderboard_banners.png" id="5_yf6ji"]
+[ext_resource type="PackedScene" uid="uid://djl5rm1snk3f1" path="res://Scenes/UI/rank_slot.tscn" id="6_7ajj7"]
+[ext_resource type="Texture2D" uid="uid://mx5g2wjcrjij" path="res://Assets/UX/HUD/Panels/big.png" id="7_r85ew"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ujo2p"]
+texture = ExtResource("1_bl5mr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqqoe"]
+texture = ExtResource("2_bl5mr")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf6ji"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.103759564, 0.103759564, 0.103759564, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqqoe"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.027790617, 0.027790617, 0.027790617, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_62257"]
+texture = ExtResource("4_r85ew")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdq5e"]
+texture = ExtResource("5_yf6ji")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yf6ji"]
+texture = ExtResource("7_r85ew")
+
+[node name="Leaderboard" type="CanvasLayer" unique_id=1354321588]
+script = ExtResource("1_yf6ji")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=147808309]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.5053437, 0.50534415, 0.50534403, 1)
+
+[node name="Panel" type="Panel" parent="." unique_id=836675492]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ujo2p")
+
+[node name="Title" type="Panel" parent="Panel" unique_id=1951089227]
+layout_mode = 0
+offset_left = 756.0
+offset_top = 6.0
+offset_right = 1281.0
+offset_bottom = 101.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_lqqoe")
+
+[node name="Label" type="Label" parent="Panel/Title" unique_id=676464008]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 19.0
+offset_right = 453.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 44
+text = "LEADERBOARD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Category" type="HBoxContainer" parent="Panel" unique_id=2067418037]
+layout_mode = 0
+offset_left = 1323.0
+offset_top = 41.0
+offset_right = 1892.0
+offset_bottom = 101.0
+theme_override_constants/separation = 55
+alignment = 1
+
+[node name="CategoryLabel" type="Label" parent="Panel/Category" unique_id=1707273554]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 32
+text = "CATEGORY:"
+vertical_alignment = 1
+
+[node name="CategoryOption" type="OptionButton" parent="Panel/Category" unique_id=1475539311]
+custom_minimum_size = Vector2(310, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/normal = SubResource("StyleBoxFlat_yf6ji")
+alignment = 1
+selected = 0
+item_count = 4
+popup/item_0/text = "Overall"
+popup/item_0/id = 0
+popup/item_1/text = "Atomons Collected"
+popup/item_1/id = 1
+popup/item_2/text = "Battles Won"
+popup/item_2/id = 2
+popup/item_3/text = "Quiz Score"
+popup/item_3/id = 3
+
+[node name="Secttion" type="HBoxContainer" parent="Panel" unique_id=1268163730]
+layout_mode = 0
+offset_left = 179.0
+offset_top = 39.0
+offset_right = 676.0
+offset_bottom = 99.0
+theme_override_constants/separation = 55
+alignment = 1
+
+[node name="SectionLabel" type="Label" parent="Panel/Secttion" unique_id=2062757395]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 32
+text = "SECTION:"
+vertical_alignment = 1
+
+[node name="SectionOption" type="OptionButton" parent="Panel/Secttion" unique_id=2023980758]
+custom_minimum_size = Vector2(280, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/normal = SubResource("StyleBoxFlat_lqqoe")
+alignment = 1
+selected = 0
+item_count = 1
+popup/item_0/text = "All Sections"
+popup/item_0/id = 0
+
+[node name="Panel" type="Panel" parent="Panel" unique_id=1605008960]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 144.0
+offset_right = 1865.0
+offset_bottom = 685.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_62257")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Panel" unique_id=514570264]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 67.0
+offset_right = 1688.0
+offset_bottom = 117.0
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="Rank" type="Label" parent="Panel/Panel/HBoxContainer" unique_id=51895352]
+custom_minimum_size = Vector2(130, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "Rank"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="Panel/Panel/HBoxContainer" unique_id=2058979320]
+custom_minimum_size = Vector2(430, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Section" type="Label" parent="Panel/Panel/HBoxContainer" unique_id=1103569612]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "Section"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AtomonCollected" type="Label" parent="Panel/Panel/HBoxContainer" unique_id=855740835]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "Atomon Collected"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Panel/Panel" unique_id=430356961]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 116.0
+offset_right = 1688.0
+offset_bottom = 120.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Panel" unique_id=1665746457]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 137.0
+offset_right = 1692.0
+offset_bottom = 495.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Panel/ScrollContainer" unique_id=1013691985]
+layout_mode = 2
+
+[node name="RankSlot" parent="Panel/Panel/ScrollContainer/VBoxContainer" unique_id=1260122740 instance=ExtResource("6_7ajj7")]
+layout_mode = 2
+
+[node name="RankSlot2" parent="Panel/Panel/ScrollContainer/VBoxContainer" unique_id=1213179182 instance=ExtResource("6_7ajj7")]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="Panel" unique_id=2144637283]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 114.0
+offset_right = 580.0
+offset_bottom = 191.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_pdq5e")
+
+[node name="Label" type="Label" parent="Panel/Panel2" unique_id=941308773]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 23.0
+offset_right = 344.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 30
+text = "RANKINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Details" type="Panel" parent="Panel" unique_id=876160864]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.284
+anchor_right = 0.671
+anchor_bottom = 1.0
+offset_left = -0.32000732
+offset_right = -0.57995605
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_yf6ji")
+
+[node name="Details" type="Label" parent="Panel/Details" unique_id=390488212]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 45.0
+offset_right = 745.0
+offset_bottom = 96.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "Details"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="Panel/Details" unique_id=1769597783]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 177.0
+offset_right = 744.0
+offset_bottom = 228.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/Details" unique_id=370166576]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 237.0
+offset_right = 551.0
+offset_bottom = 327.0
+texture = ExtResource("5_yf6ji")
+
+[node name="Rank" type="Label" parent="Panel/Details/TextureRect" unique_id=452394757]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 29.0
+offset_right = 305.0
+offset_bottom = 69.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 40
+text = "Rank"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Section" type="Label" parent="Panel/Details" unique_id=2035698431]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 112.0
+offset_right = 744.0
+offset_bottom = 155.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 34
+text = "Section"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Details" unique_id=344925368]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 358.0
+offset_right = 738.0
+offset_bottom = 519.0
+alignment = 1
+
+[node name="AtomonCollected" type="HBoxContainer" parent="Panel/Details/VBoxContainer" unique_id=1177490601]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Details/VBoxContainer/AtomonCollected" unique_id=866966158]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "Crafted Atomons:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="Label" parent="Panel/Details/VBoxContainer/AtomonCollected" unique_id=1914936299]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "15/118"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Winrate" type="HBoxContainer" parent="Panel/Details/VBoxContainer" unique_id=996523724]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Details/VBoxContainer/Winrate" unique_id=2045146843]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "Win Rate:"
+vertical_alignment = 1
+
+[node name="Title2" type="Label" parent="Panel/Details/VBoxContainer/Winrate" unique_id=1721460532]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 50
+text = "50%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BattlesPlayed" type="HBoxContainer" parent="Panel/Details/VBoxContainer" unique_id=1961460532]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Details/VBoxContainer/BattlesPlayed" unique_id=2025146843]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "Battles Played:"
+vertical_alignment = 1
+
+[node name="Title2" type="Label" parent="Panel/Details/VBoxContainer/BattlesPlayed" unique_id=2121460532]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BattlesWon" type="HBoxContainer" parent="Panel/Details/VBoxContainer" unique_id=-2133506764]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Details/VBoxContainer/BattlesWon" unique_id=-2069820453]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "Battles Won:"
+vertical_alignment = 1
+
+[node name="Title2" type="Label" parent="Panel/Details/VBoxContainer/BattlesWon" unique_id=-1973506764]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BattlesLost" type="HBoxContainer" parent="Panel/Details/VBoxContainer" unique_id=-1933506764]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Details/VBoxContainer/BattlesLost" unique_id=-1869820453]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "Battles Lost:"
+vertical_alignment = 1
+
+[node name="Title2" type="Label" parent="Panel/Details/VBoxContainer/BattlesLost" unique_id=-1773506764]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Coins" type="HBoxContainer" parent="Panel/Details/VBoxContainer" unique_id=351896758]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Details/VBoxContainer/Coins" unique_id=971032090]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "Coins:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="Label" parent="Panel/Details/VBoxContainer/Coins" unique_id=1816275237]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quiz" type="HBoxContainer" parent="Panel/Details/VBoxContainer" unique_id=2013888529]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Details/VBoxContainer/Quiz" unique_id=710896658]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "Average Quiz Score:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="Label" parent="Panel/Details/VBoxContainer/Quiz" unique_id=1426820948]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7ajj7")
+theme_override_font_sizes/font_size = 42
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
