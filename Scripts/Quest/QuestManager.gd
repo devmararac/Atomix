@@ -42,11 +42,41 @@ func refresh_npc_quest_indicators() -> void:
 	NpcManager.refresh_quest_indicators()
 
 func _on_dialogic_signal(argument: String):
-
 	if argument.begins_with("quest_accept:"):
 		var quest_id = argument.get_slice(":", 1)
 		accept_quest(quest_id)
+		return
 
+	if argument.begins_with("quest_notify:"):
+		var parts := argument.split(":")
+
+		if parts.size() < 3:
+			return
+
+		var quest_id := parts[1]
+		var objective_id := parts[2]
+
+		var quest := get_quest(quest_id)
+
+		if quest == null:
+			return
+
+		var objective := quest.get_active_objective()
+
+		if objective == null:
+			return
+
+		if objective.id != objective_id:
+			return
+
+		# Wait until Dialogic finishes processing the
+		# current dialogue/signal event visually.
+		await get_tree().process_frame
+
+		notify(
+			objective.type,
+			objective.target_id
+		)
 func accept_quest(quest_id: String) -> void:
 
 	# Already active?
@@ -256,7 +286,12 @@ func set_tracked_quest(quest: Quest) -> void:
 	tracked_quest_changed.emit(quest)
 
 func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> void:
-
+	
+	print(">>> QUEST NOTIFY CALLED <<<")
+	print("TYPE: ", type)
+	print("TARGET: ", target_id)
+	print("STACK: ", get_stack())
+	
 	print("====================")
 	print("QUEST EVENT:")
 	print("Type:", type)

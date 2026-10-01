@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://dscdu25vmt4xm"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_35mnk"]
+
+[resource]
+script = ExtResource("1_35mnk")
+id = "return_to_andrew"
+description = "Return to Andrew"
+target_id = "andrew"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

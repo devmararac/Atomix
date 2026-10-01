@@ -3,7 +3,7 @@ Player: Are you the Atomon Expert Linos mentioned?
 Andrew: May I ask who might you be??
 Player: I just got here, and I’m not familiar with this place yet...
 Player: Linos said I have to know some stuff, especially about Atomons, like that weird thing I saw...
-Player: He called it Hydrogas... what was it again?
+[signal arg="[signal arg="quest_notify:quest_chain_001:investigate_observation"]"]
 Andrew: Ahhh, Hydrubbie. The Hydrogen Atomon that wanders around this place.
 Andrew: It’s kind of hard to miss. That little thing is always running around, but never caused trouble wherever it goes.
 Player: So... it’s an Atomon?
@@ -26,3 +26,15 @@ Andrew: You're really clueless, huh? I mean, even the children in this place kno
 Player: What? What happened back then?
 Andrew: It all started on that night....
 [signal arg="play_atomon_origin"]
+Andrew: That night changed everything we knew about the elements.
+Andrew: But before you can understand what happened, you need to learn how to observe an Atomon carefully.
+Player: Observe it?
+Andrew: Yes. Start with Hydrubbie.
+Andrew: Find three Hydrogen Atomons and observe them closely.
+Player: What am I supposed to look for?
+Andrew: Pay attention to what you can actually see and notice.
+Andrew: Don't make assumptions yet. Just observe and remember what you find.
+Player: Alright. I'll observe three Hydrubbie.
+Andrew: Good. Come back when you're finished, and we'll talk about what you discovered.
+
+[signal arg="quest_notify:quest_chain_001:talk_atomon_expert"]

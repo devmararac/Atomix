@@ -528,7 +528,6 @@ func start_new_game() -> bool:
 	# CREATE A FRESH GAME STATE
 	# ========================================================
 
-
 	var new_game_state: Dictionary = {
 		"has_save": false,
 		"current_scene": "",
@@ -557,6 +556,16 @@ func start_new_game() -> bool:
 		return false
 
 	print("[SaveManager] Firebase game state reset successfully.")
+
+	# ========================================================
+	# RESET STUDENT DATA IN MEMORY
+	# ========================================================
+
+	StudentDataManager.student_data["game_state"] = (
+		new_game_state.duplicate(true)
+	)
+
+	print("[SaveManager] StudentDataManager game_state reset in memory.")
 
 	# ========================================================
 	# RESET LOCAL RUNTIME GAME STATE
@@ -604,6 +613,14 @@ func start_new_game() -> bool:
 	# --------------------------------------------------------
 
 	StudentDataManager.clear_runtime_progress()
+
+	StudentDataManager.student_data["progress"] = {
+		"elements_total": StudentDataManager.TOTAL_ELEMENTS,
+		"elements_collected": 0,
+		"collected_elements": []
+	}
+
+	print("[SaveManager] StudentDataManager progress reset in memory.")
 
 	print("[SaveManager] Local party reset.")
 	print("[SaveManager] Local inventory reset.")

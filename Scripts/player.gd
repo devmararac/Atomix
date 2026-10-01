@@ -216,11 +216,7 @@ func handle_interaction():
 	
 	if target is NPCBase:
 		can_move = false
-		target.interact()
-		QuestManager.notify(
-			ObjectiveType.Type.TALK,
-			target.data.npc_id
-		)
+		target.interact() 
 	
 	elif target.is_in_group("Atomons"):
 		target.recruit()

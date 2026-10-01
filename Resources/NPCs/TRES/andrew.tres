@@ -5,19 +5,67 @@
 [ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_0wbd8"]
 [ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="2_5062h"]
 [ext_resource type="Resource" uid="uid://cj3cgk7hsdikv" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/atomonia_expert.dtl" id="3_mvaob"]
+[ext_resource type="Resource" uid="uid://c0j3d71p6j6gg" path="res://Resources/Quest/quest_chain.tres" id="4_mprig"]
 [ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="4_nkfes"]
 [ext_resource type="Texture2D" uid="uid://bygos6eoe7ql0" path="res://Assets/NPC/professor_andrew.png" id="4_ufuj8"]
+[ext_resource type="Resource" uid="uid://dquclvpmdwsge" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/return_to_andrew.dtl" id="6_xokm8"]
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="9_xokm8"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="10_3etky"]
 
 [sub_resource type="Resource" id="Resource_mprig"]
 script = ExtResource("2_5062h")
+objective_id = "talk_atomon_expert"
+conversation_name = "Atomon Expert"
+conversation_type = 5
+quest = ExtResource("4_mprig")
 timeline = ExtResource("3_mvaob")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
+[sub_resource type="Resource" id="Resource_xokm8"]
+script = ExtResource("2_5062h")
+objective_id = "return_to_andrew"
+conversation_name = "Return to Andrew"
+conversation_type = 5
+quest = ExtResource("4_mprig")
+timeline = ExtResource("6_xokm8")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
 [sub_resource type="Resource" id="Resource_b8tho"]
 script = ExtResource("4_nkfes")
 default_timeline = ExtResource("3_mvaob")
-conversations = Array[ExtResource("2_5062h")]([SubResource("Resource_mprig")])
+conversations = Array[ExtResource("2_5062h")]([SubResource("Resource_mprig"), SubResource("Resource_xokm8")])
 metadata/_custom_type_script = "uid://ckoa2l31dwe64"
+
+[sub_resource type="Resource" id="Resource_ef5p1"]
+script = ExtResource("9_xokm8")
+id = "talk_atomon_expert"
+description = "Talk to the Atomon expert in Atomonia."
+target_id = "andrew"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+
+[sub_resource type="Resource" id="Resource_y0gbj"]
+script = ExtResource("9_xokm8")
+id = "observe_hydrogen"
+description = "Observe 3 Hydrogen Atomon"
+type = 4
+target_id = "hydrogen"
+required_amount = 3
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+
+[sub_resource type="Resource" id="Resource_a5nwh"]
+script = ExtResource("9_xokm8")
+id = "return_to_andrew"
+description = "Return to Andrew"
+target_id = "andrew"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+
+[sub_resource type="Resource" id="Resource_ngw8g"]
+script = ExtResource("1_np64e")
+quest_id = "quest_chain_001"
+quest_name = "Learning About Atomons"
+quest_description = "Learn more about Atomons and the creatures that inhabit Atherion."
+objectives = Array[ExtResource("9_xokm8")]([SubResource("Resource_ef5p1"), SubResource("Resource_y0gbj"), SubResource("Resource_a5nwh")])
+metadata/_custom_type_script = "uid://7rrmrho1w3gn"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c7ksj"]
 atlas = ExtResource("4_ufuj8")
@@ -144,5 +192,6 @@ display_name = "Andrew"
 sprite_frames = SubResource("SpriteFrames_degdh")
 dialogic_character = ExtResource("1_8cbfp")
 dialogue_data = SubResource("Resource_b8tho")
+quests = Array[ExtResource("1_np64e")]([SubResource("Resource_ngw8g")])
 can_wander = true
 metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

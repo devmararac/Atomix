@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://bron6rkqewpdj"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_3f08d"]
+
+[resource]
+script = ExtResource("1_3f08d")
+id = "investigate_observation"
+description = "Investigate what you observed"
+target_id = "andrew"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

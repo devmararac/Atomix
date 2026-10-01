@@ -100,14 +100,12 @@ func interact(npc: NPCBase):
 		push_warning("%s has no playable conversation." % npc.data.display_name)
 		return
 
-	# Play the conversation first.
+	# Play the conversation.
 	var result = play_conversation(npc, conversation)
 
-	# Then notify the quest system that the player talked to this NPC.
-	QuestManager.notify(
-		ObjectiveType.Type.TALK,
-		npc.data.npc_id
-	)
+	# Quest progress is handled by the dialogue itself.
+	# This prevents TALK objectives from completing
+	# before the conversation has actually finished.
 
 	return result
 	
