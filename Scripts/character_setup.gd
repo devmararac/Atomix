@@ -328,6 +328,5 @@ func _on_continue_pressed() -> void:
 	# GO TO TUTORIAL
 	# ========================================================
 
-	get_tree().change_scene_to_file(
-		"res://Scenes/Cutscenes/tutorial.tscn"
-	)
+	get_tree().change_scene_to_file("res://Scenes/Cutscenes/tutorial.tscn")
+	

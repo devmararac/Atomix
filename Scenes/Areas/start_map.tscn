@@ -2792,7 +2792,7 @@ movement_mode = 1
 
 [node name="LeaderboardSign" parent="." unique_id=2040535907 groups=["QuestObjects"] instance=ExtResource("37_lska0")]
 z_index = 2
-position = Vector2(315, 33)
+position = Vector2(315, 25)
 
 [node name="Scene_Trigger" parent="." unique_id=1986080103 instance=ExtResource("12_3kusq")]
 position = Vector2(64, 205)

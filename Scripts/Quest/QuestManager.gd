@@ -51,10 +51,11 @@ func accept_quest(quest_id: String) -> void:
 
 	# Already active?
 	if active_quests.has(quest_id):
+		print("[QuestManager] Quest is already ACTIVE: ", quest_id)
 		return
 
-	# Already completed?
 	if completed_quests.has(quest_id):
+		print("[QuestManager] Quest is already COMPLETED: ", quest_id)
 		return
 
 	# Doesn't exist?
@@ -77,12 +78,6 @@ func accept_quest(quest_id: String) -> void:
 	refresh_npc_quest_indicators()
 	# ========================================================
 	# QUEST ACCEPTANCE SAVE
-	# ========================================================
-	#
-	# Save ONLY the quest information here.
-	#
-	# This prevents accepting the first quest from creating
-	# a full game checkpoint at the intro location.
 	# ========================================================
 
 	print(

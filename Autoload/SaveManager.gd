@@ -491,6 +491,133 @@ func _save_currency_only() -> bool:
 
 
 # ============================================================
+# START NEW GAME
+# ============================================================
+
+func start_new_game() -> bool:
+
+	print("[SaveManager] ========================================")
+	print("[SaveManager] STARTING NEW GAME")
+	print("[SaveManager] ========================================")
+
+	if not StudentDataManager.is_student_logged_in():
+		print("[SaveManager] New Game cancelled: student is not logged in.")
+		return false
+
+	var uid: String = StudentDataManager.get_student_uid()
+
+	if uid.is_empty():
+		print("[SaveManager] New Game cancelled: student UID is empty.")
+		return false
+
+	# ========================================================
+	# FIREBASE
+	# ========================================================
+
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
+	)
+
+	var document: FirestoreDocument = await students.get_doc(uid)
+
+	if document == null:
+		print("[SaveManager] New Game failed: student document not found.")
+		return false
+
+	# ========================================================
+	# CREATE A FRESH GAME STATE
+	# ========================================================
+
+
+	var new_game_state: Dictionary = {
+		"has_save": false,
+		"current_scene": "",
+		"player_position": {
+			"x": 0.0,
+			"y": 0.0
+		},
+		"coins": 0,
+		"active_index": 0,
+		"party": [],
+		"carried_party": [],
+		"inventory": [],
+		"quest_data": {},
+		"completed_cutscenes": {}
+	}
+
+	document.add_or_update_field(
+		"game_state",
+		new_game_state
+	)
+
+	var result: FirestoreDocument = await students.update(document)
+
+	if result == null:
+		print("[SaveManager] New Game failed: Firebase update returned null.")
+		return false
+
+	print("[SaveManager] Firebase game state reset successfully.")
+
+	# ========================================================
+	# RESET LOCAL RUNTIME GAME STATE
+	# ========================================================
+
+	save_data = SaveData.new()
+
+	completed_cutscenes.clear()
+	saved_carried_party_ids.clear()
+
+	# --------------------------------------------------------
+	# PARTY
+	# --------------------------------------------------------
+
+	PartyManager.party.clear()
+	PartyManager.carried_party.clear()
+	PartyManager.active_index = 0
+
+	# --------------------------------------------------------
+	# INVENTORY
+	# --------------------------------------------------------
+
+	InventoryManager.inventory.clear()
+	InventoryManager.inventory_changed.emit()
+
+	# --------------------------------------------------------
+	# CURRENCY
+	# --------------------------------------------------------
+
+	CurrencyManager.set_coins(0)
+
+	# --------------------------------------------------------
+	# QUESTS
+	# --------------------------------------------------------
+
+	QuestManager.active_quests.clear()
+	QuestManager.completed_quests.clear()
+	QuestManager.tracked_quest = null
+
+	QuestManager.quest_list_updated.emit()
+	QuestManager.refresh_npc_quest_indicators()
+
+	# --------------------------------------------------------
+	# ELEMENT / RUNTIME PROGRESS
+	# --------------------------------------------------------
+
+	StudentDataManager.clear_runtime_progress()
+
+	print("[SaveManager] Local party reset.")
+	print("[SaveManager] Local inventory reset.")
+	print("[SaveManager] Local currency reset.")
+	print("[SaveManager] Local quest state reset.")
+	print("[SaveManager] Local runtime element progress reset.")
+
+	print("[SaveManager] ========================================")
+	print("[SaveManager] NEW GAME READY")
+	print("[SaveManager] ========================================")
+
+	return true
+
+# ============================================================
 # SAVE GAME
 # ============================================================
 

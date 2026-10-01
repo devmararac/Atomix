@@ -153,6 +153,7 @@ anchor_bottom = 1.033
 offset_bottom = 0.010000229
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_kl3t2")
 placeholder_text = "Enter your email"
 select_all_on_focus = true
 virtual_keyboard_type = 5
@@ -183,6 +184,7 @@ offset_right = -0.41796875
 offset_bottom = -0.009983063
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_kl3t2")
 placeholder_text = "Enter your password"
 secret = true
 

@@ -138,7 +138,7 @@ func hide_visual_tree(node: Node) -> void:
 
 		return
 
-
+ 
 	# Plain Node: it has no visible property,
 	# so continue looking for visual children.
 	for child in node.get_children():

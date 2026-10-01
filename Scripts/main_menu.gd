@@ -241,11 +241,35 @@ func _on_student_error(error) -> void:
 
 
 func _on_start_pressed() -> void:
+
+	SfxManager.play_click()
+
+	print("[MainMenu] START pressed.")
+	print("[MainMenu] Resetting game/story progress...")
+
+	var reset_success := await SaveManager.start_new_game()
+
+	if not reset_success:
+
+		print(
+			"[MainMenu] ERROR: Could not start a new game."
+		)
+
+		status_label.text = (
+			"Unable to start a new game. Please try again."
+		)
+
+		return
+
+	print(
+		"[MainMenu] New game reset completed."
+	)
+
 	await get_tree().create_timer(0.5).timeout
 
 	get_tree().change_scene_to_file(
 		"res://Scenes/UI/CharacterSetup.tscn"
-	)
+	) 
 
 
 func _on_setting_pressed() -> void:

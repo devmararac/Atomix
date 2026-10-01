@@ -60,8 +60,6 @@ func _ready() -> void:
 	sword_hitbox.monitoring = false
 	Dialogic.timeline_ended.connect(_on_dialogue_finished)
 	
-	if SaveManager.save_data != null:
-		global_position = SaveManager.save_data.player_position
 
 func register_dialogic(layout):
 	layout.register_character(dialogic_character, bubble_marker)
