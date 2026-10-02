@@ -86,6 +86,7 @@ directories/dtl_directory={
 "observe_hydrogen_2": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_2.dtl",
 "observe_hydrogen_3": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_3.dtl",
 "return_to_andrew": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/return_to_andrew.dtl",
+"think_like_a_scientis": "res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis.dtl",
 "tutorial": "res://Resources/Dialouges/Dialogic/Timeline/tutorial.dtl"
 }
 layout/style_directory={

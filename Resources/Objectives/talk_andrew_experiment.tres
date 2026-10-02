@@ -6,4 +6,5 @@
 script = ExtResource("1_35bl6")
 id = "talk_andrew_experiment"
 description = "Talk to Andrew about conducting an experiment."
+type = 0
 target_id = "andrew"

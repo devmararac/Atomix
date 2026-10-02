@@ -8,10 +8,11 @@
 [ext_resource type="Resource" uid="uid://c0j3d71p6j6gg" path="res://Resources/Quest/quest_chain.tres" id="4_mprig"]
 [ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="4_nkfes"]
 [ext_resource type="Texture2D" uid="uid://bygos6eoe7ql0" path="res://Assets/NPC/professor_andrew.png" id="4_ufuj8"]
+[ext_resource type="Resource" uid="uid://cdcbxtwvr1eml" path="res://Resources/Quest/quest_chain2.tres" id="6_3etky"]
 [ext_resource type="Resource" uid="uid://dquclvpmdwsge" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/return_to_andrew.dtl" id="6_xokm8"]
+[ext_resource type="Resource" uid="uid://b8fufokl61ekh" path="res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis.dtl" id="7_ef5p1"]
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="9_xokm8"]
 [ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="10_3etky"]
-[ext_resource type="Resource" uid="uid://cdcbxtwvr1eml" path="res://Resources/Quest/quest_chain2.tres" id="10_xokm8"]
 
 [sub_resource type="Resource" id="Resource_mprig"]
 script = ExtResource("2_5062h")
@@ -31,10 +32,19 @@ quest = ExtResource("4_mprig")
 timeline = ExtResource("6_xokm8")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
+[sub_resource type="Resource" id="Resource_lo4ed"]
+script = ExtResource("2_5062h")
+objective_id = "talk_andrew_experiment"
+conversation_name = "Talk Andrewc Experiment"
+conversation_type = 5
+quest = ExtResource("6_3etky")
+timeline = ExtResource("7_ef5p1")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
 [sub_resource type="Resource" id="Resource_b8tho"]
 script = ExtResource("4_nkfes")
 default_timeline = ExtResource("3_mvaob")
-conversations = Array[ExtResource("2_5062h")]([SubResource("Resource_mprig"), SubResource("Resource_xokm8")])
+conversations = Array[ExtResource("2_5062h")]([SubResource("Resource_mprig"), SubResource("Resource_xokm8"), SubResource("Resource_lo4ed")])
 metadata/_custom_type_script = "uid://ckoa2l31dwe64"
 
 [sub_resource type="Resource" id="Resource_ef5p1"]
@@ -67,6 +77,47 @@ quest_name = "Learning About Atomons"
 quest_description = "Learn more about Atomons and the creatures that inhabit Atherion."
 objectives = Array[ExtResource("9_xokm8")]([SubResource("Resource_ef5p1"), SubResource("Resource_y0gbj"), SubResource("Resource_a5nwh")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"
+
+[sub_resource type="Resource" id="Resource_f2chg"]
+script = ExtResource("9_xokm8")
+id = "talk_andrew_experiment"
+description = "Talk to Andrew about conducting an experiment."
+target_id = "andrew"
+
+[sub_resource type="Resource" id="Resource_6pgf0"]
+script = ExtResource("9_xokm8")
+id = "formulate_question"
+description = "Identify the question that will guide the experiment."
+type = 5
+target_id = "experiment_question"
+
+[sub_resource type="Resource" id="Resource_j7o5j"]
+script = ExtResource("9_xokm8")
+id = "make_hypothesis"
+description = "Make a hypothesis before conducting the experiment."
+type = 5
+target_id = "experiment_hypothesis"
+
+[sub_resource type="Resource" id="Resource_bsx1u"]
+script = ExtResource("9_xokm8")
+id = "conduct_experiment"
+description = "Conduct the experiment and observe the results."
+type = 5
+target_id = "experiment_station"
+
+[sub_resource type="Resource" id="Resource_phch6"]
+script = ExtResource("9_xokm8")
+id = "draw_conclusion"
+description = "Use the experimental results to identify the conclusion."
+type = 5
+target_id = "experiment_conclusion"
+
+[sub_resource type="Resource" id="Resource_ngw8g"]
+script = ExtResource("1_np64e")
+quest_id = "quest_chain_002"
+quest_name = "An Experiment in Atherion"
+quest_description = "Learn how scientists use questions, hypotheses, experiments, data, and conclusions to investigate the world."
+objectives = Array[ExtResource("9_xokm8")]([SubResource("Resource_f2chg"), SubResource("Resource_6pgf0"), SubResource("Resource_j7o5j"), SubResource("Resource_bsx1u"), SubResource("Resource_phch6")])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c7ksj"]
 atlas = ExtResource("4_ufuj8")
@@ -193,6 +244,6 @@ display_name = "Andrew"
 sprite_frames = SubResource("SpriteFrames_degdh")
 dialogic_character = ExtResource("1_8cbfp")
 dialogue_data = SubResource("Resource_b8tho")
-quests = Array[ExtResource("1_np64e")]([SubResource("Resource_3etky"), ExtResource("10_xokm8")])
+quests = Array[ExtResource("1_np64e")]([SubResource("Resource_3etky"), SubResource("Resource_ngw8g")])
 can_wander = true
 metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

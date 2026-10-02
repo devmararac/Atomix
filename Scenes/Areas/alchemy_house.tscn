@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b7245op35l0d1" path="res://Assets/Tiles/room_alchemy.png" id="1_yqiux"]
 [ext_resource type="PackedScene" uid="uid://t8wudrnfvec0" path="res://Scenes/scene_trigger.tscn" id="2_26m6q"]
-[ext_resource type="PackedScene" uid="uid://bh72xgpl17cfi" path="res://Scenes/Objects/Interiors/Furnitures/Tables/table_large_dark.tscn" id="3_yro4u"]
+[ext_resource type="PackedScene" uid="uid://bh72xgpl17cfi" path="res://Scenes/Objects/Interiors/Furnitures/Tables/experiment_station.tscn" id="3_yro4u"]
 [ext_resource type="Shader" uid="uid://djgpqh4301gak" path="res://Assets/start_map.gdshader" id="4_8q6rk"]
 [ext_resource type="Script" uid="uid://cr0wlc65mawv2" path="res://Scripts/sub_viewport.gd" id="5_ii6x1"]
 [ext_resource type="Texture2D" uid="uid://cpjbrhj3kah6b" path="res://Assets/UX/Icons/arrow_up-1.png" id="6_7qk4v"]
@@ -1155,7 +1155,7 @@ position = Vector2(663, 286)
 z_index = 1
 position = Vector2(521, 309)
 
-[node name="TableLargeDark" parent="Objects" unique_id=492491165 instance=ExtResource("3_yro4u")]
+[node name="TableLargeDark" parent="Objects" unique_id=492491165 groups=["QuestObjects"] instance=ExtResource("3_yro4u")]
 z_index = 1
 position = Vector2(570, 366)
 

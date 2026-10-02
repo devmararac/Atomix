@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://bh72xgpl17cfi"]
+
+[ext_resource type="Texture2D" uid="uid://dkmccpqywba2b" path="res://Assets/Structures/Interiors/Furnitures/Tables/table_long_dark.png" id="1_gvofg"]
+[ext_resource type="Script" uid="uid://ck2oq2y3egxss" path="res://Scripts/experiment_station.gd" id="1_jebbu"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="2_jmvos"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gvofg"]
+size = Vector2(44, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
+atlas = ExtResource("2_jmvos")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
+atlas = ExtResource("2_jmvos")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
+atlas = ExtResource("2_jmvos")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
+atlas = ExtResource("2_jmvos")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
+atlas = ExtResource("2_jmvos")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ytpal"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d07v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyadn")
+}],
+"loop": true,
+"name": &"highlight",
+"speed": 9.0
+}]
+
+[node name="ExperimentStation" type="StaticBody2D" unique_id=1865684355]
+script = ExtResource("1_jebbu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1831565003]
+texture = ExtResource("1_gvofg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=374318348]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_gvofg")
+
+[node name="Highlight" type="AnimatedSprite2D" parent="." unique_id=1192874097]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7921569)
+position = Vector2(-2.3841858e-07, -1)
+scale = Vector2(2.2031252, 1.4687501)
+sprite_frames = SubResource("SpriteFrames_ytpal")
+animation = &"highlight"
+autoplay = "highlight"
