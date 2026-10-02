@@ -1,14 +1,20 @@
 [gd_resource type="Resource" script_class="Quest" format=3 uid="uid://c0j3d71p6j6gg"]
 
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_sxthk"]
-[ext_resource type="Resource" uid="uid://dqoq0v1lu5cxh" path="res://Resources/Objectives/ChainQuestOBJ/questchain_objective1.tres" id="2_v4m3q"]
 [ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="3_uw2ed"]
 [ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="4_vtto2"]
+
+[sub_resource type="Resource" id="Resource_3j0vk"]
+script = ExtResource("1_sxthk")
+id = "talk_atomon_expert"
+description = "Talk to the Atomon expert in Atomonia."
+target_id = "andrew"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
 
 [sub_resource type="Resource" id="Resource_sxthk"]
 script = ExtResource("1_sxthk")
 id = "observe_hydrogen"
-description = "Observe 3 Hydrogen Atomon"
+description = "Observe 3 Hydrubbie and focus on what you can directly see."
 type = 4
 target_id = "hydrogen"
 required_amount = 3
@@ -17,14 +23,15 @@ metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
 [sub_resource type="Resource" id="Resource_v4m3q"]
 script = ExtResource("1_sxthk")
 id = "return_to_andrew"
-description = "Return to Andrew"
+description = "Return to Andrew and discuss your observations."
 target_id = "andrew"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
 
 [resource]
 script = ExtResource("4_vtto2")
-quest_id = "quest_chain_001"
-quest_name = "Learning About Atomons"
-quest_description = "Learn more about Atomons and the creatures that inhabit Atherion."
-objectives = Array[ExtResource("1_sxthk")]([ExtResource("2_v4m3q"), SubResource("Resource_sxthk"), SubResource("Resource_v4m3q")])
+quest_id = "quest_chain_002"
+quest_name = "An Experiment in Atherion"
+quest_description = "Learn to distinguish observations from inferences by carefully observing Hydrubbie."
+unlock_id = "quest_chain_002"
+objectives = Array[ExtResource("1_sxthk")]([SubResource("Resource_3j0vk"), SubResource("Resource_sxthk"), SubResource("Resource_v4m3q")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"

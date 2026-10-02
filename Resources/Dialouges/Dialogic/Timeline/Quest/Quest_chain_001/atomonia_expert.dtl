@@ -3,7 +3,6 @@ Player: Are you the Atomon Expert Linos mentioned?
 Andrew: May I ask who might you be??
 Player: I just got here, and I’m not familiar with this place yet...
 Player: Linos said I have to know some stuff, especially about Atomons, like that weird thing I saw...
-[signal arg="[signal arg="quest_notify:quest_chain_001:investigate_observation"]"]
 Andrew: Ahhh, Hydrubbie. The Hydrogen Atomon that wanders around this place.
 Andrew: It’s kind of hard to miss. That little thing is always running around, but never caused trouble wherever it goes.
 Player: So... it’s an Atomon?

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://cs2e00l5m2ol4"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_1vgvr"]
+
+[resource]
+script = ExtResource("1_1vgvr")
+id = "formulate_question"
+description = "Identify the question that will guide the experiment."
+type = 5
+target_id = "experiment_question"

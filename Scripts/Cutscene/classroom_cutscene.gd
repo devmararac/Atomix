@@ -20,7 +20,7 @@ func _ready():
 	hydrogen_icon.visible = false
 	emote.visible = false
 	await get_tree().process_frame
-	var layout = NpcManager.interact(professor)
+	var layout = await NpcManager.interact(professor)
 	$"WALL, PROPS/Felix".register_dialogic(layout)
 	$"WALL, PROPS/Anne".register_dialogic(layout)
 	$"WALL, PROPS/Garry".register_dialogic(layout)

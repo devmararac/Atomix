@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://dafomc2r4xkmc"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_35bl6"]
+
+[resource]
+script = ExtResource("1_35bl6")
+id = "talk_andrew_experiment"
+description = "Talk to Andrew about conducting an experiment."
+target_id = "andrew"

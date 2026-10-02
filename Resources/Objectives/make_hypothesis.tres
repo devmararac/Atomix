@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://bb24k64pvmru6"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_pvtaa"]
+
+[resource]
+script = ExtResource("1_pvtaa")
+id = "make_hypothesis"
+description = "Make a hypothesis before conducting the experiment."
+type = 5
+target_id = "experiment_hypothesis"

@@ -51,7 +51,7 @@ func _ready() -> void:
 	await walk_dianne()
 
 	# Start Dianne's conversation through NpcManager
-	dialogic_layout = NpcManager.interact(dianne)
+	dialogic_layout = await NpcManager.interact(dianne)
 
 	dialogic_layout.register_character(
 		trishania.data.dialogic_character,

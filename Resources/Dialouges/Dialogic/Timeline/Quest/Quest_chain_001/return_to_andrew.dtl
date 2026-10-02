@@ -1,41 +1,39 @@
-Player: Andrew!
-Andrew: Ah, you're back. How did your observation go?
-Player: I observed three Hydrubbie like you asked.
-Andrew: Good. Before we move on, let's see what you actually observed.
-Andrew: Tell me, which of these is an observation?
-Player: Hydrubbie is moving around.
-Andrew: Correct.
-Andrew: You were able to directly see Hydrubbie moving.
-Andrew: Now, what about this statement?
-Andrew: "Hydrubbie must be energetic because it moves around a lot."
-Player: That's an inference.
-Andrew: Exactly.
-Andrew: An observation is something you can directly notice or measure.
-Andrew: An inference is a conclusion or assumption based on what you observed.
-Player: So I shouldn't treat my assumptions as observations.
-Andrew: Precisely.
-Andrew: Good scientists separate what they observe from what they conclude.
-Andrew: Now let's connect that to chemistry.
-Player: Chemistry?
-Andrew: Yes.
-Andrew: Chemistry is the study of matter and its changes.
-Andrew: Matter is anything that has mass and occupies space.
-Player: So... Hydrubbie is matter?
-Andrew: Yes.
-Andrew: Hydrubbie is an Atomon, but it represents an element.
-Andrew: In this case, Hydrubbie represents Hydrogen.
-Player: Hydrogen... the lightest element?
-Andrew: Correct.
-Andrew: Elements contain only one type of atom.
-Andrew: That is why understanding what you observe is important.
-Andrew: When you observe an Atomon, you're not just looking at a creature.
-Andrew: You're also observing something connected to the properties of an element.
-Player: So observing Atomons can help me understand chemistry?
-Andrew: Exactly.
-Andrew: That is one of the most important habits you can develop.
-Andrew: Observe carefully first. Then interpret what your observations mean.
-Player: I think I'm starting to understand.
-Andrew: Good.
-Andrew: Keep observing the world around you.
-Andrew: The more carefully you observe, the more you can learn about matter and the elements.
+Andrew: Welcome back. So, what did you notice while observing the Hydrubbies?
+Andrew: When scientists study something, they begin with observations.
+andrew: An observation is information you can directly gather using your senses or instruments.
+Andrew: Let's see if you can tell the difference.
+Andrew: Which statement is an observation?
+- Hydrubbie has a small body.
+	Andrew: Correct! You can directly see that Hydrubbie has a small body.
+	Andrew: That makes it an observation.
+- Hydrubbie must be energetic.
+	Andrew: Not quite. You can't directly see its energy just by looking at it.
+	Andrew: That's an inference.
+- Hydrubbie is probably healthy.
+	Andrew: Not quite. You are making a conclusion about its health.
+	Andrew: That's an inference.
+Andrew: Good. Now let's look at inference.
+Andrew: An inference is a conclusion or explanation based on observations.
+Andrew: Which statement is an inference?
+- Hydrubbie has a distinct shape.
+	Andrew: That's an observation. You can directly see its shape.
+- Hydrubbie is color white.
+	Andrew: That's an observation because you can directly see its color.
+- Hydrubbie must be energetic.
+	Andrew: Correct! You are making a conclusion based on what you observed.
+	Andrew: That makes it an inference.
+Andrew: Scientists also record different kinds of data.
+Andrew: Some data describe qualities, while other data use numbers.
+Andrew: Which statement is quantitative data?
+- Hydrubbie has a blue body.
+	Andrew: That's qualitative data. It describes a characteristic.
+- Hydrubbie is 15 centimeters tall.
+	Andrew: Correct! That's quantitative data because it uses a numerical measurement.
+- Hydrubbie has a round shape.
+	Andrew: That's qualitative data because it describes a characteristic.
+Andrew: Qualitative data describes qualities or characteristics.
+Andrew: Quantitative data uses numbers or measurements.
+andrew: You just practiced three important skills\: observation, inference, and identifying qualitative and quantitative data.
+Andrew: These skills are important because scientists need to separate what they actually observe from what they conclude.
+
 [signal arg="quest_notify:quest_chain_001:return_to_andrew"]

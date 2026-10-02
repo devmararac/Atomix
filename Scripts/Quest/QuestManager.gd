@@ -18,7 +18,8 @@ var quest_database := {
 	"quest_hydrogen_001": preload("res://Resources/Quest/quest_hydrogen_001.tres"),
 	"quest_collect_iron": preload("res://Resources/Quest/quest_collect_iron.tres"),
 	"story_quest_explore_dungeon": preload("res://Resources/Quest/explore_dungeon.tres"),
-	"quest_chain_001": preload("res://Resources/Quest/quest_chain.tres")
+	"quest_chain_001": preload("res://Resources/Quest/quest_chain.tres"),
+	"quest_chain_002": preload("res://Resources/Quest/quest_chain2.tres")
 }
 
 # -------------------------------------------------------------------
@@ -172,8 +173,87 @@ func debug_quests() -> void:
 	for quest in active_quests.values():
 		print(quest.quest_id, " State:", quest.state)
 
-#Player Rewards
+# ============================================================
+# UNLOCK NEXT QUEST
+# ============================================================
+
+func unlock_next_quest(completed_quest: Quest) -> void:
+
+	if completed_quest == null:
+		return
+
+	var next_quest_id := completed_quest.unlock_id
+
+	# This quest does not unlock another quest.
+	if next_quest_id.is_empty():
+		print(
+			"[QuestManager] Quest has no next quest: ",
+			completed_quest.quest_id
+		)
+		return
+
+	print(
+		"[QuestManager] Quest completed. Unlocking next quest: ",
+		next_quest_id
+	)
+
+	# Already active.
+	if active_quests.has(next_quest_id):
+		print(
+			"[QuestManager] Next quest is already active: ",
+			next_quest_id
+		)
+		return
+
+	# Already completed.
+	if completed_quests.has(next_quest_id):
+		print(
+			"[QuestManager] Next quest is already completed: ",
+			next_quest_id
+		)
+		return
+
+	# Quest does not exist in the database.
+	if not quest_database.has(next_quest_id):
+		push_error(
+			"[QuestManager] Unlock quest '%s' was not found in quest_database!"
+			% next_quest_id
+		)
+		return
+
+	# Create a runtime copy of the quest resource.
+	var next_quest: Quest = quest_database[next_quest_id].duplicate(true)
+
+	# Start the quest.
+	next_quest.start()
+
+	# Add it to active quests.
+	active_quests[next_quest.quest_id] = next_quest
+
+	print(
+		"[QuestManager] Next quest activated: ",
+		next_quest.quest_id
+	)
+
+	# If there is no tracked quest, automatically track this one.
+	if tracked_quest == null:
+		set_tracked_quest(next_quest)
+
+	# Update UI.
+	quest_updated.emit(next_quest.quest_id)
+	quest_list_updated.emit()
+
+	# Update NPC ! indicators.
+	refresh_npc_quest_indicators()
+
+# ============================================================
+# PLAYER REWARDS + QUEST COMPLETION
+# ============================================================
+
 func handle_quest_completion(quest: Quest) -> void:
+
+	if quest == null:
+		return
 
 	# ========================================================
 	# GIVE REWARDS
@@ -211,6 +291,13 @@ func handle_quest_completion(quest: Quest) -> void:
 
 
 	# ========================================================
+	# UNLOCK NEXT QUEST
+	# ========================================================
+
+	unlock_next_quest(quest)
+
+
+	# ========================================================
 	# CHANGE TRACKED QUEST
 	# ========================================================
 
@@ -218,7 +305,15 @@ func handle_quest_completion(quest: Quest) -> void:
 
 		tracked_quest = null
 
-		if active_quests.size() > 0:
+		# Prefer the newly unlocked quest if there is one.
+		if not quest.unlock_id.is_empty():
+			if active_quests.has(quest.unlock_id):
+				set_tracked_quest(
+					active_quests[quest.unlock_id]
+				)
+
+		# Otherwise track the first active quest.
+		if tracked_quest == null and active_quests.size() > 0:
 
 			set_tracked_quest(
 				active_quests.values()[0]
@@ -234,6 +329,8 @@ func handle_quest_completion(quest: Quest) -> void:
 	)
 
 	quest_list_updated.emit()
+
+	refresh_npc_quest_indicators()
 
 
 	# ========================================================
@@ -324,6 +421,8 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> voi
 	print("====================")
 
 
+	var quest_to_complete: Quest = null
+
 	for quest in active_quests.values():
 
 		if quest.notify(type, target_id, amount):
@@ -331,6 +430,7 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> voi
 			var objective: Objective = quest.get_active_objective()
 
 			if objective != null:
+
 				objective_updated.emit(
 					quest.quest_id,
 					objective.id
@@ -356,8 +456,16 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> voi
 				)
 
 			if quest.is_completed():
-				handle_quest_completion(quest)
-		refresh_npc_quest_indicators()
+				quest_to_complete = quest
+
+			break
+
+
+	# Complete the quest AFTER finishing the active quest loop.
+	if quest_to_complete != null:
+		await handle_quest_completion(quest_to_complete)
+
+	refresh_npc_quest_indicators()
 
 
 # ============================================================

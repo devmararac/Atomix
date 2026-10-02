@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://cdcbxtwvr1eml"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_objective"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_6pgf0"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="2_quest"]
+
+[sub_resource type="Resource" id="Resource_f2chg"]
+script = ExtResource("1_objective")
+id = "talk_andrew_experiment"
+description = "Talk to Andrew about conducting an experiment."
+target_id = "andrew"
+
+[sub_resource type="Resource" id="Resource_6pgf0"]
+script = ExtResource("1_objective")
+id = "formulate_question"
+description = "Identify the question that will guide the experiment."
+type = 5
+target_id = "experiment_question"
+
+[sub_resource type="Resource" id="Resource_j7o5j"]
+script = ExtResource("1_objective")
+id = "make_hypothesis"
+description = "Make a hypothesis before conducting the experiment."
+type = 5
+target_id = "experiment_hypothesis"
+
+[sub_resource type="Resource" id="Resource_bsx1u"]
+script = ExtResource("1_objective")
+id = "conduct_experiment"
+description = "Conduct the experiment and observe the results."
+type = 5
+target_id = "experiment_station"
+
+[sub_resource type="Resource" id="Resource_phch6"]
+script = ExtResource("1_objective")
+id = "draw_conclusion"
+description = "Use the experimental results to identify the conclusion."
+type = 5
+target_id = "experiment_conclusion"
+
+[resource]
+script = ExtResource("2_quest")
+quest_id = "quest_chain_002"
+quest_name = "An Experiment in Atherion"
+quest_description = "Learn how scientists use questions, hypotheses, experiments, data, and conclusions to investigate the world."
+objectives = Array[ExtResource("1_objective")]([SubResource("Resource_f2chg"), SubResource("Resource_6pgf0"), SubResource("Resource_j7o5j"), SubResource("Resource_bsx1u"), SubResource("Resource_phch6")])

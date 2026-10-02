@@ -215,8 +215,7 @@ func handle_interaction():
 		return
 	
 	if target is NPCBase:
-		can_move = false
-		target.interact() 
+		target.interact()
 	
 	elif target.is_in_group("Atomons"):
 		target.recruit()

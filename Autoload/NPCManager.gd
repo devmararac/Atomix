@@ -88,39 +88,31 @@ func has_active_quest_target(npc_id: String) -> bool:
 func interact(npc: NPCBase):
 
 	if npc.data == null:
-		return
+		return null
 
 	if npc.data.dialogue_data == null:
 		push_warning("%s has no DialogueData." % npc.data.display_name)
-		return
+		return null
 
 	var conversation := get_best_conversation(npc)
 
 	if conversation == null:
 		push_warning("%s has no playable conversation." % npc.data.display_name)
-		return
+		return null
 
-	# Play the conversation.
 	var result = play_conversation(npc, conversation)
-
-	# Quest progress is handled by the dialogue itself.
-	# This prevents TALK objectives from completing
-	# before the conversation has actually finished.
 
 	return result
 	
 func play_conversation(npc: NPCBase, conversation: NPCConversation):
-
 	if conversation == null:
-		return
+		return null
 
 	if conversation.timeline == null:
-		return
+		return null
 
-	# Stop NPC movement.
 	npc.set_dialogue_active(true)
 
-	# Stop player movement.
 	if global.player != null:
 		global.player.can_move = false
 
@@ -129,14 +121,14 @@ func play_conversation(npc: NPCBase, conversation: NPCConversation):
 	if global.player and global.player.has_method("register_dialogic"):
 		global.player.register_dialogic(layout)
 
-	layout.register_character(
-		npc.data.dialogic_character,
-		npc.get_node("BubbleMarker")
-	)
-
+	if npc.data.dialogic_character != null:
+		layout.register_character(
+			npc.data.dialogic_character,
+			npc.get_node("BubbleMarker")
+		)
 
 	return layout
-
+	
 func get_best_conversation(npc: NPCBase) -> NPCConversation:
 	if npc.data == null:
 		return null
@@ -235,12 +227,39 @@ func play_battle_announcement(npc: NPCBase, timeline: StringName):
 
 	var layout = Dialogic.start(timeline)
 
+	# ------------------------------------------------------------
+	# FIRST REGISTRATION
+	# ------------------------------------------------------------
+
 	if global.player and global.player.has_method("register_dialogic"):
 		global.player.register_dialogic(layout)
 
-	layout.register_character(
-		npc.data.dialogic_character,
-		npc.get_node("BubbleMarker")
-	)
+	if npc.data.dialogic_character != null:
+		layout.register_character(
+			npc.data.dialogic_character,
+			npc.get_node("BubbleMarker")
+		)
+
+	# ------------------------------------------------------------
+	# WAIT FOR DIALOGIC INITIALIZATION
+	# ------------------------------------------------------------
+
+	await get_tree().process_frame
+
+	if not is_instance_valid(layout):
+		return
+
+	# ------------------------------------------------------------
+	# SECOND REGISTRATION
+	# ------------------------------------------------------------
+
+	if global.player and global.player.has_method("register_dialogic"):
+		global.player.register_dialogic(layout)
+
+	if npc.data.dialogic_character != null:
+		layout.register_character(
+			npc.data.dialogic_character,
+			npc.get_node("BubbleMarker")
+		)
 
 	return layout

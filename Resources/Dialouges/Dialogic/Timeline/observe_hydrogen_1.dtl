@@ -1,3 +1,4 @@
-Player: This must be one of the missing Hydrogen Atomon.
-Player: It's so small...
-[signal arg="observe:hydrogen"]
+Player: This must be one of the missing Hydrogen Atomons.
+Player: It has a small body.
+Player: I can directly see that.
+[signal arg="observe\:hydrogen"]

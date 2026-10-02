@@ -28,7 +28,7 @@ func _ready():
 	
 	await get_tree().process_frame
 
-	var layout = NpcManager.interact(beryll)
+	var layout = await NpcManager.interact(beryll)
 
 	if layout == null:
 		push_error("NpcManager returned a null layout.")

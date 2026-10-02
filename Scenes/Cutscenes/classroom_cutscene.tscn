@@ -3053,7 +3053,6 @@ tile_set = SubResource("TileSet_cm0hy")
 [node name="Prof_Andrew" parent="WALL, PROPS" unique_id=747614588 instance=ExtResource("3_fpxrx")]
 position = Vector2(997, 273)
 data = ExtResource("4_7mouk")
-movement_mode = 1
 
 [node name="Walk SFX" type="AudioStreamPlayer" parent="WALL, PROPS/Prof_Andrew" unique_id=601624097]
 stream = ExtResource("6_0d2a5")
