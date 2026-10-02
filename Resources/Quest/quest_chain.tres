@@ -29,8 +29,8 @@ metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
 
 [resource]
 script = ExtResource("4_vtto2")
-quest_id = "quest_chain_002"
-quest_name = "An Experiment in Atherion"
+quest_id = "quest_chain_001"
+quest_name = "A Curious Resercher"
 quest_description = "Learn to distinguish observations from inferences by carefully observing Hydrubbie."
 unlock_id = "quest_chain_002"
 objectives = Array[ExtResource("1_sxthk")]([SubResource("Resource_3j0vk"), SubResource("Resource_sxthk"), SubResource("Resource_v4m3q")])

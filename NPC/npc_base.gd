@@ -141,7 +141,17 @@ func setup_npc():
 # ============================================================
 
 func interact():
-	NpcManager.interact(self)
+	print("[NPCBase] interact() called for: ", name)
+	print("[NPCBase] NPC data: ", data)
+
+	if data != null:
+		print("[NPCBase] NPC ID: ", data.npc_id)
+		print("[NPCBase] Dialogue data: ", data.dialogue_data)
+		print("[NPCBase] Quests count: ", data.quests.size())
+
+	var result = NpcManager.interact(self)
+
+	print("[NPCBase] NpcManager.interact() returned: ", result)
 
 
 func show_indicator():

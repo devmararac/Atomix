@@ -211,16 +211,26 @@ func _input(event: InputEvent) -> void:
 func handle_interaction():
 	var target = ray_cast_2d.get_collider()
 
+	print("[Player] Interact pressed.")
+	print("[Player] RayCast target: ", target)
+
 	if target == null:
+		print("[Player] No target detected.")
 		return
-	
+
+	print("[Player] Target type: ", target.get_class())
+	print("[Player] Target script: ", target.get_script())
+
 	if target is NPCBase:
+		print("[Player] Target is NPCBase. Calling interact().")
 		target.interact()
-	
+
 	elif target.is_in_group("Atomons"):
+		print("[Player] Target is an Atomon.")
 		target.recruit()
 
 	elif target.is_in_group("Items"):
+		print("[Player] Target is an Item.")
 
 		if target.data.quest_item:
 			if QuestManager.is_item_needed(target.data.item_id):
@@ -231,12 +241,16 @@ func handle_interaction():
 					target.quantity
 				)
 			else:
-				print("This quest item cannot be collected yet.")
+				print("[Player] This quest item cannot be collected yet.")
 		else:
 			target.collect()
 
 	elif target.is_in_group("QuestObjects"):
+		print("[Player] Target is a QuestObject.")
 		target.interact()
+
+	else:
+		print("[Player] Target is not an interactable type.")
 
 func move_to_cutscene_target(target: Marker2D):
 	if target == null:
