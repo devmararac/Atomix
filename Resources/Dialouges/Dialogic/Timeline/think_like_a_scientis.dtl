@@ -1,85 +1,62 @@
-Andrew: Now that you've observed an Atomon closely, let's take the next step.
-Andrew: Scientists don't simply make guesses. They use a process to investigate questions and understand what happens.
+Andrew: Scientists investigate what they observe instead of simply guessing.
 
-[signal arg="quest_notify:quest_chain_002:talk_andrew_experiment"]
+Andrew: When you notice something unusual, what should you do first?
 
-Andrew: Imagine that we have two Atomons of the same type.
-Andrew: We place them in different environments, and we notice that they behave differently.
-
-Andrew: If we want to investigate what is happening, what should we do first?
+[signal arg="quest_notify:quest_chain_001_02:talk_andrew_experiment"]
 
 - Make a conclusion
-    Andrew: We cannot make a conclusion yet. We need evidence first.
-    jump start_question
+  Andrew: We need evidence before making a conclusion.
+  jump question
 
 - Ask a question
-    Andrew: Correct. A scientist begins by asking a clear question about what they want to investigate.
-    [signal arg="quest_notify:quest_chain_002:formulate_question"]
-    jump hypothesis
+  Andrew: Correct. Scientists begin with a clear question.
+  [signal arg="quest_notify:quest_chain_001_02:formulate_question"]
+  jump hypothesis
 
-- Change everything
-    Andrew: Changing everything would make it difficult to determine what caused the result.
-    jump start_question
+- Make a random guess
+  Andrew: A guess is not enough. We need a clear question.
+  jump question
 
-- Ignore the results
-    Andrew: Scientists should not ignore observations. Results are important evidence.
-    jump start_question
+label question
 
-
-label start_question
-
-Andrew: Think carefully. What should a scientist do first when investigating a problem?
+Andrew: What should a scientist do first when investigating a problem?
 
 - Make a conclusion
-    Andrew: We cannot make a conclusion yet. We need evidence first.
-    jump start_question
+  Andrew: A conclusion comes after examining evidence.
+  jump question
 
 - Ask a question
-    Andrew: Exactly. Scientists begin by asking a clear question.
-    [signal arg="quest_notify:quest_chain_002:formulate_question"]
-    jump hypothesis
+  Andrew: Exactly. Start with a clear question about what you want to investigate.
+  [signal arg="quest_notify:quest_chain_001_02:formulate_question"]
+  jump hypothesis
 
-- Change everything
-    Andrew: We need to identify what we are investigating before changing things.
-    jump start_question
-
-- Ignore the results
-    Andrew: Observations and results are important evidence.
-    jump start_question
-
+- Ignore the observation
+  Andrew: Observations can give us useful information.
+  jump question
 
 label hypothesis
 
-Andrew: Now we have a question we want to investigate.
-Andrew: The next step is to make a hypothesis.
+Andrew: Next, make a hypothesis—a testable prediction.
 
-Andrew: A hypothesis is a testable explanation or prediction about what we think will happen.
-
-Andrew: What should we make before conducting the experiment?
-
-- A random guess
-    Andrew: A scientific hypothesis should be based on what we already know and should be testable.
-    jump hypothesis
-
-- A hypothesis
-    Andrew: Correct. A hypothesis gives us a prediction that we can test through an experiment.
-    [signal arg="quest_notify:quest_chain_002:make_hypothesis"]
-    jump experiment_intro
+Andrew: What should we make before investigating further?
 
 - A conclusion
-    Andrew: A conclusion comes after we have collected and examined our results.
-    jump hypothesis
+  Andrew: Conclusions come after examining evidence.
+  jump hypothesis
 
-- Nothing
-    Andrew: We need a hypothesis so we have something we can test.
-    jump hypothesis
+- A hypothesis
+  Andrew: Exactly. A hypothesis is something we can test.
+  [signal arg="quest_notify:quest_chain_001_02:make_hypothesis"]
+  jump cave
 
+- A random guess
+  Andrew: A scientific hypothesis should be testable.
+  jump hypothesis
 
-label experiment_intro
+label cave
 
-Andrew: Good. Now we have a question and a hypothesis.
-Andrew: The next step is to conduct an experiment.
+Andrew: Now we need evidence to investigate our question.
 
-Andrew: We need to carefully control the conditions, observe what happens, and record our results.
+Andrew: There have been reports of an unusual Atomon in the cave.
 
-Andrew: The experiment station is ready. Go to the experiment station and begin the experiment.
+Andrew: Go to the cave and observe what you find.

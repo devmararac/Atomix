@@ -123,4 +123,4 @@ linos: Pay him a visit when you get the chance.
 Player: Alright. I guess I could start there.
 linos: Good luck.
 linos: And don't worry. He'll probably have plenty to tell you.
-[signal arg="quest_accept:quest_chain_001"]
+[signal arg="quest_accept:quest_chain_001_01"]

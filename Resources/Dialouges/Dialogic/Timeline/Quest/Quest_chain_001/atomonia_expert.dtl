@@ -36,4 +36,4 @@ Andrew: Don't make assumptions yet. Just observe and remember what you find.
 Player: Alright. I'll observe three Hydrubbie.
 Andrew: Good. Come back when you're finished, and we'll talk about what you discovered.
 
-[signal arg="quest_notify:quest_chain_001:talk_atomon_expert"]
+[signal arg="quest_notify:quest_chain_001_01:talk_atomon_expert"]

@@ -60,6 +60,7 @@ directories/dch_directory={
 "Beryll": "res://Resources/Dialouges/Dialogic/Characters/Beryll.dch",
 "Deejhay": "res://Resources/Dialouges/Dialogic/Characters/Deejhay.dch",
 "Dianne": "res://Resources/Dialouges/Dialogic/Characters/Dianne.dch",
+"Dr Mundo": "res://Resources/Dialouges/Dialogic/Characters/Dr Mundo.dch",
 "Elysa": "res://Resources/Dialouges/Dialogic/Characters/Elysa.dch",
 "Felix": "res://Resources/Dialouges/Dialogic/Characters/Felix.dch",
 "Garry": "res://Resources/Dialouges/Dialogic/Characters/Garry.dch",
@@ -82,11 +83,13 @@ directories/dtl_directory={
 "intro": "res://Resources/Dialouges/Dialogic/Timeline/intro.dtl",
 "linos_hydrogen_in_progress": "res://Resources/Dialouges/Dialogic/Timeline/linos_hydrogen_in_progress.dtl",
 "linos_report_hydrogen": "res://Resources/Dialouges/Dialogic/Timeline/linos_report_hydrogen.dtl",
+"observe_argon": "res://Resources/Dialouges/Dialogic/Timeline/observe_argon.dtl",
 "observe_hydrogen_1": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_1.dtl",
 "observe_hydrogen_2": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_2.dtl",
 "observe_hydrogen_3": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_3.dtl",
 "return_to_andrew": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/return_to_andrew.dtl",
 "think_like_a_scientis": "res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis.dtl",
+"think_like_a_scientis_return": "res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis_return.dtl",
 "tutorial": "res://Resources/Dialouges/Dialogic/Timeline/tutorial.dtl"
 }
 layout/style_directory={

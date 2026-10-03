@@ -10,8 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://07tyqohijvey" path="res://Assets/UX/Buttons/Normal/button_Action.png" id="7_0hfmd"]
 [ext_resource type="Texture2D" uid="uid://bf56bu8glsj5q" path="res://Assets/UX/Buttons/On-Pressed/button_Interact_Pressed.png" id="7_iiebs"]
 [ext_resource type="Texture2D" uid="uid://cjxpmwm0fultq" path="res://Assets/UX/Buttons/On-Pressed/button_Action_Pressed.png" id="9_n5w8m"]
-[ext_resource type="Texture2D" uid="uid://dq00bn2o5dl3m" path="res://Assets/UX/Buttons/Normal/quest_log2.png" id="10_q8e8b"]
-[ext_resource type="Texture2D" uid="uid://8paefcdgkg1j" path="res://Assets/UX/Buttons/On-Pressed/quest_log2_pressed.png" id="11_f1jpe"]
+[ext_resource type="Texture2D" uid="uid://oedy3oeap3my" path="res://Assets/UX/Buttons/Normal/reset_button.png" id="10_yxyk2"]
 [ext_resource type="Texture2D" uid="uid://lssmb8lh7mtp" path="res://Assets/UX/Buttons/Normal/item_menu.png" id="12_mgdch"]
 [ext_resource type="Texture2D" uid="uid://dodagbimt4hod" path="res://Assets/UX/Buttons/On-Pressed/item_menu_pressed.png" id="13_k32gu"]
 [ext_resource type="Texture2D" uid="uid://dpi2iiv05q52w" path="res://Assets/UX/Buttons/Normal/atomon_menu.png" id="14_yl4g0"]
@@ -158,11 +157,11 @@ offset_right = 269.47998
 offset_bottom = -0.08000946
 flat = true
 
-[node name="QuestLog" type="TouchScreenButton" parent="MenuButtons" unique_id=451295116]
+[node name="Restart" type="TouchScreenButton" parent="MenuButtons" unique_id=451295116]
 position = Vector2(109.00001, -3)
 scale = Vector2(2.46875, 2.7187502)
-texture_normal = ExtResource("10_q8e8b")
-texture_pressed = ExtResource("11_f1jpe")
+texture_normal = ExtResource("10_yxyk2")
+texture_pressed = ExtResource("10_yxyk2")
 action = "Quest"
 
 [node name="Item" type="TouchScreenButton" parent="MenuButtons" unique_id=56811029]
@@ -396,6 +395,7 @@ texture_normal = ExtResource("30_mgdch")
 texture_pressed = ExtResource("31_k32gu")
 stretch_mode = 0
 
+[connection signal="pressed" from="MenuButtons/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="MenuButtons/Item" to="." method="_on_item_pressed"]
 [connection signal="pressed" from="MenuButtons/Atomons" to="." method="_on_atomons_pressed"]
 [connection signal="pressed" from="MenuButtons/Save" to="." method="_on_save_pressed"]

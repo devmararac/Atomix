@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://y016bdh6vwgg"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_0wnow"]
+
+[resource]
+script = ExtResource("1_0wnow")
+id = "interpret_evidence"
+description = "Interpret what your observation tells you."
+type = 5
+target_id = "experiment_evidence"

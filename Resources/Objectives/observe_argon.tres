@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://bkly2l787aatn"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_242dd"]
+
+[resource]
+script = ExtResource("1_242dd")
+id = "observe_argon"
+description = "Observe the Argon Atomon in the cave."
+type = 4
+target_id = "argon"

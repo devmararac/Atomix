@@ -205,8 +205,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
 		handle_interaction()
 
-	if event.is_action_pressed("Quest"):
-		get_tree().current_scene.get_node("HUD").show_hide_log()
+	#if event.is_action_pressed("Quest"):
+		#get_tree().current_scene.get_node("HUD").show_hide_log()
 
 func handle_interaction():
 	var target = ray_cast_2d.get_collider()

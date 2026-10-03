@@ -1,46 +1,19 @@
-[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://cdcbxtwvr1eml"]
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://b0n482tbxg0ne"]
 
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_objective"]
-[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_6pgf0"]
-[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="2_quest"]
-
-[sub_resource type="Resource" id="Resource_f2chg"]
-script = ExtResource("1_objective")
-id = "talk_andrew_experiment"
-description = "Talk to Andrew about conducting an experiment."
-target_id = "andrew"
-
-[sub_resource type="Resource" id="Resource_6pgf0"]
-script = ExtResource("1_objective")
-id = "formulate_question"
-description = "Identify the question that will guide the experiment."
-type = 5
-target_id = "experiment_question"
-
-[sub_resource type="Resource" id="Resource_j7o5j"]
-script = ExtResource("1_objective")
-id = "make_hypothesis"
-description = "Make a hypothesis before conducting the experiment."
-type = 5
-target_id = "experiment_hypothesis"
-
-[sub_resource type="Resource" id="Resource_bsx1u"]
-script = ExtResource("1_objective")
-id = "conduct_experiment"
-description = "Conduct the experiment and observe the results."
-type = 5
-target_id = "experiment_station"
-
-[sub_resource type="Resource" id="Resource_phch6"]
-script = ExtResource("1_objective")
-id = "draw_conclusion"
-description = "Use the experimental results to identify the conclusion."
-type = 5
-target_id = "experiment_conclusion"
+[ext_resource type="Resource" uid="uid://dafomc2r4xkmc" path="res://Resources/Objectives/talk_andrew_experiment.tres" id="2_qyhgh"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_reward"]
+[ext_resource type="Resource" uid="uid://cs2e00l5m2ol4" path="res://Resources/Objectives/formulate_question.tres" id="3_kivrg"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="3_quest"]
+[ext_resource type="Resource" uid="uid://bb24k64pvmru6" path="res://Resources/Objectives/make_hypothesis.tres" id="4_msd2i"]
+[ext_resource type="Resource" uid="uid://bxerlwvgouxdd" path="res://Resources/Objectives/go_to_cave.tres" id="5_qcg4o"]
+[ext_resource type="Resource" uid="uid://bkly2l787aatn" path="res://Resources/Objectives/observe_argon.tres" id="6_2thjq"]
+[ext_resource type="Resource" uid="uid://b5k2sltattgcx" path="res://Resources/Objectives/return_to_andrew_scientist.tres" id="7_lbihg"]
+[ext_resource type="Resource" uid="uid://y016bdh6vwgg" path="res://Resources/Objectives/interpret_evidence.tres" id="8_ea8vl"]
 
 [resource]
-script = ExtResource("2_quest")
-quest_id = "quest_chain_002"
-quest_name = "An Experiment in Atherion"
-quest_description = "Learn how scientists use questions, hypotheses, experiments, data, and conclusions to investigate the world."
-objectives = Array[ExtResource("1_objective")]([SubResource("Resource_f2chg"), SubResource("Resource_6pgf0"), SubResource("Resource_j7o5j"), SubResource("Resource_bsx1u"), SubResource("Resource_phch6")])
+script = ExtResource("3_quest")
+quest_id = "quest_chain_001_02"
+quest_name = "Think Like a Scientist"
+quest_description = "Learn how scientists use questions, hypotheses, observations, and evidence to investigate the world."
+objectives = Array[ExtResource("1_objective")]([ExtResource("2_qyhgh"), ExtResource("3_kivrg"), ExtResource("4_msd2i"), ExtResource("5_qcg4o"), ExtResource("6_2thjq"), ExtResource("7_lbihg"), ExtResource("8_ea8vl")])

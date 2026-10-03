@@ -1,0 +1,47 @@
+Andrew: You're back.
+
+[signal arg="quest_notify:quest_chain_001_02:return_to_andrew_scientist"]
+
+Andrew: What did you observe in the cave?
+
+Andrew: Remember, an observation gives us information that we can use as evidence.
+
+- Evidence
+    Andrew: Correct. Your observation gives us evidence that we can use to examine our hypothesis.
+    [signal arg="quest_notify:quest_chain_001_02:interpret_evidence"]
+    jump finish
+
+- A guaranteed conclusion
+    Andrew: Not quite. An observation gives us evidence, but it does not automatically give us a conclusion.
+    jump question
+
+- Nothing useful
+    Andrew: Observations can provide useful evidence for investigating an idea.
+    jump question
+
+
+label question
+
+Andrew: Think about what you actually observed.
+
+Andrew: What can an observation provide to a scientist?
+
+- Evidence
+    Andrew: Correct. Observations can provide evidence that we can examine.
+    [signal arg="quest_notify:quest_chain_001_02:interpret_evidence"]
+    jump finish
+
+- A guaranteed conclusion
+    Andrew: An observation does not automatically give us a conclusion.
+    jump question
+
+- Nothing useful
+    Andrew: Observations can provide useful evidence.
+    jump question
+
+
+label finish
+
+Andrew: Good work.
+
+Andrew: You used a question, hypothesis, observation, and evidence like a scientist.

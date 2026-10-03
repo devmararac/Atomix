@@ -18,8 +18,8 @@ var quest_database := {
 	"quest_hydrogen_001": preload("res://Resources/Quest/quest_hydrogen_001.tres"),
 	"quest_collect_iron": preload("res://Resources/Quest/quest_collect_iron.tres"),
 	"story_quest_explore_dungeon": preload("res://Resources/Quest/explore_dungeon.tres"),
-	"quest_chain_001": preload("res://Resources/Quest/quest_chain.tres"),
-	"quest_chain_002": preload("res://Resources/Quest/quest_chain2.tres")
+	"quest_chain_001_01": preload("res://Resources/Quest/quest_chain.tres"),
+	"quest_chain_001_02": preload("res://Resources/Quest/quest_chain2.tres")
 }
 
 # -------------------------------------------------------------------
@@ -35,24 +35,100 @@ var completed_quests: Dictionary[String, Quest] = {}
 ## Quest currently shown in the tracker.
 var tracked_quest: Quest = null
 
-#Add quest
+# -------------------------------------------------------------------
+# Dialogic Quest Notification Queue
+# -------------------------------------------------------------------
+
+var quest_notify_queue: Array[String] = []
+var processing_quest_notify := false
+
+# -------------------------------------------------------------------
+# Ready
+# -------------------------------------------------------------------
+
 func _ready():
 	Dialogic.signal_event.connect(_on_dialogic_signal)
+
+# -------------------------------------------------------------------
+# Quest Indicators
+# -------------------------------------------------------------------
 
 func refresh_npc_quest_indicators() -> void:
 	NpcManager.refresh_quest_indicators()
 
+# -------------------------------------------------------------------
+# Dialogic Signals
+# -------------------------------------------------------------------
+
 func _on_dialogic_signal(argument: String):
+
+	# ============================================================
+	# QUEST ACCEPT
+	# ============================================================
+
 	if argument.begins_with("quest_accept:"):
-		var quest_id = argument.get_slice(":", 1)
+
+		var quest_id := argument.get_slice(":", 1)
+
 		accept_quest(quest_id)
+
 		return
 
+
+	# ============================================================
+	# QUEST NOTIFY
+	# ============================================================
+
 	if argument.begins_with("quest_notify:"):
+
+		# Add the notification to the queue.
+		quest_notify_queue.append(argument)
+
+		print(
+			"[QuestManager] Added quest notification to queue: ",
+			argument
+		)
+
+		print(
+			"[QuestManager] Queue size: ",
+			quest_notify_queue.size()
+		)
+
+		# Start processing if nothing is currently processing.
+		if not processing_quest_notify:
+			_process_quest_notify_queue()
+
+
+# -------------------------------------------------------------------
+# Process Dialogic Quest Notification Queue
+# -------------------------------------------------------------------
+
+func _process_quest_notify_queue() -> void:
+
+	if processing_quest_notify:
+		return
+
+	processing_quest_notify = true
+
+	while not quest_notify_queue.is_empty():
+
+		var argument: String = quest_notify_queue.pop_front()
+
+		print(
+			"[QuestManager] Processing queued quest notification: ",
+			argument
+		)
+
 		var parts := argument.split(":")
 
 		if parts.size() < 3:
-			return
+
+			print(
+				"[QuestManager] Invalid quest notification: ",
+				argument
+			)
+
+			continue
 
 		var quest_id := parts[1]
 		var objective_id := parts[2]
@@ -60,24 +136,118 @@ func _on_dialogic_signal(argument: String):
 		var quest := get_quest(quest_id)
 
 		if quest == null:
-			return
+
+			print(
+				"[QuestManager] Quest not found for notification: ",
+				quest_id
+			)
+
+			continue
+
+
+		# --------------------------------------------------------
+		# Get current active objective
+		# --------------------------------------------------------
 
 		var objective := quest.get_active_objective()
 
 		if objective == null:
-			return
+
+			print(
+				"[QuestManager] Quest has no active objective: ",
+				quest_id
+			)
+
+			continue
+
+
+		print(
+			"[QuestManager] Current active objective: ",
+			objective.id
+		)
+
+		print(
+			"[QuestManager] Requested objective: ",
+			objective_id
+		)
+
+
+		# --------------------------------------------------------
+		# Make sure this notification belongs to the
+		# current active objective.
+		# --------------------------------------------------------
 
 		if objective.id != objective_id:
-			return
 
-		# Wait until Dialogic finishes processing the
-		# current dialogue/signal event visually.
+			print(
+				"[QuestManager] Ignoring notification because ",
+				"it does not match the active objective."
+			)
+
+			continue
+
+
+		# --------------------------------------------------------
+		# Wait one frame before processing.
+		# --------------------------------------------------------
+
 		await get_tree().process_frame
 
-		notify(
+
+		print(
+			"[QuestManager] Notifying objective: ",
+			objective.id
+		)
+
+
+		# --------------------------------------------------------
+		# IMPORTANT:
+		# Wait for notify() to completely finish before processing
+		# the next Dialogic notification.
+		# --------------------------------------------------------
+
+		await notify(
 			objective.type,
 			objective.target_id
 		)
+
+
+		print(
+			"[QuestManager] Finished objective notification: ",
+			objective.id
+		)
+
+
+		# --------------------------------------------------------
+		# Show next active objective.
+		# --------------------------------------------------------
+
+		var next_objective := quest.get_active_objective()
+
+		if next_objective != null:
+
+			print(
+				"[QuestManager] Next active objective: ",
+				next_objective.id
+			)
+
+		else:
+
+			print(
+				"[QuestManager] No active objective remaining."
+			)
+
+
+	processing_quest_notify = false
+
+	print(
+		"[QuestManager] Quest notification queue finished."
+	)
+
+# -------------------------------------------------------------------
+# Accept Quest
+# -------------------------------------------------------------------
+
 func accept_quest(quest_id: String) -> void:
 
 	# Already active?
@@ -107,6 +277,7 @@ func accept_quest(quest_id: String) -> void:
 	quest_updated.emit(quest.quest_id)
 	quest_list_updated.emit()
 	refresh_npc_quest_indicators()
+
 	# ========================================================
 	# QUEST ACCEPTANCE SAVE
 	# ========================================================
@@ -123,7 +294,12 @@ func accept_quest(quest_id: String) -> void:
 		"[QuestManager] Quest acceptance quest-only automatic save completed."
 	)
 
+# -------------------------------------------------------------------
+# Start Story Quest
+# -------------------------------------------------------------------
+
 func start_story_quest(quest_id: String) -> void:
+
 	if active_quests.has(quest_id):
 		return
 
@@ -132,9 +308,16 @@ func start_story_quest(quest_id: String) -> void:
 
 	accept_quest(quest_id)
 
-#Get quest
+# -------------------------------------------------------------------
+# Get Quest
+# -------------------------------------------------------------------
+
 func get_quest(quest_id: String) -> Quest:
 	return active_quests.get(quest_id)
+
+# -------------------------------------------------------------------
+# Check Objective
+# -------------------------------------------------------------------
 
 func is_objective_completed(quest_id: String, objective_id: String) -> bool:
 
@@ -144,12 +327,18 @@ func is_objective_completed(quest_id: String, objective_id: String) -> bool:
 		return false
 
 	for objective in quest.objectives:
+
 		if objective.id == objective_id:
 			return objective.is_completed
+
 	return false
 
-#Update quest 
+# -------------------------------------------------------------------
+# Update Quest
+# -------------------------------------------------------------------
+
 func update_quest(quest_id: String, state: QuestState.Type) -> void:
+
 	var quest := get_quest(quest_id)
 
 	if quest == null:
@@ -158,12 +347,19 @@ func update_quest(quest_id: String, state: QuestState.Type) -> void:
 	quest.state = state
 	quest_updated.emit(quest_id)
 
-#Get Selected Quest
+# -------------------------------------------------------------------
+# Get Active Quests
+# -------------------------------------------------------------------
+
 func get_active_quests() -> Array[Quest]:
 	return active_quests.values()
 
+# -------------------------------------------------------------------
+# Debug Quests
+# -------------------------------------------------------------------
 
 func debug_quests() -> void:
+
 	print("=== Active Quests ===")
 
 	if active_quests.is_empty():
@@ -186,10 +382,12 @@ func unlock_next_quest(completed_quest: Quest) -> void:
 
 	# This quest does not unlock another quest.
 	if next_quest_id.is_empty():
+
 		print(
 			"[QuestManager] Quest has no next quest: ",
 			completed_quest.quest_id
 		)
+
 		return
 
 	print(
@@ -199,26 +397,32 @@ func unlock_next_quest(completed_quest: Quest) -> void:
 
 	# Already active.
 	if active_quests.has(next_quest_id):
+
 		print(
 			"[QuestManager] Next quest is already active: ",
 			next_quest_id
 		)
+
 		return
 
 	# Already completed.
 	if completed_quests.has(next_quest_id):
+
 		print(
 			"[QuestManager] Next quest is already completed: ",
 			next_quest_id
 		)
+
 		return
 
 	# Quest does not exist in the database.
 	if not quest_database.has(next_quest_id):
+
 		push_error(
 			"[QuestManager] Unlock quest '%s' was not found in quest_database!"
 			% next_quest_id
 		)
+
 		return
 
 	# Create a runtime copy of the quest resource.
@@ -243,7 +447,7 @@ func unlock_next_quest(completed_quest: Quest) -> void:
 	quest_updated.emit(next_quest.quest_id)
 	quest_list_updated.emit()
 
-	# Update NPC ! indicators.
+	# Update NPC indicators.
 	refresh_npc_quest_indicators()
 
 # ============================================================
@@ -268,7 +472,6 @@ func handle_quest_completion(quest: Quest) -> void:
 					reward.reward_amount
 				)
 
-
 	# ========================================================
 	# MARK AS COMPLETED
 	# ========================================================
@@ -277,7 +480,6 @@ func handle_quest_completion(quest: Quest) -> void:
 		quest.quest_id,
 		QuestState.Type.COMPLETED
 	)
-
 
 	# ========================================================
 	# MOVE ACTIVE -> COMPLETED
@@ -289,13 +491,11 @@ func handle_quest_completion(quest: Quest) -> void:
 
 	completed_quests[quest.quest_id] = quest
 
-
 	# ========================================================
 	# UNLOCK NEXT QUEST
 	# ========================================================
 
 	unlock_next_quest(quest)
-
 
 	# ========================================================
 	# CHANGE TRACKED QUEST
@@ -307,7 +507,9 @@ func handle_quest_completion(quest: Quest) -> void:
 
 		# Prefer the newly unlocked quest if there is one.
 		if not quest.unlock_id.is_empty():
+
 			if active_quests.has(quest.unlock_id):
+
 				set_tracked_quest(
 					active_quests[quest.unlock_id]
 				)
@@ -318,7 +520,6 @@ func handle_quest_completion(quest: Quest) -> void:
 			set_tracked_quest(
 				active_quests.values()[0]
 			)
-
 
 	# ========================================================
 	# SIGNALS
@@ -331,7 +532,6 @@ func handle_quest_completion(quest: Quest) -> void:
 	quest_list_updated.emit()
 
 	refresh_npc_quest_indicators()
-
 
 	# ========================================================
 	# SAVE AFTER QUEST COMPLETION
@@ -375,20 +575,33 @@ func handle_quest_completion(quest: Quest) -> void:
 			"[QuestManager] Quest completion automatic save completed."
 		)
 
+# -------------------------------------------------------------------
+# Set Tracked Quest
+# -------------------------------------------------------------------
+
 func set_tracked_quest(quest: Quest) -> void:
+
 	if tracked_quest == quest:
 		return
 
 	tracked_quest = quest
 	tracked_quest_changed.emit(quest)
 
-func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> void:
-	
+# -------------------------------------------------------------------
+# Notify Quest
+# -------------------------------------------------------------------
+
+func notify(
+	type: ObjectiveType.Type,
+	target_id: String,
+	amount: int = 1
+) -> void:
+
 	print(">>> QUEST NOTIFY CALLED <<<")
 	print("TYPE: ", type)
 	print("TARGET: ", target_id)
 	print("STACK: ", get_stack())
-	
+
 	print("====================")
 	print("QUEST EVENT:")
 	print("Type:", type)
@@ -396,7 +609,9 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> voi
 	print("Amount:", amount)
 
 	print("ACTIVE QUESTS:")
+
 	for quest in active_quests.values():
+
 		print(
 			"-",
 			quest.quest_id,
@@ -405,6 +620,7 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> voi
 		)
 
 		for objective in quest.objectives:
+
 			print(
 				"   Objective:",
 				objective.id,
@@ -460,19 +676,18 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> voi
 
 			break
 
-
 	# Complete the quest AFTER finishing the active quest loop.
 	if quest_to_complete != null:
 		await handle_quest_completion(quest_to_complete)
 
 	refresh_npc_quest_indicators()
 
-
 # ============================================================
 # SAVE ALL QUESTS
 # ============================================================
 
 func get_save_data() -> Dictionary:
+
 	var data := {
 		"active_quests": {},
 		"completed_quests": {},
@@ -480,12 +695,14 @@ func get_save_data() -> Dictionary:
 	}
 
 	for quest_id in active_quests:
+
 		var quest: Quest = active_quests[quest_id]
 
 		if quest != null:
 			data["active_quests"][quest_id] = quest.to_save_dict()
 
 	for quest_id in completed_quests:
+
 		var quest: Quest = completed_quests[quest_id]
 
 		if quest != null:
@@ -495,7 +712,6 @@ func get_save_data() -> Dictionary:
 		data["tracked_quest_id"] = tracked_quest.quest_id
 
 	return data
-
 
 # ============================================================
 # LOAD ALL QUESTS
@@ -519,10 +735,12 @@ func load_save_data(data: Dictionary) -> void:
 	for quest_id in saved_active:
 
 		if not quest_database.has(quest_id):
+
 			print(
 				"[QuestManager] Quest not found: ",
 				quest_id
 			)
+
 			continue
 
 		var quest: Quest = (
@@ -534,7 +752,6 @@ func load_save_data(data: Dictionary) -> void:
 		)
 
 		active_quests[quest_id] = quest
-
 
 	# --------------------------------------------------------
 	# COMPLETED QUESTS
@@ -548,10 +765,12 @@ func load_save_data(data: Dictionary) -> void:
 	for quest_id in saved_completed:
 
 		if not quest_database.has(quest_id):
+
 			print(
 				"[QuestManager] Completed quest not found: ",
 				quest_id
 			)
+
 			continue
 
 		var quest: Quest = (
@@ -563,7 +782,6 @@ func load_save_data(data: Dictionary) -> void:
 		)
 
 		completed_quests[quest_id] = quest
-
 
 	# --------------------------------------------------------
 	# TRACKED QUEST
@@ -582,7 +800,6 @@ func load_save_data(data: Dictionary) -> void:
 
 			tracked_quest = active_quests[tracked_id]
 
-
 	print(
 		"[QuestManager] Loaded active quests: ",
 		active_quests.size()
@@ -594,6 +811,7 @@ func load_save_data(data: Dictionary) -> void:
 	)
 
 	if tracked_quest != null:
+
 		print(
 			"[QuestManager] Tracked quest: ",
 			tracked_quest.quest_id

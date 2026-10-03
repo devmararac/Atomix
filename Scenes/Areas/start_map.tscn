@@ -2798,6 +2798,7 @@ position = Vector2(315, 25)
 position = Vector2(64, 205)
 target_scene = "res://Scenes/Areas/linos_house.tscn"
 target_spawn = "Spawn(LinosInsideHouse)"
+area_target_id = "linos_house"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger" unique_id=298700533]
 z_index = 1
@@ -2811,6 +2812,7 @@ position = Vector2(64, 220)
 position = Vector2(584, 85)
 target_scene = "res://Scenes/Areas/andrews_house.tscn"
 target_spawn = "Spawn(AndrewInsideHouse)"
+area_target_id = "andrew_house"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger2" unique_id=761686049]
 position = Vector2(0, -1)
@@ -2823,6 +2825,7 @@ position = Vector2(584, 99)
 position = Vector2(761, -8)
 target_scene = "res://Scenes/Areas/route1.tscn"
 target_spawn = "Spawn(Route1)"
+area_target_id = "route1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger3" unique_id=749967723]
 position = Vector2(-1, 0)
@@ -2835,6 +2838,7 @@ position = Vector2(760, 14)
 position = Vector2(984, 431)
 target_scene = "res://Scenes/Areas/cave.tscn"
 target_spawn = "Spawn(CaveExit)"
+area_target_id = "cave"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger4" unique_id=1686393194]
 position = Vector2(0, -4.5)
@@ -2847,6 +2851,7 @@ position = Vector2(984, 443)
 position = Vector2(1040, 253)
 target_scene = "res://Scenes/Areas/alchemy_house.tscn"
 target_spawn = "Spawn(InsideAlchemy)"
+area_target_id = "alchemy_house"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger5" unique_id=2035536415]
 position = Vector2(0, -1)

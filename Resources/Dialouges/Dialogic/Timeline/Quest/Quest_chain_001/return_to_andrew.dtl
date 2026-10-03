@@ -36,4 +36,4 @@ Andrew: Quantitative data uses numbers or measurements.
 Andrew: You just practiced three important skills\: observation, inference, and identifying qualitative and quantitative data.
 Andrew: These skills are important because scientists need to separate what they actually observe from what they conclude.
 
-[signal arg="quest_notify:quest_chain_001:return_to_andrew"]
+[signal arg="quest_notify:quest_chain_001_01:return_to_andrew"]
