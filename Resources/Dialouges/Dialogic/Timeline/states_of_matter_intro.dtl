@@ -1,0 +1,49 @@
+"Dr Mundo": Ah, you've arrived.
+
+"Dr Mundo": Welcome to the Alchemy House.
+
+Player: Thank you, Dr. Mundo.
+
+"Dr Mundo":  I understand that you're beginning to learn more about chemistry.
+
+Player: I'm ready to learn.
+
+"Dr Mundo": Then let's start with something fundamental.
+
+"Dr Mundo":  Matter.
+
+"Dr Mundo": Matter is anything that has mass and occupies space.
+
+Player: So matter is basically everything that has mass and takes up space?
+
+"Dr Mundo": Exactly.
+
+"Dr Mundo": But matter can exist in different states.
+
+"Dr Mundo": The three states we will focus on are solid, liquid, and gas.
+
+Player: Solid, liquid, and gas?
+
+Player: Correct.
+
+"Dr Mundo": A solid has a definite shape and a definite volume.
+
+"Dr Mundo": A liquid has a definite volume, but it takes the shape of its container.
+
+"Dr Mundo": A gas has neither a definite shape nor a definite volume.
+
+"Dr Mundo": I don't want you to simply memorize these definitions.
+
+"Dr Mundo": I want you to observe these states for yourself.
+
+"Dr Mundo": There is an Iron Atomon in the cave.
+
+"Dr Mundo": Go to the cave and observe it carefully.
+
+"Dr Mundo": Pay attention to what you can actually observe.
+
+[signal arg="quest_notify:quest_chain_002_01:talk_dr_mundo_matter"]
+
+"Dr Mundo": Afterward, return to the starter area.
+
+"Dr Mundo": We'll discuss what you discovered.

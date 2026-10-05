@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://chvwwygercv33"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_smqm0"]
+
+[resource]
+script = ExtResource("1_smqm0")
+id = "return_to_main_map3"
+description = "Return to the Starter Town	"
+type = 3
+target_id = "start_map"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

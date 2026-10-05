@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://ci5hlndu3gynv"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_uwttj"]
+
+[resource]
+script = ExtResource("1_uwttj")
+id = "go_to_cave2"
+description = "Go to the cave."
+type = 3
+target_id = "cave"

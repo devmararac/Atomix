@@ -2265,7 +2265,7 @@ shader_parameter/leaf_size = 0.00500000023749
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ynirp"]
 size = Vector2(34, 11)
 
-[node name="map" type="Node2D" unique_id=1186236317]
+[node name="NpcBase2" type="Node2D" unique_id=1186236317]
 y_sort_enabled = true
 script = ExtResource("1_rsgrb")
 
@@ -2786,7 +2786,7 @@ position = Vector2(186, 477)
 [node name="NpcBase2" parent="OBJECTS" unique_id=924365017 instance=ExtResource("23_ucnbf")]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(991, 286)
+position = Vector2(969, 267)
 data = ExtResource("36_q0fcu")
 movement_mode = 1
 
@@ -2798,7 +2798,7 @@ position = Vector2(315, 25)
 position = Vector2(64, 205)
 target_scene = "res://Scenes/Areas/linos_house.tscn"
 target_spawn = "Spawn(LinosInsideHouse)"
-area_target_id = "linos_house"
+target_id = "linos_house"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger" unique_id=298700533]
 z_index = 1
@@ -2812,7 +2812,7 @@ position = Vector2(64, 220)
 position = Vector2(584, 85)
 target_scene = "res://Scenes/Areas/andrews_house.tscn"
 target_spawn = "Spawn(AndrewInsideHouse)"
-area_target_id = "andrew_house"
+target_id = "andrew_house"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger2" unique_id=761686049]
 position = Vector2(0, -1)
@@ -2825,7 +2825,7 @@ position = Vector2(584, 99)
 position = Vector2(761, -8)
 target_scene = "res://Scenes/Areas/route1.tscn"
 target_spawn = "Spawn(Route1)"
-area_target_id = "route1"
+target_id = "route1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger3" unique_id=749967723]
 position = Vector2(-1, 0)
@@ -2834,11 +2834,11 @@ shape = SubResource("RectangleShape2D_gv1qg")
 [node name="Spawn(StartMap)" type="Marker2D" parent="." unique_id=2031902610]
 position = Vector2(760, 14)
 
-[node name="Scene_Trigger4" parent="." unique_id=983331678 instance=ExtResource("12_3kusq")]
+[node name="Scene_Trigger4" parent="." unique_id=983331678 groups=["QuestAreas"] instance=ExtResource("12_3kusq")]
 position = Vector2(984, 431)
 target_scene = "res://Scenes/Areas/cave.tscn"
 target_spawn = "Spawn(CaveExit)"
-area_target_id = "cave"
+target_id = "cave"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger4" unique_id=1686393194]
 position = Vector2(0, -4.5)
@@ -2847,11 +2847,11 @@ shape = SubResource("RectangleShape2D_ntkdk")
 [node name="Spawn(CaveEntrance)" type="Marker2D" parent="." unique_id=1848200582]
 position = Vector2(984, 443)
 
-[node name="Scene_Trigger5" parent="." unique_id=1465765618 instance=ExtResource("12_3kusq")]
+[node name="Scene_Trigger5" parent="." unique_id=1465765618 groups=["QuestAreas"] instance=ExtResource("12_3kusq")]
 position = Vector2(1040, 253)
 target_scene = "res://Scenes/Areas/alchemy_house.tscn"
 target_spawn = "Spawn(InsideAlchemy)"
-area_target_id = "alchemy_house"
+target_id = "alchemy_house"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger5" unique_id=2035536415]
 position = Vector2(0, -1)

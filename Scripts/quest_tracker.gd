@@ -23,13 +23,43 @@ func _ready():
 
 #Update tracker UI
 func update_quest_tracker(quest: Quest):
-	# No tracked quest
+	print("================================")
+	print("[Tracker] update_quest_tracker()")
+	print("[Tracker] Quest: ", quest)
+
 	if quest == null:
+		print("[Tracker] QUEST IS NULL -> HIDING TRACKER")
 		visible = false
 		return
 
-	# Quest is completed
-	if quest.state == QuestState.Type.COMPLETED:
+	print("[Tracker] Quest ID: ", quest.quest_id)
+	print("[Tracker] Quest state: ", quest.state)
+
+	var has_active_objective := false
+
+	for objective in quest.objectives:
+		if objective == null:
+			print("[Tracker] Skipping NULL objective")
+			continue
+
+		print(
+			"[Tracker] Objective: ",
+			objective.id,
+			" | active=", objective.is_active,
+			" | completed=", objective.is_completed,
+			" | current=", objective.current_amount,
+			" | required=", objective.required_amount
+		)
+
+		if !objective.is_active:
+			continue
+
+		has_active_objective = true
+
+	print("[Tracker] has_active_objective = ", has_active_objective)
+
+	if not has_active_objective:
+		print("[Tracker] NO ACTIVE OBJECTIVE -> HIDING TRACKER")
 		visible = false
 		return
 
@@ -39,14 +69,13 @@ func update_quest_tracker(quest: Quest):
 
 	title.text = quest.quest_name
 
-	var has_active_objective := false
-
 	for objective in quest.objectives:
-		if !objective.is_active:
+		if objective == null:
 			continue
 
-		has_active_objective = true
-
+		if !objective.is_active:
+			continue
+	
 		var label := Label.new()
 
 		if objective.required_amount > 0:
@@ -64,14 +93,22 @@ func update_quest_tracker(quest: Quest):
 		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 		if objective.is_completed:
-			label.add_theme_color_override("font_color", Color(0.4, 0.48, 0.139))
+			label.add_theme_color_override(
+				"font_color",
+				Color(0.4, 0.48, 0.139)
+			)
 		else:
-			label.add_theme_color_override("font_color", Color(0.471, 0.353, 0.235))
+			label.add_theme_color_override(
+				"font_color",
+				Color(0.471, 0.353, 0.235)
+			)
 
 		objectives.add_child(label)
 
-	# Hide if nothing is left to track
-	visible = has_active_objective
+	visible = true
+
+	print("[Tracker] TRACKER SET VISIBLE")
+	print("================================")
 
 
 # Update tracker if quest is complete
@@ -82,9 +119,21 @@ func _on_quest_updated(quest_id: String):
 
 # Update tracker if objective is complete
 func _on_objective_updated(quest_id: String, objective_id: String):
+	print("================================")
+	print("[Tracker] objective_updated received")
+	print("[Tracker] Quest ID: ", quest_id)
+	print("[Tracker] Objective ID: ", objective_id)
+	print("[Tracker] Tracked quest: ", QuestManager.tracked_quest)
+
 	if QuestManager.tracked_quest \
 	and QuestManager.tracked_quest.quest_id == quest_id:
+
+		print("[Tracker] Quest IDs MATCH")
 		update_quest_tracker(QuestManager.tracked_quest)
+
+	else:
+		print("[Tracker] Quest IDs DO NOT MATCH")
+	print("================================")
 
 func show_tracker(quest: Quest):
 	update_quest_tracker(quest)

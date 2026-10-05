@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://co80ujt2nrjm2"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_yugur"]
+
+[resource]
+script = ExtResource("1_yugur")
+id = "go_to_route1"
+description = "Go to Route 1."
+type = 3
+target_id = "route1"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

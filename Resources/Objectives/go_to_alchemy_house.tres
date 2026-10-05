@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://dmammdaokwujf"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_i0q3j"]
+
+[resource]
+script = ExtResource("1_i0q3j")
+id = "go_to_alchemy_house"
+description = "Go to Alchemy House"
+type = 3
+target_id = "alchemy_house"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

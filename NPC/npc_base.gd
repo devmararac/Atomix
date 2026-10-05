@@ -1,3 +1,4 @@
+
 extends CharacterBody2D
 class_name NPCBase
 
@@ -30,6 +31,18 @@ enum MovementMode {
 
 @export var wander_speed: float = 30.0
 @export var wander_wait_times: Array[float] = [0.5, 1.0, 1.5]
+
+
+# ============================================================
+# NPC PROXIMITY
+# ============================================================
+
+@export_category("NPC Proximity")
+@export var stop_when_player_near: bool = true
+@export var player_stop_distance: float = 45.0
+
+var player_is_near := false
+
 
 var quest_tween: Tween
 var quest_indicator_visible := false
@@ -99,6 +112,10 @@ func _ready():
 		start_wandering()
 
 
+# ============================================================
+# DIALOGUE STATE
+# ============================================================
+
 func set_dialogue_active(active: bool) -> void:
 	dialogue_active = active
 
@@ -109,7 +126,8 @@ func set_dialogue_active(active: bool) -> void:
 		# DO NOT force idle every physics frame.
 		# Cutscenes are allowed to control the animation afterward.
 		if not is_moving:
-			if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("idle"):
+			if sprite.sprite_frames != null \
+			and sprite.sprite_frames.has_animation("idle"):
 				sprite.play("idle")
 
 
@@ -163,14 +181,92 @@ func hide_indicator():
 
 
 # ============================================================
+# PLAYER PROXIMITY
+# ============================================================
+
+func is_player_near() -> bool:
+
+	if global.player == null:
+		return false
+
+	var distance := global_position.distance_to(
+		global.player.global_position
+	)
+
+	return distance <= player_stop_distance
+
+
+func face_player() -> void:
+
+	if global.player == null:
+		return
+
+	var direction := global.player.global_position - global_position
+
+	if direction.x < 0:
+		sprite.flip_h = true
+	elif direction.x > 0:
+		sprite.flip_h = false
+
+
+# ============================================================
 # PHYSICS
 # ============================================================
 
 func _physics_process(delta):
 
 	# ============================================================
+	# NAVIGATION MOVEMENT
+	# ============================================================
+	# Navigation MUST be checked before player proximity.
+	#
+	# This allows:
+	# professor.walk_to(...)
+	#
+	# to work even while Dialogic is active or while the player
+	# is standing near the NPC.
+	# ============================================================
+
+	if is_moving:
+		process_navigation_movement()
+		return
+
+
+	# ============================================================
+	# PLAYER PROXIMITY
+	# ============================================================
+	# When the player gets close:
+	# - Stop the NPC
+	# - Face the player
+	# - Play idle
+	#
+	# When the player walks away:
+	# - Normal NPC behavior resumes
+	# ============================================================
+
+	if stop_when_player_near and is_player_near():
+
+		player_is_near = true
+		velocity = Vector2.ZERO
+
+		# Face the player.
+		face_player()
+
+		# Stay in idle animation.
+		if sprite.sprite_frames != null \
+		and sprite.sprite_frames.has_animation("idle"):
+			sprite.play("idle")
+
+		return
+
+	else:
+		player_is_near = false
+
+
+	# ============================================================
 	# JOYSTICK CONTROL
 	# ============================================================
+
 	if joystick_controlled:
 		is_moving = false
 
@@ -185,7 +281,8 @@ func _physics_process(delta):
 
 		if input_vector != Vector2.ZERO:
 
-			if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("walk"):
+			if sprite.sprite_frames != null \
+			and sprite.sprite_frames.has_animation("walk"):
 				sprite.play("walk")
 			else:
 				sprite.play("idle")
@@ -195,28 +292,14 @@ func _physics_process(delta):
 		else:
 			velocity = Vector2.ZERO
 
-			if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("idle"):
+			if sprite.sprite_frames != null \
+			and sprite.sprite_frames.has_animation("idle"):
 				sprite.play("idle")
 
 		move_and_collide(
 			velocity * get_physics_process_delta_time()
 		)
 
-		return
-
-
-	# ============================================================
-	# NAVIGATION MOVEMENT
-	# ============================================================
-	# Navigation MUST be checked before dialogue lock.
-	#
-	# This allows:
-	# professor.walk_to(...)
-	#
-	# to work even while Dialogic is active.
-	# ============================================================
-	if is_moving:
-		process_navigation_movement()
 		return
 
 
@@ -232,6 +315,7 @@ func _physics_process(delta):
 	# sprite.play("idle")
 	# etc.
 	# ============================================================
+
 	if dialogue_active:
 		velocity = Vector2.ZERO
 		return
@@ -240,6 +324,7 @@ func _physics_process(delta):
 	# ============================================================
 	# RANDOM WANDERING
 	# ============================================================
+
 	if movement_mode == MovementMode.WANDER:
 		process_wandering(delta)
 		return
@@ -253,6 +338,7 @@ func _physics_process(delta):
 	# External/cutscene animation must be allowed to continue.
 	# setup_npc() already starts normal NPCs in idle.
 	# ============================================================
+
 	velocity = Vector2.ZERO
 
 
@@ -267,7 +353,8 @@ func process_navigation_movement():
 		is_moving = false
 		velocity = Vector2.ZERO
 
-		if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("idle"):
+		if sprite.sprite_frames != null \
+		and sprite.sprite_frames.has_animation("idle"):
 			sprite.play("idle")
 
 		destination_reached.emit()
@@ -287,7 +374,8 @@ func process_navigation_movement():
 
 	move_and_slide()
 
-	if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("walk"):
+	if sprite.sprite_frames != null \
+	and sprite.sprite_frames.has_animation("walk"):
 		sprite.play("walk")
 	else:
 		sprite.play("idle")
@@ -334,7 +422,8 @@ func process_wandering(delta):
 				wander_speed * 2.0 * delta
 			)
 
-			if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("idle"):
+			if sprite.sprite_frames != null \
+			and sprite.sprite_frames.has_animation("idle"):
 				sprite.play("idle")
 
 			wander_timer -= delta
@@ -356,7 +445,8 @@ func process_wandering(delta):
 
 			velocity = wander_direction * wander_speed
 
-			if sprite.sprite_frames != null and sprite.sprite_frames.has_animation("walk"):
+			if sprite.sprite_frames != null \
+			and sprite.sprite_frames.has_animation("walk"):
 				sprite.play("walk")
 			else:
 				sprite.play("idle")
@@ -556,7 +646,7 @@ func play_emote(emote_name: String, duration: float = 2.5) -> void:
 		"angry":
 			texture = ANGRY
 			SfxManager.play_emote()
-		
+
 		"annoyed":
 			texture = ANNOYED
 			SfxManager.play_emote()

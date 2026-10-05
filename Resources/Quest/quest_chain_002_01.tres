@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://dh7vv6yfmkb70"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_objective"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_1s3au"]
+[ext_resource type="Resource" uid="uid://c5ub2ricmt6ru" path="res://Resources/Objectives/go_to_alchemy_house2.tres" id="2_8ahfe"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="2_quest"]
+[ext_resource type="Resource" uid="uid://bsg5uqe2ooq3o" path="res://Resources/Objectives/talk_dr_mundo_matter.tres" id="3_8ahfe"]
+[ext_resource type="Resource" uid="uid://c0yg8bmn8s56w" path="res://Resources/Objectives/return_to_starter_map2.tres" id="4_4kcgs"]
+[ext_resource type="Resource" uid="uid://ci5hlndu3gynv" path="res://Resources/Objectives/go_to_cave2.tres" id="5_8ahfe"]
+[ext_resource type="Resource" uid="uid://deau2gdcfuspc" path="res://Resources/Objectives/observe_iron.tres" id="6_m3crk"]
+[ext_resource type="Resource" uid="uid://chvwwygercv33" path="res://Resources/Objectives/return_to_starter_map3.tres" id="7_m3crk"]
+[ext_resource type="Resource" uid="uid://co80ujt2nrjm2" path="res://Resources/Objectives/go_to_route1.tres" id="7_ouedp"]
+[ext_resource type="Resource" uid="uid://c32ko8nq2wpnr" path="res://Resources/Objectives/observe_mercury.tres" id="8_yj4ji"]
+[ext_resource type="Resource" uid="uid://clpa6156n22le" path="res://Resources/Objectives/observe_helium.tres" id="9_ulk1g"]
+[ext_resource type="Resource" uid="uid://dmammdaokwujf" path="res://Resources/Objectives/go_to_alchemy_house.tres" id="10_j04wj"]
+[ext_resource type="Resource" uid="uid://cgjaahcjpf3bg" path="res://Resources/Objectives/return_to_starter_map4.tres" id="10_ouedp"]
+[ext_resource type="Resource" uid="uid://cnjc54jkci7eb" path="res://Resources/Objectives/return_to_dr_mundo_matter.tres" id="11_f8ph5"]
+
+[resource]
+script = ExtResource("2_quest")
+quest_id = "quest_chain_002_01"
+quest_name = "The States of Matter"
+quest_description = "Observe three Atomons and learn how matter can exist as a solid, liquid, or gas."
+objectives = Array[ExtResource("1_objective")]([ExtResource("2_8ahfe"), ExtResource("3_8ahfe"), ExtResource("4_4kcgs"), ExtResource("5_8ahfe"), ExtResource("6_m3crk"), ExtResource("7_m3crk"), ExtResource("7_ouedp"), ExtResource("8_yj4ji"), ExtResource("10_ouedp"), ExtResource("9_ulk1g"), ExtResource("10_j04wj"), ExtResource("11_f8ph5")])
+metadata/_custom_type_script = "uid://7rrmrho1w3gn"

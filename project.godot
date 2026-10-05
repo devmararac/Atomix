@@ -67,6 +67,8 @@ directories/dch_directory={
 "Player": "res://Resources/Dialouges/Dialogic/Characters/Player.dch",
 "Prof_Andrew": "res://Resources/Dialouges/Dialogic/Characters/Prof_Andrew.dch",
 "Trishania": "res://Resources/Dialouges/Dialogic/Characters/Trishania.dch",
+"argon": "res://Resources/Dialouges/Dialogic/Characters/argon.dch",
+"iron": "res://Resources/Dialouges/Dialogic/Characters/iron.dch",
 "linos": "res://Resources/Dialouges/Dialogic/Characters/linos.dch"
 }
 directories/dtl_directory={
@@ -88,6 +90,7 @@ directories/dtl_directory={
 "observe_hydrogen_2": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_2.dtl",
 "observe_hydrogen_3": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_3.dtl",
 "return_to_andrew": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/return_to_andrew.dtl",
+"states_of_matter_intro": "res://Resources/Dialouges/Dialogic/Timeline/states_of_matter_intro.dtl",
 "think_like_a_scientis": "res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis.dtl",
 "think_like_a_scientis_return": "res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis_return.dtl",
 "tutorial": "res://Resources/Dialouges/Dialogic/Timeline/tutorial.dtl"

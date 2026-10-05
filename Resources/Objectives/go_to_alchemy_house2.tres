@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://c5ub2ricmt6ru"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_vsc0q"]
+
+[resource]
+script = ExtResource("1_vsc0q")
+id = "go_to_alchemy_house2"
+description = "Go to Alchemy House to to Meet Dr. Mundo"
+type = 3
+target_id = "alchemy_house"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://58her1ab75n5" path="res://Scenes/UI/hud.tscn" id="15_8jeg0"]
 [ext_resource type="Resource" uid="uid://dmxmt65f5xbmd" path="res://Resources/Items/Crafting/CRAFT_ITEM_REQ/Iron_ore.tres" id="15_adu4b"]
 [ext_resource type="PackedScene" uid="uid://gb7ks4vrhima" path="res://Scenes/Atomons/observe_argon.tscn" id="15_r0gw2"]
+[ext_resource type="Resource" uid="uid://capaxse8mrgi3" path="res://Resources/Dialouges/Dialogic/Characters/Dr Mundo.dch" id="16_adu4b"]
+[ext_resource type="PackedScene" uid="uid://duiu3hkh5vxms" path="res://Scenes/Atomons/observe_iron.tscn" id="17_r0gw2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yfbkh"]
 texture = ExtResource("1_02alt")
@@ -1648,10 +1650,11 @@ tile_set = SubResource("TileSet_t82ut")
 tile_map_data = PackedByteArray("AAAbABYAAAAMAAIAAAAbABcAAAAMAAMAAAAcABYAAAANAAIAAAAcABcAAAANAAMAAAASABcAAAAMAAIAAAASABgAAAAMAAMAAAATABcAAAANAAIAAAATABgAAAANAAMAAAAbAB0AAAAMAAAAAAAbAB4AAAAMAAEAAAAcAB0AAAANAAAAAAAcAB4AAAANAAEAAAAyABcAAAAMAAAAAAAyABgAAAAMAAEAAAAzABcAAAANAAAAAAAzABgAAAANAAEAAAA1AAQAAAAMAAAAAAA1AAUAAAAMAAEAAAA2AAQAAAANAAAAAAA2AAUAAAANAAEAAABAAAkAAAALAAIAAAAcABEAAAALAAEAAAAJABAAAAALAAAAAAAKAAIAAAAJAAEAAAAlAAsAAAAMAAIAAAAlAAwAAAAMAAMAAAAmAAsAAAANAAIAAAAmAAwAAAANAAMAAAA=")
 tile_set = SubResource("TileSet_rfl45")
 
-[node name="Scene_Trigger" parent="." unique_id=1986080103 instance=ExtResource("4_g4geh")]
+[node name="Scene_Trigger" parent="." unique_id=1986080103 groups=["QuestAreas"] instance=ExtResource("4_g4geh")]
 position = Vector2(540, 655)
 target_scene = "res://Scenes/Areas/start_map.tscn"
 target_spawn = "Spawn(CaveEntrance)"
+target_id = "start_map"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger" unique_id=436717875]
 position = Vector2(4, 0.5)
@@ -1710,3 +1713,7 @@ map_texture_path = ExtResource("14_k27op")
 
 [node name="ArgonObservation" parent="." unique_id=238339346 instance=ExtResource("15_r0gw2")]
 position = Vector2(432, 264)
+dialogic_character = ExtResource("16_adu4b")
+
+[node name="IronObservation" parent="." unique_id=37917110 instance=ExtResource("17_r0gw2")]
+position = Vector2(1021, 114)

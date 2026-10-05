@@ -30,6 +30,10 @@ func should_show_indicator() -> bool:
 
 	for objective in quest.objectives:
 
+		# Skip invalid/null objectives
+		if objective == null:
+			continue
+
 		if objective.type == ObjectiveType.Type.COLLECTION \
 		and objective.target_id == data.item_id \
 		and !objective.is_completed:
