@@ -113,22 +113,52 @@ func interact(npc: NPCBase):
 	print("[NPCManager] Best conversation: ", conversation)
 
 	if conversation == null:
-		print("[NPCManager] FAILED: get_best_conversation() returned NULL.")
+		print(
+			"[NPCManager] FAILED: "
+			+ "get_best_conversation() returned NULL."
+		)
 		return null
 
-	print("[NPCManager] Conversation name: ", conversation.conversation_name)
-	print("[NPCManager] Conversation type: ", conversation.conversation_type)
-	print("[NPCManager] Conversation objective ID: ", conversation.objective_id)
-	print("[NPCManager] Conversation quest: ", conversation.quest)
-	print("[NPCManager] Conversation timeline: ", conversation.timeline)
+	print(
+		"[NPCManager] Conversation name: ",
+		conversation.conversation_name
+	)
+
+	print(
+		"[NPCManager] Conversation type: ",
+		conversation.conversation_type
+	)
+
+	print(
+		"[NPCManager] Conversation objective ID: ",
+		conversation.objective_id
+	)
+
+	print(
+		"[NPCManager] Conversation quest: ",
+		conversation.quest
+	)
+
+	print(
+		"[NPCManager] Conversation timeline: ",
+		conversation.timeline
+	)
 
 	print("[NPCManager] Calling play_conversation()...")
 
-	var result = play_conversation(npc, conversation)
+	var result = await play_conversation(
+		npc,
+		conversation
+	)
 
-	print("[NPCManager] play_conversation() returned: ", result)
+	print(
+		"[NPCManager] play_conversation() returned: ",
+		result
+	)
 
 	return result
+
+
 
 
 # ============================================================
@@ -388,7 +418,10 @@ func get_objective_conversation(
 # PLAY CONVERSATION
 # ============================================================
 
-func play_conversation(npc: NPCBase, conversation: NPCConversation):
+func play_conversation(
+	npc: NPCBase,
+	conversation: NPCConversation
+):
 
 	print("========== PLAY CONVERSATION ==========")
 
@@ -397,21 +430,33 @@ func play_conversation(npc: NPCBase, conversation: NPCConversation):
 		return null
 
 	if conversation.timeline == null:
-		print("[NPCManager] FAILED: conversation timeline is null.")
+		print(
+			"[NPCManager] FAILED: conversation timeline is null."
+		)
 		return null
 
-	print("[NPCManager] Starting timeline: ", conversation.timeline)
+	print(
+		"[NPCManager] Starting timeline: ",
+		conversation.timeline
+	)
 
 	npc.set_dialogue_active(true)
 
 	if global.player != null:
 		global.player.can_move = false
 
-	var layout = Dialogic.start(conversation.timeline)
+	var layout = Dialogic.start(
+		conversation.timeline
+	)
 
-	print("[NPCManager] Dialogic.start() returned: ", layout)
+	print(
+		"[NPCManager] Dialogic.start() returned: ",
+		layout
+	)
 
-	if global.player and global.player.has_method("register_dialogic"):
+	if global.player and global.player.has_method(
+		"register_dialogic"
+	):
 		global.player.register_dialogic(layout)
 
 	if npc.data.dialogic_character != null:
@@ -421,7 +466,67 @@ func play_conversation(npc: NPCBase, conversation: NPCConversation):
 			npc.get_node("BubbleMarker")
 		)
 
+	# ------------------------------------------------------------
+	# WAIT FOR DIALOGUE TO FINISH
+	# ------------------------------------------------------------
+
+	await Dialogic.timeline_ended
+
+	print(
+		"[NPCManager] Dialogue finished: ",
+		conversation.conversation_name
+	)
+
+	# ------------------------------------------------------------
+	# RESTORE PLAYER CONTROL
+	# ------------------------------------------------------------
+
+	npc.set_dialogue_active(false)
+
+	if global.player != null:
+		global.player.can_move = true
+
+	# ------------------------------------------------------------
+	# COMPLETE TALK OBJECTIVE
+	# ------------------------------------------------------------
+
+	if (
+		conversation.quest != null
+		and not conversation.objective_id.is_empty()
+	):
+
+		var objective_id := conversation.objective_id
+
+		print(
+			"[NPCManager] Conversation objective finished: ",
+			objective_id
+		)
+
+		# Only TALK conversations should automatically
+		# complete a TALK objective.
+		if (
+			conversation.conversation_type
+			== NPCConversation.ConversationType.DEFAULT
+			or conversation.conversation_type
+			== NPCConversation.ConversationType.QUEST_OBJECTIVE
+		):
+
+			if objective_id.begins_with("talk_"):
+
+				print(
+					"[NPCManager] "
+					+ "Notifying TALK objective: ",
+					objective_id
+				)
+
+				await QuestManager.notify(
+					ObjectiveType.Type.TALK,
+					npc.data.npc_id
+				)
+
 	return layout
+
+
 
 
 # ============================================================

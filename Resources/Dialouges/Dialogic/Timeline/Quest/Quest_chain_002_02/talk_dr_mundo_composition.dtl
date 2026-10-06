@@ -1,0 +1,24 @@
+
+"Dr Mundo": You've learned how matter can exist in different states.
+
+Player: Solid, liquid, and gas.
+
+"Dr Mundo": Exactly.
+
+"Dr Mundo": But knowing the state of matter is only part of understanding it.
+
+"Dr Mundo": We can also ask what matter is made of.
+
+Player: What matter is made of?
+
+"Dr Mundo": Yes.
+
+"Dr Mundo": Some substances contain only one type of element.
+
+"Dr Mundo": Others contain different elements that are chemically combined.
+
+"Dr Mundo": Andrew can demonstrate this using the Fusion system.
+
+"Dr Mundo": Go and speak with him.
+
+[signal arg="quest_notify:quest_chain_002_02:talk_dr_mundo_composition"]

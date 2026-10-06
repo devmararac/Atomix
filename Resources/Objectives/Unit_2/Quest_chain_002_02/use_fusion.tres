@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://dd1s72beec06"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_objective"]
+
+[resource]
+script = ExtResource("1_objective")
+id = "use_fusion"
+description = "Use Fusion to combine the training Atomons."
+type = 5
+target_id = "fusion"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

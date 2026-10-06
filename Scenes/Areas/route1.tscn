@@ -2593,4 +2593,4 @@ autoplay = true
 [node name="HUD" parent="." unique_id=116850924 instance=ExtResource("15_kn5sb")]
 
 [node name="MecuryObservation" parent="." unique_id=238339346 instance=ExtResource("10_arwxi")]
-position = Vector2(1128, 298)
+position = Vector2(1030, 509)

@@ -10,14 +10,12 @@ const ATOMON_SCENE = preload("res://Atomons/Atomon.tscn")
 const SWITCH_MENU = preload("res://Scenes/UI/switch_atomon.tscn")
 const BATTLE_SUMMARY_SCENE = preload("res://Battle/BattleSummary.tscn")
 
-
 # ============================================================
 # BATTLE DATA
 # ============================================================
 
 var player_instance: AtomonInstance
 var enemy_data: AtomonData
-
 
 # ============================================================
 # BATTLE ATOMONS
@@ -29,21 +27,17 @@ var enemy_atomon: Node2D
 var player_start_position: Vector2
 var enemy_start_position: Vector2
 
-
 # ============================================================
 # SWITCH MENU
 # ============================================================
 
 var switch_menu: CanvasLayer
 
-
 # ============================================================
 # BATTLE SUMMARY
 # ============================================================
-
 var battle_summary: BattleSummary = null
 var battle_ending: bool = false
-
 
 # ============================================================
 # BATTLE SUMMARY DATA
@@ -57,11 +51,9 @@ var summary_atomons_remaining: int = 0
 var summary_coins_reward: int = 0
 var summary_item_rewards: Array[String] = []
 
-
 # ============================================================
 # FUSION SUMMARY DATA
 # ============================================================
-
 var fusion_used_this_battle: bool = false
 
 var summary_fusion_skill_name: String = ""
@@ -73,17 +65,13 @@ var summary_octet_rule_completed: bool = false
 var summary_octet_rule_explanation: String = ""
 var summary_key_takeaway: String = ""
 
-
 # ============================================================
 # BATTLEFIELD
 # ============================================================
-
 @onready var enemy_container: Panel = $BattleField/EnemyContainer
 @onready var enemy_spawn_point: Marker2D = $BattleField/EnemyContainer/SpawnPoint
-
 @onready var friendly_container: Panel = $BattleField/FriendlyAtomonContainer
 @onready var friendly_spawn_point: Marker2D = $BattleField/FriendlyAtomonContainer/SpawnPoint
-
 
 # ============================================================
 # ENEMY UI
@@ -93,7 +81,6 @@ var summary_key_takeaway: String = ""
 @onready var enemy_level_label: Label = $CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonLevel/EALevel
 @onready var enemy_hp_bar: TextureProgressBar = $CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonHP
 @onready var enemy_hp_text: Label = $CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonHPText
-
 
 # ============================================================
 # PLAYER UI
@@ -105,67 +92,66 @@ var summary_key_takeaway: String = ""
 @onready var player_hp_text: Label = $CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonHPText
 @onready var exp_bar: TextureProgressBar = $CanvasLayer/HUD/FriendlyAtomonInfo/EXPBar
 
-
 # ============================================================
 # BATTLE LOG
 # ============================================================
-
 @onready var battle_log: RichTextLabel = $CanvasLayer/BattleLog
 @onready var battle_announcer: NPCBase = $BattleAnnouncer
 @onready var battle_controller: BattleController = $BattleController
 @onready var fusion_enemy_target: Marker2D = $BattleField/EnemyContainer/SpawnPoint
 
-
 # ============================================================
 # MENUS
 # ============================================================
-
 @onready var command_ui: Control = $CommandUI
 @onready var move_menu: PanelContainer = $CanvasLayer/MoveMenu
 @onready var fusion_button: TextureButton = $CommandUI/GridContainer/Fusion
 
-
 # ============================================================
 # MOVE BUTTONS
 # ============================================================
-
 @onready var move_button_1: Button = $CanvasLayer/MoveMenu/VBoxContainer/Move1
 @onready var move_button_2: Button = $CanvasLayer/MoveMenu/VBoxContainer/Move2
 @onready var move_button_3: Button = $CanvasLayer/MoveMenu/VBoxContainer/Move3
 @onready var move_button_4: Button = $CanvasLayer/MoveMenu/VBoxContainer/Move4
 
-
 # ============================================================
 # CURRENT MOVES
 # ============================================================
-
 var player_moves: Array[MoveData] = []
 
+# ============================================================
+# FUSION TRAINING TUTORIAL
+# ============================================================
+var fusion_training_tutorial_active: bool = false
+var fusion_training_tutorial_step: int = 0
 
+var tutorial_bubble: PanelContainer = null
+var tutorial_name_label: Label = null
+var tutorial_message_label: Label = null
+var tutorial_continue_label: Label = null
+
+var tutorial_font: Font = preload("res://Assets/Font/NicoPaint-Regular.woff")
 # ============================================================
 # READY
 # ============================================================
-
 func _ready() -> void:
-
 	player_instance = BattleManager.player_instance
 	enemy_data = BattleManager.enemy_data
-
 	if player_instance == null:
 		push_error("BattleUI: Player Atomon is null.")
 		battle_log.text = "No Atomon is available for battle."
 		return
-
 	if enemy_data == null:
 		push_error("BattleUI: Enemy Atomon is null.")
 		battle_log.text = "No enemy Atomon is available."
 		return
-
 	BattleControllerGlobal.setup_battle(
 		player_instance,
 		enemy_data
 	)
-
+	if BattleManager.is_fusion_training_battle:
+		BattleControllerGlobal.set_training_enemy_hp(85)
 	connect_battle_controller_signals()
 
 	setup_player_atomon()
@@ -183,14 +169,24 @@ func _ready() -> void:
 		"A wild " + enemy_data.atom_name + " appeared!"
 	)
 
-	announce(
-		"A wild " + enemy_data.atom_name + " appeared!"
-	)
-
 	fusion_used_this_battle = false
 	fusion_button.disabled = false
 
 	reset_battle_summary_data()
+
+	# ========================================================
+	# START FUSION TRAINING TUTORIAL
+	# ========================================================
+
+	if BattleManager.is_fusion_training_battle:
+
+		show_fusion_training_tutorial()
+
+	else:
+
+		announce(
+			"A wild " + enemy_data.atom_name + " appeared!"
+		)
 
 
 # ============================================================
@@ -426,6 +422,9 @@ func update_hp_ui() -> void:
 # ============================================================
 
 func _on_attack_pressed() -> void:
+
+	if fusion_training_tutorial_active:
+		return
 
 	command_ui.visible = false
 	move_menu.visible = true
@@ -728,9 +727,31 @@ func _on_player_fainted() -> void:
 
 	await get_tree().create_timer(1.5).timeout
 
-	# --------------------------------------------------------
-	# Check if another Atomon is available
-	# --------------------------------------------------------
+	# ========================================================
+	# FUSION TRAINING DEFEAT
+	# ========================================================
+
+	if BattleManager.is_fusion_training_battle:
+
+		battle_ending = true
+
+		battle_log.text = "Training battle failed."
+
+		announce("Training battle failed.")
+
+		print(
+			"[BattleUI] Fusion training battle ended in defeat."
+		)
+
+		await get_tree().create_timer(1.0).timeout
+
+		BattleManager.end_battle()
+
+		return
+
+	# ========================================================
+	# NORMAL BATTLE
+	# ========================================================
 
 	if PartyManager.has_available_atomon():
 
@@ -738,22 +759,12 @@ func _on_player_fainted() -> void:
 
 		return
 
-	# --------------------------------------------------------
-	# No Atomons remaining
-	# --------------------------------------------------------
-
 	battle_ending = true
 
 	battle_log.text = "No Atomons left!"
 	announce("No Atomons left!")
 
-	# --------------------------------------------------------
-	# Save the final battle state
-	# --------------------------------------------------------
-
 	BattleControllerGlobal.save_player_hp()
-
-	print("[BattleUI] Saving battle state after defeat...")
 
 	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
 		"Battle defeat: all Atomons fainted",
@@ -771,10 +782,6 @@ func _on_player_fainted() -> void:
 		)
 
 	await get_tree().create_timer(1.0).timeout
-
-	# --------------------------------------------------------
-	# Show defeat summary
-	# --------------------------------------------------------
 
 	show_battle_summary(
 		"Defeat",
@@ -887,26 +894,52 @@ func _on_enemy_fainted() -> void:
 	if battle_ending:
 		return
 
+	# ========================================================
+	# FUSION TRAINING VICTORY
+	# ========================================================
+
+	if BattleManager.is_fusion_training_battle:
+
+		battle_ending = true
+
+		command_ui.visible = false
+		move_menu.visible = false
+
+		battle_log.text = (
+			enemy_data.atom_name
+			+ " fainted!"
+		)
+
+		announce(
+			enemy_data.atom_name
+			+ " fainted!"
+		)
+
+		print("[BattleUI] Fusion training complete. Enemy defeated: ", enemy_data.atom_name)
+
+		await get_tree().create_timer(1.5).timeout
+
+		BattleManager.end_battle()
+
+		return
+
+	# ========================================================
+	# NORMAL BATTLE
+	# ========================================================
+
 	battle_ending = true
 
 	battle_log.text = enemy_data.atom_name + " fainted!"
 
 	announce(
-		enemy_data.atom_name + " fainted!"
+		enemy_data.atom_name
+		+ " fainted!"
 	)
 
 	command_ui.visible = false
 	move_menu.visible = false
 
-	# --------------------------------------------------------
-	# Save player's current HP
-	# --------------------------------------------------------
-
 	BattleControllerGlobal.save_player_hp()
-
-	# ========================================================
-	# BATTLE REWARDS
-	# ========================================================
 
 	var battle_reward := calculate_battle_coin_reward()
 
@@ -921,18 +954,13 @@ func _on_enemy_fainted() -> void:
 	summary_coins_reward = battle_reward
 	summary_item_rewards = material_rewards.duplicate()
 
-	# ========================================================
-	# AUTOMATIC SAVE
-	# ========================================================
-
 	print(
 		"[BattleUI] Requesting battle auto-save..."
 	)
 
 	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
 		"Battle victory: +"
-		+ str(battle_reward)
-		+ " coins and material rewards",
+		+ str(battle_reward) + " coins and material rewards",
 		"victory"
 	)
 
@@ -947,10 +975,6 @@ func _on_enemy_fainted() -> void:
 		push_error(
 			"[BattleUI] Battle state automatic save FAILED."
 		)
-
-	# ========================================================
-	# SHOW BATTLE SUMMARY
-	# ========================================================
 
 	await get_tree().create_timer(1.0).timeout
 
@@ -973,6 +997,26 @@ func count_remaining_atomons() -> int:
 
 	var count := 0
 
+	# ========================================================
+	# FUSION TRAINING PARTY
+	# ========================================================
+
+	if BattleManager.is_fusion_training_battle:
+
+		for atmon in BattleManager.training_party:
+
+			if atmon == null:
+				continue
+
+			if atmon.current_hp > 0:
+				count += 1
+
+		return count
+
+	# ========================================================
+	# NORMAL PARTY
+	# ========================================================
+
 	var battle_party: Array[AtomonInstance] = (
 		PartyManager.get_battle_party()
 	)
@@ -994,6 +1038,19 @@ func count_remaining_atomons() -> int:
 
 func _on_atomons_pressed() -> void:
 
+	# Fusion training uses a temporary fixed training party.
+	if BattleManager.is_fusion_training_battle:
+
+		battle_log.text = (
+			"Atomon switching is disabled during training."
+		)
+
+		announce(
+			"Follow the Fusion training first!"
+		)
+
+		return
+
 	open_party_menu()
 
 
@@ -1002,6 +1059,9 @@ func _on_atomons_pressed() -> void:
 # ============================================================
 
 func open_party_menu() -> void:
+
+	if BattleManager.is_fusion_training_battle:
+		return
 
 	if switch_menu != null:
 		return
@@ -1031,6 +1091,9 @@ func open_party_menu() -> void:
 
 func _on_atomon_selected(index: int) -> void:
 
+	if BattleManager.is_fusion_training_battle:
+		return
+
 	var force_switch: bool = (
 		BattleControllerGlobal.get_player_hp() <= 0
 	)
@@ -1054,6 +1117,9 @@ func switch_atomon(
 	index: int,
 	free_switch: bool = false
 ) -> void:
+
+	if BattleManager.is_fusion_training_battle:
+		return
 
 	if not PartyManager.set_active_atomon(index):
 		return
@@ -1149,8 +1215,31 @@ func _on_switch_menu_closed() -> void:
 
 func _on_run_pressed() -> void:
 
+	if fusion_training_tutorial_active:
+		return
+
 	if battle_ending:
 		return
+
+	# ========================================================
+	# TRAINING BATTLE
+	# ========================================================
+
+	if BattleManager.is_fusion_training_battle:
+
+		battle_log.text = (
+			"You cannot run from Fusion training."
+		)
+
+		announce(
+			"Complete the Fusion training first!"
+		)
+
+		return
+
+	# ========================================================
+	# NORMAL BATTLE
+	# ========================================================
 
 	battle_ending = true
 
@@ -1158,15 +1247,7 @@ func _on_run_pressed() -> void:
 
 	announce("You ran away!")
 
-	# --------------------------------------------------------
-	# Save the HP the Atomon currently has
-	# --------------------------------------------------------
-
 	BattleControllerGlobal.save_player_hp()
-
-	# --------------------------------------------------------
-	# Save the complete battle state
-	# --------------------------------------------------------
 
 	print(
 		"[BattleUI] Saving battle state after escape..."
@@ -1190,10 +1271,6 @@ func _on_run_pressed() -> void:
 		)
 
 	await get_tree().create_timer(1.0).timeout
-
-	# --------------------------------------------------------
-	# Show escaped summary
-	# --------------------------------------------------------
 
 	var remaining: int = count_remaining_atomons()
 
@@ -1221,6 +1298,12 @@ func _on_close_button_pressed() -> void:
 # ============================================================
 
 func update_excited_ui() -> void:
+
+	if player_instance == null:
+		return
+
+	if player_instance.data == null:
+		return
 
 	var thresholds = (
 		StatCalculator.get_energy_thresholds(
@@ -1290,16 +1373,24 @@ func announce(message: String) -> void:
 
 func _on_fusion_pressed() -> void:
 
-	# --------------------------------------------------------
-	# Fusion can only be used once per battle.
-	# --------------------------------------------------------
+	# ========================================================
+	# FUSION TRAINING TUTORIAL
+	# ========================================================
+
+	if fusion_training_tutorial_active:
+
+		if fusion_training_tutorial_step < 5:
+			return
+
+		fusion_training_tutorial_active = false
+
+		hide_fusion_training_tutorial()
+
+	if battle_ending:
+		return
 
 	if fusion_used_this_battle:
 		return
-
-	# --------------------------------------------------------
-	# Check if the active Atomon can use any Fusion.
-	# --------------------------------------------------------
 
 	var available_fusions: Array[FusionRecipe] = (
 		FusionManager.get_available_fusion_recipes()
@@ -1307,9 +1398,15 @@ func _on_fusion_pressed() -> void:
 
 	if available_fusions.is_empty():
 
-		var active_atomon: AtomonInstance = (
-			PartyManager.get_active_atomon()
-		)
+		var active_atomon: AtomonInstance = null
+
+		if BattleManager.is_fusion_training_battle:
+
+			active_atomon = BattleManager.player_instance
+
+		else:
+
+			active_atomon = PartyManager.get_active_atomon()
 
 		if active_atomon != null and active_atomon.data != null:
 
@@ -1340,15 +1437,7 @@ func _on_fusion_pressed() -> void:
 
 		return
 
-	# --------------------------------------------------------
-	# Hide the normal BattleUI.
-	# --------------------------------------------------------
-
 	hide_battle_ui()
-
-	# --------------------------------------------------------
-	# Create Fusion Menu.
-	# --------------------------------------------------------
 
 	var fusion_menu_scene := preload(
 		"res://Battle/FusionMenu.tscn"
@@ -1496,10 +1585,6 @@ func _on_fusion_challenge_finished(
 
 		battle_log.text = "Fusion successful!"
 
-	# --------------------------------------------------------
-	# Remove Learning screen
-	# --------------------------------------------------------
-
 	if learning_layer != null:
 
 		learning_layer.queue_free()
@@ -1523,47 +1608,18 @@ func _on_fusion_challenge_finished(
 			"Fusion failed!"
 		)
 
-		# --------------------------------------------------------
-		# The failed Fusion attempt consumes the player's turn.
-		# Fusion itself is NOT consumed, so it can be attempted
-		# again on a later turn.
-		# --------------------------------------------------------
-
 		fusion_used_this_battle = false
 
 		fusion_button.disabled = true
 
-		# --------------------------------------------------------
-		# Keep the normal battle commands hidden while the
-		# enemy takes its turn.
-		# --------------------------------------------------------
-
 		command_ui.visible = false
 		move_menu.visible = false
 
-		# --------------------------------------------------------
-		# End the player's turn.
-		# --------------------------------------------------------
-
 		BattleControllerGlobal.end_player_turn()
-
-		# --------------------------------------------------------
-		# Give the player a short moment to see the failure
-		# message before the enemy acts.
-		# --------------------------------------------------------
 
 		await get_tree().create_timer(0.8).timeout
 
-		# --------------------------------------------------------
-		# Enemy takes its turn.
-		# --------------------------------------------------------
-
 		await enemy_turn()
-
-		# --------------------------------------------------------
-		# Restore the player's commands if the battle is still
-		# active.
-		# --------------------------------------------------------
 
 		if not battle_ending:
 
@@ -1591,6 +1647,21 @@ func _on_fusion_challenge_finished(
 
 	command_ui.visible = false
 	move_menu.visible = false
+
+	# ========================================================
+	# QUEST: SUCCESSFUL FUSION
+	# ========================================================
+
+	if BattleManager.is_fusion_training_battle:
+
+		print(
+			"[BattleUI] Notifying QuestManager: Fusion used."
+		)
+
+		await QuestManager.notify(
+			ObjectiveType.Type.INTERACT,
+			"fusion"
+		)
 
 	execute_fusion_skill(
 		recipe,
@@ -1829,6 +1900,7 @@ func show_battle_summary(
 		return
 
 	summary_result = result
+
 	summary_enemy_name = (
 		enemy_data.atom_name
 		if enemy_data != null
@@ -1907,7 +1979,6 @@ func show_battle_summary(
 			_on_battle_summary_continue
 		)
 
-
 # ============================================================
 # BATTLE SUMMARY CONTINUE
 # ============================================================
@@ -1934,3 +2005,318 @@ func hide_battle_ui() -> void:
 func show_battle_ui() -> void:
 
 	visible = true
+
+
+# ============================================================
+# FUSION TRAINING TUTORIAL
+# ============================================================
+
+func show_fusion_training_tutorial() -> void:
+
+	fusion_training_tutorial_active = true
+	fusion_training_tutorial_step = 0
+
+	create_fusion_training_tutorial_ui()
+
+	command_ui.visible = true
+	move_menu.visible = false
+
+	var attack_button: TextureButton = ($CommandUI/GridContainer/Attack)
+	var atomons_button: TextureButton = ($CommandUI/GridContainer/Atomons)
+	var run_button: TextureButton = ($CommandUI/GridContainer/Run)
+
+	attack_button.disabled = true
+	fusion_button.disabled = true
+	atomons_button.disabled = true
+	run_button.disabled = true
+
+	tutorial_bubble.visible = true
+
+	update_fusion_training_tutorial()
+
+
+func create_fusion_training_tutorial_ui() -> void:
+
+	if tutorial_bubble != null and is_instance_valid(tutorial_bubble):
+		return
+
+	tutorial_bubble = PanelContainer.new()
+	tutorial_bubble.name = "FusionTrainingTutorial"
+
+	tutorial_bubble.mouse_filter = (
+		Control.MOUSE_FILTER_IGNORE
+	)
+
+	var panel_style := StyleBoxFlat.new()
+
+	panel_style.bg_color = Color("fae3c4")
+	panel_style.border_color = Color("785a3d")
+
+	panel_style.set_border_width_all(4)
+	panel_style.set_corner_radius_all(10)
+
+	panel_style.content_margin_left = 18.0
+	panel_style.content_margin_top = 14.0
+	panel_style.content_margin_right = 18.0
+	panel_style.content_margin_bottom = 14.0
+
+	tutorial_bubble.add_theme_stylebox_override(
+		"panel",
+		panel_style
+	)
+
+	tutorial_bubble.set_anchors_preset(
+		Control.PRESET_TOP_LEFT
+	)
+
+	tutorial_bubble.position = (
+		command_ui.position + Vector2(-390, -15)
+	)
+
+	tutorial_bubble.size = Vector2(370, 150)
+
+	var container := VBoxContainer.new()
+
+	container.add_theme_constant_override(
+		"separation",
+		3
+	)
+
+	tutorial_bubble.add_child(container)
+
+	tutorial_name_label = Label.new()
+
+	tutorial_name_label.text = "Andrew"
+
+	tutorial_name_label.add_theme_font_override(
+		"font",
+		tutorial_font
+	)
+
+	tutorial_name_label.add_theme_font_size_override(
+		"font_size",
+		25
+	)
+
+	tutorial_name_label.add_theme_color_override(
+		"font_color",
+		Color("785a3d")
+	)
+
+	container.add_child(tutorial_name_label)
+
+	tutorial_message_label = Label.new()
+
+	tutorial_message_label.custom_minimum_size = (
+		Vector2(0, 75)
+	)
+
+	tutorial_message_label.add_theme_font_override(
+		"font",
+		tutorial_font
+	)
+
+	tutorial_message_label.add_theme_font_size_override(
+		"font_size",
+		21
+	)
+
+	tutorial_message_label.add_theme_color_override(
+		"font_color",
+		Color("2e281f")
+	)
+
+	tutorial_message_label.autowrap_mode = (
+		TextServer.AUTOWRAP_WORD_SMART
+	)
+
+	tutorial_message_label.vertical_alignment = (
+		VERTICAL_ALIGNMENT_CENTER
+	)
+
+	container.add_child(tutorial_message_label)
+
+	tutorial_continue_label = Label.new()
+
+	tutorial_continue_label.text = "Click to continue..."
+
+	tutorial_continue_label.add_theme_font_override(
+		"font",
+		tutorial_font
+	)
+
+	tutorial_continue_label.add_theme_font_size_override(
+		"font_size",
+		16
+	)
+
+	tutorial_continue_label.add_theme_color_override(
+		"font_color",
+		Color("785a3d")
+	)
+
+	tutorial_continue_label.horizontal_alignment = (
+		HORIZONTAL_ALIGNMENT_RIGHT
+	)
+
+	container.add_child(tutorial_continue_label)
+
+	add_child(tutorial_bubble)
+
+
+func update_fusion_training_tutorial() -> void:
+
+	if tutorial_bubble == null:
+		return
+
+	match fusion_training_tutorial_step:
+
+		0:
+			tutorial_name_label.text = "Andrew"
+
+			tutorial_message_label.text = (
+				"These are your battle commands. "
+				+ "I'll explain what each one does."
+			)
+
+			tutorial_continue_label.text = (
+				"Click to continue..."
+			)
+
+		1:
+			tutorial_name_label.text = "Andrew"
+
+			tutorial_message_label.text = (
+				"Attack lets you choose a move "
+				+ "for your Atomon."
+			)
+
+			tutorial_continue_label.text = (
+				"Click to continue..."
+			)
+
+		2:
+			tutorial_name_label.text = "Andrew"
+
+			tutorial_message_label.text = (
+				"Fusion allows compatible Atomons "
+				+ "to combine into a new substance."
+			)
+
+			tutorial_continue_label.text = (
+				"Click to continue..."
+			)
+
+		3:
+			tutorial_name_label.text = "Andrew"
+
+			tutorial_message_label.text = (
+				"Atomons lets you view and switch "
+				+ "between the Atomons you have."
+			)
+
+			tutorial_continue_label.text = (
+				"Click to continue..."
+			)
+
+		4:
+			tutorial_name_label.text = "Andrew"
+
+			tutorial_message_label.text = (
+				"Run allows you to escape "
+				+ "from a normal battle."
+			)
+
+			tutorial_continue_label.text = (
+				"Click to continue..."
+			)
+
+		5:
+			tutorial_name_label.text = "Andrew"
+
+			tutorial_message_label.text = (
+				"For this training, we'll focus on "
+				+ "Fusion. Select Fusion when you're ready."
+			)
+
+			tutorial_continue_label.text = (
+				"Select FUSION to continue."
+			)
+
+
+func advance_fusion_training_tutorial() -> void:
+
+	if not fusion_training_tutorial_active:
+		return
+
+	if fusion_training_tutorial_step >= 5:
+		return
+
+	fusion_training_tutorial_step += 1
+
+	update_fusion_training_tutorial()
+
+	if fusion_training_tutorial_step == 5:
+
+		var attack_button: TextureButton = ($CommandUI/GridContainer/Attack)
+		var atomons_button: TextureButton = ($CommandUI/GridContainer/Atomons)
+		var run_button: TextureButton = ($CommandUI/GridContainer/Run)
+
+		attack_button.disabled = true
+		atomons_button.disabled = true
+		run_button.disabled = true
+
+		fusion_button.disabled = false
+
+
+func hide_fusion_training_tutorial() -> void:
+	if tutorial_bubble != null:
+		tutorial_bubble.visible = false
+
+func _input(event: InputEvent):
+
+	if not fusion_training_tutorial_active:
+		return
+
+	# ========================================================
+	# MOBILE TOUCH
+	# ========================================================
+
+	if event is InputEventScreenTouch:
+
+		if event.pressed:
+
+			advance_fusion_training_tutorial()
+			get_viewport().set_input_as_handled()
+
+	# ========================================================
+	# MOUSE CLICK
+	# Useful when testing the APK/project on PC
+	# ========================================================
+
+	elif event is InputEventMouseButton:
+
+		if (
+			event.button_index == MOUSE_BUTTON_LEFT
+			and event.pressed
+		):
+
+			advance_fusion_training_tutorial()
+			get_viewport().set_input_as_handled()
+
+	# ========================================================
+	# KEYBOARD
+	# Useful for PC testing
+	# ========================================================
+
+	elif event is InputEventKey:
+
+		if event.pressed and not event.echo:
+
+			if (
+				event.keycode == KEY_SPACE
+				or event.keycode == KEY_ENTER
+			):
+
+				advance_fusion_training_tutorial()
+				get_viewport().set_input_as_handled()

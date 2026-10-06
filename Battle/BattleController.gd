@@ -60,45 +60,12 @@ signal move_finished(move: MoveData, user_is_player: bool)
 func setup_battle(player: AtomonInstance, enemy: AtomonData) -> void:
 
 	player_instance = player
-	
 	enemy_data = enemy
-	
+
 	# ========================================================
-	# PLAYER PP
+	# VALIDATE BATTLE DATA
 	# ========================================================
 
-	# Make sure current_pp has an entry for every move.
-	# Preserve saved PP values whenever they already exist.
-
-	while player_instance.current_pp.size() < player_instance.data.moves.size():
-		var index := player_instance.current_pp.size()
-		player_instance.current_pp.append(
-			player_instance.data.moves[index].max_uses
-		)
-
-	# Remove extra PP entries if there are more PP values
-	# than the current number of moves.
-	while player_instance.current_pp.size() > player_instance.data.moves.size():
-		player_instance.current_pp.pop_back()
-
-	print("========== BATTLE PP ==========")
-	print("Atomon: ", player_instance.data.atom_name)
-	print("Moves: ", player_instance.data.moves.size())
-	print("Current PP: ", player_instance.current_pp)
-
-	for i in range(player_instance.data.moves.size()):
-		print(
-			"Move ", i,
-			": ",
-			player_instance.data.moves[i].move_name,
-			" | PP: ",
-			player_instance.current_pp[i],
-			"/",
-			player_instance.data.moves[i].max_uses
-		)
-
-	print("================================")
-	
 	if player_instance == null:
 		push_error("BattleController: Player Atomon is null.")
 		return
@@ -106,6 +73,7 @@ func setup_battle(player: AtomonInstance, enemy: AtomonData) -> void:
 	if enemy_data == null:
 		push_error("BattleController: Enemy AtomonData is null.")
 		return
+
 
 	# ========================================================
 	# PLAYER HP
@@ -157,6 +125,25 @@ func setup_battle(player: AtomonInstance, enemy: AtomonData) -> void:
 	)
 
 	hp_changed.emit()
+
+# ============================================================
+# FUSION TRAINING ENEMY HP
+# ============================================================
+
+func set_training_enemy_hp(hp: int) -> void:
+
+	if hp <= 0:
+		return
+
+	enemy_max_hp = hp
+	enemy_hp = hp
+
+	hp_changed.emit()
+
+	print(
+		"[BattleController] Training enemy HP set to: ",
+		hp
+	)
 
 # ============================================================
 # PLAYER HP

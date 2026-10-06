@@ -34,7 +34,6 @@ signal fusion_challenge_finished(
 # ============================================================
 
 var fusion_recipe: FusionRecipe = null
-
 var selected_atomons: Array[AtomonInstance] = []
 
 
@@ -43,19 +42,12 @@ var selected_atomons: Array[AtomonInstance] = []
 # ============================================================
 
 var current_element: AtomonData = null
-
 var current_correct_answer: String = ""
-
 var correct_answer_index: int = -1
-
 var answered: bool = false
-
 var challenge_success: bool = false
-
 var current_correct_feedback: String = ""
-
 var current_wrong_feedback: String = ""
-
 var current_question_type: String = ""
 
 
@@ -97,11 +89,8 @@ func _ready() -> void:
 	# --------------------------------------------------------
 
 	title_label.text = "OCTET RULE CHALLENGE"
-
 	lesson_label.text = ""
-
 	question_label.text = ""
-
 	feedback_label.text = ""
 
 	continue_button.disabled = true
@@ -127,19 +116,13 @@ func setup_fusion_challenge(
 ) -> void:
 
 	fusion_recipe = recipe
-
 	selected_atomons = components.duplicate()
 
 	current_element = null
-
 	current_correct_answer = ""
-
 	correct_answer_index = -1
-
 	answered = false
-
 	challenge_success = false
-
 	current_question_type = ""
 
 	# --------------------------------------------------------
@@ -147,29 +130,14 @@ func setup_fusion_challenge(
 	# --------------------------------------------------------
 
 	if fusion_recipe == null:
-
 		setup_default_challenge()
-
 		return
 
 	if fusion_recipe.requirements.is_empty():
-
 		setup_default_challenge()
-
 		return
 
-	print(
-		"[BattleLearning] Starting Octet Rule challenge for: ",
-		fusion_recipe.chemical_formula
-	)
-
-	print(
-		"[BattleLearning] Selected components: ",
-		selected_atomons.size()
-	)
-
 	prepare_fusion_lesson()
-
 	prepare_learning_challenge()
 
 
@@ -183,11 +151,8 @@ func prepare_fusion_lesson() -> void:
 		return
 
 	var formula: String = fusion_recipe.chemical_formula
-
 	var compound_name: String = fusion_recipe.compound_name
-
 	var explanation: String = fusion_recipe.octet_rule_explanation
-
 	var fusion_description: String = fusion_recipe.fusion_description
 
 	lesson_label.text = (
@@ -216,9 +181,7 @@ func prepare_learning_challenge() -> void:
 	)
 
 	if valid_elements.is_empty():
-
 		setup_default_challenge()
-
 		return
 
 	# --------------------------------------------------------
@@ -231,11 +194,6 @@ func prepare_learning_challenge() -> void:
 		]
 	)
 
-	print(
-		"[BattleLearning] Learning element selected: ",
-		current_element.chemical_symbol
-	)
-
 	# --------------------------------------------------------
 	# Randomly choose a question type.
 	# --------------------------------------------------------
@@ -245,11 +203,6 @@ func prepare_learning_challenge() -> void:
 	)
 
 	current_question_type = question_type
-
-	print(
-		"[BattleLearning] Question type: ",
-		current_question_type
-	)
 
 	# --------------------------------------------------------
 	# Build the selected question.
@@ -281,7 +234,6 @@ func get_fusion_learning_elements() -> Array[AtomonData]:
 			continue
 
 		var element: AtomonData = requirement.element
-
 		var already_added := false
 
 		for existing_element in elements:
@@ -331,7 +283,6 @@ func choose_question_type(
 	if follows_octet_rule(element):
 
 		question_types.append("octet_needed")
-
 		question_types.append("true_false_octet")
 
 	# --------------------------------------------------------
@@ -341,7 +292,6 @@ func choose_question_type(
 	if follows_duet_rule(element):
 
 		question_types.append("duet_needed")
-
 		question_types.append("true_false_duet")
 
 	# --------------------------------------------------------
@@ -401,9 +351,7 @@ func build_learning_question(
 ) -> void:
 
 	if element == null:
-
 		setup_default_challenge()
-
 		return
 
 	match question_type:
@@ -440,7 +388,6 @@ func build_valence_question(
 ) -> void:
 
 	var symbol: String = element.chemical_symbol
-
 	var valence: int = element.valence_electrons
 
 	current_correct_answer = str(valence)
@@ -485,9 +432,7 @@ func build_octet_needed_question(
 ) -> void:
 
 	var symbol: String = element.chemical_symbol
-
 	var valence: int = element.valence_electrons
-
 	var needed: int = 8 - valence
 
 	if needed < 0:
@@ -549,9 +494,7 @@ func build_duet_needed_question(
 ) -> void:
 
 	var symbol: String = element.chemical_symbol
-
 	var valence: int = element.valence_electrons
-
 	var needed: int = 2 - valence
 
 	if needed < 0:
@@ -611,9 +554,7 @@ func build_true_false_octet_question(
 ) -> void:
 
 	var symbol: String = element.chemical_symbol
-
 	var valence: int = element.valence_electrons
-
 	var correct_needed: int = 8 - valence
 
 	if correct_needed < 0:
@@ -724,11 +665,6 @@ func build_true_false_octet_question(
 		current_wrong_feedback
 	)
 
-	print(
-		"[BattleLearning] TRUE/FALSE Octet statement: ",
-		"TRUE" if statement_is_true else "FALSE"
-	)
-
 
 # ============================================================
 # QUESTION TYPE 5
@@ -740,9 +676,7 @@ func build_true_false_duet_question(
 ) -> void:
 
 	var symbol: String = element.chemical_symbol
-
 	var valence: int = element.valence_electrons
-
 	var correct_needed: int = 2 - valence
 
 	if correct_needed < 0:
@@ -857,11 +791,6 @@ func build_true_false_duet_question(
 		current_wrong_feedback
 	)
 
-	print(
-		"[BattleLearning] TRUE/FALSE Duet statement: ",
-		"TRUE" if statement_is_true else "FALSE"
-	)
-
 
 # ============================================================
 # QUESTION TYPE 6
@@ -873,9 +802,7 @@ func build_identify_element_question(
 ) -> void:
 
 	if fusion_recipe == null:
-
 		build_valence_question(element)
-
 		return
 
 	var learning_elements := (
@@ -885,21 +812,17 @@ func build_identify_element_question(
 	if learning_elements.size() < 2:
 
 		if follows_octet_rule(element):
-
 			build_octet_needed_question(element)
 
 		elif follows_duet_rule(element):
-
 			build_duet_needed_question(element)
 
 		else:
-
 			build_valence_question(element)
 
 		return
 
 	var correct_symbol: String = element.chemical_symbol
-
 	var options: Array[String] = []
 
 	options.append(correct_symbol)
@@ -997,16 +920,20 @@ func apply_challenge(
 	)
 
 	if options.size() < 2:
+
 		push_error(
 			"[BattleLearning] Challenge requires at least two options."
 		)
+
 		setup_default_challenge()
 		return
 
 	if not is_true_false and options.size() < 4:
+
 		push_error(
 			"[BattleLearning] Normal challenge requires four options."
 		)
+
 		setup_default_challenge()
 		return
 
@@ -1026,14 +953,18 @@ func apply_challenge(
 	correct_answer_index = -1
 
 	for i in range(options.size()):
+
 		if str(options[i]) == correct_answer:
+
 			correct_answer_index = i
 			break
 
 	if correct_answer_index == -1:
+
 		push_error(
 			"[BattleLearning] Correct answer was not found."
 		)
+
 		setup_default_challenge()
 		return
 
@@ -1042,31 +973,14 @@ func apply_challenge(
 
 	# Then apply the special TRUE/FALSE layout.
 	if is_true_false:
+
 		answer_3.visible = false
 		answer_4.visible = false
+
 	else:
+
 		answer_3.visible = true
 		answer_4.visible = true
-
-	print(
-		"[BattleLearning] Octet Rule question prepared."
-	)
-
-	if current_element != null:
-		print(
-			"[BattleLearning] Element: ",
-			current_element.chemical_symbol
-		)
-
-	print(
-		"[BattleLearning] Question type: ",
-		current_question_type
-	)
-
-	print(
-		"[BattleLearning] Correct answer: ",
-		current_correct_answer
-	)
 
 
 # ============================================================
@@ -1111,7 +1025,6 @@ func build_number_options(
 	options.append(str(correct_value))
 
 	for value in possible_values:
-
 		options.append(str(value))
 
 	var fallback_value := 0
@@ -1139,9 +1052,7 @@ func build_number_options(
 func setup_default_challenge() -> void:
 
 	current_element = null
-
 	current_correct_answer = "8"
-
 	current_question_type = "default"
 
 	current_correct_feedback = (
@@ -1193,9 +1104,7 @@ func setup_default_challenge() -> void:
 	for i in range(options.size()):
 
 		if options[i] == current_correct_answer:
-
 			correct_answer_index = i
-
 			break
 
 	reset_question_state()
@@ -1208,11 +1117,9 @@ func setup_default_challenge() -> void:
 func reset_question_state() -> void:
 
 	answered = false
-
 	challenge_success = false
 
 	feedback_label.text = ""
-
 	continue_button.disabled = true
 
 	# --------------------------------------------------------
@@ -1238,22 +1145,18 @@ func reset_question_state() -> void:
 # ============================================================
 
 func _on_answer_1_pressed() -> void:
-
 	_answer_pressed(0)
 
 
 func _on_answer_2_pressed() -> void:
-
 	_answer_pressed(1)
 
 
 func _on_answer_3_pressed() -> void:
-
 	_answer_pressed(2)
 
 
 func _on_answer_4_pressed() -> void:
-
 	_answer_pressed(3)
 
 

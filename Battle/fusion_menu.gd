@@ -5,8 +5,6 @@ signal fusion_components_selected(
 	selected_atomons: Array[AtomonInstance]
 )
 
-# Emitted ONLY when the player manually closes/cancels
-# the Fusion Menu.
 signal fusion_menu_cancelled
 
 
@@ -23,7 +21,6 @@ const GENERIC_MOLECULE_SCENE := preload(
 # UI REFERENCES
 # ============================================================
 
-# Main recipe section
 @onready var recipe_title: Label = \
 	$FusionPanel/RecipeSection/SectionTitle
 
@@ -73,7 +70,6 @@ const GENERIC_MOLECULE_SCENE := preload(
 	$FusionPanel/AtomonSelectionPanel/ConfirmButton
 
 
-# General
 @onready var cancel_button: Button = \
 	$CancelButton
 
@@ -90,7 +86,6 @@ var required_counts: Dictionary = {}
 
 var selection_mode := false
 
-# Currently displayed molecular formation scene.
 var current_molecule_scene: Control = null
 
 
@@ -100,22 +95,15 @@ var current_molecule_scene: Control = null
 
 func _ready() -> void:
 
-	print("[FusionMenu] Fusion Menu opened.")
-
-	# Prevent player movement while Fusion Menu is open.
 	if global.player != null:
 		global.player.can_move = false
 
-	# Start in recipe selection mode.
 	show_recipe_selection()
 
 	no_recipes_label.visible = false
-
-	# Hide Atomon selection until a recipe is chosen.
 	atomon_selection_panel.visible = false
 
 	confirm_button.disabled = true
-
 	selection_status.text = ""
 
 	populate_fusion_recipes()
@@ -131,22 +119,12 @@ func populate_fusion_recipes() -> void:
 		FusionManager.get_available_fusion_recipes()
 
 	print(
-		"[FusionMenu] Available Fusion Recipes: ",
+		"[FusionMenu] Recipes available: ",
 		available_recipes.size()
 	)
 
-
-	# --------------------------------------------------------
-	# Clear existing dynamically-created recipe slots
-	# --------------------------------------------------------
-
 	for child in recipe_grid.get_children():
 		child.queue_free()
-
-
-	# --------------------------------------------------------
-	# No available recipes
-	# --------------------------------------------------------
 
 	if available_recipes.is_empty():
 
@@ -155,18 +133,8 @@ func populate_fusion_recipes() -> void:
 
 		return
 
-
-	# --------------------------------------------------------
-	# Recipes available
-	# --------------------------------------------------------
-
 	no_recipes_label.visible = false
 	recipe_scroll.visible = true
-
-
-	# --------------------------------------------------------
-	# Create one RecipeSlot for every available recipe
-	# --------------------------------------------------------
 
 	for recipe in available_recipes:
 
@@ -175,11 +143,8 @@ func populate_fusion_recipes() -> void:
 
 		var slot := RECIPE_SLOT_SCENE.instantiate()
 
-		# Add slot to the GridContainer
 		recipe_grid.add_child(slot)
 
-
-		# Keep every slot at 468 × 120
 		if slot is Control:
 
 			slot.custom_minimum_size = Vector2(
@@ -193,8 +158,6 @@ func populate_fusion_recipes() -> void:
 			slot.size_flags_vertical = \
 				Control.SIZE_SHRINK_BEGIN
 
-
-		# Configure RecipeSlot
 		if slot.has_method("setup"):
 
 			slot.setup(recipe)
@@ -202,28 +165,16 @@ func populate_fusion_recipes() -> void:
 		else:
 
 			push_warning(
-				"[FusionMenu] RecipeSlot has no setup(recipe) method."
+				"[FusionMenu] RecipeSlot has no setup(recipe)."
 			)
 
 			continue
 
-
-		# Connect button
 		if slot is BaseButton:
 
 			slot.pressed.connect(
 				_on_recipe_selected.bind(recipe)
 			)
-
-
-		print(
-			"[FusionMenu] Added RecipeSlot: ",
-			recipe.compound_name,
-			" | ",
-			recipe.chemical_formula,
-			" | Skill: ",
-			recipe.fusion_skill_id
-		)
 
 
 # ============================================================
@@ -246,22 +197,10 @@ func _on_recipe_selected(
 
 	selection_mode = true
 
-
 	print(
-		"[FusionMenu] Selected Fusion: ",
+		"[FusionMenu] Selected: ",
 		recipe.chemical_formula
 	)
-
-	print(
-		"[FusionMenu] Compound: ",
-		recipe.compound_name
-	)
-
-	print(
-		"[FusionMenu] Requirements: ",
-		required_counts
-	)
-
 
 	open_atomon_selection()
 
@@ -295,64 +234,32 @@ func open_atomon_selection() -> void:
 	if selected_recipe == null:
 		return
 
-
-	# --------------------------------------------------------
-	# Hide recipe-selection interface.
-	# --------------------------------------------------------
-
 	hide_recipe_selection()
 
 	no_recipes_label.visible = false
 
-
-	# --------------------------------------------------------
-	# Show Atomon selection.
-	# --------------------------------------------------------
-
 	atomon_selection_panel.visible = true
-
-
-	# --------------------------------------------------------
-	# LOAD GENERIC MOLECULAR FORMATION
-	# --------------------------------------------------------
 
 	load_molecule_scene(
 		selected_recipe
 	)
-
-
-	# --------------------------------------------------------
-	# Update selection UI.
-	# --------------------------------------------------------
 
 	selection_header.text = "BUILD MOLECULE"
 
 	selection_hint.text = \
 		"Drag the required Atomons into the molecular positions."
 
-
 	selected_atomons.clear()
 
 	required_counts = \
 		selected_recipe.get_required_element_counts()
-
 
 	confirm_button.disabled = true
 
 	selection_status.text = \
 		"Place all required Atomons."
 
-
-	# --------------------------------------------------------
-	# Load carried Atomons.
-	# --------------------------------------------------------
-
 	setup_party_slots()
-
-
-	# --------------------------------------------------------
-	# Listen for molecule changes.
-	# --------------------------------------------------------
 
 	connect_molecule_signals()
 
@@ -362,35 +269,6 @@ func open_atomon_selection() -> void:
 # ============================================================
 # MOLECULE SCENE
 # ============================================================
-# Every Fusion Skill now uses the same generic molecule scene.
-#
-# The generic molecule script receives the selected recipe and
-# automatically creates the required FusionMoleculeSlot nodes.
-#
-# Example:
-#
-# H2O
-#   H ×2
-#   O ×1
-#
-# creates:
-#   H slot
-#   O slot
-#   H slot
-#
-# CH4
-#   C ×1
-#   H ×4
-#
-# creates:
-#   C slot
-#   H slot
-#   H slot
-#   H slot
-#   H slot
-#
-# No individual molecule .tscn is required.
-# ============================================================
 
 func load_molecule_scene(
 	recipe: FusionRecipe
@@ -399,56 +277,32 @@ func load_molecule_scene(
 	if recipe == null:
 
 		push_warning(
-			"[FusionMenu] Cannot load molecule scene: "
-			+ "recipe is null."
+			"[FusionMenu] Cannot load molecule: recipe is null."
 		)
 
 		return
 
-
-	# --------------------------------------------------------
-	# Remove previous molecule.
-	# --------------------------------------------------------
-
 	clear_molecule_scene()
-
-
-	# --------------------------------------------------------
-	# Instantiate generic molecule builder.
-	# --------------------------------------------------------
 
 	var molecule_instance: Node = \
 		GENERIC_MOLECULE_SCENE.instantiate()
 
-
 	if not molecule_instance is Control:
 
 		push_warning(
-			"[FusionMenu] Generic molecule scene root "
-			+ "must inherit Control."
+			"[FusionMenu] Generic molecule root must be Control."
 		)
 
 		molecule_instance.queue_free()
 
 		return
 
-
 	current_molecule_scene = \
 		molecule_instance as Control
-
-
-	# --------------------------------------------------------
-	# Add to Molecule Panel.
-	# --------------------------------------------------------
 
 	molecule_panel.add_child(
 		current_molecule_scene
 	)
-
-
-	# --------------------------------------------------------
-	# GIVE THE RECIPE TO THE GENERIC MOLECULE BUILDER
-	# --------------------------------------------------------
 
 	if current_molecule_scene.has_method(
 		"setup_recipe"
@@ -461,22 +315,9 @@ func load_molecule_scene(
 	else:
 
 		push_warning(
-			"[FusionMenu] generic_molecule.gd does not "
-			+ "have setup_recipe(recipe)."
+			"[FusionMenu] generic_molecule.gd is missing "
+			+ "setup_recipe(recipe)."
 		)
-
-
-	print(
-		"[FusionMenu] Generic molecule loaded: ",
-		recipe.chemical_formula,
-		" | ",
-		recipe.compound_name
-	)
-
-	print(
-		"[FusionMenu] Required elements: ",
-		recipe.get_required_element_counts()
-	)
 
 
 # ============================================================
@@ -506,19 +347,16 @@ func connect_molecule_signals() -> void:
 	if current_molecule_scene == null:
 		return
 
-
 	if not current_molecule_scene.has_signal(
 		"molecule_changed"
 	):
 
 		return
 
-
 	var callback := Callable(
 		self,
 		"_on_molecule_changed"
 	)
-
 
 	if not current_molecule_scene.is_connected(
 		"molecule_changed",
@@ -530,8 +368,6 @@ func connect_molecule_signals() -> void:
 			callback
 		)
 
-
-	# Immediately synchronize UI.
 	_on_molecule_changed()
 
 
@@ -550,7 +386,6 @@ func _on_molecule_changed() -> void:
 
 		return
 
-
 	if not current_molecule_scene.has_method(
 		"is_complete"
 	):
@@ -562,14 +397,8 @@ func _on_molecule_changed() -> void:
 
 		return
 
-
 	var complete: bool = \
 		current_molecule_scene.is_complete()
-
-
-	# --------------------------------------------------------
-	# Molecule incomplete.
-	# --------------------------------------------------------
 
 	if not complete:
 
@@ -580,11 +409,6 @@ func _on_molecule_changed() -> void:
 
 		return
 
-
-	# --------------------------------------------------------
-	# Molecule complete.
-	# --------------------------------------------------------
-
 	confirm_button.disabled = false
 
 	selection_status.text = \
@@ -592,27 +416,83 @@ func _on_molecule_changed() -> void:
 
 
 # ============================================================
-# SET UP EXISTING PARTY SLOTS
+# GET ATOMONS AVAILABLE FOR FUSION
+# ============================================================
+#
+# NORMAL BATTLE:
+#     Uses PartyManager carried party.
+#
+# FUSION TRAINING:
+#     Uses BattleManager.training_party.
+#
+# This is important because the training Atomons are temporary
+# and are intentionally NOT stored in PartyManager.
+# ============================================================
+
+func get_available_fusion_atomons() -> Array[AtomonInstance]:
+
+	var atomons: Array[AtomonInstance] = []
+
+	# --------------------------------------------------------
+	# FUSION TRAINING
+	# --------------------------------------------------------
+
+	if BattleManager.is_fusion_training_battle:
+
+		for atomon in BattleManager.training_party:
+
+			if atomon == null:
+				continue
+
+			if atomon.data == null:
+				continue
+
+			atomons.append(
+				atomon
+			)
+
+		return atomons
+
+
+	# --------------------------------------------------------
+	# NORMAL BATTLE
+	# --------------------------------------------------------
+
+	var party: Array[AtomonInstance] = \
+		PartyManager.get_carried_party()
+
+	for atomon in party:
+
+		if atomon == null:
+			continue
+
+		if atomon.data == null:
+			continue
+
+		atomons.append(
+			atomon
+		)
+
+	return atomons
+
+
+# ============================================================
+# SET UP ATOMON SLOTS
 # ============================================================
 
 func setup_party_slots() -> void:
 
 	var party: Array[AtomonInstance] = \
-		PartyManager.get_carried_party()
+		get_available_fusion_atomons()
 
+	if BattleManager.is_fusion_training_battle:
 
-	print(
-		"[FusionMenu] Loading carried Atomons into Fusion slots."
-	)
-
-	print(
-		"[FusionMenu] Carried party size: ",
-		party.size()
-	)
-
+		print(
+			"[FusionMenu] Training Atomons loaded: ",
+			party.size()
+		)
 
 	var slots := party_list.get_children()
-
 
 	for i in range(
 		slots.size()
@@ -632,14 +512,13 @@ func setup_party_slots() -> void:
 
 			slot.clear_slot()
 
-
 		if slot.has_method("set_selected"):
 
 			slot.set_selected(false)
 
 
 		# ----------------------------------------------------
-		# ENABLE DRAG MODE
+		# ENABLE DRAGGING
 		# ----------------------------------------------------
 
 		if slot.has_method("set_draggable"):
@@ -648,7 +527,7 @@ func setup_party_slots() -> void:
 
 
 		# ----------------------------------------------------
-		# NO ATOMON FOR THIS SLOT
+		# NO ATOMON
 		# ----------------------------------------------------
 
 		if i >= party.size():
@@ -676,14 +555,6 @@ func setup_party_slots() -> void:
 			)
 
 
-		print(
-			"[FusionMenu] Carried Slot ",
-			i + 1,
-			" = ",
-			atomon.data.chemical_symbol
-		)
-
-
 # ============================================================
 # SELECTION STATUS
 # ============================================================
@@ -693,7 +564,6 @@ func update_selection_status() -> void:
 	if selected_recipe == null:
 		return
 
-
 	if current_molecule_scene == null:
 
 		selection_status.text = \
@@ -702,7 +572,6 @@ func update_selection_status() -> void:
 		confirm_button.disabled = true
 
 		return
-
 
 	if not current_molecule_scene.has_method(
 		"is_complete"
@@ -715,10 +584,8 @@ func update_selection_status() -> void:
 
 		return
 
-
 	var complete: bool = \
 		current_molecule_scene.is_complete()
-
 
 	if not complete:
 
@@ -728,7 +595,6 @@ func update_selection_status() -> void:
 		confirm_button.disabled = true
 
 		return
-
 
 	selection_status.text = \
 		"Molecule complete!"
@@ -744,26 +610,22 @@ func get_molecule_atomons() -> Array[AtomonInstance]:
 
 	var atomons: Array[AtomonInstance] = []
 
-
 	if current_molecule_scene == null:
 		return atomons
-
 
 	if not current_molecule_scene.has_method(
 		"get_selected_atomons"
 	):
 
 		push_warning(
-			"[FusionMenu] Molecule scene does not support "
+			"[FusionMenu] Molecule does not support "
 			+ "get_selected_atomons()."
 		)
 
 		return atomons
 
-
 	var result = \
 		current_molecule_scene.get_selected_atomons()
-
 
 	for atomon in result:
 
@@ -780,7 +642,6 @@ func get_molecule_atomons() -> Array[AtomonInstance]:
 			atomon
 		)
 
-
 	return atomons
 
 
@@ -792,7 +653,6 @@ func get_selected_counts() -> Dictionary:
 
 	var counts: Dictionary = {}
 
-
 	for atomon in selected_atomons:
 
 		if atomon == null:
@@ -801,10 +661,8 @@ func get_selected_counts() -> Dictionary:
 		if atomon.data == null:
 			continue
 
-
 		var symbol: String = \
 			atomon.data.chemical_symbol
-
 
 		counts[symbol] = \
 			int(
@@ -813,7 +671,6 @@ func get_selected_counts() -> Dictionary:
 					0
 				)
 			) + 1
-
 
 	return counts
 
@@ -830,22 +687,16 @@ func _on_confirm_pressed() -> void:
 	if current_molecule_scene == null:
 		return
 
-
-	# --------------------------------------------------------
-	# CHECK MOLECULE COMPLETION
-	# --------------------------------------------------------
-
 	if not current_molecule_scene.has_method(
 		"is_complete"
 	):
 
 		push_warning(
-			"[FusionMenu] Molecule scene does not support "
+			"[FusionMenu] Molecule does not support "
 			+ "is_complete()."
 		)
 
 		return
-
 
 	if not current_molecule_scene.is_complete():
 
@@ -854,14 +705,8 @@ func _on_confirm_pressed() -> void:
 
 		return
 
-
-	# --------------------------------------------------------
-	# GET ATOMONS FROM MOLECULE
-	# --------------------------------------------------------
-
 	selected_atomons = \
 		get_molecule_atomons()
-
 
 	if selected_atomons.is_empty():
 
@@ -870,41 +715,23 @@ func _on_confirm_pressed() -> void:
 
 		return
 
-
-	print(
-		"[FusionMenu] Confirm Fusion pressed."
-	)
-
-
 	var selected_counts := \
 		get_selected_counts()
 
-
 	print(
-		"[FusionMenu] Required: ",
-		required_counts
-	)
-
-	print(
-		"[FusionMenu] Selected: ",
+		"[FusionMenu] Checking Fusion: ",
+		selected_recipe.chemical_formula,
+		" | Required: ",
+		required_counts,
+		" | Selected: ",
 		selected_counts
 	)
-
-
-	# --------------------------------------------------------
-	# EXACT CHEMICAL COMPOSITION
-	# --------------------------------------------------------
 
 	if not selection_matches_recipe():
 
 		handle_wrong_selection()
 
 		return
-
-
-	# --------------------------------------------------------
-	# CORRECT COMBINATION
-	# --------------------------------------------------------
 
 	handle_correct_selection()
 
@@ -918,18 +745,10 @@ func selection_matches_recipe() -> bool:
 	if selected_recipe == null:
 		return false
 
-
 	var selected_counts := \
 		get_selected_counts()
 
-
-	# --------------------------------------------------------
-	# CHECK 1
-	# Exact total number of Atomons.
-	# --------------------------------------------------------
-
 	var required_total: int = 0
-
 
 	for symbol in required_counts:
 
@@ -938,20 +757,8 @@ func selection_matches_recipe() -> bool:
 				required_counts[symbol]
 			)
 
-
 	if selected_atomons.size() != required_total:
-
-		print(
-			"[FusionMenu] Wrong total number of Atomons."
-		)
-
 		return false
-
-
-	# --------------------------------------------------------
-	# CHECK 2
-	# Exact quantity for every required element.
-	# --------------------------------------------------------
 
 	for symbol in required_counts:
 
@@ -968,37 +775,13 @@ func selection_matches_recipe() -> bool:
 				)
 			)
 
-
 		if selected_amount != required_amount:
-
-			print(
-				"[FusionMenu] Wrong amount of ",
-				symbol,
-				". Required: ",
-				required_amount,
-				" | Selected: ",
-				selected_amount
-			)
-
 			return false
-
-
-	# --------------------------------------------------------
-	# CHECK 3
-	# No unexpected elements.
-	# --------------------------------------------------------
 
 	for symbol in selected_counts:
 
 		if not required_counts.has(symbol):
-
-			print(
-				"[FusionMenu] Unexpected element selected: ",
-				symbol
-			)
-
 			return false
-
 
 	return true
 
@@ -1009,33 +792,19 @@ func selection_matches_recipe() -> bool:
 
 func handle_wrong_selection() -> void:
 
-	print(
-		"[FusionMenu] Fusion Failed."
-	)
-
-
 	selection_status.text = \
 		"Fusion Failed! Wrong Atomon combination."
 
-
 	confirm_button.disabled = true
-
 
 	await get_tree().create_timer(
 		1.5
 	).timeout
 
-
 	if not is_inside_tree():
 		return
 
-
 	selected_atomons.clear()
-
-
-	# --------------------------------------------------------
-	# Clear the molecule instead of party-slot highlights.
-	# --------------------------------------------------------
 
 	if current_molecule_scene != null:
 
@@ -1044,7 +813,6 @@ func handle_wrong_selection() -> void:
 		):
 
 			current_molecule_scene.clear_atomons()
-
 
 	update_selection_status()
 
@@ -1055,49 +823,28 @@ func handle_wrong_selection() -> void:
 
 func handle_correct_selection() -> void:
 
-	print(
-		"[FusionMenu] Correct Atomon combination!"
-	)
+	if selected_recipe == null:
+		return
 
 	print(
-		"[FusionMenu] Fusion: ",
+		"[FusionMenu] Correct Fusion: ",
 		selected_recipe.chemical_formula
 	)
-
-
-	for atomon in selected_atomons:
-
-		if atomon == null:
-			continue
-
-		if atomon.data == null:
-			continue
-
-
-		print(
-			"[FusionMenu] Fusion Component: ",
-			atomon.data.chemical_symbol
-		)
-
 
 	selection_status.text = \
 		"Correct combination!"
 
-
 	confirm_button.disabled = true
 
-
 	# --------------------------------------------------------
-	# IMPORTANT
-	#
-	# The Fusion Menu only validates the chemical composition.
+	# The Fusion Menu only validates the combination.
 	#
 	# It does NOT:
 	# - consume Atomons
-	# - consume Fusion
+	# - perform Fusion
 	# - perform the attack
 	#
-	# Those actions happen after the Octet Rule Challenge.
+	# BattleUI handles the next step.
 	# --------------------------------------------------------
 
 	fusion_components_selected.emit(
@@ -1105,8 +852,6 @@ func handle_correct_selection() -> void:
 		selected_atomons
 	)
 
-
-	# Correct fusion is NOT cancellation.
 	close_menu()
 
 
@@ -1121,9 +866,7 @@ func build_requirement_text(
 	if recipe == null:
 		return ""
 
-
 	var parts: Array[String] = []
-
 
 	for requirement in recipe.requirements:
 
@@ -1133,13 +876,11 @@ func build_requirement_text(
 		if requirement.element == null:
 			continue
 
-
 		var symbol: String = \
 			requirement.element.chemical_symbol
 
 		var amount: int = \
 			requirement.amount
-
 
 		if amount == 1:
 
@@ -1155,46 +896,33 @@ func build_requirement_text(
 				+ str(amount)
 			)
 
-
 	return \
 		"Requires: " \
 		+ " + ".join(parts)
 
 
 # ============================================================
-# CLOSE
+# CLOSE BUTTON
 # ============================================================
 
 func _on_close_pressed() -> void:
-
-	print(
-		"[FusionMenu] Fusion Menu cancelled by player."
-	)
-
 
 	fusion_menu_cancelled.emit()
 
 	close_menu()
 
 
+# ============================================================
+# CLOSE MENU
+# ============================================================
+
 func close_menu() -> void:
-
-	print(
-		"[FusionMenu] Closing Fusion Menu."
-	)
-
 
 	selection_mode = false
 
 	clear_molecule_scene()
 
-
-	# --------------------------------------------------------
-	# Restore player movement.
-	# --------------------------------------------------------
-
 	if global.player != null:
 		global.player.can_move = true
-
 
 	queue_free()

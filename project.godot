@@ -73,6 +73,8 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "Intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/Intro.dtl",
+"Quest_chain_002_02/talk_andrew_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_andrew_composition.dtl",
+"Quest_chain_002_02/talk_dr_mundo_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_dr_mundo_composition.dtl",
 "StartingCutscene": "res://Resources/Dialouges/Dialogic/Timeline/StartingCutscene.dtl",
 "atomonia_entrance": "res://Resources/Dialouges/Dialogic/Timeline/atomonia_entrance.dtl",
 "atomonia_expert": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/atomonia_expert.dtl",

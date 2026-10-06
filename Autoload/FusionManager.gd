@@ -131,11 +131,21 @@ func get_recipe_by_formula(formula: String) -> FusionRecipe:
 # ========================================================
 
 func get_party_element_counts() -> Dictionary:
+
 	var counts: Dictionary = {}
 
-	var carried_party = PartyManager.get_carried_party()
+	var carried_party: Array[AtomonInstance]
+
+	if BattleManager.is_fusion_training_battle:
+
+		carried_party = BattleManager.training_party
+
+	else:
+
+		carried_party = PartyManager.get_carried_party()
 
 	for atomon in carried_party:
+
 		if atomon == null:
 			continue
 
@@ -143,7 +153,10 @@ func get_party_element_counts() -> Dictionary:
 			continue
 
 		var symbol: String = atomon.data.chemical_symbol
-		counts[symbol] = int(counts.get(symbol, 0)) + 1
+
+		counts[symbol] = int(
+			counts.get(symbol, 0)
+		) + 1
 
 	return counts
 
@@ -177,16 +190,25 @@ func can_fuse_recipe(recipe: FusionRecipe) -> bool:
 # CHECK ACTIVE ATOMON FOR FUSION
 # ========================================================
 
-func active_atomon_can_use_recipe(recipe: FusionRecipe) -> bool:
+func active_atomon_can_use_recipe(
+	recipe: FusionRecipe
+) -> bool:
+
 	if recipe == null:
 		return false
 
 	if not recipe.is_valid():
 		return false
 
-	var active_atomon: AtomonInstance = (
-		PartyManager.get_active_atomon()
-	)
+	var active_atomon: AtomonInstance
+
+	if BattleManager.is_fusion_training_battle:
+
+		active_atomon = BattleManager.player_instance
+
+	else:
+
+		active_atomon = PartyManager.get_active_atomon()
 
 	if active_atomon == null:
 		return false
@@ -231,7 +253,15 @@ func get_fusion_atomon_candidates(recipe: FusionRecipe) -> Dictionary:
 	if not active_atomon_can_use_recipe(recipe):
 		return result
 
-	var carried_party = PartyManager.get_carried_party()
+	var carried_party: Array[AtomonInstance]
+
+	if BattleManager.is_fusion_training_battle:
+
+		carried_party = BattleManager.training_party
+
+	else:
+
+		carried_party = PartyManager.get_carried_party()
 
 	for requirement in recipe.requirements:
 		if requirement == null:

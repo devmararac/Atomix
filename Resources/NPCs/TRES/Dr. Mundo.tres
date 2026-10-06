@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dbn4ri3waxjfi" path="res://Assets/NPC/Player Sprite.png" id="3_t5omh"]
 [ext_resource type="Resource" uid="uid://cc3lv33nffmdo" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/states_of_matter_intro.dtl" id="4_matter"]
 [ext_resource type="Resource" uid="uid://bmhmcp04maijx" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/return_to_dr_mundo_matter.dtl" id="5_wgvyr"]
+[ext_resource type="Resource" uid="uid://64o7upgo47pn" path="res://Resources/Quest/Unit_2/quest_chain_002_02.tres" id="6_av6f8"]
+[ext_resource type="Resource" uid="uid://bempfgocrqoh" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_dr_mundo_composition.dtl" id="7_jnjhh"]
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="7_tkxad"]
 [ext_resource type="Resource" uid="uid://c5ub2ricmt6ru" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/go_to_alchemy_house2.tres" id="8_ny4lq"]
 [ext_resource type="Resource" uid="uid://bsg5uqe2ooq3o" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/talk_dr_mundo_matter.tres" id="9_5idsa"]
@@ -42,10 +44,19 @@ quest = ExtResource("3_j0aog")
 timeline = ExtResource("5_wgvyr")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
+[sub_resource type="Resource" id="Resource_jnjhh"]
+script = ExtResource("2_c0iv6")
+objective_id = "talk_dr_mundo_composition"
+conversation_name = "Matter Composition"
+conversation_type = 5
+quest = ExtResource("6_av6f8")
+timeline = ExtResource("7_jnjhh")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
 [sub_resource type="Resource" id="Resource_kgj1s"]
 script = ExtResource("3_d00vo")
 default_timeline = ExtResource("4_matter")
-conversations = Array[ExtResource("2_c0iv6")]([SubResource("Resource_wgvyr"), SubResource("Resource_av6f8")])
+conversations = Array[ExtResource("2_c0iv6")]([SubResource("Resource_wgvyr"), SubResource("Resource_av6f8"), SubResource("Resource_jnjhh")])
 metadata/_custom_type_script = "uid://ckoa2l31dwe64"
 
 [sub_resource type="Resource" id="Resource_i2pm6"]
@@ -120,5 +131,5 @@ display_name = "Dr. Mundo"
 sprite_frames = SubResource("SpriteFrames_8fx61")
 dialogic_character = ExtResource("1_tdg6a")
 dialogue_data = SubResource("Resource_kgj1s")
-quests = Array[ExtResource("1_lvx6j")]([SubResource("Resource_i2pm6")])
+quests = Array[ExtResource("1_lvx6j")]([SubResource("Resource_i2pm6"), ExtResource("6_av6f8")])
 metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

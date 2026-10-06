@@ -21,7 +21,8 @@ var quest_database := {
 	"story_quest_explore_dungeon": preload("res://Resources/Objectives/explore_dungeon.tres"),
 	"quest_chain_001_01": preload("res://Resources/Quest/Unit_1/quest_chain.tres"),
 	"quest_chain_001_02": preload("res://Resources/Quest/Unit_1/quest_chain2.tres"),
-	"quest_chain_002_01": preload("res://Resources/Quest/Unit_2/quest_chain_002_01.tres")
+	"quest_chain_002_01": preload("res://Resources/Quest/Unit_2/quest_chain_002_01.tres"),
+	"quest_chain_002_02": preload("res://Resources/Quest/Unit_2/quest_chain_002_02.tres")
 }
 
 
@@ -109,7 +110,10 @@ func _process_quest_notify_queue() -> void:
 		var parts := argument.split(":")
 
 		if parts.size() < 3:
-			print("[QuestManager] Invalid quest notification: ", argument)
+			print(
+				"[QuestManager] Invalid quest notification: ",
+				argument
+			)
 			continue
 
 		var quest_id := parts[1]
@@ -118,13 +122,19 @@ func _process_quest_notify_queue() -> void:
 		var quest := get_quest(quest_id)
 
 		if quest == null:
-			print("[QuestManager] Quest not found: ", quest_id)
+			print(
+				"[QuestManager] Quest not found: ",
+				quest_id
+			)
 			continue
 
 		var objective := quest.get_active_objective()
 
 		if objective == null:
-			print("[QuestManager] Quest has no active objective: ", quest_id)
+			print(
+				"[QuestManager] Quest has no active objective: ",
+				quest_id
+			)
 			continue
 
 		# Only process notifications for the current objective.
@@ -163,15 +173,23 @@ func _process_quest_notify_queue() -> void:
 func accept_quest(quest_id: String) -> void:
 
 	if active_quests.has(quest_id):
-		print("[QuestManager] Quest is already ACTIVE: ", quest_id)
+		print(
+			"[QuestManager] Quest is already ACTIVE: ",
+			quest_id
+		)
 		return
 
 	if completed_quests.has(quest_id):
-		print("[QuestManager] Quest is already COMPLETED: ", quest_id)
+		print(
+			"[QuestManager] Quest is already COMPLETED: ",
+			quest_id
+		)
 		return
 
 	if !quest_database.has(quest_id):
-		push_error("Quest '%s' not found!" % quest_id)
+		push_error(
+			"Quest '%s' not found!" % quest_id
+		)
 		return
 
 	var quest: Quest = quest_database[quest_id].duplicate(true)
@@ -188,7 +206,10 @@ func accept_quest(quest_id: String) -> void:
 	quest_list_updated.emit()
 	refresh_npc_quest_indicators()
 
-	print("[QuestManager] Quest accepted: ", quest.quest_id)
+	print(
+		"[QuestManager] Quest accepted: ",
+		quest.quest_id
+	)
 
 	await SaveManager.auto_save_quest_data(
 		"Accepted quest: " + quest.quest_id
@@ -504,7 +525,6 @@ func set_tracked_quest(quest: Quest) -> void:
 
 	tracked_quest_changed.emit(quest)
 
-
 # -------------------------------------------------------------------
 # Notify Quest
 # -------------------------------------------------------------------
@@ -527,12 +547,19 @@ func notify(
 		if quest == null:
 			continue
 
-		print("[QuestManager] Checking quest: ", quest.quest_id)
+		print(
+			"[QuestManager] Checking quest: ",
+			quest.quest_id
+		)
 
-		var active_objective: Objective = quest.get_active_objective()
+		var active_objective: Objective = (
+			quest.get_active_objective()
+		)
 
 		if active_objective == null:
-			print("[QuestManager] No active objective.")
+			print(
+				"[QuestManager] No active objective."
+			)
 			continue
 
 		print(
@@ -560,6 +587,10 @@ func notify(
 			active_objective.target_id == target_id
 		)
 
+		# ------------------------------------------------------------
+		# Try to complete the current objective
+		# ------------------------------------------------------------
+
 		if quest.notify(type, target_id, amount):
 
 			print(
@@ -567,29 +598,78 @@ func notify(
 				quest.quest_id
 			)
 
-			var next_objective: Objective = quest.get_active_objective()
+			# --------------------------------------------------------
+			# Get the next active objective
+			# --------------------------------------------------------
+
+			var next_objective: Objective = (
+				quest.get_active_objective()
+			)
 
 			if next_objective != null:
-
-				objective_updated.emit(
-					quest.quest_id,
-					next_objective.id
-				)
 
 				print(
 					"[QuestManager] Next objective: ",
 					next_objective.id
 				)
 
+				objective_updated.emit(
+					quest.quest_id,
+					next_objective.id
+				)
+
+				# ----------------------------------------------------
+				# SAVE QUEST PROGRESS
+				# ----------------------------------------------------
+
 				await SaveManager.auto_save(
 					"Quest progress: " + quest.quest_id
 				)
+
+				# ----------------------------------------------------
+				# FUSION TRAINING
+				#
+				# The important part:
+				# We now start the battle AFTER
+				# talk_andrew_composition has been completed
+				# and start_fusion_training becomes active.
+				# ----------------------------------------------------
+
+				if (
+					quest.quest_id == "quest_chain_002_02"
+					and next_objective.id == "start_fusion_training"
+				):
+
+					print(
+						"[QuestManager] "
+						+ "start_fusion_training is now ACTIVE."
+					)
+
+					print(
+						"[QuestManager] "
+						+ "Preparing Fusion training battle..."
+					)
+
+					# Give Dialogic/NPC systems one frame
+					# to finish their current interaction.
+					await get_tree().process_frame
+
+					print(
+						"[QuestManager] "
+						+ "Starting Fusion training battle."
+					)
+
+					BattleManager.start_fusion_training_battle()
 
 			else:
 
 				print(
 					"[QuestManager] No next objective."
 				)
+
+			# --------------------------------------------------------
+			# Check if the entire quest is completed
+			# --------------------------------------------------------
 
 			if quest.is_completed():
 				quest_to_complete = quest
@@ -605,8 +685,14 @@ func notify(
 	print("[QuestManager] NOTIFY FINISHED")
 	print("================================")
 
+	# ------------------------------------------------------------
+	# Handle complete quest
+	# ------------------------------------------------------------
+
 	if quest_to_complete != null:
-		await handle_quest_completion(quest_to_complete)
+		await handle_quest_completion(
+			quest_to_complete
+		)
 
 	refresh_npc_quest_indicators()
 

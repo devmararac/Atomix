@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://64o7upgo47pn"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_objective"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_reward"]
+[ext_resource type="Resource" uid="uid://dagw7flgfrysd" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/talk_dr_mundo_composition.tres" id="2_tjcul"]
+[ext_resource type="Resource" uid="uid://cau1kpoeddhst" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/talk_andrew_composition.tres" id="3_g7fdb"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="3_quest"]
+[ext_resource type="Resource" uid="uid://vd7uoo6afufn" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/start_fusion_training.tres" id="4_tjcul"]
+
+[sub_resource type="Resource" id="Resource_tjcul"]
+script = ExtResource("1_objective")
+id = "return_to_main_map4"
+description = "Return to the Starter Town	"
+type = 3
+target_id = "start_map"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+
+[sub_resource type="Resource" id="Resource_3i7vs"]
+script = ExtResource("1_objective")
+id = "use_fusion"
+description = "Use Fusion to combine the training Atomons."
+type = 5
+target_id = "fusion"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+
+[sub_resource type="Resource" id="Resource_g7fdb"]
+script = ExtResource("1_objective")
+id = "return_to_dr_mundo_composition"
+description = "Return to Dr. Mundo and discuss what you learned."
+target_id = "scientist"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+
+[resource]
+script = ExtResource("3_quest")
+quest_id = "quest_chain_002_02"
+quest_name = "Elements and Compounds"
+quest_description = "Learn how elements can combine to form compounds through Fusion."
+objectives = Array[ExtResource("1_objective")]([ExtResource("2_tjcul"), SubResource("Resource_tjcul"), ExtResource("3_g7fdb"), ExtResource("4_tjcul"), SubResource("Resource_3i7vs"), SubResource("Resource_g7fdb")])
+metadata/_custom_type_script = "uid://7rrmrho1w3gn"

@@ -1,134 +1,35 @@
-Dr Mundo: Welcome back.
+Player: This Atomon behaves very differently from the others.
 
-Dr Mundo: So, what did you discover while observing the Atomons?
+Player: It doesn't seem to keep a definite shape.
 
-Player: I observed three different Atomons.
+Player: It also doesn't seem to keep a definite volume.
 
-Player: The Iron Atomon kept its shape and volume.
+Player: It spreads out and fills the space around it.
 
-Player: The Mercury Atomon had a definite volume, but its shape could change.
+Player: So... it doesn't have a fixed shape or a fixed volume.
 
-Player: And the Helium Atomon had neither a definite shape nor a definite volume.
-
-Dr Mundo: Excellent observations.
-
-Dr Mundo: So, what can we conclude from what you observed?
-
-Player:
-- Solid, liquid, and gas
-    Dr Mundo: Correct.
-
-    Dr Mundo: Iron is a solid because it has a definite shape and a definite volume.
-
-    Dr Mundo: Mercury is a liquid because it has a definite volume but takes the shape of its container.
-
-    Dr Mundo: Helium is a gas because it has neither a definite shape nor a definite volume.
-
-    jump finish
-
-- They are all the same state
-    Dr Mundo: Not quite.
-
-    Dr Mundo: Your observations showed that they behave differently.
-
-    Dr Mundo: Iron kept its shape and volume.
-
-    Dr Mundo: Mercury changed shape but kept its volume.
-
-    Dr Mundo: Helium spread out to fill the available space.
-
-    jump conclusion
-
-- They all behave like solids
-    Dr Mundo: Not quite.
-
-    Dr Mundo: Mercury and Helium behave differently from a solid.
-
-    jump conclusion
-
-
-label conclusion
-
-Dr Mundo: Let's review what you observed.
-
-Dr Mundo: What state has a definite shape and a definite volume?
-
-Player:
+Player: But what is the phase of this Helium Atomon?
 - Solid
-    Dr Mundo: Correct. A solid has a definite shape and a definite volume.
-    jump conclusion_two
+  Player: Not quite. A solid keeps both a definite shape and a definite volume. This Helium Atomon does neither.
 
 - Liquid
-    Dr Mundo: A liquid has a definite volume, but it takes the shape of its container.
-    jump conclusion
+  Player: Not quite. A liquid has a definite volume, even though it takes the shape of its container. This Helium Atomon does not keep a definite volume.
 
 - Gas
-    Dr Mundo: A gas has neither a definite shape nor a definite volume.
-    jump conclusion
+  Player: Right! Helium is a gas at normal room temperature. A gas has neither a definite shape nor a definite volume and spreads out to fill the available space.
 
+Player: Then the Helium Atomon is a gas.
 
-label conclusion_two
+Player: It doesn't have a definite shape or volume, and it spreads out to fill the space available.
 
-Dr Mundo: What state has a definite volume but takes the shape of its container?
+[signal arg="quest_notify:quest_chain_002_01:observe_helium"]
 
-Player:
-- Solid
-    Dr Mundo: A solid keeps its own shape.
-    jump conclusion_two
+Player: Now I understand.
 
-- Liquid
-    Dr Mundo: Correct. A liquid has a definite volume but takes the shape of its container.
-    jump conclusion_three
+Player: Solids keep their shape and volume.
 
-- Gas
-    Dr Mundo: A gas does not have a definite volume.
-    jump conclusion_two
+Player: Liquids keep their volume but take the shape of their container.
 
-
-label conclusion_three
-
-Dr Mundo: Finally, what state has neither a definite shape nor a definite volume?
-
-Player:
-- Solid
-    Dr Mundo: A solid has both a definite shape and a definite volume.
-    jump conclusion_three
-
-- Liquid
-    Dr Mundo: A liquid has a definite volume, even though its shape can change.
-    jump conclusion_three
-
-- Gas
-    Dr Mundo: Correct. A gas has neither a definite shape nor a definite volume and spreads out to fill the available space.
-    jump finish
-
-
-label finish
-
-Dr Mundo: Excellent work.
-
-Dr Mundo: You didn't simply memorize the three states of matter.
-
-Dr Mundo: You observed how the Atomons behaved and used those observations to identify their states.
-
-Player: So my observations helped me understand why each Atomon belongs to a different state.
-
-Dr Mundo: Exactly.
-
-Dr Mundo: Scientists use observations and evidence to understand the world around them.
-
-Dr Mundo: Remember:
-
-Dr Mundo: Solid — definite shape and definite volume.
-
-Dr Mundo: Liquid — definite volume, but no definite shape.
-
-Dr Mundo: Gas — neither definite shape nor definite volume.
-
-Player: I understand.
-
-Dr Mundo: Good.
-
-Dr Mundo: You've taken your first step toward understanding how matter behaves.
-
-[signal arg="quest_notify:quest_chain_002_01:return_to_dr_mundo_matter"]
+Player: Gases have neither a definite shape nor a definite volume.
+Player: I've observed a solid, a liquid, and a gas atomon.
+Player: I should return to the Alchemy House and tell Dr. Mundo what I discovered.

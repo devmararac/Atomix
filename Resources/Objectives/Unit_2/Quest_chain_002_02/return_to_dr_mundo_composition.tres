@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://75gym2c753ne"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_objective"]
+
+[resource]
+script = ExtResource("1_objective")
+id = "return_to_dr_mundo_composition"
+description = "Return to Dr. Mundo and discuss what you learned."
+target_id = "scientist"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
