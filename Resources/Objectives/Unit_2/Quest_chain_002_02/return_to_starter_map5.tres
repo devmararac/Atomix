@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_8ps8s")
-id = "return_to_main_map4"
+id = "return_to_main_map5"
 description = "Return to the Starter Town	"
 type = 3
 target_id = "start_map"

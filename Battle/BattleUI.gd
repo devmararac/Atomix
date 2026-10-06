@@ -2279,44 +2279,47 @@ func _input(event: InputEvent):
 		return
 
 	# ========================================================
-	# MOBILE TOUCH
+	# STEPS 0-4
+	# TAPS/CLICKS ADVANCE THE TUTORIAL
 	# ========================================================
 
-	if event is InputEventScreenTouch:
+	if fusion_training_tutorial_step < 5:
 
-		if event.pressed:
+		if event is InputEventScreenTouch:
 
-			advance_fusion_training_tutorial()
-			get_viewport().set_input_as_handled()
+			if event.pressed:
 
-	# ========================================================
-	# MOUSE CLICK
-	# Useful when testing the APK/project on PC
-	# ========================================================
+				advance_fusion_training_tutorial()
+				get_viewport().set_input_as_handled()
 
-	elif event is InputEventMouseButton:
-
-		if (
-			event.button_index == MOUSE_BUTTON_LEFT
-			and event.pressed
-		):
-
-			advance_fusion_training_tutorial()
-			get_viewport().set_input_as_handled()
-
-	# ========================================================
-	# KEYBOARD
-	# Useful for PC testing
-	# ========================================================
-
-	elif event is InputEventKey:
-
-		if event.pressed and not event.echo:
+		elif event is InputEventMouseButton:
 
 			if (
-				event.keycode == KEY_SPACE
-				or event.keycode == KEY_ENTER
+				event.button_index == MOUSE_BUTTON_LEFT
+				and event.pressed
 			):
 
 				advance_fusion_training_tutorial()
 				get_viewport().set_input_as_handled()
+
+		elif event is InputEventKey:
+
+			if event.pressed and not event.echo:
+
+				if (
+					event.keycode == KEY_SPACE
+					or event.keycode == KEY_ENTER
+				):
+
+					advance_fusion_training_tutorial()
+					get_viewport().set_input_as_handled()
+
+	# ========================================================
+	# STEP 5
+	# DO NOT CONSUME THE TOUCH/CLICK
+	# FUSION BUTTON MUST RECEIVE IT
+	# ========================================================
+
+	else:
+
+		return
