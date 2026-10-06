@@ -94,10 +94,10 @@ animations = [{
 "speed": 9.0
 }]
 
-[node name="MecuryObservation" type="CharacterBody2D" unique_id=238339346 groups=["QuestObjects"]]
+[node name="HeliumObservation" type="CharacterBody2D" unique_id=238339346 groups=["QuestObjects"]]
 script = ExtResource("1_50d7c")
-target_id = "mercury"
-dialogue_timeline = "observe_mercury"
+target_id = "helium"
+dialogue_timeline = "observe_helium"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=929656731]
 sprite_frames = SubResource("SpriteFrames_2b13l")

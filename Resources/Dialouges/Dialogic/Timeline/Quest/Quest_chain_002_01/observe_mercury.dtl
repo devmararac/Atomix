@@ -1,0 +1,31 @@
+Player: This Atomon looks different from the Iron Atomon.
+
+Player: It doesn't seem to keep one fixed shape.
+
+Player: Its form can change depending on the space around it.
+
+Player: But it doesn't seem to spread out and fill the entire space.
+
+Player: It still seems to have a definite volume.
+
+Player: So... it seems to have a definite volume, but not a definite shape.
+
+Player: But what is the phase of this Mercury Atomon?
+
+Player: <Empty Text Event>
+- Solid
+  Player: Not quite. A solid keeps both a definite shape and a definite volume. This Mercury Atomon does not keep a fixed shape.
+
+- Liquid
+  Player: Yes! Mercury is a liquid at normal room temperature. It has a definite volume, but it takes the shape of its container.
+
+- Gas
+  Not quite. A gas does not have a definite shape or volume and tends to spread out to fill the available space.
+
+Player: Then the Mercury Atomon is a liquid.
+
+Player: It has a definite volume, but its shape can change.
+
+[signal arg="quest_notify:quest_chain_002_01:observe_mercury"]
+
+Player: I think I'm starting to understand the difference between a solid and a liquid.

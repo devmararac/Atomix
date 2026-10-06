@@ -7,4 +7,4 @@ script = ExtResource("1_pvtaa")
 id = "make_hypothesis"
 description = "Make a hypothesis before conducting the experiment."
 type = 5
-target_id = "experiment_hypothesis"
+target_id = "make_hypothesis"

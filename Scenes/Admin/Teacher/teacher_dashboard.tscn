@@ -205,46 +205,6 @@ grow_vertical = 2
 texture = ExtResource("7_6cr0m")
 expand_mode = 1
 
-[node name="ProgressButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=217362466]
-layout_mode = 2
-theme = SubResource("Theme_x082l")
-texture_normal = ExtResource("1_jkca0")
-texture_focused = ExtResource("3_h6mqj")
-stretch_mode = 0
-
-[node name="ProgressLabel" type="Label" parent="MenuPanel/VBoxContainer/ProgressButton" unique_id=1888452678]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.60800004
-anchor_top = 0.38700002
-anchor_right = 0.60800004
-anchor_bottom = 0.38700002
-offset_left = -61.056015
-offset_top = 0.0399971
-offset_right = 60.943985
-offset_bottom = 26.039997
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-theme_override_fonts/font = ExtResource("3_h7pqg")
-theme_override_font_sizes/font_size = 25
-text = "Progress"
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/ProgressButton" unique_id=1939124443]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.172
-anchor_top = 0.3
-anchor_right = 0.172
-anchor_bottom = 0.3
-offset_left = -13.904003
-offset_right = 14.095997
-offset_bottom = 31.0
-grow_vertical = 2
-texture = ExtResource("6_6cr0m")
-expand_mode = 1
-
 [node name="QuizModeButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1825982411]
 layout_mode = 2
 theme = SubResource("Theme_x082l")

@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_objective"]
 [ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_reward"]
-[ext_resource type="Resource" uid="uid://cs2e00l5m2ol4" path="res://Resources/Objectives/formulate_question.tres" id="3_kivrg"]
+[ext_resource type="Resource" uid="uid://cs2e00l5m2ol4" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/formulate_question.tres" id="3_kivrg"]
 [ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="3_quest"]
-[ext_resource type="Resource" uid="uid://bb24k64pvmru6" path="res://Resources/Objectives/make_hypothesis.tres" id="4_msd2i"]
-[ext_resource type="Resource" uid="uid://bxerlwvgouxdd" path="res://Resources/Objectives/go_to_cave.tres" id="5_qcg4o"]
-[ext_resource type="Resource" uid="uid://bkly2l787aatn" path="res://Resources/Objectives/observe_argon.tres" id="6_2thjq"]
-[ext_resource type="Resource" uid="uid://cokj3d2sma55c" path="res://Resources/Objectives/return_to_starter_map.tres" id="7_kivrg"]
-[ext_resource type="Resource" uid="uid://y016bdh6vwgg" path="res://Resources/Objectives/interpret_evidence.tres" id="8_ea8vl"]
-[ext_resource type="Resource" uid="uid://b5k2sltattgcx" path="res://Resources/Objectives/return_to_andrew_scientist.tres" id="8_msd2i"]
+[ext_resource type="Resource" uid="uid://bb24k64pvmru6" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/make_hypothesis.tres" id="4_msd2i"]
+[ext_resource type="Resource" uid="uid://bxerlwvgouxdd" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/go_to_cave.tres" id="5_qcg4o"]
+[ext_resource type="Resource" uid="uid://bkly2l787aatn" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/observe_argon.tres" id="6_2thjq"]
+[ext_resource type="Resource" uid="uid://cokj3d2sma55c" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/return_to_starter_map.tres" id="7_kivrg"]
+[ext_resource type="Resource" uid="uid://y016bdh6vwgg" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/interpret_evidence.tres" id="8_ea8vl"]
+[ext_resource type="Resource" uid="uid://b5k2sltattgcx" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/return_to_andrew_scientist.tres" id="8_msd2i"]
 
 [sub_resource type="Resource" id="Resource_qyhgh"]
 script = ExtResource("1_objective")

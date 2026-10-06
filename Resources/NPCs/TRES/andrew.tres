@@ -4,24 +4,35 @@
 [ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_np64e"]
 [ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_0wbd8"]
 [ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="2_5062h"]
-[ext_resource type="Resource" uid="uid://cj3cgk7hsdikv" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/atomonia_expert.dtl" id="3_mvaob"]
-[ext_resource type="Resource" uid="uid://c0j3d71p6j6gg" path="res://Resources/Quest/quest_chain.tres" id="4_mprig"]
+[ext_resource type="Resource" uid="uid://c0j3d71p6j6gg" path="res://Resources/Quest/Unit_1/quest_chain.tres" id="3_d56dw"]
+[ext_resource type="Resource" uid="uid://cj3cgk7hsdikv" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/atomonia_expert.dtl" id="4_degdh"]
 [ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="4_nkfes"]
 [ext_resource type="Texture2D" uid="uid://bygos6eoe7ql0" path="res://Assets/NPC/professor_andrew.png" id="4_ufuj8"]
-[ext_resource type="Resource" uid="uid://b0n482tbxg0ne" path="res://Resources/Quest/quest_chain2.tres" id="6_3etky"]
-[ext_resource type="Resource" uid="uid://dquclvpmdwsge" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/return_to_andrew.dtl" id="6_xokm8"]
-[ext_resource type="Resource" uid="uid://b8fufokl61ekh" path="res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis.dtl" id="7_ef5p1"]
-[ext_resource type="Resource" uid="uid://dk4j7xbn2bavx" path="res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis_return.dtl" id="8_return"]
+[ext_resource type="Resource" uid="uid://dquclvpmdwsge" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/return_to_andrew.dtl" id="5_xu2jv"]
+[ext_resource type="Resource" uid="uid://b0n482tbxg0ne" path="res://Resources/Quest/Unit_1/quest_chain2.tres" id="6_c5wpc"]
+[ext_resource type="Resource" uid="uid://b8fufokl61ekh" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_02/think_like_a_scientis.dtl" id="7_degdh"]
+[ext_resource type="Resource" uid="uid://dk4j7xbn2bavx" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_02/think_like_a_scientis_return.dtl" id="8_xu2jv"]
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="9_xokm8"]
 [ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="10_3etky"]
+[ext_resource type="Resource" uid="uid://cevxx7lyrc23n" path="res://Resources/Objectives/Unit_1/Quest_chain_001_01/talk_atomon_expert.tres" id="12_hiwgk"]
+[ext_resource type="Resource" uid="uid://cs2e00l5m2ol4" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/formulate_question.tres" id="13_d56dw"]
+[ext_resource type="Resource" uid="uid://yqkhj7pwbfly" path="res://Resources/Objectives/Unit_1/Quest_chain_001_01/observe_hydrogen.tres" id="13_ral6i"]
+[ext_resource type="Resource" uid="uid://bb24k64pvmru6" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/make_hypothesis.tres" id="14_c5wpc"]
+[ext_resource type="Resource" uid="uid://dscdu25vmt4xm" path="res://Resources/Objectives/Unit_1/Quest_chain_001_01/return_to_andrew.tres" id="14_gytwg"]
+[ext_resource type="Resource" uid="uid://bxerlwvgouxdd" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/go_to_cave.tres" id="15_degdh"]
+[ext_resource type="Resource" uid="uid://bkly2l787aatn" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/observe_argon.tres" id="16_xu2jv"]
+[ext_resource type="Resource" uid="uid://dafomc2r4xkmc" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/talk_andrew_experiment.tres" id="16_yklo7"]
+[ext_resource type="Resource" uid="uid://cokj3d2sma55c" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/return_to_starter_map.tres" id="17_tljd8"]
+[ext_resource type="Resource" uid="uid://b5k2sltattgcx" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/return_to_andrew_scientist.tres" id="22_pv80f"]
+[ext_resource type="Resource" uid="uid://y016bdh6vwgg" path="res://Resources/Objectives/Unit_1/Quest_chain_001_02/interpret_evidence.tres" id="23_luh38"]
 
 [sub_resource type="Resource" id="Resource_mprig"]
 script = ExtResource("2_5062h")
 objective_id = "talk_atomon_expert"
 conversation_name = "Atomon Expert"
 conversation_type = 5
-quest = ExtResource("4_mprig")
-timeline = ExtResource("3_mvaob")
+quest = ExtResource("3_d56dw")
+timeline = ExtResource("4_degdh")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
 [sub_resource type="Resource" id="Resource_xokm8"]
@@ -29,8 +40,8 @@ script = ExtResource("2_5062h")
 objective_id = "return_to_andrew"
 conversation_name = "Return to Andrew"
 conversation_type = 5
-quest = ExtResource("4_mprig")
-timeline = ExtResource("6_xokm8")
+quest = ExtResource("3_d56dw")
+timeline = ExtResource("5_xu2jv")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
 [sub_resource type="Resource" id="Resource_lo4ed"]
@@ -38,8 +49,8 @@ script = ExtResource("2_5062h")
 objective_id = "talk_andrew_experiment"
 conversation_name = "Talk Andrewc Experiment"
 conversation_type = 5
-quest = ExtResource("6_3etky")
-timeline = ExtResource("7_ef5p1")
+quest = ExtResource("6_c5wpc")
+timeline = ExtResource("7_degdh")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
 [sub_resource type="Resource" id="Resource_return_scientist"]
@@ -47,47 +58,32 @@ script = ExtResource("2_5062h")
 objective_id = "return_to_andrew_scientist"
 conversation_name = "Return to Andrew - Scientist"
 conversation_type = 5
-quest = ExtResource("6_3etky")
-timeline = ExtResource("8_return")
+quest = ExtResource("6_c5wpc")
+timeline = ExtResource("8_xu2jv")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
 [sub_resource type="Resource" id="Resource_b8tho"]
 script = ExtResource("4_nkfes")
-default_timeline = ExtResource("3_mvaob")
+default_timeline = ExtResource("4_degdh")
 conversations = Array[ExtResource("2_5062h")]([SubResource("Resource_mprig"), SubResource("Resource_xokm8"), SubResource("Resource_lo4ed"), SubResource("Resource_return_scientist")])
 metadata/_custom_type_script = "uid://ckoa2l31dwe64"
 
-[sub_resource type="Resource" id="Resource_3j0vk"]
-script = ExtResource("9_xokm8")
-id = "talk_atomon_expert"
-description = "Talk to the Atomon expert in Atomonia."
-target_id = "andrew"
-metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
-
-[sub_resource type="Resource" id="Resource_sxthk"]
-script = ExtResource("9_xokm8")
-id = "observe_hydrogen"
-description = "Observe 3 Hydrubbie and focus on what you can directly see."
-type = 4
-target_id = "hydrogen"
-required_amount = 3
-metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
-
-[sub_resource type="Resource" id="Resource_v4m3q"]
-script = ExtResource("9_xokm8")
-id = "return_to_andrew"
-description = "Return to Andrew and discuss your observations."
-target_id = "andrew"
-metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
-
-[sub_resource type="Resource" id="Resource_ef5p1"]
+[sub_resource type="Resource" id="Resource_qahe8"]
 script = ExtResource("1_np64e")
 quest_id = "quest_chain_001_01"
 quest_name = "A Curious Resercher"
 quest_description = "Learn to distinguish observations from inferences by carefully observing Hydrubbie."
 unlock_id = "quest_chain_001_02"
-objectives = Array[ExtResource("9_xokm8")]([SubResource("Resource_3j0vk"), SubResource("Resource_sxthk"), SubResource("Resource_v4m3q")])
+objectives = Array[ExtResource("9_xokm8")]([ExtResource("12_hiwgk"), ExtResource("13_ral6i"), ExtResource("14_gytwg")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"
+
+[sub_resource type="Resource" id="Resource_tljd8"]
+script = ExtResource("1_np64e")
+quest_id = "quest_chain_001_02"
+quest_name = "Think Like a Scientist"
+quest_description = "Learn how scientists use questions, hypotheses, observations, and evidence to investigate the world."
+unlock_id = "quest_chain_002_01"
+objectives = Array[ExtResource("9_xokm8")]([ExtResource("16_yklo7"), ExtResource("13_d56dw"), ExtResource("14_c5wpc"), ExtResource("15_degdh"), ExtResource("16_xu2jv"), ExtResource("17_tljd8"), ExtResource("22_pv80f"), ExtResource("23_luh38")])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c7ksj"]
 atlas = ExtResource("4_ufuj8")
@@ -214,6 +210,6 @@ display_name = "Andrew"
 sprite_frames = SubResource("SpriteFrames_degdh")
 dialogic_character = ExtResource("1_8cbfp")
 dialogue_data = SubResource("Resource_b8tho")
-quests = Array[ExtResource("1_np64e")]([SubResource("Resource_ef5p1"), ExtResource("6_3etky")])
+quests = Array[ExtResource("1_np64e")]([SubResource("Resource_qahe8"), SubResource("Resource_tljd8")])
 can_wander = true
 metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

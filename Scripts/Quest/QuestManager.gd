@@ -19,9 +19,9 @@ var quest_database := {
 	"quest_hydrogen_001": preload("res://Resources/Quest/quest_hydrogen_001.tres"),
 	"quest_collect_iron": preload("res://Resources/Quest/quest_collect_iron.tres"),
 	"story_quest_explore_dungeon": preload("res://Resources/Objectives/explore_dungeon.tres"),
-	"quest_chain_001_01": preload("res://Resources/Quest/quest_chain.tres"),
-	"quest_chain_001_02": preload("res://Resources/Quest/quest_chain2.tres"),
-	"quest_chain_002_01": preload("res://Resources/Quest/quest_chain_002_01.tres")
+	"quest_chain_001_01": preload("res://Resources/Quest/Unit_1/quest_chain.tres"),
+	"quest_chain_001_02": preload("res://Resources/Quest/Unit_1/quest_chain2.tres"),
+	"quest_chain_002_01": preload("res://Resources/Quest/Unit_2/quest_chain_002_01.tres")
 }
 
 

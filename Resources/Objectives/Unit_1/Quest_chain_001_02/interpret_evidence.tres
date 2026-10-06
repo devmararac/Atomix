@@ -7,4 +7,4 @@ script = ExtResource("1_0wnow")
 id = "interpret_evidence"
 description = "Interpret what your observation tells you."
 type = 5
-target_id = "experiment_evidence"
+target_id = "interpret_evidence"

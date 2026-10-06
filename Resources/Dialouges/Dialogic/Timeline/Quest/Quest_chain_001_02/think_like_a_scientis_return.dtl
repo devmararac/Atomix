@@ -2,17 +2,15 @@ Andrew: You're back.
 
 [signal arg="quest_notify:quest_chain_001_02:return_to_andrew_scientist"]
 
-Andrew: What did you observe in the cave?
-
-Andrew: Remember, an observation gives us information that we can use as evidence.
+Andrew: What can your observation provide when you're investigating a hypothesis?
 
 - Evidence
-    Andrew: Correct. Your observation gives us evidence that we can use to examine our hypothesis.
+    Andrew: Correct. Your observation provides evidence that we can examine when investigating our hypothesis.
     [signal arg="quest_notify:quest_chain_001_02:interpret_evidence"]
     jump finish
 
 - A guaranteed conclusion
-    Andrew: Not quite. An observation gives us evidence, but it does not automatically give us a conclusion.
+    Andrew: Not quite. An observation provides evidence, but it does not automatically give us a conclusion.
     jump question
 
 - Nothing useful
@@ -36,7 +34,7 @@ Andrew: What can an observation provide to a scientist?
     jump question
 
 - Nothing useful
-    Andrew: Observations can provide useful evidence.
+    Andrew: Observations can provide useful evidence for investigating an idea.
     jump question
 
 
@@ -52,4 +50,4 @@ Andrew: You should visit Dr. Mundo at the Alchemy House.
 
 Andrew: He can teach you about the different states of matter.
 
-Andrew: Go to the Alchemy House and talk to Dr. Mundo.
+Andrew: Go to the Alchemy House and talk to Dr. Mundo.  

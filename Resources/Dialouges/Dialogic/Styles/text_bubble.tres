@@ -21,14 +21,15 @@ overrides = {
 "behaviour_distance": "20.0",
 "box_modulate": "Color(0.96862745, 0.8862745, 0.77254903, 1)",
 "box_padding": "Vector2(50, 5)",
+"choices_layout_alignment": "1",
 "name_label_color": "Color(0.47058824, 0.3529412, 0.23529412, 1)",
 "name_label_font": "\"res://Assets/Font/NicoPaint-Regular.woff\"",
 "name_label_font_size": "20.0",
 "name_label_padding": "Vector2(15, 5)",
 "normal_font": "\"res://Assets/Font/NicoPaint-Regular.woff\"",
 "text_color": "Color(0.35546875, 0.26451874, 0.17356873, 1)",
-"text_max_width": "500.0",
-"text_size": "25.0"
+"text_max_width": "600.0",
+"text_size": "20.0"
 }
 
 [resource]
@@ -40,4 +41,4 @@ layer_info = {
 "10": SubResource("Resource_3f0uf"),
 "11": SubResource("Resource_tln81")
 }
-metadata/_latest_layer = "12"
+metadata/_latest_layer = "11"

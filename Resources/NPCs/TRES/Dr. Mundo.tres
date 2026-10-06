@@ -5,22 +5,23 @@
 [ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="2_c0iv6"]
 [ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_t5omh"]
 [ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="3_d00vo"]
-[ext_resource type="Resource" uid="uid://dh7vv6yfmkb70" path="res://Resources/Quest/quest_chain_002_01.tres" id="3_j0aog"]
+[ext_resource type="Resource" uid="uid://dh7vv6yfmkb70" path="res://Resources/Quest/Unit_2/quest_chain_002_01.tres" id="3_j0aog"]
 [ext_resource type="Texture2D" uid="uid://dbn4ri3waxjfi" path="res://Assets/NPC/Player Sprite.png" id="3_t5omh"]
-[ext_resource type="Resource" uid="uid://cc3lv33nffmdo" path="res://Resources/Dialouges/Dialogic/Timeline/states_of_matter_intro.dtl" id="4_matter"]
+[ext_resource type="Resource" uid="uid://cc3lv33nffmdo" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/states_of_matter_intro.dtl" id="4_matter"]
+[ext_resource type="Resource" uid="uid://bmhmcp04maijx" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/return_to_dr_mundo_matter.dtl" id="5_wgvyr"]
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="7_tkxad"]
-[ext_resource type="Resource" uid="uid://c5ub2ricmt6ru" path="res://Resources/Objectives/go_to_alchemy_house2.tres" id="8_ny4lq"]
-[ext_resource type="Resource" uid="uid://bsg5uqe2ooq3o" path="res://Resources/Objectives/talk_dr_mundo_matter.tres" id="9_5idsa"]
-[ext_resource type="Resource" uid="uid://cokj3d2sma55c" path="res://Resources/Objectives/return_to_starter_map.tres" id="9_ny4lq"]
-[ext_resource type="Resource" uid="uid://ci5hlndu3gynv" path="res://Resources/Objectives/go_to_cave2.tres" id="11_i2pm6"]
-[ext_resource type="Resource" uid="uid://deau2gdcfuspc" path="res://Resources/Objectives/observe_iron.tres" id="11_wgvyr"]
-[ext_resource type="Resource" uid="uid://co80ujt2nrjm2" path="res://Resources/Objectives/go_to_route1.tres" id="12_av6f8"]
-[ext_resource type="Resource" uid="uid://c0yg8bmn8s56w" path="res://Resources/Objectives/return_to_starter_map2.tres" id="12_ny4lq"]
-[ext_resource type="Resource" uid="uid://c32ko8nq2wpnr" path="res://Resources/Objectives/observe_mercury.tres" id="13_jnjhh"]
-[ext_resource type="Resource" uid="uid://clpa6156n22le" path="res://Resources/Objectives/observe_helium.tres" id="14_n0g2p"]
-[ext_resource type="Resource" uid="uid://chvwwygercv33" path="res://Resources/Objectives/return_to_starter_map3.tres" id="15_i2pm6"]
-[ext_resource type="Resource" uid="uid://dmammdaokwujf" path="res://Resources/Objectives/go_to_alchemy_house.tres" id="15_i5b5s"]
-[ext_resource type="Resource" uid="uid://cnjc54jkci7eb" path="res://Resources/Objectives/return_to_dr_mundo_matter.tres" id="16_jcsrk"]
+[ext_resource type="Resource" uid="uid://c5ub2ricmt6ru" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/go_to_alchemy_house2.tres" id="8_ny4lq"]
+[ext_resource type="Resource" uid="uid://bsg5uqe2ooq3o" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/talk_dr_mundo_matter.tres" id="9_5idsa"]
+[ext_resource type="Resource" uid="uid://cgjaahcjpf3bg" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/return_to_starter_map4.tres" id="10_i2pm6"]
+[ext_resource type="Resource" uid="uid://ci5hlndu3gynv" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/go_to_cave2.tres" id="11_i2pm6"]
+[ext_resource type="Resource" uid="uid://deau2gdcfuspc" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/observe_iron.tres" id="11_wgvyr"]
+[ext_resource type="Resource" uid="uid://co80ujt2nrjm2" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/go_to_route1.tres" id="12_av6f8"]
+[ext_resource type="Resource" uid="uid://c0yg8bmn8s56w" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/return_to_starter_map2.tres" id="12_ny4lq"]
+[ext_resource type="Resource" uid="uid://c32ko8nq2wpnr" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/observe_mercury.tres" id="13_jnjhh"]
+[ext_resource type="Resource" uid="uid://clpa6156n22le" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/observe_helium.tres" id="14_n0g2p"]
+[ext_resource type="Resource" uid="uid://chvwwygercv33" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/return_to_starter_map3.tres" id="15_i2pm6"]
+[ext_resource type="Resource" uid="uid://dmammdaokwujf" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/go_to_alchemy_house.tres" id="15_i5b5s"]
+[ext_resource type="Resource" uid="uid://cnjc54jkci7eb" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/return_to_dr_mundo_matter.tres" id="16_jcsrk"]
 [ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="17_naer1"]
 
 [sub_resource type="Resource" id="Resource_wgvyr"]
@@ -32,10 +33,19 @@ quest = ExtResource("3_j0aog")
 timeline = ExtResource("4_matter")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
+[sub_resource type="Resource" id="Resource_av6f8"]
+script = ExtResource("2_c0iv6")
+objective_id = "return_to_dr_mundo_matter"
+conversation_name = "States of Matter Discussion"
+conversation_type = 5
+quest = ExtResource("3_j0aog")
+timeline = ExtResource("5_wgvyr")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
 [sub_resource type="Resource" id="Resource_kgj1s"]
 script = ExtResource("3_d00vo")
 default_timeline = ExtResource("4_matter")
-conversations = Array[ExtResource("2_c0iv6")]([SubResource("Resource_wgvyr")])
+conversations = Array[ExtResource("2_c0iv6")]([SubResource("Resource_wgvyr"), SubResource("Resource_av6f8")])
 metadata/_custom_type_script = "uid://ckoa2l31dwe64"
 
 [sub_resource type="Resource" id="Resource_i2pm6"]
@@ -43,7 +53,7 @@ script = ExtResource("1_lvx6j")
 quest_id = "quest_chain_002_01"
 quest_name = "The States of Matter"
 quest_description = "Observe three Atomons and learn how matter can exist as a solid, liquid, or gas."
-objectives = Array[ExtResource("7_tkxad")]([ExtResource("8_ny4lq"), ExtResource("9_5idsa"), ExtResource("9_ny4lq"), ExtResource("11_i2pm6"), ExtResource("11_wgvyr"), ExtResource("12_ny4lq"), ExtResource("12_av6f8"), ExtResource("13_jnjhh"), ExtResource("15_i2pm6"), ExtResource("14_n0g2p"), ExtResource("15_i5b5s"), ExtResource("16_jcsrk")])
+objectives = Array[ExtResource("7_tkxad")]([ExtResource("8_ny4lq"), ExtResource("9_5idsa"), ExtResource("10_i2pm6"), ExtResource("11_i2pm6"), ExtResource("11_wgvyr"), ExtResource("12_ny4lq"), ExtResource("12_av6f8"), ExtResource("13_jnjhh"), ExtResource("15_i2pm6"), ExtResource("14_n0g2p"), ExtResource("15_i5b5s"), ExtResource("16_jcsrk")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3pcee"]

@@ -1,18 +1,12 @@
 [gd_resource type="Resource" script_class="Quest" format=3 uid="uid://c0j3d71p6j6gg"]
 
-[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_sxthk"]
-[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="3_uw2ed"]
-[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="4_vtto2"]
-
-[sub_resource type="Resource" id="Resource_3j0vk"]
-script = ExtResource("1_sxthk")
-id = "talk_atomon_expert"
-description = "Talk to the Atomon expert in Atomonia."
-target_id = "andrew"
-metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_sejte"]
+[ext_resource type="Resource" uid="uid://cevxx7lyrc23n" path="res://Resources/Objectives/Unit_1/Quest_chain_001_01/talk_atomon_expert.tres" id="2_2tl1q"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="3_qxdxa"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="4_si6yg"]
 
 [sub_resource type="Resource" id="Resource_sxthk"]
-script = ExtResource("1_sxthk")
+script = ExtResource("1_sejte")
 id = "observe_hydrogen"
 description = "Observe 3 Hydrubbie and focus on what you can directly see."
 type = 4
@@ -21,17 +15,17 @@ required_amount = 3
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
 
 [sub_resource type="Resource" id="Resource_v4m3q"]
-script = ExtResource("1_sxthk")
+script = ExtResource("1_sejte")
 id = "return_to_andrew"
 description = "Return to Andrew and discuss your observations."
 target_id = "andrew"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
 
 [resource]
-script = ExtResource("4_vtto2")
+script = ExtResource("4_si6yg")
 quest_id = "quest_chain_001_01"
 quest_name = "A Curious Resercher"
 quest_description = "Learn to distinguish observations from inferences by carefully observing Hydrubbie."
 unlock_id = "quest_chain_001_02"
-objectives = Array[ExtResource("1_sxthk")]([SubResource("Resource_3j0vk"), SubResource("Resource_sxthk"), SubResource("Resource_v4m3q")])
+objectives = Array[ExtResource("1_sejte")]([ExtResource("2_2tl1q"), SubResource("Resource_sxthk"), SubResource("Resource_v4m3q")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"

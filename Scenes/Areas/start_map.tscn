@@ -37,6 +37,7 @@
 [ext_resource type="Resource" uid="uid://bjyqjvbh7juja" path="res://Resources/Items/Consumables/watermelon.tres" id="36_70qg0"]
 [ext_resource type="Resource" uid="uid://bfbg8hpv1n4j5" path="res://Resources/NPCs/TRES/andrew.tres" id="36_q0fcu"]
 [ext_resource type="PackedScene" uid="uid://cqqntj6ioteyb" path="res://Scenes/Objects/Structures/leaderboard_sign.tscn" id="37_lska0"]
+[ext_resource type="PackedScene" uid="uid://ce35j85gw40gb" path="res://Scenes/Atomons/observe_helium.tscn" id="38_twyxd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mj01m"]
 texture = ExtResource("1_313yg")
@@ -2821,7 +2822,7 @@ shape = SubResource("RectangleShape2D_3kusq")
 [node name="Spawn(AndrewOutsideHouse)" type="Marker2D" parent="." unique_id=329324420]
 position = Vector2(584, 99)
 
-[node name="Scene_Trigger3" parent="." unique_id=1383985831 instance=ExtResource("12_3kusq")]
+[node name="Scene_Trigger3" parent="." unique_id=1383985831 groups=["QuestAreas"] instance=ExtResource("12_3kusq")]
 position = Vector2(761, -8)
 target_scene = "res://Scenes/Areas/route1.tscn"
 target_spawn = "Spawn(Route1)"
@@ -2993,3 +2994,6 @@ data = ExtResource("35_twyxd")
 [node name="ItemPickUp7" parent="." unique_id=231124707 instance=ExtResource("21_u7ab4")]
 position = Vector2(501, 223)
 data = ExtResource("36_70qg0")
+
+[node name="MecuryObservation" parent="." unique_id=1017860796 instance=ExtResource("38_twyxd")]
+position = Vector2(469, 52)

@@ -72,10 +72,10 @@ directories/dch_directory={
 "linos": "res://Resources/Dialouges/Dialogic/Characters/linos.dch"
 }
 directories/dtl_directory={
-"Intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/Intro.dtl",
+"Intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/Intro.dtl",
 "StartingCutscene": "res://Resources/Dialouges/Dialogic/Timeline/StartingCutscene.dtl",
 "atomonia_entrance": "res://Resources/Dialouges/Dialogic/Timeline/atomonia_entrance.dtl",
-"atomonia_expert": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/atomonia_expert.dtl",
+"atomonia_expert": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/atomonia_expert.dtl",
 "battle_announce": "res://Resources/Dialouges/Dialogic/Timeline/battle_announce.dtl",
 "beryll_introduction": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction.dtl",
 "beryll_introduction2": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction2.dtl",
@@ -85,14 +85,18 @@ directories/dtl_directory={
 "intro": "res://Resources/Dialouges/Dialogic/Timeline/intro.dtl",
 "linos_hydrogen_in_progress": "res://Resources/Dialouges/Dialogic/Timeline/linos_hydrogen_in_progress.dtl",
 "linos_report_hydrogen": "res://Resources/Dialouges/Dialogic/Timeline/linos_report_hydrogen.dtl",
-"observe_argon": "res://Resources/Dialouges/Dialogic/Timeline/observe_argon.dtl",
-"observe_hydrogen_1": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_1.dtl",
-"observe_hydrogen_2": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_2.dtl",
-"observe_hydrogen_3": "res://Resources/Dialouges/Dialogic/Timeline/observe_hydrogen_3.dtl",
-"return_to_andrew": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001/return_to_andrew.dtl",
-"states_of_matter_intro": "res://Resources/Dialouges/Dialogic/Timeline/states_of_matter_intro.dtl",
-"think_like_a_scientis": "res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis.dtl",
-"think_like_a_scientis_return": "res://Resources/Dialouges/Dialogic/Timeline/think_like_a_scientis_return.dtl",
+"observe_argon": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_argon.dtl",
+"observe_helium": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_helium.dtl",
+"observe_hydrogen_1": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/observe_hydrogen_1.dtl",
+"observe_hydrogen_2": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/observe_hydrogen_2.dtl",
+"observe_hydrogen_3": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/observe_hydrogen_3.dtl",
+"observe_iron": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_iron.dtl",
+"observe_mercury": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_mercury.dtl",
+"return_to_andrew": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/return_to_andrew.dtl",
+"return_to_dr_mundo_matter": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/return_to_dr_mundo_matter.dtl",
+"states_of_matter_intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/states_of_matter_intro.dtl",
+"think_like_a_scientis": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_02/think_like_a_scientis.dtl",
+"think_like_a_scientis_return": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_02/think_like_a_scientis_return.dtl",
 "tutorial": "res://Resources/Dialouges/Dialogic/Timeline/tutorial.dtl"
 }
 layout/style_directory={

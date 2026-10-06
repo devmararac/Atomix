@@ -2572,7 +2572,7 @@ position = Vector2(1778, 496)
 [node name="Tree137" parent="Border Trees" unique_id=571393021 instance=ExtResource("3_ue11f")]
 position = Vector2(1692, 442)
 
-[node name="Scene_Trigger" parent="." unique_id=1986080103 instance=ExtResource("4_wip4p")]
+[node name="Scene_Trigger" parent="." unique_id=1986080103 groups=["QuestAreas"] instance=ExtResource("4_wip4p")]
 position = Vector2(638, 628)
 target_scene = "res://Scenes/Areas/start_map.tscn"
 target_spawn = "Spawn(StartMap)"
