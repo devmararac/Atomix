@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://h628siovjk80"]
+
+[ext_resource type="Texture2D" uid="uid://but4voh5jks0p" path="res://Assets/Structures/Houses/library.png" id="1_j0npj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxdxp"]
+size = Vector2(39.25, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rr35t"]
+size = Vector2(31, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3aj5x"]
+size = Vector2(20, 15)
+
+[node name="Library" type="StaticBody2D" unique_id=1855627923]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=858626182]
+position = Vector2(0, -12)
+texture = ExtResource("1_j0npj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1251614890]
+position = Vector2(-25.625, 8)
+shape = SubResource("RectangleShape2D_dxdxp")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=438169150]
+position = Vector2(29.5, 8)
+shape = SubResource("RectangleShape2D_rr35t")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1190427883]
+position = Vector2(4, -7.5)
+shape = SubResource("RectangleShape2D_3aj5x")

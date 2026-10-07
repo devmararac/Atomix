@@ -78,8 +78,6 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "Intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/Intro.dtl",
-"Quest_chain_002_02/talk_andrew_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_andrew_composition.dtl",
-"Quest_chain_002_02/talk_dr_mundo_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_dr_mundo_composition.dtl",
 "StartingCutscene": "res://Resources/Dialouges/Dialogic/Timeline/StartingCutscene.dtl",
 "atomonia_entrance": "res://Resources/Dialouges/Dialogic/Timeline/atomonia_entrance.dtl",
 "atomonia_expert": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/atomonia_expert.dtl",
@@ -102,6 +100,8 @@ directories/dtl_directory={
 "return_to_andrew": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/return_to_andrew.dtl",
 "return_to_dr_mundo_matter": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/return_to_dr_mundo_matter.dtl",
 "states_of_matter_intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/states_of_matter_intro.dtl",
+"talk_andrew_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_andrew_composition.dtl",
+"talk_dr_mundo_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_dr_mundo_composition.dtl",
 "think_like_a_scientis": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_02/think_like_a_scientis.dtl",
 "think_like_a_scientis_return": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_02/think_like_a_scientis_return.dtl",
 "tutorial": "res://Resources/Dialouges/Dialogic/Timeline/tutorial.dtl"
@@ -244,6 +244,5 @@ locale/translations_pot_files=PackedStringArray("res://Scenes/Dialouges/main_dia
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cujthofxw6qo1"
-path="res://.godot/imported/(C+O²)CO2Gas.png-dd6d659135e58bbc2b531dded6ca2605.ctex"
+uid="uid://lex52c3vhpgm"
+path="res://.godot/imported/gold_xl.png-b414499a54d180828f6295f6e1fca12f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UX/Buttons/SkillButtons/(C+O²)CO2Gas.png"
-dest_files=["res://.godot/imported/(C+O²)CO2Gas.png-dd6d659135e58bbc2b531dded6ca2605.ctex"]
+source_file="res://Assets/Structures/Exteriors/gold_xl.png"
+dest_files=["res://.godot/imported/gold_xl.png-b414499a54d180828f6295f6e1fca12f.ctex"]
 
 [params]
 

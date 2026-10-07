@@ -266,8 +266,8 @@ func get_speaker_canvas_position() -> Vector2:
 
 
 ## Changes the property of mouse filter of the bubble and its children (text and label).
-func change_mouse_filter(mouse_filter: Control.MouseFilter) -> void:
-	mouse_filter = mouse_filter
-	text.mouse_filter = mouse_filter
-	name_label_box.mouse_filter = mouse_filter
-	name_label_holder.mouse_filter = mouse_filter
+func change_mouse_filter(new_mouse_filter: Control.MouseFilter) -> void:
+	mouse_filter = new_mouse_filter
+	text.mouse_filter = new_mouse_filter
+	name_label_box.mouse_filter = new_mouse_filter
+	name_label_holder.mouse_filter = new_mouse_filter

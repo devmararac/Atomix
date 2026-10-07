@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dpm36lwdba6pd"]
+
+[ext_resource type="Texture2D" uid="uid://cym5onnidffv5" path="res://Assets/Structures/Houses/house_red_WTHside.png" id="1_1axbr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3bf4"]
+size = Vector2(24, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8gvo"]
+size = Vector2(24, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g7vga"]
+size = Vector2(16, 23)
+
+[node name="House Red W_Side" type="StaticBody2D" unique_id=1682258487]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2130830675]
+position = Vector2(0, -14)
+texture = ExtResource("1_1axbr")
+
+[node name="Collision1" type="CollisionShape2D" parent="." unique_id=440323433]
+position = Vector2(-20, 0)
+shape = SubResource("RectangleShape2D_w3bf4")
+
+[node name="Collision2" type="CollisionShape2D" parent="." unique_id=1277138568]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_b8gvo")
+
+[node name="Collision3" type="CollisionShape2D" parent="." unique_id=159745917]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_g7vga")

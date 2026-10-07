@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://djnug71bvb1jg"]
+
+[ext_resource type="Texture2D" uid="uid://dp3qroec4abk4" path="res://Assets/Structures/Vegitations/river_anim.png" id="1_5uq0u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cm1hs"]
+atlas = ExtResource("1_5uq0u")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fsph"]
+atlas = ExtResource("1_5uq0u")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocli3"]
+atlas = ExtResource("1_5uq0u")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtjvs"]
+atlas = ExtResource("1_5uq0u")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yvpj3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cm1hs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fsph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocli3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtjvs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mt74m"]
+size = Vector2(16, 16)
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=42882298]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1644681343]
+sprite_frames = SubResource("SpriteFrames_yvpj3")
+autoplay = "default"
+frame_progress = 0.18732211
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1175219270]
+shape = SubResource("RectangleShape2D_mt74m")

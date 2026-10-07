@@ -127,7 +127,7 @@ shadow_size = 10
 
 [node name="AITutorCanvas" type="CanvasLayer" unique_id=1687576471]
 script = ExtResource("1_lfi8o")
-api_key = "AQ.Ab8RN6I4rurWEiIqAKm5L-oBnlDXL46QwqKZ2vifpVQCHLQ2KA"
+api_key = "API-KEY"
 
 [node name="Background" type="ColorRect" parent="." unique_id=1264464688]
 material = SubResource("ShaderMaterial_fgk12")

@@ -91,6 +91,7 @@ func play_professor_footsteps(delta):
 		sfx.play()
 
 func _on_dialogic_signal(arg: String):
+	print("[CLASSROOM] Dialogic signal received: ", arg)
 	if arg.begins_with("voice:"):
 		_play_voice(arg.trim_prefix("voice:"))
 		return
@@ -170,7 +171,8 @@ func _on_dialogic_signal(arg: String):
 				0.20
 			)
 
-		"blur_more":
+		"blurr_more":
+			print("[CLASSROOM] blur_more executing")
 			var tween = create_tween()
 
 			tween.tween_property(
@@ -200,6 +202,7 @@ func _on_dialogic_signal(arg: String):
 				2.0,
 				1.20
 			)
+			print("[CLASSROOM] blur_more finished setting tween")
 		
 		"dim_more":
 			animation_player.play("dim_more")

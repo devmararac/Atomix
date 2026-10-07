@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://8wwyoq2wxgy1"]
+
+[ext_resource type="Texture2D" uid="uid://bm71cilh7xg77" path="res://Assets/Structures/Vegitations/weed_anim.png" id="1_cg1e8"]
+[ext_resource type="Texture2D" uid="uid://bq8lyqko6c6iq" path="res://Assets/Structures/Vegitations/weed_anim2.png" id="2_efrlw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efrlw"]
+atlas = ExtResource("1_cg1e8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpe2a"]
+atlas = ExtResource("1_cg1e8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8kdj"]
+atlas = ExtResource("1_cg1e8")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asxq0"]
+atlas = ExtResource("1_cg1e8")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5aq1"]
+atlas = ExtResource("2_efrlw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wa3k"]
+atlas = ExtResource("2_efrlw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6n7m"]
+atlas = ExtResource("2_efrlw")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s4uk"]
+atlas = ExtResource("2_efrlw")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g5aq1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efrlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpe2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8kdj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_asxq0")
+}],
+"loop": true,
+"name": &"1",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5aq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7wa3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6n7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s4uk")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}]
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=2045844654]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2139079557]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_g5aq1")
+animation = &"1"
+autoplay = "1"
+frame_progress = 0.86045766
