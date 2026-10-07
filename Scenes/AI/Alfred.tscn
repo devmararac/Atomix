@@ -1,0 +1,265 @@
+[gd_scene format=3 uid="uid://bl5qdll1lbt65"]
+
+[ext_resource type="Script" uid="uid://df6aum33d4aie" path="res://Scenes/AI/AITutor.gd" id="1_lfi8o"]
+[ext_resource type="Shader" uid="uid://b8wtqqbofm4n0" path="res://Scenes/AI/Alfred.gdshader" id="2_brqh0"]
+[ext_resource type="Texture2D" uid="uid://4ru7xc8osj0l" path="res://Assets/NPC/Alfred_anim.png" id="2_vjxo0"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_fgk12"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgk12"]
+shader = ExtResource("2_brqh0")
+shader_parameter/star_density = 163.3110068072725
+shader_parameter/star_speed = 0.0
+shader_parameter/star_brightness = 2.1230001008425
+shader_parameter/streak_amount = 0.0
+shader_parameter/nebula_strength = 1.0
+shader_parameter/vignette_strength = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_background"]
+bg_color = Color(0.035, 0.045, 0.065, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.25, 0.35, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brqh0"]
+atlas = ExtResource("2_vjxo0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgk12"]
+atlas = ExtResource("2_vjxo0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqp4w"]
+atlas = ExtResource("2_vjxo0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6b5t"]
+atlas = ExtResource("2_vjxo0")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mjmk"]
+atlas = ExtResource("2_vjxo0")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t76p8"]
+atlas = ExtResource("2_vjxo0")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoc3x"]
+atlas = ExtResource("2_vjxo0")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g44bg"]
+atlas = ExtResource("2_vjxo0")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqve7"]
+atlas = ExtResource("2_vjxo0")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58kjx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brqh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgk12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqp4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6b5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mjmk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t76p8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoc3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g44bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqve7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.07, 0.08, 0.11, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.3, 0.4, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+content_margin_left = 18.0
+content_margin_right = 18.0
+bg_color = Color(0.02, 0.025, 0.045, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.65, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.2, 0.5, 1, 0.55)
+shadow_size = 10
+
+[node name="AITutorCanvas" type="CanvasLayer" unique_id=1687576471]
+script = ExtResource("1_lfi8o")
+api_key = "AQ.Ab8RN6I4rurWEiIqAKm5L-oBnlDXL46QwqKZ2vifpVQCHLQ2KA"
+
+[node name="Background" type="ColorRect" parent="." unique_id=1264464688]
+material = SubResource("ShaderMaterial_fgk12")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.015, 0.02, 0.03, 0.88)
+
+[node name="MainPanel" type="Panel" parent="." unique_id=1233858775]
+anchors_preset = -1
+anchor_left = 0.035
+anchor_top = 0.069000006
+anchor_right = 0.96500003
+anchor_bottom = 0.93100005
+offset_left = 0.69999695
+offset_top = 0.31999588
+offset_right = -0.70007324
+offset_bottom = -0.32006836
+theme_override_styles/panel = SubResource("StyleBoxFlat_background")
+
+[node name="AlfredArea" type="Control" parent="MainPanel" unique_id=478454290]
+layout_mode = 1
+anchor_left = 0.022000002
+anchor_top = 0.065000005
+anchor_right = 0.349
+anchor_bottom = 0.93500006
+offset_left = -0.48000336
+offset_top = -0.30000305
+offset_right = 0.8399658
+offset_bottom = 0.2999878
+mouse_filter = 2
+
+[node name="AlfredAnchor" type="Marker2D" parent="MainPanel/AlfredArea" unique_id=607707216]
+position = Vector2(288, 267)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MainPanel/AlfredArea" unique_id=725178675]
+position = Vector2(288, 267)
+scale = Vector2(19, 19)
+sprite_frames = SubResource("SpriteFrames_58kjx")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="DialoguePanel" type="Panel" parent="MainPanel" unique_id=1437877953]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.36400002
+anchor_top = 0.065000005
+anchor_right = 0.97800004
+anchor_bottom = 0.93500006
+offset_left = -0.7600708
+offset_top = -0.30000305
+offset_right = 0.4798584
+offset_bottom = 0.2999878
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="AlfredName" type="Label" parent="MainPanel/DialoguePanel" unique_id=1820994414]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.027
+anchor_top = 0.046000004
+anchor_right = 0.75200003
+anchor_bottom = 0.120000005
+offset_left = -0.53700066
+offset_top = 0.15999794
+offset_right = -0.5120239
+offset_bottom = 0.19999695
+theme_override_fonts/font = ExtResource("4_fgk12")
+theme_override_font_sizes/font_size = 21
+text = "Alfred the All-Knowing"
+
+[node name="Response" type="RichTextLabel" parent="MainPanel/DialoguePanel" unique_id=1714000802]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.027
+anchor_top = 0.148
+anchor_right = 0.95100003
+anchor_bottom = 0.648
+offset_left = -0.53700066
+offset_top = 0.08000183
+offset_right = 0.4189453
+offset_bottom = 0.07998657
+theme_override_colors/default_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/normal_font = ExtResource("4_fgk12")
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "Greetings, young chemist. What would you like to learn?"
+
+[node name="QuestionInput" type="LineEdit" parent="MainPanel/DialoguePanel" unique_id=1014790186]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013
+anchor_top = 0.79300004
+anchor_right = 0.818
+anchor_bottom = 0.97200006
+offset_left = 0.29699993
+offset_top = -0.22003174
+offset_right = -0.15802002
+offset_bottom = 0.11999512
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_colors/font_placeholder_color = Color(0.55, 0.65, 0.8, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+placeholder_text = "Ask Alfred a chemistry question..."
+
+[node name="AskButton" type="Button" parent="MainPanel/DialoguePanel" unique_id=1151645066]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.82500005
+anchor_top = 0.79600006
+anchor_right = 0.984
+anchor_bottom = 0.97
+offset_left = -0.07507324
+offset_top = 0.15997314
+offset_right = 0.095947266
+offset_bottom = 0.2000122
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("4_fgk12")
+theme_override_font_sizes/font_size = 30
+text = "Ask"
+
+[node name="CloseButton" type="Button" parent="MainPanel/DialoguePanel" unique_id=1217685029]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.82800007
+anchor_top = 0.026
+anchor_right = 0.98700005
+anchor_bottom = 0.119
+offset_left = -0.4680786
+offset_top = -0.03999996
+offset_right = -0.29699707
+offset_bottom = -0.26000214
+text = "Close"

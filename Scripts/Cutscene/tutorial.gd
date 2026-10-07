@@ -79,14 +79,14 @@ func _ready() -> void:
 )
 
 func _process(delta: float) -> void:
-	print(
-		"[DIANNE DEBUG] ",
-		"Animation=", dianne.sprite.animation,
-		" | Playing=", dianne.sprite.is_playing(),
-		" | Frame=", dianne.sprite.frame,
-		" | Velocity=", dianne.velocity,
-		" | Joystick=", dianne.joystick_controlled
-	)
+	#print(
+		#"[DIANNE DEBUG] ",
+		#"Animation=", dianne.sprite.animation,
+		#" | Playing=", dianne.sprite.is_playing(),
+		#" | Frame=", dianne.sprite.frame,
+		#" | Velocity=", dianne.velocity,
+		#" | Joystick=", dianne.joystick_controlled
+	#)
 	if joystick_tutorial_active:
 		minimap.visible = false
 	

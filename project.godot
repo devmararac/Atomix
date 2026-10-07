@@ -49,6 +49,11 @@ PlayerManager="*uid://wwnlhr1cbhww"
 GroupQuizManager="*uid://hiwxq1l6pmsv"
 FusionManager="*uid://bmnqlysm3ka2n"
 SchoolYearManager="*uid://c8utwrk6cof4a"
+MediaPipeExternalFiles="*uid://cbxaxq52rcwu1"
+GdmpAndroid="*uid://rlxpi2j08van"
+CameraSource="*uid://deohdb0jyk48k"
+HandTracker="*uid://c3xyk15xmaep4"
+LineRenderer="*uid://bvd3yudqk7jgg"
 
 [dialogic]
 

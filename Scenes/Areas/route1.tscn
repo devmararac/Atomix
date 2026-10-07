@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://t8wudrnfvec0" path="res://Scenes/scene_trigger.tscn" id="4_wip4p"]
 [ext_resource type="PackedScene" uid="uid://cxpv2d1jgnhnb" path="res://Scenes/Objects/Structures/House_1.tscn" id="8_kk5ve"]
 [ext_resource type="AudioStream" uid="uid://d1u513vg34uhk" path="res://Assets/Music/Kevin MacLeod - Itty Bitty 8 Bit #U266b NO COPYRIGHT 8-bit Music.mp3" id="9_lofcb"]
-[ext_resource type="PackedScene" uid="uid://bjhhkixwqmim2" path="res://Scenes/Atomons/observe_mercury.tscn" id="10_arwxi"]
+[ext_resource type="Shader" uid="uid://dtg7lx50h7oty" path="res://Assets/VFX/warm_cozy.gdshader" id="10_arwxi"]
+[ext_resource type="PackedScene" uid="uid://bjhhkixwqmim2" path="res://Scenes/Atomons/observe_mercury.tscn" id="11_sbj5p"]
 [ext_resource type="PackedScene" uid="uid://58her1ab75n5" path="res://Scenes/UI/hud.tscn" id="15_kn5sb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wip4p"]
@@ -1764,6 +1765,23 @@ sources/0 = SubResource("TileSetAtlasSource_arwxi")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjo43"]
 size = Vector2(99, 5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ue11f"]
+size = Vector2(5, 403)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sbj5p"]
+shader = ExtResource("10_arwxi")
+shader_parameter/warm_color = Color(1, 0.72, 0.38, 1)
+shader_parameter/warmth = 0.07
+shader_parameter/wind_color = Color(1, 0.9, 0.68, 1)
+shader_parameter/wind_strength = 0.28
+shader_parameter/wind_speed = 0.35
+shader_parameter/wind_density = 6.0
+shader_parameter/wind_thickness = 0.055
+shader_parameter/leaf_color = Color(0.35, 0.65, 0.2, 1)
+shader_parameter/leaf_amount = 3.0
+shader_parameter/leaf_speed = 0.25
+shader_parameter/leaf_size = 0.006
+
 [node name="route_1" type="Node2D" unique_id=506848330]
 
 [node name="border" type="TileMapLayer" parent="." unique_id=38478043]
@@ -2585,6 +2603,18 @@ shape = SubResource("RectangleShape2D_cjo43")
 [node name="Spawn(Route1)" type="Marker2D" parent="." unique_id=1505792442]
 position = Vector2(641, 593)
 
+[node name="Spawn2(Route1)" type="Marker2D" parent="." unique_id=66190135]
+position = Vector2(1120, 450)
+
+[node name="Scene_Trigger2" parent="." unique_id=1354312076 instance=ExtResource("4_wip4p")]
+position = Vector2(1149, 450)
+target_scene = "res://Scenes/Areas/ironia_town.tscn"
+target_spawn = "Spawn_Ironia_entrance"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scene_Trigger2" unique_id=520328512]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_ue11f")
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1087890772]
 stream = ExtResource("9_lofcb")
 volume_db = -15.0
@@ -2592,5 +2622,16 @@ autoplay = true
 
 [node name="HUD" parent="." unique_id=116850924 instance=ExtResource("15_kn5sb")]
 
-[node name="MecuryObservation" parent="." unique_id=238339346 instance=ExtResource("10_arwxi")]
-position = Vector2(1030, 509)
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1319868879]
+material = SubResource("ShaderMaterial_sbj5p")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1984.0
+offset_bottom = 722.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MecuryObservation" parent="." unique_id=238339346 instance=ExtResource("11_sbj5p")]
+position = Vector2(992, 512)

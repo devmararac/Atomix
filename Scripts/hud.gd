@@ -78,3 +78,8 @@ func _on_restart_pressed() -> void:
 	get_tree().change_scene_to_file(
 		"res://Scenes/UI/CharacterSetup.tscn"
 	) 
+
+# --- Merged from GroupMate ---
+func show_hide_log() -> void:
+	SfxManager.play_click()
+	quest_log_panel.show_hide_log()

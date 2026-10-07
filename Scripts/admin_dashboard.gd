@@ -5,13 +5,15 @@ extends Control
 const DASHBOARD = preload("res://Scenes/Admin/dashboard.tscn")
 const TEACHERS = preload("res://Scenes/Admin/HeadTeacher/teacher_management.tscn")
 const STUDENTS = preload("res://Scenes/Admin/students.tscn")
-const QUIZ_MODE = preload("res://Scenes/Admin/Teacher/quiz_management.tscn")
+const SETTINGS = preload("res://Scenes/Admin/settings.tscn")
 
 
 @onready var information_panel = $INFORMATIONPANEL
 @onready var selector := $MenuPanel/ColorRect
 
 var current_page: Control
+
+const QUIZ_MODE = preload("res://Scenes/Admin/Teacher/quiz_management.tscn")
 
 func _ready() -> void:
 	selector.visible = false
@@ -96,15 +98,24 @@ func _on_students_button_pressed() -> void:
 	show_page(STUDENTS)
 
 
-func _on_settings_button_pressed() -> void:
-	var button = $MenuPanel/VBoxContainer/SettingsButton
+func _on_settings_pressed() -> void:
+	var button = $MenuPanel/VBoxContainer/Settings
+	focus_button(button)
+	move_selector($MenuPanel/VBoxContainer/Settings)
+	show_page(SETTINGS)
+
+# --- Merged from GroupMate ---
+func _on_progress_button_pressed() -> void:
+	var button = $MenuPanel/VBoxContainer/ProgressButton
 
 
 	focus_button(button)
 	move_selector(button)
 
 
-
+# --- Merged from GroupMate ---
+func _on_quiz_mode_button_pressed() -> void:
+	var button = $MenuPanel/VBoxContainer/QuizModeButton
 
 
 	focus_button(button)

@@ -4,10 +4,16 @@
 [ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_reward"]
 [ext_resource type="Resource" uid="uid://dagw7flgfrysd" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/talk_dr_mundo_composition.tres" id="2_tjcul"]
 [ext_resource type="Resource" uid="uid://dlhw6xho6cg23" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/return_to_starter_map5.tres" id="3_47xin"]
-[ext_resource type="Resource" uid="uid://cau1kpoeddhst" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/talk_andrew_composition.tres" id="3_g7fdb"]
 [ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="3_quest"]
 [ext_resource type="Resource" uid="uid://vd7uoo6afufn" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/start_fusion_training.tres" id="4_tjcul"]
 [ext_resource type="Resource" uid="uid://dd1s72beec06" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/use_fusion.tres" id="6_7advi"]
+
+[sub_resource type="Resource" id="Resource_tjcul"]
+script = ExtResource("1_objective")
+id = "talk_andrew_composition"
+description = "Talk to Andrew about elements and compounds."
+target_id = "andrew"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
 
 [sub_resource type="Resource" id="Resource_g7fdb"]
 script = ExtResource("1_objective")
@@ -21,5 +27,5 @@ script = ExtResource("3_quest")
 quest_id = "quest_chain_002_02"
 quest_name = "Elements and Compounds"
 quest_description = "Learn how elements can combine to form compounds through Fusion."
-objectives = Array[ExtResource("1_objective")]([ExtResource("2_tjcul"), ExtResource("3_47xin"), ExtResource("3_g7fdb"), ExtResource("4_tjcul"), ExtResource("6_7advi"), SubResource("Resource_g7fdb")])
+objectives = Array[ExtResource("1_objective")]([ExtResource("2_tjcul"), ExtResource("3_47xin"), SubResource("Resource_tjcul"), ExtResource("4_tjcul"), ExtResource("6_7advi"), SubResource("Resource_g7fdb")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"

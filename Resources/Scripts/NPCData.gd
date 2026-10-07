@@ -7,7 +7,8 @@ enum NPCType {
 	MERCHANT,
 	TEACHER,
 	GUARD,
-	TRAINER
+	TRAINER,
+	AI
 }
 
 enum FacingDirection {
@@ -31,6 +32,9 @@ enum FacingDirection {
 
 # Quests
 @export var quests: Array[Quest]
+
+# AI
+@export var is_ai: bool = false
 
 # Behaviour
 @export var can_wander := false

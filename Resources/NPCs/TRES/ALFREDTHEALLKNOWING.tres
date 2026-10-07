@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="NPCData" format=3 uid="uid://c03d33fasr01a"]
+
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_4asut"]
+[ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_n8xka"]
+[ext_resource type="Texture2D" uid="uid://4ru7xc8osj0l" path="res://Assets/NPC/Alfred_anim.png" id="3_n8xka"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8xka"]
+atlas = ExtResource("3_n8xka")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtoav"]
+atlas = ExtResource("3_n8xka")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4aa4"]
+atlas = ExtResource("3_n8xka")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73x0h"]
+atlas = ExtResource("3_n8xka")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnwnr"]
+atlas = ExtResource("3_n8xka")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vifd"]
+atlas = ExtResource("3_n8xka")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otwca"]
+atlas = ExtResource("3_n8xka")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h8iy"]
+atlas = ExtResource("3_n8xka")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nh6k"]
+atlas = ExtResource("3_n8xka")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qxcg5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8xka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtoav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4aa4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73x0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnwnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vifd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otwca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4h8iy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nh6k")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_n8xka")
+npc_id = "alfred"
+display_name = "Alfred the All-Knowing"
+npc_type = 6
+sprite_frames = SubResource("SpriteFrames_qxcg5")
+is_ai = true
+metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

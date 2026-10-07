@@ -13,6 +13,10 @@ var registered_npcs: Array[NPCBase] = []
 # NPC REGISTRATION
 # ============================================================
 
+const AI_TUTOR_CANVAS = preload("res://Scenes/AI/Alfred.tscn")
+
+var ai_tutor_canvas = null
+
 func register_npc(npc: NPCBase) -> void:
 
 	if npc == null:
@@ -99,6 +103,14 @@ func interact(npc: NPCBase):
 		print("[NPCManager] FAILED: npc.data is null.")
 		return null
 
+	# ========================================================
+	# AI NPC
+	# ========================================================
+
+	if npc.data.is_ai:
+		open_ai_tutor(npc)
+		return
+
 	print("[NPCManager] NPC ID: ", npc.data.npc_id)
 	print("[NPCManager] Dialogue data: ", npc.data.dialogue_data)
 
@@ -146,7 +158,7 @@ func interact(npc: NPCBase):
 
 	print("[NPCManager] Calling play_conversation()...")
 
-	var result = await play_conversation(
+	var result = play_conversation(
 		npc,
 		conversation
 	)
@@ -158,7 +170,39 @@ func interact(npc: NPCBase):
 
 	return result
 
+func _on_npc_dialogue_finished(
+	npc: NPCBase,
+	conversation: NPCConversation
+) -> void:
+	print("========== NPC DIALOGUE FINISHED ==========")
+	print("[NPCManager] Finished conversation: ", conversation.conversation_name)
+	print("[NPCManager] Objective ID: ", conversation.objective_id)
 
+	npc.set_dialogue_active(false)
+
+	if global.player != null:
+		global.player.can_move = true
+
+	if (
+		conversation.quest != null
+		and not conversation.objective_id.is_empty()
+	):
+		if (
+			conversation.conversation_type
+			== NPCConversation.ConversationType.DEFAULT
+			or conversation.conversation_type
+			== NPCConversation.ConversationType.QUEST_OBJECTIVE
+		):
+			if conversation.objective_id.begins_with("talk_"):
+				print(
+					"[NPCManager] Notifying TALK objective: ",
+					conversation.objective_id
+				)
+
+				await QuestManager.notify(
+					ObjectiveType.Type.TALK,
+					npc.data.npc_id
+				)
 
 
 # ============================================================
@@ -422,7 +466,6 @@ func play_conversation(
 	npc: NPCBase,
 	conversation: NPCConversation
 ):
-
 	print("========== PLAY CONVERSATION ==========")
 
 	if conversation == null:
@@ -430,9 +473,7 @@ func play_conversation(
 		return null
 
 	if conversation.timeline == null:
-		print(
-			"[NPCManager] FAILED: conversation timeline is null."
-		)
+		print("[NPCManager] FAILED: conversation timeline is null.")
 		return null
 
 	print(
@@ -445,87 +486,28 @@ func play_conversation(
 	if global.player != null:
 		global.player.can_move = false
 
-	var layout = Dialogic.start(
-		conversation.timeline
+	Dialogic.timeline_ended.connect(
+		_on_npc_dialogue_finished.bind(npc, conversation),
+		CONNECT_ONE_SHOT
 	)
+
+	var layout = Dialogic.start(conversation.timeline)
 
 	print(
 		"[NPCManager] Dialogic.start() returned: ",
 		layout
 	)
 
-	if global.player and global.player.has_method(
-		"register_dialogic"
-	):
+	if global.player and global.player.has_method("register_dialogic"):
 		global.player.register_dialogic(layout)
 
 	if npc.data.dialogic_character != null:
-
 		layout.register_character(
 			npc.data.dialogic_character,
 			npc.get_node("BubbleMarker")
 		)
 
-	# ------------------------------------------------------------
-	# WAIT FOR DIALOGUE TO FINISH
-	# ------------------------------------------------------------
-
-	await Dialogic.timeline_ended
-
-	print(
-		"[NPCManager] Dialogue finished: ",
-		conversation.conversation_name
-	)
-
-	# ------------------------------------------------------------
-	# RESTORE PLAYER CONTROL
-	# ------------------------------------------------------------
-
-	npc.set_dialogue_active(false)
-
-	if global.player != null:
-		global.player.can_move = true
-
-	# ------------------------------------------------------------
-	# COMPLETE TALK OBJECTIVE
-	# ------------------------------------------------------------
-
-	if (
-		conversation.quest != null
-		and not conversation.objective_id.is_empty()
-	):
-
-		var objective_id := conversation.objective_id
-
-		print(
-			"[NPCManager] Conversation objective finished: ",
-			objective_id
-		)
-
-		# Only TALK conversations should automatically
-		# complete a TALK objective.
-		if (
-			conversation.conversation_type
-			== NPCConversation.ConversationType.DEFAULT
-			or conversation.conversation_type
-			== NPCConversation.ConversationType.QUEST_OBJECTIVE
-		):
-
-			if objective_id.begins_with("talk_"):
-
-				print(
-					"[NPCManager] "
-					+ "Notifying TALK objective: ",
-					objective_id
-				)
-
-				await QuestManager.notify(
-					ObjectiveType.Type.TALK,
-					npc.data.npc_id
-				)
-
 	return layout
-
 
 
 
@@ -584,3 +566,33 @@ func play_battle_announcement(npc: NPCBase, timeline: StringName):
 		)
 
 	return layout
+
+# --- Merged from GroupMate ---
+func open_ai_tutor(npc: NPCBase) -> void:
+
+	if npc == null:
+		return
+
+	if npc.data == null:
+		return
+
+	# Prevent multiple AI windows from opening.
+	if ai_tutor_canvas != null and is_instance_valid(ai_tutor_canvas):
+		return
+
+	# Stop player movement.
+	if global.player != null:
+		global.player.can_move = false
+
+	# Stop NPC movement.
+	npc.set_dialogue_active(true)
+
+	# Create Alfred's AI interface.
+	ai_tutor_canvas = AI_TUTOR_CANVAS.instantiate()
+	
+	get_tree().current_scene.add_child(ai_tutor_canvas)
+
+	# Give the AI interface the NPC that opened it.
+	if ai_tutor_canvas.has_method("open"):
+		ai_tutor_canvas.open(npc)
+	

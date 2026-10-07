@@ -38,6 +38,7 @@
 [ext_resource type="Resource" uid="uid://bfbg8hpv1n4j5" path="res://Resources/NPCs/TRES/andrew.tres" id="36_q0fcu"]
 [ext_resource type="PackedScene" uid="uid://cqqntj6ioteyb" path="res://Scenes/Objects/Structures/leaderboard_sign.tscn" id="37_lska0"]
 [ext_resource type="PackedScene" uid="uid://ce35j85gw40gb" path="res://Scenes/Atomons/observe_helium.tscn" id="38_twyxd"]
+[ext_resource type="Resource" uid="uid://c03d33fasr01a" path="res://Resources/NPCs/TRES/ALFREDTHEALLKNOWING.tres" id="39_70qg0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mj01m"]
 texture = ExtResource("1_313yg")
@@ -2266,7 +2267,7 @@ shader_parameter/leaf_size = 0.00500000023749
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ynirp"]
 size = Vector2(34, 11)
 
-[node name="NpcBase2" type="Node2D" unique_id=1186236317]
+[node name="map" type="Node2D" unique_id=1186236317]
 y_sort_enabled = true
 script = ExtResource("1_rsgrb")
 
@@ -2937,7 +2938,7 @@ position = Vector2(24, 249)
 visible = false
 player_path = NodePath("../OBJECTS/Player")
 
-[node name="Shader" type="ColorRect" parent="." unique_id=945659851]
+[node name="Shader" type="ColorRect" parent="." unique_id=945659851 groups=["NPC"]]
 z_index = 3
 material = SubResource("ShaderMaterial_kjb13")
 offset_left = -15.0
@@ -2997,3 +2998,7 @@ data = ExtResource("36_70qg0")
 
 [node name="MecuryObservation" parent="." unique_id=1017860796 instance=ExtResource("38_twyxd")]
 position = Vector2(469, 52)
+
+[node name="NpcBase2" parent="." unique_id=575372863 instance=ExtResource("23_ucnbf")]
+position = Vector2(830, 131)
+data = ExtResource("39_70qg0")

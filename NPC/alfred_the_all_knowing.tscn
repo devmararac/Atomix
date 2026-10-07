@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://bo7q2vm4lg0km"]
+
+[ext_resource type="Script" uid="uid://bv3rupenjjs4c" path="res://NPC/AI_Chemistry_Tutor.gd.gd" id="1_awmuf"]
+[ext_resource type="Texture2D" uid="uid://4ru7xc8osj0l" path="res://Assets/NPC/Alfred_anim.png" id="1_ifffd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awmuf"]
+atlas = ExtResource("1_ifffd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twjrn"]
+atlas = ExtResource("1_ifffd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21uyf"]
+atlas = ExtResource("1_ifffd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ympqj"]
+atlas = ExtResource("1_ifffd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwmfv"]
+atlas = ExtResource("1_ifffd")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lt2lp"]
+atlas = ExtResource("1_ifffd")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k415x"]
+atlas = ExtResource("1_ifffd")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txbqd"]
+atlas = ExtResource("1_ifffd")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik56t"]
+atlas = ExtResource("1_ifffd")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3myyl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awmuf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twjrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21uyf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ympqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwmfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lt2lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k415x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txbqd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik56t")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8hu6y"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_axgn3"]
+
+[node name="AlfredTheAllKnowing" type="CharacterBody2D" unique_id=1689694622]
+script = ExtResource("1_awmuf")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=278139637]
+sprite_frames = SubResource("SpriteFrames_3myyl")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.72958577
+
+[node name="PhysicsCollision" type="CollisionShape2D" parent="." unique_id=316138752]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_8hu6y")
+
+[node name="Area" type="Area2D" parent="." unique_id=178080094]
+
+[node name="DetectionArea" type="CollisionShape2D" parent="Area" unique_id=1401491073]
+shape = SubResource("CircleShape2D_axgn3")
+
+[node name="BubbleMarker" type="Marker2D" parent="." unique_id=278613143]
+position = Vector2(20, -3)

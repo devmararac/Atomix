@@ -7,6 +7,10 @@ var flashback = null
 var hidden_nodes: Dictionary = {}
 
 
+const AREA_TITLE_SCENE = preload("res://Scenes/AreaTitle.tscn")
+
+var area_title: CanvasLayer
+
 func _ready() -> void:
 	hud.visible = true
 	mini_map.visible = true

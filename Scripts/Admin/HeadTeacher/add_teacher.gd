@@ -18,6 +18,8 @@ extends Control
 # READY
 # ============================================================
 
+@onready var school_year_input: LineEdit = $FormPanel/MarginContainer/VBoxContainer/SchoolYearInput
+
 func _ready() -> void:
 	print("[AddTeacher] Add Teacher form ready.")
 

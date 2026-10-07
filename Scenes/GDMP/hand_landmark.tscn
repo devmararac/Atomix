@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://esg5xl156vm0"]
+
+[ext_resource type="Script" uid="uid://ce7htcxucrlwn" path="res://Scenes/GDMP/Scripts/hand_landmark.gd" id="1_v35cl"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rj0g2"]
+height = 1.5
+radius = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hand"]
+albedo_color = Color(0.1, 0.8, 1, 1)
+metallic = 0.1
+roughness = 0.25
+emission_enabled = true
+emission = Color(0.05, 0.5, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_wshx6"]
+radial_segments = 24
+rings = 16
+
+[node name="HandLandmark" type="RigidBody3D" unique_id=151545730 node_paths=PackedStringArray("sphere")]
+collision_layer = 2
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 1
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_v35cl")
+sphere = NodePath("Sphere")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=530376483]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_rj0g2")
+
+[node name="Sphere" type="MeshInstance3D" parent="." unique_id=300549687]
+material_override = SubResource("StandardMaterial3D_hand")
+mesh = SubResource("SphereMesh_wshx6")

@@ -378,6 +378,4 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_button_pressed() -> void:
-	var minigames = MINIGAMES_SCENE.instantiate()
-
-	add_child(minigames)
+	get_tree().change_scene_to_file("res://Scenes/GDMP/GDMPUi.tscn")

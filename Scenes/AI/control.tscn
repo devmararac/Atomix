@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cm16b8e3nh6tm"]
+
+[ext_resource type="Script" uid="uid://duasac8yoquku" path="res://Scripts/A.I/AtomiX_AI.gd" id="1_knn2h"]
+
+[node name="Control" type="Control" unique_id=646509611]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_knn2h")
+api_key = "AQ.Ab8RN6I4rurWEiIqAKm5L-oBnlDXL46QwqKZ2vifpVQCHLQ2KA"
+
+[node name="Atomix AI" type="Panel" parent="." unique_id=1056025094]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LineEdit" type="LineEdit" parent="Atomix AI" unique_id=1491551980]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.404
+anchor_right = 0.882
+anchor_bottom = 0.522
+offset_top = 0.11999512
+offset_right = -0.36010742
+offset_bottom = -0.33999634
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Atomix AI" unique_id=1624888529]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.89100003
+anchor_top = 0.42800003
+anchor_right = 0.97
+anchor_bottom = 0.5
+offset_left = -0.18005371
+offset_top = -0.16003418
+offset_right = 0.39990234
+offset_bottom = -5.0
+text = "ASK"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Atomix AI" unique_id=1307217891]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0050000004
+anchor_top = 0.051000003
+anchor_right = 0.878
+anchor_bottom = 0.39000002
+offset_left = -0.9000006
+offset_top = 0.27999878
+offset_right = 0.5599365
+offset_bottom = 0.19998169
