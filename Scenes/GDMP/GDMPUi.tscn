@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://5jec23vdihkn"]
+
+[ext_resource type="PackedScene" uid="uid://ou1ndwuyr7j4" path="res://Scenes/GDMP/CameraPreview.tscn" id="1"]
+[ext_resource type="Script" uid="uid://danseklhp6vqv" path="res://Scenes/GDMP/Scripts/gdmp_ui.gd" id="1_x1pyh"]
+[ext_resource type="Script" uid="uid://d1iq5fch0ankt" path="res://Scenes/GDMP/Scripts/hand_view.gd" id="2_ix25q"]
+[ext_resource type="Script" uid="uid://c4p23kuxjk43a" path="res://Scenes/GDMP/HandGestureController.gd" id="3_uwp8t"]
+[ext_resource type="PackedScene" uid="uid://d3fs4t21pcwya" path="res://Scenes/GDMP/information_panel.tscn" id="4_0e68r"]
+[ext_resource type="PackedScene" uid="uid://bn6wscjaxgf4a" path="res://Scenes/GDMP/modelSlot.tscn" id="4_x1pyh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f3sb7"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_fj7yv"]
+sky_material = SubResource("ProceduralSkyMaterial_f3sb7")
+
+[sub_resource type="Environment" id="Environment_tlwt5"]
+background_mode = 1
+background_color = Color(0.9416889, 0.8026853, 0.6066355, 1)
+sky = SubResource("Sky_fj7yv")
+tonemap_mode = 2
+
+[node name="World" type="Node3D" unique_id=2073331678]
+script = ExtResource("1_x1pyh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1530350871]
+environment = SubResource("Environment_tlwt5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1806809331]
+transform = Transform3D(0.8089512, 0.55119354, 0.2044105, -0.58223844, 0.70316297, 0.408118, 0.08121812, -0.4491632, 0.8897506, 0.03328824, 2.5209436, 11.148447)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1736934845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="CameraPreview" parent="." unique_id=1432855934 instance=ExtResource("1")]
+
+[node name="Hands" type="Node3D" parent="." unique_id=1123286402]
+
+[node name="LeftHandView" type="Node3D" parent="Hands" unique_id=877087213]
+script = ExtResource("2_ix25q")
+
+[node name="RightHandView" type="Node3D" parent="Hands" unique_id=1441781698]
+script = ExtResource("2_ix25q")
+hand_side = 1
+
+[node name="Copper" parent="Hands" unique_id=1938678613 instance=ExtResource("4_x1pyh")]
+
+[node name="InformationPanel" parent="." unique_id=2062813432 instance=ExtResource("4_0e68r")]
+
+[node name="HandGestureController" type="Node" parent="." unique_id=286795111 node_paths=PackedStringArray("left_hand_view", "right_hand_view", "information_panel")]
+script = ExtResource("3_uwp8t")
+left_hand_view = NodePath("../Hands/LeftHandView")
+right_hand_view = NodePath("../Hands/RightHandView")
+information_panel = NodePath("../InformationPanel")

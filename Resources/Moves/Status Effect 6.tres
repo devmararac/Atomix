@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://dxmomac66rsq5"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_gvjnd"]
+[ext_resource type="Script" uid="uid://xti26ayd3sst" path="res://Resources/Scripts/Effects/MoveEffect.gd" id="2_n2irt"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2_rbkxk"]
+[ext_resource type="Resource" uid="uid://cfvv6sgmlkxj7" path="res://Resources/Moves/StatusEffects/Catalyze.tres" id="3_cgb1n"]
+[ext_resource type="Script" uid="uid://cgnlftqbacyqr" path="res://Resources/Scripts/Actions/StatusAction.gd" id="4_am6tn"]
+
+[sub_resource type="Resource" id="Resource_ede3m"]
+script = ExtResource("4_am6tn")
+effects = Array[ExtResource("2_n2irt")]([ExtResource("3_cgb1n")])
+metadata/_custom_type_script = "uid://cgnlftqbacyqr"
+
+[resource]
+script = ExtResource("2_rbkxk")
+move_name = "Status Effect 6"
+actions = Array[ExtResource("1_gvjnd")]([SubResource("Resource_ede3m")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

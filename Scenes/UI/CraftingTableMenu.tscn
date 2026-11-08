@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://cbn85gknp5rur"]
+
+[ext_resource type="Script" uid="uid://co3f35bwvbxki" path="res://Scenes/UI/crafting_table_menu.gd" id="1_16ru5"]
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_sdaug"]
+[ext_resource type="Texture2D" uid="uid://3jd3lmhnscxm" path="res://Assets/UX/Buttons/Normal/heal_button.png" id="2_16ru5"]
+[ext_resource type="Texture2D" uid="uid://dtm28k6auf1cw" path="res://Assets/UX/Buttons/Normal/craft_button.png" id="3_c5ibt"]
+[ext_resource type="Texture2D" uid="uid://uubo6k47sia3" path="res://Assets/UX/Buttons/On-Pressed/heal_button_pressed.png" id="4_kt4ma"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="4_rodo8"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="6_c5ibt"]
+[ext_resource type="Texture2D" uid="uid://ctrrlrpealfi8" path="res://Assets/UX/Buttons/On-Pressed/craft_button_pressed.png" id="6_kcc2s"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="8_pqd52"]
+
+[node name="CraftingTableMenu" type="CanvasLayer" unique_id=953645427]
+script = ExtResource("1_16ru5")
+
+[node name="Backdrop" type="ColorRect" parent="." unique_id=1812956796]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.35)
+
+[node name="Panel" type="NinePatchRect" parent="." unique_id=712934968]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -113.0
+offset_right = 280.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_sdaug")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=1472557795]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 28
+
+[node name="Root" type="VBoxContainer" parent="Panel/Margin" unique_id=361115108]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Header" type="HBoxContainer" parent="Panel/Margin/Root" unique_id=295256699]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/Margin/Root/Header" unique_id=962328329]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_c5ibt")
+theme_override_font_sizes/font_size = 34
+text = "What would you like to do?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Divider" type="HSeparator" parent="Panel/Margin/Root" unique_id=974874904]
+layout_mode = 2
+
+[node name="Body" type="Control" parent="Panel/Margin/Root" unique_id=1025567261]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsRow" type="HBoxContainer" parent="Panel/Margin/Root/Body" unique_id=2099575457]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Heal" type="TextureButton" parent="Panel/Margin/Root/Body/ButtonsRow" unique_id=1923329956]
+custom_minimum_size = Vector2(220, 90)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("2_16ru5")
+texture_pressed = ExtResource("4_kt4ma")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Craft" type="TextureButton" parent="Panel/Margin/Root/Body/ButtonsRow" unique_id=1067217470]
+custom_minimum_size = Vector2(220, 90)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("3_c5ibt")
+texture_pressed = ExtResource("6_kcc2s")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Close" type="TextureButton" parent="Panel" unique_id=66680729]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.93900007
+anchor_top = -0.022000002
+anchor_right = 1.018
+anchor_bottom = 0.087000005
+offset_left = 0.15997314
+offset_top = -0.19999886
+offset_right = -0.08001709
+offset_bottom = 0.19999695
+size_flags_vertical = 4
+texture_normal = ExtResource("4_rodo8")
+texture_pressed = ExtResource("8_pqd52")
+ignore_texture_size = true
+stretch_mode = 5

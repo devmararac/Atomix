@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://7lcvli2ufbna"]
+
+[ext_resource type="Script" uid="uid://u2qbdijnrhhh" path="res://Scripts/chest_body.gd" id="1_55a83"]
+[ext_resource type="Texture2D" uid="uid://ccoefqf5qjt08" path="res://Assets/Structures/Exteriors/chest.png" id="1_s6j8y"]
+[ext_resource type="Script" uid="uid://c5udixdhxp1jw" path="res://Resources/Scripts/ItemData.gd" id="2_ii6jy"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="3_2byi5"]
+[ext_resource type="Resource" uid="uid://74e4p1g10q3u" path="res://Resources/Items/Crafting/ATOMON_REQ/AtomicCore.tres" id="3_ub111"]
+[ext_resource type="Resource" uid="uid://u7dq2rf4msib" path="res://Resources/Items/Crafting/ATOMON_REQ/Electron.tres" id="4_uuhjn"]
+[ext_resource type="Resource" uid="uid://dpjnxs1d4138e" path="res://Resources/Items/Crafting/ATOMON_REQ/Neutron.tres" id="5_nutve"]
+[ext_resource type="Resource" uid="uid://0n86aw7oh7kl" path="res://Resources/Items/Crafting/ATOMON_REQ/Proton.tres" id="6_usnb5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55a83"]
+atlas = ExtResource("1_s6j8y")
+region = Rect2(0, 0, 16, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2byi5"]
+atlas = ExtResource("1_s6j8y")
+region = Rect2(16, 0, 16, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_600d0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55a83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2byi5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_08bx3"]
+size = Vector2(16, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
+atlas = ExtResource("3_2byi5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
+atlas = ExtResource("3_2byi5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
+atlas = ExtResource("3_2byi5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
+atlas = ExtResource("3_2byi5")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
+atlas = ExtResource("3_2byi5")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_08bx3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d07v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyadn")
+}],
+"loop": true,
+"name": &"highlight",
+"speed": 9.0
+}]
+
+[node name="ChestBody" type="StaticBody2D" unique_id=1456347440]
+script = ExtResource("1_55a83")
+item_resources = Array[ExtResource("2_ii6jy")]([ExtResource("3_ub111"), ExtResource("4_uuhjn"), ExtResource("5_nutve"), ExtResource("6_usnb5")])
+item_amounts = Array[int]([99, 99, 99, 99])
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=794142757]
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_600d0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1488442014]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_08bx3")
+
+[node name="Highlight" type="AnimatedSprite2D" parent="." unique_id=1044248191]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7921569)
+sprite_frames = SubResource("SpriteFrames_08bx3")
+animation = &"highlight"
+autoplay = "highlight"

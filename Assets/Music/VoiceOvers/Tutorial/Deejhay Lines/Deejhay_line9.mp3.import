@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bnawcdh42rwby"
+path="res://.godot/imported/Deejhay_line9.mp3-411fc4cd428186525a08d939abbc9dd2.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line9.mp3"
+dest_files=["res://.godot/imported/Deejhay_line9.mp3-411fc4cd428186525a08d939abbc9dd2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

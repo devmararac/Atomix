@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dpt4iimg4glay"]
+
+[ext_resource type="Script" uid="uid://bqtq2xc7u3h13" path="res://Scripts/Firebase/firebase_test.gd" id="1_lc1oi"]
+
+[node name="FirebaseTest" type="Node2D" unique_id=10206392]
+script = ExtResource("1_lc1oi")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1559436398]

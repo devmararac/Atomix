@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dk6s7aaamlyu6"]
+
+[ext_resource type="Texture2D" uid="uid://bl8psva4v4w6b" path="res://Assets/Structures/Interiors/Furnitures/Tables/study_table_long_chair1.png" id="1_r6tpl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j8l1j"]
+size = Vector2(28, 17)
+
+[node name="Study Table Long 1 Chair" type="StaticBody2D" unique_id=298662985]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2134454984]
+position = Vector2(0, 3)
+texture = ExtResource("1_r6tpl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1831201236]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_j8l1j")

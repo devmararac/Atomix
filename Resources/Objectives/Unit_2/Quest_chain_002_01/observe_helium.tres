@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://clpa6156n22le"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_cdhdi"]
+
+[resource]
+script = ExtResource("1_cdhdi")
+id = "observe_helium"
+description = "Observe the Helium Atomon."
+type = 4
+target_id = "helium"

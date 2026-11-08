@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cvlluar1m04rd"]
+
+[ext_resource type="Script" uid="uid://c6sf3jidl0pnq" path="res://Scripts/Minigames/minigames_menu.gd" id="1_5udkr"]
+
+[node name="Minigames" type="CanvasLayer" unique_id=1658578553]
+script = ExtResource("1_5udkr")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=979116431]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer2" unique_id=1541506574]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=589626666]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "ELECTRON RUSH"
+
+[node name="Button2" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=708083280]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "OCTETBUILDER"
+
+[node name="Button3" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=969281076]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "BONDBUILDER"
+
+[node name="Button" type="Button" parent="VBoxContainer2" unique_id=65039598]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "BACK"
+
+[connection signal="pressed" from="VBoxContainer2/Button" to="." method="_on_button_pressed"]

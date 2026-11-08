@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://dg63a3qipqp8u"]
+
+[ext_resource type="Script" uid="uid://ua6wiflofa7x" path="res://Scripts/Admin/HeadTeacher/class_cards.gd" id="1_aa0o2"]
+[ext_resource type="Texture2D" uid="uid://soomem1fgoff" path="res://Assets/UX/Icons/icon_student.png" id="1_h0fhp"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_aa0o2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14ulr"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jq0mv"]
+bg_color = Color(0.92941177, 0.827451, 0.6901961, 1)
+
+[node name="ClassCards" type="Panel" unique_id=2009572087]
+custom_minimum_size = Vector2(800, 220)
+anchors_preset = -1
+anchor_right = 0.41400003
+anchor_bottom = 0.30600002
+offset_right = 0.27990723
+offset_bottom = -20.320023
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_14ulr")
+script = ExtResource("1_aa0o2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=65119065]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1033884798]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer" unique_id=1557628013]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("1_h0fhp")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=337058523]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Section" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=987998896]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("2_aa0o2")
+theme_override_font_sizes/font_size = 30
+text = "Section"
+
+[node name="Teacher" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2085938114]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("2_aa0o2")
+theme_override_font_sizes/font_size = 30
+text = "Teacher"
+
+[node name="TotalStudents" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1840241089]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("2_aa0o2")
+theme_override_font_sizes/font_size = 30
+text = "Total Students"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1452672141]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Assign" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1688423499]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_jq0mv")
+text = "Assign"
+expand_icon = true
+
+[node name="Edit" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=14307396]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_jq0mv")
+text = "Edit"
+expand_icon = true
+
+[node name="Delete" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1380076829]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_jq0mv")
+text = "Delete"
+expand_icon = true

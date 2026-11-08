@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://g307c60ca31u"]
+
+[ext_resource type="Texture2D" uid="uid://bkc8ib3u21nbr" path="res://Assets/Structures/Vegitations/Trees/tropical.png" id="1_l1b4n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1i2q"]
+size = Vector2(5, 6)
+
+[node name="Tropical Tree" type="Node2D" unique_id=690743096]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1614316075]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1013311693]
+position = Vector2(0, -10)
+texture = ExtResource("1_l1b4n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2115813242]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_c1i2q")

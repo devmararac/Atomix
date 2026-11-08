@@ -1,0 +1,35 @@
+Player: This Atomon behaves very differently from the others.
+
+Player: It doesn't seem to keep a definite shape.
+
+Player: It also doesn't seem to keep a definite volume.
+
+Player: It spreads out and fills the space around it.
+
+Player: So... it doesn't have a fixed shape or a fixed volume.
+
+Player: But what is the phase of this Helium Atomon?
+- Solid
+  Player: Not quite. A solid keeps both a definite shape and a definite volume. This Helium Atomon does neither.
+
+- Liquid
+  Player: Not quite. A liquid has a definite volume, even though it takes the shape of its container. This Helium Atomon does not keep a definite volume.
+
+- Gas
+  Player: Right! Helium is a gas at normal room temperature. A gas has neither a definite shape nor a definite volume and spreads out to fill the available space.
+
+Player: Then the Helium Atomon is a gas.
+
+Player: It doesn't have a definite shape or volume, and it spreads out to fill the space available.
+
+[signal arg="quest_notify:quest_chain_002_01:observe_helium"]
+
+Player: Now I understand.
+
+Player: Solids keep their shape and volume.
+
+Player: Liquids keep their volume but take the shape of their container.
+
+Player: Gases have neither a definite shape nor a definite volume.
+Player: I've observed a solid, a liquid, and a gas atomon.
+Player: I should return to the Alchemy House and tell Dr. Mundo what I discovered.

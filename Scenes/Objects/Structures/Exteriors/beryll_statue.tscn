@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cyc2rv0bw50xt"]
+
+[ext_resource type="Texture2D" uid="uid://cqci6e4qabsl1" path="res://Assets/Structures/Exteriors/beryll_statue.png" id="1_cfeap"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nrkcx"]
+size = Vector2(32, 21)
+
+[node name="Beryll_Statue" type="StaticBody2D" unique_id=1870457547]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=855546932]
+position = Vector2(0, -14)
+texture = ExtResource("1_cfeap")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=591724394]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_nrkcx")

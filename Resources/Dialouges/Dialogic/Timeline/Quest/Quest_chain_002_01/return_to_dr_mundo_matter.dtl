@@ -1,0 +1,77 @@
+"Dr Mundo": Welcome back.
+
+"Dr Mundo": You observed Iron, Mercury, and Helium during your investigation.
+
+"Dr Mundo": Tell me, what did those three Atomons help you understand about matter?
+
+Player: <Empty Text Event>
+
+- Matter can exist in different states.
+	"Dr Mundo": Exactly.
+	
+	"Dr Mundo": Matter can exist as a solid, liquid, or gas, depending on its properties.
+	
+	jump finish
+
+- All matter has the same shape.
+	"Dr Mundo": Not quite.
+	
+	"Dr Mundo": Different states of matter can behave differently. Their shape and volume are important clues.
+	
+	jump question
+
+- Matter can only exist as a solid.
+	"Dr Mundo": That's not correct.
+	
+	"Dr Mundo": Your observations showed that matter can exist in different states.
+	
+	jump question
+
+label question
+
+"Dr Mundo": Think about what you observed.
+
+"Dr Mundo": Iron kept its shape, Mercury changed its shape, and Helium spread out.
+
+"Dr Mundo": What does this tell us?
+
+Player: <Empty Text Event>
+
+- Different states of matter have different properties.
+	"Dr Mundo": Correct.
+	
+	"Dr Mundo": Those differences in properties allow us to identify the state of matter.
+	
+	jump finish
+
+- Every substance behaves exactly the same way.
+	"Dr Mundo": Not quite.
+	
+	"Dr Mundo": Your observations showed that different states of matter behave differently.
+	
+	jump question
+
+- The state of matter does not affect how a substance behaves.
+	"Dr Mundo": That's not correct.
+	
+	"Dr Mundo": The behavior you observed is one of the clues we use to distinguish different states of matter.
+	
+	jump question
+
+label finish
+
+"Dr Mundo": Excellent work.
+
+"Dr Mundo": You didn't simply memorize the definitions.
+
+"Dr Mundo": You observed the Atomons and used their behavior to understand the states of matter.
+
+Player: I understand.
+
+"Dr Mundo": Good.
+
+"Dr Mundo": This is how we will approach chemistry throughout your journey.
+
+"Dr Mundo": Observe what happens, think about what it means, and use the evidence to learn.
+
+[signal arg="quest_notify:quest_chain_002_01:return_to_dr_mundo_matter"]

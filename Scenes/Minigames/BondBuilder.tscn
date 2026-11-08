@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://cw1msq25fsaxu"]
+
+[ext_resource type="Script" uid="uid://cg0tjhoavdtwh" path="res://Scripts/MiniGames/BondBuilder.gd" id="1_script"]
+
+[node name="BondBuilder" type="Control" unique_id=1173235428]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1688220592]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.055, 0.065, 0.09, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1845962518]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="MarginContainer" unique_id=537369601]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/MainVBox" unique_id=1309631863]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/MainVBox/Header" unique_id=1041854421]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "BOND BUILDER"
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/MainVBox/Header" unique_id=1277675081]
+custom_minimum_size = Vector2(120, 45)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "SCORE: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RoundLabel" type="Label" parent="MarginContainer/MainVBox/Header" unique_id=570309653]
+custom_minimum_size = Vector2(120, 45)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "ROUND: 0/6"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/MainVBox/Header" unique_id=1698675102]
+layout_mode = 2
+text = "   BACK   "
+
+[node name="TargetPanel" type="PanelContainer" parent="MarginContainer/MainVBox" unique_id=1552791275]
+layout_mode = 2
+
+[node name="TargetVBox" type="VBoxContainer" parent="MarginContainer/MainVBox/TargetPanel" unique_id=635200672]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TargetLabel" type="Label" parent="MarginContainer/MainVBox/TargetPanel/TargetVBox" unique_id=2025820245]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "TARGET MOLECULE"
+horizontal_alignment = 1
+
+[node name="TargetName" type="Label" parent="MarginContainer/MainVBox/TargetPanel/TargetVBox" unique_id=1919344352]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 22
+text = "WATER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetFormula" type="Label" parent="MarginContainer/MainVBox/TargetPanel/TargetVBox" unique_id=438961557]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "H₂O"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AvailableLabel" type="Label" parent="MarginContainer/MainVBox" unique_id=763931747]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 17
+text = "AVAILABLE ATOMON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AtomTray" type="HBoxContainer" parent="MarginContainer/MainVBox" unique_id=1832973856]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="BondingLabel" type="Label" parent="MarginContainer/MainVBox" unique_id=350178345]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 17
+text = "BONDING AREA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BondingArea" type="Panel" parent="MarginContainer/MainVBox" unique_id=1958036456]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BondedAtomons" type="Control" parent="MarginContainer/MainVBox/BondingArea" unique_id=1877166184]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/MainVBox" unique_id=173972506]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Drag Atomon into the bonding area."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomBar" type="HBoxContainer" parent="MarginContainer/MainVBox" unique_id=1535656294]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ClearButton" type="Button" parent="MarginContainer/MainVBox/BottomBar" unique_id=419151857]
+custom_minimum_size = Vector2(130, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "CLEAR"
+
+[node name="BuildButton" type="Button" parent="MarginContainer/MainVBox/BottomBar" unique_id=1444630551]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "BUILD MOLECULE"
+
+[node name="StartButton" type="Button" parent="MarginContainer/MainVBox" unique_id=500670394]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 17
+text = "START GAME"
+
+[connection signal="pressed" from="MarginContainer/MainVBox/Header/Button" to="." method="_on_button_pressed"]

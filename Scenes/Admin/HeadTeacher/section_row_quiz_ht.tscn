@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://blig5c5e133aw"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_cyxcm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8o2fo"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 1, 0.93333334, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ydh32"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[node name="SectionRowQuizHt" type="Panel" unique_id=943208241]
+custom_minimum_size = Vector2(1200, 0)
+anchors_preset = -1
+anchor_right = 0.606
+anchor_bottom = 0.257
+offset_right = 0.11999512
+offset_bottom = -0.039993286
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_8o2fo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=438817538]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=91408677]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_cyxcm")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ydh32")
+text = "Section"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=820874714]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/VBoxContainer" unique_id=371267546]
+custom_minimum_size = Vector2(1000, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=724545897]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_cyxcm")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ydh32")
+text = "Average Atomon Collected"
+horizontal_alignment = 1

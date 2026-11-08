@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://car21nat32wn4"]
+
+[ext_resource type="Texture2D" uid="uid://b1pa0cyhtcedy" path="res://Assets/Structures/Vegitations/Trees/golden.png" id="1_r1itc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1itc"]
+size = Vector2(14, 10)
+
+[node name="Golden Tree" type="Node2D" unique_id=585737716]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1809612881]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1708923773]
+position = Vector2(0, -9)
+texture = ExtResource("1_r1itc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1871369509]
+shape = SubResource("RectangleShape2D_r1itc")

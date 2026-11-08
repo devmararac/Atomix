@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dafd6btbn6alg"]
+
+[ext_resource type="Texture2D" uid="uid://c4uv5w4yvr7y0" path="res://Assets/Pets/Canine_Brown_Full_FX.png" id="1_a2whh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2e1pf"]
+atlas = ExtResource("1_a2whh")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlev5"]
+atlas = ExtResource("1_a2whh")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3xsc"]
+atlas = ExtResource("1_a2whh")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gooej"]
+atlas = ExtResource("1_a2whh")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m3b76"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2e1pf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlev5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3xsc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gooej")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_132jv"]
+radius = 8.0
+
+[node name="Canine" type="CharacterBody2D" unique_id=1499029243]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1738305207]
+sprite_frames = SubResource("SpriteFrames_m3b76")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.6043192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=534786065]
+position = Vector2(-1, 4)
+shape = SubResource("CircleShape2D_132jv")

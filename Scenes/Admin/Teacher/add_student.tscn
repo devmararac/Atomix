@@ -1,0 +1,429 @@
+[gd_scene format=3 uid="uid://bmiprdfdv1lmk"]
+
+[ext_resource type="Script" uid="uid://8xon8yexavvg" path="res://Scripts/Admin/Teacher/add_student.gd" id="1_wpdm0"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_udath"]
+[ext_resource type="Texture2D" uid="uid://cf7g4nir25b5y" path="res://Assets/UX/Icons/generate_password.png" id="3_qs5n7"]
+[ext_resource type="Texture2D" uid="uid://mvqe01b36jlr" path="res://Assets/UX/Icons/pas2.png" id="4_jlcat"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Panel"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.694118, 0.521569, 0.301961, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Input"]
+bg_color = Color(0.929412, 0.827451, 0.690196, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvbxr"]
+bg_color = Color(0, 0.4862745, 0.83137256, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlcat"]
+bg_color = Color(0, 0.4862745, 0.83137256, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Cancel"]
+bg_color = Color(0.870588, 0.796078, 0.694118, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button"]
+bg_color = Color(0.470588, 0.352941, 0.235294, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[node name="AddStudent" type="Control" unique_id=715330153]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_wpdm0")
+
+[node name="PageBackground" type="Panel" parent="." unique_id=944768351]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_Page")
+
+[node name="Panel" type="Panel" parent="PageBackground" unique_id=1492540295]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.017
+anchor_top = 0.018000001
+anchor_right = 0.9850001
+anchor_bottom = 0.96800005
+offset_left = 0.33999634
+offset_top = 0.03999901
+offset_right = 0.6998291
+offset_bottom = 0.039978027
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_Panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground/Panel" unique_id=669086936]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 7.0
+offset_right = 2.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer" unique_id=1096639656]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer" unique_id=36027284]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=967999447]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 40
+text = "Add Student"
+
+[node name="Subtitle" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1282372883]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 40
+text = "Create a new Grade 11 student account."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer" unique_id=771008078]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=397686931]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=145069954]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StudentIDLabel" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/VBoxContainer2" unique_id=1699421390]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+text = "LRN"
+
+[node name="StudentIDInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/VBoxContainer2" unique_id=456907871]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter LRN"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=732742520]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="FirstName" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer" unique_id=1230062163]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer/FirstName" unique_id=1228066776]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+text = "Student Firstt Name"
+
+[node name="NameInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer/FirstName" unique_id=876861073]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter student's name"
+
+[node name="Middle Initial" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer" unique_id=735083004]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer/Middle Initial" unique_id=1423413796]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+text = "Student Middle Initial"
+
+[node name="NameInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer/Middle Initial" unique_id=264602673]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter student's name"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=32098066]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="LastName" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer2" unique_id=1064626509]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer2/LastName" unique_id=933172329]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+text = "Student Last Name"
+
+[node name="NameInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer2/LastName" unique_id=1210386329]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter student's name"
+
+[node name="Suffix" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer2" unique_id=765833595]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer2/Suffix" unique_id=896983635]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+text = "Suffix"
+
+[node name="NameInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer2/Suffix" unique_id=2098963881]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter student's name"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1293905648]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1554975880]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SectionLabel" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer4" unique_id=955978467]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+text = "Section"
+
+[node name="SectionInput" type="OptionButton" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer4" unique_id=1863469808]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+selected = 0
+item_count = 1
+popup/item_0/text = "Select Section"
+popup/item_0/id = 0
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1716085694]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="EmailLabel" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer5" unique_id=1237269021]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+text = "Email"
+
+[node name="EmailInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer5" unique_id=1160770849]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "student@example.com"
+
+[node name="Button" type="Button" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer5/EmailInput" unique_id=1102097507]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.808
+anchor_top = 0.065000005
+anchor_right = 0.92800003
+anchor_bottom = 0.93500006
+offset_left = -1.81604
+offset_top = 0.009999752
+offset_right = 0.9439697
+offset_bottom = -0.010002136
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_vvbxr")
+text = "Generate"
+icon = ExtResource("3_qs5n7")
+expand_icon = true
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=321193093]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PasswordLabel" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer6" unique_id=70392774]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+text = "Password"
+
+[node name="PasswordInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer6" unique_id=1390191632]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter Password"
+secret = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer6/PasswordInput" unique_id=1609453688]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.74200004
+anchor_top = 0.065000005
+anchor_right = 0.92800003
+anchor_bottom = 0.93500006
+offset_left = -0.28405762
+offset_top = 0.009999752
+offset_right = -0.056030273
+offset_bottom = -0.010002136
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer6/PasswordInput/HBoxContainer" unique_id=1677864164]
+custom_minimum_size = Vector2(50, 31)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+texture_normal = ExtResource("4_jlcat")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Button" type="Button" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer6/PasswordInput/HBoxContainer" unique_id=2043574731]
+custom_minimum_size = Vector2(108, 31)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_jlcat")
+text = "Generate"
+icon = ExtResource("3_qs5n7")
+expand_icon = true
+
+[node name="StatusLabel" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer" unique_id=257288586]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer" unique_id=1832394788]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+
+[node name="CancelButton" type="Button" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Buttons" unique_id=1647845736]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_Cancel")
+text = "Cancel"
+
+[node name="CreateButton" type="Button" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Buttons" unique_id=14379244]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_fonts/font = ExtResource("2_udath")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "Create Student"
+
+[connection signal="pressed" from="PageBackground/Panel/MarginContainer/VBoxContainer/Buttons/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="PageBackground/Panel/MarginContainer/VBoxContainer/Buttons/CreateButton" to="." method="_on_create_button_pressed"]

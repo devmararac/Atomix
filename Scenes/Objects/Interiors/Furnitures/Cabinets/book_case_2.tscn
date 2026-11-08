@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://u3ixafqswhyg"]
+
+[ext_resource type="Texture2D" uid="uid://cdn3wwlvdphtj" path="res://Assets/Structures/Interiors/Furnitures/Cabinets/book_shelves_2.png" id="1_ge3ac"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0i4t"]
+size = Vector2(24, 13)
+
+[node name="BookCase 2" type="StaticBody2D" unique_id=383583934]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=576067482]
+position = Vector2(0, -2)
+texture = ExtResource("1_ge3ac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1814717487]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_u0i4t")

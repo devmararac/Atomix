@@ -1,0 +1,38 @@
+~ linos
+
+if global.given_linos_item == false
+	Linos: Hello there stranger...
+	- Hello...
+		Linos: OH FINALLY!!!!
+		Linos: I've been getting ignored lately you know...
+		Linos: After that huge meteor fell from the sky, people started to hate me.
+		Linos: Is it because of my hobby?
+		- What's your hobby?
+			Linos: Ohh I love researching stuffs about aliens, you know? Those things alive above?
+			- Ohhhh.... I see (Leave) => END
+			- And they started hating you because of that?
+				Linos: Yeah....
+				Linos: Anyways, thank you stranger, It's been a long time since I had a conversation with someone...
+				Linos: Take care out there, seeing those creatures running around everywhere, It's dangerous..
+				- I think I have something for you...
+					Linos: Oh.... Really!?
+					- Yes! Here, I hope this will cheer you up!
+						if global.found_linos_item == true
+							Linos: Ohhhhhh..... I think I'm gonna cry ;(, Thank you so much... I will cherish this.
+							set global.given_linos_item = true
+							=> END
+						else:
+							Linos: Ohhh... I thought you said you have something for me......
+					- Nope, Joke hahahaha see yah!
+						Linos: So rude -_- => END
+				- Aight, I'll Keep that in mind => END
+				- Well it is what it is.... => END
+		- I'm not interested bye.... => END
+	- Goodbye => END
+else:
+	Linos: [[Hi|Hello|Howdy]], thank you so much again for that gift...
+	Linos: I still have it, and will probably keep it for the rest of my life...
+	- Sure. => END
+	- Ok, That's kinda weird..... => END
+
+=> END

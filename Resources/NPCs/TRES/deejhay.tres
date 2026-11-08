@@ -1,0 +1,146 @@
+[gd_resource type="Resource" script_class="NPCData" format=3 uid="uid://s1rcfp1uqeyb"]
+
+[ext_resource type="Resource" uid="uid://p3g80mf4rrfk" path="res://Resources/Dialouges/Dialogic/Characters/Deejhay.dch" id="1_ug3rb"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_xbwvf"]
+[ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_m6bbx"]
+[ext_resource type="Texture2D" uid="uid://d3if2214daq8m" path="res://Assets/NPC/DJ_anim.png" id="3_m6bbx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ug3rb"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nd3ew"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_if2sq"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhw3x"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kv44y"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5r8ww"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b2a6"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l5us"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arogq"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(768, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0h47"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(0, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yohr7"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(96, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udmwe"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(192, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cfek"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(288, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ygd4"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(384, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmj2l"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(480, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsxex"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(576, 64, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rq5ga"]
+atlas = ExtResource("3_m6bbx")
+region = Rect2(672, 64, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_82snk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ug3rb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nd3ew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_if2sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhw3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kv44y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5r8ww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b2a6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3l5us")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arogq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0h47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yohr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udmwe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cfek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ygd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmj2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsxex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rq5ga")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_m6bbx")
+npc_id = "npc_admin2"
+display_name = "Deejhay"
+sprite_frames = SubResource("SpriteFrames_82snk")
+dialogic_character = ExtResource("1_ug3rb")
+metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

@@ -1,0 +1,210 @@
+[gd_scene format=3 uid="uid://cbohbjvt43eks"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://uqvrm846l357" path="res://Assets/Player/Player Sprite.png" id="2_jft1o"]
+
+[sub_resource type="GDScript" id="GDScript_835t4"]
+script/source = "extends CanvasLayer
+
+@onready var ui_root = $Control 
+@onready var loading_text = $Control/CenterContainer/VBox/LoadingText
+@onready var progress_bar = $Control/CenterContainer/VBox/ProgressBar
+
+var _fade_tween: Tween
+
+func _ready() -> void:
+	hide()
+	progress_bar.indeterminate = true
+
+func show_loading(text: String = \"LOADING...\") -> void:
+	loading_text.text = text
+	if _fade_tween and _fade_tween.is_running():
+		_fade_tween.kill()
+	
+	show()
+	ui_root.modulate.a = 0.0 
+	_fade_tween = create_tween()
+	_fade_tween.tween_property(ui_root, \"modulate:a\", 1.0, 0.3).set_trans(Tween.TRANS_SINE)
+
+func hide_loading() -> void:
+	if _fade_tween and _fade_tween.is_running():
+		_fade_tween.kill()
+		
+	_fade_tween = create_tween()
+	_fade_tween.tween_property(ui_root, \"modulate:a\", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
+	
+	await _fade_tween.finished
+	hide()
+
+func set_progress(value: float) -> void:
+	progress_bar.indeterminate = false
+	progress_bar.value = clamp(value, 0.0, 1.0)
+	if progress_bar.value >= 1.0:
+		hide_loading()
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progress_bg"]
+bg_color = Color(0.12, 0.09, 0.07, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96862745, 0.8862745, 0.77254903, 0.3)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progress_fill"]
+bg_color = Color(0.85, 0.65, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.85, 0.5, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.8, 0.5, 0.1, 0.4)
+shadow_size = 6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rirtg"]
+atlas = ExtResource("2_jft1o")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kenh8"]
+atlas = ExtResource("2_jft1o")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uewo"]
+atlas = ExtResource("2_jft1o")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_woswp"]
+atlas = ExtResource("2_jft1o")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wb2mw"]
+atlas = ExtResource("2_jft1o")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y37ng"]
+atlas = ExtResource("2_jft1o")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4mbd"]
+atlas = ExtResource("2_jft1o")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmglq"]
+atlas = ExtResource("2_jft1o")
+region = Rect2(224, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ua5lh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rirtg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kenh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0uewo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_woswp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wb2mw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y37ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4mbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmglq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 11.0
+}]
+
+[node name="Loading" type="CanvasLayer" unique_id=1107200896]
+layer = 100
+script = SubResource("GDScript_835t4")
+
+[node name="Control" type="Control" parent="." unique_id=1132695047]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=937115746]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.06, 0.05, 0.92)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control" unique_id=216811801]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.12100001
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.12000275
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Control/CenterContainer" unique_id=768886270]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="LoadingText" type="Label" parent="Control/CenterContainer/VBox" unique_id=1666629529]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.7, 1)
+theme_override_colors/font_shadow_color = Color(0.85, 0.5, 0.2, 0.8)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 42
+text = "LOADING..."
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/CenterContainer/VBox" unique_id=840306517]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_progress_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_progress_fill")
+show_percentage = false
+
+[node name="BottomRightAnchor" type="Control" parent="Control" unique_id=1688578463]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -150.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="LoadingSprite" type="AnimatedSprite2D" parent="Control" unique_id=699010648]
+position = Vector2(988, 211)
+scale = Vector2(12.96875, 12.9375)
+sprite_frames = SubResource("SpriteFrames_ua5lh")
+autoplay = "default"
+frame_progress = 0.2415292

@@ -1,0 +1,305 @@
+[gd_scene format=3 uid="uid://cid404efa22lq"]
+
+[ext_resource type="Script" uid="uid://b1urqucmocxay" path="res://Scripts/character_setup.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="2_kdwn1"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_aqbfo"]
+[ext_resource type="Texture2D" uid="uid://duxxvum0v2a6x" path="res://Assets/UX/HUD/Panels/player_preview.png" id="5_biidb"]
+
+[sub_resource type="StyleBoxTexture" id="SB_Panel"]
+content_margin_left = 32.0
+content_margin_top = 28.0
+content_margin_right = 32.0
+content_margin_bottom = 28.0
+texture = ExtResource("2_kdwn1")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="SB_CharButton"]
+bg_color = Color(0.47, 0.35, 0.24, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.97, 0.89, 0.77, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 4
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="SB_CharButtonHover"]
+bg_color = Color(0.31, 0.42, 0.27, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 6
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="SB_LineEdit"]
+content_margin_left = 18.0
+content_margin_top = 8.0
+content_margin_right = 18.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 0.95, 0.86, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47, 0.35, 0.24, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="SB_Start"]
+bg_color = Color(0.31, 0.42, 0.27, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.47, 0.35, 0.24, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 6
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="SB_StartHover"]
+bg_color = Color(0.38, 0.5, 0.32, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.47, 0.35, 0.24, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.2, 0.3, 0.15, 0.5)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[node name="CharacterSetup" type="CanvasLayer" unique_id=558607399]
+layer = 20
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="." unique_id=205948706]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_kdwn1")
+
+[node name="Root" type="MarginContainer" parent="." unique_id=581224113]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Columns" type="HBoxContainer" parent="Root" unique_id=917632339]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Input Panel" type="Panel" parent="Root/Columns" unique_id=2130935315]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("SB_Panel")
+
+[node name="VBox" type="VBoxContainer" parent="Root/Columns/Input Panel" unique_id=1077914894]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 28.0
+offset_right = -32.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Root/Columns/Input Panel/VBox" unique_id=529560970]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.24, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 44
+text = "CREATE YOUR PLAYER"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="TitleSeparator" type="HSeparator" parent="Root/Columns/Input Panel/VBox" unique_id=154059907]
+layout_mode = 2
+
+[node name="CharacterLabel" type="Label" parent="Root/Columns/Input Panel/VBox" unique_id=440871741]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.24, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 22
+text = "SELECT CHARACTER"
+horizontal_alignment = 1
+
+[node name="CharacterButtons" type="GridContainer" parent="Root/Columns/Input Panel/VBox" unique_id=957978582]
+layout_mode = 2
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="Character01" type="Button" parent="Root/Columns/Input Panel/VBox/CharacterButtons" unique_id=1207964786]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.97, 0.89, 0.77, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("SB_CharButton")
+theme_override_styles/pressed = SubResource("SB_CharButtonHover")
+theme_override_styles/hover = SubResource("SB_CharButtonHover")
+text = "CHARACTER 1"
+
+[node name="Character02" type="Button" parent="Root/Columns/Input Panel/VBox/CharacterButtons" unique_id=1685217995]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.97, 0.89, 0.77, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("SB_CharButton")
+theme_override_styles/pressed = SubResource("SB_CharButtonHover")
+theme_override_styles/hover = SubResource("SB_CharButtonHover")
+text = "CHARACTER 2"
+
+[node name="Character03" type="Button" parent="Root/Columns/Input Panel/VBox/CharacterButtons" unique_id=1140565959]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.97, 0.89, 0.77, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("SB_CharButton")
+theme_override_styles/pressed = SubResource("SB_CharButtonHover")
+theme_override_styles/hover = SubResource("SB_CharButtonHover")
+text = "CHARACTER 3 "
+
+[node name="Character04" type="Button" parent="Root/Columns/Input Panel/VBox/CharacterButtons" unique_id=146414384]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.97, 0.89, 0.77, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("SB_CharButton")
+theme_override_styles/pressed = SubResource("SB_CharButtonHover")
+theme_override_styles/hover = SubResource("SB_CharButtonHover")
+text = "CHARACTER 4 "
+
+[node name="SelectedLabel" type="Label" parent="Root/Columns/Input Panel/VBox" unique_id=958321386]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.31, 0.42, 0.27, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 22
+text = "Selected: None"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Root/Columns/Input Panel/VBox" unique_id=1199373764]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Root/Columns/Input Panel/VBox" unique_id=461855892]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.24, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 22
+text = "DISPLAY NAME"
+horizontal_alignment = 1
+
+[node name="DisplayName" type="LineEdit" parent="Root/Columns/Input Panel/VBox" unique_id=2031152853]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("SB_LineEdit")
+theme_override_styles/focus = SubResource("SB_LineEdit")
+placeholder_text = "Enter your display name..."
+alignment = 1
+max_length = 20
+
+[node name="Spacer2" type="Control" parent="Root/Columns/Input Panel/VBox" unique_id=879159200]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StartButton" type="Button" parent="Root/Columns/Input Panel/VBox" unique_id=143253915]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.97, 0.89, 0.77, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("SB_Start")
+theme_override_styles/pressed = SubResource("SB_StartHover")
+theme_override_styles/hover = SubResource("SB_StartHover")
+text = "CONTINUE"
+
+[node name="Character Preview" type="Panel" parent="Root/Columns" unique_id=1373088695]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("SB_Panel")
+
+[node name="VBox" type="VBoxContainer" parent="Root/Columns/Character Preview" unique_id=602670299]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 28.0
+offset_right = -32.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Root/Columns/Character Preview/VBox" unique_id=702601052]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_aqbfo")
+theme_override_font_sizes/font_size = 36
+text = "CHARACTER PREVIEW"
+horizontal_alignment = 1
+
+[node name="Preview BG" type="TextureRect" parent="Root/Columns/Character Preview/VBox" unique_id=17564196]
+custom_minimum_size = Vector2(366, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("5_biidb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Root/Columns/Character Preview/VBox/Preview BG" unique_id=1408005830]
+position = Vector2(180, 255)

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bay8811kyscx0"]
+
+[ext_resource type="Texture2D" uid="uid://fvgn2bflaben" path="res://Assets/Structures/Interiors/Furnitures/Wall Decors/wall_decor_002.png" id="1_g25if"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8mdm"]
+size = Vector2(16, 5)
+
+[node name="wall_decor_002" type="StaticBody2D" unique_id=1925004438]
+z_index = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=758336596]
+position = Vector2(0, -2)
+texture = ExtResource("1_g25if")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1215625422]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_o8mdm")

@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://e85rmrlumee0"]
+
+[ext_resource type="Script" uid="uid://bt7qfcgmmtria" path="res://Scripts/Admin/Teacher/section_button.gd" id="1_f76s5"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_qdx7v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f76s5"]
+bg_color = Color(1, 1, 0.93333334, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_qdx7v"]
+color = Color(0.57, 0.4617, 0.3534, 1)
+thickness = 3
+vertical = true
+
+[node name="SectionButton" type="Panel" unique_id=321050681]
+custom_minimum_size = Vector2(450, 150)
+anchors_preset = -1
+anchor_right = 0.22700001
+anchor_bottom = 0.208
+offset_right = -149.46002
+offset_bottom = -69.76001
+theme_override_styles/panel = SubResource("StyleBoxFlat_f76s5")
+script = ExtResource("1_f76s5")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1276891911]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="NumberofStudents" type="Label" parent="VBoxContainer" unique_id=299457302]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_qdx7v")
+theme_override_font_sizes/font_size = 30
+text = " 66"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer" unique_id=1190667077]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/separator = SubResource("StyleBoxLine_qdx7v")
+
+[node name="Section Name" type="Label" parent="VBoxContainer" unique_id=375579744]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_qdx7v")
+theme_override_font_sizes/font_size = 30
+text = "Section"
+horizontal_alignment = 1
+vertical_alignment = 1

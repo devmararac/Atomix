@@ -1,0 +1,186 @@
+[gd_scene format=3 uid="uid://b6aquk1veles3"]
+
+[ext_resource type="Texture2D" uid="uid://blobcx8hb08fa" path="res://Assets/UX/HUD/Panels/inventory_bg.png" id="1_ei40v"]
+[ext_resource type="Script" uid="uid://ccwj7dj11v1yt" path="res://Scripts/game_menu.gd" id="1_m6y3d"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="3_qropo"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_iyb0i"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pg4b3"]
+texture = ExtResource("3_qropo")
+texture_margin_top = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qropo"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.57, 0.4617, 0.3534, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyb0i"]
+bg_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="GameMenu" type="CanvasLayer" unique_id=1664760916]
+script = ExtResource("1_m6y3d")
+
+[node name="Root" type="Control" parent="." unique_id=546392574]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="Root" unique_id=1659653766]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ei40v")
+
+[node name="MainMargin" type="MarginContainer" parent="Root" unique_id=547375935]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Root/MainMargin" unique_id=1609516575]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="NavigationPanel" type="PanelContainer" parent="Root/MainMargin/HBoxContainer" unique_id=1179606203]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_pg4b3")
+
+[node name="NavigationMargin" type="MarginContainer" parent="Root/MainMargin/HBoxContainer/NavigationPanel" unique_id=674516526]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="MenuVBox" type="VBoxContainer" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin" unique_id=114909606]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=157787265]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_iyb0i")
+theme_override_font_sizes/font_size = 32
+text = "MENU"
+horizontal_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=879808962]
+layout_mode = 2
+
+[node name="InventoryButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=504867294]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("4_iyb0i")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+text = "Inventory"
+
+[node name="QuestLogButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1114144049]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("4_iyb0i")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+text = "Quest Log"
+
+[node name="AtomonButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1238209825]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("4_iyb0i")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+text = "Atomon"
+
+[node name="PlayerButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1456508289]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("4_iyb0i")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+text = "Player"
+
+[node name="SettingsButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1004195012]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("4_iyb0i")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+text = "Settings"
+
+[node name="Spacer" type="Control" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=107100130]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CloseButton" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1190047194]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("4_iyb0i")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_qropo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iyb0i")
+text = "Close"
+
+[node name="ContentPanel" type="PanelContainer" parent="Root/MainMargin/HBoxContainer" unique_id=2145609724]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InformationPanel" type="MarginContainer" parent="Root/MainMargin/HBoxContainer/ContentPanel" unique_id=47837839]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_right = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Root" unique_id=636661614]

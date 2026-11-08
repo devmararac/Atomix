@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://du57mihae3shx"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_fw6ug"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_0ajhd"]
+[ext_resource type="Resource" uid="uid://ci57a7jqnrqtx" path="res://Resources/Objectives/Angelo/TALK_TO_ANGELO.tres" id="2_qwtx7"]
+[ext_resource type="Resource" uid="uid://cmdgyekgyryrx" path="res://Resources/Objectives/Angelo/COLLECT_IRON.tres" id="3_2tsju"]
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="3_qwtx7"]
+[ext_resource type="Resource" uid="uid://dcin88cr2e5ys" path="res://Resources/Objectives/Angelo/Rewards.tres" id="5_2tsju"]
+
+[resource]
+script = ExtResource("3_qwtx7")
+quest_id = "quest_iron_core"
+quest_name = "Iron Collection"
+quest_description = "Angelo needs help collecting iron shards from the crater."
+objectives = Array[ExtResource("1_fw6ug")]([ExtResource("2_qwtx7"), ExtResource("3_2tsju")])
+rewards = Array[ExtResource("2_0ajhd")]([ExtResource("5_2tsju")])
+metadata/_custom_type_script = "uid://7rrmrho1w3gn"

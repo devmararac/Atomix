@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Objectives" format=3 uid="uid://b1pawl6abldt2"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_yn68n"]
+
+[resource]
+script = ExtResource("1_yn68n")
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

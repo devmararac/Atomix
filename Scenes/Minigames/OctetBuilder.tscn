@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://ctg1ay24eoup6"]
+
+[ext_resource type="Script" uid="uid://cf2kso1x50dah" path="res://Scripts/MiniGames/OctetBuilder.gd" id="1_script"]
+
+[node name="OctetBuilder" type="Control" unique_id=114576203]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=712139017]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.055, 0.07, 0.095, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=591766320]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 24.0
+offset_right = -32.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="MarginContainer" unique_id=885559018]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/MainVBox" unique_id=674460972]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ScorePanel" type="VBoxContainer" parent="MarginContainer/MainVBox/Header" unique_id=1992229569]
+custom_minimum_size = Vector2(150, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/MainVBox/Header/ScorePanel" unique_id=1768992301]
+layout_mode = 2
+text = "SCORE"
+horizontal_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="MarginContainer/MainVBox/Header/ScorePanel" unique_id=1082272284]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+
+[node name="StreakPanel" type="VBoxContainer" parent="MarginContainer/MainVBox/Header" unique_id=498660927]
+custom_minimum_size = Vector2(150, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/MainVBox/Header/StreakPanel" unique_id=690251484]
+layout_mode = 2
+text = "STREAK"
+horizontal_alignment = 1
+
+[node name="StreakValue" type="Label" parent="MarginContainer/MainVBox/Header/StreakPanel" unique_id=1601734225]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+
+[node name="RoundPanel" type="VBoxContainer" parent="MarginContainer/MainVBox/Header" unique_id=1254271056]
+custom_minimum_size = Vector2(150, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/MainVBox/Header/RoundPanel" unique_id=901609879]
+layout_mode = 2
+text = "ROUND"
+horizontal_alignment = 1
+
+[node name="RoundValue" type="Label" parent="MarginContainer/MainVBox/Header/RoundPanel" unique_id=1780404994]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "0/8"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/MainVBox/Header" unique_id=1222997246]
+layout_mode = 2
+text = "BACK"
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/MainVBox" unique_id=936781265]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+max_value = 7.0
+value = 7.0
+show_percentage = false
+
+[node name="QuestionPanel" type="PanelContainer" parent="MarginContainer/MainVBox" unique_id=1127853191]
+custom_minimum_size = Vector2(0, 420)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuestionVBox" type="VBoxContainer" parent="MarginContainer/MainVBox/QuestionPanel" unique_id=555434059]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ElementSymbol" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=1109024612]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_font_sizes/font_size = 52
+text = "O"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ElementName" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=200523772]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Oxygen"
+horizontal_alignment = 1
+
+[node name="AtomicNumber" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=1488511846]
+layout_mode = 2
+text = "Atomic Number: 8"
+horizontal_alignment = 1
+
+[node name="ValenceLabel" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=179099295]
+layout_mode = 2
+text = "Valence Electrons: 6"
+horizontal_alignment = 1
+
+[node name="ShellTitle" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=1335236107]
+layout_mode = 2
+text = "VALENCE SHELL"
+horizontal_alignment = 1
+
+[node name="ElectronShell" type="GridContainer" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=1927146776]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 8
+
+[node name="QuestionLabel" type="Label" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=1455466386]
+layout_mode = 2
+text = "How many more electrons are needed to complete the octet?"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Choices" type="HBoxContainer" parent="MarginContainer/MainVBox/QuestionPanel/QuestionVBox" unique_id=902173062]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="FeedbackLabel" type="Label" parent="MarginContainer/MainVBox" unique_id=1367552639]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="MarginContainer/MainVBox" unique_id=987247244]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "START GAME"
+
+[connection signal="pressed" from="MarginContainer/MainVBox/Header/Button" to="." method="_on_button_pressed"]

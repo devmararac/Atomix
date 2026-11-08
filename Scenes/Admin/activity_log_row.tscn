@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://c5rtk70yi4gmo"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_vu42m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7gbwe"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+
+[node name="Panel" type="Panel" unique_id=691784222]
+custom_minimum_size = Vector2(1000, 50)
+anchors_preset = -1
+anchor_right = 0.505
+anchor_bottom = 0.069000006
+offset_right = -449.89996
+offset_bottom = 0.31999588
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_7gbwe")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1039347215]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.004
+anchor_top = 0.040000003
+anchor_right = 0.99600005
+anchor_bottom = 0.96000004
+offset_left = -0.20000005
+offset_right = 0.19995117
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Number" type="Label" parent="HBoxContainer" unique_id=7858501]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_vu42m")
+theme_override_font_sizes/font_size = 20
+text = " #"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Activity" type="Label" parent="HBoxContainer" unique_id=451257120]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_vu42m")
+theme_override_font_sizes/font_size = 20
+text = "Activity Performed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="HBoxContainer" unique_id=716796191]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_vu42m")
+theme_override_font_sizes/font_size = 20
+text = "Time when performed "
+horizontal_alignment = 1
+vertical_alignment = 1

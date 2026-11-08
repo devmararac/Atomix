@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="NPCDialogueData" format=3 uid="uid://bxy0icu6gngjk"]
+
+[ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="1_wut5s"]
+[ext_resource type="Script" uid="uid://ckoa2l31dwe64" path="res://Resources/Scripts/NPCDialogueData.gd" id="2_o8dp5"]
+[ext_resource type="Resource" uid="uid://wb8nu4jq6ve5" path="res://Resources/Objectives/Angelo/Dialogue/Conversation/Angelo_Quest_Offer.tres" id="2_p5a0r"]
+[ext_resource type="Resource" uid="uid://gyn5t8ysntev" path="res://Resources/Objectives/Angelo/Dialogue/Conversation/Angelo_Quest_Progress.tres" id="3_p5a0r"]
+
+[resource]
+script = ExtResource("2_o8dp5")
+conversations = Array[ExtResource("1_wut5s")]([ExtResource("2_p5a0r"), ExtResource("3_p5a0r")])
+metadata/_custom_type_script = "uid://ckoa2l31dwe64"

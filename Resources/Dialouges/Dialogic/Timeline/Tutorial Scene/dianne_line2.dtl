@@ -1,0 +1,149 @@
+[signal arg="joystick"]
+[signal arg="dianne_face_right"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line12.mp3" volume="0.0"]
+Dianne: Fantastic! Thank you.... 😄
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line13.mp3" volume="0.0"]
+Dianne: See? You got me moving! Thanks!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line14.mp3" volume="0.0"]
+Dianne: I knew I could count on you.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line15.mp3" volume="0.0"]
+Dianne: Moving around is pretty simple, right?
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line16.mp3" volume="0.0"]
+Dianne: Just use the joystick and you're ready to go!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line17.mp3" volume="0.0"]
+Dianne: And don't worry about getting lost. Guides are everywhere in this world, they can take on any shapes and types but you'll get a hang of it!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line18.mp3" volume="0.0"]
+Dianne: Now that we've got that figured out...
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line19.mp3" volume="0.0"]
+Dianne: I should probably introduce you to the other people who helped me create this game. And who knows? Maybe they can help you learn more about this game too...
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line20.mp3" volume="0.0"]
+Dianne: Hmmm, ok let's start with the Designer!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line21.mp3" volume="0.0"]
+Dianne: Trishania? Are you there?
+[signal arg="trishania_walk"]
+[wait time="3.0"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line22.mp3" volume="0.0"]
+Dianne: Everyone, this is Trishania. She's our Designer!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line1.mp3" volume="0.0"]
+Trishania: Hey! Nice to meet you!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line23.mp3" volume="0.0"]
+Dianne: Trishania helped design a lot of the things you'll see throughout Atomix.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line2.mp3" volume="0.0"]
+Trishania: Not as much as a certain someone I supposed...
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line24.mp3" volume="0.0"]
+Dianne: You mean certain individuals who played the role of making the game? The codes and everything? Yeah sure hahaha.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line3.mp3" volume="0.0"]
+Trishania: Oh, and before we all get too distracted...
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line4.mp3" volume="0.0"]
+Trishania: There's one more thing we should know about our controls!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line5.mp3" volume="0.0"]
+Trishania: See those buttons on the right of your screen??
+[signal arg="show_action_buttons"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line6.mp3" volume="0.0"]
+Trishania: The blue button is your Interaction Button, It lets you talk to people, examine objects, and interact with different things you'll find around Atomix.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line7.mp3" volume="0.0"]
+Trishania: The red one, the Action button is a little different...
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line8.mp3" volume="0.0"]
+Trishania: You'll use it for actions that depend on what you're doing at the time.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line9.mp3" volume="0.0"]
+Trishania: So keep an eye on those buttons! You'll be using them quite a lot during your adventure.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line25.mp3" volume="0.0"]
+Dianne: Great! Blue button, Interact! Action Button, Do this! Easy..
+[signal arg="alfred_walk"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line1.mp3" volume="0.0"]
+Alfred: Hey guys! A certain individual Mr. Documenter here...
+[signal arg="trishania_face_right"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line2.mp3" volume="0.0"]
+Alfred: I'm starting to wonder if we're ever gonna to get to the actual game!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line26.mp3" volume="0.0"]
+Dianne: Huh? What do you mean?
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line3.mp3" volume="0.0"]
+Alfred: You guys have been explaining the controls for quite a while now.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line27.mp3" volume="0.0"]
+Dianne: Uhhmmm.. Yes? Because we have to?
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line10.mp3" volume="0.0"]
+Trishania: Hey! We were making sure they understood everything!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line4.mp3" volume="0.0"]
+Alfred: Yeah I know but we need to speed things up! Professor Andrew is already waiting on the next set!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line11.mp3" volume="0.0"]
+Trishania: ...Okay, maybe we got a little too carried away.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line12.mp3" volume="0.0"]
+Trishania: I mean we can't help it... This is our first game!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line5.mp3" volume="0.0"]
+Alfred: Alright. It's fine... let me help you.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line28.mp3" volume="0.0"]
+Dianne: Ok let's go!
+[signal arg="alfred_walk_target2"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line6.mp3" volume="0.0"]
+Alfred: Alright, before we go, there are few more things you should know about.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line7.mp3" volume="0.0"]
+Alfred: Take a look at the bottom of your screen.
+[signal arg="show_item_bar"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line8.mp3" volume="0.0"]
+Alfred: See those slots down there? That's your Item Bar.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line29.mp3" volume="0.0"]
+Dianne: Oh! So that's where we keep our items?
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line9.mp3" volume="0.0"]
+Alfred: Exactly! You can keep some of your most useful items there for quick access.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line10.mp3" volume="0.0"]
+Alfred: Just select an item from the bar whenever you need it.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line11.mp3" volume="0.0"]
+Alfred: And you'll also find the Game Menu button right there.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line12.mp3" volume="0.0"]
+Alfred: That's where you can access the rest of your game features whenever you need them.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line30.mp3" volume="0.0"]
+Dianne: So the Item Bar is for quick item access, and the Game Menu is for everything else?
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line13.mp3" volume="0.0"]
+Alfred: Now you're getting it!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line14.mp3" volume="0.0"]
+Alfred: Don't worry! As you progress, you'll be guided through how to navigate and use those features in more detail.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line15.mp3" volume="0.0"]
+Alfred: OK NEXT! The Minimap! Hey a certain individual 2? Mr. Programmer? You there?
+[signal arg="deejhay_walk"]
+[signal arg="deejhay_face_right"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line1.mp3" volume="0.0"]
+Deejhay: Yes, My fellow certain individual...
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line31.mp3" volume="0.0"]
+Dianne: They heard us talking...
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Trishania Lines/Trishania_line13.mp3" volume="0.0"]
+Trishania: My bad..
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line2.mp3" volume="0.0"]
+Deejhay: I couldn't help but notice that you were discussing the controls.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line16.mp3" volume="0.0"]
+Alfred: Exactly! And since we're already here, can you help us show the Minimap.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line3.mp3" volume="0.0"]
+Deejhay: Ah... The Minimap. An excellent choice.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line32.mp3" volume="0.0"]
+Dianne: What's so special about it?
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line4.mp3" volume="0.0"]
+Deejhay: Well, take a look at the top corner of your screen.
+[signal arg="show_minimap"]
+[signal arg="deejhay_face_left"]
+[signal arg="dianne_face_left"]
+[signal arg="trishania_face_left"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line5.mp3" volume="0.0"]
+Deejhay: See that little map? That's your Minimap.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line33.mp3" volume="0.0"]
+Dianne: Oh! So it shows where I am?
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line6.mp3" volume="0.0"]
+Deejhay: Precisely! It helps you keep track of your surroundings as you explore Atomix.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line7.mp3" volume="0.0"]
+Deejhay: You can use it to see your current location and get a better idea of where you are in the world.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line8.mp3" volume="0.0"]
+Deejhay: And as you progress through the game, you'll learn more about the different markers and features you'll encounter on the map.
+[signal arg="deejhay_face_right"]
+[signal arg="dianne_face_right"]
+[signal arg="trishania_face_right"]
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line17.mp3" volume="0.0"]
+Alfred: Which means...
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line18.mp3" volume="0.0"]
+Alfred: We're done with explaining the basics!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line19.mp3" volume="0.0"]
+Alfred: We will leave out to you to figure things out in the game! I swear everything will become more clear to you the more you progress.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Alfred Lines/Alfred_line20.mp3" volume="0.0"]
+Alfred: You'll encounter, unlock, and collect stuffs! And that is the fun for exploring the game!
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Deejhay Lines/Deejhay_line9.mp3" volume="0.0"]
+Deejhay: Indeed. We should probably let the professor know that we're on our way.
+[voice path="res://Assets/Music/VoiceOvers/Tutorial/Dianne Lines/Dianne_line34.mp3" volume="0.0"]
+Dianne: Alright! Let's go meet Professor Andrew!
+[signal arg="start_scene"]

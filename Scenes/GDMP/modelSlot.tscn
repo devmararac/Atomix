@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bn6wscjaxgf4a"]
+
+[ext_resource type="Script" uid="uid://cawqa7ho2dafd" path="res://Scenes/GDMP/Scripts/ElementObject.gd" id="1_emso8"]
+[ext_resource type="PackedScene" uid="uid://b1osuv4bdnnay" path="res://Assets/GLBs/copper.glb" id="2_rq3wa"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_s2plr"]
+radius = 4.1505075
+
+[node name="Copper" type="RigidBody3D" unique_id=1938678613]
+collision_mask = 3
+axis_lock_linear_z = true
+script = ExtResource("1_emso8")
+
+[node name="Model" type="Node3D" parent="." unique_id=915980114]
+
+[node name="copper" parent="Model" unique_id=1388051829 instance=ExtResource("2_rq3wa")]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0.6292248, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1629129908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5683346, 0)
+shape = SubResource("SphereShape3D_s2plr")

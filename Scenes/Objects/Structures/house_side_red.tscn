@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cfp83hsxn5ajo"]
+
+[ext_resource type="Texture2D" uid="uid://c2mt4shrmmaf8" path="res://Assets/Structures/Houses/house_side_red.png" id="1_uvnhd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yedyn"]
+size = Vector2(94, 34)
+
+[node name="House Side Red" type="StaticBody2D" unique_id=479987090]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1703552296]
+position = Vector2(0, -14)
+texture = ExtResource("1_uvnhd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=722213107]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_yedyn")

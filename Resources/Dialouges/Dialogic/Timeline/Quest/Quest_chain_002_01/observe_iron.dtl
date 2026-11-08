@@ -1,0 +1,28 @@
+Player: This Atomon looks different from the others I've seen.
+
+Player: It seems to keep the same shape.
+
+Player: Even when it moves around, its form doesn't change.
+
+Player: It also doesn't seem to spread out or fill the space around it.
+
+Player: So... it seems to have both a definite shape and a definite volume.
+
+Player: But what is the phase of this Iron Atomon?
+
+- Solid
+  Player: Hhmmm, I got it! Since Iron keeps both a definite shape and a definite volume its Solid.
+
+- Liquid
+  Player: Not quite. A liquid has a definite volume, but it takes the shape of its container. This Iron Atomon keeps its own shape.
+
+- Gas
+  Player: Not quite. A gas does not have a definite shape or volume and tends to spread out to fill the space available.
+
+Player: Then the Iron Atomon is a solid.
+
+Player: Its shape stays the same, and its volume stays the same.
+
+[signal arg="quest_notify:quest_chain_002_01:observe_iron"]
+
+Player: I think I understand.

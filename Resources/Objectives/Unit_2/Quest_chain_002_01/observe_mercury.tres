@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://c32ko8nq2wpnr"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_cmhsi"]
+
+[resource]
+script = ExtResource("1_cmhsi")
+id = "observe_mercury"
+description = "Observe the Mercury Atomon."
+type = 4
+target_id = "mercury"

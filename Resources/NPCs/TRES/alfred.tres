@@ -1,0 +1,146 @@
+[gd_resource type="Resource" script_class="NPCData" format=3 uid="uid://d0pm3km0r8y7n"]
+
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_kfof7"]
+[ext_resource type="Resource" uid="uid://dm2cj3e81uby5" path="res://Resources/Dialouges/Dialogic/Characters/Alfred.dch" id="1_qwbgf"]
+[ext_resource type="Script" uid="uid://cn6cd03e4ht1w" path="res://Resources/Scripts/NPCData.gd" id="2_8hr5h"]
+[ext_resource type="Texture2D" uid="uid://4ru7xc8osj0l" path="res://Assets/NPC/Alfred_anim.png" id="3_8hr5h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hr5h"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwbgf"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ao7h7"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xb6l"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ud3c6"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ac17"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxc27"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5a81"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdsr0"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftr7v"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7k1jq"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsqv5"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ma6lk"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pk46"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eas50"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7r8e1"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrwsg"]
+atlas = ExtResource("3_8hr5h")
+region = Rect2(224, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u5gnr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hr5h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwbgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ao7h7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xb6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ud3c6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ac17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxc27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5a81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdsr0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftr7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7k1jq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsqv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ma6lk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pk46")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eas50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7r8e1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrwsg")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_8hr5h")
+npc_id = "npc_admin"
+display_name = "Alfred"
+sprite_frames = SubResource("SpriteFrames_u5gnr")
+dialogic_character = ExtResource("1_qwbgf")
+metadata/_custom_type_script = "uid://cn6cd03e4ht1w"

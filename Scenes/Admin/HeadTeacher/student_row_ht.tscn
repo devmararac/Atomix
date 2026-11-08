@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://cm3qhq0evy8fk"]
+
+[ext_resource type="Script" uid="uid://cqnf1qfg8yr5" path="res://Scripts/Admin/Teacher/student_row_ht.gd" id="1_d11e8"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_joabx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Row"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkd88"]
+bg_color = Color(0.9098039, 0.7882353, 0.6313726, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[node name="StudentContainer" type="Panel" unique_id=9637668]
+custom_minimum_size = Vector2(1630, 50)
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.069000006
+offset_bottom = -49.680004
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_Row")
+script = ExtResource("1_d11e8")
+
+[node name="ClickArea" type="Button" parent="." unique_id=1850250669]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="TableHeader" type="Panel" parent="." unique_id=1009168264]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.96000004
+offset_left = 1.0
+offset_top = 2.0
+offset_right = -3.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_mkd88")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TableHeader" unique_id=1808760451]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_right = -1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Number" type="Label" parent="TableHeader/HBoxContainer" unique_id=950578948]
+custom_minimum_size = Vector2(38, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("2_joabx")
+theme_override_font_sizes/font_size = 25
+text = "#"
+horizontal_alignment = 1
+
+[node name="FullName" type="Label" parent="TableHeader/HBoxContainer" unique_id=1706244444]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("2_joabx")
+theme_override_font_sizes/font_size = 25
+text = "Student Name"
+horizontal_alignment = 1
+
+[node name="LRN" type="Label" parent="TableHeader/HBoxContainer" unique_id=1480672308]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("2_joabx")
+theme_override_font_sizes/font_size = 25
+text = "LRN"
+horizontal_alignment = 1
+
+[node name="Section" type="Label" parent="TableHeader/HBoxContainer" unique_id=1200960962]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("2_joabx")
+theme_override_font_sizes/font_size = 25
+text = "Section"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="TableHeader/HBoxContainer" unique_id=1710033172]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("2_joabx")
+theme_override_font_sizes/font_size = 25
+text = "Status"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]

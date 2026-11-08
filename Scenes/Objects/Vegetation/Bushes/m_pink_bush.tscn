@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dmkqtl43t1uus"]
+
+[ext_resource type="Texture2D" uid="uid://b2svxkdckwn2t" path="res://Assets/Structures/Vegitations/Bushes/bush_pink_medium.png" id="1_sbcyx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbcyx"]
+size = Vector2(28, 10)
+
+[node name="M Pink Bush" type="Node2D" unique_id=1318892355]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=244876764]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1728085020]
+position = Vector2(0, -5)
+texture = ExtResource("1_sbcyx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1596162776]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_sbcyx")

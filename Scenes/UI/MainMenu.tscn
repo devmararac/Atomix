@@ -1,0 +1,398 @@
+[gd_scene format=3 uid="uid://cv0xt3baocsfl"]
+
+[ext_resource type="Script" uid="uid://boi8km0efioec" path="res://Scripts/main_menu.gd" id="1_g18y6"]
+[ext_resource type="Texture2D" uid="uid://cda052nyndrps" path="res://Assets/menu_bg.png" id="2_ab04i"]
+[ext_resource type="Shader" uid="uid://dtg7lx50h7oty" path="res://Assets/VFX/warm_cozy.gdshader" id="3_dvisc"]
+[ext_resource type="Texture2D" uid="uid://bq05vfelceqty" path="res://Assets/UX/HUD/Panels/new_panel (2).png" id="4_dvisc"]
+[ext_resource type="Texture2D" uid="uid://cbp2ujmohfryr" path="res://Assets/UX/Buttons/Normal/updated_button_blue.png" id="5_m48tj"]
+[ext_resource type="Texture2D" uid="uid://djbew8pmd3oa1" path="res://Assets/UX/Buttons/On-Pressed/updated_button_pressed_blue.png" id="6_dvisc"]
+[ext_resource type="Texture2D" uid="uid://dc3i2o4lhnvxu" path="res://Assets/UX/Buttons/Normal/updated_button.png" id="8_ab04i"]
+[ext_resource type="Texture2D" uid="uid://cxjuhf5abqbsr" path="res://Assets/UX/Buttons/On-Pressed/updated_button_pressed.png" id="9_hys1s"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="11_font"]
+[ext_resource type="Texture2D" uid="uid://bnr4kb7a5i7us" path="res://Assets/f6e1052e5566a52f166db92f5104d26951e8880a.png" id="12_hys1s"]
+[ext_resource type="AudioStream" uid="uid://d1u513vg34uhk" path="res://Assets/Music/Kevin MacLeod - Itty Bitty 8 Bit #U266b NO COPYRIGHT 8-bit Music.mp3" id="12_music"]
+[ext_resource type="PackedScene" uid="uid://cbohbjvt43eks" path="res://Scenes/UI/Loading.tscn" id="13_hys1s"]
+[ext_resource type="PackedScene" uid="uid://bcf7fnjm27jgh" path="res://Scenes/UI/AtomiXKeyboard.tscn" id="13_kb"]
+
+[sub_resource type="StyleBoxTexture" id="SB_bg"]
+texture = ExtResource("2_ab04i")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ab04i"]
+shader = ExtResource("3_dvisc")
+shader_parameter/warm_color = Color(1, 0.72, 0.38, 1)
+shader_parameter/warmth = 0.3010000142975
+shader_parameter/wind_color = Color(1, 0.9, 0.68, 1)
+shader_parameter/wind_strength = 0.5550000263625
+shader_parameter/wind_speed = 1.3950000662625
+shader_parameter/wind_density = 15.0
+shader_parameter/wind_thickness = 0.06500000238898
+shader_parameter/leaf_color = Color(0.6, 0.8, 0.3, 0.7)
+shader_parameter/leaf_amount = 9.0
+shader_parameter/leaf_speed = 0.74400003534
+shader_parameter/leaf_size = 0.00500000023749
+
+[sub_resource type="StyleBoxTexture" id="SB_panel"]
+content_margin_left = 32.0
+content_margin_top = 32.0
+content_margin_right = 32.0
+content_margin_bottom = 32.0
+texture = ExtResource("4_dvisc")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+
+[sub_resource type="StyleBoxFlat" id="SB_input_normal"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12, 0.09, 0.07, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96862745, 0.8862745, 0.77254903, 0.45)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SB_input_focus"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.18, 0.13, 0.09, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96862745, 0.8862745, 0.77254903, 0.95)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Main Menu" type="Control" unique_id=107092657]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_g18y6")
+
+[node name="BG" type="Panel" parent="." unique_id=2139237884]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("SB_bg")
+
+[node name="Shader" type="ColorRect" parent="." unique_id=148264975]
+material = SubResource("ShaderMaterial_ab04i")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.23753911, 0.23753914, 0.23753911, 0.3019608)
+
+[node name="AuthPanel" type="Panel" parent="." unique_id=97917936]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.23300001
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_right = 85.65997
+offset_bottom = 1.0
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("SB_panel")
+
+[node name="Margin" type="MarginContainer" parent="AuthPanel" unique_id=542242972]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.053000003
+anchor_top = 0.147
+anchor_right = 0.94500005
+anchor_bottom = 0.929
+offset_left = 0.008998871
+offset_top = -0.13400269
+offset_right = 0.08496094
+offset_bottom = 0.2619629
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 28
+
+[node name="VBox" type="VBoxContainer" parent="AuthPanel/Margin" unique_id=1912172680]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Welcome" type="Label" parent="AuthPanel/Margin/VBox" unique_id=354036949]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 27
+text = "WELCOME TRAVELER!
+LOGIN or SIGNUP"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Spacer1" type="Control" parent="AuthPanel/Margin/VBox" unique_id=313655796]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+
+[node name="EmailTXT" type="Label" parent="AuthPanel/Margin/VBox" unique_id=410189391]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 20
+text = "EMAIL"
+horizontal_alignment = 1
+
+[node name="Email" type="PanelContainer" parent="AuthPanel/Margin/VBox" unique_id=1889152758]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("SB_input_normal")
+
+[node name="EmailInput" type="LineEdit" parent="AuthPanel/Margin/VBox/Email" unique_id=1749585446]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_colors/font_placeholder_color = Color(0.96862745, 0.8862745, 0.77254903, 0.4)
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("SB_input_normal")
+theme_override_styles/focus = SubResource("SB_input_focus")
+placeholder_text = "Enter your email"
+select_all_on_focus = true
+virtual_keyboard_type = 5
+
+[node name="PasswordTXT" type="Label" parent="AuthPanel/Margin/VBox" unique_id=61398891]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 20
+text = "PASSWORD"
+
+[node name="Password" type="PanelContainer" parent="AuthPanel/Margin/VBox" unique_id=1677643392]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("SB_input_normal")
+
+[node name="PasswordInput" type="LineEdit" parent="AuthPanel/Margin/VBox/Password" unique_id=1690230900]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_colors/font_placeholder_color = Color(0.96862745, 0.8862745, 0.77254903, 0.4)
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("SB_input_normal")
+theme_override_styles/focus = SubResource("SB_input_focus")
+placeholder_text = "Enter your password"
+secret = true
+
+[node name="Spacer2" type="Control" parent="AuthPanel/Margin/VBox" unique_id=1492021815]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="AuthButtons" type="CenterContainer" parent="AuthPanel/Margin/VBox" unique_id=1243909295]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="LoginButton" type="TextureButton" parent="AuthPanel/Margin/VBox/AuthButtons" unique_id=737385652]
+custom_minimum_size = Vector2(260, 64)
+layout_mode = 2
+texture_normal = ExtResource("5_m48tj")
+texture_pressed = ExtResource("6_dvisc")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="AuthPanel/Margin/VBox/AuthButtons/LoginButton" unique_id=1737128729]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.3534, 0.40755, 0.57, 1)
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 25
+text = "Log In"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="AuthPanel/Margin/VBox" unique_id=238987176]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 0.9)
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=872058209]
+stream = ExtResource("12_music")
+volume_db = -15.0
+autoplay = true
+
+[node name="Panel" type="CenterContainer" parent="." unique_id=1047075202]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -110.0
+offset_right = 260.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(260, 110)
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=993014339]
+layout_mode = 2
+theme_override_constants/separation = 28
+alignment = 1
+
+[node name="Start" type="TextureButton" parent="Panel/VBox" unique_id=964328524]
+custom_minimum_size = Vector2(420, 100)
+layout_mode = 2
+texture_normal = ExtResource("8_ab04i")
+texture_pressed = ExtResource("9_hys1s")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Panel/VBox/Start" unique_id=1703840234]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 37
+text = "New Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Continue" type="TextureButton" parent="Panel/VBox" unique_id=2058679687]
+custom_minimum_size = Vector2(420, 100)
+layout_mode = 2
+texture_normal = ExtResource("8_ab04i")
+texture_pressed = ExtResource("9_hys1s")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Panel/VBox/Continue" unique_id=1823739441]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 37
+text = "Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AtomiXKeyboard" parent="." unique_id=566861287 instance=ExtResource("13_kb")]
+visible = false
+layout_mode = 1
+offset_top = -380.0
+
+[node name="Button" type="Button" parent="." unique_id=436422596]
+visible = false
+layout_mode = 1
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 96.0
+offset_bottom = 56.0
+text = "DEBUG"
+
+[node name="Intro Elements" type="Control" parent="." unique_id=802704523]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Intro Elements" unique_id=44231617]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Intro Elements" unique_id=881741523]
+root_node = NodePath("../..")
+
+[node name="Atomix Logo" type="TextureRect" parent="Intro Elements" unique_id=254303840]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -274.0
+offset_right = 274.0
+offset_bottom = 319.0
+grow_horizontal = 2
+texture = ExtResource("12_hys1s")
+expand_mode = 1
+
+[node name="TouchToContinue" type="Label" parent="Intro Elements" unique_id=123456789]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = 220.0
+offset_right = 200.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_colors/font_outline_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("11_font")
+theme_override_font_sizes/font_size = 36
+text = "TOUCH ANYWHERE TO CONTINUE"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Loading" parent="." unique_id=1107200896 instance=ExtResource("13_hys1s")]
+visible = false
+
+[connection signal="pressed" from="AuthPanel/Margin/VBox/AuthButtons/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="Panel/VBox/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Panel/VBox/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

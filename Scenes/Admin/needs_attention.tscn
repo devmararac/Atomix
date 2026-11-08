@@ -1,0 +1,313 @@
+[gd_scene format=3 uid="uid://bu4684run7e2a"]
+
+[ext_resource type="Script" uid="uid://pq54yfsvcfgq" path="res://Scripts/Admin/needs_attention.gd" id="1_gw1ei"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_h1uqn"]
+[ext_resource type="PackedScene" uid="uid://cm3qhq0evy8fk" path="res://Scenes/Admin/HeadTeacher/student_row_ht.tscn" id="2_gw1ei"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1uqn"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw1ei"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.694118, 0.521569, 0.301961, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ffbh"]
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776, 0.627, 0.482, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbsbi"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vo4g0"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.87, 0.796, 0.694, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.35, 0.25, 0.15, 0.08)
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbu0q"]
+bg_color = Color(0.9098039, 0.7882353, 0.6313726, 0.19215687)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbo3w"]
+bg_color = Color(1, 0.984, 0.953, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.87, 0.796, 0.694, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="NeedsAttention" type="Panel" unique_id=44663228]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gw1ei")
+
+[node name="PageBackground" type="Panel" parent="." unique_id=1572291572]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h1uqn")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground" unique_id=1990223925]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/MarginContainer" unique_id=309237851]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=1858923080]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_font_sizes/font_size = 32
+text = "Students"
+
+[node name="Subtitle" type="Label" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=1826061105]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
+theme_override_font_sizes/font_size = 18
+text = "Manage Grade 11 student accounts and monitor their progress."
+
+[node name="ToolbarPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=1872125859]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gw1ei")
+
+[node name="MarginContainer" type="MarginContainer" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel" unique_id=614130627]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer" unique_id=196919505]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SearchPanel" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1202169583]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_8ffbh")
+
+[node name="SearchInput" type="LineEdit" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SearchPanel" unique_id=51343426]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_placeholder_color = Color(0.27363136, 0.27363136, 0.27363136, 0.7372549)
+theme_override_styles/normal = SubResource("StyleBoxFlat_dbsbi")
+placeholder_text = "Search students..."
+clear_button_enabled = true
+
+[node name="FilterButton" type="OptionButton" parent="PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1692579875]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_8ffbh")
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "All Students"
+popup/item_0/id = 0
+popup/item_1/text = "Section"
+popup/item_1/id = 1
+
+[node name="StudentTable" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer" unique_id=693017419]
+custom_minimum_size = Vector2(1100, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vo4g0")
+
+[node name="TableTitleRow" type="HBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable" unique_id=2112850492]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 0
+offset_left = 11.0
+offset_top = 15.0
+offset_right = 1150.0
+offset_bottom = 47.0
+
+[node name="TableTitle" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableTitleRow" unique_id=1614132208]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_h1uqn")
+theme_override_font_sizes/font_size = 20
+text = "Stident List"
+
+[node name="TableHeader" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable" unique_id=453435496]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.006
+anchor_top = 0.125
+anchor_right = 1.0
+anchor_bottom = 0.21100001
+offset_left = -0.592
+offset_top = -0.125
+offset_right = -12.0
+offset_bottom = -0.17900848
+theme_override_styles/panel = SubResource("StyleBoxFlat_dbu0q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader" unique_id=42976690]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_right = -1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Number" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader/HBoxContainer" unique_id=593414876]
+custom_minimum_size = Vector2(38, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_h1uqn")
+theme_override_font_sizes/font_size = 25
+text = "#"
+horizontal_alignment = 1
+
+[node name="FullName" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader/HBoxContainer" unique_id=1889610884]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_h1uqn")
+theme_override_font_sizes/font_size = 25
+text = "NAME"
+horizontal_alignment = 1
+
+[node name="LRN" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader/HBoxContainer" unique_id=1782877280]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_h1uqn")
+theme_override_font_sizes/font_size = 25
+text = "LRN"
+horizontal_alignment = 1
+
+[node name="Section" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader/HBoxContainer" unique_id=441733408]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_h1uqn")
+theme_override_font_sizes/font_size = 25
+text = "SECTION"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader/HBoxContainer" unique_id=1434582820]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_h1uqn")
+theme_override_font_sizes/font_size = 25
+text = "STATUS"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable" unique_id=1689893647]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.006
+anchor_top = 0.252
+anchor_right = 0.994
+anchor_bottom = 0.45600003
+offset_left = -0.592
+offset_top = -0.22800446
+offset_right = -0.40808105
+offset_bottom = 257.016
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Rows" type="VBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/ScrollContainer" unique_id=249505907]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="StudentContainer" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/ScrollContainer/Rows" unique_id=9637668 instance=ExtResource("2_gw1ei")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EmptyState" type="Panel" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable" unique_id=1740498542]
+visible = false
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 100.0
+offset_right = 12.0
+offset_bottom = 230.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jbo3w")
+
+[node name="Label" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/EmptyState" unique_id=525560861]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -18.0
+offset_right = 1143.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.48, 0.38, 0.29, 1)
+theme_override_font_sizes/font_size = 18
+text = "No students found."
+horizontal_alignment = 1
+vertical_alignment = 1

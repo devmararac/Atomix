@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://x3lg5dqyr6r8"]
+
+[ext_resource type="Script" uid="uid://dkso4kxm87dyd" path="res://Scripts/Admin/Teacher/quiz_card.gd" id="1_w25kg"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_wydd3"]
+[ext_resource type="Texture2D" uid="uid://cxjuhf5abqbsr" path="res://Assets/UX/Buttons/On-Pressed/updated_button_pressed.png" id="4_abqt1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w25kg"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 5
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jtt84"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecfx7"]
+texture = ExtResource("4_abqt1")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wydd3"]
+bg_color = Color(0.8745098, 0.14509805, 0.14901961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
+[node name="QuizCard" type="PanelContainer" unique_id=1020437252]
+custom_minimum_size = Vector2(0, 220)
+offset_top = 1.0
+offset_right = 291.0
+offset_bottom = 221.0
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_w25kg")
+script = ExtResource("1_w25kg")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1442049099]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=712467763]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="QuizTitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1598409841]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_wydd3")
+theme_override_font_sizes/font_size = 24
+text = "Organic Chemistry Review"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+max_lines_visible = 2
+
+[node name="QuizInfo" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1878750470]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.75)
+theme_override_fonts/font = ExtResource("2_wydd3")
+theme_override_font_sizes/font_size = 16
+text = "20 Questions • Multiple Choice"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=322056254]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=735487081]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ViewButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2143951332]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_wydd3")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_jtt84")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ecfx7")
+text = " ASSIGN "
+
+[node name="ViewButton2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1187463920]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_wydd3")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_jtt84")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ecfx7")
+text = " VIEW "
+
+[node name="ViewButton3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1520886612]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_wydd3")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_jtt84")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ecfx7")
+text = "EDIT"
+
+[node name="ViewButton4" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1273771224]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_wydd3")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_wydd3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ecfx7")
+text = " DELETE "

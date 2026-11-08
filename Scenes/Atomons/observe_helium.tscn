@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://ce35j85gw40gb"]
+
+[ext_resource type="Script" uid="uid://cyqid38quwfiu" path="res://Scripts/Quest/observe_mercury.gd" id="1_50d7c"]
+[ext_resource type="Texture2D" uid="uid://cxil1wcterkts" path="res://Assets/Pets/helium_anim.png" id="2_50d7c"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="3_uk0ag"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uk0ag"]
+atlas = ExtResource("2_50d7c")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yuvka"]
+atlas = ExtResource("2_50d7c")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwgjc"]
+atlas = ExtResource("2_50d7c")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vgfj"]
+atlas = ExtResource("2_50d7c")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uk06"]
+atlas = ExtResource("2_50d7c")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2b13l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uk0ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yuvka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwgjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vgfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2uk06")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 9.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4w2o"]
+radius = 13.0
+height = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
+atlas = ExtResource("3_uk0ag")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
+atlas = ExtResource("3_uk0ag")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
+atlas = ExtResource("3_uk0ag")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
+atlas = ExtResource("3_uk0ag")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
+atlas = ExtResource("3_uk0ag")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vyini"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d07v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyadn")
+}],
+"loop": true,
+"name": &"highlight",
+"speed": 9.0
+}]
+
+[node name="HeliumObservation" type="CharacterBody2D" unique_id=238339346 groups=["QuestObjects"]]
+script = ExtResource("1_50d7c")
+target_id = "helium"
+dialogue_timeline = "observe_helium"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=929656731]
+sprite_frames = SubResource("SpriteFrames_2b13l")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.7311262
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=535710934]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_m4w2o")
+
+[node name="Highlight" type="AnimatedSprite2D" parent="." unique_id=1013815157]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7921569)
+scale = Vector2(1.0625, 1.09375)
+sprite_frames = SubResource("SpriteFrames_vyini")
+animation = &"highlight"
+autoplay = "highlight"
+
+[node name="BubbleMarker" type="Marker2D" parent="." unique_id=1652428399]

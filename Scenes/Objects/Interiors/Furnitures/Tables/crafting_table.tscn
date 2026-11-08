@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cnknbvde52cdg"]
+
+[ext_resource type="Script" uid="uid://btclye2e15bis" path="res://Scripts/crafting_table.gd" id="1_45wlo"]
+[ext_resource type="Texture2D" uid="uid://djkp5s2lormm3" path="res://Assets/Structures/Interiors/Furnitures/Tables/lectern.png" id="1_bq638"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="3_uw5v4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bq638"]
+size = Vector2(16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
+atlas = ExtResource("3_uw5v4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
+atlas = ExtResource("3_uw5v4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
+atlas = ExtResource("3_uw5v4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
+atlas = ExtResource("3_uw5v4")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
+atlas = ExtResource("3_uw5v4")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jcsr6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d07v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyadn")
+}],
+"loop": true,
+"name": &"highlight",
+"speed": 9.0
+}]
+
+[node name="Crafting Table" type="StaticBody2D" unique_id=767954347]
+script = ExtResource("1_45wlo")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1433241773]
+position = Vector2(0, -2)
+texture = ExtResource("1_bq638")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=388228334]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_bq638")
+
+[node name="Highlight" type="AnimatedSprite2D" parent="." unique_id=342910324]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7921569)
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_jcsr6")
+animation = &"highlight"
+autoplay = "highlight"

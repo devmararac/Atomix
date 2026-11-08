@@ -1,0 +1,71 @@
+{
+	"npc_1": {
+		"tree": [
+			{
+				"branch_id": "npc_1_1",
+				"dialouges": [
+					{
+						"state": "start",
+						"text": "Hello Wonderer! What do you need?",
+						"options": {
+							"Ask About Town": "in_progress",
+							"Recieve Quest": "give_quests",
+							"Say Goodbye": "exit"
+						} 
+					},
+					{
+						"state": "in_progress",
+						"text": "This Atomonia, It is a small village found in the Southwest area of the entire Chemistria Continent.",
+						"options": {
+							"Go Back": "start",
+							"Recieve Quest": "give_quests",
+							"Say Goodbye": "exit"
+						} 
+					},
+					{
+						"state": "give_quests",
+						"text": "Sure! Here take on this one, go to your Quest Log",
+						"options": {
+							"Go Back": "start",
+							"Say Goodbye": "end"
+						} 
+					},
+					{
+						"state": "exit",
+						"text": "Goodbye Wonderer.... Have a nice day!",
+						"options": {} 
+					},
+					{
+						"state": "end",
+						"text": "Come talk to me again if you want.",
+						"options": {} 
+					}
+				]
+			},
+			{
+				"branch_id": "npc_1_2",
+				"dialouges": []
+			},
+			{
+				"branch_id": "npc_1_default",
+				"dialouges": []
+			}
+		]
+	},
+	"npc_2": {
+		"tree": [
+			{
+				"branch_id": "npc_2_1",
+				"dialouges": []
+			},
+			{
+				"branch_id": "npc_2_2",
+				"dialouges": []
+			},
+			{
+				"branch_id": "npc_2_default",
+				"dialouges": []
+			}
+		]
+	}
+}

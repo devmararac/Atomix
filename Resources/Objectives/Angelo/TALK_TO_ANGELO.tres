@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://ci57a7jqnrqtx"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_4povd"]
+
+[resource]
+script = ExtResource("1_4povd")
+id = "talk_angelo"
+description = "Speak to Angelo"
+target_id = "npc_tester"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

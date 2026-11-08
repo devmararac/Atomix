@@ -1,0 +1,20 @@
+linos: You're back.
+linos: Did you find them?
+Player: I did.
+Player: They weren't in danger.
+Player: They had gathered near the beach.
+linos: I suspected as much.
+linos: Hydrogen are naturally attracted to unusual energy.
+linos: It's good to know they're safe.
+linos: You've done Atomonia a great service.
+[signal arg="objective:quest_hydrogen_001:report_linos"]
+linos: Actually...
+linos: While you were away, another problem appeared...
+linos: Some Iron Atomon have been scattering metal fragments around the eastern mine.
+linos: Would you mind helping us again?
+- Sure..
+	linos: Ohhh..... Thank you traveler...
+	[signal arg="quest_accept:quest_collect_iron"]
+- Nah... I'm tired bruh.
+	linos: Alright then, maybe next time...
+	[end_timeline]

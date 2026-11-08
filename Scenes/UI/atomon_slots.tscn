@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b5qi11rfhw83q"]
+
+[ext_resource type="Texture2D" uid="uid://cv3y2ucbjs3cb" path="res://Assets/UX/HUD/Panels/slot.png" id="1_o20bk"]
+[ext_resource type="Texture2D" uid="uid://cd8ibfrdd7n5p" path="res://Assets/UX/HUD/Panels/slot_pressed.png" id="2_ral00"]
+[ext_resource type="Script" uid="uid://2sy5lq2c88fb" path="res://Scripts/atomon_slots.gd" id="3_s46om"]
+
+[node name="Slot" type="TextureButton" unique_id=2030275118]
+custom_minimum_size = Vector2(120, 120)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+texture_normal = ExtResource("1_o20bk")
+texture_pressed = ExtResource("2_ral00")
+stretch_mode = 0
+script = ExtResource("3_s46om")
+
+[node name="AtomonSprite" type="TextureRect" parent="." unique_id=47241108]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 3
+stretch_mode = 5

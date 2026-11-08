@@ -1,0 +1,2 @@
+Angelo: You're back! The iron shards are scattered around the crater. Bring me 5 of them.
+[signal arg="quest_notify:quest_iron_core:talk_angelo"]

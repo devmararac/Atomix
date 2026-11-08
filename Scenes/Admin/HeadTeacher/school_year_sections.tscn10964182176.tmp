@@ -1,0 +1,313 @@
+[gd_scene format=3 uid="uid://bwahit2l8s2ep"]
+
+[ext_resource type="Script" uid="uid://b1eyepypsiksj" path="res://Scripts/Admin/HeadTeacher/school_year_sections.gd" id="1_lg7dt"]
+[ext_resource type="Texture2D" uid="uid://dcj47y62par14" path="res://Assets/UX/Icons/school_year.png" id="2_eff36"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_d8ijw"]
+[ext_resource type="Texture2D" uid="uid://cdwjdhdw1isrn" path="res://Assets/UX/Icons/add_sy.png" id="4_0ppta"]
+[ext_resource type="Texture2D" uid="uid://n243x7ilxcl3" path="res://Assets/UX/Icons/arhive.png" id="5_21xdy"]
+[ext_resource type="Texture2D" uid="uid://cnlndd5ts554m" path="res://Assets/UX/Icons/add.png" id="6_13ah6"]
+[ext_resource type="PackedScene" uid="uid://dg63a3qipqp8u" path="res://Scenes/Admin/HeadTeacher/class_cards.tscn" id="7_21xdy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc17b"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sci15"]
+color = Color(0, 0, 0, 0.40392157)
+thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ppta"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iowkw"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjxyk"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xyf6o"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_58yuv"]
+color = Color(0, 0, 0, 0.47058824)
+thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qdri"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="SchoolYearSections" type="Control" unique_id=398741857]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("1_lg7dt")
+
+[node name="Background" type="Panel" parent="." unique_id=1352837722]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cc17b")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background" unique_id=788784807]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 7.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Background/ScrollContainer" unique_id=542610711]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer" unique_id=1044554911]
+custom_minimum_size = Vector2(1900, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1416396626]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=641472561]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_eff36")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=747430883]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 30
+text = "School Year & Section"
+
+[node name="HSeparator" type="HSeparator" parent="Background/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1304632436]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_sci15")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer" unique_id=796941333]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer" unique_id=606879715]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 30
+text = "Active School Year"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer" unique_id=1432763413]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Panel" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=1145902165]
+custom_minimum_size = Vector2(500, 130)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ppta")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/Panel" unique_id=1968761079]
+layout_mode = 0
+offset_right = 1924.0
+offset_bottom = 129.0
+theme_override_constants/separation = 1650
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer" unique_id=1715707067]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer" unique_id=890289162]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 30
+text = "Year"
+
+[node name="Label2" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/VBoxContainer" unique_id=1445380078]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 16
+text = "Current School Year"
+
+[node name="Label2" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer" unique_id=1955657203]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 16
+text = "Active"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=1278095230]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="AddSYButton" type="Button" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=973535721]
+custom_minimum_size = Vector2(800, 130)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_iowkw")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_mjxyk")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/AddSYButton" unique_id=134085644]
+layout_mode = 0
+offset_right = 937.0
+offset_bottom = 148.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/AddSYButton/HBoxContainer" unique_id=1727687309]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_0ppta")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/AddSYButton/HBoxContainer" unique_id=1196995657]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 16
+text = "Add School Year"
+horizontal_alignment = 1
+
+[node name="ArchiveButton" type="Button" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=35813474]
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_xyf6o")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_mjxyk")
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/ArchiveButton" unique_id=908449988]
+layout_mode = 0
+offset_right = 937.0
+offset_bottom = 148.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/ArchiveButton/HBoxContainer2" unique_id=1821137235]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_21xdy")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/ArchiveButton/HBoxContainer2" unique_id=2101517283]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 16
+text = "Archive School Year"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Background/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1039823267]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_58yuv")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer" unique_id=669961569]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2" unique_id=715327230]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 30
+text = "Section Management"
+
+[node name="HSeparator" type="HSeparator" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2" unique_id=1396923943]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2" unique_id=1631980797]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 25
+text = "Add Section"
+
+[node name="Label3" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2" unique_id=1619714002]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 20
+text = "Section Name:	"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2" unique_id=1821611451]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Panel" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer" unique_id=1795584253]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ppta")
+
+[node name="LineEdit" type="LineEdit" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer/Panel" unique_id=347064588]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0.40392157)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_1qdri")
+placeholder_text = "Section Name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer" unique_id=1743657627]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="AddSYButton" type="Button" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1231329117]
+custom_minimum_size = Vector2(500, 80)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_iowkw")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_mjxyk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/AddSYButton" unique_id=167668529]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 80.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/AddSYButton/HBoxContainer" unique_id=1437153671]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_13ah6")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/AddSYButton/HBoxContainer" unique_id=1148244342]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("3_d8ijw")
+theme_override_font_sizes/font_size = 16
+text = "Add Section"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer" unique_id=676037751]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 50
+columns = 2
+
+[node name="ClassCards" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer/GridContainer" unique_id=2009572087 instance=ExtResource("7_21xdy")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ClassCards2" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer2/VBoxContainer/GridContainer" unique_id=1901625474 instance=ExtResource("7_21xdy")]
+layout_mode = 2
+size_flags_horizontal = 0

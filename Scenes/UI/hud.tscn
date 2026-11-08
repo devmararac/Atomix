@@ -1,0 +1,273 @@
+[gd_scene format=3 uid="uid://58her1ab75n5"]
+
+[ext_resource type="Script" uid="uid://begg130in27no" path="res://Scripts/hud.gd" id="1_pc4p0"]
+[ext_resource type="Texture2D" uid="uid://dpnm15k375nho" path="res://Assets/UX/HUD/Panels/frame_big_2.png" id="2_iiebs"]
+[ext_resource type="Script" uid="uid://ds1u02nemnxqg" path="res://Scripts/quest_tracker.gd" id="2_pc4p0"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_iiebs"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="5_3omb4"]
+[ext_resource type="Texture2D" uid="uid://b38ioxy8g5fta" path="res://Assets/UX/Buttons/Normal/button_Interact.png" id="6_e17ao"]
+[ext_resource type="Texture2D" uid="uid://07tyqohijvey" path="res://Assets/UX/Buttons/Normal/button_Action.png" id="7_0hfmd"]
+[ext_resource type="Texture2D" uid="uid://bf56bu8glsj5q" path="res://Assets/UX/Buttons/On-Pressed/button_Interact_Pressed.png" id="7_iiebs"]
+[ext_resource type="Texture2D" uid="uid://cjxpmwm0fultq" path="res://Assets/UX/Buttons/On-Pressed/button_Action_Pressed.png" id="9_n5w8m"]
+[ext_resource type="Texture2D" uid="uid://oedy3oeap3my" path="res://Assets/UX/Buttons/Normal/reset_button.png" id="10_yxyk2"]
+[ext_resource type="Texture2D" uid="uid://lssmb8lh7mtp" path="res://Assets/UX/Buttons/Normal/item_menu.png" id="12_mgdch"]
+[ext_resource type="Texture2D" uid="uid://dodagbimt4hod" path="res://Assets/UX/Buttons/On-Pressed/item_menu_pressed.png" id="13_k32gu"]
+[ext_resource type="Texture2D" uid="uid://dpi2iiv05q52w" path="res://Assets/UX/Buttons/Normal/atomon_menu.png" id="14_yl4g0"]
+[ext_resource type="Texture2D" uid="uid://dlhprws6d8wgm" path="res://Assets/UX/Buttons/On-Pressed/atomon_menu_pressed.png" id="15_jxctp"]
+[ext_resource type="Texture2D" uid="uid://bdmvxkk8ovutr" path="res://Assets/UX/Buttons/Normal/save_button.png" id="16_q71jo"]
+[ext_resource type="Texture2D" uid="uid://bowa83cnnak3m" path="res://Assets/UX/Buttons/On-Pressed/save_button_pressed.png" id="17_81d8i"]
+[ext_resource type="Texture2D" uid="uid://baaxhvf47gthw" path="res://Assets/UX/Buttons/Normal/load_button.png" id="18_njpji"]
+[ext_resource type="Texture2D" uid="uid://be752msv6ngp" path="res://Assets/UX/Buttons/On-Pressed/load_button_pressed.png" id="19_wae4w"]
+[ext_resource type="AudioStream" uid="uid://nc0rgldh1q75" path="res://Assets/Music/SFX/click.wav" id="25_n5w8m"]
+[ext_resource type="Texture2D" uid="uid://4gkicblfys6k" path="res://Assets/UX/HUD/Panels/slot_big_pressed.png" id="26_yxyk2"]
+[ext_resource type="Script" uid="uid://r2e52tv6o0w4" path="res://Scripts/hot_bar.gd" id="27_yxyk2"]
+[ext_resource type="PackedScene" uid="uid://b7216b326p7rv" path="res://Scenes/UI/item_slot.tscn" id="29_f1jpe"]
+[ext_resource type="Texture2D" uid="uid://e684byx18ghc" path="res://Assets/UX/HUD/Panels/slot - Copy.png" id="30_mgdch"]
+[ext_resource type="Texture2D" uid="uid://c1ci74yagfgra" path="res://Assets/UX/HUD/Panels/slot_pressed - Copy.png" id="31_k32gu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n5w8m"]
+texture = ExtResource("2_iiebs")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tracker_sep"]
+content_margin_top = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yl4g0"]
+texture = ExtResource("26_yxyk2")
+texture_margin_left = 9.0
+texture_margin_right = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skip"]
+bg_color = Color(0.8, 0.2, 0.2, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.9, 0.9, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="HUD" type="CanvasLayer" unique_id=116850924 groups=["HUD"]]
+script = ExtResource("1_pc4p0")
+
+[node name="QuestTracker" type="PanelContainer" parent="." unique_id=159889323 groups=["QuestTracker"]]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -360.0
+offset_top = 20.0
+offset_right = -20.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_n5w8m")
+script = ExtResource("2_pc4p0")
+
+[node name="Margin" type="MarginContainer" parent="QuestTracker" unique_id=1000000001]
+layout_mode = 2
+theme_override_constants/margin_left = 31
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 31
+theme_override_constants/margin_bottom = 14
+
+[node name="VBox" type="VBoxContainer" parent="QuestTracker/Margin" unique_id=1000000002]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="QuestTracker/Margin/VBox" unique_id=1124851064]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("3_iiebs")
+theme_override_font_sizes/font_size = 22
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+uppercase = true
+
+[node name="Separator" type="Panel" parent="QuestTracker/Margin/VBox" unique_id=1000000003]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tracker_sep")
+
+[node name="Objectives" type="VBoxContainer" parent="QuestTracker/Margin/VBox" unique_id=1410001563]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ActionButtons" type="HBoxContainer" parent="." unique_id=1631709524]
+anchors_preset = -1
+anchor_left = 0.792
+anchor_top = 0.668
+anchor_right = 0.985
+anchor_bottom = 0.962
+offset_left = -0.16003418
+offset_top = 0.040008545
+offset_right = -253.8241
+offset_bottom = -140.50696
+scale = Vector2(2.9811127, 2.979179)
+
+[node name="Interact" type="TouchScreenButton" parent="ActionButtons" unique_id=814973628]
+position = Vector2(-1.006, 2.685)
+scale = Vector2(1.37, 1.37)
+texture_normal = ExtResource("6_e17ao")
+texture_pressed = ExtResource("7_iiebs")
+action = "Interact"
+
+[node name="Action" type="TouchScreenButton" parent="ActionButtons" unique_id=663166077]
+position = Vector2(63.734, 2.685)
+scale = Vector2(1.37, 1.37)
+texture_normal = ExtResource("7_0hfmd")
+texture_pressed = ExtResource("9_n5w8m")
+action = "Action"
+
+[node name="MenuButtons" type="Button" parent="." unique_id=748391866]
+visible = false
+anchors_preset = -1
+anchor_left = 0.17
+anchor_top = 0.007
+anchor_right = 0.27400002
+anchor_bottom = 0.13900001
+offset_left = 0.3999939
+offset_top = 0.96000004
+offset_right = 269.47998
+offset_bottom = -0.08000946
+flat = true
+
+[node name="Restart" type="TouchScreenButton" parent="MenuButtons" unique_id=451295116]
+position = Vector2(109.00001, -3)
+scale = Vector2(2.46875, 2.7187502)
+texture_normal = ExtResource("10_yxyk2")
+texture_pressed = ExtResource("10_yxyk2")
+action = "Quest"
+
+[node name="Item" type="TouchScreenButton" parent="MenuButtons" unique_id=56811029]
+position = Vector2(2, -4)
+scale = Vector2(3.1562507, 2.7187498)
+texture_normal = ExtResource("12_mgdch")
+texture_pressed = ExtResource("13_k32gu")
+
+[node name="Atomons" type="TouchScreenButton" parent="MenuButtons" unique_id=230543426]
+position = Vector2(191, -32)
+scale = Vector2(2.8749998, 4.125)
+texture_normal = ExtResource("14_yl4g0")
+texture_pressed = ExtResource("15_jxctp")
+
+[node name="Save" type="TouchScreenButton" parent="MenuButtons" unique_id=1622670849]
+position = Vector2(294, 0)
+scale = Vector2(2.5, 2.7857144)
+texture_normal = ExtResource("16_q71jo")
+texture_pressed = ExtResource("17_81d8i")
+
+[node name="Load" type="TouchScreenButton" parent="MenuButtons" unique_id=961387668]
+position = Vector2(385, 0)
+scale = Vector2(2.5, 2.7857144)
+texture_normal = ExtResource("18_njpji")
+texture_pressed = ExtResource("19_wae4w")
+
+[node name="VirtualJoystick" parent="." unique_id=550804456 instance=ExtResource("5_3omb4")]
+anchor_left = 0.013
+anchor_top = 0.523
+anchor_right = 0.187
+offset_left = -0.103998184
+offset_top = 0.2640686
+offset_right = -44.624084
+offset_bottom = -43.175964
+scale = Vector2(1.1519414, 1.1787175)
+size_flags_horizontal = 4
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1681849785]
+stream = ExtResource("25_n5w8m")
+volume_db = -18.2
+
+[node name="HotBar" type="Panel" parent="." unique_id=897005149]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -474.0
+offset_top = -131.0
+offset_right = 474.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_yl4g0")
+script = ExtResource("27_yxyk2")
+
+[node name="HotBarSlotContainer" type="HBoxContainer" parent="HotBar" unique_id=555014333]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.5
+offset_top = 8.0
+offset_right = -9.5
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemSlot" parent="HotBar/HotBarSlotContainer" unique_id=935584709 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot2" parent="HotBar/HotBarSlotContainer" unique_id=1519693495 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot3" parent="HotBar/HotBarSlotContainer" unique_id=1647758245 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot4" parent="HotBar/HotBarSlotContainer" unique_id=2018452969 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot5" parent="HotBar/HotBarSlotContainer" unique_id=891374665 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot6" parent="HotBar/HotBarSlotContainer" unique_id=1662194259 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot7" parent="HotBar/HotBarSlotContainer" unique_id=1662997821 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="ItemSlot8" parent="HotBar/HotBarSlotContainer" unique_id=542670108 instance=ExtResource("29_f1jpe")]
+layout_mode = 2
+
+[node name="Menu" type="TextureButton" parent="HotBar/HotBarSlotContainer" unique_id=1303642027]
+custom_minimum_size = Vector2(99, 50)
+layout_mode = 2
+texture_normal = ExtResource("30_mgdch")
+texture_pressed = ExtResource("31_k32gu")
+stretch_mode = 0
+
+[node name="SkipLayer" type="CanvasLayer" parent="." unique_id=225495637]
+layer = 20
+
+[node name="SkipButton" type="Button" parent="SkipLayer" unique_id=1741108967]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 70.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_iiebs")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_skip")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_skip")
+theme_override_styles/hover = SubResource("StyleBoxFlat_skip")
+text = "SKIP >>"
+
+[connection signal="pressed" from="MenuButtons/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="MenuButtons/Item" to="." method="_on_item_pressed"]
+[connection signal="pressed" from="MenuButtons/Atomons" to="." method="_on_atomons_pressed"]
+[connection signal="pressed" from="MenuButtons/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="MenuButtons/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="HotBar/HotBarSlotContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="SkipLayer/SkipButton" to="." method="_on_skip_pressed"]

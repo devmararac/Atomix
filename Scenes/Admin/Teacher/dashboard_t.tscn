@@ -1,0 +1,822 @@
+[gd_scene format=3 uid="uid://dosc0bh1ja74u"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_5iqrh"]
+[ext_resource type="Script" uid="uid://drlyoficyj0ow" path="res://Scripts/Admin/Teacher/dashboard_t.gd" id="1_m4cba"]
+[ext_resource type="Texture2D" uid="uid://soomem1fgoff" path="res://Assets/UX/Icons/icon_student.png" id="2_m4cba"]
+[ext_resource type="Texture2D" uid="uid://dg1jwfit0nxpa" path="res://Assets/UX/Icons/11698054.png" id="3_0he44"]
+[ext_resource type="Texture2D" uid="uid://b58fofxdk3iwf" path="res://Assets/UX/Icons/scores.png" id="4_fd7s5"]
+[ext_resource type="Script" uid="uid://cnybytiplokw1" path="res://Scripts/Admin/dashboard_graph.gd" id="5_py4n3"]
+[ext_resource type="PackedScene" uid="uid://cx1553fn6ur70" path="res://Scenes/Admin/Teacher/student_quiz_list.tscn" id="7_0he44"]
+[ext_resource type="PackedScene" uid="uid://b16f8ofyh5awg" path="res://Scenes/Admin/Teacher/student_atomon_list.tscn" id="8_fd7s5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vosoo"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+expand_margin_top = 13.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3icpx"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nlra"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3icpx"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkbup"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 1, 0.93333334, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6nlra"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_py4n3"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vosoo"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4cba"]
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0he44"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qkbup"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fd7s5"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fd7s5"]
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_py4n3"]
+bg_color = Color(1, 1, 0.92941177, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Dashboard" type="Control" unique_id=849136013]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_m4cba")
+
+[node name="Background" type="Panel" parent="." unique_id=1486046615]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_vosoo")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background" unique_id=579025931]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3icpx")
+
+[node name="CenterContainer" type="CenterContainer" parent="Background/ScrollContainer" unique_id=1341095013]
+custom_minimum_size = Vector2(1100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer" unique_id=637909587]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PageHeader" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer" unique_id=282028034]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeadingGroup" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/PageHeader" unique_id=970144414]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="PageTitle" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/PageHeader/HeadingGroup" unique_id=1053579206]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 40
+text = "Student Overview"
+
+[node name="PageSubtitle" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/PageHeader/HeadingGroup" unique_id=2140160578]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.48, 0.38, 0.29, 1)
+theme_override_font_sizes/font_size = 30
+text = "Monitor student activity and chemistry learning progress"
+
+[node name="StatsRow" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1484541718]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="TotalStudents" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow" unique_id=1804518171]
+custom_minimum_size = Vector2(533, 160)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_6nlra")
+
+[node name="CardContents" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/TotalStudents" unique_id=2021729651]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015000001
+anchor_right = 0.98200005
+anchor_bottom = 1.0
+offset_right = 0.19998169
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/TotalStudents/CardContents" unique_id=1073708797]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_m4cba")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/TotalStudents/CardContents" unique_id=1888092452]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/TotalStudents/CardContents/VBoxContainer" unique_id=1109157496]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 20
+text = "TOTAL STUDENTS"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/TotalStudents/CardContents/VBoxContainer" unique_id=2049253415]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/TotalStudents/CardContents/VBoxContainer" unique_id=421672300]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 0.65)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 20
+text = "Enrolled this term"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Sections" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow" unique_id=1920029421]
+custom_minimum_size = Vector2(533, 160)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_6nlra")
+
+[node name="CardContents" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/Sections" unique_id=1995971348]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015000001
+anchor_right = 0.98200005
+anchor_bottom = 1.0
+offset_right = 0.19998169
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/Sections/CardContents" unique_id=545738867]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_0he44")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/Sections/CardContents" unique_id=1439159809]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/Sections/CardContents/VBoxContainer" unique_id=2045159627]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 20
+text = "SECTION"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/Sections/CardContents/VBoxContainer" unique_id=2134015419]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/Sections/CardContents/VBoxContainer" unique_id=132204491]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 0.65)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 20
+text = "Section"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="QuizAverage" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow" unique_id=1675295483]
+custom_minimum_size = Vector2(533, 160)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_6nlra")
+
+[node name="CardContents" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/QuizAverage" unique_id=417327091]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.017
+anchor_right = 0.98200005
+anchor_bottom = 1.0
+offset_left = 0.19999981
+offset_right = 0.19998169
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/QuizAverage/CardContents" unique_id=1098116046]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4_fd7s5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/QuizAverage/CardContents" unique_id=1081927601]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/QuizAverage/CardContents/VBoxContainer" unique_id=1282153094]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 20
+text = "AVERAGE QUIZ SCORE"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Value" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/QuizAverage/CardContents/VBoxContainer" unique_id=2014322615]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/StatsRow/QuizAverage/CardContents/VBoxContainer" unique_id=872349684]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 0.65)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 20
+text = "Rating"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="GridContainer" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1630550386]
+custom_minimum_size = Vector2(1100, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="StudentperSection" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/GridContainer" unique_id=1411575362]
+custom_minimum_size = Vector2(1639, 550)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3icpx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/GridContainer/StudentperSection" unique_id=900282110]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.015000001
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -5.5
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="StudentPerSection" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/GridContainer/StudentperSection/VBoxContainer" unique_id=16119271]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "Student per Section"
+horizontal_alignment = 1
+
+[node name="GraphPanel" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/GridContainer/StudentperSection/VBoxContainer" unique_id=1979441329]
+custom_minimum_size = Vector2(1600, 460)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qkbup")
+script = ExtResource("5_py4n3")
+graph_type = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/GridContainer/StudentperSection/VBoxContainer/GraphPanel" unique_id=1755140684]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -4.8449707
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6nlra")
+
+[node name="CenterContainer" type="CenterContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/GridContainer/StudentperSection/VBoxContainer/GraphPanel/ScrollContainer" unique_id=327492907]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/GridContainer/StudentperSection/VBoxContainer/GraphPanel/ScrollContainer/CenterContainer" unique_id=648080285]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="QuizCompletion" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1282196083]
+custom_minimum_size = Vector2(1100, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="QuizCompletion2" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion" unique_id=415712137]
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3icpx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2" unique_id=682706109]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0050000004
+anchor_right = 0.98800004
+anchor_bottom = 0.99200004
+offset_left = 0.6499996
+offset_top = 2.0
+offset_right = 6.6679688
+offset_bottom = -3.0517578e-05
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Spacer" type="Control" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer" unique_id=1440387202]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer" unique_id=1974145102]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "Quiz Activity & Average Score by Section"
+
+[node name="GraphPanel" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer" unique_id=2069602476]
+custom_minimum_size = Vector2(750, 600)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qkbup")
+script = ExtResource("5_py4n3")
+graph_type = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer/GraphPanel" unique_id=2001671738]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -4.8449707
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_py4n3")
+
+[node name="CenterContainer" type="CenterContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer/GraphPanel/ScrollContainer" unique_id=1259987356]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer/GraphPanel/ScrollContainer/CenterContainer" unique_id=1364075456]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="CaptureProgress" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion" unique_id=1375042119]
+custom_minimum_size = Vector2(800, 700)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3icpx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/CaptureProgress" unique_id=756817349]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/CaptureProgress/VBoxContainer" unique_id=2009671335]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "  Atomon Collection Progress"
+
+[node name="Spacer" type="Control" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/CaptureProgress/VBoxContainer" unique_id=695461547]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="GraphPanel" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/CaptureProgress/VBoxContainer" unique_id=1758864879]
+custom_minimum_size = Vector2(750, 600)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qkbup")
+script = ExtResource("5_py4n3")
+graph_type = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/CaptureProgress/VBoxContainer/GraphPanel" unique_id=49971580]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vosoo")
+
+[node name="CenterContainer" type="CenterContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/CaptureProgress/VBoxContainer/GraphPanel/ScrollContainer" unique_id=1104893822]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/CaptureProgress/VBoxContainer/GraphPanel/ScrollContainer/CenterContainer" unique_id=915315465]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="StudentQuizList" type="Panel" parent="." unique_id=1468056279]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.21700001
+anchor_right = 0.823
+anchor_bottom = 1.0
+offset_left = -0.66000366
+offset_right = -0.54003906
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4cba")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StudentQuizList" unique_id=1273778052]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Control" type="Control" parent="StudentQuizList/VBoxContainer" unique_id=1358496783]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Titile" type="Label" parent="StudentQuizList/VBoxContainer" unique_id=1353593017]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "Quiz Completion List"
+horizontal_alignment = 1
+
+[node name="Section" type="Label" parent="StudentQuizList/VBoxContainer" unique_id=1257807826]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "Seciton"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="StudentQuizList/VBoxContainer" unique_id=962791572]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_0he44")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StudentQuizList/VBoxContainer/Panel" unique_id=1184606868]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.082
+anchor_right = 0.915
+anchor_bottom = 1.0
+offset_left = 0.5999985
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Name" type="Label" parent="StudentQuizList/VBoxContainer/Panel/HBoxContainer" unique_id=1128569983]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qkbup")
+text = "Name"
+
+[node name="QuizNumberTaken" type="Label" parent="StudentQuizList/VBoxContainer/Panel/HBoxContainer" unique_id=925871055]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qkbup")
+text = "Number of Completed Quiz"
+horizontal_alignment = 1
+
+[node name="OverallScoreAverage" type="Label" parent="StudentQuizList/VBoxContainer/Panel/HBoxContainer" unique_id=1681978855]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qkbup")
+text = "Averall Quiz Average"
+horizontal_alignment = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="StudentQuizList/VBoxContainer" unique_id=1902764424]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fd7s5")
+
+[node name="CenterContainer" type="CenterContainer" parent="StudentQuizList/VBoxContainer/ScrollContainer" unique_id=582955579]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StudentQuizList/VBoxContainer/ScrollContainer/CenterContainer" unique_id=458327355]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="StudentQuizList" parent="StudentQuizList/VBoxContainer/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1716944141 instance=ExtResource("7_0he44")]
+layout_mode = 2
+
+[node name="QuizListCloseButton" type="Button" parent="StudentQuizList/VBoxContainer" unique_id=871428916]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_fd7s5")
+text = "Close"
+
+[node name="Control2" type="Control" parent="StudentQuizList/VBoxContainer" unique_id=421895988]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="StudentAtomonList" type="Panel" parent="." unique_id=703728591]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.21900001
+anchor_right = 0.81900007
+anchor_bottom = 0.97200006
+offset_left = 0.37997437
+offset_top = -1.0
+offset_right = 12.379883
+offset_bottom = -0.84002686
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_py4n3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StudentAtomonList" unique_id=1211873903]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="Control" parent="StudentAtomonList/VBoxContainer" unique_id=771316359]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Titile" type="Label" parent="StudentAtomonList/VBoxContainer" unique_id=671041933]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "Quiz Completion List"
+horizontal_alignment = 1
+
+[node name="Section" type="Label" parent="StudentAtomonList/VBoxContainer" unique_id=1354165491]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 30
+text = "Seciton"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="StudentAtomonList/VBoxContainer" unique_id=2064541048]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_0he44")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StudentAtomonList/VBoxContainer/Panel" unique_id=500180513]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.010000001
+anchor_right = 0.99500006
+anchor_bottom = 1.0
+offset_right = -0.00012207031
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Spacer2" type="Control" parent="StudentAtomonList/VBoxContainer/Panel/HBoxContainer" unique_id=1761040224]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Number" type="Label" parent="StudentAtomonList/VBoxContainer/Panel/HBoxContainer" unique_id=100943789]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+text = "#"
+
+[node name="Spacer4" type="Control" parent="StudentAtomonList/VBoxContainer/Panel/HBoxContainer" unique_id=1615687831]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Name" type="Label" parent="StudentAtomonList/VBoxContainer/Panel/HBoxContainer" unique_id=1226640326]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+text = "Name"
+
+[node name="Spacer" type="Control" parent="StudentAtomonList/VBoxContainer/Panel/HBoxContainer" unique_id=966095900]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Name2" type="Label" parent="StudentAtomonList/VBoxContainer/Panel/HBoxContainer" unique_id=1203482651]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+text = "Number of Collected Atomon"
+horizontal_alignment = 1
+
+[node name="Spacer3" type="Control" parent="StudentAtomonList/VBoxContainer/Panel/HBoxContainer" unique_id=2005860809]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="StudentAtomonList/VBoxContainer" unique_id=1395159207]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="StudentAtomonList/VBoxContainer/ScrollContainer" unique_id=311730208]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StudentAtomonList/VBoxContainer/ScrollContainer/CenterContainer" unique_id=1958397733]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="StudentAtomonList" parent="StudentAtomonList/VBoxContainer/ScrollContainer/CenterContainer/VBoxContainer" unique_id=885455627 instance=ExtResource("8_fd7s5")]
+layout_mode = 2
+
+[node name="AtomonListCloseButton" type="Button" parent="StudentAtomonList/VBoxContainer" unique_id=637860303]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_5iqrh")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_fd7s5")
+text = "Close"
+
+[node name="Control2" type="Control" parent="StudentAtomonList/VBoxContainer" unique_id=1475442154]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 1
+
+[connection signal="pressed" from="StudentQuizList/VBoxContainer/QuizListCloseButton" to="." method="_on_quiz_list_close_button_pressed"]
+[connection signal="pressed" from="StudentAtomonList/VBoxContainer/AtomonListCloseButton" to="." method="_on_atomon_list_close_button_pressed"]

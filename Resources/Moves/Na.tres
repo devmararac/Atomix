@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://bmp3krn62o2le"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_4aqfs"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2_wbiug"]
+
+[resource]
+script = ExtResource("2_wbiug")
+move_name = "Na"
+description = "Crystal slash"
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"

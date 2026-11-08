@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://c4kb7j4v20s3b"]
+
+[ext_resource type="Texture2D" uid="uid://720l68rn3sqb" path="res://Assets/Structures/Wood Stuffs/store.png" id="1_7qo8v"]
+[ext_resource type="Script" uid="uid://4op7qyudm7oi" path="res://Scripts/store.gd" id="1_bal6h"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="2_bal6h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sc15i"]
+size = Vector2(51, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
+atlas = ExtResource("2_bal6h")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
+atlas = ExtResource("2_bal6h")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
+atlas = ExtResource("2_bal6h")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
+atlas = ExtResource("2_bal6h")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
+atlas = ExtResource("2_bal6h")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e1fpj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d07v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyadn")
+}],
+"loop": true,
+"name": &"highlight",
+"speed": 9.0
+}]
+
+[node name="Store" type="StaticBody2D" unique_id=1082374117]
+script = ExtResource("1_bal6h")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1979548641]
+texture = ExtResource("1_7qo8v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1830852824]
+shape = SubResource("RectangleShape2D_sc15i")
+
+[node name="Highlight" type="AnimatedSprite2D" parent="." unique_id=383952639]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7921569)
+scale = Vector2(2.9687498, 1.9374999)
+sprite_frames = SubResource("SpriteFrames_e1fpj")
+animation = &"highlight"
+autoplay = "highlight"

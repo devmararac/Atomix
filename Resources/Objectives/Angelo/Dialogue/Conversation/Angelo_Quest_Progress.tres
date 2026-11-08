@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="NPCConversation" format=3 uid="uid://gyn5t8ysntev"]
+
+[ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="1_7ua66"]
+[ext_resource type="Resource" uid="uid://du57mihae3shx" path="res://Resources/Quest/TRES_FOR_QUEST/quest_iron_core.tres" id="1_lutcf"]
+[ext_resource type="Resource" uid="uid://cdo416abgfuya" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Angelo/angelo_quest_progress.dtl" id="3_kkfbn"]
+
+[resource]
+script = ExtResource("1_7ua66")
+objective_id = "talk_angelo"
+conversation_name = "Angelo Quest Progress"
+conversation_type = 5
+quest = ExtResource("1_lutcf")
+timeline = ExtResource("3_kkfbn")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"

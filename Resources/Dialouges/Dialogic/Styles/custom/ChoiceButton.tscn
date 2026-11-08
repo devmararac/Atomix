@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://caqp8ve3mybc5"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_gj1d8"]
+[ext_resource type="Script" uid="uid://bldt7xlfum7ov" path="res://addons/dialogic/Modules/Choice/node_choice_button.gd" id="1_mw02o"]
+[ext_resource type="Texture2D" uid="uid://cv3y2ucbjs3cb" path="res://Assets/UX/HUD/Panels/slot.png" id="3_gj1d8"]
+
+[node name="DialogicNode_ChoiceButton" type="Button" unique_id=965259924 node_paths=PackedStringArray("text_node")]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(620, 100)
+offset_right = 611.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_focus_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_hover_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_outline_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_gj1d8")
+theme_override_font_sizes/font_size = 20
+script = ExtResource("1_mw02o")
+text_node = NodePath("ChoicesText")
+metadata/_custom_type_script = "uid://bldt7xlfum7ov"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2071726954]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gj1d8")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="ChoicesText" type="Label" parent="." unique_id=207787780]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -15.5
+offset_right = 56.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_gj1d8")
+theme_override_font_sizes/font_size = 30
+text = "Sample"

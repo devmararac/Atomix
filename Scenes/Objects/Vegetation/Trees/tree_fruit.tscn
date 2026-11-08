@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cpwvkll7i2gee"]
+
+[ext_resource type="Texture2D" uid="uid://bk6no6tkk6vko" path="res://Assets/Structures/Vegitations/Trees/fruit_bearing.png" id="1_f3bpn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qllrn"]
+size = Vector2(14, 10)
+
+[node name="Tree_Fruit" type="Node2D" unique_id=1420703391]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1711545436]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1567865987]
+position = Vector2(0, -9)
+texture = ExtResource("1_f3bpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1463126113]
+shape = SubResource("RectangleShape2D_qllrn")

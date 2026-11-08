@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://b4enhhrcibdu"]
+
+[ext_resource type="Script" uid="uid://efkasa2ohne5" path="res://Scripts/area_title.gd" id="1_o6xl8"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_2duld"]
+
+[node name="AreaTitle" type="CanvasLayer" unique_id=218755093]
+layer = 100
+script = ExtResource("1_o6xl8")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1957337992]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=340047753]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="AreaName" type="Label" parent="CenterContainer/VBoxContainer" unique_id=353847984]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("2_2duld")
+theme_override_font_sizes/font_size = 61
+text = "Atomonia Village"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1485245062]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 0.5176471)
+theme_override_fonts/font = ExtResource("2_2duld")
+theme_override_font_sizes/font_size = 26
+text = "Area"
+horizontal_alignment = 1

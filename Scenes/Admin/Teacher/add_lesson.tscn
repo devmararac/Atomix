@@ -1,0 +1,371 @@
+[gd_scene format=3 uid="uid://2nbmh6b63wlq"]
+
+[ext_resource type="Script" uid="uid://iqq8l0e6j2wu" path="res://Scripts/Admin/Teacher/add_lesson.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_hijon"]
+[ext_resource type="Texture2D" uid="uid://c7h0k3ji2wgdx" path="res://Assets/UX/Icons/upload-big-arrow.png" id="3_6q2hs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Form"]
+bg_color = Color(0.98, 0.93, 0.84, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.694118, 0.521569, 0.301961, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Input"]
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6q2hs"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.57, 0.4617, 0.3534, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hijon"]
+bg_color = Color(0.92941177, 0.827451, 0.6901961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button"]
+bg_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="AddLesson" type="Control" unique_id=1840600737]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_script")
+
+[node name="PageBackground" type="Panel" parent="." unique_id=188121946]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_Page")
+
+[node name="Title" type="Label" parent="." unique_id=1965042206]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.018000001
+anchor_top = 0.039
+anchor_right = 0.41200003
+anchor_bottom = 0.11000001
+offset_left = 0.3599968
+offset_top = -0.07999992
+offset_right = 0.2399292
+offset_bottom = -6.2000046
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 50
+text = "Add Lesson"
+
+[node name="Subtitle" type="Label" parent="Title" unique_id=68760091]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.882
+anchor_right = 1.0
+anchor_bottom = 1.4710001
+offset_left = 2.0
+offset_top = 0.017997742
+offset_bottom = -0.021003723
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.5686275, 0.4627451, 0.3529412, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 25
+text = "Create a lesson for your students."
+
+[node name="FormPanel" type="Panel" parent="." unique_id=1452422701]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.012
+anchor_top = 0.158
+anchor_right = 0.98600006
+anchor_bottom = 0.97200006
+offset_left = 0.23999977
+offset_top = 0.23999786
+offset_right = -0.28015137
+offset_bottom = 0.15997314
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_Form")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FormPanel" unique_id=614649754]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015000001
+anchor_right = 0.9850001
+anchor_bottom = 0.998
+offset_left = -0.920002
+offset_right = 0.9197998
+offset_bottom = 0.17199707
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FormPanel/VBoxContainer" unique_id=1699324431]
+custom_minimum_size = Vector2(0, 480)
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FormPanel/VBoxContainer/HBoxContainer" unique_id=1599111255]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=78761660]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1357256772]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="TitleLabel" type="Label" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=2079914776]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 25
+text = "Lesson Title"
+
+[node name="TitleInput" type="LineEdit" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=1620763742]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.5686275, 0.4627451, 0.3529412, 0.4745098)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter lesson title..."
+clear_button_enabled = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1706170208]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="SubjectLabel" type="Label" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1941604061]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 25
+text = "Subject"
+
+[node name="SubjectInput" type="LineEdit" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=28340583]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_colors/font_placeholder_color = Color(0.5686275, 0.4627451, 0.3529412, 0.4745098)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "e.g. Chemistry"
+clear_button_enabled = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1824951492]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1648485926]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 25
+text = "Description"
+
+[node name="DescriptionInput" type="TextEdit" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1647728772]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/search_result_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_colors/font_placeholder_color = Color(0.5686275, 0.4627451, 0.3529412, 0.4745098)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+placeholder_text = "Enter lesson description..."
+
+[node name="Spacer" type="Control" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=961630081]
+custom_minimum_size = Vector2(810, 5)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="StatusLabel" type="Label" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=742925177]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="FormPanel/VBoxContainer/HBoxContainer" unique_id=390789631]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="FileLabel" type="Label" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer4" unique_id=2003083755]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 25
+text = "Lesson File"
+
+[node name="Panel" type="Panel" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer4" unique_id=328444153]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_6q2hs")
+
+[node name="Label" type="Label" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer4/Panel" unique_id=561396670]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.268
+anchor_right = 0.99700004
+anchor_bottom = 0.46
+offset_top = 11.0
+offset_right = 0.39996338
+offset_bottom = 11.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 30
+text = "Select a File to Upload"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChooseFileButton" type="Button" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer4/Panel" unique_id=1083080292]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 162.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_hijon")
+text = "Choose Lesson File"
+
+[node name="TextureRect" type="TextureRect" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer4/Panel" unique_id=1728175013]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.48600003
+anchor_top = 0.08400001
+anchor_right = 0.549
+anchor_bottom = 0.284
+offset_left = 0.19998169
+offset_right = -10.200012
+offset_bottom = -10.0
+texture = ExtResource("3_6q2hs")
+expand_mode = 1
+
+[node name="FileNameLabel" type="Label" parent="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer4" unique_id=977352276]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 25
+text = "No file selected"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="FormPanel/VBoxContainer" unique_id=2125219925]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+
+[node name="CancelButton" type="Button" parent="FormPanel/VBoxContainer/ButtonContainer" unique_id=502325695]
+custom_minimum_size = Vector2(150, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
+text = "Cancel"
+
+[node name="CreateButton" type="Button" parent="FormPanel/VBoxContainer/ButtonContainer" unique_id=1755489775]
+custom_minimum_size = Vector2(180, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 0.95, 0.85, 1)
+theme_override_fonts/font = ExtResource("2_hijon")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "Create Lesson"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=2134028285]
+oversampling_override = 1.0
+title = "Open a File"
+position = Vector2i(0, 36)
+size = Vector2i(900, 600)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.pdf ; PDF Documents", "*.docx ; Word Documents", "*.pptx ; PowerPoint Presentations")
+use_native_dialog = true
+
+[connection signal="pressed" from="FormPanel/VBoxContainer/HBoxContainer/VBoxContainer4/Panel/ChooseFileButton" to="." method="_on_choose_file_button_pressed"]
+[connection signal="pressed" from="FormPanel/VBoxContainer/ButtonContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="FormPanel/VBoxContainer/ButtonContainer/CreateButton" to="." method="_on_create_button_pressed"]

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://v6hkwww2hicv"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_weo22"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_64bqh"]
+
+[resource]
+script = ExtResource("2_64bqh")
+metadata/_custom_type_script = "uid://dvv118enrwub6"

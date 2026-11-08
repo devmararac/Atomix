@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://cmdgyekgyryrx"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_2wf5r"]
+
+[resource]
+script = ExtResource("1_2wf5r")
+id = "collect_iron"
+description = "Collect Iron Ores"
+type = 1
+target_id = "item_001"
+required_amount = 5
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

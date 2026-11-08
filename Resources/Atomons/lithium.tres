@@ -1,0 +1,173 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://b3t7logynq7t3"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_eeq8w"]
+[ext_resource type="Resource" uid="uid://d2c8jh5kdqdbf" path="res://Resources/Moves/Li_01.tres" id="2_ate31"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_li51x"]
+[ext_resource type="Resource" uid="uid://bk01vt3wq18sa" path="res://Resources/Moves/Li_02.tres" id="3_c6hvg"]
+[ext_resource type="Resource" uid="uid://bu4443v8q0bp2" path="res://Resources/Moves/Li_03.tres" id="4_c5foc"]
+[ext_resource type="Resource" uid="uid://l4vw13dgp4lk" path="res://Resources/Moves/Li_04.tres" id="5_arvx7"]
+[ext_resource type="Texture2D" uid="uid://8r74fjlwkib6" path="res://Assets/Atomon Portraits/liggorr_lithium.png" id="7_c6hvg"]
+[ext_resource type="Texture2D" uid="uid://da653armnwpqy" path="res://Assets/Pets/Lithium-walk.png" id="8_oalnc"]
+[ext_resource type="Texture2D" uid="uid://ct10edbjpkamm" path="res://Assets/UX/Icons/AtomicImage/icon_case.png" id="9_805st"]
+[ext_resource type="Texture2D" uid="uid://rfmt66htqnxw" path="res://Assets/Pets/Lithium-idle.png" id="9_c5foc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arvx7"]
+atlas = ExtResource("9_c5foc")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d2ur"]
+atlas = ExtResource("9_c5foc")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_echy7"]
+atlas = ExtResource("9_c5foc")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijnmy"]
+atlas = ExtResource("9_c5foc")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sewuy"]
+atlas = ExtResource("9_c5foc")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xk1pk"]
+atlas = ExtResource("9_c5foc")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbqos"]
+atlas = ExtResource("9_c5foc")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhc4r"]
+atlas = ExtResource("9_c5foc")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxmie"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1iy6"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avvwv"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68iml"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg3g0"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3aye"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pttmf"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_el7vl"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qiav8"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_017fv"]
+atlas = ExtResource("8_oalnc")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bxmr3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arvx7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d2ur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_echy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijnmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sewuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xk1pk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbqos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhc4r")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxmie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1iy6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avvwv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68iml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg3g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3aye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pttmf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_el7vl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qiav8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_017fv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_li51x")
+atom_name = "Lithum"
+chemical_symbol = "Li"
+atomic_number = 3
+alias = "Liggorr"
+sprite_frames = SubResource("SpriteFrames_bxmr3")
+symbol = ExtResource("9_805st")
+portrait = ExtResource("7_c6hvg")
+atomic_mass = 6.94
+density = 0.5339999999999999
+ionization_energy = 5.39172
+electronegativity = 0.912
+electron_affinity = 59.629999999999995
+valence_electrons = 1
+mass_number = 7
+element_type = "Alkali Metal"
+state = "Solid"
+period = 2
+moves = Array[ExtResource("1_eeq8w")]([ExtResource("2_ate31"), ExtResource("3_c6hvg"), ExtResource("4_c5foc"), ExtResource("5_arvx7")])
+metadata/_custom_type_script = "uid://dvv118enrwub6"

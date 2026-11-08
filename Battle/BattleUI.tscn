@@ -1,0 +1,591 @@
+[gd_scene format=3 uid="uid://dt8gf8kooo5ld"]
+
+[ext_resource type="Script" uid="uid://bbjhgeseekw7p" path="res://Battle/BattleUI.gd" id="1_8n08m"]
+[ext_resource type="Texture2D" uid="uid://b2tlf7vrqfluo" path="res://Assets/battle_bg_1.png" id="1_x1u45"]
+[ext_resource type="Texture2D" uid="uid://dnuinyny5lcj6" path="res://Assets/UX/HUD/Bars/info_bar.png" id="3_77877"]
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="3_b00jw"]
+[ext_resource type="Texture2D" uid="uid://dumectpjifch1" path="res://Assets/UX/HUD/Bars/under_bar.png" id="5_4cw33"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="5_4iy4j"]
+[ext_resource type="Texture2D" uid="uid://ddm8852ib8nxe" path="res://Assets/UX/HUD/Bars/exp_bar.png" id="6_s7vr4"]
+[ext_resource type="Texture2D" uid="uid://djtm76gfbyc4w" path="res://Assets/UX/HUD/Bars/new_info_bar.png" id="6_s72o8"]
+[ext_resource type="Texture2D" uid="uid://cvlrvv7fcxwfm" path="res://Assets/UX/HUD/Bars/new_hp_bar.png" id="7_l7c5a"]
+[ext_resource type="Texture2D" uid="uid://r4y1wnwmrie" path="res://Assets/UX/Buttons/Normal/attack_button.png" id="7_svtvq"]
+[ext_resource type="Texture2D" uid="uid://cg6e54yulf4m6" path="res://Assets/UX/Buttons/On-Pressed/attack_button_pressed.png" id="8_8n08m"]
+[ext_resource type="Texture2D" uid="uid://dofw7o474odev" path="res://Assets/UX/Buttons/Normal/move_button.png" id="10_g2i5h"]
+[ext_resource type="Texture2D" uid="uid://bm6sb0cmxojdg" path="res://Assets/UX/Buttons/Normal/fusion_button.png" id="10_k0oc4"]
+[ext_resource type="Texture2D" uid="uid://dt2ufm6juac41" path="res://Assets/UX/Buttons/On-Pressed/fusion_button_pressed.png" id="11_ejqjo"]
+[ext_resource type="Texture2D" uid="uid://doyceaqqs7d22" path="res://Assets/UX/Buttons/On-Pressed/move_button_pressed.png" id="11_vjfga"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="12_l7c5a"]
+[ext_resource type="Texture2D" uid="uid://b3ioxidxpjgox" path="res://Assets/UX/Buttons/Normal/atomons_button.png" id="12_ugl38"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="13_g2i5h"]
+[ext_resource type="Texture2D" uid="uid://c3vm5i558q04l" path="res://Assets/UX/Buttons/On-Pressed/atomons_button_pressed.png" id="13_limpo"]
+[ext_resource type="Texture2D" uid="uid://b87wpfox4ocwj" path="res://Assets/UX/Buttons/Normal/run_button.png" id="14_gvh18"]
+[ext_resource type="Texture2D" uid="uid://b5fsn2ti1cki0" path="res://Assets/UX/Buttons/On-Pressed/run_button_pressed.png" id="15_vghoh"]
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="16_c225n"]
+[ext_resource type="AudioStream" uid="uid://bssvvaqt0wwfo" path="res://Assets/Music/Run Bunny Run.mp3" id="16_gwo5a"]
+[ext_resource type="Texture2D" uid="uid://ch326y5f315s" path="res://Assets/UX/Buttons/Disabled/fusion_button.png" id="20_qyglk"]
+[ext_resource type="Script" uid="uid://vt7nk5gwohmi" path="res://Battle/BattleController.gd" id="21_4cw33"]
+[ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="25_4xqci"]
+[ext_resource type="Resource" uid="uid://dy0w3huok6wvi" path="res://Resources/NPCs/TRES/elysa.tres" id="26_qyglk"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c225n"]
+load_path = "res://.godot/imported/atomon_sprite.png-8d7a2f2bcbae16fdd9a5c61d790751e7.ctex"
+
+[node name="BattleUI" type="Control" unique_id=501285373]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8n08m")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1035779551]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.21100001
+anchor_right = 1.0
+anchor_bottom = 1.2110001
+offset_top = -0.07998657
+offset_bottom = 0.079956055
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_x1u45")
+
+[node name="BattleField" type="Control" parent="." unique_id=682912034]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EnemyContainer" type="Panel" parent="BattleField" unique_id=197888296]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.72
+anchor_top = 0.45000002
+anchor_right = 0.74100006
+anchor_bottom = 0.49400002
+offset_left = -0.60009766
+offset_right = -0.18005371
+offset_bottom = 0.3199768
+
+[node name="SpawnPoint" type="Marker2D" parent="BattleField/EnemyContainer" unique_id=838805849]
+position = Vector2(20, 55)
+
+[node name="FriendlyAtomonContainer" type="Panel" parent="BattleField" unique_id=1882541079]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25100002
+anchor_top = 0.60700005
+anchor_right = 0.27600002
+anchor_bottom = 0.661
+offset_left = -0.9800415
+offset_top = -0.040039063
+offset_right = -0.4800415
+offset_bottom = 0.07998657
+
+[node name="SpawnPoint" type="Marker2D" parent="BattleField/FriendlyAtomonContainer" unique_id=405602415]
+position = Vector2(25, 75)
+
+[node name="BattleEffects" type="Node2D" parent="BattleField" unique_id=1118640751]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1252201629]
+
+[node name="HUD" type="Control" parent="CanvasLayer" unique_id=1759062116]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EnemyAtomonInfo" type="Control" parent="CanvasLayer/HUD" unique_id=1834522945]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchor_left = 0.86300004
+anchor_top = 0.060000002
+anchor_right = 0.86300004
+anchor_bottom = 0.060000002
+offset_left = -189.74011
+offset_top = -0.20000076
+offset_right = 190.25989
+offset_bottom = 119.8
+grow_horizontal = 0
+
+[node name="EnemyAtomonPanel" type="TextureRect" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=1117460555]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_b00jw")
+
+[node name="EnemyAtomonName" type="Label" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=1920892585]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.432
+anchor_top = 0.192
+anchor_right = 0.432
+anchor_bottom = 0.192
+offset_left = -140.16
+offset_top = -0.040000916
+offset_right = 139.84
+offset_bottom = 28.96
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 28
+text = "Enemy Name"
+
+[node name="EnemyAtomonLevel" type="Label" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=1912405891]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.82400006
+anchor_top = 0.23300001
+anchor_right = 0.82400006
+anchor_bottom = 0.23300001
+offset_left = -20.120026
+offset_top = 0.03999901
+offset_right = 19.879974
+offset_bottom = 23.039999
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 20
+text = "Lvl:"
+
+[node name="EALevel" type="Label" parent="CanvasLayer/HUD/EnemyAtomonInfo/EnemyAtomonLevel" unique_id=197078166]
+layout_mode = 0
+offset_left = 47.0
+offset_top = -1.0
+offset_right = 58.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 20
+text = "1"
+
+[node name="EnemyAtomonHP" type="TextureProgressBar" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=842237167]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.44200003
+anchor_right = 0.5
+anchor_bottom = 0.44200003
+offset_left = -171.0
+offset_top = -0.04000473
+offset_right = -113.83331
+offset_bottom = 6.126663
+scale = Vector2(6, 6)
+nine_patch_stretch = true
+texture_under = ExtResource("5_4cw33")
+texture_over = ExtResource("6_s72o8")
+texture_progress = ExtResource("7_l7c5a")
+
+[node name="EnemyAtomonHPText" type="Label" parent="CanvasLayer/HUD/EnemyAtomonInfo" unique_id=978577713]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19500001
+anchor_top = 0.77500004
+anchor_right = 0.19500001
+anchor_bottom = 0.77500004
+offset_left = -42.100006
+offset_right = 41.899994
+offset_bottom = 21.999992
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 20
+text = "0/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FriendlyAtomonInfo" type="Control" parent="CanvasLayer/HUD" unique_id=218999455]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchor_left = 0.126
+anchor_top = 0.758
+anchor_right = 0.126
+anchor_bottom = 0.758
+offset_left = -183.48001
+offset_top = -41.76001
+offset_right = 183.51999
+offset_bottom = 78.23999
+grow_vertical = 0
+
+[node name="FriendlyAtomonPanel" type="TextureRect" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=390781912]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_b00jw")
+expand_mode = 1
+
+[node name="FriendlyAtomonName" type="Label" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=2102198142]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 23.0
+offset_right = 304.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 28
+text = "Atomon Name"
+
+[node name="FriendlyAtomonLevel" type="Label" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=1737125105]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 28.0
+offset_right = 333.0
+offset_bottom = 51.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 20
+text = "Lvl:"
+
+[node name="FALevel" type="Label" parent="CanvasLayer/HUD/FriendlyAtomonInfo/FriendlyAtomonLevel" unique_id=1648019573]
+layout_mode = 0
+offset_left = 47.0
+offset_top = -1.0
+offset_right = 58.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 20
+text = "1"
+
+[node name="FriendlyAtomonHP" type="TextureProgressBar" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=708244504]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.425
+anchor_right = 0.5
+anchor_bottom = 0.425
+offset_left = -170.5
+offset_right = -113.333
+offset_bottom = 6.167
+scale = Vector2(6, 6)
+nine_patch_stretch = true
+texture_under = ExtResource("5_4cw33")
+texture_over = ExtResource("6_s72o8")
+texture_progress = ExtResource("7_l7c5a")
+
+[node name="EXPBar" type="TextureProgressBar" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=274911389]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 87.99997
+offset_right = 240.0
+offset_bottom = 95.99997
+scale = Vector2(3, 3)
+texture_under = ExtResource("3_77877")
+texture_progress = ExtResource("6_s7vr4")
+
+[node name="FriendlyAtomonHPText" type="Label" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=441621131]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 93.0
+offset_right = 116.0
+offset_bottom = 115.0
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 20
+text = "0/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/HUD/FriendlyAtomonInfo" unique_id=221253998]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 133.0
+offset_right = 247.0
+offset_bottom = 189.0
+texture_normal = ExtResource("10_g2i5h")
+texture_pressed = ExtResource("11_vjfga")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD/FriendlyAtomonInfo/TextureButton" unique_id=492963307]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 11.0
+offset_right = 3.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 28
+text = "Excite
+"
+horizontal_alignment = 1
+vertical_alignment = 3
+autowrap_mode = 3
+
+[node name="BattleLog" type="RichTextLabel" parent="CanvasLayer" unique_id=1257588147]
+visible = false
+anchors_preset = -1
+anchor_left = 0.22500001
+anchor_top = 0.028
+anchor_right = 0.22500001
+anchor_bottom = 0.028
+offset_left = -341.50003
+offset_top = -0.15999985
+offset_right = 340.49997
+offset_bottom = 175.19199
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_colors/font_outline_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/normal_font = ExtResource("5_4iy4j")
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+text = "test"
+vertical_alignment = 1
+
+[node name="MoveMenu" type="PanelContainer" parent="CanvasLayer" unique_id=621087706]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_left = 0.84200007
+anchor_top = 0.62200004
+anchor_right = 0.84200007
+anchor_bottom = 0.62200004
+offset_left = -258.16016
+offset_top = 0.15997314
+offset_right = 259.83984
+offset_bottom = 250.15997
+
+[node name="CommandPanel2" type="TextureRect" parent="CanvasLayer/MoveMenu" unique_id=1393610319]
+layout_mode = 2
+texture = ExtResource("3_b00jw")
+expand_mode = 1
+
+[node name="CloseButton" type="TextureButton" parent="CanvasLayer/MoveMenu/CommandPanel2" unique_id=927271925]
+layout_mode = 0
+offset_left = 492.0
+offset_top = -11.0
+offset_right = 532.0
+offset_bottom = 29.0
+texture_normal = ExtResource("12_l7c5a")
+texture_pressed = ExtResource("13_g2i5h")
+stretch_mode = 0
+
+[node name="VBoxContainer" type="GridContainer" parent="CanvasLayer/MoveMenu" unique_id=1350003912]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
+
+[node name="Move1" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=532429083]
+layout_mode = 2
+icon = SubResource("CompressedTexture2D_c225n")
+flat = true
+
+[node name="Move1" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move1" unique_id=1166405098]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.091000006
+anchor_right = 0.952
+anchor_bottom = 0.90900004
+offset_left = -0.06405926
+offset_top = -0.007992744
+offset_right = -65.07883
+offset_bottom = -21.887627
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.7499989, 1.437)
+theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+text = "Move 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Move2" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=2043350183]
+layout_mode = 2
+icon = ExtResource("16_c225n")
+flat = true
+
+[node name="Move2" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move2" unique_id=483671787]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.091000006
+anchor_right = 0.952
+anchor_bottom = 0.90900004
+offset_left = -0.06401396
+offset_top = -0.0079956055
+offset_right = -65.07884
+offset_bottom = -21.88763
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.7499989, 1.437)
+theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+text = "Move 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Move3" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=595104115]
+layout_mode = 2
+icon = ExtResource("16_c225n")
+flat = true
+
+[node name="Move3" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move3" unique_id=402327594]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.091000006
+anchor_right = 0.952
+anchor_bottom = 0.90900004
+offset_left = -0.0640316
+offset_top = -0.008030891
+offset_right = -65.0788
+offset_bottom = -21.887634
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.7499989, 1.437)
+theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+text = "Move 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Move4" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=948089054]
+layout_mode = 2
+icon = ExtResource("16_c225n")
+flat = true
+
+[node name="Move4" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move4" unique_id=385878718]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.091000006
+anchor_right = 0.952
+anchor_bottom = 0.90900004
+offset_left = -0.06401777
+offset_top = -0.007989883
+offset_right = -65.07884
+offset_bottom = -21.887623
+scale = Vector2(1.7499989, 1.437)
+theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+text = "Move 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ItemMenu" type="PanelContainer" parent="CanvasLayer" unique_id=396706838]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/ItemMenu" unique_id=1349188348]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ItemMenu/ScrollContainer" unique_id=1721109739]
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=473527471]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=581017409]
+stream = ExtResource("16_gwo5a")
+volume_db = 4.0
+autoplay = true
+
+[node name="CommandUI" type="Control" parent="." unique_id=762791792]
+layout_mode = 1
+anchor_left = 0.84200007
+anchor_top = 0.62200004
+anchor_right = 0.84200007
+anchor_bottom = 0.62200004
+offset_left = -258.16016
+offset_top = 0.15997314
+offset_right = 259.83984
+offset_bottom = 250.15997
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="CommandPanel" type="TextureRect" parent="CommandUI" unique_id=808651164]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_b00jw")
+expand_mode = 1
+
+[node name="GridContainer" type="GridContainer" parent="CommandUI" unique_id=1058140013]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -229.0
+offset_top = -107.5
+offset_right = 229.0
+offset_bottom = 107.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 15
+columns = 2
+
+[node name="Attack" type="TextureButton" parent="CommandUI/GridContainer" unique_id=1390370771]
+custom_minimum_size = Vector2(220, 100)
+layout_mode = 2
+texture_normal = ExtResource("7_svtvq")
+texture_pressed = ExtResource("8_8n08m")
+stretch_mode = 0
+
+[node name="Fusion" type="TextureButton" parent="CommandUI/GridContainer" unique_id=250768487]
+custom_minimum_size = Vector2(220, 67)
+layout_mode = 2
+texture_normal = ExtResource("10_k0oc4")
+texture_pressed = ExtResource("11_ejqjo")
+texture_disabled = ExtResource("20_qyglk")
+stretch_mode = 0
+
+[node name="Atomons" type="TextureButton" parent="CommandUI/GridContainer" unique_id=1591039315]
+custom_minimum_size = Vector2(220, 100)
+layout_mode = 2
+texture_normal = ExtResource("12_ugl38")
+texture_pressed = ExtResource("13_limpo")
+stretch_mode = 0
+
+[node name="Run" type="TextureButton" parent="CommandUI/GridContainer" unique_id=1703971348]
+custom_minimum_size = Vector2(220, 67)
+layout_mode = 2
+texture_normal = ExtResource("14_gvh18")
+texture_pressed = ExtResource("15_vghoh")
+stretch_mode = 0
+
+[node name="BattleController" type="Node" parent="." unique_id=1091136324]
+script = ExtResource("21_4cw33")
+
+[node name="BattleAnnouncer" parent="." unique_id=747614588 instance=ExtResource("25_4xqci")]
+position = Vector2(89, 211.00002)
+scale = Vector2(6, 6)
+data = ExtResource("26_qyglk")
+
+[connection signal="pressed" from="CanvasLayer/HUD/FriendlyAtomonInfo/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MoveMenu/CommandPanel2/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move1" to="." method="_on_move_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move2" to="." method="_on_move_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move3" to="." method="_on_move_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/MoveMenu/VBoxContainer/Move4" to="." method="_on_move_4_pressed"]
+[connection signal="pressed" from="CommandUI/GridContainer/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="CommandUI/GridContainer/Fusion" to="." method="_on_fusion_pressed"]
+[connection signal="pressed" from="CommandUI/GridContainer/Atomons" to="." method="_on_atomons_pressed"]
+[connection signal="pressed" from="CommandUI/GridContainer/Run" to="." method="_on_run_pressed"]

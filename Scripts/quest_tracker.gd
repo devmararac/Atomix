@@ -1,0 +1,167 @@
+extends PanelContainer
+class_name Tracker
+
+const font = preload("res://Assets/Font/NicoPaint-Regular.woff")
+
+@onready var title = $Margin/VBox/Title
+@onready var objectives = $Margin/VBox/Objectives
+
+func _ready():
+	print("Tracker ready")
+	visible = false
+
+	QuestManager.quest_updated.connect(_on_quest_updated)
+	QuestManager.objective_updated.connect(_on_objective_updated)
+	QuestManager.tracked_quest_changed.connect(_on_tracked_quest_changed)
+
+	# Check immediately
+	if QuestManager.tracked_quest:
+		print("Tracker found tracked quest: ", QuestManager.tracked_quest.quest_id)
+		update_quest_tracker(QuestManager.tracked_quest)
+	else:
+		print("Tracker: No tracked quest yet.")
+
+#Update tracker UI
+func update_quest_tracker(quest: Quest):
+	print("================================")
+	print("[Tracker] update_quest_tracker()")
+	print("[Tracker] Quest: ", quest)
+
+	if quest == null:
+		print("[Tracker] QUEST IS NULL -> HIDING TRACKER")
+		visible = false
+		return
+
+	print("[Tracker] Quest ID: ", quest.quest_id)
+	print("[Tracker] Quest state: ", quest.state)
+
+	var has_active_objective := false
+
+	for objective in quest.objectives:
+		if objective == null:
+			print("[Tracker] Skipping NULL objective")
+			continue
+
+		print(
+			"[Tracker] Objective: ",
+			objective.id,
+			" | active=", objective.is_active,
+			" | completed=", objective.is_completed,
+			" | current=", objective.current_amount,
+			" | required=", objective.required_amount
+		)
+
+		if !objective.is_active:
+			continue
+
+		has_active_objective = true
+
+	print("[Tracker] has_active_objective = ", has_active_objective)
+
+	if not has_active_objective:
+		print("[Tracker] NO ACTIVE OBJECTIVE -> HIDING TRACKER")
+		visible = false
+		return
+
+	# 1. Hide the tracker while we rebuild it so it doesn't flicker
+	visible = false
+
+	# 2. Instantly remove old labels (prevents sizing bugs)
+	for child in objectives.get_children():
+		objectives.remove_child(child)
+		child.queue_free()
+
+	title.text = quest.quest_name
+
+	for objective in quest.objectives:
+		if objective == null:
+			continue
+
+		if !objective.is_active:
+			continue
+	
+		var label := Label.new()
+
+		if objective.required_amount > 0:
+			label.text = "%s (%d/%d)" % [
+				objective.description,
+				objective.current_amount,
+				objective.required_amount
+			]
+		else:
+			label.text = objective.description
+
+		label.add_theme_font_override("font", font)
+		label.add_theme_font_size_override("font_size", 16)
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+		if objective.is_completed:
+			label.add_theme_color_override(
+				"font_color",
+				Color(0.751, 0.9, 0.261, 1.0)
+			)
+		else:
+			label.add_theme_color_override(
+				"font_color",
+				Color(0.969, 0.886, 0.773, 1.0)
+			)
+
+		objectives.add_child(label)
+
+	# 3. Wait one frame so the PanelContainer can calculate its new height
+	await get_tree().process_frame
+
+	# 4. Show the tracker!
+	visible = true
+
+	print("[Tracker] TRACKER SET VISIBLE")
+	print("================================")
+
+
+# Update tracker if quest is complete
+func _on_quest_updated(quest_id: String):
+	if QuestManager.tracked_quest \
+	and QuestManager.tracked_quest.quest_id == quest_id:
+		update_quest_tracker(QuestManager.tracked_quest)
+
+# Update tracker if objective is complete
+func _on_objective_updated(quest_id: String, objective_id: String):
+	print("================================")
+	print("[Tracker] objective_updated received")
+	print("[Tracker] Quest ID: ", quest_id)
+	print("[Tracker] Objective ID: ", objective_id)
+	print("[Tracker] Tracked quest: ", QuestManager.tracked_quest)
+
+	if QuestManager.tracked_quest \
+	and QuestManager.tracked_quest.quest_id == quest_id:
+
+		print("[Tracker] Quest IDs MATCH")
+		update_quest_tracker(QuestManager.tracked_quest)
+
+	else:
+		print("[Tracker] Quest IDs DO NOT MATCH")
+	print("================================")
+
+func show_tracker(quest: Quest):
+	update_quest_tracker(quest)
+
+
+func refresh_from_quest_manager():
+	print("===== REFRESHING QUEST TRACKER =====")
+
+	var quest = QuestManager.tracked_quest
+
+	if quest == null:
+		print("Tracker: QuestManager has no tracked quest.")
+		visible = false
+		return
+
+	print("Tracker: Showing quest: ", quest.quest_id)
+
+	update_quest_tracker(quest)
+
+func _on_tracked_quest_changed(quest: Quest):
+	print("Tracker: tracked quest changed")
+
+	update_quest_tracker(quest)

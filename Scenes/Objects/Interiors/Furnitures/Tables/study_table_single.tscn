@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://magy5e7fouob"]
+
+[ext_resource type="Texture2D" uid="uid://bpyeagb7t4b8u" path="res://Assets/Structures/Interiors/Furnitures/Tables/study_table_single_chair.png" id="1_1tmtb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_576u0"]
+size = Vector2(16, 17)
+
+[node name="Study Table Single" type="StaticBody2D" unique_id=2077801203]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=541312306]
+position = Vector2(0, 3)
+texture = ExtResource("1_1tmtb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=503770948]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_576u0")

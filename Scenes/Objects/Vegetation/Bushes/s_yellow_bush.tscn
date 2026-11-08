@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ceb80u3tk6kmj"]
+
+[ext_resource type="Texture2D" uid="uid://dsjoe4p72esfr" path="res://Assets/Structures/Vegitations/Bushes/bush_yellow_small.png" id="1_7y62h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajcl8"]
+size = Vector2(20, 8)
+
+[node name="yellow_bush_s" type="Node2D" unique_id=933321745]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1098406013]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1339679670]
+position = Vector2(0, -2)
+texture = ExtResource("1_7y62h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1186657538]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_ajcl8")

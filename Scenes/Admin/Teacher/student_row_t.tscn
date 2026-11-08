@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://ba44ky88tt08o"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_wkfyj"]
+[ext_resource type="Script" uid="uid://bme7a4gkwqft0" path="res://Scripts/Admin/Teacher/student_row_t.gd" id="1_ycqbg"]
+[ext_resource type="Texture2D" uid="uid://dww7i0j8c8kft" path="res://Assets/UX/Icons/edit.png" id="2_ycqbg"]
+[ext_resource type="Texture2D" uid="uid://dbvrueg34h02e" path="res://Assets/UX/Icons/delete.png" id="3_0gkc0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r3lib"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlsno"]
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="StudentRowT" type="Panel" unique_id=209700403]
+custom_minimum_size = Vector2(1630, 50)
+anchors_preset = -1
+anchor_right = 0.998
+anchor_bottom = 0.069000006
+offset_right = -0.040039063
+offset_bottom = 0.31999588
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_r3lib")
+script = ExtResource("1_ycqbg")
+
+[node name="TableHeader" type="Panel" parent="." unique_id=1926033289]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.96000004
+offset_left = 1.0
+offset_top = 2.0
+offset_right = -3.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qlsno")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TableHeader" unique_id=751317547]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Number" type="Label" parent="TableHeader/HBoxContainer" unique_id=2072427700]
+custom_minimum_size = Vector2(38, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_wkfyj")
+theme_override_font_sizes/font_size = 25
+text = "#"
+horizontal_alignment = 1
+
+[node name="FullName" type="Label" parent="TableHeader/HBoxContainer" unique_id=1007326720]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_wkfyj")
+theme_override_font_sizes/font_size = 25
+text = "Student Name"
+horizontal_alignment = 1
+
+[node name="LRN" type="Label" parent="TableHeader/HBoxContainer" unique_id=1803515157]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_wkfyj")
+theme_override_font_sizes/font_size = 25
+text = "LRN"
+horizontal_alignment = 1
+
+[node name="Section" type="Label" parent="TableHeader/HBoxContainer" unique_id=1055168310]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_wkfyj")
+theme_override_font_sizes/font_size = 25
+text = "Section"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="TableHeader/HBoxContainer" unique_id=82974737]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("1_wkfyj")
+theme_override_font_sizes/font_size = 25
+text = "Status"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TableHeader/HBoxContainer" unique_id=948276017]
+custom_minimum_size = Vector2(226, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Active_Inactive" type="CheckButton" parent="TableHeader/HBoxContainer/HBoxContainer" unique_id=1359098354]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("1_wkfyj")
+text = "Active"
+
+[node name="Edit" type="TextureButton" parent="TableHeader/HBoxContainer/HBoxContainer" unique_id=1130544877]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 1
+texture_normal = ExtResource("2_ycqbg")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Delete" type="TextureButton" parent="TableHeader/HBoxContainer/HBoxContainer" unique_id=1088557229]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 1
+texture_normal = ExtResource("3_0gkc0")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Button" type="Button" parent="." unique_id=258096805]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.87900007
+anchor_bottom = 1.0
+offset_right = 0.095825195
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true

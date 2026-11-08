@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://bduno0s1t8hvr"]
+
+[ext_resource type="Script" uid="uid://dmgxqa551n41o" path="res://Scripts/Admin/HeadTeacher/archive_slot.gd" id="1_1bhdf"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_wmxhc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bhdf"]
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="ArchiveSlot" type="Panel" unique_id=1229364389]
+custom_minimum_size = Vector2(1500, 100)
+anchors_preset = -1
+anchor_left = 0.019000001
+anchor_right = 0.80200005
+anchor_bottom = 0.208
+offset_left = -0.62000275
+offset_right = 0.039916992
+offset_bottom = -49.76001
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_1bhdf")
+script = ExtResource("1_1bhdf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1672011253]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_right = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 900
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1969962020]
+layout_mode = 2
+alignment = 1
+
+[node name="Year" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=343201792]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_wmxhc")
+theme_override_font_sizes/font_size = 40
+text = "S.Y. 2026-2027"
+
+[node name="Subtitle" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=187179630]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_wmxhc")
+theme_override_font_sizes/font_size = 20
+text = "Cannot be Archived"
+
+[node name="Panel" type="Label" parent="HBoxContainer" unique_id=788479237]
+custom_minimum_size = Vector2(50, 5)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_wmxhc")
+theme_override_font_sizes/font_size = 20
+text = "Active"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=1704751074]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+flat = true

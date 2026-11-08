@@ -1,0 +1,337 @@
+[gd_scene format=3 uid="uid://d4citbw7ri8fq"]
+
+[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="1_jkca0"]
+[ext_resource type="Script" uid="uid://crpa1l51cdh6v" path="res://Scripts/teacher_dashboard.gd" id="1_x082l"]
+[ext_resource type="Texture2D" uid="uid://c3upxoky2bwoi" path="res://Assets/UX/Buttons/On-Pressed/base_button_pressed.png" id="3_h6mqj"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_h7pqg"]
+[ext_resource type="Texture2D" uid="uid://d17cvfb2mxgms" path="res://Assets/UX/Icons/icon_home.png" id="4_6cr0m"]
+[ext_resource type="Texture2D" uid="uid://soomem1fgoff" path="res://Assets/UX/Icons/icon_student.png" id="5_6cr0m"]
+[ext_resource type="Texture2D" uid="uid://c74uiphwecd4y" path="res://Assets/UX/Icons/icon_progress.png" id="6_6cr0m"]
+[ext_resource type="Texture2D" uid="uid://dxg7ga6k8m7hs" path="res://Assets/UX/Icons/icon_quiz.png" id="7_6cr0m"]
+[ext_resource type="Texture2D" uid="uid://cvkmts0tbsihx" path="res://Assets/UX/Icons/need_attention.png" id="8_wi2ou"]
+[ext_resource type="Texture2D" uid="uid://bvxk12g0m0ty8" path="res://Assets/UX/Buttons/Normal/new_logOUT.png" id="10_ecto0"]
+[ext_resource type="Texture2D" uid="uid://bevllswym1c25" path="res://Assets/UX/Buttons/On-Pressed/new_logOUT_pressed.png" id="11_d52es"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkca0"]
+bg_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+
+[sub_resource type="Theme" id="Theme_x082l"]
+
+[node name="TeacherDashboard" type="Control" unique_id=672896987]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x082l")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1416401130]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[node name="MenuPanel" type="Panel" parent="." unique_id=918090282]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.004
+anchor_right = 0.136
+anchor_bottom = 1.0
+offset_top = 0.119999886
+offset_right = -0.2800293
+theme_override_styles/panel = SubResource("StyleBoxFlat_jkca0")
+
+[node name="ColorRect" type="ColorRect" parent="MenuPanel" unique_id=288396106]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.017
+anchor_right = 1.0
+anchor_bottom = 0.156
+offset_top = -0.18900108
+offset_bottom = 0.147995
+color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel" unique_id=357551084]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 0
+offset_left = 19.0
+offset_top = 22.727999
+offset_right = 249.0
+offset_bottom = 702.728
+theme_override_constants/separation = 20
+
+[node name="DashboardButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=289937945]
+layout_mode = 2
+theme = SubResource("Theme_x082l")
+texture_normal = ExtResource("1_jkca0")
+texture_focused = ExtResource("3_h6mqj")
+stretch_mode = 0
+
+[node name="DashboardLabel" type="Label" parent="MenuPanel/VBoxContainer/DashboardButton" unique_id=278464674]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.614
+anchor_top = 0.35000002
+anchor_right = 0.614
+anchor_bottom = 0.35000002
+offset_left = -83.448
+offset_right = 83.552
+offset_bottom = 25.999998
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_h7pqg")
+theme_override_font_sizes/font_size = 25
+text = "Dashboard"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/DashboardButton" unique_id=562465813]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -13.904003
+offset_right = 14.095997
+offset_bottom = 31.0
+grow_vertical = 2
+texture = ExtResource("4_6cr0m")
+expand_mode = 1
+
+[node name="StudentsButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=496867008]
+layout_mode = 2
+theme = SubResource("Theme_x082l")
+texture_normal = ExtResource("1_jkca0")
+texture_focused = ExtResource("3_h6mqj")
+stretch_mode = 0
+
+[node name="StudentsLabel" type="Label" parent="MenuPanel/VBoxContainer/StudentsButton" unique_id=1655844516]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.60800004
+anchor_top = 0.38700002
+anchor_right = 0.60800004
+anchor_bottom = 0.38700002
+offset_left = -61.056015
+offset_top = 0.0399971
+offset_right = 60.943985
+offset_bottom = 26.039997
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_h7pqg")
+theme_override_font_sizes/font_size = 25
+text = "Students"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/StudentsButton" unique_id=253995238]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -13.904003
+offset_right = 14.095997
+offset_bottom = 31.0
+grow_vertical = 2
+texture = ExtResource("5_6cr0m")
+expand_mode = 1
+
+[node name="LessonButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1578054011]
+layout_mode = 2
+theme = SubResource("Theme_x082l")
+texture_normal = ExtResource("1_jkca0")
+stretch_mode = 0
+
+[node name="LessonLabel" type="Label" parent="MenuPanel/VBoxContainer/LessonButton" unique_id=946351964]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.60800004
+anchor_top = 0.38700002
+anchor_right = 0.60800004
+anchor_bottom = 0.38700002
+offset_left = -61.056015
+offset_top = 0.0399971
+offset_right = 60.943985
+offset_bottom = 26.039997
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_h7pqg")
+theme_override_font_sizes/font_size = 25
+text = "Lesson"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/LessonButton" unique_id=968738553]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -22.904003
+offset_top = -5.0
+offset_right = 23.095997
+offset_bottom = 37.0
+grow_vertical = 2
+texture = ExtResource("7_6cr0m")
+expand_mode = 1
+
+[node name="QuizModeButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1825982411]
+layout_mode = 2
+theme = SubResource("Theme_x082l")
+texture_normal = ExtResource("1_jkca0")
+texture_focused = ExtResource("3_h6mqj")
+stretch_mode = 0
+
+[node name="QuizModeLabel" type="Label" parent="MenuPanel/VBoxContainer/QuizModeButton" unique_id=399770736]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.60800004
+anchor_top = 0.38700002
+anchor_right = 0.60800004
+anchor_bottom = 0.38700002
+offset_left = -61.056015
+offset_top = 0.0399971
+offset_right = 60.943985
+offset_bottom = 26.039997
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_h7pqg")
+theme_override_font_sizes/font_size = 25
+text = "QuizMode"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/QuizModeButton" unique_id=1336955593]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -22.904003
+offset_top = -5.0
+offset_right = 23.095997
+offset_bottom = 37.0
+grow_vertical = 2
+texture = ExtResource("7_6cr0m")
+expand_mode = 1
+
+[node name="NeedsAttention" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=191017260]
+layout_mode = 2
+texture_normal = ExtResource("1_jkca0")
+stretch_mode = 0
+
+[node name="QuizModeLabel" type="Label" parent="MenuPanel/VBoxContainer/NeedsAttention" unique_id=1609909729]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34500003
+anchor_top = 0.20600002
+anchor_right = 0.961
+anchor_bottom = 0.89400005
+offset_left = -0.040008545
+offset_top = 0.01999855
+offset_right = 0.04798889
+offset_bottom = -0.020004272
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_h7pqg")
+theme_override_font_sizes/font_size = 25
+text = "Needs Attention"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/NeedsAttention" unique_id=330147708]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -22.904003
+offset_top = -5.0
+offset_right = 23.095997
+offset_bottom = 37.0
+grow_vertical = 2
+texture = ExtResource("8_wi2ou")
+expand_mode = 1
+
+[node name="Settings" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=50032561]
+layout_mode = 2
+theme = SubResource("Theme_x082l")
+texture_normal = ExtResource("1_jkca0")
+texture_focused = ExtResource("3_h6mqj")
+stretch_mode = 0
+
+[node name="SettingsLabel" type="Label" parent="MenuPanel/VBoxContainer/Settings" unique_id=305937926]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.60800004
+anchor_top = 0.38700002
+anchor_right = 0.60800004
+anchor_bottom = 0.38700002
+offset_left = -61.056015
+offset_top = 0.0399971
+offset_right = 60.943985
+offset_bottom = 26.039997
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("3_h7pqg")
+theme_override_font_sizes/font_size = 25
+text = "Settings"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/Settings" unique_id=2062378289]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.3
+anchor_right = 0.172
+anchor_bottom = 0.3
+offset_left = -13.904003
+offset_right = 14.095997
+offset_bottom = 31.0
+grow_vertical = 2
+texture = ExtResource("6_6cr0m")
+expand_mode = 1
+
+[node name="LogoutButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=76618138]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+texture_normal = ExtResource("10_ecto0")
+texture_pressed = ExtResource("11_d52es")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="INFORMATIONPANEL" type="Panel" parent="." unique_id=805434897]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.13800001
+anchor_top = 0.083000004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.24002075
+offset_top = 0.23999786
+offset_right = -3.0
+offset_bottom = -2.0
+
+[connection signal="pressed" from="MenuPanel/VBoxContainer/DashboardButton" to="." method="_on_dashboard_button_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/StudentsButton" to="." method="_on_students_button_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/LessonButton" to="." method="_on_lesson_button_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/QuizModeButton" to="." method="_on_quiz_mode_button_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/NeedsAttention" to="." method="_on_needs_attention_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MenuPanel/VBoxContainer/LogoutButton" to="." method="_on_logout_button_pressed"]

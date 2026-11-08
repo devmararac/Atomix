@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cj6cxejn5g07n"]
+
+[ext_resource type="Texture2D" uid="uid://dl6o57noc8ocv" path="res://Assets/Structures/Interiors/Furnitures/Cabinets/boxes_001.png" id="1_admt7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sa2rd"]
+size = Vector2(10, 6)
+
+[node name="Boxes 1" type="StaticBody2D" unique_id=1904275619]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=893540442]
+texture = ExtResource("1_admt7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1712607977]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_sa2rd")

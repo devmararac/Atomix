@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://cx1553fn6ur70"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_bckdm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2c51"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bckdm"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[node name="StudentQuizList" type="Panel" unique_id=1716944141]
+custom_minimum_size = Vector2(1000, 40)
+anchors_preset = -1
+anchor_right = 0.505
+anchor_bottom = 0.056
+offset_right = -999.89996
+offset_bottom = -40.32
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2c51")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=679751230]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Name" type="Label" parent="HBoxContainer" unique_id=42506428]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_bckdm")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bckdm")
+text = "Name"
+
+[node name="QuizNumberTaken" type="Label" parent="HBoxContainer" unique_id=1167357075]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_bckdm")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bckdm")
+text = "Number of Completed Quiz"
+horizontal_alignment = 1
+
+[node name="OverallScoreAverage" type="Label" parent="HBoxContainer" unique_id=483381206]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_bckdm")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bckdm")
+text = "Averall Quiz Average"
+horizontal_alignment = 2

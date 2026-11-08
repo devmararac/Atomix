@@ -1,0 +1,34 @@
+Player: Hey.. uhh...
+Player: Are you the Atomon Expert Linos mentioned?
+Andrew: May I ask who you are?
+Player: I'm new here. Linos said I should learn about Atomons, like that weird thing I saw...
+Andrew: Ahhh, Hydrubbie. The Hydrogen Atomon that wanders around here.
+Andrew: It's hard to miss. Never causes trouble though.
+Player: So... it's an Atomon?
+Andrew: Correct! Atomons are living manifestations of the elements themselves.
+Andrew: "Atomon" comes from "Atomic" and "Monster" — Atomic Monster.
+Player: So Hydrubbie is... Hydrogen?
+Andrew: Precisely! The lightest element there is.
+Andrew: Don't let its size fool you. Hydrogen plays a very important role in chemistry.
+Player: Chemistry...
+Andrew: You'll be hearing that word often around here.
+Andrew: If you're going to travel through Chemistria, you need to understand the elements and their Atomons.
+Player: I guess I have a lot to learn...
+Andrew: Indeed you do! But that's what I'm here for.
+Player: How did this happen?
+Andrew: What happened?
+Player: This whole Atomon thing? How did elements become creatures?
+Andrew: You're really clueless, huh? Even the children know what happened three years ago.
+Player: What happened back then?
+Andrew: It all started on that night....
+Andrew: That night changed everything we knew about the elements.
+Andrew: But before you can understand, you need to learn how to observe an Atomon carefully.
+Player: Observe it?
+Andrew: Yes. Start with Hydrubbie.
+Andrew: Find three Hydrogen Atomons and observe them closely.
+Player: What am I supposed to look for?
+Andrew: Pay attention to what you can see and notice. Don't make assumptions.
+Player: Alright. I'll observe three Hydrubbie.
+Andrew: Good. Come back when you're finished, and we'll talk about what you discovered.
+
+[signal arg="quest_notify:quest_chain_001_01:talk_atomon_expert"]

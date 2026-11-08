@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://mpsd0s0by2o0"
+path="res://.godot/imported/Prof. AndrewLine16.mp3-6c8a24e9740e70dc95d3a561582d4ab9.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/VoiceOvers/ProfAndrew/ClassroomCutscene/Prof. AndrewLine16.mp3"
+dest_files=["res://.godot/imported/Prof. AndrewLine16.mp3-6c8a24e9740e70dc95d3a561582d4ab9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

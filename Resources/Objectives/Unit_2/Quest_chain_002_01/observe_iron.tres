@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://deau2gdcfuspc"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_tpt8p"]
+
+[resource]
+script = ExtResource("1_tpt8p")
+id = "observe_iron"
+description = "Observe the Iron Atomon."
+type = 4
+target_id = "iron"

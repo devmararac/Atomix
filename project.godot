@@ -1,0 +1,252 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="AtomiX: Chemistry Adventure"
+config/description="A 2D E-Learning Turn-Based Combat RPG Game for Chemistry Education Utilizing the Octet Rule"
+config/version="1.0"
+run/main_scene="uid://cv0xt3baocsfl"
+config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/image="uid://d2aqyitfx6wbb"
+config/icon="uid://d2aqyitfx6wbb"
+boot_splash/minimum_display_time=3
+
+[audio]
+
+buses/default_bus_layout="uid://dsivhto7fp27b"
+
+[autoload]
+
+global="*uid://c7q0opbb1xnxt"
+FadeLayer="*uid://57mwdo0gsoon"
+Dialogic="*uid://ds2q0uclmolvu"
+QuestManager="*uid://cvsqojv1j0mhg"
+Firebase="*uid://cvb26atjckwlq"
+AuthManager="*uid://cnkxh44fn2q0j"
+BattleManager="*uid://dnejiv7rji7im"
+PartyManager="*uid://22xjv6pnack4"
+SaveManager="*uid://ci7mgclt3blfi"
+InventoryManager="*uid://ig5clvlewdc3"
+ItemDatabase="*uid://bylbatpjnhla2"
+CurrencyManager="*uid://qpt7xafhu0x1"
+NpcManager="*uid://c8p3pa3fws24m"
+SfxManager="*uid://cyf7fckj2r67s"
+BattleControllerGlobal="*uid://vt7nk5gwohmi"
+CraftingManager="*uid://c763ibn0makw5"
+FirebaseManager="*uid://c6sppeo4qpee3"
+StudentDataManager="*uid://cg20foxv38bnr"
+TeacherDataManager="*uid://1fvwit8ssfmp"
+FirebaseConfig="*uid://djexcsoc68yt2"
+PlayerManager="*uid://wwnlhr1cbhww"
+GroupQuizManager="*uid://hiwxq1l6pmsv"
+FusionManager="*uid://bmnqlysm3ka2n"
+SchoolYearManager="*uid://c8utwrk6cof4a"
+MediaPipeExternalFiles="*uid://cbxaxq52rcwu1"
+GdmpAndroid="*uid://rlxpi2j08van"
+CameraSource="*uid://deohdb0jyk48k"
+HandTracker="*uid://c3xyk15xmaep4"
+LineRenderer="*uid://bvd3yudqk7jgg"
+OrientationManager="*uid://bld5mi6uuoefu"
+ActivityLogManager="*uid://4uxlabwpax37"
+
+[dialogic]
+
+directories/dch_directory={
+"Alfred": "res://Resources/Dialouges/Dialogic/Characters/Alfred.dch",
+"Andrew": "res://Resources/Dialouges/Dialogic/Characters/Andrew.dch",
+"Angelo": "res://Resources/Dialouges/Dialogic/Characters/Angelo.dch",
+"Anne": "res://Resources/Dialouges/Dialogic/Characters/Anne.dch",
+"Beryll": "res://Resources/Dialouges/Dialogic/Characters/Beryll.dch",
+"Deejhay": "res://Resources/Dialouges/Dialogic/Characters/Deejhay.dch",
+"Dianne": "res://Resources/Dialouges/Dialogic/Characters/Dianne.dch",
+"Dr Mundo": "res://Resources/Dialouges/Dialogic/Characters/Dr Mundo.dch",
+"Elysa": "res://Resources/Dialouges/Dialogic/Characters/Elysa.dch",
+"Felix": "res://Resources/Dialouges/Dialogic/Characters/Felix.dch",
+"Garry": "res://Resources/Dialouges/Dialogic/Characters/Garry.dch",
+"Player": "res://Resources/Dialouges/Dialogic/Characters/Player.dch",
+"Prof_Andrew": "res://Resources/Dialouges/Dialogic/Characters/Prof_Andrew.dch",
+"Trishania": "res://Resources/Dialouges/Dialogic/Characters/Trishania.dch",
+"argon": "res://Resources/Dialouges/Dialogic/Characters/argon.dch",
+"iron": "res://Resources/Dialouges/Dialogic/Characters/iron.dch",
+"linos": "res://Resources/Dialouges/Dialogic/Characters/linos.dch"
+}
+directories/dtl_directory={
+"Intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/Intro.dtl",
+"StartingCutscene": "res://Resources/Dialouges/Dialogic/Timeline/StartingCutscene.dtl",
+"angelo_quest_offer": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Angelo/angelo_quest_offer.dtl",
+"angelo_quest_progress": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Angelo/angelo_quest_progress.dtl",
+"atomonia_entrance": "res://Resources/Dialouges/Dialogic/Timeline/atomonia_entrance.dtl",
+"atomonia_expert": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/atomonia_expert.dtl",
+"battle_announce": "res://Resources/Dialouges/Dialogic/Timeline/battle_announce.dtl",
+"beryll_introduction": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction.dtl",
+"beryll_introduction2": "res://Resources/Dialouges/Dialogic/Timeline/beryll_introduction2.dtl",
+"dianne_line": "res://Resources/Dialouges/Dialogic/Timeline/Tutorial Scene/dianne_line.dtl",
+"dianne_line2": "res://Resources/Dialouges/Dialogic/Timeline/Tutorial Scene/dianne_line2.dtl",
+"dianne_test": "res://Resources/Dialouges/Dialogic/Timeline/dianne_test.dtl",
+"intro": "res://Resources/Dialouges/Dialogic/Timeline/intro.dtl",
+"linos_hydrogen_in_progress": "res://Resources/Dialouges/Dialogic/Timeline/linos_hydrogen_in_progress.dtl",
+"linos_report_hydrogen": "res://Resources/Dialouges/Dialogic/Timeline/linos_report_hydrogen.dtl",
+"observe_argon": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_argon.dtl",
+"observe_helium": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_helium.dtl",
+"observe_hydrogen_1": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/observe_hydrogen_1.dtl",
+"observe_hydrogen_2": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/observe_hydrogen_2.dtl",
+"observe_hydrogen_3": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/observe_hydrogen_3.dtl",
+"observe_iron": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_iron.dtl",
+"observe_mercury": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_mercury.dtl",
+"return_to_andrew": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/return_to_andrew.dtl",
+"return_to_dr_mundo_matter": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/return_to_dr_mundo_matter.dtl",
+"states_of_matter_intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/states_of_matter_intro.dtl",
+"talk_andrew_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_andrew_composition.dtl",
+"talk_dr_mundo_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_dr_mundo_composition.dtl",
+"think_like_a_scientis": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_02/think_like_a_scientis.dtl",
+"think_like_a_scientis_return": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_02/think_like_a_scientis_return.dtl",
+"tutorial": "res://Resources/Dialouges/Dialogic/Timeline/tutorial.dtl"
+}
+layout/style_directory={
+"": "res://Resources/Dialouges/Dialogic/Styles/text_bubble.tres",
+"Dialogic_Style": "res://Resources/Dialouges/Dialogic/Styles/Dialogic_Style.tres",
+"text_bubble": "res://Resources/Dialouges/Dialogic/Styles/text_bubble.tres"
+}
+layout/style_list=["res://Resources/Dialouges/Dialogic/Styles/Dialogic_Style.tres", "res://Resources/Dialouges/Dialogic/Styles/text_bubble.tres"]
+glossary/default_case_sensitive=true
+layout/default_style="res://Resources/Dialouges/Dialogic/Styles/text_bubble.tres"
+variables={
+"battle_message": "This is a battle announcement!"
+}
+extensions_folder="res://addons/dialogic_additions"
+text/letter_speed=0.01
+text/initial_text_reveal_skippable=true
+text/text_reveal_skip_delay=0.1
+text/advance_delay=0.1
+text/autoadvance_per_character_delay=0.1
+text/autoadvance_ignored_characters_enabled=true
+animations/join_default_length=0.5
+animations/join_default_wait=true
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/cross_fade_default_length=0.5
+choices/autofocus_first=true
+choices/delay=0.2
+choices/reveal_delay=0
+choices/reveal_by_input=false
+save/autosave_delay=60.0
+save/encryption_on_exports_only=true
+text/autopauses={}
+audio/channel_defaults={
+"": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": false,
+"volume": 0.0
+},
+"music": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": true,
+"volume": 0.0
+}
+}
+
+[display]
+
+window/size/viewport_width=1980
+window/size/viewport_height=720
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/canvas_textures/default_texture_filter=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/godot-firebase/plugin.cfg", "res://addons/spritefusion/plugin.cfg", "res://addons/virtual_joystick/plugin.cfg")
+
+[global]
+
+Interact=false
+
+[input]
+
+up={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":-1.0,"script":null)
+, null]
+}
+down={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":1.0,"script":null)
+]
+}
+left={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":-1.0,"script":null)
+]
+}
+right={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":1.0,"script":null)
+]
+}
+Interact={
+"deadzone": 0.2,
+"events": []
+}
+Action={
+"deadzone": 0.2,
+"events": []
+}
+Quest={
+"deadzone": 0.2,
+"events": []
+}
+Start={
+"deadzone": 0.2,
+"events": []
+}
+dialogic_default_action={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":88,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+]
+}
+DEBUG={
+"deadzone": 0.2,
+"events": []
+}
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://Scenes/Dialouges/main_dia.dialogue")
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_4="sceneTrigger"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://df6ghnwpuw7w1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.694118, 0.521569, 0.301961, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="QuestionCard" type="Panel" unique_id=1481394748]
+custom_minimum_size = Vector2(0, 340)
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1096275774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=903103200]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="MarginContainer_VBoxContainer_TopBar#QuestionNumber" type="Label" parent="." unique_id=418223310]
+layout_mode = 0
+text = "Question 1"
+
+[node name="MarginContainer_VBoxContainer_TopBar#Spacer" type="Control" parent="." unique_id=1044929530]
+anchors_preset = 0
+size_flags_horizontal = 3
+
+[node name="MarginContainer_VBoxContainer_TopBar#DuplicateButton" type="Button" parent="." unique_id=349052282]
+layout_mode = 0
+text = "Duplicate"
+
+[node name="MarginContainer_VBoxContainer_TopBar#DeleteButton" type="Button" parent="." unique_id=1269775163]
+layout_mode = 0
+text = "Delete"
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer1#Correct" type="CheckBox" parent="." unique_id=1361205318]
+layout_mode = 0
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer1#Text" type="LineEdit" parent="." unique_id=1665352428]
+layout_mode = 0
+size_flags_horizontal = 3
+placeholder_text = "Option A"
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer1#Delete" type="Button" parent="." unique_id=611925131]
+layout_mode = 0
+text = "🗑"
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer2#Correct" type="CheckBox" parent="." unique_id=1005757351]
+layout_mode = 0
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer2#Text" type="LineEdit" parent="." unique_id=559425005]
+layout_mode = 0
+size_flags_horizontal = 3
+placeholder_text = "Option B"
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer2#Delete" type="Button" parent="." unique_id=78569279]
+layout_mode = 0
+text = "🗑"
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer3#Correct" type="CheckBox" parent="." unique_id=399260138]
+layout_mode = 0
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer3#Text" type="LineEdit" parent="." unique_id=2085394097]
+layout_mode = 0
+size_flags_horizontal = 3
+placeholder_text = "Option C"
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer3#Delete" type="Button" parent="." unique_id=784908446]
+layout_mode = 0
+text = "🗑"
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer4#Correct" type="CheckBox" parent="." unique_id=2109334145]
+layout_mode = 0
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer4#Text" type="LineEdit" parent="." unique_id=594988490]
+layout_mode = 0
+size_flags_horizontal = 3
+placeholder_text = "Option D"
+
+[node name="MarginContainer_VBoxContainer_Answers_Answer4#Delete" type="Button" parent="." unique_id=392980079]
+layout_mode = 0
+text = "+ Add Option"
+
+[node name="MarginContainer_VBoxContainer_BottomBar#QuestionType" type="OptionButton" parent="." unique_id=1368292235]
+custom_minimum_size = Vector2(170, 36)
+layout_mode = 0
+
+[node name="MarginContainer_VBoxContainer_BottomBar#Required" type="CheckBox" parent="." unique_id=534581545]
+layout_mode = 0
+text = "Required"
+
+[node name="MarginContainer_VBoxContainer_BottomBar#Points" type="SpinBox" parent="." unique_id=1029219969]
+custom_minimum_size = Vector2(80, 36)
+layout_mode = 0
+
+[node name="MarginContainer_VBoxContainer_BottomBar#Spacer" type="Control" parent="." unique_id=264378188]
+anchors_preset = 0
+size_flags_horizontal = 3

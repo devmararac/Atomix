@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c5q583u277pgu"]
+
+[ext_resource type="Texture2D" uid="uid://d3vwc16ulil0d" path="res://Assets/Structures/Vegitations/Bushes/bush_red_small.png" id="1_rjx2b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkb6q"]
+size = Vector2(20, 8)
+
+[node name="red_bush_S" type="Node2D" unique_id=2067234518]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1209030560]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1433510714]
+position = Vector2(0, -2)
+texture = ExtResource("1_rjx2b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=904858542]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_vkb6q")

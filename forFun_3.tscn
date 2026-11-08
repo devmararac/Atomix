@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://crcfdbe2jj8th"]
+
+[ext_resource type="Texture2D" uid="uid://bk73xra2plk11" path="res://Assets/Player/peak3-Sheet.png" id="1_0it7c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wv0xy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir333"]
+atlas = ExtResource("1_0it7c")
+region = Rect2(0, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlb7r"]
+atlas = ExtResource("1_0it7c")
+region = Rect2(64, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mj1f"]
+atlas = ExtResource("1_0it7c")
+region = Rect2(128, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7wq2"]
+atlas = ExtResource("1_0it7c")
+region = Rect2(192, 448, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbj1f"]
+atlas = ExtResource("1_0it7c")
+region = Rect2(256, 448, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jn7xq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir333")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlb7r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mj1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7wq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbj1f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=735128589]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=207474389]
+shape = SubResource("CapsuleShape2D_wv0xy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1551541849]
+sprite_frames = SubResource("SpriteFrames_jn7xq")
+autoplay = "default"
+frame_progress = 0.84061885

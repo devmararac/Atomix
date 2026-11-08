@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://cxmcf7smukfxq"]
+
+[ext_resource type="Script" uid="uid://dc5l5a53hinup" path="res://Scenes/Minigames/CompoundLab.gd" id="1_sjrqw"]
+
+[node name="CompoundLab" type="Control" unique_id=1337671074]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sjrqw")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1331716795]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.035, 0.025, 0.055, 1)
+
+[node name="Workspace" type="Control" parent="." unique_id=663275544]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" type="PanelContainer" parent="." unique_id=1032658572]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 70.0
+grow_horizontal = 2
+
+[node name="Margin" type="MarginContainer" parent="TopBar" unique_id=1254210235]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 10
+
+[node name="Header" type="HBoxContainer" parent="TopBar/Margin" unique_id=1547970045]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="TopBar/Margin/Header" unique_id=1740585277]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "⚗  COMPOUND LAB"
+vertical_alignment = 1
+
+[node name="DiscoveryCount" type="Label" parent="TopBar/Margin/Header" unique_id=964701106]
+layout_mode = 2
+text = "DISCOVERED  0 / 30"
+vertical_alignment = 1
+
+[node name="SearchButton" type="Button" parent="TopBar/Margin/Header" unique_id=1794456787]
+custom_minimum_size = Vector2(52, 44)
+layout_mode = 2
+text = "🔍"
+
+[node name="ElementPanel" type="PanelContainer" parent="." unique_id=1319851323]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -330.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="ElementPanel" unique_id=796281024]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 24
+
+[node name="Elements" type="VBoxContainer" parent="ElementPanel/Margin" unique_id=950619905]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="ElementPanel/Margin/Elements" unique_id=1359956407]
+layout_mode = 2
+text = "ELEMENTS"
+
+[node name="SearchBox" type="LineEdit" parent="ElementPanel/Margin/Elements" unique_id=1500381007]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+placeholder_text = "Search elements..."
+
+[node name="Scroll" type="ScrollContainer" parent="ElementPanel/Margin/Elements" unique_id=96871927]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ElementList" type="VBoxContainer" parent="ElementPanel/Margin/Elements/Scroll" unique_id=936612672]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="H" type="Button" parent="ElementPanel/Margin/Elements/Scroll/ElementList" unique_id=1350944334]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "H     Hydrogen"
+
+[node name="O" type="Button" parent="ElementPanel/Margin/Elements/Scroll/ElementList" unique_id=2025896893]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "O     Oxygen"
+
+[node name="C" type="Button" parent="ElementPanel/Margin/Elements/Scroll/ElementList" unique_id=411980626]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "C     Carbon"
+
+[node name="N" type="Button" parent="ElementPanel/Margin/Elements/Scroll/ElementList" unique_id=893831390]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "N     Nitrogen"
+
+[node name="Na" type="Button" parent="ElementPanel/Margin/Elements/Scroll/ElementList" unique_id=225596142]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Na     Sodium"
+
+[node name="Cl" type="Button" parent="ElementPanel/Margin/Elements/Scroll/ElementList" unique_id=531282763]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Cl     Chlorine"
+
+[node name="Mg" type="Button" parent="ElementPanel/Margin/Elements/Scroll/ElementList" unique_id=207916648]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Mg     Magnesium"
+
+[node name="Ca" type="Button" parent="ElementPanel/Margin/Elements/Scroll/ElementList" unique_id=1088034242]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Ca     Calcium"
+
+[node name="BottomBar" type="PanelContainer" parent="." unique_id=367650882]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = -330.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="BottomBar" unique_id=76463986]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+
+[node name="Controls" type="HBoxContainer" parent="BottomBar/Margin" unique_id=1758802567]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CleanUpButton" type="Button" parent="BottomBar/Margin/Controls" unique_id=1328972227]
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+text = "🧹  CLEAN UP"
+
+[node name="HintButton" type="Button" parent="BottomBar/Margin/Controls" unique_id=485759478]
+custom_minimum_size = Vector2(110, 44)
+layout_mode = 2
+text = "💡 HINT"
+
+[node name="Spacer" type="Control" parent="BottomBar/Margin/Controls" unique_id=2134374773]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Instruction" type="Label" parent="BottomBar/Margin/Controls" unique_id=1249258507]
+layout_mode = 2
+text = "Drag elements together to combine them."
+vertical_alignment = 1

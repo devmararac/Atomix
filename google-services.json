@@ -1,0 +1,29 @@
+{
+  "project_info": {
+	"project_number": "1035049497556",
+	"project_id": "atomix-f6c6b",
+	"storage_bucket": "atomix-f6c6b.firebasestorage.app"
+  },
+  "client": [
+	{
+	  "client_info": {
+		"mobilesdk_app_id": "1:1035049497556:android:c55787f681ae3459d75c41",
+		"android_client_info": {
+		  "package_name": "com.atomix.chemistryadventure"
+		}
+	  },
+	  "oauth_client": [],
+	  "api_key": [
+		{
+		  "current_key": "AIzaSyDTt56X8izCP7IlEFlaW7oaKlw_i_aNwPA"
+		}
+	  ],
+	  "services": {
+		"appinvite_service": {
+		  "other_platform_oauth_client": []
+		}
+	  }
+	}
+  ],
+  "configuration_version": "1"
+}

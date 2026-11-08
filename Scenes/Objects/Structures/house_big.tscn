@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bsid5ayfu0clw"]
+
+[ext_resource type="Texture2D" uid="uid://q64svopqfs8i" path="res://Assets/Structures/Houses/house_big.png" id="1_livp1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1ww7"]
+size = Vector2(33, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j7jvs"]
+size = Vector2(79, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ab54"]
+size = Vector2(13, 32)
+
+[node name="House Big" type="StaticBody2D" unique_id=57669022]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=601306449]
+position = Vector2(0, -17)
+texture = ExtResource("1_livp1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1472736457]
+position = Vector2(-46.5, 5)
+shape = SubResource("RectangleShape2D_n1ww7")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=381835320]
+position = Vector2(22.5, 5)
+shape = SubResource("RectangleShape2D_j7jvs")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=325684799]
+position = Vector2(-23.5, -4)
+shape = SubResource("RectangleShape2D_5ab54")

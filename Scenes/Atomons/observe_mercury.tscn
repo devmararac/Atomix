@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://bjhhkixwqmim2"]
+
+[ext_resource type="Script" uid="uid://cyqid38quwfiu" path="res://Scripts/Quest/observe_mercury.gd" id="1_1j5jm"]
+[ext_resource type="Texture2D" uid="uid://c45qq7san0w6q" path="res://Assets/Pets/Mercury_idle.png" id="2_y4n8r"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="3_snm5a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snm5a"]
+atlas = ExtResource("2_y4n8r")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvjvd"]
+atlas = ExtResource("2_y4n8r")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6n04"]
+atlas = ExtResource("2_y4n8r")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55npk"]
+atlas = ExtResource("2_y4n8r")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rntf"]
+atlas = ExtResource("2_y4n8r")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arkb1"]
+atlas = ExtResource("2_y4n8r")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofwlh"]
+atlas = ExtResource("2_y4n8r")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvk26"]
+atlas = ExtResource("2_y4n8r")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2b13l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snm5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvjvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6n04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55npk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rntf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arkb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofwlh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvk26")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 9.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4w2o"]
+radius = 13.0
+height = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
+atlas = ExtResource("3_snm5a")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
+atlas = ExtResource("3_snm5a")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
+atlas = ExtResource("3_snm5a")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
+atlas = ExtResource("3_snm5a")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
+atlas = ExtResource("3_snm5a")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vyini"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4723l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d07v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyadn")
+}],
+"loop": true,
+"name": &"highlight",
+"speed": 9.0
+}]
+
+[node name="MecuryObservation" type="CharacterBody2D" unique_id=238339346 groups=["QuestObjects"]]
+script = ExtResource("1_1j5jm")
+target_id = "mercury"
+dialogue_timeline = "observe_mercury"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=929656731]
+sprite_frames = SubResource("SpriteFrames_2b13l")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.7311262
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=535710934]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_m4w2o")
+
+[node name="Highlight" type="AnimatedSprite2D" parent="." unique_id=1013815157]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7921569)
+scale = Vector2(1.0625, 1.09375)
+sprite_frames = SubResource("SpriteFrames_vyini")
+animation = &"highlight"
+autoplay = "highlight"
+
+[node name="BubbleMarker" type="Marker2D" parent="." unique_id=1652428399]

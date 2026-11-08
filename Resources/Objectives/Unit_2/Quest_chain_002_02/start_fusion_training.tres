@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://vd7uoo6afufn"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_k0w1u"]
+
+[resource]
+script = ExtResource("1_k0w1u")
+id = "start_fusion_training"
+description = "Begin Andrew's Fusion training battle."
+type = 5
+target_id = "fusion_training"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

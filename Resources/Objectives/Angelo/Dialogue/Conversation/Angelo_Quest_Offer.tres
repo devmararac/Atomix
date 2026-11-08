@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="NPCConversation" format=3 uid="uid://wb8nu4jq6ve5"]
+
+[ext_resource type="Resource" uid="uid://du57mihae3shx" path="res://Resources/Quest/TRES_FOR_QUEST/quest_iron_core.tres" id="1_hbwyd"]
+[ext_resource type="Script" uid="uid://bhmqnddyb783i" path="res://Resources/Scripts/NPCConversation.gd" id="1_w030n"]
+[ext_resource type="Resource" uid="uid://dvme5xnk4gw8q" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Angelo/angelo_quest_offer.dtl" id="3_yy67b"]
+
+[resource]
+script = ExtResource("1_w030n")
+conversation_name = "Angelo Quest Offer"
+conversation_type = 2
+quest = ExtResource("1_hbwyd")
+timeline = ExtResource("3_yy67b")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"

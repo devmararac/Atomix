@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://1dmru4kav6r2"]
+
+[ext_resource type="Script" uid="uid://6tofcxh40t03" path="res://Resources/Scripts/Actions/MoveAction.gd" id="1_g3i88"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2_4hp4g"]
+[ext_resource type="Script" uid="uid://coomt1t7ljksq" path="res://Resources/Scripts/Actions/HealAction.gd" id="2_ro4u1"]
+
+[sub_resource type="Resource" id="Resource_pil11"]
+script = ExtResource("2_ro4u1")
+heal_amount = 25
+metadata/_custom_type_script = "uid://coomt1t7ljksq"
+
+[resource]
+script = ExtResource("2_4hp4g")
+move_name = "Heal 2"
+description = "Boost"
+actions = Array[ExtResource("1_g3i88")]([SubResource("Resource_pil11")])
+metadata/_custom_type_script = "uid://c3r52ktnjg7y"
