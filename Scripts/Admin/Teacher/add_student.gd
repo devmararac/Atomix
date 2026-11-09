@@ -6,6 +6,7 @@ signal student_created
 
 const FIRESTORE_PROJECT_ID := "atomix-f6c6b"
 const FIRESTORE_BASE_URL := "https://firestore.googleapis.com/v1/projects/"
+const AUTH_API_URL := "https://atomix-auth-api.atomix-auth.workers.dev"
 
 @onready var student_id_input: LineEdit = $PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/VBoxContainer2/StudentIDInput
 
@@ -401,6 +402,149 @@ func create_firebase_account(email: String, password: String) -> Dictionary:
 # FIRESTORE REST API
 # ============================================================
 
+# ============================================================
+# CLOUDFLARE D1 ACCOUNT REGISTRATION
+# ============================================================
+
+func register_account_in_d1(
+	student_id: String,
+	student_id_token: String
+) -> bool:
+	var teacher_token := _get_current_id_token()
+
+	if teacher_token.is_empty():
+		push_error("[AddStudent] Cannot register D1 mapping: teacher token is missing.")
+		return false
+
+	if student_id_token.is_empty():
+		push_error("[AddStudent] Cannot register D1 mapping: student token is missing.")
+		return false
+
+	var request_body := {
+		"callerIdToken": teacher_token,
+		"accountIdToken": student_id_token,
+		"idNumber": student_id,
+		"accountType": "student"
+	}
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var request_error := http.request(
+		AUTH_API_URL + "/register-account",
+		headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(request_body)
+	)
+
+	if request_error != OK:
+		push_error("[AddStudent] Could not start D1 registration request: " + str(request_error))
+		http.queue_free()
+		return false
+
+	var response: Array = await http.request_completed
+	var result_code := int(response[1])
+	var response_text := (response[3] as PackedByteArray).get_string_from_utf8()
+
+	http.queue_free()
+
+	var parsed = JSON.parse_string(response_text)
+
+	if result_code != 200 or not parsed is Dictionary:
+		push_error(
+			"[AddStudent] D1 registration failed. HTTP "
+			+ str(result_code)
+			+ " | Response: "
+			+ response_text
+		)
+		return false
+
+	if not bool(parsed.get("success", false)):
+		push_error(
+			"[AddStudent] D1 rejected registration: "
+			+ str(parsed.get("message", "Unknown error."))
+		)
+		return false
+
+	print("[AddStudent] Student LRN successfully registered in D1: ", student_id)
+	return true
+
+
+func sync_existing_account_in_d1(account_uid: String) -> bool:
+	var caller_token := _get_current_id_token()
+
+	if caller_token.is_empty():
+		push_error("[AddStudent] Cannot sync D1: caller token is missing.")
+		return false
+
+	if account_uid.is_empty():
+		push_error("[AddStudent] Cannot sync D1: account UID is missing.")
+		return false
+
+	var request_body := {
+		"callerIdToken": caller_token,
+		"accountUid": account_uid,
+		"accountType": "student"
+	}
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var request_error := http.request(
+		AUTH_API_URL + "/admin-sync-account",
+		headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(request_body)
+	)
+
+	if request_error != OK:
+		push_error(
+			"[AddStudent] Could not start existing-account D1 sync: "
+			+ str(request_error)
+		)
+		http.queue_free()
+		return false
+
+	var response: Array = await http.request_completed
+	var response_code := int(response[1])
+	var response_text := (response[3] as PackedByteArray).get_string_from_utf8()
+
+	http.queue_free()
+
+	var parsed = JSON.parse_string(response_text)
+
+	if response_code != 200 or not parsed is Dictionary:
+		push_error(
+			"[AddStudent] Existing-account D1 sync failed. HTTP "
+			+ str(response_code)
+			+ " | Response: "
+			+ response_text
+		)
+		return false
+
+	if not bool(parsed.get("success", false)):
+		push_error(
+			"[AddStudent] Worker rejected existing-account sync: "
+			+ str(parsed.get("message", "Unknown error."))
+		)
+		return false
+
+	print(
+		"[AddStudent] Existing student successfully synchronized with D1. UID: ",
+		account_uid
+	)
+
+	return true
+
+
 func _get_current_id_token() -> String:
 	if Firebase.Auth == null:
 		return ""
@@ -754,6 +898,24 @@ func _on_create_button_pressed() -> void:
 		)
 		_reset_form_buttons()
 		return
+		
+	# Register the verified student account in Cloudflare D1.
+	show_status("Registering student LRN for login...")
+
+	var student_token := str(auth_result.get("idToken", ""))
+
+	var d1_success := await register_account_in_d1(
+		student_id,
+		student_token
+	)
+
+	if not d1_success:
+		show_status(
+			"Student account and Firestore records were created, "
+			+ "but LRN login registration failed. Check the debugger."
+		)
+		_reset_form_buttons()
+		return
 
 	# Record successful student creation in the activity log.
 	ActivityLogManager.log_activity(
@@ -851,7 +1013,19 @@ func _save_student_changes() -> void:
 			"name": student_name
 		}
 		var user_success := await _patch_firestore_fields("users", uid, user_update)
+		
+		
+				# Register or update the existing student's LRN mapping in D1.
+		show_status("Synchronizing student login information...")
 
+		var d1_success := await sync_existing_account_in_d1(uid)
+
+		if not d1_success:
+			push_warning(
+				"[AddStudent] Firestore changes were saved, "
+				+ "but the student's D1 login mapping was not synchronized."
+			)
+		
 		# Update the leaderboard's name and section, if that record exists.
 		var leaderboard_update := {
 			"name": student_name,
@@ -865,7 +1039,13 @@ func _save_student_changes() -> void:
 		if not leaderboard_success:
 			push_warning("[AddStudent] Student details saved, but the leaderboard was not updated.")
 
-		show_status("Student details updated successfully.")
+		if d1_success:
+			show_status("Student details and login information updated successfully.")
+		else:
+			show_status(
+				"Student details were saved, but login information "
+				+ "could not be synchronized. Check the debugger."
+			)
 		_reset_form_buttons()
 
 		await get_tree().create_timer(0.5).timeout

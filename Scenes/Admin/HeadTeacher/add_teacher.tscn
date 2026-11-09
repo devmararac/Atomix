@@ -343,6 +343,7 @@ expand_icon = true
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/separation = 15
 
 [node name="PasswordLabel" type="Label" parent="PageBackground/FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2" unique_id=730633878]
 layout_mode = 2
@@ -387,49 +388,6 @@ icon = ExtResource("4_vy5rw")
 expand_icon = true
 
 [node name="Button" type="Button" parent="PageBackground/FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput/HBoxContainer" unique_id=1943153055]
-custom_minimum_size = Vector2(128, 30)
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_vvbxr")
-text = "Generate"
-icon = ExtResource("2_topw3")
-expand_icon = true
-
-[node name="PasswordInput2" type="LineEdit" parent="PageBackground/FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1556810842]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
-theme_override_colors/font_placeholder_color = Color(0.056810323, 0.056810323, 0.056810323, 0.41568628)
-theme_override_fonts/font = ExtResource("2_vvbxr")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_Input")
-placeholder_text = "Enter password..."
-clear_button_enabled = true
-secret = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput2" unique_id=1108158561]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.754
-anchor_top = 0.089
-anchor_right = 0.99000007
-anchor_bottom = 0.97800004
-offset_left = 0.2000122
-offset_top = -0.0050001144
-offset_right = -6.1035156e-05
-offset_bottom = -0.010002136
-mouse_filter = 0
-
-[node name="Hide_Show" type="Button" parent="PageBackground/FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput2/HBoxContainer" unique_id=842472883]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_d3qer")
-icon = ExtResource("4_vy5rw")
-expand_icon = true
-
-[node name="Button" type="Button" parent="PageBackground/FormPanel/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput2/HBoxContainer" unique_id=864593276]
 custom_minimum_size = Vector2(128, 30)
 layout_mode = 2
 size_flags_vertical = 4

@@ -21,7 +21,9 @@ const FIRESTORE_BASE := "https://firestore.googleapis.com/v1/projects/"
 
 @onready var email_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/EmailInput
 
-@onready var password_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput
+@onready var old_password_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput
+
+@onready var new_password_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3/PasswordInput
 
 @onready var edit_button: Button = $PageBackground/VBoxContainer/HBoxContainer2/Edit
 
@@ -36,6 +38,7 @@ const FIRESTORE_BASE := "https://firestore.googleapis.com/v1/projects/"
 @onready var activity_rows: VBoxContainer = $PageBackground/ActivityLogs/VBoxContainer/ScrollContainer/CenterContainer/VBoxContainer
 
 var current_profile: Dictionary = {}
+var original_email: String = ""
 
 var is_editing: bool = false
 var is_saving: bool = false
@@ -336,17 +339,16 @@ func _populate_profile_fields() -> void:
 		current_profile.get("suffix", "")
 	)
 
-	email_input.text = str(
+	original_email = str(
 		current_profile.get("email", "")
-	)
+	).strip_edges()
+
+	email_input.text = original_email
 
 	id_input.text = str(
 		current_profile.get("id_number", "")
 	)
 
-	# Admin accounts may not have an ID number.
-	# Keep it visible only if the account already has one.
-	id_input.editable = false
 
 
 # ============================================================
@@ -362,6 +364,7 @@ func _on_edit_pressed() -> void:
 		return
 
 	is_editing = true
+	_clear_password_fields()
 
 	_set_profile_editable(true)
 
@@ -373,19 +376,23 @@ func _on_edit_pressed() -> void:
 
 func _set_profile_editable(enabled: bool) -> void:
 
+	id_input.editable = enabled
+
 	first_name_input.editable = enabled
 	middle_initial_input.editable = enabled
 	last_name_input.editable = enabled
 	suffix_input.editable = enabled
 
-	# Email is managed by Firebase Authentication.
-	email_input.editable = false
+	email_input.editable = enabled
 
-	# The admin's ID is not changed through this form.
-	id_input.editable = false
+	old_password_input.editable = enabled
+	new_password_input.editable = enabled
 
-	# Password changes are not handled by profile editing.
-	password_input.editable = false
+
+func _clear_password_fields() -> void:
+
+	old_password_input.clear()
+	new_password_input.clear()
 
 
 # ============================================================
@@ -401,6 +408,7 @@ func _on_update_pressed() -> void:
 	var middle_initial := middle_initial_input.text.strip_edges()
 	var last_name := last_name_input.text.strip_edges()
 	var suffix := suffix_input.text.strip_edges()
+	
 
 	if first_name.is_empty():
 		_show_profile_status("First name is required.")
@@ -420,6 +428,7 @@ func _on_update_pressed() -> void:
 	)
 
 	var updated_fields: Dictionary = {
+		"id_number": id_input.text.strip_edges(),
 		"first_name": first_name,
 		"middle_initial": middle_initial,
 		"last_name": last_name,

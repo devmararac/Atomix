@@ -3,6 +3,8 @@ extends Control
 
 signal teacher_created
 
+const AUTH_API_URL := "https://atomix-auth-api.atomix-auth.workers.dev"
+
 const PROJECT_ID := "atomix-f6c6b"
 const FIRESTORE_BASE := "https://firestore.googleapis.com/v1/projects/"
 const NORMAL_LABEL_COLOR := Color("#785A3C")
@@ -481,10 +483,16 @@ func _on_create_button_pressed() -> void:
 		return
 
 	var teacher_uid := str(auth_result.get("uid", ""))
+	var teacher_id_token := str(auth_result.get("idToken", ""))
 
 	if teacher_uid.is_empty():
 		_finish_creation()
 		_show_status("Firebase did not return a teacher UID.")
+		return
+
+	if teacher_id_token.is_empty():
+		_finish_creation()
+		_show_status("Firebase did not return the new teacher's authentication token.")
 		return
 
 	var user_data := {
@@ -539,6 +547,25 @@ func _on_create_button_pressed() -> void:
 		_show_status(
 			"Authentication and /users were created, but saving /teachers failed. "
 			+ "Check Firestore rules."
+		)
+		return
+
+	# Register the teacher's ID number and Firebase UID in Cloudflare D1.
+	_show_status("Registering teacher account in the login database...")
+
+	var d1_result: Dictionary = await _register_teacher_in_d1(
+		id_number,
+		teacher_id_token
+	)
+
+	if not bool(d1_result.get("success", false)):
+		_finish_creation()
+
+		_show_status(
+			"Firebase Authentication and Firestore records were created, "
+			+ "but D1 registration failed:\n"
+			+ str(d1_result.get("message", "Unknown Worker error."))
+			+ "\n\nThe teacher account already exists. Do not create it again."
 		)
 		return
 
@@ -639,6 +666,202 @@ func _create_firebase_auth_account(
 	return {
 		"success": true,
 		"uid": str(parsed.get("localId", "")),
+		"idToken": str(parsed.get("idToken", "")),
+		"message": ""
+	}
+
+
+# ------------------------------------------------------------
+# CLOUDFLARE D1 ACCOUNT REGISTRATION
+# ------------------------------------------------------------
+
+func _register_teacher_in_d1(
+	id_number: String,
+	teacher_id_token: String
+) -> Dictionary:
+	var admin_token := _get_current_admin_id_token()
+
+	if admin_token.is_empty():
+		return {
+			"success": false,
+			"message": "The admin authentication token is missing."
+		}
+
+	if teacher_id_token.is_empty():
+		return {
+			"success": false,
+			"message": "The new teacher authentication token is missing."
+		}
+
+	var url := AUTH_API_URL + "/register-account"
+
+	var request_body := JSON.stringify({
+		"callerIdToken": admin_token,
+		"accountIdToken": teacher_id_token,
+		"idNumber": id_number,
+		"accountType": "teacher"
+	})
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var error := http.request(
+		url,
+		PackedStringArray([
+			"Content-Type: application/json"
+		]),
+		HTTPClient.METHOD_POST,
+		request_body
+	)
+
+	if error != OK:
+		http.queue_free()
+
+		return {
+			"success": false,
+			"message": "Could not start the Cloudflare Worker request."
+		}
+
+	var response: Array = await http.request_completed
+
+	var response_code: int = int(response[1])
+	var response_text := (
+		(response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	http.queue_free()
+
+	var parsed: Variant = JSON.parse_string(response_text)
+
+	if response_code < 200 or response_code >= 300:
+		var message := response_text
+
+		if parsed is Dictionary:
+			message = str(
+				parsed.get(
+					"error",
+					parsed.get("message", response_text)
+				)
+			)
+
+		push_error(
+			"[AddTeacher] D1 registration failed. HTTP "
+			+ str(response_code)
+			+ ": "
+			+ message
+		)
+
+		return {
+			"success": false,
+			"message": message
+		}
+
+	if not parsed is Dictionary:
+		return {
+			"success": false,
+			"message": "The Worker returned an invalid response."
+		}
+
+	if not bool(parsed.get("success", false)):
+		return {
+			"success": false,
+			"message": str(
+				parsed.get("message", "D1 registration was not confirmed.")
+			)
+		}
+
+	print("[AddTeacher] Teacher successfully registered in D1.")
+
+	return {
+		"success": true,
+		"message": ""
+	}
+
+
+func _sync_existing_teacher_in_d1(teacher_uid: String) -> Dictionary:
+	var admin_token := _get_current_admin_id_token()
+
+	if admin_token.is_empty():
+		return {
+			"success": false,
+			"message": "The admin authentication token is missing."
+		}
+
+	if teacher_uid.is_empty():
+		return {
+			"success": false,
+			"message": "The teacher UID is missing."
+		}
+
+	var request_body := JSON.stringify({
+		"callerIdToken": admin_token,
+		"accountUid": teacher_uid,
+		"accountType": "teacher"
+	})
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var error := http.request(
+		AUTH_API_URL + "/admin-sync-account",
+		PackedStringArray([
+			"Content-Type: application/json"
+		]),
+		HTTPClient.METHOD_POST,
+		request_body
+	)
+
+	if error != OK:
+		http.queue_free()
+
+		return {
+			"success": false,
+			"message": "Could not start the Cloudflare Worker request."
+		}
+
+	var response: Array = await http.request_completed
+
+	var response_code := int(response[1])
+	var response_text := (
+		(response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	http.queue_free()
+
+	var parsed: Variant = JSON.parse_string(response_text)
+
+	if response_code != 200 or not parsed is Dictionary:
+		push_error(
+			"[AddTeacher] Existing teacher D1 synchronization failed. HTTP "
+			+ str(response_code)
+			+ " | Response: "
+			+ response_text
+		)
+
+		return {
+			"success": false,
+			"message": response_text
+		}
+
+	if not bool(parsed.get("success", false)):
+		var message := str(
+			parsed.get("message", "D1 synchronization was not confirmed.")
+		)
+
+		push_error("[AddTeacher] D1 synchronization rejected: " + message)
+
+		return {
+			"success": false,
+			"message": message
+		}
+
+	print(
+		"[AddTeacher] Existing teacher successfully synchronized with D1. UID: ",
+		teacher_uid
+	)
+
+	return {
+		"success": true,
 		"message": ""
 	}
 
@@ -921,6 +1144,8 @@ func _on_save_teacher_changes_pressed() -> void:
 
 	# Use the existing Firestore document ID. Never create a new teacher.
 	var teacher_uid := str(editing_teacher.get("uid", "")).strip_edges()
+	
+
 
 	if teacher_uid.is_empty():
 		var document_path := str(editing_teacher.get("document_path", ""))
@@ -931,6 +1156,7 @@ func _on_save_teacher_changes_pressed() -> void:
 		_show_status("Cannot edit teacher: the teacher UID is missing.")
 		push_error("[AddTeacher] Editing teacher has no UID or document path.")
 		return
+		
 
 	var full_name := _get_full_name()
 
@@ -977,6 +1203,20 @@ func _on_save_teacher_changes_pressed() -> void:
 			+ str(user_result.get("error", "Unknown Firestore error."))
 		)
 		return
+		
+	# Synchronize the existing teacher's ID number and email in D1.
+	_show_status("Synchronizing teacher login information...")
+
+	var d1_result: Dictionary = await _sync_existing_teacher_in_d1(
+		teacher_uid
+	)
+
+	if not bool(d1_result.get("success", false)):
+		push_warning(
+			"[AddTeacher] Firestore changes were saved, "
+			+ "but D1 synchronization failed: "
+			+ str(d1_result.get("message", "Unknown error."))
+		)
 
 	# Keep the local copy consistent with the saved values.
 	for key in updated_fields:
@@ -991,7 +1231,17 @@ func _on_save_teacher_changes_pressed() -> void:
 	)
 
 	_finish_creation()
-	_show_status("Teacher details updated successfully!")
+
+	if bool(d1_result.get("success", false)):
+		_show_status(
+			"Teacher details and login information updated successfully!"
+		)
+	else:
+		_show_status(
+			"Teacher details were saved, but login information "
+			+ "could not be synchronized. Check the debugger."
+		)
+
 	teacher_created.emit()
 
 

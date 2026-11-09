@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c6hf6ytc0beei"]
 
 [ext_resource type="Script" uid="uid://3tvtlneb4mu" path="res://Scripts/Admin/settings.gd" id="1_hgefv"]
-[ext_resource type="Texture2D" uid="uid://cf7g4nir25b5y" path="res://Assets/UX/Icons/generate_password.png" id="3_7fn4t"]
 [ext_resource type="Texture2D" uid="uid://0y5fliy5rj0m" path="res://Assets/UX/Icons/notification.png" id="3_8xlwh"]
 [ext_resource type="Texture2D" uid="uid://ncldetg3scsm" path="res://Assets/UX/Icons/pass1.png" id="4_qnhyy"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="4_uxs0o"]
@@ -21,13 +20,6 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wd8cu"]
-bg_color = Color(0, 0.4862745, 0.83137256, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qnhyy"]
 bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
@@ -306,7 +298,7 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/VBoxContainer/HBoxContainer" unique_id=475697675]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 50
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1532017704]
@@ -319,7 +311,7 @@ alignment = 1
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 
 [node name="EmailLabel" type="Label" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=937028545]
 layout_mode = 2
@@ -338,17 +330,6 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
 placeholder_text = "Enter teacher email..."
 clear_button_enabled = true
-
-[node name="Button" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/EmailInput" unique_id=397027312]
-layout_mode = 0
-offset_left = 524.0
-offset_top = 7.0
-offset_right = 689.0
-offset_bottom = 38.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_wd8cu")
-text = "Generate"
-icon = ExtResource("3_7fn4t")
-expand_icon = true
 
 [node name="VerificationContainer" type="HBoxContainer" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=404586536]
 layout_mode = 2
@@ -390,7 +371,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("4_uxs0o")
 theme_override_font_sizes/font_size = 30
-text = "Password"
+text = "Old Password"
 
 [node name="PasswordInput" type="LineEdit" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1630210237]
 custom_minimum_size = Vector2(0, 45)
@@ -404,29 +385,52 @@ placeholder_text = "Enter password..."
 clear_button_enabled = true
 secret = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput" unique_id=1691385114]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 0
-offset_left = 528.0
-offset_top = 4.0
-offset_right = 693.0
-offset_bottom = 44.0
-
-[node name="Hide_Show" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput/HBoxContainer" unique_id=1192387952]
+[node name="Hide_Show" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput" unique_id=1192387952]
 custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
+layout_mode = 0
+offset_left = 657.0
+offset_top = 9.0
+offset_right = 687.0
+offset_bottom = 39.0
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_w2crm")
 icon = ExtResource("4_qnhyy")
 expand_icon = true
 
-[node name="Button" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput/HBoxContainer" unique_id=1257991686]
-custom_minimum_size = Vector2(128, 30)
+[node name="VBoxContainer3" type="VBoxContainer" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1595490485]
+custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PasswordLabel" type="Label" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3" unique_id=1361747555]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_uxs0o")
+theme_override_font_sizes/font_size = 30
+text = "New Password"
+
+[node name="PasswordInput" type="LineEdit" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3" unique_id=920862822]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.056810323, 0.056810323, 0.056810323, 0.41568628)
+theme_override_fonts/font = ExtResource("4_uxs0o")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+placeholder_text = "Enter password..."
+clear_button_enabled = true
+secret = true
+
+[node name="Hide_Show" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3/PasswordInput" unique_id=1750183112]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_left = 657.0
+offset_top = 9.0
+offset_right = 687.0
+offset_bottom = 39.0
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_wd8cu")
-text = "Generate"
-icon = ExtResource("3_7fn4t")
+theme_override_styles/normal = SubResource("StyleBoxFlat_w2crm")
+icon = ExtResource("4_qnhyy")
 expand_icon = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PageBackground/VBoxContainer" unique_id=1360181926]
@@ -448,6 +452,7 @@ text = "Edit
 expand_icon = true
 
 [node name="Update" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer2" unique_id=1110659292]
+visible = false
 custom_minimum_size = Vector2(128, 40)
 layout_mode = 2
 size_flags_horizontal = 4

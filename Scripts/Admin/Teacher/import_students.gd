@@ -2,6 +2,8 @@ extends Control
 
 signal students_imported
 
+const AUTH_API_URL := "https://atomix-auth-api.atomix-auth.workers.dev"
+
 # ============================================================
 # UI REFERENCES
 # ============================================================
@@ -1168,11 +1170,46 @@ func _on_import_button_pressed() -> void:
 				student_data["school_year"]
 			)
 
-			if firestore_success:
+			if not firestore_success:
+				print(
+					"[ImportStudents] Firestore creation failed for: ",
+					student_data["student_id"]
+				)
 
+				failed_count += 1
+				continue
+
+
+			# ====================================================
+			# REGISTER STUDENT IN CLOUDFLARE D1
+			# ====================================================
+
+			show_status(
+				"Registering student "
+				+ str(i + 1)
+				+ " of "
+				+ str(total)
+				+ " for LRN login..."
+			)
+
+			var student_id_token := str(
+				auth_result.get("idToken", "")
+			)
+
+			var d1_success := await register_account_in_d1(
+				str(student_data["student_id"]),
+				student_id_token
+			)
+
+			if d1_success:
 				created_count += 1
 
 			else:
+				print(
+					"[ImportStudents] WARNING: Student was created in Firebase "
+					+ "and Firestore, but D1 registration failed: ",
+					student_data["student_id"]
+				)
 
 				failed_count += 1
 
@@ -1363,6 +1400,110 @@ func _on_import_button_pressed() -> void:
 
 		import_button.disabled = false
 
+
+func _get_current_id_token() -> String:
+	var auth_data: Dictionary = Firebase.Auth.auth
+
+	if auth_data.is_empty():
+		return ""
+
+	if auth_data.has("idtoken"):
+		return str(auth_data["idtoken"])
+
+	if auth_data.has("idToken"):
+		return str(auth_data["idToken"])
+
+	return ""
+
+# ============================================================
+# CLOUDFLARE D1 - REGISTER STUDENT LOGIN
+# ============================================================
+
+func register_account_in_d1(
+	student_id: String,
+	student_id_token: String
+) -> bool:
+
+	var teacher_token := _get_current_id_token().strip_edges()
+
+	if teacher_token.is_empty():
+		print("[ImportStudents] ERROR: Teacher ID token is missing.")
+		return false
+
+	if student_id_token.is_empty():
+		print("[ImportStudents] ERROR: Student ID token is missing.")
+		return false
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var request_body := {
+		"callerIdToken": teacher_token,
+		"accountIdToken": student_id_token,
+		"idNumber": student_id,
+		"accountType": "student"
+	}
+
+	var body := JSON.stringify(request_body)
+
+	var error := http.request(
+		AUTH_API_URL + "/register-account",
+		headers,
+		HTTPClient.METHOD_POST,
+		body
+	)
+
+	if error != OK:
+		print(
+			"[ImportStudents] D1 request could not start: ",
+			error
+		)
+		http.queue_free()
+		return false
+
+	var response: Array = await http.request_completed
+
+	var response_code: int = response[1]
+	var response_body: PackedByteArray = response[3]
+	var response_text := response_body.get_string_from_utf8()
+
+	http.queue_free()
+
+	var json := JSON.new()
+
+	if json.parse(response_text) != OK:
+		print("[ImportStudents] D1 returned an invalid response.")
+		print("[ImportStudents] Response: ", response_text)
+		return false
+
+	if response_code != 200:
+		print(
+			"[ImportStudents] D1 registration failed. HTTP: ",
+			response_code
+		)
+		print("[ImportStudents] Response: ", response_text)
+		return false
+
+	if not json.data is Dictionary:
+		return false
+
+	var result: Dictionary = json.data
+
+	if not bool(result.get("success", false)):
+		print("[ImportStudents] D1 did not confirm registration.")
+		print("[ImportStudents] Response: ", response_text)
+		return false
+
+	print(
+		"[ImportStudents] Student LRN successfully registered in D1: ",
+		student_id
+	)
+
+	return true
 
 # ============================================================
 # FIREBASE AUTH - CREATE ACCOUNT
@@ -2475,7 +2616,10 @@ func create_student_document(
 
 		"student_id":
 			student_id,
-
+		
+		"teacher_id":
+			current_teacher_uid,
+		
 		"section":
 			section,
 

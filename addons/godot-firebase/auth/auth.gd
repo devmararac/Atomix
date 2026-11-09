@@ -23,6 +23,10 @@ signal token_exchanged(successful)
 signal token_refresh_succeeded(auth_result)
 signal logged_out()
 
+#Email Verification
+signal reauthentication_completed(success: bool, result: Dictionary)
+signal credential_operation_completed(operation: String, success: bool, result: Dictionary)
+
 const RESPONSE_SIGNUP : String   = "identitytoolkit#SignupNewUserResponse"
 const RESPONSE_SIGNIN : String   = "identitytoolkit#VerifyPasswordResponse"
 const RESPONSE_ASSERTION : String  = "identitytoolkit#VerifyAssertionResponse"
@@ -65,7 +69,10 @@ var requesting : int = -1
 enum Requests {
 	NONE = -1,
 	EXCHANGE_TOKEN,
-	LOGIN_WITH_OAUTH
+	LOGIN_WITH_OAUTH,
+	REAUTHENTICATE,
+	VERIFY_CHANGE_EMAIL,
+	CHANGE_PASSWORD
 }
 
 var auth_request_type : int = -1
@@ -83,6 +90,12 @@ var _login_request_body : Dictionary = {
 	"email":"",
 	"password":"",
 	"returnSecureToken": true,
+}
+
+var _reauthenticate_request_body: Dictionary = {
+	"email": "",
+	"password": "",
+	"returnSecureToken": true
 }
 
 var _oauth_login_request_body : Dictionary = {
@@ -126,11 +139,16 @@ var _change_password_body : Dictionary = {
 }
 
 
-var _account_verification_body : Dictionary = {
-	"requestType":"verify_email",
-	"idToken":"",
+var _verify_change_email_body: Dictionary = {
+	"requestType": "VERIFY_AND_CHANGE_EMAIL",
+	"idToken": "",
+	"newEmail": ""
 }
 
+var _account_verification_body: Dictionary = {
+	"requestType": "VERIFY_EMAIL",
+	"idToken": ""
+}
 
 var _update_profile_body : Dictionary = {
 	"idToken":"",
@@ -486,6 +504,38 @@ func save_auth(auth : Dictionary) -> bool:
 	else:
 		encrypted_file.store_line(JSON.stringify(auth))
 	return not err
+
+
+# Accept Firebase authentication tokens received from our Cloudflare Worker.
+func adopt_external_auth_result(auth_result: Dictionary) -> bool:
+	var required_fields := [
+		"localId",
+		"idToken",
+		"refreshToken",
+		"expiresIn"
+	]
+
+	for field in required_fields:
+		if not auth_result.has(field) or str(auth_result[field]).is_empty():
+			push_error("[FirebaseAuth] Missing authentication field: " + field)
+			return false
+
+	# Convert Firebase's response keys to the format used by this add-on.
+	auth = get_clean_keys(auth_result)
+
+	# Save the authentication state using the add-on's existing encrypted storage.
+	if not save_auth(auth):
+		push_error("[FirebaseAuth] Unable to save the authentication session.")
+		auth = {}
+		return false
+
+	print("[FirebaseAuth] External authentication session saved.")
+
+	# Use the same signals as a normal Firebase email/password login.
+	login_succeeded.emit(auth)
+	begin_refresh_countdown()
+
+	return true
 
 
 # Function used to load the auth data file that has been stored locally
