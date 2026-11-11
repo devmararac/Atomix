@@ -59,11 +59,14 @@ color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuPanel" unique_id=357551084]
 custom_minimum_size = Vector2(230, 0)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 19.0
 offset_top = 22.727999
-offset_right = 249.0
-offset_bottom = 702.728
+offset_right = -20.0
+offset_bottom = -14.271973
 theme_override_constants/separation = 20
 
 [node name="DashboardButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=289937945]

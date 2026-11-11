@@ -16,7 +16,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="StudentRowT" type="Panel" unique_id=209700403]
-custom_minimum_size = Vector2(1630, 50)
+custom_minimum_size = Vector2(1630, 100)
 anchors_preset = -1
 anchor_right = 0.998
 anchor_bottom = 0.069000006
@@ -110,25 +110,12 @@ size_flags_horizontal = 0
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
 theme_override_fonts/font = ExtResource("1_wkfyj")
+theme_override_font_sizes/font_size = 26
 text = "Active"
 
-[node name="Edit" type="TextureButton" parent="TableHeader/HBoxContainer/HBoxContainer" unique_id=1130544877]
-custom_minimum_size = Vector2(30, 30)
+[node name="Control" type="Control" parent="TableHeader/HBoxContainer/HBoxContainer" unique_id=1150446066]
+custom_minimum_size = Vector2(118, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-mouse_filter = 1
-texture_normal = ExtResource("2_ycqbg")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Delete" type="TextureButton" parent="TableHeader/HBoxContainer/HBoxContainer" unique_id=1088557229]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_horizontal = 0
-mouse_filter = 1
-texture_normal = ExtResource("3_0gkc0")
-ignore_texture_size = true
-stretch_mode = 0
 
 [node name="Button" type="Button" parent="." unique_id=258096805]
 layout_mode = 1
@@ -140,3 +127,33 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 flat = true
+
+[node name="Edit" type="TextureButton" parent="." unique_id=1130544877]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.943
+anchor_top = 0.26000002
+anchor_right = 0.96300006
+anchor_bottom = 0.70000005
+offset_left = 0.631958
+offset_right = 0.11193848
+size_flags_horizontal = 0
+mouse_filter = 1
+texture_normal = ExtResource("2_ycqbg")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Delete" type="TextureButton" parent="." unique_id=1088557229]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.97400004
+anchor_top = 0.26000002
+anchor_right = 0.994
+anchor_bottom = 0.70000005
+offset_left = 0.37597656
+offset_right = -0.14404297
+size_flags_horizontal = 0
+mouse_filter = 1
+texture_normal = ExtResource("3_0gkc0")
+ignore_texture_size = true
+stretch_mode = 0

@@ -21,10 +21,10 @@ var row_number: int = 0
 	$TableHeader/HBoxContainer/HBoxContainer/Active_Inactive
 
 @onready var edit_button: TextureButton = \
-	$TableHeader/HBoxContainer/HBoxContainer/Edit
+	$Edit
 
 @onready var delete_button: TextureButton = \
-	$TableHeader/HBoxContainer/HBoxContainer/Delete
+	$Delete
 
 
 func _ready() -> void:

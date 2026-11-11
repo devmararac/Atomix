@@ -26,6 +26,7 @@ signal logged_out()
 #Email Verification
 signal reauthentication_completed(success: bool, result: Dictionary)
 signal credential_operation_completed(operation: String, success: bool, result: Dictionary)
+signal password_change_completed(success: bool, result: Dictionary)
 
 const RESPONSE_SIGNUP : String   = "identitytoolkit#SignupNewUserResponse"
 const RESPONSE_SIGNIN : String   = "identitytoolkit#VerifyPasswordResponse"
@@ -433,64 +434,155 @@ func manual_token_refresh(auth_data):
 
 # This function is called whenever there is an authentication request to Firebase
 # On an error, this function with emit the signal 'login_failed' and print the error to the console
-func _on_FirebaseAuth_request_completed(result : int, response_code : int, headers : PackedStringArray, body : PackedByteArray) -> void:
+
+func _on_FirebaseAuth_request_completed(
+	result: int,
+	response_code: int,
+	headers: PackedStringArray,
+	body: PackedByteArray
+) -> void:
+
 	var json = Utilities.get_json_data(body.get_string_from_utf8())
 	is_busy = false
+
 	var res
+
 	if response_code == 0:
-		# Mocked error results to trigger the correct signal.
-		# Can occur if there is no internet connection, or the service is down,
-		# in which case there is no json_body (and thus parsing would fail).
-		res = {"error": {
-			"code": "Connection error",
-			"message": "Error connecting to auth service"}}
+		res = {
+			"error": {
+				"code": "Connection error",
+				"message": "Error connecting to auth service"
+			}
+		}
 	else:
 		if json == null:
 			Firebase._printerr("Error while parsing auth body json")
 			auth_request.emit(ERR_PARSE_ERROR, "Error while parsing auth body json")
+			requesting = Requests.NONE
+			auth_request_type = Auth_Type.NONE
 			return
 
 		res = json
+
 	if response_code == HTTPClient.RESPONSE_OK:
-		if not res.has("kind"):
+
+		# Email-change verification request
+		if requesting == Requests.VERIFY_CHANGE_EMAIL:
+			credential_operation_completed.emit(
+				"email_change",
+				true,
+				res
+			)
+
+		# Password-change response
+		elif requesting == Requests.CHANGE_PASSWORD:
 			auth = get_clean_keys(res)
+
+			if save_auth(auth):
+				password_change_completed.emit(true, auth)
+				begin_refresh_countdown()
+			else:
+				password_change_completed.emit(false, {
+					"message": "Password changed, but the authentication session could not be saved."
+				})
+
+		# Reauthentication response
+		elif requesting == Requests.REAUTHENTICATE:
+			auth = get_clean_keys(res)
+
+			if save_auth(auth):
+				reauthentication_completed.emit(true, auth)
+				begin_refresh_countdown()
+			else:
+				reauthentication_completed.emit(false, {
+					"message": "Unable to save the refreshed authentication session."
+				})
+
+		elif not res.has("kind"):
+			auth = get_clean_keys(res)
+
 			match requesting:
 				Requests.EXCHANGE_TOKEN:
 					token_exchanged.emit(true)
+
 			begin_refresh_countdown()
-			# Refresh token countdown
 			auth_request.emit(1, auth)
 
 			if _needs_refresh:
 				_needs_refresh = false
-				if not is_oauth_login: login_succeeded.emit(auth)
+				if not is_oauth_login:
+					login_succeeded.emit(auth)
+
 		else:
 			match res.kind:
 				RESPONSE_SIGNUP:
 					auth = get_clean_keys(res)
 					signup_succeeded.emit(auth)
 					begin_refresh_countdown()
+
 				RESPONSE_SIGNIN, RESPONSE_ASSERTION, RESPONSE_CUSTOM_TOKEN:
 					auth = get_clean_keys(res)
 					login_succeeded.emit(auth)
 					begin_refresh_countdown()
+
 				RESPONSE_USERDATA:
 					var userdata = FirebaseUserData.new(res.users[0])
 					userdata_received.emit(userdata)
+
 			auth_request.emit(1, auth)
+
 	else:
-		# error message would be INVALID_EMAIL, EMAIL_NOT_FOUND, INVALID_PASSWORD, USER_DISABLED or WEAK_PASSWORD
 		if requesting == Requests.EXCHANGE_TOKEN:
 			token_exchanged.emit(false)
-			login_failed.emit(res.error, res.error_description)
-			auth_request.emit(res.error, res.error_description)
+			login_failed.emit(
+				res.error,
+				res.error_description
+			)
+			auth_request.emit(
+				res.error,
+				res.error_description
+			)
+
+		# Email-change verification failed
+		elif requesting == Requests.VERIFY_CHANGE_EMAIL:
+			credential_operation_completed.emit(
+				"email_change",
+				false,
+				res.get("error", {})
+			)
+
+		# Password-change failed
+		elif requesting == Requests.CHANGE_PASSWORD:
+			password_change_completed.emit(
+				false,
+				res.get("error", {})
+			)
+
+		# Reauthentication failed
+		elif requesting == Requests.REAUTHENTICATE:
+			reauthentication_completed.emit(
+				false,
+				res.get("error", {})
+			)
+
 		else:
 			var sig = signup_failed if auth_request_type == Auth_Type.SIGNUP_EP else login_failed
-			sig.emit(res.error.code, res.error.message)
-			auth_request.emit(res.error.code, res.error.message)
+			var error_data: Dictionary = res.get("error", {})
+
+			sig.emit(
+				error_data.get("code", response_code),
+				error_data.get("message", "Authentication request failed.")
+			)
+
+			auth_request.emit(
+				error_data.get("code", response_code),
+				error_data.get("message", "Authentication request failed.")
+			)
+
 	requesting = Requests.NONE
 	auth_request_type = Auth_Type.NONE
 	is_oauth_login = false
+
 
 
 
@@ -587,15 +679,48 @@ func change_user_email(email : String) -> void:
 
 
 # Function used to change the password for the currently logged in user
-func change_user_password(password : String) -> void:
-	if _is_ready():
-		is_busy = true
-		_change_password_body.password = password
-		_change_password_body.idToken = auth.idtoken
-		var err = request(_base_url + _update_account_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify(_change_password_body))
-		if err != OK:
-			is_busy = false
-			Firebase._printerr("Error changing user password: %s" % err)
+func change_user_password(password: String) -> void:
+	if not _is_ready():
+		password_change_completed.emit(false, {
+			"message": "Firebase Auth is currently busy."
+		})
+		return
+
+	if not is_logged_in():
+		password_change_completed.emit(false, {
+			"message": "No active Firebase session."
+		})
+		return
+
+	if password.strip_edges().is_empty():
+		password_change_completed.emit(false, {
+			"message": "New password cannot be empty."
+		})
+		return
+
+	is_busy = true
+	requesting = Requests.CHANGE_PASSWORD
+
+	_change_password_body.password = password
+	_change_password_body.idToken = auth.idtoken
+
+	var err := request(
+		_base_url + _update_account_request_url,
+		_headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(_change_password_body)
+	)
+
+	_change_password_body.password = ""
+	_change_password_body.idToken = ""
+
+	if err != OK:
+		is_busy = false
+		requesting = Requests.NONE
+
+		password_change_completed.emit(false, {
+			"message": "Could not start password-change request. Error: %s" % err
+		})
 
 
 # User Profile handlers
@@ -661,6 +786,98 @@ func get_user_data() -> void:
 		if err != OK:
 			is_busy = false
 			Firebase._printerr("Error getting user data: %s" % err)
+
+
+# Reauthenticate the current user using their existing email and password.
+func reauthenticate_user(email: String, password: String) -> void:
+	if not _is_ready():
+		return
+
+	is_busy = true
+	requesting = Requests.REAUTHENTICATE
+
+	_reauthenticate_request_body.email = email
+	_reauthenticate_request_body.password = password
+
+	var err = request(
+		_base_url + _signin_request_url,
+		_headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(_reauthenticate_request_body)
+	)
+
+	_reauthenticate_request_body.email = ""
+	_reauthenticate_request_body.password = ""
+
+	if err != OK:
+		is_busy = false
+		requesting = Requests.NONE
+		reauthentication_completed.emit(false, {
+			"message": "Unable to send the reauthentication request."
+		})
+
+
+# Send a verification link to the requested new email address.
+func send_email_change_verification(new_email: String) -> void:
+	print("[Firebase Auth] Starting email-change verification request.")
+
+	if not _is_ready():
+		print("[Firebase Auth] ERROR: Firebase Auth is not ready.")
+
+		credential_operation_completed.emit(
+			"email_change",
+			false,
+			{"message": "Firebase Auth is not ready."}
+		)
+		return
+
+	if not is_logged_in():
+		print("[Firebase Auth] ERROR: No active Firebase session.")
+
+		credential_operation_completed.emit(
+			"email_change",
+			false,
+			{"message": "You must be logged in."}
+		)
+		return
+
+	print("[Firebase Auth] Auth is ready.")
+	print("[Firebase Auth] Preparing VERIFY_AND_CHANGE_EMAIL request.")
+
+	is_busy = true
+	requesting = Requests.VERIFY_CHANGE_EMAIL
+
+	_verify_change_email_body.idToken = auth.idtoken
+	_verify_change_email_body.newEmail = new_email
+
+	var err := request(
+		_base_url + _oobcode_request_url,
+		_headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(_verify_change_email_body)
+	)
+
+	print("[Firebase Auth] HTTPRequest result: ", err)
+
+	_verify_change_email_body.idToken = ""
+	_verify_change_email_body.newEmail = ""
+
+	if err != OK:
+		print("[Firebase Auth] ERROR: Could not start HTTP request.")
+
+		is_busy = false
+		requesting = Requests.NONE
+
+		credential_operation_completed.emit(
+			"email_change",
+			false,
+			{
+				"message": "Could not start email verification request. Error: %s" % err
+			}
+		)
+		return
+
+	print("[Firebase Auth] Email-change HTTP request started.")
 
 
 # Function used to delete the account of the currently authenticated user

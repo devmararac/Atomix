@@ -40,6 +40,9 @@ const FIRESTORE_BASE := "https://firestore.googleapis.com/v1/projects/"
 var current_profile: Dictionary = {}
 var original_email: String = ""
 
+var pending_email: String = ""
+var email_change_in_progress: bool = false
+
 var is_editing: bool = false
 var is_saving: bool = false
 var profile_loaded: bool = false
@@ -59,7 +62,21 @@ func _ready() -> void:
 		AuthManager.email_verification_status_received.connect(
 			_on_email_verification_status_received
 		)
-
+	
+	if not AuthManager.account_data_received.is_connected(
+		_on_account_data_received
+	):
+		AuthManager.account_data_received.connect(
+			_on_account_data_received
+		)
+	
+	if not Firebase.Auth.password_change_completed.is_connected(
+		_on_password_change_completed
+	):
+		Firebase.Auth.password_change_completed.connect(
+			_on_password_change_completed
+		)
+	
 	# Connect activity log signals.
 	if not ActivityLogManager.activity_logs_loaded.is_connected(
 		_on_activity_logs_loaded
@@ -373,26 +390,38 @@ func _on_edit_pressed() -> void:
 
 	_show_profile_status("Editing profile.")
 
-
 func _set_profile_editable(enabled: bool) -> void:
-
-	id_input.editable = enabled
-
+	id_input.editable = enabled and current_role == "admin"
 	first_name_input.editable = enabled
 	middle_initial_input.editable = enabled
 	last_name_input.editable = enabled
 	suffix_input.editable = enabled
-
 	email_input.editable = enabled
+
+	# Hide password fields and their labels outside Edit mode.
+	old_password_input.get_parent().visible = enabled
+	new_password_input.get_parent().visible = enabled
 
 	old_password_input.editable = enabled
 	new_password_input.editable = enabled
+
+	if not enabled:
+		_clear_password_fields()
 
 
 func _clear_password_fields() -> void:
 
 	old_password_input.clear()
 	new_password_input.clear()
+
+func _on_password_change_completed(success: bool, result: Dictionary) -> void:
+	if success:
+		print("[Settings] Password changed successfully.")
+	else:
+		var error_message: String = str(
+			result.get("message", result.get("error", {}).get("message", "Unknown error."))
+		)
+		push_error("[Settings] Password change failed: " + error_message)
 
 
 # ============================================================
@@ -409,6 +438,33 @@ func _on_update_pressed() -> void:
 	var last_name := last_name_input.text.strip_edges()
 	var suffix := suffix_input.text.strip_edges()
 	
+	var requested_email := email_input.text.strip_edges()
+	var new_password := new_password_input.text
+	var password_changed := not new_password.is_empty()
+
+	var email_changed := (
+		requested_email.to_lower() != original_email.to_lower()
+	)
+
+	if email_changed and email_change_in_progress:
+		verification_status.text = "An email-change request is already being processed."
+		return
+
+	if email_changed and old_password_input.text.is_empty():
+		verification_status.text = "Enter your current password to change your email."
+		old_password_input.grab_focus()
+		return
+	
+	# Validate password change.
+	if password_changed and old_password_input.text.strip_edges().is_empty():
+		_show_profile_status("Enter your current password to change your password.")
+		old_password_input.grab_focus()
+		return
+
+	if password_changed and new_password.length() < 6:
+		_show_profile_status("New password must contain at least 6 characters.")
+		new_password_input.grab_focus()
+		return
 
 	if first_name.is_empty():
 		_show_profile_status("First name is required.")
@@ -428,7 +484,6 @@ func _on_update_pressed() -> void:
 	)
 
 	var updated_fields: Dictionary = {
-		"id_number": id_input.text.strip_edges(),
 		"first_name": first_name,
 		"middle_initial": middle_initial,
 		"last_name": last_name,
@@ -436,10 +491,75 @@ func _on_update_pressed() -> void:
 		"name": full_name
 	}
 
+	# Only admins may update their LRN.
+	if current_role == "admin":
+		var new_id_number := id_input.text.strip_edges()
+
+		if new_id_number.is_empty():
+			_show_profile_status("LRN is required.")
+			id_input.grab_focus()
+			return
+
+		updated_fields["id_number"] = new_id_number
+
 	is_saving = true
 	update_button.disabled = true
 	edit_button.disabled = true
 
+	if email_changed:
+		verification_status.text = "Requesting verification for your new email..."
+
+		# Send the verification request before saving the other profile fields.
+		var email_result: Dictionary = await _request_email_change_verification(
+			requested_email,
+			old_password_input.text
+		)
+
+		if not bool(email_result.get("ok", false)):
+			is_saving = false
+			update_button.disabled = false
+			edit_button.disabled = false
+
+			verification_status.text = (
+				"Email change request failed: "
+				+ str(email_result.get("error", "Unknown error."))
+			)
+
+			return
+
+		pending_email = requested_email
+		email_change_in_progress = true
+		email_input.editable = false
+
+		verification_status.text = (
+			"Verification link sent to "
+			+ pending_email
+			+ ". Open the link to complete your email change."
+		)
+	
+	# Change password if a new password was provided.
+	if password_changed:
+
+		_show_profile_status("Changing password...")
+
+		var password_result: Dictionary = await _request_password_change(
+			new_password,
+			old_password_input.text
+		)
+
+		if not bool(password_result.get("ok", false)):
+
+			is_saving = false
+			update_button.disabled = false
+			edit_button.disabled = false
+
+			_show_profile_status(
+				"Password change failed: "
+				+ str(password_result.get("message", "Unknown error."))
+			)
+
+			return
+	
 	_show_profile_status("Saving profile...")
 
 	var result: Dictionary = await _update_user_profile(
@@ -478,7 +598,12 @@ func _on_update_pressed() -> void:
 	edit_button.show()
 	update_button.hide()
 
-	_show_profile_status("Profile updated successfully.")
+	if email_change_in_progress:
+		_show_profile_status(
+			"Profile updated. Email verification is still pending."
+		)
+	else:
+		_show_profile_status("Profile updated successfully.")
 
 	print("[Settings] Profile updated: ", current_uid)
 
@@ -599,6 +724,355 @@ func _update_user_profile(data: Dictionary) -> Dictionary:
 	}
 
 
+func _update_firestore_email(
+	collection: String,
+	document_id: String,
+	new_email: String
+) -> Dictionary:
+
+	var token := _get_current_id_token()
+
+	if token.is_empty():
+		return {
+			"ok": false,
+			"error": "Firebase authentication token is missing."
+		}
+
+	var url := _firestore_document_url(collection, document_id)
+	url += "?updateMask.fieldPaths=email"
+
+	var request_body := JSON.stringify({
+		"fields": {
+			"email": {
+				"stringValue": new_email
+			}
+		}
+	})
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var request_error := http.request(
+		url,
+		_firestore_headers(),
+		HTTPClient.METHOD_PATCH,
+		request_body
+	)
+
+	if request_error != OK:
+		http.queue_free()
+		return {
+			"ok": false,
+			"error": "Could not start Firestore email update."
+		}
+
+	var response: Array = await http.request_completed
+	var response_code := int(response[1])
+	var response_text := (
+		(response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	http.queue_free()
+
+	if response_code < 200 or response_code >= 300:
+		return {
+			"ok": false,
+			"error": response_text
+		}
+
+	return {"ok": true}
+
+
+func _sync_own_email_with_worker() -> Dictionary:
+
+	var token := _get_current_id_token()
+
+	if token.is_empty():
+		return {
+			"ok": false,
+			"error": "Firebase authentication token is missing."
+		}
+
+	var url := "https://atomix-auth-api.atomix-auth.workers.dev/sync-own-email"
+
+	var request_body := JSON.stringify({
+		"idToken": token
+	})
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var request_error := http.request(
+		url,
+		headers,
+		HTTPClient.METHOD_POST,
+		request_body
+	)
+
+	if request_error != OK:
+		http.queue_free()
+		return {
+			"ok": false,
+			"error": "Could not start D1 synchronization request."
+		}
+
+	var response: Array = await http.request_completed
+
+	var response_code := int(response[1])
+	var response_text := (
+		(response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	http.queue_free()
+
+	var parsed: Variant = JSON.parse_string(response_text)
+
+	if not parsed is Dictionary:
+		return {
+			"ok": false,
+			"error": "Invalid response from the authentication server."
+		}
+
+	if response_code < 200 or response_code >= 300:
+		return {
+			"ok": false,
+			"error": str(
+				parsed.get("message", "D1 synchronization failed.")
+			)
+		}
+
+	if not bool(parsed.get("success", false)):
+		return {
+			"ok": false,
+			"error": str(
+				parsed.get("message", "D1 synchronization failed.")
+			)
+		}
+
+	return {
+		"ok": true,
+		"data": parsed
+	}
+
+
+# ============================================================
+# REQUEST EMAIL CHANGE
+# ============================================================
+func _request_email_change_verification(
+	new_email: String,
+	current_password: String
+) -> Dictionary:
+
+	new_email = new_email.strip_edges()
+
+	print("[Settings] Starting email change request.")
+	print("[Settings] Current email: ", original_email)
+	print("[Settings] Requested new email: ", new_email)
+
+	if new_email.is_empty():
+		return {"ok": false, "error": "Enter your new email address."}
+
+	if not new_email.contains("@") or not new_email.contains("."):
+		return {"ok": false, "error": "Enter a valid email address."}
+
+	if current_password.is_empty():
+		return {"ok": false, "error": "Enter your current password."}
+
+	# STEP 1: REAUTHENTICATE
+	print("[Settings] Reauthenticating current account...")
+
+	Firebase.Auth.reauthenticate_user(
+		original_email,
+		current_password
+	)
+
+	var reauth_result: Array = await Firebase.Auth.reauthentication_completed
+
+	var reauth_success: bool = bool(reauth_result[0])
+	var reauth_data: Dictionary = reauth_result[1]
+
+	print("[Settings] Reauthentication success: ", reauth_success)
+	print("[Settings] Reauthentication response: ", reauth_data)
+
+	if not reauth_success:
+		var error_message := str(
+			reauth_data.get(
+				"message",
+	            "Current password is incorrect or reauthentication failed."
+			)
+		)
+
+		return {
+			"ok": false,
+			"error": error_message
+		}
+
+	# STEP 2: REQUEST EMAIL-CHANGE VERIFICATION
+	print("[Settings] Requesting Firebase email-change verification...")
+
+	Firebase.Auth.send_email_change_verification(new_email)
+
+	var email_result: Array = await Firebase.Auth.credential_operation_completed
+
+	var operation: String = str(email_result[0])
+	var email_success: bool = bool(email_result[1])
+	var email_data: Dictionary = email_result[2]
+
+	print("[Settings] Email-change operation: ", operation)
+	print("[Settings] Email-change success: ", email_success)
+	print("[Settings] Email-change response: ", email_data)
+
+	if operation != "email_change":
+		return {
+			"ok": false,
+			"error": "Received an unexpected authentication response."
+		}
+
+	if not email_success:
+		return {
+			"ok": false,
+			"error": str(
+				email_data.get(
+					"message",
+					email_data.get("error", "Email verification request failed.")
+				)
+			)
+		}
+
+	print("[Settings] Firebase accepted the email-change request.")
+
+	return {"ok": true}
+	
+	
+
+
+func _request_password_change(
+	new_password: String,
+	current_password: String
+) -> Dictionary:
+	if new_password.length() < 6:
+		return {
+			"ok": false,
+			"message": "New password must contain at least 6 characters."
+		}
+
+	if current_password.strip_edges().is_empty():
+		return {
+			"ok": false,
+			"message": "Enter your current password."
+		}
+
+	# Reauthenticate before changing the password.
+	Firebase.Auth.reauthenticate_user(original_email, current_password)
+
+	var reauth_response: Array = await Firebase.Auth.reauthentication_completed
+	var reauth_success: bool = bool(reauth_response[0])
+	var reauth_result: Dictionary = reauth_response[1]
+
+	if not reauth_success:
+		return {
+			"ok": false,
+			"message": str(
+				reauth_result.get("message", "Current password is incorrect or reauthentication failed.")
+			)
+		}
+
+	# Update the Firebase password.
+	Firebase.Auth.change_user_password(new_password)
+
+	var password_response: Array = await Firebase.Auth.password_change_completed
+	var password_success: bool = bool(password_response[0])
+	var password_result: Dictionary = password_response[1]
+
+	if not password_success:
+		var error_message := str(
+			password_result.get(
+				"message",
+	            "Password change failed."
+			)
+		)
+
+		return {
+			"ok": false,
+			"message": error_message
+		}
+
+	return {
+		"ok": true,
+		"message": "Password changed successfully."
+	}
+
+
+func _send_email_api_request(
+	url: String,
+	request_body: String
+) -> Dictionary:
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var request_error := http.request(
+		url,
+		headers,
+		HTTPClient.METHOD_POST,
+		request_body
+	)
+
+	if request_error != OK:
+		http.queue_free()
+
+		return {
+			"ok": false,
+			"error": "Could not start Firebase email request."
+		}
+
+	var response: Array = await http.request_completed
+
+	var response_code := int(response[1])
+	var response_text := (
+		(response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	http.queue_free()
+
+	var parsed: Variant = JSON.parse_string(response_text)
+
+	if response_code < 200 or response_code >= 300:
+
+		var error_message := "Firebase request failed."
+
+		if parsed is Dictionary:
+			var error_data: Variant = parsed.get("error", {})
+
+			if error_data is Dictionary:
+				error_message = str(
+					error_data.get("message", error_message)
+				)
+
+		return {
+			"ok": false,
+			"error": error_message
+		}
+
+	if not parsed is Dictionary:
+		return {
+			"ok": false,
+			"error": "Invalid Firebase response."
+		}
+
+	return {
+		"ok": true,
+		"data": parsed
+	}
+
 # ============================================================
 # EMAIL VERIFICATION
 # ============================================================
@@ -640,6 +1114,91 @@ func _on_email_verification_status_received(
 		verification_status.text = "Email: Not Verified"
 
 		send_verification_button.show()
+
+
+func _on_account_data_received(
+	firebase_email: String,
+	is_verified: bool
+) -> void:
+
+	print("[Settings] Firebase account email: ", firebase_email)
+	print("[Settings] Firebase email verified: ", is_verified)
+
+	if not email_change_in_progress:
+		return
+
+	if firebase_email.to_lower() != pending_email.to_lower():
+		verification_status.text = (
+			"Waiting for verification at " + pending_email
+		)
+		return
+
+	if not is_verified:
+		verification_status.text = "The new email is not verified yet."
+		return
+
+	# Prevent duplicate synchronization requests.
+	if is_saving:
+		return
+
+	is_saving = true
+	verification_status.text = "Email verified. Updating account records..."
+
+	# 1. Update users/{uid}.
+	var users_result: Dictionary = await _update_firestore_email(
+		"users",
+		current_uid,
+		pending_email
+	)
+
+	if not users_result.get("ok", false):
+		is_saving = false
+		verification_status.text = (
+			"Email verified, but users profile update failed: "
+			+ str(users_result.get("error", "Unknown error"))
+		)
+		return
+
+	# 2. Update teachers/{uid} for teacher accounts.
+	if current_role == "teacher":
+
+		var teachers_result: Dictionary = await _update_firestore_email(
+			"teachers",
+			current_uid,
+			pending_email
+		)
+
+		if not teachers_result.get("ok", false):
+			is_saving = false
+			verification_status.text = (
+				"Users email updated, but teachers email update failed: "
+				+ str(teachers_result.get("error", "Unknown error"))
+			)
+			return
+
+	# 3. Synchronize the existing D1 account mapping.
+	var d1_result: Dictionary = await _sync_own_email_with_worker()
+
+	if not d1_result.get("ok", false):
+		is_saving = false
+		verification_status.text = (
+			"Firestore updated, but D1 synchronization failed: "
+			+ str(d1_result.get("error", "Unknown error"))
+		)
+		return
+
+	# 4. Update the local profile and interface.
+	original_email = pending_email
+	email_input.text = pending_email
+	current_profile["email"] = pending_email
+
+	pending_email = ""
+	email_change_in_progress = false
+	is_saving = false
+
+	verification_status.text = "Your email has been successfully updated."
+
+	print("[Settings] Firestore and D1 email synchronization completed.")
 
 
 # ============================================================

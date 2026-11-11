@@ -32,24 +32,28 @@ const KEYBOARD_START_OFFSET := 120.0
 # HORIZONTAL LAYOUT
 # ============================================================
 
-const SIDE_MARGIN := 4.0
-const KEY_GAP := 7.0
+# Increased side margin slightly for a chunkier look
+const SIDE_MARGIN := 8.0 
+# Increased gap between keys
+const KEY_GAP := 10.0 
 
 
 # ============================================================
 # VERTICAL LAYOUT
 # ============================================================
 
-const TOP_MARGIN := 116.0
-const BOTTOM_MARGIN := 4.0
-const ROW_GAP := 7.0
+# Reduced top margin to give the rows more vertical space to stretch
+const TOP_MARGIN := 100.0 
+const BOTTOM_MARGIN := 12.0
+# Increased gap between rows
+const ROW_GAP := 12.0 
 
 
 # ============================================================
 # INPUT PREVIEW
 # ============================================================
 
-const PREVIEW_TOP := 8.0
+const PREVIEW_TOP := 10.0
 const PREVIEW_HEIGHT := 74.0
 
 
@@ -492,6 +496,7 @@ func _layout_letter_keyboard() -> void:
 		- total_gaps
 	)
 	
+	# This key_height now calculates a larger height because TOP_MARGIN is smaller
 	var key_height := available_height / float(row_count)
 
 

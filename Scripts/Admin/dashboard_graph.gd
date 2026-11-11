@@ -295,8 +295,9 @@ func _draw_horizontal_bar_graph() -> void:
 	var count := graph_values.size()
 	if count == 0:
 		return
-
-	var left := minf(170.0, size.x * 0.34)
+		
+	var padding := 30.0
+	var left := padding + minf(170.0, (size.x - padding) * 0.34)
 	var right := 48.0
 	var top := 16.0
 	var bottom := 38.0
@@ -334,12 +335,14 @@ func _draw_horizontal_bar_graph() -> void:
 		var bar_width := chart_width * value / maximum
 		var label := graph_labels[i] if i < graph_labels.size() else str(i + 1)
 
+		# 1. Shift the text to the right by changing 0.0 to padding
+		# 2. Adjust the max width so it doesn't bleed into the chart area
 		draw_string(
 			ThemeDB.fallback_font,
-			Vector2(0.0, y + bar_height * 0.5 + SECTION_LABEL_FONT_SIZE * 0.35),
+			Vector2(padding, y + bar_height * 0.5 + SECTION_LABEL_FONT_SIZE * 0.35),
 			label,
 			HORIZONTAL_ALIGNMENT_LEFT,
-			left - 12.0,
+			left - padding - 12.0, 
 			SECTION_LABEL_FONT_SIZE,
 			TEXT_COLOR
 		)
@@ -357,8 +360,6 @@ func _draw_horizontal_bar_graph() -> void:
 			SECTION_VALUE_FONT_SIZE,
 			TEXT_COLOR
 		)
-
-
 # ------------------------------------------------------------
 # TOTAL USERS - PIE GRAPH
 # Increased legend spacing to keep labels and values apart.

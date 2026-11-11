@@ -50,7 +50,7 @@ var existing_file_extension: String = ""
 var existing_file_size: String = ""
 
 var is_saving: bool = false
-
+var cloudinary_uploader: Node
 
 # ------------------------------------------------------------
 # INITIALIZATION
@@ -80,8 +80,9 @@ func _ready() -> void:
 	file_name_label.text = "No file selected"
 	status_label.text = ""
 
+	cloudinary_uploader = load("res://Scripts/Admin/CloudinaryUploader.gd").new()
+	add_child(cloudinary_uploader)
 	_apply_form_mode()
-
 
 # Call this after instantiating the scene and BEFORE adding it
 # to the scene tree.
@@ -276,8 +277,6 @@ func _on_create_button_pressed() -> void:
 			_show_error("This file type is not supported.")
 			return
 
-	# A new lesson must have a file. An edited lesson can keep
-	# its existing file without selecting it again.
 	if form_mode == FormMode.ADD and selected_file_path.is_empty():
 		_show_error("Please select a lesson file.")
 		return
@@ -315,67 +314,36 @@ func _on_create_button_pressed() -> void:
 		_show_error("Firebase project configuration is missing.")
 		return
 
-	# Prepare the fields to write.
-	var lesson_fields: Dictionary = {
-		"title": {"stringValue": lesson_title},
-		"description": {"stringValue": description},
-		"subject": {"stringValue": subject}
-	}
-
-	# Preserve the original file metadata unless a new file
-	# was selected.
-	if not selected_file_path.is_empty():
-		var extension := selected_file_path.get_extension().to_lower()
-		var file := FileAccess.open(selected_file_path, FileAccess.READ)
-
-		if file == null:
-			_show_error("Could not read the selected file.")
-			return
-
-		var file_size := file.get_length()
-		file.close()
-
-		lesson_fields["file_name"] = {
-			"stringValue": selected_file_path.get_file()
+	# --- NEW GOOGLE DRIVE UPLOAD LOGIC ---
+	
+	# If editing and no new file is chosen, just save to Firestore immediately
+	if form_mode == FormMode.EDIT and selected_file_path.is_empty():
+		var lesson_fields: Dictionary = {
+			"title": {"stringValue": lesson_title},
+			"description": {"stringValue": description},
+			"subject": {"stringValue": subject}
 		}
-		lesson_fields["file_extension"] = {
-			"stringValue": extension
-		}
-		lesson_fields["file_size"] = {
-			"integerValue": str(file_size)
-		}
-		lesson_fields["file_path"] = {
-			"stringValue": selected_file_path
-		}
+		_submit_lesson(project_id, id_token, lesson_fields)
+		return
 
-	if form_mode == FormMode.ADD:
-		lesson_fields["teacher_id"] = {
-			"stringValue": teacher_id
-		}
-		lesson_fields["assigned_sections"] = {
-			"arrayValue": {"values": []}
-		}
-		var unix_time := Time.get_unix_time_from_system()
-		var datetime := Time.get_datetime_dict_from_unix_time(int(unix_time))
+	# Otherwise, we need to upload to Drive first
+	is_saving = true
+	create_button.disabled = true
+	cancel_button.disabled = true
+	choose_file_button.disabled = true
+	status_label.text = "Uploading file..."
 
-		var timestamp := "%04d-%02d-%02dT%02d:%02d:%02dZ" % [
-			datetime["year"],
-			datetime["month"],
-			datetime["day"],
-			datetime["hour"],
-			datetime["minute"],
-			datetime["second"]
-		]
+	# Store the data we need for Firestore later in global-scope variables
+	# so we can access them in the callback function
+	set_meta("pending_teacher_id", teacher_id)
+	set_meta("pending_id_token", id_token)
+	set_meta("pending_project_id", project_id)
+	set_meta("pending_title", lesson_title)
+	set_meta("pending_subject", subject)
+	set_meta("pending_description", description)
 
-		lesson_fields["created_at"] = {
-			"timestampValue": timestamp
-		}
-
-	_submit_lesson(
-		project_id,
-		id_token,
-		lesson_fields
-	)
+	# Trigger the upload!
+	cloudinary_uploader.upload_file(selected_file_path, self, "_on_cloudinary_upload_finished")
 
 
 func _submit_lesson(
@@ -570,3 +538,52 @@ func reset_form() -> void:
 func _on_cancel_button_pressed() -> void:
 	print("[AddLesson] Form closed.")
 	queue_free()
+
+func _on_cloudinary_upload_finished(success: bool, file_url_or_error: String):
+	if success:
+		var file_url = file_url_or_error
+		print("[AddLesson] Upload success! URL: ", file_url)
+		status_label.text = "File uploaded! Saving to database..."
+		
+		var lesson_title = get_meta("pending_title")
+		var subject = get_meta("pending_subject")
+		var description = get_meta("pending_description")
+		var teacher_id = get_meta("pending_teacher_id")
+		var id_token = get_meta("pending_id_token")
+		var project_id = get_meta("pending_project_id")
+
+		var lesson_fields: Dictionary = {
+			"title": {"stringValue": lesson_title},
+			"description": {"stringValue": description},
+			"subject": {"stringValue": subject},
+			"file_url": {"stringValue": file_url} # <--- Saving the Cloudinary link here!
+		}
+
+		var extension := selected_file_path.get_extension().to_lower()
+		var file := FileAccess.open(selected_file_path, FileAccess.READ)
+		if file:
+			lesson_fields["file_name"] = {"stringValue": selected_file_path.get_file()}
+			lesson_fields["file_extension"] = {"stringValue": extension}
+			lesson_fields["file_size"] = {"integerValue": str(file.get_length())}
+			file.close()
+
+		if form_mode == FormMode.ADD:
+			lesson_fields["teacher_id"] = {"stringValue": teacher_id}
+			lesson_fields["assigned_sections"] = {"arrayValue": {"values": []}}
+			var unix_time := Time.get_unix_time_from_system()
+			var datetime := Time.get_datetime_dict_from_unix_time(int(unix_time))
+			var timestamp := "%04d-%02d-%02dT%02d:%02d:%02dZ" % [
+				datetime["year"], datetime["month"], datetime["day"],
+				datetime["hour"], datetime["minute"], datetime["second"]
+			]
+			lesson_fields["created_at"] = {"timestampValue": timestamp}
+
+		# Send to Firestore
+		_submit_lesson(project_id, id_token, lesson_fields)
+		
+	else:
+		is_saving = false
+		create_button.disabled = false
+		cancel_button.disabled = false
+		choose_file_button.disabled = false
+		_show_error("Upload Failed: " + file_url_or_error)

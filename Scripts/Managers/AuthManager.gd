@@ -11,6 +11,7 @@ signal signup_failed(message)
 signal session_restored(user_data)
 
 signal email_verification_status_received(is_verified: bool)
+signal account_data_received(email: String, is_verified: bool)
 
 var current_user: Dictionary = {}
 var user_uid: String = ""
@@ -286,10 +287,13 @@ func refresh_email_verification_status() -> void:
 func _on_userdata_received(userdata: FirebaseUserData) -> void:
 
 	var is_verified: bool = userdata.email_verified
+	var email := str(userdata.email)
 
+	print("[AuthManager] Email: ", email)
 	print("[AuthManager] Email verified: ", is_verified)
 
 	email_verification_status_received.emit(is_verified)
+	account_data_received.emit(email, is_verified)
 
 
 # Send a verification email to the current account.
@@ -336,3 +340,17 @@ func _on_auth_api_request_completed(
 
 	if not adopted:
 		login_failed.emit("Unable to establish the Firebase session.")
+
+
+func get_firebase_api_key() -> String:
+	if Firebase == null:
+		push_error("[AuthManager] Firebase singleton is unavailable.")
+		return ""
+
+	var api_key := str(Firebase._config.get("apiKey", ""))
+
+	if api_key.is_empty():
+		push_error("[AuthManager] Firebase API key is not configured.")
+		return ""
+
+	return api_key
