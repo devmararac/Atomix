@@ -6,9 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://ncldetg3scsm" path="res://Assets/UX/Icons/pass1.png" id="4_vy5rw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Page"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Form"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
 bg_color = Color(0.98, 0.93, 0.84, 1)
 border_width_left = 3
 border_width_top = 3
@@ -19,6 +27,10 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vy5rw"]
+content_margin_left = 20.0
+content_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Input"]
 bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
@@ -84,10 +96,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 29.0
-offset_top = 17.0
-offset_right = -26.0
-offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
@@ -101,6 +109,7 @@ mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("2_vvbxr")
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vy5rw")
 text = "Add Teacher"
 vertical_alignment = 1
 
@@ -109,16 +118,17 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.003
 anchor_top = 1.0
-anchor_right = 1.003
-anchor_bottom = 1.511
+anchor_right = 2.3070002
+anchor_bottom = 1.588
 offset_left = -0.27999997
 offset_top = -1.0
-offset_right = -0.2800293
-offset_bottom = 0.0049972534
+offset_right = -491.8881
+offset_bottom = -3.9220047
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
 theme_override_fonts/font = ExtResource("2_vvbxr")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vy5rw")
 text = "Create a teacher account and assign their sections."
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/FormPanel/VBoxContainer" unique_id=1287743508]
@@ -395,6 +405,15 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_vvbxr")
 text = "Generate"
 icon = ExtResource("2_topw3")
 expand_icon = true
+
+[node name="StatusLabel" type="Label" parent="PageBackground/FormPanel/VBoxContainer" unique_id=560114919]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_vvbxr")
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ButtonContainer" type="HBoxContainer" parent="PageBackground/FormPanel/VBoxContainer" unique_id=878224478]
 custom_minimum_size = Vector2(0, 50)

@@ -352,6 +352,10 @@ func _on_sort_changed(_index: int) -> void:
 func _on_add_teacher_button_pressed() -> void:
 	print("[TeacherManagement] Opening Add Teacher form.")
 
+	if not is_instance_valid(add_teacher):
+		push_error("[TeacherManagement] AddTeacher node has already been freed.")
+		return
+
 	if add_teacher.has_method("open_add_mode"):
 		add_teacher.open_add_mode()
 	else:

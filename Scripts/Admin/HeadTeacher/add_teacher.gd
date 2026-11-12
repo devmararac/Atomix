@@ -273,39 +273,60 @@ func _is_valid_email(email: String) -> bool:
 	return regex.search(email) != null
 
 
+
 func _validate_form() -> bool:
+	var missing_fields: Array[String] = []
+	var first_invalid_input: LineEdit = null
+
 	var id_number := id_input.text.strip_edges()
 	var first_name := first_name_input.text.strip_edges()
 	var last_name := last_name_input.text.strip_edges()
 	var email := email_input.text.strip_edges()
 	var password := password_input.text
 
+	# ID Number
 	if not _contains_digits_only(id_number) or id_number.length() != ID_NUMBER_LENGTH:
-		_show_status("ID number/LRN must contain exactly 11 digits.")
-		id_input.grab_focus()
-		return false
+		missing_fields.append("ID Number (11 digits)")
+		first_invalid_input = id_input
 
+	# First Name
 	if first_name.is_empty():
-		_show_status("Please enter the teacher's first name.")
-		first_name_input.grab_focus()
-		return false
+		missing_fields.append("First Name")
+		if first_invalid_input == null:
+			first_invalid_input = first_name_input
 
+	# Last Name
 	if last_name.is_empty():
-		_show_status("Please enter the teacher's last name.")
-		last_name_input.grab_focus()
-		return false
+		missing_fields.append("Last Name")
+		if first_invalid_input == null:
+			first_invalid_input = last_name_input
 
+	# Email
 	if not _is_valid_email(email):
-		_show_status("Please enter a valid email address.")
-		email_input.grab_focus()
-		return false
-	
-	if password.is_empty():
-		_show_status("Please generate or enter a password.")
-		password_input.grab_focus()
+		missing_fields.append("Valid Email")
+		if first_invalid_input == null:
+			first_invalid_input = email_input
+
+	# Password
+	if password.strip_edges().is_empty():
+		missing_fields.append("Password")
+		if first_invalid_input == null:
+			first_invalid_input = password_input
+
+	# Announce all validation errors.
+	if not missing_fields.is_empty():
+		var message := "Please fill in the required fields: "
+		message += ", ".join(missing_fields) + "."
+
+		_show_status(message)
+
+		if first_invalid_input != null:
+			first_invalid_input.grab_focus()
+
 		return false
 
 	return true
+
 
 
 # ------------------------------------------------------------
@@ -580,11 +601,6 @@ func _on_create_button_pressed() -> void:
 	_finish_creation()
 	_show_status("Teacher created successfully!")
 	teacher_created.emit()
-
-	await get_tree().create_timer(1.0).timeout
-
-	if is_inside_tree():
-		queue_free()
 
 
 # ------------------------------------------------------------

@@ -29,6 +29,8 @@ const FIRESTORE_BASE := "https://firestore.googleapis.com/v1/projects/"
 
 @onready var update_button: Button = $PageBackground/VBoxContainer/HBoxContainer2/Update
 
+@onready var cancel_button: Button = $PageBackground/VBoxContainer/HBoxContainer2/Cancel
+
 @onready var verification_status: Label = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VerificationContainer/VerificationStatus
 
 @onready var send_verification_button: Button = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VerificationContainer/SendVerificationButton
@@ -39,6 +41,7 @@ const FIRESTORE_BASE := "https://firestore.googleapis.com/v1/projects/"
 
 var current_profile: Dictionary = {}
 var original_email: String = ""
+var firebase_account_email: String = ""
 
 var pending_email: String = ""
 var email_change_in_progress: bool = false
@@ -98,7 +101,10 @@ func _ready() -> void:
 
 	if not update_button.pressed.is_connected(_on_update_pressed):
 		update_button.pressed.connect(_on_update_pressed)
-
+	
+	if not cancel_button.pressed.is_connected(_on_cancel_pressed):
+		cancel_button.pressed.connect(_on_cancel_pressed)
+	
 	# Connect verification buttons.
 	if not send_verification_button.pressed.is_connected(
 		_on_send_verification_button_pressed
@@ -117,6 +123,7 @@ func _ready() -> void:
 	_set_profile_editable(false)
 
 	update_button.hide()
+	cancel_button.hide()
 
 	# Load the current account.
 	await _load_profile()
@@ -337,7 +344,6 @@ func _decode_firestore_value(value: Variant) -> Variant:
 # ============================================================
 # POPULATE PROFILE FIELDS
 # ============================================================
-
 func _populate_profile_fields() -> void:
 
 	first_name_input.text = str(
@@ -356,9 +362,27 @@ func _populate_profile_fields() -> void:
 		current_profile.get("suffix", "")
 	)
 
-	original_email = str(
+	# Inspect the current Firebase Authentication data.
+	var auth_data: Dictionary = Firebase.Auth.auth
+
+
+
+	var auth_email := str(
+		auth_data.get("email", "")
+	).strip_edges()
+
+	var firestore_email := str(
 		current_profile.get("email", "")
 	).strip_edges()
+
+	print("[Settings] Auth email: ", auth_email)
+	print("[Settings] Firestore email: ", firestore_email)
+
+	# Prefer Firebase Authentication email.
+	if not auth_email.is_empty():
+		original_email = auth_email
+	else:
+		original_email = firestore_email
 
 	email_input.text = original_email
 
@@ -387,8 +411,62 @@ func _on_edit_pressed() -> void:
 
 	edit_button.hide()
 	update_button.show()
+	cancel_button.show()
 
 	_show_profile_status("Editing profile.")
+
+
+func _on_cancel_pressed() -> void:
+
+	if is_saving:
+		return
+
+	print("[Settings] Canceling profile edit.")
+
+	# Restore the original profile information.
+	first_name_input.text = str(
+		current_profile.get("first_name", "")
+	)
+
+	middle_initial_input.text = str(
+		current_profile.get("middle_initial", "")
+	)
+
+	last_name_input.text = str(
+		current_profile.get("last_name", "")
+	)
+
+	suffix_input.text = str(
+		current_profile.get("suffix", "")
+	)
+
+	id_input.text = str(
+		current_profile.get("id_number", "")
+	)
+
+	# Restore the current Firebase email.
+	email_input.text = original_email
+
+	# Clear password fields.
+	_clear_password_fields()
+
+	# Exit edit mode.
+	is_editing = false
+
+	_set_profile_editable(false)
+
+	# Restore button visibility.
+	edit_button.show()
+	update_button.hide()
+	cancel_button.hide()
+
+	# Restore button states.
+	edit_button.disabled = false
+	update_button.disabled = false
+	cancel_button.disabled = false
+
+	_show_profile_status("Changes discarded.")
+
 
 func _set_profile_editable(enabled: bool) -> void:
 	id_input.editable = enabled and current_role == "admin"
@@ -423,6 +501,58 @@ func _on_password_change_completed(success: bool, result: Dictionary) -> void:
 		)
 		push_error("[Settings] Password change failed: " + error_message)
 
+
+func _sync_existing_account_email() -> void:
+
+	if is_saving:
+		return
+
+	if firebase_account_email.is_empty():
+		push_warning("[Settings] Firebase email is unavailable.")
+		return
+
+	is_saving = true
+
+	print("[Settings] Synchronizing account email...")
+
+	var users_result := await _update_firestore_email(
+		"users",
+		current_uid,
+		firebase_account_email
+	)
+
+	if not users_result.get("ok", false):
+		push_error("[Settings] Failed to update users email.")
+		is_saving = false
+		return
+
+	if current_role == "teacher":
+
+		var teachers_result := await _update_firestore_email(
+			"teachers",
+			current_uid,
+			firebase_account_email
+		)
+
+		if not teachers_result.get("ok", false):
+			push_error("[Settings] Failed to update teachers email.")
+			is_saving = false
+			return
+
+	var d1_result := await _sync_own_email_with_worker()
+
+	if not d1_result.get("ok", false):
+		push_error("[Settings] Failed to synchronize D1 email.")
+		is_saving = false
+		return
+
+	original_email = firebase_account_email
+	email_input.text = firebase_account_email
+	current_profile["email"] = firebase_account_email
+
+	is_saving = false
+
+	print("[Settings] Account email synchronization completed.")
 
 # ============================================================
 # UPDATE PROFILE
@@ -505,6 +635,7 @@ func _on_update_pressed() -> void:
 	is_saving = true
 	update_button.disabled = true
 	edit_button.disabled = true
+	cancel_button.disabled = true
 
 	if email_changed:
 		verification_status.text = "Requesting verification for your new email..."
@@ -552,6 +683,7 @@ func _on_update_pressed() -> void:
 			is_saving = false
 			update_button.disabled = false
 			edit_button.disabled = false
+			cancel_button.disabled = false
 
 			_show_profile_status(
 				"Password change failed: "
@@ -569,6 +701,7 @@ func _on_update_pressed() -> void:
 	is_saving = false
 	update_button.disabled = false
 	edit_button.disabled = false
+	cancel_button.disabled = false
 
 	if not bool(result.get("ok", false)):
 
@@ -597,6 +730,8 @@ func _on_update_pressed() -> void:
 
 	edit_button.show()
 	update_button.hide()
+	cancel_button.hide()
+	
 
 	if email_change_in_progress:
 		_show_profile_status(
@@ -1116,51 +1251,86 @@ func _on_email_verification_status_received(
 		send_verification_button.show()
 
 
+
 func _on_account_data_received(
 	firebase_email: String,
 	is_verified: bool
 ) -> void:
 
-	print("[Settings] Firebase account email: ", firebase_email)
-	print("[Settings] Firebase email verified: ", is_verified)
+	print("[Settings] ===== EMAIL SYNC CHECK =====")
+	print("[Settings] Firebase email: ", firebase_email)
+	print("[Settings] Pending email: ", pending_email)
+	print("[Settings] Email change in progress: ", email_change_in_progress)
+	print("[Settings] Verified: ", is_verified)
+	print("[Settings] Is saving: ", is_saving)
+	print("[Settings] UID: ", current_uid)
+	print("[Settings] Role: ", current_role)
+	
+	firebase_account_email = firebase_email.strip_edges()
 
+	if firebase_account_email.is_empty():
+		push_warning("[Settings] Received an empty Firebase email.")
+		return
+
+	# If there is no email change currently in progress,
+	# use Firebase Authentication as the source of truth.
 	if not email_change_in_progress:
+
+		original_email = firebase_account_email
+		email_input.text = firebase_account_email
+
+		var firestore_email := str(
+			current_profile.get("email", "")
+		).strip_edges()
+
+		if firestore_email != firebase_account_email:
+			print("[Settings] Firestore email is outdated.")
+			await _sync_existing_account_email()
+
+		return
+	
+	if not email_change_in_progress:
+		print("[Settings] SYNC STOPPED: No pending email change.")
 		return
 
 	if firebase_email.to_lower() != pending_email.to_lower():
-		verification_status.text = (
-			"Waiting for verification at " + pending_email
-		)
+		print("[Settings] SYNC STOPPED: Firebase email does not match pending email.")
+		verification_status.text = "Waiting for verification at " + pending_email
 		return
 
 	if not is_verified:
+		print("[Settings] SYNC STOPPED: Email is not verified.")
 		verification_status.text = "The new email is not verified yet."
 		return
 
-	# Prevent duplicate synchronization requests.
 	if is_saving:
+		print("[Settings] SYNC STOPPED: Another save is running.")
 		return
 
 	is_saving = true
 	verification_status.text = "Email verified. Updating account records..."
 
-	# 1. Update users/{uid}.
+	print("[Settings] Updating users collection...")
+
 	var users_result: Dictionary = await _update_firestore_email(
 		"users",
 		current_uid,
 		pending_email
 	)
 
+	print("[Settings] Users update result: ", users_result)
+
 	if not users_result.get("ok", false):
 		is_saving = false
 		verification_status.text = (
-			"Email verified, but users profile update failed: "
+			"Users profile update failed: "
 			+ str(users_result.get("error", "Unknown error"))
 		)
 		return
 
-	# 2. Update teachers/{uid} for teacher accounts.
 	if current_role == "teacher":
+
+		print("[Settings] Updating teachers collection...")
 
 		var teachers_result: Dictionary = await _update_firestore_email(
 			"teachers",
@@ -1168,16 +1338,21 @@ func _on_account_data_received(
 			pending_email
 		)
 
+		print("[Settings] Teachers update result: ", teachers_result)
+
 		if not teachers_result.get("ok", false):
 			is_saving = false
 			verification_status.text = (
-				"Users email updated, but teachers email update failed: "
+				"Teachers profile update failed: "
 				+ str(teachers_result.get("error", "Unknown error"))
 			)
 			return
 
-	# 3. Synchronize the existing D1 account mapping.
+	print("[Settings] Synchronizing D1...")
+
 	var d1_result: Dictionary = await _sync_own_email_with_worker()
+
+	print("[Settings] D1 result: ", d1_result)
 
 	if not d1_result.get("ok", false):
 		is_saving = false
@@ -1187,7 +1362,6 @@ func _on_account_data_received(
 		)
 		return
 
-	# 4. Update the local profile and interface.
 	original_email = pending_email
 	email_input.text = pending_email
 	current_profile["email"] = pending_email

@@ -37,6 +37,9 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2wnr6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="QuizPage" type="Control" unique_id=121942015]
 layout_mode = 3
 anchors_preset = 15
@@ -148,8 +151,10 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.57, 0.4617, 0.3534, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_2wnr6")
 placeholder_text = "Search quizzes..."
 clear_button_enabled = true
 

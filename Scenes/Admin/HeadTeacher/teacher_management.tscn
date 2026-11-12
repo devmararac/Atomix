@@ -57,9 +57,15 @@ shadow_color = Color(0.35, 0.25, 0.15, 0.08)
 shadow_size = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w867e"]
+content_margin_left = 10.0
+content_margin_right = 10.0
 bg_color = Color(0.9098039, 0.7882353, 0.6313726, 0.19215687)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l6rav"]
+content_margin_left = 10.0
+content_margin_right = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fs87h"]
 bg_color = Color(1, 0.984, 0.953, 1)
@@ -282,31 +288,25 @@ offset_bottom = -0.026000977
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_w867e")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader" unique_id=1139713012]
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader" unique_id=947310984]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.96400005
-anchor_bottom = 0.952
-offset_left = -0.5
-offset_top = 2.0
-offset_right = 0.103881836
-offset_bottom = 0.01599884
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 60
+theme_override_constants/separation = 55
 
-[node name="Number" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=86444458]
-custom_minimum_size = Vector2(38, 0)
+[node name="Number" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=934666653]
 layout_mode = 2
-size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_l6rav")
 theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_l6rav")
 text = "#"
-horizontal_alignment = 1
 
-[node name="FullName" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=527778068]
+[node name="FullName" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=547177358]
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -317,10 +317,9 @@ theme_override_font_sizes/font_size = 25
 text = "NAME"
 horizontal_alignment = 1
 
-[node name="LRN" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=1608468880]
-custom_minimum_size = Vector2(200, 0)
+[node name="LRN" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=1625193946]
+custom_minimum_size = Vector2(175, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_l6rav")
@@ -328,8 +327,7 @@ theme_override_font_sizes/font_size = 25
 text = "LRN"
 horizontal_alignment = 1
 
-[node name="Section" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=1352396194]
-custom_minimum_size = Vector2(110, 0)
+[node name="Section" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=672147704]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -339,10 +337,8 @@ theme_override_font_sizes/font_size = 25
 text = "SECTION"
 horizontal_alignment = 1
 
-[node name="Status" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=1521436665]
-custom_minimum_size = Vector2(200, 0)
+[node name="Status" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=469348018]
 layout_mode = 2
-size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_l6rav")
@@ -350,8 +346,7 @@ theme_override_font_sizes/font_size = 25
 text = "STATUS"
 horizontal_alignment = 1
 
-[node name="Actions" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=392104630]
-custom_minimum_size = Vector2(220, 0)
+[node name="Actions" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/TeacherTable/TableHeader/HBoxContainer" unique_id=27108638]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1

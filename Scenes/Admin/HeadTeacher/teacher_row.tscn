@@ -7,9 +7,17 @@
 [ext_resource type="Texture2D" uid="uid://n243x7ilxcl3" path="res://Assets/UX/Icons/arhive.png" id="5_c7pop"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Row"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 border_width_bottom = 1
 border_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3dgei"]
+content_margin_left = 5.0
+content_margin_right = 5.0
 
 [node name="TeacherRow" type="HBoxContainer" unique_id=184608605]
 custom_minimum_size = Vector2(1600, 0)
@@ -40,13 +48,12 @@ grow_vertical = 2
 theme_override_constants/separation = 55
 
 [node name="Number" type="Label" parent="Background/HBoxContainer2" unique_id=1149602221]
-custom_minimum_size = Vector2(38, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_7tdwk")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3dgei")
 text = "#"
 
 [node name="FullName" type="Label" parent="Background/HBoxContainer2" unique_id=31630788]
@@ -56,39 +63,36 @@ size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_7tdwk")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 25
 text = "NAME"
 horizontal_alignment = 1
 
 [node name="LRN" type="Label" parent="Background/HBoxContainer2" unique_id=1975406202]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(175, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_7tdwk")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 25
 text = "LRN"
 horizontal_alignment = 1
 
 [node name="Section" type="Label" parent="Background/HBoxContainer2" unique_id=1182607616]
-custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_7tdwk")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 25
 text = "SECTION"
 horizontal_alignment = 1
 
 [node name="Status" type="Label" parent="Background/HBoxContainer2" unique_id=1664981520]
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_7tdwk")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 25
 text = "STATUS"
 horizontal_alignment = 1
 

@@ -451,6 +451,19 @@ text = "Edit
 "
 expand_icon = true
 
+[node name="Cancel" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer2" unique_id=591168406]
+visible = false
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("4_uxs0o")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhyy")
+text = "Cancel"
+expand_icon = true
+
 [node name="Update" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer2" unique_id=1110659292]
 visible = false
 custom_minimum_size = Vector2(128, 40)

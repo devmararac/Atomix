@@ -1,0 +1,436 @@
+[gd_scene format=3 uid="uid://c7llnkj58damv"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_kyd20"]
+[ext_resource type="Texture2D" uid="uid://0y5fliy5rj0m" path="res://Assets/UX/Icons/notification.png" id="2_2wsor"]
+[ext_resource type="Texture2D" uid="uid://cbb3y6kvjmfe1" path="res://Assets/UX/Icons/need_verify.png" id="3_au6rp"]
+[ext_resource type="Texture2D" uid="uid://dbeq05cwbcd5d" path="res://Assets/UX/Icons/verified.png" id="4_l7ekd"]
+[ext_resource type="Texture2D" uid="uid://ncldetg3scsm" path="res://Assets/UX/Icons/pass1.png" id="5_diivu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wd8cu"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n84on"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776, 0.627, 0.482, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qnhyy"]
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2crm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="Panel" type="Panel" unique_id=1548211417]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wd8cu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=910928523]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=644538671]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Spacer2" type="Control" parent="VBoxContainer/HBoxContainer3" unique_id=484364883]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/HBoxContainer3" unique_id=1330778749]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 50
+text = "Profile"
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="VBoxContainer/HBoxContainer3/Title" unique_id=1373134110]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.002
+anchor_top = 0.98
+anchor_right = 2.591
+anchor_bottom = 1.588
+offset_left = -0.06099999
+offset_top = 0.020000458
+offset_right = -319.38
+offset_bottom = -3.9220047
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 30
+text = "   Edit and Update Account Detaials"
+
+[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer3" unique_id=1027666398]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActivityLog" type="TextureButton" parent="VBoxContainer/HBoxContainer3" unique_id=143338022]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("2_2wsor")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Spacer3" type="Control" parent="VBoxContainer/HBoxContainer3" unique_id=790072590]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Spacer3" type="Control" parent="VBoxContainer" unique_id=955919867]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1940477151]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=307166828]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=188383049]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="IDLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer4" unique_id=501510718]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 25
+text = "LRN"
+
+[node name="IDInput" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer4" unique_id=425275014]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=645303146]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="FirstName" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2" unique_id=401481427]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/FirstName" unique_id=589251645]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 25
+text = "First Name"
+
+[node name="NameValue" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/FirstName" unique_id=1678759997]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+
+[node name="MiddleInitial" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2" unique_id=2064447621]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/MiddleInitial" unique_id=1167807870]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 25
+text = "Middle Innitial"
+
+[node name="NameValue" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/MiddleInitial" unique_id=581650366]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=906741080]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="LastName" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3" unique_id=980339517]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/LastName" unique_id=901916166]
+layout_mode = 2
+theme_override_constants/separation = 150
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/LastName/HBoxContainer" unique_id=1592206837]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 25
+text = "Last Name"
+
+[node name="RequiredLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/LastName/HBoxContainer" unique_id=2057602869]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 10
+text = "*Required"
+
+[node name="NameValue" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/LastName" unique_id=1551594267]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+
+[node name="Suffix" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3" unique_id=2103989583]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/Suffix" unique_id=282534736]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 25
+text = "Suffix"
+
+[node name="NameValue" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/Suffix" unique_id=1569504331]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+
+[node name="Spacer2" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1771765568]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1438176091]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1906533190]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1272354900]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
+
+[node name="EmailLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1244235611]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 30
+text = "Email"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1760126017]
+layout_mode = 2
+
+[node name="NameValue" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1488390836]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+
+[node name="not_verified" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1490922924]
+visible = false
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+texture = ExtResource("3_au6rp")
+expand_mode = 1
+
+[node name="verified" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=646900589]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+texture = ExtResource("4_l7ekd")
+expand_mode = 1
+
+[node name="VerificationContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2129365304]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="VerificationStatus" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VerificationContainer" unique_id=1389943130]
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+text = "Checking email status..."
+
+[node name="SendVerificationButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VerificationContainer" unique_id=1720987625]
+custom_minimum_size = Vector2(190, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhyy")
+text = "Send Verification Email"
+
+[node name="RefreshVerificationButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VerificationContainer" unique_id=1879720468]
+custom_minimum_size = Vector2(150, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhyy")
+text = "Refresh Status"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=93526404]
+visible = false
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PasswordLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1223141781]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 30
+text = "Old Password"
+
+[node name="PasswordInput" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1147837546]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+
+[node name="Hide_Show" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput" unique_id=103225361]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_left = 657.0
+offset_top = 9.0
+offset_right = 687.0
+offset_bottom = 39.0
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_w2crm")
+icon = ExtResource("5_diivu")
+expand_icon = true
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=33596456]
+visible = false
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PasswordLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3" unique_id=1781512261]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 30
+text = "New Password"
+
+[node name="PasswordInput" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3" unique_id=1972123785]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+
+[node name="Hide_Show" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3/PasswordInput" unique_id=830355240]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_left = 657.0
+offset_top = 9.0
+offset_right = 687.0
+offset_bottom = 39.0
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_w2crm")
+icon = ExtResource("5_diivu")
+expand_icon = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1218748083]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Edit" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=698651235]
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhyy")
+text = "Edit
+"
+expand_icon = true
+
+[node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1734478461]
+visible = false
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhyy")
+text = "Cancel"
+expand_icon = true
+
+[node name="Update" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=231831407]
+visible = false
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_kyd20")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhyy")
+text = "Update"
+expand_icon = true
