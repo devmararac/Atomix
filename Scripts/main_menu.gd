@@ -154,21 +154,51 @@ func _check_user_role() -> void:
 			_load_student_data()
 
 		"teacher":
-			role_check_in_progress = false
-			loading_screen.show_loading("OPENING DASHBOARD...") # <-- ADD THIS
-			await get_tree().create_timer(1.0).timeout
-			get_tree().change_scene_to_file("res://Scenes/Admin/Teacher/teacher_dashboard.tscn")
+			await _open_staff_dashboard(
+		        "res://Scenes/Admin/Teacher/teacher_dashboard.tscn"
+			)
 
 		"admin":
-			role_check_in_progress = false
-			loading_screen.show_loading("OPENING DASHBOARD...") # <-- ADD THIS
-			await get_tree().create_timer(1.0).timeout
-			get_tree().change_scene_to_file("res://Scenes/Admin/HeadTeacher/admin_dashboard.tscn")
+			await _open_staff_dashboard(
+		        "res://Scenes/Admin/HeadTeacher/admin_dashboard.tscn"
+			)
 
 		_:
 			role_check_in_progress = false
 			loading_screen.hide_loading() # <-- ADD THIS
 			status_label.text = "Account role could not be determined."
+
+
+
+func _open_staff_dashboard(scene_path: String) -> void:
+
+	print("[MainMenu] Checking staff account setup requirements...")
+
+	# Check whether the account must change its password.
+	var must_change: bool = await AuthManager.needs_password_change()
+
+	# Check the latest Firebase email verification status.
+	var email_verified: bool = await AuthManager.check_email_verified()
+
+	# Require Settings if either requirement is incomplete.
+	AuthManager.account_setup_required = (
+		must_change or not email_verified
+	)
+
+	print("[MainMenu] Must change password: ", must_change)
+	print("[MainMenu] Email verified: ", email_verified)
+	print(
+		"[MainMenu] Account setup required: ",
+		AuthManager.account_setup_required
+	)
+
+	role_check_in_progress = false
+
+	loading_screen.show_loading("OPENING DASHBOARD...")
+	await get_tree().create_timer(1.0).timeout
+
+	get_tree().change_scene_to_file(scene_path)
+
 
 
 func _load_student_data() -> void:

@@ -17,6 +17,8 @@ var current_user: Dictionary = {}
 var user_uid: String = ""
 var current_role: String = ""
 
+var account_setup_required: bool = false
+
 const AUTH_API_URL := "https://atomix-auth-api.atomix-auth.workers.dev"
 
 var auth_api_request: HTTPRequest
@@ -257,6 +259,28 @@ func get_account_status() -> String:
 	return str(user_doc.get_value("status"))
 
 
+func needs_password_change() -> bool:
+	var uid := get_uid()
+
+	if uid.is_empty():
+		print("[AuthManager] Cannot check password setup. UID is empty.")
+		return false
+
+	var users = Firebase.Firestore.collection("users")
+	var user_doc: FirestoreDocument = await users.get_doc(uid)
+
+	if user_doc == null:
+		print("[AuthManager] User document not found.")
+		return false
+
+	var required: bool = bool(
+		user_doc.get_value("must_change_password")
+	)
+
+	print("[AuthManager] Must change password: ", required)
+
+	return required
+
 func get_account_school_year() -> String:
 	var uid := get_uid()
 
@@ -281,6 +305,24 @@ func refresh_email_verification_status() -> void:
 		return
 
 	Firebase.Auth.get_user_data()
+
+
+# Request and wait for the latest email verification status.
+func check_email_verified() -> bool:
+
+	if not is_logged_in():
+		push_warning("[AuthManager] Cannot check email verification. No user logged in.")
+		return false
+
+	print("[AuthManager] Checking Firebase email verification...")
+
+	Firebase.Auth.get_user_data()
+
+	var is_verified: bool = await email_verification_status_received
+
+	print("[AuthManager] Email verification check completed: ", is_verified)
+
+	return is_verified
 
 
 # Receive the account information returned by Firebase.

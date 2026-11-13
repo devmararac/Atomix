@@ -174,9 +174,6 @@ func _draw() -> void:
 			_draw_line_graph()
 		return
 
-	if graph_values.is_empty():
-		_draw_message("No data available")
-		return
 
 	match graph_type:
 		GraphType.BAR:
@@ -573,9 +570,7 @@ func _draw_line_legend() -> void:
 
 func _draw_progress_bar() -> void:
 	var count := graph_values.size()
-	if count == 0:
-		_draw_message("No section data available")
-		return
+
 
 	var margin_left := 16.0
 	var margin_right := 16.0
@@ -648,9 +643,7 @@ func _draw_progress_bar() -> void:
 func _draw_quiz_section_graph() -> void:
 	var count := quiz_section_labels.size()
 
-	if count == 0:
-		_draw_message("No completed quiz results available")
-		return
+
 
 	var left := 205.0
 	var right := 150.0
@@ -671,25 +664,6 @@ func _draw_quiz_section_graph() -> void:
 	for value in quiz_result_counts:
 		max_results = maxi(max_results, value)
 
-	draw_string(
-		ThemeDB.fallback_font,
-		Vector2(left, 30.0),
-		"Quiz results",
-		HORIZONTAL_ALIGNMENT_LEFT,
-		chart_width * 0.48,
-		QUIZ_HEADER_FONT_SIZE,
-		Color("#D99A36")
-	)
-
-	draw_string(
-		ThemeDB.fallback_font,
-		Vector2(size.x - right + 8.0, 30.0),
-		"Average score",
-		HORIZONTAL_ALIGNMENT_LEFT,
-		right + 5.0,
-		QUIZ_HEADER_FONT_SIZE,
-		Color("#75A66A")
-	)
 
 	for i in range(count):
 		var row_top := top + row_height * float(i)

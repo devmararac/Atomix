@@ -1,3 +1,4 @@
+
 extends Control
 
 const ACTIVITY_LOG_ROW := preload(
@@ -7,44 +8,79 @@ const ACTIVITY_LOG_ROW := preload(
 const PROJECT_ID := "atomix-f6c6b"
 const FIRESTORE_BASE := "https://firestore.googleapis.com/v1/projects/"
 
-@onready var activity_log: Panel = $PageBackground/ActivityLogs
+# ============================================================
+# NEW SCENE NODE REFERENCES
+# ============================================================
 
-@onready var id_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer2/VBoxContainer4/IDInput
+@onready var display_container: HBoxContainer = $PageBackground/VBoxContainer/Display
+@onready var edit_container: HBoxContainer = $PageBackground/VBoxContainer/Edit
 
-@onready var first_name_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/FirstName/NameInput
+# Display-only profile labels
+@onready var display_id: Label = $PageBackground/VBoxContainer/Display/VBoxContainer2/Display/IDInput
+@onready var display_first_name: Label = $PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer4/Display/FirstName/NameInput
+@onready var display_middle_initial: Label = $PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer4/Display/MiddleInitial/NameInput
+@onready var display_last_name: Label = $PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer2/Display/LastName/NameInput
+@onready var display_suffix: Label = $PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer2/Display/Suffix/NameInput
 
-@onready var middle_initial_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2/MiddleInitial/NameInput
+@onready var display_email: Label = $PageBackground/VBoxContainer/Display/VBoxContainer/Display/HBoxContainer/EmailInput
+@onready var display_verified_icon: TextureRect = $PageBackground/VBoxContainer/Display/VBoxContainer/Display/HBoxContainer/Verified
+@onready var display_not_verified_icon: TextureRect = $PageBackground/VBoxContainer/Display/VBoxContainer/Display/HBoxContainer/NotVerified
 
-@onready var last_name_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/LastName/NameInput
+# Editable profile fields
+@onready var id_input: LineEdit = $PageBackground/VBoxContainer/Edit/VBoxContainer2/HBoxContainer/Edit/IDInput
 
-@onready var suffix_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer3/Suffix/NameInput
+@onready var first_name_input: LineEdit = $PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit/FirstName/NameInput
+@onready var middle_initial_input: LineEdit = $PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit/MiddleInitial/NameInput
+@onready var last_name_input: LineEdit = $PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit2/LastName/NameInput
+@onready var suffix_input: LineEdit = $PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit2/Suffix/NameInput
 
-@onready var email_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/EmailInput
+@onready var email_input: LineEdit = $PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit/EmailInput
 
-@onready var old_password_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer2/PasswordInput
+# Email verification
+@onready var verification_status: Label = $PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit/VerificationContainer/Verified
+@onready var send_verification_button: Button = $PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit/VerificationContainer/VerificationButton
 
-@onready var new_password_input: LineEdit = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer3/PasswordInput
+# Password controls
+@onready var change_password_button: Button = $PageBackground/VBoxContainer/Edit/VBoxContainer/ChangePasswordButton
+@onready var password_panel: Panel = $PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel
 
+@onready var old_password_input: LineEdit = $PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer2/PasswordInput
+@onready var new_password_input: LineEdit = $PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer3/PasswordInput
+
+@onready var old_password_show: Button = $PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer2/PasswordInput/HBoxContainer/Show
+@onready var old_password_hide: Button = $PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer2/PasswordInput/HBoxContainer/Hide
+
+@onready var new_password_show: Button = $PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer3/PasswordInput/HBoxContainer/Show
+@onready var new_password_hide: Button = $PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer3/PasswordInput/HBoxContainer/Hide
+
+@onready var password_cancel_button: Button = $PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/Button
+
+# Main profile buttons
 @onready var edit_button: Button = $PageBackground/VBoxContainer/HBoxContainer2/Edit
-
 @onready var update_button: Button = $PageBackground/VBoxContainer/HBoxContainer2/Update
-
 @onready var cancel_button: Button = $PageBackground/VBoxContainer/HBoxContainer2/Cancel
 
-@onready var verification_status: Label = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VerificationContainer/VerificationStatus
-
-@onready var send_verification_button: Button = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VerificationContainer/SendVerificationButton
-
-@onready var refresh_verification_button: Button = $PageBackground/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/VerificationContainer/RefreshVerificationButton
+# Activity log
+@onready var activity_log: Panel = $PageBackground/ActivityLogs
+@onready var activity_log_button: TextureButton = $PageBackground/VBoxContainer/HBoxContainer3/ActivityLog
+@onready var close_log_button: Button = $PageBackground/ActivityLogs/VBoxContainer/CloseLogButton
 
 @onready var activity_rows: VBoxContainer = $PageBackground/ActivityLogs/VBoxContainer/ScrollContainer/CenterContainer/VBoxContainer
 
+@onready var status_log: Label = $PageBackground/VBoxContainer/StatusLabel
+# ============================================================
+# ACCOUNT VARIABLES
+# ============================================================
+
 var current_profile: Dictionary = {}
+
 var original_email: String = ""
 var firebase_account_email: String = ""
 
 var pending_email: String = ""
 var email_change_in_progress: bool = false
+
+var email_is_verified: bool = false
 
 var is_editing: bool = false
 var is_saving: bool = false
@@ -54,32 +90,45 @@ var current_role: String = ""
 var current_uid: String = ""
 
 
+# ============================================================
+# READY
+# ============================================================
+
 func _ready() -> void:
 
-	activity_log.hide()
+	# Set the initial screen layout.
+	display_container.show()
+	edit_container.hide()
 
-	# Connect email verification signal.
+	activity_log.hide()
+	password_panel.hide()
+	change_password_button.show()
+
+	update_button.hide()
+	cancel_button.hide()
+
+	# Connect authentication signals.
 	if not AuthManager.email_verification_status_received.is_connected(
 		_on_email_verification_status_received
 	):
 		AuthManager.email_verification_status_received.connect(
 			_on_email_verification_status_received
 		)
-	
+
 	if not AuthManager.account_data_received.is_connected(
 		_on_account_data_received
 	):
 		AuthManager.account_data_received.connect(
 			_on_account_data_received
 		)
-	
+
 	if not Firebase.Auth.password_change_completed.is_connected(
 		_on_password_change_completed
 	):
 		Firebase.Auth.password_change_completed.connect(
 			_on_password_change_completed
 		)
-	
+
 	# Connect activity log signals.
 	if not ActivityLogManager.activity_logs_loaded.is_connected(
 		_on_activity_logs_loaded
@@ -96,43 +145,63 @@ func _ready() -> void:
 		)
 
 	# Connect profile buttons.
-	if not edit_button.pressed.is_connected(_on_edit_pressed):
-		edit_button.pressed.connect(_on_edit_pressed)
+	edit_button.pressed.connect(_on_edit_pressed)
+	update_button.pressed.connect(_on_update_pressed)
+	cancel_button.pressed.connect(_on_cancel_pressed)
 
-	if not update_button.pressed.is_connected(_on_update_pressed):
-		update_button.pressed.connect(_on_update_pressed)
-	
-	if not cancel_button.pressed.is_connected(_on_cancel_pressed):
-		cancel_button.pressed.connect(_on_cancel_pressed)
-	
-	# Connect verification buttons.
-	if not send_verification_button.pressed.is_connected(
+	# Connect email verification button.
+	send_verification_button.pressed.connect(
 		_on_send_verification_button_pressed
-	):
-		send_verification_button.pressed.connect(
-			_on_send_verification_button_pressed
-		)
+	)
 
-	if not refresh_verification_button.pressed.is_connected(
-		_on_refresh_verification_button_pressed
-	):
-		refresh_verification_button.pressed.connect(
-			_on_refresh_verification_button_pressed
-		)
+	# Connect password controls.
+	change_password_button.pressed.connect(
+		_on_change_password_button_pressed
+	)
+
+	password_cancel_button.pressed.connect(
+		_on_password_cancel_pressed
+	)
+
+	old_password_show.pressed.connect(
+		_on_old_password_show_pressed
+	)
+
+	old_password_hide.pressed.connect(
+		_on_old_password_hide_pressed
+	)
+
+	new_password_show.pressed.connect(
+		_on_new_password_show_pressed
+	)
+
+	new_password_hide.pressed.connect(
+		_on_new_password_hide_pressed
+	)
+
+	# Connect activity log controls.
+	activity_log_button.pressed.connect(
+		_on_activity_log_pressed
+	)
+
+	close_log_button.pressed.connect(
+		_on_close_log_button_pressed
+	)
 
 	_set_profile_editable(false)
 
-	update_button.hide()
-	cancel_button.hide()
-
-	# Load the current account.
+	# Load the account profile.
 	await _load_profile()
 
-	# Check Firebase Authentication email verification.
+	# Refresh Firebase email verification status.
 	if AuthManager.is_logged_in():
 		AuthManager.refresh_email_verification_status()
 	else:
-		verification_status.text = "No authenticated account."
+		verification_status.text = "Not authenticated."
+
+	# Remind staff to finish account setup when Settings opens.
+	if AuthManager.account_setup_required:
+		show_setup_required_message()
 
 
 # ============================================================
@@ -216,7 +285,6 @@ func _load_profile() -> void:
 
 	print("[Settings] Loading profile for role: ", current_role)
 
-	# Both admin and teacher profiles use users/{uid}.
 	var response: Dictionary = await _firestore_get_user_profile()
 
 	if not bool(response.get("ok", false)):
@@ -234,8 +302,12 @@ func _load_profile() -> void:
 
 	_set_profile_editable(false)
 
+	display_container.show()
+	edit_container.hide()
+
 	edit_button.show()
 	update_button.hide()
+	cancel_button.hide()
 
 	print("[Settings] Profile loaded successfully.")
 
@@ -283,7 +355,6 @@ func _firestore_get_user_profile() -> Dictionary:
 	http.queue_free()
 
 	if response_code < 200 or response_code >= 300:
-
 		return {
 			"ok": false,
 			"error": response_text
@@ -306,11 +377,9 @@ func _firestore_get_user_profile() -> Dictionary:
 func _decode_firestore_document(document: Dictionary) -> Dictionary:
 
 	var result: Dictionary = {}
-
 	var fields: Dictionary = document.get("fields", {})
 
 	for field_name in fields:
-
 		result[str(field_name)] = _decode_firestore_value(
 			fields[field_name]
 		)
@@ -342,54 +411,52 @@ func _decode_firestore_value(value: Variant) -> Variant:
 
 
 # ============================================================
-# POPULATE PROFILE FIELDS
+# POPULATE PROFILE
 # ============================================================
+
 func _populate_profile_fields() -> void:
 
-	first_name_input.text = str(
-		current_profile.get("first_name", "")
-	)
+	var first_name := str(current_profile.get("first_name", ""))
+	var middle_initial := str(current_profile.get("middle_initial", ""))
+	var last_name := str(current_profile.get("last_name", ""))
+	var suffix := str(current_profile.get("suffix", ""))
+	var id_number := str(current_profile.get("id_number", ""))
 
-	middle_initial_input.text = str(
-		current_profile.get("middle_initial", "")
-	)
+	# Populate editable fields.
+	first_name_input.text = first_name
+	middle_initial_input.text = middle_initial
+	last_name_input.text = last_name
+	suffix_input.text = suffix
+	id_input.text = id_number
 
-	last_name_input.text = str(
-		current_profile.get("last_name", "")
-	)
+	# Populate display-only labels.
+	display_first_name.text = first_name
+	display_middle_initial.text = middle_initial
+	display_last_name.text = last_name
+	display_suffix.text = suffix
+	display_id.text = id_number
 
-	suffix_input.text = str(
-		current_profile.get("suffix", "")
-	)
-
-	# Inspect the current Firebase Authentication data.
-	var auth_data: Dictionary = Firebase.Auth.auth
-
-
-
-	var auth_email := str(
-		auth_data.get("email", "")
-	).strip_edges()
-
+	# Firebase Authentication is the source of truth for email.
 	var firestore_email := str(
 		current_profile.get("email", "")
 	).strip_edges()
 
-	print("[Settings] Auth email: ", auth_email)
-	print("[Settings] Firestore email: ", firestore_email)
-
-	# Prefer Firebase Authentication email.
-	if not auth_email.is_empty():
-		original_email = auth_email
+	if not firebase_account_email.is_empty():
+		original_email = firebase_account_email
 	else:
 		original_email = firestore_email
 
 	email_input.text = original_email
+	display_email.text = original_email
 
-	id_input.text = str(
-		current_profile.get("id_number", "")
-	)
+	# Set email verification icons.
+	_update_display_verification_icons(email_is_verified)
 
+
+func _update_display_verification_icons(is_verified: bool) -> void:
+
+	display_verified_icon.visible = is_verified
+	display_not_verified_icon.visible = not is_verified
 
 
 # ============================================================
@@ -398,14 +465,16 @@ func _populate_profile_fields() -> void:
 
 func _on_edit_pressed() -> void:
 
-	if not profile_loaded:
-		return
-
-	if is_saving:
+	if not profile_loaded or is_saving:
 		return
 
 	is_editing = true
+
 	_clear_password_fields()
+	password_panel.hide()
+
+	display_container.hide()
+	edit_container.show()
 
 	_set_profile_editable(true)
 
@@ -423,44 +492,24 @@ func _on_cancel_pressed() -> void:
 
 	print("[Settings] Canceling profile edit.")
 
-	# Restore the original profile information.
-	first_name_input.text = str(
-		current_profile.get("first_name", "")
-	)
+	# Restore the original profile values.
+	_populate_profile_fields()
 
-	middle_initial_input.text = str(
-		current_profile.get("middle_initial", "")
-	)
-
-	last_name_input.text = str(
-		current_profile.get("last_name", "")
-	)
-
-	suffix_input.text = str(
-		current_profile.get("suffix", "")
-	)
-
-	id_input.text = str(
-		current_profile.get("id_number", "")
-	)
-
-	# Restore the current Firebase email.
-	email_input.text = original_email
-
-	# Clear password fields.
 	_clear_password_fields()
+	password_panel.hide()
 
-	# Exit edit mode.
 	is_editing = false
 
 	_set_profile_editable(false)
 
-	# Restore button visibility.
+	# Return to display mode.
+	edit_container.hide()
+	display_container.show()
+
 	edit_button.show()
 	update_button.hide()
 	cancel_button.hide()
 
-	# Restore button states.
 	edit_button.disabled = false
 	update_button.disabled = false
 	cancel_button.disabled = false
@@ -469,16 +518,17 @@ func _on_cancel_pressed() -> void:
 
 
 func _set_profile_editable(enabled: bool) -> void:
+
+	# Only admins may edit their LRN.
 	id_input.editable = enabled and current_role == "admin"
+
 	first_name_input.editable = enabled
 	middle_initial_input.editable = enabled
 	last_name_input.editable = enabled
 	suffix_input.editable = enabled
-	email_input.editable = enabled
 
-	# Hide password fields and their labels outside Edit mode.
-	old_password_input.get_parent().visible = enabled
-	new_password_input.get_parent().visible = enabled
+	# Do not allow changing email while a previous change is pending.
+	email_input.editable = enabled and not email_change_in_progress
 
 	old_password_input.editable = enabled
 	new_password_input.editable = enabled
@@ -492,15 +542,83 @@ func _clear_password_fields() -> void:
 	old_password_input.clear()
 	new_password_input.clear()
 
+	_set_password_visibility(false)
+
+
+# ============================================================
+# PASSWORD PANEL
+# ============================================================
+
+func _on_change_password_button_pressed() -> void:
+	if not is_editing:
+		return
+
+	change_password_button.hide()
+	password_panel.show()
+
+func _on_password_cancel_pressed() -> void:
+	_clear_password_fields()
+
+	password_panel.hide()
+	change_password_button.show()
+
+func _set_password_visibility(show_password: bool) -> void:
+
+	old_password_input.secret = not show_password
+	old_password_show.visible = not show_password
+	old_password_hide.visible = show_password
+
+	new_password_input.secret = not show_password
+	new_password_show.visible = not show_password
+	new_password_hide.visible = show_password
+
+
+func _on_old_password_show_pressed() -> void:
+
+	old_password_input.secret = false
+	old_password_show.hide()
+	old_password_hide.show()
+
+
+func _on_old_password_hide_pressed() -> void:
+
+	old_password_input.secret = true
+	old_password_show.show()
+	old_password_hide.hide()
+
+
+func _on_new_password_show_pressed() -> void:
+
+	new_password_input.secret = false
+	new_password_show.hide()
+	new_password_hide.show()
+
+
+func _on_new_password_hide_pressed() -> void:
+
+	new_password_input.secret = true
+	new_password_show.show()
+	new_password_hide.hide()
+
+
 func _on_password_change_completed(success: bool, result: Dictionary) -> void:
+
 	if success:
 		print("[Settings] Password changed successfully.")
 	else:
 		var error_message: String = str(
-			result.get("message", result.get("error", {}).get("message", "Unknown error."))
+			result.get(
+				"message",
+				result.get("error", {}).get("message", "Unknown error.")
+			)
 		)
+
 		push_error("[Settings] Password change failed: " + error_message)
 
+
+# ============================================================
+# SYNCHRONIZE EXISTING ACCOUNT EMAIL
+# ============================================================
 
 func _sync_existing_account_email() -> void:
 
@@ -548,11 +666,13 @@ func _sync_existing_account_email() -> void:
 
 	original_email = firebase_account_email
 	email_input.text = firebase_account_email
+	display_email.text = firebase_account_email
 	current_profile["email"] = firebase_account_email
 
 	is_saving = false
 
 	print("[Settings] Account email synchronization completed.")
+
 
 # ============================================================
 # UPDATE PROFILE
@@ -567,7 +687,7 @@ func _on_update_pressed() -> void:
 	var middle_initial := middle_initial_input.text.strip_edges()
 	var last_name := last_name_input.text.strip_edges()
 	var suffix := suffix_input.text.strip_edges()
-	
+
 	var requested_email := email_input.text.strip_edges()
 	var new_password := new_password_input.text
 	var password_changed := not new_password.is_empty()
@@ -584,8 +704,7 @@ func _on_update_pressed() -> void:
 		verification_status.text = "Enter your current password to change your email."
 		old_password_input.grab_focus()
 		return
-	
-	# Validate password change.
+
 	if password_changed and old_password_input.text.strip_edges().is_empty():
 		_show_profile_status("Enter your current password to change your password.")
 		old_password_input.grab_focus()
@@ -623,6 +742,7 @@ func _on_update_pressed() -> void:
 
 	# Only admins may update their LRN.
 	if current_role == "admin":
+
 		var new_id_number := id_input.text.strip_edges()
 
 		if new_id_number.is_empty():
@@ -633,23 +753,28 @@ func _on_update_pressed() -> void:
 		updated_fields["id_number"] = new_id_number
 
 	is_saving = true
+
 	update_button.disabled = true
 	edit_button.disabled = true
 	cancel_button.disabled = true
 
+	# Request email verification if the email was changed.
 	if email_changed:
+
 		verification_status.text = "Requesting verification for your new email..."
 
-		# Send the verification request before saving the other profile fields.
 		var email_result: Dictionary = await _request_email_change_verification(
 			requested_email,
 			old_password_input.text
 		)
 
 		if not bool(email_result.get("ok", false)):
+
 			is_saving = false
+
 			update_button.disabled = false
 			edit_button.disabled = false
+			cancel_button.disabled = false
 
 			verification_status.text = (
 				"Email change request failed: "
@@ -667,8 +792,8 @@ func _on_update_pressed() -> void:
 			+ pending_email
 			+ ". Open the link to complete your email change."
 		)
-	
-	# Change password if a new password was provided.
+
+	# Change password if requested.
 	if password_changed:
 
 		_show_profile_status("Changing password...")
@@ -681,6 +806,7 @@ func _on_update_pressed() -> void:
 		if not bool(password_result.get("ok", false)):
 
 			is_saving = false
+
 			update_button.disabled = false
 			edit_button.disabled = false
 			cancel_button.disabled = false
@@ -691,7 +817,7 @@ func _on_update_pressed() -> void:
 			)
 
 			return
-	
+
 	_show_profile_status("Saving profile...")
 
 	var result: Dictionary = await _update_user_profile(
@@ -699,6 +825,7 @@ func _on_update_pressed() -> void:
 	)
 
 	is_saving = false
+
 	update_button.disabled = false
 	edit_button.disabled = false
 	cancel_button.disabled = false
@@ -716,6 +843,9 @@ func _on_update_pressed() -> void:
 	for key in updated_fields:
 		current_profile[key] = updated_fields[key]
 
+	# Update the display labels immediately.
+	_populate_profile_fields()
+
 	# Record successful profile update.
 	ActivityLogManager.log_activity(
 		"Updated Profile",
@@ -728,13 +858,15 @@ func _on_update_pressed() -> void:
 
 	_set_profile_editable(false)
 
+	edit_container.hide()
+	display_container.show()
+
 	edit_button.show()
 	update_button.hide()
 	cancel_button.hide()
-	
 
 	if email_change_in_progress:
-		_show_profile_status(
+		verification_status.text = (
 			"Profile updated. Email verification is still pending."
 		)
 	else:
@@ -767,6 +899,10 @@ func _build_full_name(
 	return " ".join(parts)
 
 
+# ============================================================
+# FIRESTORE PROFILE UPDATE
+# ============================================================
+
 func _update_user_profile(data: Dictionary) -> Dictionary:
 
 	var token := _get_current_id_token()
@@ -782,12 +918,9 @@ func _update_user_profile(data: Dictionary) -> Dictionary:
 		current_uid
 	)
 
-	# Update only the supplied fields.
-	# Existing fields such as role and email remain untouched.
 	var query_parts: PackedStringArray = []
 
 	for key in data.keys():
-
 		query_parts.append(
 			"updateMask.fieldPaths=" + str(key).uri_encode()
 		)
@@ -837,7 +970,6 @@ func _update_user_profile(data: Dictionary) -> Dictionary:
 	if response_code < 200 or response_code >= 300:
 
 		var message := response_text
-
 		var parsed: Variant = JSON.parse_string(response_text)
 
 		if parsed is Dictionary:
@@ -895,14 +1027,18 @@ func _update_firestore_email(
 	)
 
 	if request_error != OK:
+
 		http.queue_free()
+
 		return {
 			"ok": false,
 			"error": "Could not start Firestore email update."
 		}
 
 	var response: Array = await http.request_completed
+
 	var response_code := int(response[1])
+
 	var response_text := (
 		(response[3] as PackedByteArray).get_string_from_utf8()
 	)
@@ -915,8 +1051,14 @@ func _update_firestore_email(
 			"error": response_text
 		}
 
-	return {"ok": true}
+	return {
+		"ok": true
+	}
 
+
+# ============================================================
+# CLOUDFLARE WORKER / D1 EMAIL SYNCHRONIZATION
+# ============================================================
 
 func _sync_own_email_with_worker() -> Dictionary:
 
@@ -949,7 +1091,9 @@ func _sync_own_email_with_worker() -> Dictionary:
 	)
 
 	if request_error != OK:
+
 		http.queue_free()
+
 		return {
 			"ok": false,
 			"error": "Could not start D1 synchronization request."
@@ -958,6 +1102,7 @@ func _sync_own_email_with_worker() -> Dictionary:
 	var response: Array = await http.request_completed
 
 	var response_code := int(response[1])
+
 	var response_text := (
 		(response[3] as PackedByteArray).get_string_from_utf8()
 	)
@@ -997,6 +1142,7 @@ func _sync_own_email_with_worker() -> Dictionary:
 # ============================================================
 # REQUEST EMAIL CHANGE
 # ============================================================
+
 func _request_email_change_verification(
 	new_email: String,
 	current_password: String
@@ -1005,17 +1151,25 @@ func _request_email_change_verification(
 	new_email = new_email.strip_edges()
 
 	print("[Settings] Starting email change request.")
-	print("[Settings] Current email: ", original_email)
 	print("[Settings] Requested new email: ", new_email)
 
 	if new_email.is_empty():
-		return {"ok": false, "error": "Enter your new email address."}
+		return {
+			"ok": false,
+			"error": "Enter your new email address."
+		}
 
 	if not new_email.contains("@") or not new_email.contains("."):
-		return {"ok": false, "error": "Enter a valid email address."}
+		return {
+			"ok": false,
+			"error": "Enter a valid email address."
+		}
 
 	if current_password.is_empty():
-		return {"ok": false, "error": "Enter your current password."}
+		return {
+			"ok": false,
+			"error": "Enter your current password."
+		}
 
 	# STEP 1: REAUTHENTICATE
 	print("[Settings] Reauthenticating current account...")
@@ -1030,14 +1184,12 @@ func _request_email_change_verification(
 	var reauth_success: bool = bool(reauth_result[0])
 	var reauth_data: Dictionary = reauth_result[1]
 
-	print("[Settings] Reauthentication success: ", reauth_success)
-	print("[Settings] Reauthentication response: ", reauth_data)
-
 	if not reauth_success:
+
 		var error_message := str(
 			reauth_data.get(
 				"message",
-	            "Current password is incorrect or reauthentication failed."
+				"Current password is incorrect or reauthentication failed."
 			)
 		)
 
@@ -1056,10 +1208,6 @@ func _request_email_change_verification(
 	var operation: String = str(email_result[0])
 	var email_success: bool = bool(email_result[1])
 	var email_data: Dictionary = email_result[2]
-
-	print("[Settings] Email-change operation: ", operation)
-	print("[Settings] Email-change success: ", email_success)
-	print("[Settings] Email-change response: ", email_data)
 
 	if operation != "email_change":
 		return {
@@ -1080,15 +1228,20 @@ func _request_email_change_verification(
 
 	print("[Settings] Firebase accepted the email-change request.")
 
-	return {"ok": true}
-	
-	
+	return {
+		"ok": true
+	}
 
+
+# ============================================================
+# REQUEST PASSWORD CHANGE
+# ============================================================
 
 func _request_password_change(
 	new_password: String,
 	current_password: String
 ) -> Dictionary:
+
 	if new_password.length() < 6:
 		return {
 			"ok": false,
@@ -1102,9 +1255,13 @@ func _request_password_change(
 		}
 
 	# Reauthenticate before changing the password.
-	Firebase.Auth.reauthenticate_user(original_email, current_password)
+	Firebase.Auth.reauthenticate_user(
+		original_email,
+		current_password
+	)
 
 	var reauth_response: Array = await Firebase.Auth.reauthentication_completed
+
 	var reauth_success: bool = bool(reauth_response[0])
 	var reauth_result: Dictionary = reauth_response[1]
 
@@ -1112,28 +1269,30 @@ func _request_password_change(
 		return {
 			"ok": false,
 			"message": str(
-				reauth_result.get("message", "Current password is incorrect or reauthentication failed.")
+				reauth_result.get(
+					"message",
+					"Current password is incorrect or reauthentication failed."
+				)
 			)
 		}
 
-	# Update the Firebase password.
+	# Update Firebase password.
 	Firebase.Auth.change_user_password(new_password)
 
 	var password_response: Array = await Firebase.Auth.password_change_completed
+
 	var password_success: bool = bool(password_response[0])
 	var password_result: Dictionary = password_response[1]
 
 	if not password_success:
-		var error_message := str(
-			password_result.get(
-				"message",
-	            "Password change failed."
-			)
-		)
-
 		return {
 			"ok": false,
-			"message": error_message
+			"message": str(
+				password_result.get(
+					"message",
+					"Password change failed."
+				)
+			)
 		}
 
 	return {
@@ -1141,72 +1300,6 @@ func _request_password_change(
 		"message": "Password changed successfully."
 	}
 
-
-func _send_email_api_request(
-	url: String,
-	request_body: String
-) -> Dictionary:
-
-	var http := HTTPRequest.new()
-	add_child(http)
-
-	var headers := PackedStringArray([
-		"Content-Type: application/json"
-	])
-
-	var request_error := http.request(
-		url,
-		headers,
-		HTTPClient.METHOD_POST,
-		request_body
-	)
-
-	if request_error != OK:
-		http.queue_free()
-
-		return {
-			"ok": false,
-			"error": "Could not start Firebase email request."
-		}
-
-	var response: Array = await http.request_completed
-
-	var response_code := int(response[1])
-	var response_text := (
-		(response[3] as PackedByteArray).get_string_from_utf8()
-	)
-
-	http.queue_free()
-
-	var parsed: Variant = JSON.parse_string(response_text)
-
-	if response_code < 200 or response_code >= 300:
-
-		var error_message := "Firebase request failed."
-
-		if parsed is Dictionary:
-			var error_data: Variant = parsed.get("error", {})
-
-			if error_data is Dictionary:
-				error_message = str(
-					error_data.get("message", error_message)
-				)
-
-		return {
-			"ok": false,
-			"error": error_message
-		}
-
-	if not parsed is Dictionary:
-		return {
-			"ok": false,
-			"error": "Invalid Firebase response."
-		}
-
-	return {
-		"ok": true,
-		"data": parsed
-	}
 
 # ============================================================
 # EMAIL VERIFICATION
@@ -1223,91 +1316,77 @@ func _on_send_verification_button_pressed() -> void:
 	verification_status.text = "Verification email requested."
 
 
-func _on_refresh_verification_button_pressed() -> void:
-
-	if not AuthManager.is_logged_in():
-		verification_status.text = "Please log in first."
-		return
-
-	verification_status.text = "Checking email status..."
-
-	AuthManager.refresh_email_verification_status()
-
-
 func _on_email_verification_status_received(
 	is_verified: bool
 ) -> void:
-
+	email_is_verified = is_verified
+	
 	if is_verified:
 
-		verification_status.text = "Email: Verified"
-
+		verification_status.text = "Verified"
 		send_verification_button.hide()
 
 	else:
 
-		verification_status.text = "Email: Not Verified"
-
+		verification_status.text = "Not Verified"
 		send_verification_button.show()
 
+	_update_display_verification_icons(is_verified)
 
 
 func _on_account_data_received(
 	firebase_email: String,
 	is_verified: bool
 ) -> void:
-
+	email_is_verified = is_verified
 	print("[Settings] ===== EMAIL SYNC CHECK =====")
 	print("[Settings] Firebase email: ", firebase_email)
-	print("[Settings] Pending email: ", pending_email)
-	print("[Settings] Email change in progress: ", email_change_in_progress)
 	print("[Settings] Verified: ", is_verified)
-	print("[Settings] Is saving: ", is_saving)
-	print("[Settings] UID: ", current_uid)
-	print("[Settings] Role: ", current_role)
-	
+
 	firebase_account_email = firebase_email.strip_edges()
 
 	if firebase_account_email.is_empty():
 		push_warning("[Settings] Received an empty Firebase email.")
 		return
 
-	# If there is no email change currently in progress,
-	# use Firebase Authentication as the source of truth.
+	_update_display_verification_icons(is_verified)
+
 	if not email_change_in_progress:
 
 		original_email = firebase_account_email
 		email_input.text = firebase_account_email
+		display_email.text = firebase_account_email
 
 		var firestore_email := str(
 			current_profile.get("email", "")
 		).strip_edges()
 
-		if firestore_email != firebase_account_email:
+		if profile_loaded and firestore_email != firebase_account_email:
 			print("[Settings] Firestore email is outdated.")
 			await _sync_existing_account_email()
 
 		return
-	
-	if not email_change_in_progress:
-		print("[Settings] SYNC STOPPED: No pending email change.")
-		return
 
-	if firebase_email.to_lower() != pending_email.to_lower():
-		print("[Settings] SYNC STOPPED: Firebase email does not match pending email.")
-		verification_status.text = "Waiting for verification at " + pending_email
+	if firebase_account_email.to_lower() != pending_email.to_lower():
+
+		print("[Settings] Waiting for verification at: ", pending_email)
+
+		verification_status.text = (
+			"Waiting for verification at " + pending_email
+		)
+
 		return
 
 	if not is_verified:
-		print("[Settings] SYNC STOPPED: Email is not verified.")
 		verification_status.text = "The new email is not verified yet."
 		return
 
 	if is_saving:
-		print("[Settings] SYNC STOPPED: Another save is running.")
+		print("[Settings] Another save is running.")
 		return
 
 	is_saving = true
+
 	verification_status.text = "Email verified. Updating account records..."
 
 	print("[Settings] Updating users collection...")
@@ -1318,14 +1397,15 @@ func _on_account_data_received(
 		pending_email
 	)
 
-	print("[Settings] Users update result: ", users_result)
-
 	if not users_result.get("ok", false):
+
 		is_saving = false
+
 		verification_status.text = (
 			"Users profile update failed: "
 			+ str(users_result.get("error", "Unknown error"))
 		)
+
 		return
 
 	if current_role == "teacher":
@@ -1338,32 +1418,37 @@ func _on_account_data_received(
 			pending_email
 		)
 
-		print("[Settings] Teachers update result: ", teachers_result)
-
 		if not teachers_result.get("ok", false):
+
 			is_saving = false
+
 			verification_status.text = (
 				"Teachers profile update failed: "
 				+ str(teachers_result.get("error", "Unknown error"))
 			)
+
 			return
 
 	print("[Settings] Synchronizing D1...")
 
 	var d1_result: Dictionary = await _sync_own_email_with_worker()
 
-	print("[Settings] D1 result: ", d1_result)
-
 	if not d1_result.get("ok", false):
+
 		is_saving = false
+
 		verification_status.text = (
 			"Firestore updated, but D1 synchronization failed: "
 			+ str(d1_result.get("error", "Unknown error"))
 		)
+
 		return
 
 	original_email = pending_email
+	firebase_account_email = pending_email
+
 	email_input.text = pending_email
+	display_email.text = pending_email
 	current_profile["email"] = pending_email
 
 	pending_email = ""
@@ -1466,6 +1551,21 @@ func _show_profile_status(message: String) -> void:
 
 	print("[Settings] ", message)
 
+	status_log.text = message
+
+
+func show_setup_required_message() -> void:
+
+	if not AuthManager.account_setup_required:
+		return
+
+	var message := (
+        "Finish setting up your account first. "
+		+ "Change your password and verify your email "
+		+ "before accessing other pages."
+	)
+
+	_show_profile_status(message)
 
 # ============================================================
 # LOG OUT

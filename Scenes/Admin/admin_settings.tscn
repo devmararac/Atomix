@@ -1,0 +1,918 @@
+[gd_scene format=3 uid="uid://btrhnx0ovt3c5"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_f638m"]
+[ext_resource type="Script" uid="uid://3tvtlneb4mu" path="res://Scripts/Admin/settings.gd" id="1_g0x8i"]
+[ext_resource type="Texture2D" uid="uid://0y5fliy5rj0m" path="res://Assets/UX/Icons/notification.png" id="2_g0x8i"]
+[ext_resource type="Texture2D" uid="uid://dbeq05cwbcd5d" path="res://Assets/UX/Icons/verified.png" id="3_0ffee"]
+[ext_resource type="Texture2D" uid="uid://bbn8ct7vo6duy" path="res://Assets/UX/Icons/need_verification.png" id="4_tkle7"]
+[ext_resource type="Texture2D" uid="uid://ncldetg3scsm" path="res://Assets/UX/Icons/pass1.png" id="5_fqmxn"]
+[ext_resource type="Texture2D" uid="uid://mvqe01b36jlr" path="res://Assets/UX/Icons/pas2.png" id="6_knp44"]
+[ext_resource type="PackedScene" uid="uid://c5rtk70yi4gmo" path="res://Scenes/Admin/activity_log_row.tscn" id="7_yphmr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xlwh"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n84on"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776, 0.627, 0.482, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6ub4"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5s2yh"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_enff5"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2crm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f638m"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g0x8i"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qnhyy"]
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ole4d"]
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7fn4t"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gu4am"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
+[node name="AdminSettings" type="Control" unique_id=1471242581]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g0x8i")
+
+[node name="PageBackground" type="Panel" parent="." unique_id=37202115]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8xlwh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground" unique_id=1414020151]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PageBackground/VBoxContainer" unique_id=1220046928]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Spacer2" type="Control" parent="PageBackground/VBoxContainer/HBoxContainer3" unique_id=8687311]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PageBackground/VBoxContainer/HBoxContainer3" unique_id=2086648682]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 50
+text = "Profile"
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="PageBackground/VBoxContainer/HBoxContainer3/Title" unique_id=141323080]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.002
+anchor_top = 0.98
+anchor_right = 2.591
+anchor_bottom = 1.588
+offset_left = -0.06099999
+offset_top = 0.020000458
+offset_right = -319.38
+offset_bottom = -3.9220047
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.8)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+text = "Edit and Update Account Detaials"
+
+[node name="Spacer" type="Control" parent="PageBackground/VBoxContainer/HBoxContainer3" unique_id=728694185]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActivityLog" type="TextureButton" parent="PageBackground/VBoxContainer/HBoxContainer3" unique_id=332503170]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("2_g0x8i")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Spacer3" type="Control" parent="PageBackground/VBoxContainer/HBoxContainer3" unique_id=187235384]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Spacer3" type="Control" parent="PageBackground/VBoxContainer" unique_id=1220644133]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="Display" type="HBoxContainer" parent="PageBackground/VBoxContainer" unique_id=1932487286]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PageBackground/VBoxContainer/Display" unique_id=77938795]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+
+[node name="Display" type="VBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer2" unique_id=876036293]
+custom_minimum_size = Vector2(715, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="IDLabel" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/Display" unique_id=871520981]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "LRN"
+
+[node name="IDInput" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/Display" unique_id=1384317818]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+text = "LRN"
+vertical_alignment = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer2" unique_id=1051753688]
+layout_mode = 2
+
+[node name="Display" type="HBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer4" unique_id=144832041]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="FirstName" type="VBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer4/Display" unique_id=1547469945]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer4/Display/FirstName" unique_id=453588939]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "First Name"
+
+[node name="NameInput" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer4/Display/FirstName" unique_id=842133579]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+text = "First Name"
+
+[node name="MiddleInitial" type="VBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer4/Display" unique_id=526070278]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer4/Display/MiddleInitial" unique_id=830728995]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "Middle Innitial"
+
+[node name="NameInput" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer4/Display/MiddleInitial" unique_id=172058578]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+text = "Middle Initial"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer2" unique_id=342891922]
+layout_mode = 2
+
+[node name="Display" type="HBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer2" unique_id=1401039744]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="LastName" type="VBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer2/Display" unique_id=1890322735]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer2/Display/LastName" unique_id=1305687162]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "Last Name"
+
+[node name="NameInput" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer2/Display/LastName" unique_id=1713527750]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+text = "Last Name"
+
+[node name="Suffix" type="VBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer2/Display" unique_id=243525528]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer2/Display/Suffix" unique_id=1918810956]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "Suffix"
+
+[node name="NameInput" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer2/HBoxContainer2/Display/Suffix" unique_id=1635675683]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+text = "Suffix"
+
+[node name="Spacer2" type="Control" parent="PageBackground/VBoxContainer/Display/VBoxContainer2" unique_id=2138696445]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/VBoxContainer/Display" unique_id=1672715888]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Display" type="VBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer" unique_id=1429241321]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="EmailLabel" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer/Display" unique_id=435426174]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "Email"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/VBoxContainer/Display/VBoxContainer/Display" unique_id=579347474]
+layout_mode = 2
+
+[node name="EmailInput" type="Label" parent="PageBackground/VBoxContainer/Display/VBoxContainer/Display/HBoxContainer" unique_id=22920756]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+text = "Email"
+
+[node name="Verified" type="TextureRect" parent="PageBackground/VBoxContainer/Display/VBoxContainer/Display/HBoxContainer" unique_id=391276113]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+texture = ExtResource("3_0ffee")
+expand_mode = 1
+
+[node name="NotVerified" type="TextureRect" parent="PageBackground/VBoxContainer/Display/VBoxContainer/Display/HBoxContainer" unique_id=1778865262]
+visible = false
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+texture = ExtResource("4_tkle7")
+expand_mode = 1
+
+[node name="Edit" type="HBoxContainer" parent="PageBackground/VBoxContainer" unique_id=323412534]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit" unique_id=1395127781]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2" unique_id=2062226035]
+layout_mode = 2
+
+[node name="Edit" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/HBoxContainer" unique_id=875078615]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="IDLabel" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/HBoxContainer/Edit" unique_id=392999764]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "LRN"
+
+[node name="IDInput" type="LineEdit" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/HBoxContainer/Edit" unique_id=1015667005]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.05490196, 0.05490196, 0.05490196, 0.41568628)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+placeholder_text = "Enter LRN..."
+clear_button_enabled = true
+
+[node name="Edit" type="HBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2" unique_id=1589755283]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="FirstName" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit" unique_id=2009555885]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit/FirstName" unique_id=1312952920]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "First Name"
+
+[node name="NameInput" type="LineEdit" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit/FirstName" unique_id=378025012]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.05490196, 0.05490196, 0.05490196, 0.41568628)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+placeholder_text = "Enter First Name..."
+clear_button_enabled = true
+
+[node name="MiddleInitial" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit" unique_id=529744308]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit/MiddleInitial" unique_id=684677000]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "Middle Innitial"
+
+[node name="NameInput" type="LineEdit" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit/MiddleInitial" unique_id=555590170]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.05490196, 0.05490196, 0.05490196, 0.41568628)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+placeholder_text = "Enter Innitial..."
+clear_button_enabled = true
+
+[node name="Edit2" type="HBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2" unique_id=724062882]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="LastName" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit2" unique_id=882696152]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit2/LastName" unique_id=642680199]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "Last Name"
+
+[node name="NameInput" type="LineEdit" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit2/LastName" unique_id=1766269411]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.05490196, 0.05490196, 0.05490196, 0.41568628)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+placeholder_text = "EnterLast Name..."
+clear_button_enabled = true
+
+[node name="Suffix" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit2" unique_id=470701204]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit2/Suffix" unique_id=1643054803]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "Suffix"
+
+[node name="NameInput" type="LineEdit" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2/Edit2/Suffix" unique_id=1183325175]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.05490196, 0.05490196, 0.05490196, 0.41568628)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+placeholder_text = "Enter Suffix..."
+clear_button_enabled = true
+
+[node name="Spacer2" type="Control" parent="PageBackground/VBoxContainer/Edit/VBoxContainer2" unique_id=557413142]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit" unique_id=912829528]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer" unique_id=1926476056]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Edit" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer" unique_id=481569852]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="VerificationContainer" type="HBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit" unique_id=341345545]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="EmailLabel" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit/VerificationContainer" unique_id=821943202]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+text = "Email"
+
+[node name="Spacer" type="Control" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit/VerificationContainer" unique_id=1718782859]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit/VerificationContainer" unique_id=1728782597]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 25
+text = "Status:"
+vertical_alignment = 1
+
+[node name="Verified" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit/VerificationContainer" unique_id=1143783406]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 25
+text = "Verified"
+vertical_alignment = 1
+
+[node name="VerificationButton" type="Button" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit/VerificationContainer" unique_id=1819239649]
+visible = false
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6ub4")
+text = "Verify Email"
+
+[node name="EmailInput" type="LineEdit" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/HBoxContainer/Edit" unique_id=1123335276]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.05490196, 0.05490196, 0.05490196, 0.41568628)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+placeholder_text = "Enter teacher email..."
+clear_button_enabled = true
+
+[node name="ChangePasswordButton" type="Button" parent="PageBackground/VBoxContainer/Edit/VBoxContainer" unique_id=1149988572]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_5s2yh")
+text = "Change Password"
+
+[node name="EditPasswordPanel" type="Panel" parent="PageBackground/VBoxContainer/Edit/VBoxContainer" unique_id=1276341683]
+visible = false
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_enff5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel" unique_id=337970430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer" unique_id=1711118508]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PasswordLabel" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer2" unique_id=1535878433]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "Old Password"
+
+[node name="PasswordInput" type="LineEdit" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer2" unique_id=815800688]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.056810323, 0.056810323, 0.056810323, 0.41568628)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+placeholder_text = "Enter password..."
+clear_button_enabled = true
+secret = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer2/PasswordInput" unique_id=685480331]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.933
+anchor_right = 0.99700004
+anchor_bottom = 1.0
+offset_left = -0.10003662
+offset_right = 0.099975586
+alignment = 1
+
+[node name="Show" type="Button" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer2/PasswordInput/HBoxContainer" unique_id=55771805]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_w2crm")
+icon = ExtResource("5_fqmxn")
+expand_icon = true
+
+[node name="Hide" type="Button" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer2/PasswordInput/HBoxContainer" unique_id=1960183404]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_w2crm")
+icon = ExtResource("6_knp44")
+expand_icon = true
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer" unique_id=734184892]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PasswordLabel" type="Label" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer3" unique_id=475596694]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 35
+text = "New Password"
+
+[node name="PasswordInput" type="LineEdit" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer3" unique_id=1892674470]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.056810323, 0.056810323, 0.056810323, 0.41568628)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_n84on")
+placeholder_text = "Enter password..."
+clear_button_enabled = true
+secret = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer3/PasswordInput" unique_id=639777420]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.933
+anchor_right = 0.99700004
+anchor_bottom = 1.0
+offset_left = -0.10003662
+offset_right = 0.099975586
+alignment = 1
+
+[node name="Show" type="Button" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer3/PasswordInput/HBoxContainer" unique_id=1148075772]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_w2crm")
+icon = ExtResource("5_fqmxn")
+expand_icon = true
+
+[node name="Hide" type="Button" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer/VBoxContainer3/PasswordInput/HBoxContainer" unique_id=694480349]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_w2crm")
+icon = ExtResource("6_knp44")
+expand_icon = true
+
+[node name="Button" type="Button" parent="PageBackground/VBoxContainer/Edit/VBoxContainer/EditPasswordPanel/VBoxContainer" unique_id=1081278272]
+custom_minimum_size = Vector2(150, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_f638m")
+text = "Cancel"
+
+[node name="StatusLabel" type="Label" parent="PageBackground/VBoxContainer" unique_id=1625766429]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_g0x8i")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PageBackground/VBoxContainer" unique_id=2094700952]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Edit" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer2" unique_id=1016634621]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhyy")
+text = "Edit
+"
+expand_icon = true
+
+[node name="Cancel" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer2" unique_id=1419344350]
+visible = false
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhyy")
+text = "Cancel"
+expand_icon = true
+
+[node name="Update" type="Button" parent="PageBackground/VBoxContainer/HBoxContainer2" unique_id=2044467590]
+visible = false
+custom_minimum_size = Vector2(128, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_qnhyy")
+text = "Update"
+expand_icon = true
+
+[node name="ActivityLogs" type="Panel" parent="PageBackground" unique_id=1300909440]
+visible = false
+custom_minimum_size = Vector2(1100, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22000001
+anchor_top = 0.021000002
+anchor_right = 0.77500004
+anchor_bottom = 0.9850001
+offset_left = -0.6000366
+offset_top = -0.12000084
+offset_right = 0.49987793
+offset_bottom = -0.20007324
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ole4d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/ActivityLogs" unique_id=183995396]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="Control" parent="PageBackground/ActivityLogs/VBoxContainer" unique_id=2047894584]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="PageBackground/ActivityLogs/VBoxContainer" unique_id=371382089]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 40
+text = "Activity  Logs"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="PageBackground/ActivityLogs/VBoxContainer" unique_id=197900546]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Panel" type="Panel" parent="PageBackground/ActivityLogs/VBoxContainer" unique_id=2084671607]
+custom_minimum_size = Vector2(550, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_7fn4t")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/ActivityLogs/VBoxContainer/Panel" unique_id=799836130]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.407
+anchor_top = 0.040000003
+anchor_right = 1.4050001
+anchor_bottom = 0.96000004
+offset_left = -0.1499939
+offset_right = 0.24993896
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Number" type="Label" parent="PageBackground/ActivityLogs/VBoxContainer/Panel/HBoxContainer" unique_id=360096029]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 20
+text = " #"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Activity" type="Label" parent="PageBackground/ActivityLogs/VBoxContainer/Panel/HBoxContainer" unique_id=2103757090]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 20
+text = "Activity Performed"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="PageBackground/ActivityLogs/VBoxContainer/Panel/HBoxContainer" unique_id=882449470]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 20
+text = "Time when performed "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PageBackground/ActivityLogs/VBoxContainer" unique_id=2007422342]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="PageBackground/ActivityLogs/VBoxContainer/ScrollContainer" unique_id=768109794]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/ActivityLogs/VBoxContainer/ScrollContainer/CenterContainer" unique_id=145147516]
+layout_mode = 2
+
+[node name="Panel" parent="PageBackground/ActivityLogs/VBoxContainer/ScrollContainer/CenterContainer/VBoxContainer" unique_id=691784222 instance=ExtResource("7_yphmr")]
+layout_mode = 2
+
+[node name="CloseLogButton" type="Button" parent="PageBackground/ActivityLogs/VBoxContainer" unique_id=247602327]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_gu4am")
+text = "Close"
+
+[node name="Spacer3" type="Control" parent="PageBackground/ActivityLogs/VBoxContainer" unique_id=21421309]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 1

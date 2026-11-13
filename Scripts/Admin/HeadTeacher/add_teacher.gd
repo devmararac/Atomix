@@ -11,6 +11,10 @@ const NORMAL_LABEL_COLOR := Color("#785A3C")
 const ERROR_LABEL_COLOR := Color.RED
 const ID_NUMBER_LENGTH := 11
 
+const DEFAULT_USER_FIELDS := {
+	"must_change_password": true
+}
+
 enum FormMode {
 	ADD,
 	EDIT
@@ -516,7 +520,9 @@ func _on_create_button_pressed() -> void:
 		_show_status("Firebase did not return the new teacher's authentication token.")
 		return
 
-	var user_data := {
+	var user_data: Dictionary = DEFAULT_USER_FIELDS.duplicate(true)
+
+	user_data.merge({
 		"uid": teacher_uid,
 		"id_number": id_number,
 		"name": full_name,
@@ -526,8 +532,8 @@ func _on_create_button_pressed() -> void:
 		"suffix": suffix,
 		"email": email,
 		"role": "teacher",
-		"status": "active"
-	}
+		"status": "active",
+	})
 
 	var users_ok: bool = await _write_firestore_document(
 		"users",
@@ -1189,6 +1195,20 @@ func _on_save_teacher_changes_pressed() -> void:
 	_set_form_enabled(false)
 	_show_status("Saving teacher changes...")
 
+
+	# Ensure older teacher accounts have the password setup field.
+	var setup_field_ok: bool = await _ensure_missing_user_fields(
+		teacher_uid
+	)
+
+	if not setup_field_ok:
+		_finish_creation()
+		_show_status(
+			"Could not verify or initialize the teacher's password setup field."
+		)
+		return
+
+
 	# Update the existing teachers document.
 	var teacher_result: Dictionary = await _update_teacher_fields(
 		"teachers",
@@ -1259,6 +1279,120 @@ func _on_save_teacher_changes_pressed() -> void:
 		)
 
 	teacher_created.emit()
+
+func _ensure_missing_user_fields(user_uid: String) -> bool:
+	var token := _get_current_admin_id_token()
+
+	if token.is_empty():
+		push_error("[AddTeacher] Admin authentication token is missing.")
+		return false
+
+	var url := (
+		FIRESTORE_BASE
+		+ PROJECT_ID
+		+ "/databases/(default)/documents/users/"
+		+ user_uid.uri_encode()
+	)
+
+	# Read the existing user document.
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var error := http.request(
+		url,
+		PackedStringArray([
+			"Authorization: Bearer " + token
+		]),
+		HTTPClient.METHOD_GET
+	)
+
+	if error != OK:
+		http.queue_free()
+		return false
+
+	var response: Array = await http.request_completed
+	var response_code := int(response[1])
+	var response_text := (
+		(response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	http.queue_free()
+
+	if response_code != 200:
+		push_error(
+            "[AddTeacher] Could not read user document: "
+			+ response_text
+		)
+		return false
+
+	var parsed: Variant = JSON.parse_string(response_text)
+
+	if not parsed is Dictionary:
+		return false
+
+	var existing_fields: Dictionary = parsed.get("fields", {})
+
+	# Collect only fields that are missing.
+	var missing_fields: Dictionary = {}
+	var update_paths: Array[String] = []
+
+	for field_name in DEFAULT_USER_FIELDS:
+		if not existing_fields.has(field_name):
+			var default_value: Variant = DEFAULT_USER_FIELDS[field_name]
+
+			missing_fields[field_name] = _to_firestore_value(default_value)
+			update_paths.append(
+				"updateMask.fieldPaths=" + str(field_name).uri_encode()
+			)
+
+			print("[AddTeacher] Missing field found: ", field_name)
+
+	# Nothing needs to be updated.
+	if missing_fields.is_empty():
+		print("[AddTeacher] All required user fields already exist.")
+		return true
+
+	# Build the PATCH URL with all missing fields.
+	var patch_url := url + "?" + "&".join(update_paths)
+
+	var patch_http := HTTPRequest.new()
+	add_child(patch_http)
+
+	var patch_error := patch_http.request(
+		patch_url,
+		PackedStringArray([
+			"Authorization: Bearer " + token,
+            "Content-Type: application/json"
+		]),
+		HTTPClient.METHOD_PATCH,
+		JSON.stringify({
+			"fields": missing_fields
+		})
+	)
+
+	if patch_error != OK:
+		patch_http.queue_free()
+		return false
+
+	var patch_response: Array = await patch_http.request_completed
+	var patch_code := int(patch_response[1])
+	var patch_text := (
+		(patch_response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	patch_http.queue_free()
+
+	if patch_code < 200 or patch_code >= 300:
+		push_error(
+            "[AddTeacher] Failed to add missing user fields: "
+			+ patch_text
+		)
+		return false
+
+	print("[AddTeacher] All missing user fields added successfully.")
+	return true
+
+
 
 
 func _update_teacher_fields(

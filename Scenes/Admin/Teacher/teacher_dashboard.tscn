@@ -77,6 +77,7 @@ theme_override_constants/separation = 20
 
 [node name="DashboardButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=289937945]
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_x082l")
 texture_normal = ExtResource("1_jkca0")
 texture_focused = ExtResource("3_h6mqj")
@@ -117,6 +118,7 @@ expand_mode = 1
 
 [node name="StudentsButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=496867008]
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_x082l")
 texture_normal = ExtResource("1_jkca0")
 texture_focused = ExtResource("3_h6mqj")
@@ -157,6 +159,7 @@ expand_mode = 1
 
 [node name="LessonButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1578054011]
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_x082l")
 texture_normal = ExtResource("1_jkca0")
 stretch_mode = 0
@@ -197,6 +200,7 @@ expand_mode = 1
 
 [node name="QuizModeButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1825982411]
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_x082l")
 texture_normal = ExtResource("1_jkca0")
 texture_focused = ExtResource("3_h6mqj")
@@ -238,6 +242,7 @@ expand_mode = 1
 
 [node name="NeedsAttention" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=191017260]
 layout_mode = 2
+size_flags_vertical = 3
 texture_normal = ExtResource("1_jkca0")
 stretch_mode = 0
 
@@ -278,6 +283,7 @@ expand_mode = 1
 
 [node name="Settings" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=50032561]
 layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_x082l")
 texture_normal = ExtResource("1_jkca0")
 texture_focused = ExtResource("3_h6mqj")

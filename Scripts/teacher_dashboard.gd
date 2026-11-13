@@ -4,7 +4,7 @@ const DASHBOARD = preload("res://Scenes/Admin/Teacher/dashboard_t.tscn")
 const STUDENTS = preload("res://Scenes/Admin/Teacher/students_t.tscn")
 const LESSONS = preload("res://Scenes/Admin/Teacher/lesson_management.tscn")
 const QUIZ_MODE = preload("res://Scenes/Admin/Teacher/quiz_management.tscn")
-const SETTINGS = preload("res://Scenes/Admin/settings.tscn")
+const SETTINGS = preload("res://Scenes/Admin/admin_settings.tscn")
 const NEED_ATTECNTION = preload("res://Scenes/Admin/needs_attention.tscn")
 
 @onready var information_panel = $INFORMATIONPANEL
@@ -16,13 +16,34 @@ var is_switching_page: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	selector.visible = false
-	var dashboard_button: Control = $MenuPanel/VBoxContainer/DashboardButton
+	if AuthManager.account_setup_required:
+		print("[Teacher Dashboard] Account setup required. Opening Settings.")
 
-	focus_button(dashboard_button)
-	await move_selector(dashboard_button)
-	show_page(DASHBOARD)
+		var settings_button: Control = $MenuPanel/VBoxContainer/Settings
+
+		focus_button(settings_button)
+		await move_selector(settings_button)
+		show_page(SETTINGS)
+	else:
+		var dashboard_button: Control = $MenuPanel/VBoxContainer/DashboardButton
+
+		focus_button(dashboard_button)
+		await move_selector(dashboard_button)
+		show_page(DASHBOARD)
+
+		focus_button(dashboard_button)
+		await move_selector(dashboard_button)
+		show_page(DASHBOARD)
 	
 func show_page(scene: PackedScene) -> void:
+	
+	# Prevent access to other pages until account setup is complete.
+	if AuthManager.account_setup_required:
+		if scene.resource_path != SETTINGS.resource_path:
+			print("[Teacher Dashboard] Access blocked. Complete account setup first.")
+			_notify_setup_required()
+			return
+			
 	# Ignore repeated clicks while a page transition is running.
 	if is_switching_page:
 		return
@@ -67,7 +88,21 @@ func show_page(scene: PackedScene) -> void:
 
 	is_switching_page = false
 
+
+func _notify_setup_required() -> void:
+	if is_instance_valid(current_page):
+		if current_page.has_method("show_setup_required_message"):
+			current_page.show_setup_required_message()
+
+
 func move_selector(button: Control) -> void:
+
+	if AuthManager.account_setup_required:
+		if button != $MenuPanel/VBoxContainer/Settings:
+			print("[Teacher Dashboard] Navigation blocked. Finish setting up your account first.")
+			_notify_setup_required()
+			return
+
 	await get_tree().process_frame
 
 	if not is_instance_valid(button):
@@ -75,11 +110,9 @@ func move_selector(button: Control) -> void:
 
 	selector.visible = true
 
-	# Get the center of the selected button in global coordinates.
 	var button_rect: Rect2 = button.get_global_rect()
 	var target_y: float = button_rect.get_center().y - (selector.size.y / 2.0)
 
-	# Animate the selector using global coordinates.
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
@@ -93,8 +126,16 @@ func move_selector(button: Control) -> void:
 
 
 func focus_button(button: Control) -> void:
-	button.grab_focus()
 
+	if AuthManager.account_setup_required:
+		if button != $MenuPanel/VBoxContainer/Settings:
+			print("[Teacher Dashboard] Navigation blocked. Account setup is required.")
+			_notify_setup_required()
+			return
+
+	button.grab_focus()
+	
+	
 func _on_close_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
 

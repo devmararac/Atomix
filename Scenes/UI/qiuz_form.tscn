@@ -1,0 +1,703 @@
+[gd_scene format=3 uid="uid://dahoymkxffwxj"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_v1nvb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhiir"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v1nvb"]
+content_margin_top = 20.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njdmr"]
+bg_color = Color(0.54509807, 0.3529412, 0.16862746, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5019608, 0.3607843, 0.5019608, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71l8u"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.29411766, 0.3647059, 0.25882354, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1c2xc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8mdq"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yjasg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmh1o"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.29411766, 0.3647059, 0.25882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjasg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vsxq6"]
+bg_color = Color(0.23529412, 0.6392157, 0.6745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umauu"]
+bg_color = Color(0.23921569, 0.46666667, 0.7019608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdyvj"]
+bg_color = Color(0.23529412, 0.6392157, 0.6745098, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1nvb"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="QiuzForm" type="Panel" unique_id=1382320604]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhiir")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=109800986]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.043
+anchor_right = 0.95300007
+anchor_bottom = 0.98100007
+offset_left = 0.8600006
+offset_top = 6.0
+offset_right = -0.94018555
+offset_bottom = -0.32006836
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1431611642]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="NumberofItem" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=838124954]
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_v1nvb")
+text = "Number"
+horizontal_alignment = 1
+
+[node name="Spacer3" type="Control" parent="VBoxContainer/HBoxContainer2" unique_id=997341996]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NumberofItem2" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=726010496]
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_v1nvb")
+text = "Type"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer2" unique_id=1267411012]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Timer" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=1477035716]
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_v1nvb")
+text = "Timer"
+horizontal_alignment = 1
+
+[node name="QuestionPanel" type="PanelContainer" parent="VBoxContainer" unique_id=65562829]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_njdmr")
+
+[node name="QuestionMargin" type="MarginContainer" parent="VBoxContainer/QuestionPanel" unique_id=1541186565]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="QuestionText" type="TextEdit" parent="VBoxContainer/QuestionPanel/QuestionMargin" unique_id=920656685]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_colors/font_placeholder_color = Color(0.96862745, 0.8862745, 0.77254903, 0.654902)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_71l8u")
+placeholder_text = "Question 1"
+
+[node name="MultipleChoicePanel" type="Panel" parent="VBoxContainer" unique_id=1175774453]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1c2xc")
+
+[node name="AnswersScroll" type="ScrollContainer" parent="VBoxContainer/MultipleChoicePanel" unique_id=130883880]
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Center" type="CenterContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll" unique_id=918778956]
+custom_minimum_size = Vector2(0, 217)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Answers" type="GridContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center" unique_id=948818732]
+custom_minimum_size = Vector2(984, 217)
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 4
+
+[node name="AnswerA" type="PanelContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers" unique_id=443310465]
+custom_minimum_size = Vector2(240, 217)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="AnswerABg" type="ColorRect" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerA" unique_id=515211582]
+layout_mode = 2
+mouse_filter = 1
+color = Color(0.23529412, 0.6392157, 0.6745098, 1)
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerA" unique_id=1249750250]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerA/Margin" unique_id=54467073]
+layout_mode = 2
+
+[node name="TopBar" type="HBoxContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerA/Margin/VBox" unique_id=1632443249]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerA/Margin/VBox/TopBar" unique_id=164705410]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 26
+text = "A."
+
+[node name="Correct" type="CheckBox" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerA/Margin/VBox/TopBar" unique_id=1550808713]
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_filter = 1
+
+[node name="AnswerText" type="TextEdit" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerA/Margin/VBox" unique_id=584505851]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+placeholder_text = "Type answer option here..."
+
+[node name="AnswerB" type="PanelContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers" unique_id=608151665]
+custom_minimum_size = Vector2(240, 217)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="AnswerBBg" type="ColorRect" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerB" unique_id=1304001638]
+layout_mode = 2
+mouse_filter = 1
+color = Color(0.23529412, 0.6392157, 0.6745098, 1)
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerB" unique_id=1711534404]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerB/Margin" unique_id=1905122233]
+layout_mode = 2
+
+[node name="TopBar" type="HBoxContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerB/Margin/VBox" unique_id=1525251782]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerB/Margin/VBox/TopBar" unique_id=1038120260]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 26
+text = "B."
+
+[node name="Correct" type="CheckBox" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerB/Margin/VBox/TopBar" unique_id=1806551356]
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_filter = 1
+
+[node name="AnswerText" type="TextEdit" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerB/Margin/VBox" unique_id=990973296]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+placeholder_text = "Type answer option here..."
+
+[node name="AnswerC" type="PanelContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers" unique_id=1021299198]
+custom_minimum_size = Vector2(240, 217)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="AnswerCBg" type="ColorRect" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerC" unique_id=1618534014]
+layout_mode = 2
+mouse_filter = 1
+color = Color(0.23529412, 0.6392157, 0.6745098, 1)
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerC" unique_id=1758937218]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerC/Margin" unique_id=148534720]
+layout_mode = 2
+
+[node name="TopBar" type="HBoxContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerC/Margin/VBox" unique_id=1189290899]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerC/Margin/VBox/TopBar" unique_id=162651374]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 26
+text = "C."
+
+[node name="Correct" type="CheckBox" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerC/Margin/VBox/TopBar" unique_id=1580761204]
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_filter = 1
+
+[node name="AnswerText" type="TextEdit" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerC/Margin/VBox" unique_id=868316328]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+placeholder_text = "Type answer option here..."
+
+[node name="AnswerD" type="PanelContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers" unique_id=1656077373]
+custom_minimum_size = Vector2(240, 217)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="AnswerDBg" type="ColorRect" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerD" unique_id=1337752892]
+layout_mode = 2
+mouse_filter = 1
+color = Color(0.23529412, 0.6392157, 0.6745098, 1)
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerD" unique_id=1230570375]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerD/Margin" unique_id=1042050256]
+layout_mode = 2
+
+[node name="TopBar" type="HBoxContainer" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerD/Margin/VBox" unique_id=270154911]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerD/Margin/VBox/TopBar" unique_id=1885439403]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 26
+text = "D."
+
+[node name="Correct" type="CheckBox" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerD/Margin/VBox/TopBar" unique_id=515248695]
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_filter = 1
+
+[node name="AnswerText" type="TextEdit" parent="VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerD/Margin/VBox" unique_id=2143882186]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+placeholder_text = "Type answer option here..."
+
+[node name="EnumetrationPanel" type="Panel" parent="VBoxContainer" unique_id=470219941]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1c2xc")
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/EnumetrationPanel" unique_id=315465405]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 0
+offset_right = 1800.0
+offset_bottom = 260.0
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/EnumetrationPanel/Margin" unique_id=66438178]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/EnumetrationPanel/Margin/VBox" unique_id=603781610]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 30
+text = "Accepted Answers"
+
+[node name="Instructions" type="Label" parent="VBoxContainer/EnumetrationPanel/Margin/VBox" unique_id=980497958]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 0.8)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 20
+text = "Add every answer that should be accepted."
+
+[node name="AnswerScroll" type="ScrollContainer" parent="VBoxContainer/EnumetrationPanel/Margin/VBox" unique_id=1803113114]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll" unique_id=1789650143]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Answers" type="GridContainer" parent="VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer" unique_id=1333921346]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="Answer1" type="LineEdit" parent="VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers" unique_id=550114858]
+custom_minimum_size = Vector2(550, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_x8mdq")
+text = "Type Answer"
+placeholder_text = "Answer 1"
+
+[node name="Answer2" type="LineEdit" parent="VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers" unique_id=593697578]
+custom_minimum_size = Vector2(550, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_x8mdq")
+text = "Type Answer"
+placeholder_text = "Answer 1"
+
+[node name="Answer3" type="LineEdit" parent="VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers" unique_id=72550532]
+custom_minimum_size = Vector2(550, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_x8mdq")
+text = "Type Answer"
+placeholder_text = "Answer 1"
+
+[node name="IdentficationPanel" type="Panel" parent="VBoxContainer" unique_id=225727453]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_yjasg")
+
+[node name="QuestionPanel" type="PanelContainer" parent="VBoxContainer/IdentficationPanel" unique_id=263685326]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_njdmr")
+
+[node name="QuestionMargin" type="MarginContainer" parent="VBoxContainer/IdentficationPanel/QuestionPanel" unique_id=1129804499]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/IdentficationPanel/QuestionPanel/QuestionMargin" unique_id=423778275]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/IdentficationPanel/QuestionPanel/QuestionMargin/VBox" unique_id=917724030]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 26
+text = "Type the correct answer here..."
+
+[node name="AnswerText" type="TextEdit" parent="VBoxContainer/IdentficationPanel/QuestionPanel/QuestionMargin/VBox" unique_id=1509493342]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/search_result_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_colors/font_placeholder_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_mmh1o")
+placeholder_text = "Type the correct answer here..."
+
+[node name="TrueFalsePanel" type="Panel" parent="VBoxContainer" unique_id=1374189193]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_yjasg")
+
+[node name="AnswerPanel" type="PanelContainer" parent="VBoxContainer/TrueFalsePanel" unique_id=810113369]
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yjasg")
+
+[node name="Answers" type="HBoxContainer" parent="VBoxContainer/TrueFalsePanel/AnswerPanel" unique_id=1272483258]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="TruePanel" type="PanelContainer" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers" unique_id=635955337]
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vsxq6")
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel" unique_id=997167817]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel" type="Panel" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel/Margin" unique_id=868357894]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_umauu")
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel/Margin" unique_id=272663835]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel/Margin/VBox" unique_id=553732539]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 28
+text = "TRUE"
+horizontal_alignment = 1
+
+[node name="Correct" type="CheckBox" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel/Margin/VBox" unique_id=592920385]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Correct Answer"
+
+[node name="FalsePanel" type="PanelContainer" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers" unique_id=1602167143]
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdyvj")
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel" unique_id=1569825940]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel" type="Panel" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel/Margin" unique_id=535475014]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_umauu")
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel/Margin" unique_id=1872724595]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel/Margin/VBox" unique_id=565237565]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 28
+text = "FALSE"
+horizontal_alignment = 1
+
+[node name="Correct" type="CheckBox" parent="VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel/Margin/VBox" unique_id=1807523409]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Correct Answer"
+
+[node name="CompletionPanel" type="Panel" parent="VBoxContainer" unique_id=772754910]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_yjasg")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/CompletionPanel" unique_id=1660477496]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/CompletionPanel/VBoxContainer3" unique_id=1422699314]
+layout_mode = 2
+alignment = 1
+
+[node name="Score" type="Label" parent="VBoxContainer/CompletionPanel/VBoxContainer3/VBoxContainer" unique_id=1388997032]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 50
+text = "Total Score:
+"
+
+[node name="ScoreValue" type="Label" parent="VBoxContainer/CompletionPanel/VBoxContainer3/VBoxContainer" unique_id=883291336]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 50
+text = "10/10
+"
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="VBoxContainer/CompletionPanel/VBoxContainer3" unique_id=530655147]
+layout_mode = 2
+alignment = 1
+
+[node name="Percentage" type="Label" parent="VBoxContainer/CompletionPanel/VBoxContainer3/VBoxContainer2" unique_id=64682980]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 50
+text = "Total Percentage:
+"
+
+[node name="PercentageValue" type="Label" parent="VBoxContainer/CompletionPanel/VBoxContainer3/VBoxContainer2" unique_id=1597709469]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 50
+text = "100%:
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1043366953]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=254358324]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_v1nvb")
+text = "Back"
+
+[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=772906486]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatusLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1386218784]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 20
+text = "Quiz Completed"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=631995200]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1829904300]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_v1nvb")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_v1nvb")
+text = "Next"
