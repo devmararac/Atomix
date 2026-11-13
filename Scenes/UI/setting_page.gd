@@ -1,5 +1,7 @@
 extends Control
 
+
+
 @onready var logout_button: TextureButton = $Content/LogoutContainer/Logout
 @onready var music_slider: HSlider = $Content/MusicPanel/Margin/MusicVBox/MusicControls/MusicSlider
 @onready var music_value: Label = $Content/MusicPanel/Margin/MusicVBox/MusicControls/MusicValue
@@ -14,8 +16,6 @@ func _ready() -> void:
 	_update_music_value(music_slider.value)
 	_update_sfx_value(sfx_slider.value)
 
-	# Profile page is not implemented yet
-	profile_button.disabled = true
 
 
 # ============================================================
@@ -75,10 +75,18 @@ func _on_save_progress_pressed() -> void:
 # ============================================================
 
 func _on_profile_pressed() -> void:
-	# Profile page does not exist yet.
-	# This function is intentionally empty for now.
-	print("Profile page is not available yet.")
+	SfxManager.play_click()
 
+	print("[Settings] Opening student profile.")
+
+	if GameMenu.instance != null:
+		print("[Settings] GameMenu found.")
+
+		GameMenu.instance.change_page(
+			preload("res://Scenes/UI/Student/student_settings.tscn")
+		)
+	else:
+		push_error("[Settings] GameMenu instance is unavailable.")
 
 # ============================================================
 # LOG OUT

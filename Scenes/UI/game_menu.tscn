@@ -168,6 +168,17 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_00427")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_fjbns")
 text = "Settings"
 
+[node name="InventoryButton2" type="Button" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=1563182380]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("4_iyb0i")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_q1vqg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hmxcy")
+text = "Dictionary"
+
 [node name="Spacer" type="Control" parent="Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox" unique_id=107100130]
 layout_mode = 2
 size_flags_vertical = 3

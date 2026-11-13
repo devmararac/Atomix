@@ -1,3 +1,4 @@
+
 ## @meta-authors TODO
 ## @meta-version 2.5
 ## The authentication API for Firebase.
@@ -9,11 +10,7 @@ extends HTTPRequest
 const _API_VERSION : String = "v1"
 const _INAPP_PLUGIN : String = "GodotSvc"
 
-# Emitted for each Auth request issued.
-# `result_code` -> Either `1` if auth succeeded or `error_code` if unsuccessful auth request
-# `result_content` -> Either `auth_result` if auth succeeded or `error_message` if unsuccessful auth request
 signal auth_request(result_code, result_content)
-
 signal signup_succeeded(auth_result)
 signal login_succeeded(auth_result)
 signal login_failed(code, message)
@@ -23,14 +20,14 @@ signal token_exchanged(successful)
 signal token_refresh_succeeded(auth_result)
 signal logged_out()
 
-#Email Verification
 signal reauthentication_completed(success: bool, result: Dictionary)
 signal credential_operation_completed(operation: String, success: bool, result: Dictionary)
 signal password_change_completed(success: bool, result: Dictionary)
+signal account_verification_completed(success: bool, result: Dictionary)
 
-const RESPONSE_SIGNUP : String   = "identitytoolkit#SignupNewUserResponse"
-const RESPONSE_SIGNIN : String   = "identitytoolkit#VerifyPasswordResponse"
-const RESPONSE_ASSERTION : String  = "identitytoolkit#VerifyAssertionResponse"
+const RESPONSE_SIGNUP : String = "identitytoolkit#SignupNewUserResponse"
+const RESPONSE_SIGNIN : String = "identitytoolkit#VerifyPasswordResponse"
+const RESPONSE_ASSERTION : String = "identitytoolkit#VerifyAssertionResponse"
 const RESPONSE_USERDATA : String = "identitytoolkit#GetAccountInfoResponse"
 const RESPONSE_CUSTOM_TOKEN : String = "identitytoolkit#VerifyCustomTokenResponse"
 
@@ -55,7 +52,6 @@ var is_busy : bool = false
 var has_child : bool = false
 var is_oauth_login: bool = false
 
-
 var tcp_server : TCPServer = TCPServer.new()
 var tcp_timer : Timer = Timer.new()
 var tcp_timeout : float = 0.5
@@ -73,7 +69,8 @@ enum Requests {
 	LOGIN_WITH_OAUTH,
 	REAUTHENTICATE,
 	VERIFY_CHANGE_EMAIL,
-	CHANGE_PASSWORD
+	CHANGE_PASSWORD,
+	VERIFY_ACCOUNT_EMAIL
 }
 
 var auth_request_type : int = -1
@@ -88,8 +85,8 @@ enum Auth_Type {
 }
 
 var _login_request_body : Dictionary = {
-	"email":"",
-	"password":"",
+	"email": "",
+	"password": "",
 	"returnSecureToken": true,
 }
 
@@ -100,45 +97,42 @@ var _reauthenticate_request_body: Dictionary = {
 }
 
 var _oauth_login_request_body : Dictionary = {
-	"postBody":"",
-	"requestUri":"",
-	"returnIdpCredential":false,
-	"returnSecureToken":true
+	"postBody": "",
+	"requestUri": "",
+	"returnIdpCredential": false,
+	"returnSecureToken": true
 }
 
 var _anonymous_login_request_body : Dictionary = {
-	"returnSecureToken":true
+	"returnSecureToken": true
 }
 
 var _refresh_request_body : Dictionary = {
-	"grant_type":"refresh_token",
-	"refresh_token":"",
+	"grant_type": "refresh_token",
+	"refresh_token": "",
 }
 
 var _custom_token_body : Dictionary = {
-	"token":"",
-	"returnSecureToken":true
+	"token": "",
+	"returnSecureToken": true
 }
 
 var _password_reset_body : Dictionary = {
-	"requestType":"password_reset",
-	"email":"",
+	"requestType": "password_reset",
+	"email": "",
 }
-
 
 var _change_email_body : Dictionary = {
-	"idToken":"",
-	"email":"",
+	"idToken": "",
+	"email": "",
 	"returnSecureToken": true,
 }
-
 
 var _change_password_body : Dictionary = {
-	"idToken":"",
-	"password":"",
+	"idToken": "",
+	"password": "",
 	"returnSecureToken": true,
 }
-
 
 var _verify_change_email_body: Dictionary = {
 	"requestType": "VERIFY_AND_CHANGE_EMAIL",
@@ -152,23 +146,24 @@ var _account_verification_body: Dictionary = {
 }
 
 var _update_profile_body : Dictionary = {
-	"idToken":"",
-	"displayName":"",
-	"photoUrl":"",
-	"deleteAttribute":"",
-	"returnSecureToken":true
+	"idToken": "",
+	"displayName": "",
+	"photoUrl": "",
+	"deleteAttribute": "",
+	"returnSecureToken": true
 }
 
 var link_account_body : Dictionary = {
-	"idToken":"",
-	"email":"",
-	"password":"",
-	"returnSecureToken":true
+	"idToken": "",
+	"email": "",
+	"password": "",
+	"returnSecureToken": true
 }
 
 var _local_port : int = 8060
-var _local_uri : String = "http://localhost:%s/"%_local_port
+var _local_uri : String = "http://localhost:%s/" % _local_port
 var _local_provider : AuthProvider = AuthProvider.new()
+
 
 func _ready() -> void:
 	tcp_timer.wait_time = tcp_timeout
@@ -179,8 +174,6 @@ func _ready() -> void:
 		_local_uri += "tmp_js_export.html"
 
 
-# Sets the configuration needed for the plugin to talk to Firebase
-# These settings come from the Firebase.gd script automatically
 func _set_config(config_json : Dictionary) -> void:
 	_config = config_json
 	_signup_request_url %= _config.apiKey
@@ -197,43 +190,38 @@ func _set_config(config_json : Dictionary) -> void:
 	_check_emulating()
 
 
-func _check_emulating() -> void :
-	## Check emulating
+func _check_emulating() -> void:
 	if not Firebase.emulating:
-		_base_url = "https://identitytoolkit.googleapis.com/{version}/".format({ version = _API_VERSION })
+		_base_url = "https://identitytoolkit.googleapis.com/{version}/".format({version = _API_VERSION})
 		_refresh_request_base_url = "https://securetoken.googleapis.com"
 	else:
 		var port : String = _config.emulators.ports.authentication
 		if port == "":
 			Firebase._printerr("You are in 'emulated' mode, but the port for Authentication has not been configured.")
 		else:
-			_base_url = "http://localhost:{port}/identitytoolkit.googleapis.com/{version}/".format({ version = _API_VERSION ,port = port })
+			_base_url = "http://localhost:{port}/identitytoolkit.googleapis.com/{version}/".format({
+				version = _API_VERSION,
+				port = port
+			})
 			_refresh_request_base_url = "http://localhost:{port}/securetoken.googleapis.com".format({port = port})
 
 
-# Function is used to check if the auth script is ready to process a request. Returns true if it is not currently processing
-# If false it will print an error
 func _is_ready() -> bool:
 	if is_busy:
 		Firebase._printerr("Firebase Auth is currently busy and cannot process this request")
 		return false
-	else:
-		return true
+	return true
 
-# Function cleans the URI and replaces spaces with %20
-# As of right now we only replace spaces
-# We may need to decide to use the uri_encode() String function
+
 func _clean_url(_url):
-	_url = _url.replace(' ','%20')
+	_url = _url.replace(" ", "%20")
 	return _url
 
-# Synchronous call to check if any user is already logged in.
+
 func is_logged_in() -> bool:
 	return auth != null and auth.has("idtoken")
 
 
-# Called with Firebase.Auth.signup_with_email_and_password(email, password)
-# You must pass in the email and password to this function for it to work correctly
 func signup_with_email_and_password(email : String, password : String) -> void:
 	if _is_ready():
 		is_busy = true
@@ -248,10 +236,6 @@ func signup_with_email_and_password(email : String, password : String) -> void:
 			Firebase._printerr("Error signing up with password and email: %s" % err)
 
 
-# Called with Firebase.Auth.anonymous_login()
-# A successful request is indicated by a 200 OK HTTP status code.
-# The response contains the Firebase ID token and refresh token associated with the anonymous user.
-# The 'mail' field will be empty since no email is linked to an anonymous user
 func login_anonymous() -> void:
 	if _is_ready():
 		is_busy = true
@@ -261,9 +245,7 @@ func login_anonymous() -> void:
 			is_busy = false
 			Firebase._printerr("Error logging in as anonymous: %s" % err)
 
-# Called with Firebase.Auth.login_with_email_and_password(email, password)
-# You must pass in the email and password to this function for it to work correctly
-# If the login fails it will return an error code through the function _on_FirebaseAuth_request_completed
+
 func login_with_email_and_password(email : String, password : String) -> void:
 	if _is_ready():
 		is_busy = true
@@ -277,8 +259,7 @@ func login_with_email_and_password(email : String, password : String) -> void:
 			is_busy = false
 			Firebase._printerr("Error logging in with password and email: %s" % err)
 
-# Login with a custom valid token
-# The token needs to be generated using an external service/function
+
 func login_with_custom_token(token : String) -> void:
 	if _is_ready():
 		is_busy = true
@@ -289,9 +270,7 @@ func login_with_custom_token(token : String) -> void:
 			is_busy = false
 			Firebase._printerr("Error logging in with custom token: %s" % err)
 
-# Open a web page in browser redirecting to Google oAuth2 page for the current project
-# Once given user's authorization, a token will be generated.
-# NOTE** the generated token will be automatically captured and a login request will be made if the token is correct
+
 func get_auth_localhost(provider: AuthProvider = get_GoogleProvider(), port : int = _local_port):
 	get_auth_with_redirect(provider)
 	await get_tree().create_timer(0.5).timeout
@@ -305,13 +284,12 @@ func get_auth_localhost(provider: AuthProvider = get_GoogleProvider(), port : in
 func get_auth_with_redirect(provider: AuthProvider) -> void:
 	var url_endpoint: String = provider.redirect_uri
 	for key in provider.params.keys():
-		url_endpoint+=key+"="+provider.params[key]+"&"
-	url_endpoint += provider.params.redirect_type+"="+_local_uri
+		url_endpoint += key + "=" + provider.params[key] + "&"
+	url_endpoint += provider.params.redirect_type + "=" + _local_uri
 	url_endpoint = _clean_url(url_endpoint)
 	if Utilities.is_web():
 		JavaScriptBridge.eval('window.location.replace("' + url_endpoint + '")')
 	elif Engine.has_singleton(_INAPP_PLUGIN) and OS.get_name() == "iOS":
-		#in app for ios if the iOS plugin exists
 		set_local_provider(provider)
 		Engine.get_singleton(_INAPP_PLUGIN).popup(url_endpoint)
 	else:
@@ -319,9 +297,6 @@ func get_auth_with_redirect(provider: AuthProvider) -> void:
 		OS.shell_open(url_endpoint)
 
 
-# Login with Google oAuth2.
-# A token is automatically obtained using an authorization code using @get_google_auth()
-# @provider_id and @request_uri can be changed
 func login_with_oauth(_token: String, provider: AuthProvider) -> void:
 	if _token:
 		is_oauth_login = true
@@ -333,7 +308,7 @@ func login_with_oauth(_token: String, provider: AuthProvider) -> void:
 			token = auth.accesstoken
 		if is_successful and _is_ready():
 			is_busy = true
-			_oauth_login_request_body.postBody = "access_token="+token+"&providerId="+provider.provider_id
+			_oauth_login_request_body.postBody = "access_token=" + token + "&providerId=" + provider.provider_id
 			_oauth_login_request_body.requestUri = _local_uri
 			requesting = Requests.LOGIN_WITH_OAUTH
 			auth_request_type = Auth_Type.LOGIN_OAUTH
@@ -344,7 +319,7 @@ func login_with_oauth(_token: String, provider: AuthProvider) -> void:
 				is_busy = false
 				Firebase._printerr("Error logging in with oauth: %s" % err)
 
-# Exchange the authorization oAuth2 code obtained from browser with a proper access id_token
+
 func exchange_token(code : String, redirect_uri : String, request_url: String, _client_id: String, _client_secret: String) -> void:
 	if _is_ready():
 		is_busy = true
@@ -361,14 +336,12 @@ func exchange_token(code : String, redirect_uri : String, request_url: String, _
 			is_busy = false
 			Firebase._printerr("Error exchanging tokens: %s" % err)
 
-# Open a web page in browser redirecting to Google oAuth2 page for the current project
-# Once given user's authorization, a token will be generated.
-# NOTE** with this method, the authorization process will be copy-pasted
+
 func get_google_auth_manual(provider: AuthProvider = _local_provider) -> void:
 	provider.params.redirect_uri = "urn:ietf:wg:oauth:2.0:oob"
 	get_auth_with_redirect(provider)
 
-# A timer used to listen through TCP checked the redirect uri of the request
+
 func _tcp_stream_timer() -> void:
 	var peer : StreamPeer = tcp_server.take_connection()
 	if peer != null:
@@ -403,19 +376,18 @@ func _tcp_stream_timer() -> void:
 			tcp_server.stop()
 
 
-# Function used to logout of the system, this will also remove_at the local encrypted auth file if there is one
 func logout() -> void:
 	auth = {}
 	remove_auth()
 	logged_out.emit()
 
-# Checks to see if we need a hard login
+
 func needs_login() -> bool:
 	var encrypted_file = FileAccess.open_encrypted_with_pass("user://user.auth", FileAccess.READ, _config.apiKey)
 	var err = encrypted_file == null
 	return err
 
-# Function is called when requesting a manual token refresh
+
 func manual_token_refresh(auth_data):
 	auth = auth_data
 	var refresh_token = null
@@ -432,9 +404,7 @@ func manual_token_refresh(auth_data):
 		Firebase._printerr("Error manually refreshing token: %s" % err)
 
 
-# This function is called whenever there is an authentication request to Firebase
-# On an error, this function with emit the signal 'login_failed' and print the error to the console
-
+# Handles completed Firebase Authentication HTTP requests.
 func _on_FirebaseAuth_request_completed(
 	result: int,
 	response_code: int,
@@ -443,7 +413,27 @@ func _on_FirebaseAuth_request_completed(
 ) -> void:
 
 	var json = Utilities.get_json_data(body.get_string_from_utf8())
+
+	# Capture the request information before resetting shared state.
+	var completed_request_type: int = requesting
+	var completed_auth_request_type: int = auth_request_type
+	var completed_oauth_login: bool = is_oauth_login
+
+	# Reset BEFORE emitting signals. Awaiting coroutines may start another request.
 	is_busy = false
+	requesting = Requests.NONE
+	auth_request_type = Auth_Type.NONE
+	is_oauth_login = false
+
+	print("[Firebase Auth] ===== HTTP RESPONSE RECEIVED =====")
+	print("[Firebase Auth] Response code: ", response_code)
+	print("[Firebase Auth] Completed request type: ", completed_request_type)
+	print("[Firebase Auth] Password change enum: ", Requests.CHANGE_PASSWORD)
+	print("[Firebase Auth] Completed request name: ",
+		Requests.keys()[completed_request_type + 1]
+		if completed_request_type >= -1 and completed_request_type < Requests.size()
+		else "INVALID"
+	)
 
 	var res
 
@@ -458,39 +448,37 @@ func _on_FirebaseAuth_request_completed(
 		if json == null:
 			Firebase._printerr("Error while parsing auth body json")
 			auth_request.emit(ERR_PARSE_ERROR, "Error while parsing auth body json")
-			requesting = Requests.NONE
-			auth_request_type = Auth_Type.NONE
 			return
-
 		res = json
 
 	if response_code == HTTPClient.RESPONSE_OK:
 
-		# Email-change verification request
-		if requesting == Requests.VERIFY_CHANGE_EMAIL:
-			credential_operation_completed.emit(
-				"email_change",
-				true,
-				res
-			)
+		if completed_request_type == Requests.VERIFY_ACCOUNT_EMAIL:
+			account_verification_completed.emit(true, res)
 
-		# Password-change response
-		elif requesting == Requests.CHANGE_PASSWORD:
+		elif completed_request_type == Requests.VERIFY_CHANGE_EMAIL:
+			credential_operation_completed.emit("email_change", true, res)
+
+		elif completed_request_type == Requests.CHANGE_PASSWORD:
+			print("[Firebase Auth] Firebase password update succeeded.")
+
 			auth = get_clean_keys(res)
 
 			if save_auth(auth):
+				print("[Firebase Auth] Updated authentication session saved.")
 				password_change_completed.emit(true, auth)
 				begin_refresh_countdown()
 			else:
+				print("[Firebase Auth] Failed to save updated authentication session.")
 				password_change_completed.emit(false, {
 					"message": "Password changed, but the authentication session could not be saved."
 				})
 
-		# Reauthentication response
-		elif requesting == Requests.REAUTHENTICATE:
+		elif completed_request_type == Requests.REAUTHENTICATE:
 			auth = get_clean_keys(res)
 
 			if save_auth(auth):
+				print("[Firebase Auth] Reauthentication session saved.")
 				reauthentication_completed.emit(true, auth)
 				begin_refresh_countdown()
 			else:
@@ -501,17 +489,16 @@ func _on_FirebaseAuth_request_completed(
 		elif not res.has("kind"):
 			auth = get_clean_keys(res)
 
-			match requesting:
+			match completed_request_type:
 				Requests.EXCHANGE_TOKEN:
 					token_exchanged.emit(true)
 
 			begin_refresh_countdown()
 			auth_request.emit(1, auth)
 
-			if _needs_refresh:
+			if _needs_refresh and not completed_oauth_login:
 				_needs_refresh = false
-				if not is_oauth_login:
-					login_succeeded.emit(auth)
+				login_succeeded.emit(auth)
 
 		else:
 			match res.kind:
@@ -532,41 +519,42 @@ func _on_FirebaseAuth_request_completed(
 			auth_request.emit(1, auth)
 
 	else:
-		if requesting == Requests.EXCHANGE_TOKEN:
-			token_exchanged.emit(false)
-			login_failed.emit(
-				res.error,
-				res.error_description
-			)
-			auth_request.emit(
-				res.error,
-				res.error_description
-			)
 
-		# Email-change verification failed
-		elif requesting == Requests.VERIFY_CHANGE_EMAIL:
+		if completed_request_type == Requests.VERIFY_ACCOUNT_EMAIL:
+			account_verification_completed.emit(false, res.get("error", {}))
+
+		elif completed_request_type == Requests.VERIFY_CHANGE_EMAIL:
 			credential_operation_completed.emit(
 				"email_change",
 				false,
 				res.get("error", {})
 			)
 
-		# Password-change failed
-		elif requesting == Requests.CHANGE_PASSWORD:
-			password_change_completed.emit(
-				false,
-				res.get("error", {})
+		elif completed_request_type == Requests.CHANGE_PASSWORD:
+			print("[Firebase Auth] Firebase password update failed.")
+			print("[Firebase Auth] Error response: ", res)
+			password_change_completed.emit(false, res.get("error", {}))
+
+		elif completed_request_type == Requests.REAUTHENTICATE:
+			reauthentication_completed.emit(false, res.get("error", {}))
+
+		elif completed_request_type == Requests.EXCHANGE_TOKEN:
+			token_exchanged.emit(false)
+
+			var error_data: Dictionary = res.get("error", {})
+
+			login_failed.emit(
+				error_data.get("code", response_code),
+				error_data.get("message", "Token exchange failed.")
 			)
 
-		# Reauthentication failed
-		elif requesting == Requests.REAUTHENTICATE:
-			reauthentication_completed.emit(
-				false,
-				res.get("error", {})
+			auth_request.emit(
+				error_data.get("code", response_code),
+				error_data.get("message", "Token exchange failed.")
 			)
 
 		else:
-			var sig = signup_failed if auth_request_type == Auth_Type.SIGNUP_EP else login_failed
+			var sig = signup_failed if completed_auth_request_type == Auth_Type.SIGNUP_EP else login_failed
 			var error_data: Dictionary = res.get("error", {})
 
 			sig.emit(
@@ -579,15 +567,7 @@ func _on_FirebaseAuth_request_completed(
 				error_data.get("message", "Authentication request failed.")
 			)
 
-	requesting = Requests.NONE
-	auth_request_type = Auth_Type.NONE
-	is_oauth_login = false
 
-
-
-
-# Function used to save the auth data provided by Firebase into an encrypted file
-# Note this does not work in HTML5 or UWP
 func save_auth(auth : Dictionary) -> bool:
 	var encrypted_file = FileAccess.open_encrypted_with_pass("user://user.auth", FileAccess.WRITE, _config.apiKey)
 	var err = encrypted_file == null
@@ -598,7 +578,6 @@ func save_auth(auth : Dictionary) -> bool:
 	return not err
 
 
-# Accept Firebase authentication tokens received from our Cloudflare Worker.
 func adopt_external_auth_result(auth_result: Dictionary) -> bool:
 	var required_fields := [
 		"localId",
@@ -612,26 +591,19 @@ func adopt_external_auth_result(auth_result: Dictionary) -> bool:
 			push_error("[FirebaseAuth] Missing authentication field: " + field)
 			return false
 
-	# Convert Firebase's response keys to the format used by this add-on.
 	auth = get_clean_keys(auth_result)
 
-	# Save the authentication state using the add-on's existing encrypted storage.
 	if not save_auth(auth):
 		push_error("[FirebaseAuth] Unable to save the authentication session.")
 		auth = {}
 		return false
 
 	print("[FirebaseAuth] External authentication session saved.")
-
-	# Use the same signals as a normal Firebase email/password login.
 	login_succeeded.emit(auth)
 	begin_refresh_countdown()
-
 	return true
 
 
-# Function used to load the auth data file that has been stored locally
-# Note this does not work in HTML5 or UWP
 func load_auth() -> bool:
 	var encrypted_file = FileAccess.open_encrypted_with_pass("user://user.auth", FileAccess.READ, _config.apiKey)
 	var err = encrypted_file == null
@@ -646,19 +618,16 @@ func load_auth() -> bool:
 			manual_token_refresh(encrypted_file_data)
 	return not err
 
-# Function used to remove_at the local encrypted auth file
+
 func remove_auth() -> void:
-	if (FileAccess.file_exists("user://user.auth")):
+	if FileAccess.file_exists("user://user.auth"):
 		DirAccess.remove_absolute("user://user.auth")
 	else:
 		Firebase._printerr("No encrypted auth file exists")
 
 
-# Function to check if there is an encrypted auth data file
-# If there is, the game will load it and refresh the token
 func check_auth_file() -> bool:
-	if (FileAccess.file_exists("user://user.auth")):
-		# Will ensure "auth_request" emitted
+	if FileAccess.file_exists("user://user.auth"):
 		return load_auth()
 	else:
 		Firebase._printerr("Encrypted Firebase Auth file does not exist")
@@ -666,7 +635,6 @@ func check_auth_file() -> bool:
 		return false
 
 
-# Function used to change the email account for the currently logged in user
 func change_user_email(email : String) -> void:
 	if _is_ready():
 		is_busy = true
@@ -678,21 +646,27 @@ func change_user_email(email : String) -> void:
 			Firebase._printerr("Error changing user email: %s" % err)
 
 
-# Function used to change the password for the currently logged in user
 func change_user_password(password: String) -> void:
+	print("[Firebase Auth] ===== PASSWORD CHANGE STARTED =====")
+	print("[Firebase Auth] Is busy: ", is_busy)
+	print("[Firebase Auth] Is logged in: ", is_logged_in())
+
 	if not _is_ready():
+		print("[Firebase Auth] ERROR: Auth is busy.")
 		password_change_completed.emit(false, {
 			"message": "Firebase Auth is currently busy."
 		})
 		return
 
 	if not is_logged_in():
+		print("[Firebase Auth] ERROR: No active session.")
 		password_change_completed.emit(false, {
 			"message": "No active Firebase session."
 		})
 		return
 
 	if password.strip_edges().is_empty():
+		print("[Firebase Auth] ERROR: Empty password.")
 		password_change_completed.emit(false, {
 			"message": "New password cannot be empty."
 		})
@@ -704,6 +678,9 @@ func change_user_password(password: String) -> void:
 	_change_password_body.password = password
 	_change_password_body.idToken = auth.idtoken
 
+	print("[Firebase Auth] Sending password update request...")
+	print("[Firebase Auth] Request type: ", requesting)
+
 	var err := request(
 		_base_url + _update_account_request_url,
 		_headers,
@@ -714,16 +691,21 @@ func change_user_password(password: String) -> void:
 	_change_password_body.password = ""
 	_change_password_body.idToken = ""
 
+	print("[Firebase Auth] HTTPRequest start result: ", err)
+
 	if err != OK:
 		is_busy = false
 		requesting = Requests.NONE
-
+		print("[Firebase Auth] ERROR: Could not start password request.")
 		password_change_completed.emit(false, {
 			"message": "Could not start password-change request. Error: %s" % err
 		})
+		return
+
+	print("[Firebase Auth] Password update request successfully started.")
+	print("[Firebase Auth] Requesting after start: ", requesting)
 
 
-# User Profile handlers
 func update_account(idToken : String, displayName : String, photoUrl : String, deleteAttribute : PackedStringArray, returnSecureToken : bool) -> void:
 	if _is_ready():
 		is_busy = true
@@ -737,7 +719,7 @@ func update_account(idToken : String, displayName : String, photoUrl : String, d
 			is_busy = false
 			Firebase._printerr("Error updating account: %s" % err)
 
-# Link account with Email and Password
+
 func link_account(email : String, password : String) -> void:
 	if _is_ready():
 		is_busy = true
@@ -750,19 +732,45 @@ func link_account(email : String, password : String) -> void:
 			Firebase._printerr("Error updating account: %s" % err)
 
 
-# Function to send a account verification email
 func send_account_verification_email() -> void:
-	if _is_ready():
-		is_busy = true
-		_account_verification_body.idToken = auth.idtoken
-		var err = request(_base_url + _oobcode_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify(_account_verification_body))
-		if err != OK:
-			is_busy = false
-			Firebase._printerr("Error sending account verification email: %s" % err)
+	print("[Firebase Auth] Starting account verification request.")
+
+	if not _is_ready():
+		account_verification_completed.emit(false, {
+			"message": "Firebase Auth is currently busy."
+		})
+		return
+
+	if not is_logged_in():
+		account_verification_completed.emit(false, {
+			"message": "No active Firebase session."
+		})
+		return
+
+	is_busy = true
+	requesting = Requests.VERIFY_ACCOUNT_EMAIL
+	_account_verification_body.idToken = auth.idtoken
+
+	var err := request(
+		_base_url + _oobcode_request_url,
+		_headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(_account_verification_body)
+	)
+
+	_account_verification_body.idToken = ""
+
+	if err != OK:
+		is_busy = false
+		requesting = Requests.NONE
+		account_verification_completed.emit(false, {
+			"message": "Could not start verification request. Error: %s" % err
+		})
+		return
+
+	print("[Firebase Auth] Account verification HTTP request started.")
 
 
-# Function used to reset the password for a user who has forgotten in.
-# This will send the users account an email with a password reset link
 func send_password_reset_email(email : String) -> void:
 	if _is_ready():
 		is_busy = true
@@ -773,7 +781,6 @@ func send_password_reset_email(email : String) -> void:
 			Firebase._printerr("Error sending password reset email: %s" % err)
 
 
-# Function called to get all
 func get_user_data() -> void:
 	if _is_ready():
 		is_busy = true
@@ -782,15 +789,17 @@ func get_user_data() -> void:
 			is_busy = false
 			return
 
-		var err = request(_base_url + _userdata_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify({"idToken":auth.idtoken}))
+		var err = request(_base_url + _userdata_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify({"idToken": auth.idtoken}))
 		if err != OK:
 			is_busy = false
 			Firebase._printerr("Error getting user data: %s" % err)
 
 
-# Reauthenticate the current user using their existing email and password.
 func reauthenticate_user(email: String, password: String) -> void:
 	if not _is_ready():
+		reauthentication_completed.emit(false, {
+			"message": "Firebase Auth is currently busy."
+		})
 		return
 
 	is_busy = true
@@ -817,13 +826,11 @@ func reauthenticate_user(email: String, password: String) -> void:
 		})
 
 
-# Send a verification link to the requested new email address.
 func send_email_change_verification(new_email: String) -> void:
 	print("[Firebase Auth] Starting email-change verification request.")
 
 	if not _is_ready():
 		print("[Firebase Auth] ERROR: Firebase Auth is not ready.")
-
 		credential_operation_completed.emit(
 			"email_change",
 			false,
@@ -833,7 +840,6 @@ func send_email_change_verification(new_email: String) -> void:
 
 	if not is_logged_in():
 		print("[Firebase Auth] ERROR: No active Firebase session.")
-
 		credential_operation_completed.emit(
 			"email_change",
 			false,
@@ -864,10 +870,8 @@ func send_email_change_verification(new_email: String) -> void:
 
 	if err != OK:
 		print("[Firebase Auth] ERROR: Could not start HTTP request.")
-
 		is_busy = false
 		requesting = Requests.NONE
-
 		credential_operation_completed.emit(
 			"email_change",
 			false,
@@ -880,11 +884,10 @@ func send_email_change_verification(new_email: String) -> void:
 	print("[Firebase Auth] Email-change HTTP request started.")
 
 
-# Function used to delete the account of the currently authenticated user
 func delete_user_account() -> void:
 	if _is_ready():
 		is_busy = true
-		var err = request(_base_url + _delete_account_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify({"idToken":auth.idtoken}))
+		var err = request(_base_url + _delete_account_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify({"idToken": auth.idtoken}))
 		if err != OK:
 			is_busy = false
 			Firebase._printerr("Error deleting user: %s" % err)
@@ -892,22 +895,25 @@ func delete_user_account() -> void:
 			remove_auth()
 
 
-# Function is called when a new token is issued to a user. The function will yield until the token has expired, and then request a new one.
 func begin_refresh_countdown() -> void:
 	var refresh_token = null
 	var expires_in = 1000
 	auth = get_clean_keys(auth)
+
 	if auth.has("refreshtoken"):
 		refresh_token = auth.refreshtoken
 		expires_in = auth.expiresin
 	elif auth.has("refresh_token"):
 		refresh_token = auth.refresh_token
 		expires_in = auth.expires_in
+
 	if auth.has("userid"):
 		auth["localid"] = auth.userid
+
 	_needs_refresh = true
 	token_refresh_succeeded.emit(auth)
 	await get_tree().create_timer(float(expires_in)).timeout
+
 	_refresh_request_body.refresh_token = refresh_token
 	var err = request(_refresh_request_base_url + _refresh_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify(_refresh_request_body))
 	if err != OK:
@@ -917,11 +923,11 @@ func begin_refresh_countdown() -> void:
 
 func get_token_from_url(provider: AuthProvider):
 	var token_type: String = provider.params.response_type if provider.params.response_type == "code" else "access_token"
-	if OS.has_feature('web'):
+	if OS.has_feature("web"):
 		var token = JavaScriptBridge.eval("""
 			var url_string = window.location.href.replaceAll('?#', '?');
 			var url = new URL(url_string);
-			url.searchParams.get('"""+token_type+"""');
+			url.searchParams.get('""" + token_type + """');
 		""")
 		JavaScriptBridge.eval("""window.history.pushState({}, null, location.href.split('?')[0]);""")
 		return token
@@ -931,30 +937,29 @@ func get_token_from_url(provider: AuthProvider):
 func set_redirect_uri(redirect_uri : String) -> void:
 	self._local_uri = redirect_uri
 
+
 func set_local_provider(provider : AuthProvider) -> void:
 	self._local_provider = provider
 
-# This function is used to make all keys lowercase
-# This is only used to cut down checked processing errors from Firebase
-# This is due to Google have inconsistencies in the API that we are trying to fix
+
 func get_clean_keys(auth_result : Dictionary) -> Dictionary:
 	var cleaned = {}
 	for key in auth_result.keys():
 		cleaned[key.replace("_", "").to_lower()] = auth_result[key]
 	return cleaned
 
-# --------------------
-# PROVIDERS
-# --------------------
 
 func get_GoogleProvider() -> GoogleProvider:
 	return GoogleProvider.new(_config.clientId, _config.clientSecret)
 
+
 func get_FacebookProvider() -> FacebookProvider:
 	return FacebookProvider.new(_config.auth_providers.facebook_id, _config.auth_providers.facebook_secret)
 
+
 func get_GitHubProvider() -> GitHubProvider:
 	return GitHubProvider.new(_config.auth_providers.github_id, _config.auth_providers.github_secret)
+
 
 func get_TwitterProvider() -> TwitterProvider:
 	return TwitterProvider.new(_config.auth_providers.twitter_id, _config.auth_providers.twitter_secret)

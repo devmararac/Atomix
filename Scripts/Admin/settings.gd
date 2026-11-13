@@ -1,4 +1,3 @@
-
 extends Control
 
 const ACTIVITY_LOG_ROW := preload(
@@ -758,40 +757,20 @@ func _on_update_pressed() -> void:
 	edit_button.disabled = true
 	cancel_button.disabled = true
 
-	# Request email verification if the email was changed.
+	# Email changes are not processed through the Update button.
 	if email_changed:
 
-		verification_status.text = "Requesting verification for your new email..."
+		is_saving = false
 
-		var email_result: Dictionary = await _request_email_change_verification(
-			requested_email,
-			old_password_input.text
+		update_button.disabled = false
+		edit_button.disabled = false
+		cancel_button.disabled = false
+
+		_show_profile_status(
+			"Email changes are not supported through Update."
 		)
 
-		if not bool(email_result.get("ok", false)):
-
-			is_saving = false
-
-			update_button.disabled = false
-			edit_button.disabled = false
-			cancel_button.disabled = false
-
-			verification_status.text = (
-				"Email change request failed: "
-				+ str(email_result.get("error", "Unknown error."))
-			)
-
-			return
-
-		pending_email = requested_email
-		email_change_in_progress = true
-		email_input.editable = false
-
-		verification_status.text = (
-			"Verification link sent to "
-			+ pending_email
-			+ ". Open the link to complete your email change."
-		)
+		return
 
 	# Change password if requested.
 	if password_changed:
@@ -838,6 +817,36 @@ func _on_update_pressed() -> void:
 		)
 
 		return
+	
+	# Clear the temporary password requirement only if
+	# Firebase password change and profile update succeeded.
+	if password_changed:
+
+		print("[Settings] Clearing must_change_password flag...")
+
+		var flag_result: Dictionary = await _update_must_change_password(false)
+
+		if not bool(flag_result.get("ok", false)):
+
+			_show_profile_status(
+				"Password and profile were updated, but account setup "
+				+ "could not be completed: "
+				+ str(flag_result.get("error", "Unknown error."))
+			)
+
+			return
+
+		# Recheck Firebase email verification before unlocking navigation.
+		var email_verified: bool = await AuthManager.check_email_verified()
+
+		AuthManager.account_setup_required = not email_verified
+
+		print("[Settings] Password requirement cleared.")
+		print("[Settings] Email verified: ", email_verified)
+		print(
+			"[Settings] Account setup required: ",
+			AuthManager.account_setup_required
+		)
 
 	# Update the local profile copy.
 	for key in updated_fields:
@@ -865,12 +874,7 @@ func _on_update_pressed() -> void:
 	update_button.hide()
 	cancel_button.hide()
 
-	if email_change_in_progress:
-		verification_status.text = (
-			"Profile updated. Email verification is still pending."
-		)
-	else:
-		_show_profile_status("Profile updated successfully.")
+	_show_profile_status("Profile updated successfully.")
 
 	print("[Settings] Profile updated: ", current_uid)
 
@@ -989,6 +993,71 @@ func _update_user_profile(data: Dictionary) -> Dictionary:
 	return {
 		"ok": true
 	}
+
+
+
+func _update_must_change_password(required: bool) -> Dictionary:
+
+	var token := _get_current_id_token()
+
+	if token.is_empty():
+		return {
+			"ok": false,
+			"error": "Firebase authentication token is missing."
+		}
+
+	var url := _firestore_document_url(
+		"users",
+		current_uid
+	)
+
+	url += "?updateMask.fieldPaths=must_change_password"
+
+	var request_body := JSON.stringify({
+		"fields": {
+			"must_change_password": {
+				"booleanValue": required
+			}
+		}
+	})
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var request_error := http.request(
+		url,
+		_firestore_headers(),
+		HTTPClient.METHOD_PATCH,
+		request_body
+	)
+
+	if request_error != OK:
+		http.queue_free()
+
+		return {
+			"ok": false,
+			"error": "Could not start password requirement update."
+		}
+
+	var response: Array = await http.request_completed
+
+	var response_code := int(response[1])
+	var response_text := (
+		(response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	http.queue_free()
+
+	if response_code < 200 or response_code >= 300:
+		return {
+			"ok": false,
+			"error": response_text
+		}
+
+	return {
+		"ok": true
+	}
+
 
 
 func _update_firestore_email(
@@ -1304,16 +1373,44 @@ func _request_password_change(
 # ============================================================
 # EMAIL VERIFICATION
 # ============================================================
-
 func _on_send_verification_button_pressed() -> void:
 
 	if not AuthManager.is_logged_in():
-		verification_status.text = "Please log in first."
+		status_log.text = "Please log in first."
 		return
 
-	AuthManager.send_email_verification()
+	if send_verification_button.disabled:
+		return
 
-	verification_status.text = "Verification email requested."
+	print("[Settings] Sending account verification email...")
+
+	send_verification_button.disabled = true
+	status_log.text = "Sending verification email..."
+
+	var result: Dictionary = await AuthManager.send_email_verification()
+
+	send_verification_button.disabled = false
+
+	if bool(result.get("success", false)):
+
+		status_log.text = (
+			"Verification email request accepted. "
+			+ "Please check your inbox and spam folder."
+		)
+
+		print("[Settings] Verification email request accepted.")
+
+	else:
+
+		status_log.text = (
+			"Failed to send verification email: "
+			+ str(result.get("error", "Unknown error."))
+		)
+
+		push_warning(
+			"[Settings] Verification email failed: "
+			+ str(result.get("error", "Unknown error."))
+		)
 
 
 func _on_email_verification_status_received(

@@ -1,5 +1,7 @@
 extends CanvasLayer
+class_name GameMenu
 
+static var instance: GameMenu
 
 # ============================================================
 # HUD
@@ -91,6 +93,8 @@ var current_page: Control
 # ============================================================
 
 func _ready():
+	
+	instance = self
 
 	print("[GameMenu] Game menu opened.")
 
@@ -111,20 +115,36 @@ func _ready():
 # ============================================================
 # CHANGE PAGE
 # ============================================================
+func change_page(scene: PackedScene) -> void:
 
-func change_page(scene: PackedScene):
+	if scene == null:
+		push_error("[GameMenu] Cannot change page: PackedScene is null.")
+		return
 
-	if current_page:
+	if not is_instance_valid(information_panel):
+		push_error("[GameMenu] InformationPanel is invalid.")
+		return
 
+	if current_page and is_instance_valid(current_page):
 		current_page.queue_free()
-
+		current_page = null
 
 	current_page = scene.instantiate()
 
-	information_panel.add_child(
-		current_page
-	)
+	if current_page == null:
+		push_error("[GameMenu] Failed to instantiate requested page.")
+		return
 
+	information_panel.add_child(current_page)
+
+	print("[GameMenu] Page changed successfully.")
+
+
+func open_settings_page() -> void:
+
+	print("[GameMenu] Returning to Settings page.")
+
+	change_page(SETTING_PAGE)
 
 # ============================================================
 # INVENTORY
@@ -217,8 +237,13 @@ func _on_settings_button_pressed() -> void:
 # CLOSE
 # ============================================================
 func _on_close_button_pressed() -> void:
+	if instance == self:
+		instance = null
+		
 	print("[GameMenu] Closing menu.")
+	
 
+	
 	if hud:
 		hud.show()
 	

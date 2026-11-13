@@ -12,6 +12,7 @@ signal session_restored(user_data)
 
 signal email_verification_status_received(is_verified: bool)
 signal account_data_received(email: String, is_verified: bool)
+signal email_verification_send_completed(success: bool, result: Dictionary)
 
 var current_user: Dictionary = {}
 var user_uid: String = ""
@@ -51,6 +52,14 @@ func _ready() -> void:
 
 	if not Firebase.Auth.userdata_received.is_connected(_on_userdata_received):
 		Firebase.Auth.userdata_received.connect(_on_userdata_received)
+		
+	if Firebase.Auth.has_signal("account_verification_completed"):
+		if not Firebase.Auth.account_verification_completed.is_connected(_on_account_verification_completed):
+			Firebase.Auth.account_verification_completed.connect(_on_account_verification_completed)
+			
+	if Firebase.Auth.has_signal("password_change_completed"):
+		if not Firebase.Auth.password_change_completed.is_connected(_on_password_change_completed):
+			Firebase.Auth.password_change_completed.connect(_on_password_change_completed)
 
 	if Firebase.Auth.has_signal("token_refresh_succeeded") and not Firebase.Auth.token_refresh_succeeded.is_connected(_on_token_refresh_succeeded):
 		Firebase.Auth.token_refresh_succeeded.connect(_on_token_refresh_succeeded)
@@ -338,14 +347,80 @@ func _on_userdata_received(userdata: FirebaseUserData) -> void:
 	account_data_received.emit(email, is_verified)
 
 
+# Receive the result of a normal account verification email request.
+func _on_account_verification_completed(
+	success: bool,
+	result: Dictionary
+) -> void:
+
+	print("[AuthManager] Account verification request completed.")
+	print("[AuthManager] Success: ", success)
+	print("[AuthManager] Result: ", result)
+
+	email_verification_send_completed.emit(success, result)
+
+
+func _on_password_change_completed(
+	success: bool,
+	result: Dictionary
+) -> void:
+
+	print("[AuthManager] Password change completed.")
+	print("[AuthManager] Success: ", success)
+	print("[AuthManager] Result: ", result)
+
 # Send a verification email to the current account.
-func send_email_verification() -> void:
+# Send a verification email to the currently logged-in account.
+func send_email_verification() -> Dictionary:
+
+	if Firebase.Auth == null:
+		return {
+			"success": false,
+			"error": "Firebase Authentication is unavailable."
+		}
 
 	if not is_logged_in():
-		push_warning("[AuthManager] Cannot send verification email. No user logged in.")
-		return
+		return {
+			"success": false,
+			"error": "No user is currently logged in."
+		}
+
+	if Firebase.Auth.is_busy:
+		return {
+			"success": false,
+			"error": "Firebase is currently processing another request. Please wait."
+		}
+
+	print("[AuthManager] Requesting account verification email.")
 
 	Firebase.Auth.send_account_verification_email()
+
+	var response: Array = await email_verification_send_completed
+
+	var success: bool = response[0]
+	var result: Dictionary = response[1]
+
+	if success:
+		print("[AuthManager] Firebase accepted the verification email request.")
+		return {
+			"success": true,
+			"result": result
+		}
+
+	var error_message := str(
+		result.get(
+			"message",
+			result.get("code", "Unknown Firebase error.")
+		)
+	)
+
+	print("[AuthManager] Verification email request failed: ", error_message)
+
+	return {
+		"success": false,
+		"error": error_message,
+		"result": result
+	}
 
 
 func _on_auth_api_request_completed(

@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://cwkh02kt67r73"]
 
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_sfftq"]
+[ext_resource type="Script" uid="uid://dy4sxalv683x" path="res://Scripts/Student/student_settings.gd" id="1_xtc23"]
 [ext_resource type="Texture2D" uid="uid://dbeq05cwbcd5d" path="res://Assets/UX/Icons/verified.png" id="2_xtc23"]
 [ext_resource type="Texture2D" uid="uid://bbn8ct7vo6duy" path="res://Assets/UX/Icons/need_verification.png" id="3_6syoj"]
 [ext_resource type="Texture2D" uid="uid://ncldetg3scsm" path="res://Assets/UX/Icons/pass1.png" id="4_sfftq"]
 [ext_resource type="Texture2D" uid="uid://mvqe01b36jlr" path="res://Assets/UX/Icons/pas2.png" id="5_ffohw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgamd"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 bg_color = Color(0.968627, 0.886275, 0.772549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvp12"]
@@ -20,6 +25,24 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r80as"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1f3dc"]
 content_margin_left = 10.0
@@ -51,7 +74,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6syoj"]
-bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+bg_color = Color(0.92941177, 0.827451, 0.6901961, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -75,7 +98,7 @@ content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+bg_color = Color(0.92941177, 0.827451, 0.6901961, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -90,7 +113,7 @@ corner_radius_bottom_left = 6
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te3fx"]
-bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+bg_color = Color(0.92941177, 0.827451, 0.6901961, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -127,6 +150,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_xtc23")
 
 [node name="PageBackground" type="Panel" parent="." unique_id=255361413]
 layout_mode = 1
@@ -140,13 +164,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xgamd")
 
 [node name="Panel" type="Panel" parent="PageBackground" unique_id=985511034]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.016
-anchor_top = 0.025
-anchor_right = 0.984
-anchor_bottom = 0.975
-offset_left = -0.18000221
-offset_right = 0.17993164
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -170,24 +190,42 @@ theme_override_constants/margin_bottom = 28
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer" unique_id=898534716]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer" unique_id=182626314]
+[node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer" unique_id=901027559]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=852918875]
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=182626314]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=852918875]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 35
 text = "Profile"
 
-[node name="Subtitle" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/VBoxContainer" unique_id=43384229]
+[node name="Subtitle" type="Label" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=43384229]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "Edit and Update Account Detaials"
+
+[node name="Control" type="Control" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1415784618]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="PageBackground/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1937017394]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_sfftq")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_r80as")
+text = "← Back"
 
 [node name="Display" type="HBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer" unique_id=1867924983]
 layout_mode = 2
@@ -382,6 +420,7 @@ expand_mode = 1
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
+alignment = 1
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit" unique_id=1699447921]
 layout_mode = 2
@@ -397,7 +436,7 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "LRN"
 
 [node name="StudentIDInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer3/VBoxContainer2" unique_id=843021267]
@@ -407,13 +446,13 @@ mouse_filter = 1
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_1f3dc")
 placeholder_text = "Enter LRN"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer3" unique_id=1347694781]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 20
 
 [node name="FirstName" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer3/HBoxContainer" unique_id=1108379033]
 layout_mode = 2
@@ -424,8 +463,8 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 40
-text = "Student Firstt Name"
+theme_override_font_sizes/font_size = 30
+text = "First Name"
 
 [node name="NameInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer3/HBoxContainer/FirstName" unique_id=401503534]
 custom_minimum_size = Vector2(0, 46)
@@ -433,7 +472,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_1f3dc")
 placeholder_text = "Enter student's name"
 
@@ -446,8 +485,8 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 40
-text = "Student Middle Initial"
+theme_override_font_sizes/font_size = 30
+text = "Middle Initial"
 
 [node name="NameInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer3/HBoxContainer/Middle Initial" unique_id=1028006594]
 custom_minimum_size = Vector2(0, 46)
@@ -455,13 +494,13 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_1f3dc")
 placeholder_text = "Enter student's name"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer3" unique_id=599949006]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 20
 
 [node name="LastName" type="VBoxContainer" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer3/HBoxContainer2" unique_id=57436409]
 layout_mode = 2
@@ -472,8 +511,8 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 40
-text = "Student Last Name"
+theme_override_font_sizes/font_size = 30
+text = "Last Name"
 
 [node name="NameInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer3/HBoxContainer2/LastName" unique_id=1768606913]
 custom_minimum_size = Vector2(0, 46)
@@ -481,7 +520,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_1f3dc")
 placeholder_text = "Enter student's name"
 
@@ -494,7 +533,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "Suffix"
 
 [node name="NameInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer3/HBoxContainer2/Suffix" unique_id=1627463450]
@@ -503,7 +542,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_1f3dc")
 placeholder_text = "Enter student's name"
 
@@ -521,7 +560,7 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "Section"
 
 [node name="SectionInput" type="OptionButton" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer2/VBoxContainer4" unique_id=1652056581]
@@ -530,7 +569,7 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_1f3dc")
 selected = 0
 item_count = 1
@@ -549,7 +588,7 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "Email"
 
 [node name="Spacer" type="Control" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer2/VBoxContainer5/HBoxContainer" unique_id=1948334056]
@@ -592,7 +631,7 @@ mouse_filter = 1
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_colors/font_placeholder_color = Color(0.470588, 0.352941, 0.235294, 0.55)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_1f3dc")
 placeholder_text = "student@example.com"
 
@@ -633,7 +672,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 30
 text = "Old Password"
 
 [node name="PasswordInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer2/EditPasswordPanel/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=89370103]
@@ -642,7 +681,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_placeholder_color = Color(0.056810323, 0.056810323, 0.056810323, 0.41568628)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_ffohw")
 placeholder_text = "Enter password..."
 clear_button_enabled = true
@@ -683,7 +722,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 30
 text = "New Password"
 
 [node name="PasswordInput" type="LineEdit" parent="PageBackground/Panel/MarginContainer/VBoxContainer/Edit/VBoxContainer2/EditPasswordPanel/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=8962769]
@@ -692,7 +731,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_colors/font_placeholder_color = Color(0.056810323, 0.056810323, 0.056810323, 0.41568628)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_ffohw")
 placeholder_text = "Enter password..."
 clear_button_enabled = true
@@ -742,7 +781,7 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 0.75)
 theme_override_fonts/font = ExtResource("1_sfftq")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -784,6 +823,3 @@ theme_override_fonts/font = ExtResource("1_sfftq")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_8iutw")
 text = "Update"
-
-[node name="Control" type="Control" parent="PageBackground/Panel/MarginContainer/VBoxContainer" unique_id=1038814908]
-layout_mode = 2
