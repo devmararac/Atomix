@@ -20,16 +20,16 @@
 [ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="13_g2i5h"]
 [ext_resource type="Texture2D" uid="uid://c3vm5i558q04l" path="res://Assets/UX/Buttons/On-Pressed/atomons_button_pressed.png" id="13_limpo"]
 [ext_resource type="Texture2D" uid="uid://b87wpfox4ocwj" path="res://Assets/UX/Buttons/Normal/run_button.png" id="14_gvh18"]
+[ext_resource type="Texture2D" uid="uid://kyiq1qpxmncc" path="res://Assets/UX/Buttons/Normal/button_up_small.png" id="14_qyglk"]
 [ext_resource type="Texture2D" uid="uid://b5fsn2ti1cki0" path="res://Assets/UX/Buttons/On-Pressed/run_button_pressed.png" id="15_vghoh"]
-[ext_resource type="Texture2D" uid="uid://b7wxk373gv8ex" path="res://Assets/UX/HUD/Panels/atomon_sprite.png" id="16_c225n"]
 [ext_resource type="AudioStream" uid="uid://bssvvaqt0wwfo" path="res://Assets/Music/Run Bunny Run.mp3" id="16_gwo5a"]
 [ext_resource type="Texture2D" uid="uid://ch326y5f315s" path="res://Assets/UX/Buttons/Disabled/fusion_button.png" id="20_qyglk"]
 [ext_resource type="Script" uid="uid://vt7nk5gwohmi" path="res://Battle/BattleController.gd" id="21_4cw33"]
 [ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="25_4xqci"]
 [ext_resource type="Resource" uid="uid://dy0w3huok6wvi" path="res://Resources/NPCs/TRES/elysa.tres" id="26_qyglk"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c225n"]
-load_path = "res://.godot/imported/atomon_sprite.png-8d7a2f2bcbae16fdd9a5c61d790751e7.ctex"
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qyglk"]
+texture = ExtResource("3_b00jw")
 
 [node name="BattleUI" type="Control" unique_id=501285373]
 layout_mode = 3
@@ -362,6 +362,7 @@ text = "test"
 vertical_alignment = 1
 
 [node name="MoveMenu" type="PanelContainer" parent="CanvasLayer" unique_id=621087706]
+visible = false
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = -1
 anchor_left = 0.84200007
@@ -396,24 +397,26 @@ columns = 2
 
 [node name="Move1" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=532429083]
 layout_mode = 2
-icon = SubResource("CompressedTexture2D_c225n")
+icon = ExtResource("14_qyglk")
 flat = true
 
 [node name="Move1" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move1" unique_id=1166405098]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.048
+anchor_left = 0.040000003
 anchor_top = 0.091000006
-anchor_right = 0.952
-anchor_bottom = 0.90900004
-offset_left = -0.06405926
+anchor_right = 0.96000004
+anchor_bottom = 0.88500005
+offset_left = -0.039908886
 offset_top = -0.007992744
-offset_right = -65.07883
-offset_bottom = -21.887627
+offset_right = -69.38844
+offset_bottom = -23.154758
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.7499989, 1.437)
-theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 13
 text = "Move 1"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -421,24 +424,26 @@ autowrap_mode = 3
 
 [node name="Move2" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=2043350183]
 layout_mode = 2
-icon = ExtResource("16_c225n")
+icon = ExtResource("14_qyglk")
 flat = true
 
 [node name="Move2" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move2" unique_id=483671787]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.048
-anchor_top = 0.091000006
-anchor_right = 0.952
-anchor_bottom = 0.90900004
-offset_left = -0.06401396
-offset_top = -0.0079956055
-offset_right = -65.07884
-offset_bottom = -21.88763
+anchor_left = 0.040000003
+anchor_top = 0.083000004
+anchor_right = 0.96000004
+anchor_bottom = 0.88500005
+offset_left = -0.040077686
+offset_top = 0.031987667
+offset_right = -69.38855
+offset_bottom = -23.376156
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.7499989, 1.437)
-theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 13
 text = "Move 2"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -446,24 +451,26 @@ autowrap_mode = 3
 
 [node name="Move3" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=595104115]
 layout_mode = 2
-icon = ExtResource("16_c225n")
+icon = ExtResource("14_qyglk")
 flat = true
 
 [node name="Move3" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move3" unique_id=402327594]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.048
-anchor_top = 0.091000006
-anchor_right = 0.952
-anchor_bottom = 0.90900004
-offset_left = -0.0640316
-offset_top = -0.008030891
-offset_right = -65.0788
-offset_bottom = -21.887634
+anchor_left = 0.040000003
+anchor_top = 0.083000004
+anchor_right = 0.96000004
+anchor_bottom = 0.88500005
+offset_left = -0.03988123
+offset_top = 0.03199625
+offset_right = -69.38841
+offset_bottom = -23.376148
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.7499989, 1.437)
-theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 13
 text = "Move 3"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -471,37 +478,113 @@ autowrap_mode = 3
 
 [node name="Move4" type="Button" parent="CanvasLayer/MoveMenu/VBoxContainer" unique_id=948089054]
 layout_mode = 2
-icon = ExtResource("16_c225n")
+icon = ExtResource("14_qyglk")
 flat = true
 
 [node name="Move4" type="Label" parent="CanvasLayer/MoveMenu/VBoxContainer/Move4" unique_id=385878718]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.048
-anchor_top = 0.091000006
-anchor_right = 0.952
-anchor_bottom = 0.90900004
-offset_left = -0.06401777
-offset_top = -0.007989883
-offset_right = -65.07884
-offset_bottom = -21.887623
+anchor_left = 0.040000003
+anchor_top = 0.083000004
+anchor_right = 0.96000004
+anchor_bottom = 0.88500005
+offset_left = -0.0400815
+offset_top = 0.03194952
+offset_right = -69.38856
+offset_bottom = -23.376163
 scale = Vector2(1.7499989, 1.437)
-theme_override_colors/font_color = Color(0.5464087, 3.85046e-07, 2.4065375e-07, 1)
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 13
 text = "Move 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="ItemMenu" type="PanelContainer" parent="CanvasLayer" unique_id=396706838]
-visible = false
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Confirmation" type="Panel" parent="CanvasLayer" unique_id=1390697036]
+anchors_preset = -1
+anchor_left = 0.712
+anchor_top = 0.62200004
+anchor_right = 0.97300005
+anchor_bottom = 0.96900004
+offset_left = -0.76000977
+offset_top = 0.15997314
+offset_right = 0.45996094
+offset_bottom = 0.3199463
+theme_override_styles/panel = SubResource("StyleBoxTexture_qyglk")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/ItemMenu" unique_id=1349188348]
-layout_mode = 2
+[node name="Label" type="Label" parent="CanvasLayer/Confirmation" unique_id=994211747]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18300001
+anchor_top = 0.128
+anchor_right = 0.81700003
+anchor_bottom = 0.46400002
+offset_left = 0.20599365
+offset_right = -0.20602417
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 25
+text = "Test text"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ItemMenu/ScrollContainer" unique_id=1721109739]
-layout_mode = 2
+[node name="Yes" type="TextureButton" parent="CanvasLayer/Confirmation" unique_id=928877323]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15300001
+anchor_top = 0.51600003
+anchor_right = 0.47700003
+anchor_bottom = 0.86800003
+offset_left = -0.25400543
+offset_top = -1.5258789e-05
+offset_right = -0.086013794
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("14_qyglk")
+
+[node name="Confirm" type="Label" parent="CanvasLayer/Confirmation/Yes" unique_id=930460635]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.37724698, 0.39904395, 0.17451742, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 25
+text = "CONFIRM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="No" type="TextureButton" parent="CanvasLayer/Confirmation" unique_id=1789167866]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.523
+anchor_top = 0.51600003
+anchor_right = 0.84700006
+anchor_bottom = 0.86800003
+offset_left = 0.085998535
+offset_top = -1.5258789e-05
+offset_right = 0.2539673
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("14_qyglk")
+
+[node name="Cancel" type="Label" parent="CanvasLayer/Confirmation/No" unique_id=1912431343]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.59064186, 0.25965598, 0.26863095, 1)
+theme_override_fonts/font = ExtResource("5_4iy4j")
+theme_override_font_sizes/font_size = 25
+text = "CANCEL"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=473527471]
 
@@ -511,6 +594,7 @@ volume_db = 4.0
 autoplay = true
 
 [node name="CommandUI" type="Control" parent="." unique_id=762791792]
+visible = false
 layout_mode = 1
 anchor_left = 0.84200007
 anchor_top = 0.62200004

@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://ce35j85gw40gb" path="res://Scenes/Atomons/observe_helium.tscn" id="38_twyxd"]
 [ext_resource type="Resource" uid="uid://c03d33fasr01a" path="res://Resources/NPCs/TRES/ALFREDTHEALLKNOWING.tres" id="39_70qg0"]
 [ext_resource type="PackedScene" uid="uid://7lcvli2ufbna" path="res://Scenes/Objects/Structures/Exteriors/chest_body.tscn" id="40_rr237"]
+[ext_resource type="Resource" uid="uid://xc3dtslwrpew" path="res://Resources/Atomons/Neon.tres" id="41_v5csn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mj01m"]
 texture = ExtResource("1_313yg")
@@ -3006,3 +3007,7 @@ data = ExtResource("39_70qg0")
 
 [node name="ChestBody" parent="." unique_id=1456347440 instance=ExtResource("40_rr237")]
 position = Vector2(805, 225)
+
+[node name="CharacterBody2D" parent="." unique_id=833369258 instance=ExtResource("25_sp10x")]
+position = Vector2(626, 322)
+data = ExtResource("41_v5csn")

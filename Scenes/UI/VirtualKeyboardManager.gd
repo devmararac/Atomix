@@ -4,6 +4,8 @@ extends Node
 # The currently focused LineEdit.
 var focused_input: LineEdit = null
 
+
+
 # Its original position before the keyboard appears.
 var original_global_position: Vector2 = Vector2.ZERO
 

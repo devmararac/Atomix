@@ -10,6 +10,11 @@ const ATOMON_SCENE = preload("res://Atomons/Atomon.tscn")
 const SWITCH_MENU = preload("res://Scenes/UI/switch_atomon.tscn")
 const BATTLE_SUMMARY_SCENE = preload("res://Battle/BattleSummary.tscn")
 
+@onready var confirmation_panel: Panel = $CanvasLayer/Confirmation
+@onready var confirmation_label: Label = $CanvasLayer/Confirmation/Label
+@onready var confirmation_yes: TextureButton = $CanvasLayer/Confirmation/Yes
+@onready var confirmation_no: TextureButton = $CanvasLayer/Confirmation/No
+
 # ============================================================
 # BATTLE DATA
 # ============================================================
@@ -119,7 +124,8 @@ var summary_key_takeaway: String = ""
 # CURRENT MOVES
 # ============================================================
 var player_moves: Array[MoveData] = []
-
+var pending_action: String = ""
+var pending_move_index: int = -1
 # ============================================================
 # FUSION TRAINING TUTORIAL
 # ============================================================
@@ -164,6 +170,13 @@ func _ready() -> void:
 
 	command_ui.visible = true
 	move_menu.visible = false
+	confirmation_panel.visible = false
+
+	if not confirmation_yes.pressed.is_connected(_on_confirm_move_pressed):
+		confirmation_yes.pressed.connect(_on_confirm_move_pressed)
+
+	if not confirmation_no.pressed.is_connected(_on_cancel_move_pressed):
+		confirmation_no.pressed.connect(_on_cancel_move_pressed)
 
 	battle_log.text = (
 		"A wild " + enemy_data.atom_name + " appeared!"
@@ -435,27 +448,81 @@ func _on_attack_pressed() -> void:
 # ============================================================
 
 func _on_move_1_pressed() -> void:
-	use_move(0)
+	_request_move(0)
 
 
 func _on_move_2_pressed() -> void:
-	use_move(1)
+	_request_move(1)
 
 
 func _on_move_3_pressed() -> void:
-	use_move(2)
+	_request_move(2)
 
 
 func _on_move_4_pressed() -> void:
-	use_move(3)
+	_request_move(3)
 
+func _request_move(index: int) -> void:
+
+	if index < 0 or index >= player_moves.size():
+		return
+
+	var move: MoveData = player_moves[index]
+
+	pending_action = "move"
+	pending_move_index = index
+
+	confirmation_label.text = (
+		"Use "
+		+ move.move_name
+		+ "?\nPP: "
+		+ str(BattleControllerGlobal.get_player_pp(index))
+		+ "/"
+		+ str(move.max_uses)
+	)
+
+	move_menu.visible = false
+	confirmation_panel.visible = true
+
+
+func _on_confirm_move_pressed() -> void:
+
+	if pending_action == "run":
+		pending_action = ""
+		confirmation_panel.visible = false
+		_execute_run()
+		return
+
+	if pending_action != "move" or pending_move_index == -1:
+		return
+
+	var index := pending_move_index
+	pending_action = ""
+	pending_move_index = -1
+	confirmation_panel.visible = false
+	use_move(index)
+
+
+func _on_cancel_move_pressed() -> void:
+
+	var was_run := pending_action == "run"
+	pending_action = ""
+	pending_move_index = -1
+	confirmation_panel.visible = false
+
+	if was_run:
+		command_ui.visible = true
+		move_menu.visible = false
+	else:
+		move_menu.visible = true
 
 # ============================================================
 # USE MOVE
 # ============================================================
 
 func use_move(move_index: int) -> void:
-
+	pending_move_index = -1
+	confirmation_panel.visible = false
 	if move_index < 0:
 		return
 
@@ -508,6 +575,38 @@ func use_move(move_index: int) -> void:
 
 	await enemy_turn()
 
+func _execute_run() -> void:
+
+	if battle_ending:
+		return
+
+	battle_ending = true
+	battle_log.text = "You ran away!"
+	announce("You ran away!")
+
+	BattleControllerGlobal.save_player_hp()
+
+	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
+		"Battle escaped: saving Atomon state",
+		"escape"
+	)
+
+	if battle_save_success:
+		print("[BattleUI] Battle state saved successfully after escape.")
+	else:
+		push_error("[BattleUI] Battle state save after escape FAILED.")
+
+	await get_tree().create_timer(1.0).timeout
+
+	var remaining: int = count_remaining_atomons()
+
+	show_battle_summary(
+		"Escaped",
+		false,
+		remaining,
+		0,
+		[]
+	)
 
 # ============================================================
 # PLAYER ATTACK ANIMATION
@@ -1221,73 +1320,24 @@ func _on_run_pressed() -> void:
 	if battle_ending:
 		return
 
-	# ========================================================
-	# TRAINING BATTLE
-	# ========================================================
-
 	if BattleManager.is_fusion_training_battle:
-
-		battle_log.text = (
-			"You cannot run from Fusion training."
-		)
-
-		announce(
-			"Complete the Fusion training first!"
-		)
-
+		battle_log.text = "You cannot run from Fusion training."
+		announce("Complete the Fusion training first!")
 		return
 
-	# ========================================================
-	# NORMAL BATTLE
-	# ========================================================
-
-	battle_ending = true
-
-	battle_log.text = "You ran away!"
-
-	announce("You ran away!")
-
-	BattleControllerGlobal.save_player_hp()
-
-	print(
-		"[BattleUI] Saving battle state after escape..."
-	)
-
-	var battle_save_success: bool = await SaveManager.auto_save_battle_state(
-		"Battle escaped: saving Atomon state",
-		"escape"
-	)
-
-	if battle_save_success:
-
-		print(
-			"[BattleUI] Battle state saved successfully after escape."
-		)
-
-	else:
-
-		push_error(
-			"[BattleUI] Battle state save after escape FAILED."
-		)
-
-	await get_tree().create_timer(1.0).timeout
-
-	var remaining: int = count_remaining_atomons()
-
-	show_battle_summary(
-		"Escaped",
-		false,
-		remaining,
-		0,
-		[]
-	)
-
+	pending_action = "run"
+	confirmation_label.text = "Run away from this battle?"
+	command_ui.visible = false
+	move_menu.visible = false
+	confirmation_panel.visible = true
 
 # ============================================================
 # CLOSE MOVE MENU
 # ============================================================
 
 func _on_close_button_pressed() -> void:
+	pending_move_index = -1
+	confirmation_panel.visible = false
 
 	move_menu.visible = false
 	command_ui.visible = true

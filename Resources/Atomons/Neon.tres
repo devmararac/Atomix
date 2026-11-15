@@ -203,5 +203,6 @@ element_type = "Noble Gas"
 block = "p"
 period = 2
 moves = Array[ExtResource("1_piwxn")]([ExtResource("3_k28db"), ExtResource("4_jwxvk"), ExtResource("5_foefn"), ExtResource("6_qbhev")])
+description = "A Bat"
 cry_sound = ExtResource("1_h70gt")
 metadata/_custom_type_script = "uid://dvv118enrwub6"

@@ -65,13 +65,26 @@ func _upload_file_async(
 
 	var resource_type := "raw"
 
-	if extension in IMAGE_EXTENSIONS:
+	# Images and PDFs use Cloudinary's image resource type.
+	if extension in IMAGE_EXTENSIONS or extension == "pdf":
 		resource_type = "image"
 
 	var public_id := file_name
 
 	if resource_type == "image":
 		public_id = file_name.get_basename()
+
+	# Replace characters that Cloudinary does not allow in public IDs.
+	var invalid_characters := [
+		"?", "&", "#", "\\", "%", "<", ">", "+"
+	]
+
+	for invalid_character in invalid_characters:
+		public_id = public_id.replace(invalid_character, "_")
+
+	public_id = public_id.strip_edges()
+
+	print("[CloudinaryUploader] Safe public ID: ", public_id)
 
 	var upload_url := (
 		"https://api.cloudinary.com/v1_1/"
@@ -174,6 +187,8 @@ func _upload_file_async(
 			"Cloudinary did not return an asset version."
 		)
 		return
+		
+	var encoded_public_id := public_id.uri_encode()
 
 	var pdf_url := ""
 
@@ -187,7 +202,7 @@ func _upload_file_async(
 			+ "/image/upload/v"
 			+ str(version)
 			+ "/"
-			+ public_id
+			+ encoded_public_id
 			+ ".pdf"
 		)
 
@@ -198,7 +213,7 @@ func _upload_file_async(
 			+ "/image/upload/v"
 			+ str(version)
 			+ "/"
-			+ public_id
+			+ encoded_public_id
 			+ ".pdf"
 		)
 

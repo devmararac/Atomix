@@ -56,6 +56,7 @@ HandTracker="*uid://c3xyk15xmaep4"
 LineRenderer="*uid://bvd3yudqk7jgg"
 OrientationManager="*uid://bld5mi6uuoefu"
 ActivityLogManager="*uid://4uxlabwpax37"
+VirtualKeyboardManager="*uid://kw65cg7c4d4c"
 
 [dialogic]
 

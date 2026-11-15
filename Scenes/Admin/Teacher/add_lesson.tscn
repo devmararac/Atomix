@@ -247,7 +247,7 @@ theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("2_hijon")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
-autowrap_mode = 2
+autowrap_mode = 3
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="FormPanel/VBoxContainer/HBoxContainer" unique_id=390789631]
 layout_mode = 2
@@ -329,6 +329,7 @@ theme_override_font_sizes/font_size = 25
 text = "No file selected"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="ButtonContainer" type="HBoxContainer" parent="FormPanel/VBoxContainer" unique_id=2125219925]
 layout_mode = 2
