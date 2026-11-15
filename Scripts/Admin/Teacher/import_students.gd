@@ -715,7 +715,7 @@ func parse_student_rows(rows: Array[Array]) -> void:
 		seen_lrns[lrn] = true
 
 		var email := _generate_student_email(first_name, last_name)
-		var password := first_name.strip_edges().replace(" ", "") + lrn.left(4)
+		var password := lrn.left(4) + first_name.strip_edges().replace(" ", "")
 		var student_name := first_name + " " + last_name
 
 		if email.is_empty():
@@ -960,7 +960,7 @@ func display_preview() -> void:
 
 		label.add_theme_color_override(
 			"font_color",
-			Color(0.470588, 0.352941, 0.235294, 1)
+			Color(0.965, 0.929, 0.863, 1.0)
 		)
 
 		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER

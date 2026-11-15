@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cophnhyollmkd"
+path="res://.godot/imported/Narrator 9.mp3-7a7771e0b2729701b84692efb7af61ba.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/VoiceOvers/Narrator/Narrator 9.mp3"
+dest_files=["res://.godot/imported/Narrator 9.mp3-7a7771e0b2729701b84692efb7af61ba.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

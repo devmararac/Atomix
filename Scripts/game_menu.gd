@@ -41,6 +41,10 @@ const QUIZZ_PAGE = preload(
 	
 )
 
+const DICTIONARY_PAGE = preload(
+	"res://Scenes/UI/Student/dictionary.tscn"
+)
+
 const SETTING_PAGE = preload(
 	"res://Scenes/UI/setting_page.tscn"
 )
@@ -78,6 +82,8 @@ const SETTING_PAGE = preload(
 
 @onready var settings_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/SettingsButton)
 
+@onready var dictionary_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/DictionaryButton)
+
 @onready var close_button = ($Root/MainMargin/HBoxContainer/NavigationPanel/NavigationMargin/MenuVBox/CloseButton)
 
 
@@ -106,6 +112,10 @@ func _ready():
 
 	inventory_button.pressed.connect(
 		_on_inventory_pressed
+	)
+
+	dictionary_button.pressed.connect(
+		_on_dictionary_button_pressed
 	)
 
 	# Open Inventory by default.
@@ -221,6 +231,18 @@ func _on_lessons_button_pressed() -> void:
 func _on_quiz_button_pressed() -> void:
 	print("[GameMenu] Lessons selected.")
 	change_page(QUIZZ_PAGE)
+	SfxManager.play_click()
+
+# ============================================================
+# DICTIONARY
+# ============================================================
+
+func _on_dictionary_button_pressed() -> void:
+	print("[GameMenu] Dictionary selected.")
+
+	change_page(
+		DICTIONARY_PAGE
+	)
 	SfxManager.play_click()
 
 # ============================================================

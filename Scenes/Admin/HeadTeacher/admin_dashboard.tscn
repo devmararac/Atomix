@@ -72,6 +72,7 @@ offset_bottom = 0.25897217
 theme_override_constants/separation = 20
 
 [node name="DashboardButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=527746231]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = SubResource("Theme_Button")
 texture_normal = ExtResource("1_atom")
@@ -81,13 +82,12 @@ stretch_mode = 0
 [node name="DashboardLabel" type="Label" parent="MenuPanel/VBoxContainer/DashboardButton" unique_id=447157976]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.614
-anchor_top = 0.35
-anchor_right = 0.614
-anchor_bottom = 0.35
-offset_left = -83.448
-offset_right = 83.552
-offset_bottom = 26.0
+anchor_left = 0.25100002
+anchor_top = 0.35000002
+anchor_right = 0.97700006
+anchor_bottom = 0.675
+offset_left = 0.041999817
+offset_right = 0.06199646
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 25
@@ -98,17 +98,18 @@ vertical_alignment = 1
 [node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/DashboardButton" unique_id=1982058701]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.172
+anchor_left = 0.112
 anchor_top = 0.3
-anchor_right = 0.172
-anchor_bottom = 0.3
-offset_left = -13.904003
-offset_right = 14.095997
-offset_bottom = 31.0
+anchor_right = 0.23300001
+anchor_bottom = 0.68700004
+offset_left = -0.104002
+offset_right = 0.06599426
+offset_bottom = 0.0399971
 texture = ExtResource("7_home")
 expand_mode = 1
 
 [node name="SectionButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1765597644]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 texture_normal = ExtResource("1_atom")
 texture_focused = ExtResource("6_gdvk6")
@@ -117,13 +118,12 @@ stretch_mode = 0
 [node name="DashboardLabel" type="Label" parent="MenuPanel/VBoxContainer/SectionButton" unique_id=65464039]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.614
-anchor_top = 0.35
-anchor_right = 0.614
-anchor_bottom = 0.35
-offset_left = -83.448
-offset_right = 83.552
-offset_bottom = 26.0
+anchor_left = 0.25100002
+anchor_top = 0.35000002
+anchor_right = 0.97700006
+anchor_bottom = 0.675
+offset_left = 0.041999817
+offset_right = 0.06199646
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 25
@@ -134,17 +134,18 @@ vertical_alignment = 1
 [node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/SectionButton" unique_id=727746783]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.172
+anchor_left = 0.112
 anchor_top = 0.3
-anchor_right = 0.172
-anchor_bottom = 0.3
-offset_left = -13.904003
-offset_right = 14.095997
-offset_bottom = 31.0
+anchor_right = 0.23300001
+anchor_bottom = 0.68700004
+offset_left = -0.104002
+offset_right = 0.06599426
+offset_bottom = 0.0399971
 texture = ExtResource("7_6dtfa")
 expand_mode = 1
 
 [node name="TeachersButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=221698356]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = SubResource("Theme_Button")
 texture_normal = ExtResource("1_atom")
@@ -154,13 +155,12 @@ stretch_mode = 0
 [node name="TeachersLabel" type="Label" parent="MenuPanel/VBoxContainer/TeachersButton" unique_id=761553814]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.608
-anchor_top = 0.387
-anchor_right = 0.608
-anchor_bottom = 0.387
-offset_left = -75.0
-offset_right = 75.0
-offset_bottom = 26.0
+anchor_left = 0.282
+anchor_top = 0.38700002
+anchor_right = 0.934
+anchor_bottom = 0.712
+offset_left = -0.020004272
+offset_right = 0.019989014
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 25
@@ -171,17 +171,18 @@ vertical_alignment = 1
 [node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/TeachersButton" unique_id=216423291]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.172
+anchor_left = 0.112
 anchor_top = 0.3
-anchor_right = 0.172
-anchor_bottom = 0.3
-offset_left = -13.904003
-offset_right = 14.095997
-offset_bottom = 31.0
+anchor_right = 0.23300001
+anchor_bottom = 0.68700004
+offset_left = -0.104002
+offset_right = 0.06599426
+offset_bottom = 0.0399971
 texture = ExtResource("8_vdshd")
 expand_mode = 1
 
 [node name="StudentsButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1088945481]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 texture_normal = ExtResource("1_atom")
 stretch_mode = 0
@@ -208,17 +209,18 @@ autowrap_mode = 3
 [node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/StudentsButton" unique_id=1270641068]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.172
+anchor_left = 0.112
 anchor_top = 0.3
-anchor_right = 0.172
-anchor_bottom = 0.3
-offset_left = -13.904003
-offset_right = 14.095997
-offset_bottom = 31.0
+anchor_right = 0.23300001
+anchor_bottom = 0.68700004
+offset_left = -0.104002
+offset_right = 0.06599426
+offset_bottom = 0.0399971
 texture = ExtResource("9_6dtfa")
 expand_mode = 1
 
 [node name="TextureButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=2061843198]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 texture_normal = ExtResource("1_atom")
 stretch_mode = 0
@@ -245,17 +247,18 @@ autowrap_mode = 3
 [node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/TextureButton" unique_id=1458307733]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.172
+anchor_left = 0.112
 anchor_top = 0.3
-anchor_right = 0.172
-anchor_bottom = 0.3
-offset_left = -13.904003
-offset_right = 14.095997
-offset_bottom = 31.0
+anchor_right = 0.23300001
+anchor_bottom = 0.68700004
+offset_left = -0.104002
+offset_right = 0.06599426
+offset_bottom = 0.0399971
 texture = ExtResource("9_gdvk6")
 expand_mode = 1
 
 [node name="SettingsButton" type="TextureButton" parent="MenuPanel/VBoxContainer" unique_id=1038759443]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = SubResource("Theme_Button")
 texture_normal = ExtResource("1_atom")
@@ -265,13 +268,12 @@ stretch_mode = 0
 [node name="ProgressLabel" type="Label" parent="MenuPanel/VBoxContainer/SettingsButton" unique_id=876077217]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.608
-anchor_top = 0.387
-anchor_right = 0.608
-anchor_bottom = 0.387
-offset_left = -75.0
-offset_right = 75.0
-offset_bottom = 26.0
+anchor_left = 0.282
+anchor_top = 0.38700002
+anchor_right = 0.934
+anchor_bottom = 0.712
+offset_left = -0.020004272
+offset_right = 0.019989014
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 25
@@ -282,13 +284,13 @@ vertical_alignment = 1
 [node name="TextureRect" type="TextureRect" parent="MenuPanel/VBoxContainer/SettingsButton" unique_id=1004800062]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.172
+anchor_left = 0.112
 anchor_top = 0.3
-anchor_right = 0.172
-anchor_bottom = 0.3
-offset_left = -13.904003
-offset_right = 14.095997
-offset_bottom = 31.0
+anchor_right = 0.23300001
+anchor_bottom = 0.68700004
+offset_left = -0.104002
+offset_right = 0.06599426
+offset_bottom = 0.0399971
 texture = ExtResource("10_x826j")
 expand_mode = 1
 
@@ -309,11 +311,11 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.13800001
-anchor_top = 0.083000004
+anchor_top = 0.003
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -0.24002075
-offset_top = 0.23999786
+offset_top = -0.16000009
 offset_right = -3.0
 offset_bottom = -2.0
 

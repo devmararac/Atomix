@@ -88,7 +88,6 @@ func update_character_preview() -> void:
 # ============================================================
 # CONTINUE
 # ============================================================
-
 func _on_continue_pressed() -> void:
 	var name = display_name.text.strip_edges()
 
@@ -112,4 +111,4 @@ func _on_continue_pressed() -> void:
 		print("[CharacterSetup] ERROR: Failed to save player profile.")
 		return
 
-	get_tree().change_scene_to_file("res://Scenes/Cutscenes/tutorial.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Cutscenes/final_intro.tscn")

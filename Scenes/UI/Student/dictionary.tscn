@@ -1,0 +1,203 @@
+[gd_scene format=3 uid="uid://bjispr8bc44xb"]
+
+[ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="1_p46yh"]
+[ext_resource type="Script" uid="uid://cjci44288832u" path="res://Scripts/Student/dictionary.gd" id="1_syhah"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_qpuxg"]
+[ext_resource type="PackedScene" uid="uid://bawsu1ey1jcr4" path="res://Scenes/UI/Student/dictionary_row.tscn" id="3_xjhyt"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qpuxg"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+texture = ExtResource("1_p46yh")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xjhyt"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpuxg"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.69411767, 0.52156866, 0.3019608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjhyt"]
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_color = Color(0.776, 0.627, 0.482, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syhah"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb2hf"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_syhah"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[node name="Dictionary" type="Control" unique_id=1403200822]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_syhah")
+
+[node name="Panel" type="Panel" parent="." unique_id=630730078]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_qpuxg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=419543200]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.075
+anchor_right = 0.9760001
+anchor_bottom = 0.92600006
+offset_left = -0.52000046
+offset_right = 0.51989746
+offset_bottom = 0.27996826
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=8923675]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("2_qpuxg")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xjhyt")
+text = "Dictionary"
+
+[node name="ToolbarPanel" type="Panel" parent="Panel/VBoxContainer" unique_id=1632881899]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qpuxg")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/ToolbarPanel" unique_id=872943586]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/ToolbarPanel/MarginContainer" unique_id=1031704292]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SearchPanel" type="Panel" parent="Panel/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1384340102]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xjhyt")
+
+[node name="SearchBar" type="LineEdit" parent="Panel/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SearchPanel" unique_id=1140671970]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("2_qpuxg")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_syhah")
+placeholder_text = "Search terms..."
+clear_button_enabled = true
+
+[node name="FilterPanel" type="Panel" parent="Panel/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1096569984]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xjhyt")
+
+[node name="FilterButton" type="OptionButton" parent="Panel/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/FilterPanel" unique_id=909772942]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("2_qpuxg")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_yb2hf")
+selected = 0
+item_count = 3
+popup/item_0/text = "Sort by"
+popup/item_0/id = 0
+popup/item_1/text = "A-Z"
+popup/item_1/id = 1
+popup/item_2/text = "Z-A"
+popup/item_2/id = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer" unique_id=1780897190]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_syhah")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/ScrollContainer" unique_id=176251513]
+custom_minimum_size = Vector2(943, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DictionaryRow" parent="Panel/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=19895673 instance=ExtResource("3_xjhyt")]
+layout_mode = 2

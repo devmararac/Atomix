@@ -621,6 +621,7 @@ func delete_teacher(teacher_uid: String) -> Dictionary:
 			"error": "Teacher UID is missing."
 		}
 
+	# Get the currently logged-in administrator's Firebase ID token.
 	var token: String = _get_firestore_token()
 
 	if token.is_empty():
@@ -629,84 +630,231 @@ func delete_teacher(teacher_uid: String) -> Dictionary:
 			"error": "Firebase authentication token is missing."
 		}
 
-	var project_id: String = get_firebase_project_id()
-
-	if project_id.is_empty():
-		return {
-			"ok": false,
-			"error": "Firebase Project ID could not be determined."
-		}
-
-	var url: String = (
-		"https://firestore.googleapis.com/v1/projects/"
-		+ project_id
-		+ "/databases/(default)/documents/teachers/"
-		+ teacher_uid.uri_encode()
+	# Prepare the Cloudflare Worker request.
+	var url := (
+		"https://atomix-auth-api.atomix-auth.workers.dev"
+		+ "/admin-delete-teacher"
 	)
+
+	var request_body := {
+		"callerIdToken": token,
+		"teacherUid": teacher_uid
+	}
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
 
 	var http := HTTPRequest.new()
 	add_child(http)
 
-	var headers := PackedStringArray([
-		"Authorization: Bearer " + token,
-		"Content-Type: application/json"
-	])
-
 	var request_error: Error = http.request(
 		url,
 		headers,
-		HTTPClient.METHOD_DELETE
+		HTTPClient.METHOD_POST,
+		JSON.stringify(request_body)
 	)
 
 	if request_error != OK:
 		http.queue_free()
+
 		return {
 			"ok": false,
 			"error": "Unable to start teacher deletion: %s" % request_error
 		}
 
+	# Wait for the Worker response.
 	var response: Array = await http.request_completed
 	http.queue_free()
 
+	var request_result: int = int(response[0])
 	var response_code: int = int(response[1])
+
 	var response_text: String = (
 		(response[3] as PackedByteArray).get_string_from_utf8()
 	)
 
-	if response_code < 200 or response_code >= 300:
-		var message: String = response_text
-		var parsed_error: Variant = JSON.parse_string(response_text)
+	# Check whether the HTTP request itself succeeded.
+	if request_result != HTTPRequest.RESULT_SUCCESS:
+		return {
+			"ok": false,
+			"error": "Unable to connect to the teacher deletion server."
+		}
 
-		if parsed_error is Dictionary:
-			var error_data: Variant = parsed_error.get("error", {})
-			if error_data is Dictionary:
-				message = str(
-					error_data.get("message", response_text)
-				)
+	# Parse the Worker's JSON response.
+	var parsed_response: Variant = JSON.parse_string(response_text)
+
+	if not parsed_response is Dictionary:
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": "The deletion server returned an invalid response."
+		}
+
+	var response_data: Dictionary = parsed_response
+
+	# The Worker must explicitly confirm successful deletion.
+	if response_code < 200 or response_code >= 300:
+		var error_message := str(
+			response_data.get(
+				"message",
+				"Teacher deletion failed."
+			)
+		)
 
 		push_error(
-			"[TeacherDataManager] Failed to delete teacher: " + message
+			"[TeacherDataManager] Worker deletion failed: "
+			+ error_message
 		)
 
 		return {
 			"ok": false,
 			"code": response_code,
-			"error": message
+			"error": error_message
 		}
 
-	# Remove the deleted teacher from the local cache.
+	if not bool(response_data.get("success", false)):
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": str(
+				response_data.get(
+					"message",
+					"Worker did not confirm teacher deletion."
+				)
+			)
+		}
+
+	# Only update the local cache after confirmed server success.
 	for i in range(teachers_data.size() - 1, -1, -1):
 		if str(teachers_data[i].get("uid", "")) == teacher_uid:
 			teachers_data.remove_at(i)
 
 	print(
-		"[TeacherDataManager] Teacher Firestore document deleted: ",
+		"[TeacherDataManager] Teacher account permanently deleted: ",
 		teacher_uid
 	)
 
 	return {
 		"ok": true,
 		"uid": teacher_uid
+	}
+
+
+
+func check_teacher(teacher_uid: String) -> Dictionary:
+	teacher_uid = teacher_uid.strip_edges()
+
+	if teacher_uid.is_empty():
+		return {
+			"ok": false,
+			"error": "Teacher UID is missing."
+		}
+
+	# Get the currently logged-in administrator's Firebase ID token.
+	var token: String = _get_firestore_token()
+
+	if token.is_empty():
+		return {
+			"ok": false,
+			"error": "Firebase authentication token is missing."
+		}
+
+	# Prepare the read-only Cloudflare Worker request.
+	var url := (
+		"https://atomix-auth-api.atomix-auth.workers.dev"
+		+ "/admin-check-teacher"
+	)
+
+	var request_body := {
+		"callerIdToken": token,
+		"teacherUid": teacher_uid
+	}
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var request_error: Error = http.request(
+		url,
+		headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(request_body)
+	)
+
+	if request_error != OK:
+		http.queue_free()
+
+		return {
+			"ok": false,
+			"error": "Unable to start teacher verification: %s" % request_error
+		}
+
+	# Wait for the Worker response.
+	var response: Array = await http.request_completed
+	http.queue_free()
+
+	var request_result: int = int(response[0])
+	var response_code: int = int(response[1])
+
+	var response_text: String = (
+		(response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	if request_result != HTTPRequest.RESULT_SUCCESS:
+		return {
+			"ok": false,
+			"error": "Unable to connect to the teacher verification server."
+		}
+
+	# Parse the Worker's JSON response.
+	var parsed_response: Variant = JSON.parse_string(response_text)
+
+	if not parsed_response is Dictionary:
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": "The verification server returned an invalid response."
+		}
+
+	var response_data: Dictionary = parsed_response
+
+	if response_code < 200 or response_code >= 300:
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": str(
+				response_data.get(
+					"message",
+					"Teacher verification failed."
+				)
+			)
+		}
+
+	if not bool(response_data.get("success", false)):
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": str(
+				response_data.get(
+					"message",
+					"Worker did not confirm the teacher account."
+				)
+			)
+		}
+
+	print(
+		"[TeacherDataManager] Teacher account verified: ",
+		teacher_uid
+	)
+
+	return {
+		"ok": true,
+		"uid": teacher_uid,
+		"role": str(response_data.get("role", ""))
 	}
 
 
@@ -968,49 +1116,162 @@ func delete_student(student_uid: String) -> Dictionary:
 	if student_uid.is_empty():
 		return {
 			"ok": false,
-			"error": "Student document ID is missing."
+			"error": "Student UID is missing."
 		}
 
 	var token: String = _get_firestore_token()
+
 	if token.is_empty():
 		return {
 			"ok": false,
 			"error": "Firebase authentication token is missing."
 		}
 
-	var project_id: String = get_firebase_project_id()
-	if project_id.is_empty():
-		return {
-			"ok": false,
-			"error": "Firebase Project ID could not be determined."
-		}
-
 	var url: String = (
-		"https://firestore.googleapis.com/v1/projects/"
-		+ project_id
-		+ "/databases/(default)/documents/students/"
-		+ student_uid.uri_encode()
+		"https://atomix-auth-api.atomix-auth.workers.dev"
+		+ "/admin-delete-student"
 	)
+
+	var request_body: Dictionary = {
+		"callerIdToken": token,
+		"studentUid": student_uid
+	}
 
 	var http := HTTPRequest.new()
 	add_child(http)
 
 	var headers := PackedStringArray([
-		"Authorization: Bearer " + token,
 		"Content-Type: application/json"
 	])
 
 	var request_error: Error = http.request(
 		url,
 		headers,
-		HTTPClient.METHOD_DELETE
+		HTTPClient.METHOD_POST,
+		JSON.stringify(request_body)
 	)
 
 	if request_error != OK:
 		http.queue_free()
 		return {
 			"ok": false,
-			"error": "Unable to start student deletion: %s" % request_error
+			"error": "Unable to start permanent student deletion: %s" % request_error
+		}
+
+	var response: Array = await http.request_completed
+	http.queue_free()
+
+	var result_code: int = int(response[0])
+	var response_code: int = int(response[1])
+
+	var response_text: String = (
+		(response[3] as PackedByteArray).get_string_from_utf8()
+	)
+
+	if result_code != HTTPRequest.RESULT_SUCCESS:
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": "Network error while contacting the deletion service."
+		}
+
+	var parsed_response: Variant = JSON.parse_string(response_text)
+
+	if not parsed_response is Dictionary:
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": "The deletion service returned an invalid response."
+		}
+
+	var response_data: Dictionary = parsed_response
+
+	if response_code < 200 or response_code >= 300:
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": str(
+				response_data.get(
+					"message",
+					"Permanent student deletion failed."
+				)
+			)
+		}
+
+	if not bool(response_data.get("success", false)):
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": str(
+				response_data.get(
+					"message",
+					"Permanent student deletion was not confirmed."
+				)
+			)
+		}
+
+	# Remove the deleted student from the local cache.
+	for i in range(students_data.size() - 1, -1, -1):
+		if str(students_data[i].get("uid", "")) == student_uid:
+			students_data.remove_at(i)
+
+	print(
+		"[TeacherDataManager] Student account permanently deleted: ",
+		student_uid
+	)
+
+	return {
+		"ok": true,
+		"uid": student_uid
+	}
+
+
+func check_student(student_uid: String) -> Dictionary:
+	student_uid = student_uid.strip_edges()
+
+	if student_uid.is_empty():
+		return {
+			"ok": false,
+			"error": "Student UID is missing."
+		}
+
+	var token: String = _get_firestore_token()
+
+	if token.is_empty():
+		return {
+			"ok": false,
+			"error": "Firebase authentication token is missing."
+		}
+
+	var url: String = (
+		"https://atomix-auth-api.atomix-auth.workers.dev"
+		+ "/admin-check-student"
+	)
+
+	var request_body: Dictionary = {
+		"callerIdToken": token,
+		"studentUid": student_uid
+	}
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var request_error: Error = http.request(
+		url,
+		headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(request_body)
+	)
+
+	if request_error != OK:
+		http.queue_free()
+		return {
+			"ok": false,
+			"error": "Unable to start student verification."
 		}
 
 	var response: Array = await http.request_completed
@@ -1021,34 +1282,25 @@ func delete_student(student_uid: String) -> Dictionary:
 		(response[3] as PackedByteArray).get_string_from_utf8()
 	)
 
-	if response_code < 200 or response_code >= 300:
-		var message: String = response_text
-		var parsed_error: Variant = JSON.parse_string(response_text)
+	var parsed: Variant = JSON.parse_string(response_text)
 
-		if parsed_error is Dictionary:
-			var error_data: Variant = parsed_error.get("error", {})
-			if error_data is Dictionary:
-				message = str(error_data.get("message", response_text))
-
+	if not parsed is Dictionary:
 		return {
 			"ok": false,
-			"code": response_code,
-			"error": message
+			"error": "Invalid verification response."
 		}
 
-	# Remove the deleted student from the local cache.
-	for i in range(students_data.size() - 1, -1, -1):
-		if str(students_data[i].get("uid", "")) == student_uid:
-			students_data.remove_at(i)
+	var data: Dictionary = parsed
 
-	print(
-		"[TeacherDataManager] Student Firestore document deleted: ",
-		student_uid
-	)
+	if response_code < 200 or response_code >= 300:
+		return {
+			"ok": false,
+			"error": str(data.get("message", "Student verification failed."))
+		}
 
 	return {
-		"ok": true,
-		"uid": student_uid
+		"ok": bool(data.get("success", false)),
+		"data": data
 	}
 
 

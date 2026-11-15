@@ -1,70 +1,36 @@
+
 extends Control
-
-
-# ============================================================
-# FIRESTORE
-# ============================================================
 
 const PROJECT_ID := "atomix-f6c6b"
 const DATABASE_ID := "(default)"
 
+const QUIZ_CARD_SCENE := preload(
+	"res://Scenes/UI/Student/quiz_card_student.tscn"
+)
+
+const QUIZ_FORM_SCENE := preload(
+	"res://Scenes/UI/qiuz_form.tscn"
+)
+
 var firestore_url: String = ""
 
-
-# ============================================================
-# QUIZ DATA
-# ============================================================
-
 var quizzes: Array[Dictionary] = []
-
-# Stores quiz IDs that this student has already completed.
-#
-# Example:
-# {
-#     "quiz_123": true,
-#     "quiz_456": true
-# }
 var completed_quiz_ids: Dictionary = {}
 
 var quiz_loading: bool = false
 var student_section: String = ""
-
-
-# ============================================================
-# UI REFERENCES
-# ============================================================
+var selected_filter: String = ""
 
 @onready var title_label: Label = $QuizPanel/MarginContainer/VBoxContainer/Header/Title
-
 @onready var section_label: Label = $QuizPanel/MarginContainer/VBoxContainer/Header/SectionLabel
-
 @onready var search_bar: LineEdit = $QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SearchPanel/SearchBar
-
 @onready var filter_button: OptionButton = $QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/FilterPanel/FilterButton
-
-@onready var sort_button: OptionButton = $QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SortPanel/SortButton
-
-@onready var refresh_button: Button = $QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/RefreshPanel/RefreshButton
-
 @onready var quiz_scroll: ScrollContainer = $QuizPanel/MarginContainer/VBoxContainer/QuizScroll
-
-@onready var quiz_list: VBoxContainer = $QuizPanel/MarginContainer/VBoxContainer/QuizScroll/QuizList
-
+@onready var quiz_list: GridContainer = $QuizPanel/MarginContainer/VBoxContainer/QuizScroll/CenterContainer/QuizList
 @onready var status_label: Label = $QuizPanel/MarginContainer/VBoxContainer/StatusLabel
 
 
-# ============================================================
-# READY
-# ============================================================
-
 func _ready() -> void:
-
-	print("[QuizPage] Quiz page opened.")
-
-	# --------------------------------------------------------
-	# Firestore URL
-	# --------------------------------------------------------
-
 	firestore_url = (
 		"https://firestore.googleapis.com/v1/projects/"
 		+ PROJECT_ID
@@ -73,159 +39,46 @@ func _ready() -> void:
 		+ "/documents/quizzes"
 	)
 
-	# --------------------------------------------------------
-	# Connect UI buttons
-	# --------------------------------------------------------
-
-	if not refresh_button.pressed.is_connected(
-		_on_refresh_pressed
-	):
-		refresh_button.pressed.connect(
-			_on_refresh_pressed
-		)
-
-	if not search_bar.text_changed.is_connected(
-		_on_search_text_changed
-	):
-		search_bar.text_changed.connect(
-			_on_search_text_changed
-		)
-
-	if not filter_button.item_selected.is_connected(
-		_on_filter_selected
-	):
-		filter_button.item_selected.connect(
-			_on_filter_selected
-		)
-
-	if not sort_button.item_selected.is_connected(
-		_on_sort_selected
-	):
-		sort_button.item_selected.connect(
-			_on_sort_selected
-		)
-
-	# --------------------------------------------------------
-	# Setup dropdowns
-	# --------------------------------------------------------
+	search_bar.text_changed.connect(_on_search_text_changed)
+	filter_button.item_selected.connect(_on_filter_selected)
 
 	_setup_filter_button()
-	_setup_sort_button()
-
-	# --------------------------------------------------------
-	# Load student's section
-	# --------------------------------------------------------
 
 	status_label.text = "Loading student information..."
 
 	await _load_student_section()
 
 	if student_section.is_empty():
-
-		print(
-			"[QuizPage] ERROR: Student section is empty."
-		)
-
 		section_label.text = "Section unavailable"
-
-		status_label.text = \
-			"Unable to determine your section."
-
+		status_label.text = "Unable to determine your section."
 		return
 
-	print(
-		"[QuizPage] Student section: ",
-		student_section
-	)
-
-	section_label.text = \
-		"Section: " + student_section
-
-	# --------------------------------------------------------
-	# Load completed quiz records
-	# --------------------------------------------------------
+	section_label.text = "Section: " + student_section
 
 	status_label.text = "Loading quiz progress..."
-
 	await _load_completed_quizzes()
-
-	# --------------------------------------------------------
-	# Load quizzes
-	# --------------------------------------------------------
 
 	await load_quizzes()
 
 
-# ============================================================
-# FILTER BUTTON
-# ============================================================
-
 func _setup_filter_button() -> void:
-
 	filter_button.clear()
 
 	filter_button.add_item("All Quiz Types")
 	filter_button.add_item("Multiple Choice")
 	filter_button.add_item("True or False")
 	filter_button.add_item("Identification")
+	filter_button.add_item("Enumeration")
 
 	filter_button.select(0)
 
 
-# ============================================================
-# SORT BUTTON
-# ============================================================
-
-func _setup_sort_button() -> void:
-
-	sort_button.clear()
-
-	sort_button.add_item("Newest First")
-	sort_button.add_item("Oldest First")
-	sort_button.add_item("Title A-Z")
-	sort_button.add_item("Title Z-A")
-
-	sort_button.select(0)
-
-
-# ============================================================
-# LOAD STUDENT SECTION
-# ============================================================
-
 func _load_student_section() -> void:
-
-	print(
-		"[QuizPage] Loading student information..."
-	)
-
 	var uid := _get_uid()
-
-	if uid.is_empty():
-
-		print(
-			"[QuizPage] ERROR: Student UID is empty."
-		)
-
-		return
-
-	print(
-		"[QuizPage] Student UID: ",
-		uid
-	)
-
 	var token := _get_id_token()
 
-	if token.is_empty():
-
-		print(
-			"[QuizPage] ERROR: Firebase ID token is empty."
-		)
-
+	if uid.is_empty() or token.is_empty():
 		return
-
-	print(
-		"[QuizPage] Firebase ID token obtained."
-	)
 
 	var student_url := (
 		"https://firestore.googleapis.com/v1/projects/"
@@ -236,133 +89,29 @@ func _load_student_section() -> void:
 		+ uid
 	)
 
-	print(
-		"[QuizPage] Loading student document: ",
-		student_url
-	)
+	var data: Dictionary = await _firestore_get(student_url, token)
 
-	var http := HTTPRequest.new()
-
-	add_child(http)
-
-	var headers := PackedStringArray([
-		"Content-Type: application/json",
-		"Authorization: Bearer " + token
-	])
-
-	var error := http.request(
-		student_url,
-		headers,
-		HTTPClient.METHOD_GET
-	)
-
-	if error != OK:
-
-		print(
-			"[QuizPage] Failed to request student data: ",
-			error
-		)
-
-		http.queue_free()
-
+	if data.is_empty():
 		return
 
-	var response: Array = \
-		await http.request_completed
+	var fields: Dictionary = data.get("fields", {})
 
-	http.queue_free()
+	student_section = _get_string_field(
+		fields,
+		"section"
+	).strip_edges()
 
-	var response_code: int = \
-		response[1]
-
-	var body: PackedByteArray = \
-		response[3]
-
-	print(
-		"[QuizPage] Student Firestore response: ",
-		response_code
-	)
-
-	if response_code != 200:
-
-		print(
-			"[QuizPage] ERROR loading student:"
-		)
-
-		print(
-			body.get_string_from_utf8()
-		)
-
-		return
-
-	var response_text := \
-		body.get_string_from_utf8()
-
-	var data = \
-		JSON.parse_string(response_text)
-
-	if data == null:
-
-		print(
-			"[QuizPage] ERROR: Invalid student JSON."
-		)
-
-		return
-
-	var fields: Dictionary = \
-		data.get(
-			"fields",
-			{}
-		)
-
-	student_section = \
-		_get_string_field(
-			fields,
-			"section"
-		)
-
-	student_section = \
-		student_section.strip_edges()
-
-	print(
-		"[QuizPage] Student section: ",
-		student_section
-	)
-
-
-# ============================================================
-# LOAD COMPLETED QUIZZES
-# ============================================================
 
 func _load_completed_quizzes() -> void:
-
 	completed_quiz_ids.clear()
 
-	print(
-		"[QuizPage] Loading completed quiz records..."
-	)
+	var uid := _get_uid()
+	var token := _get_id_token()
 
-	var uid: String = _get_uid()
-
-	if uid.is_empty():
-
-		print(
-			"[QuizPage] Cannot load assessment: UID is empty."
-		)
-
+	if uid.is_empty() or token.is_empty():
 		return
 
-	var token: String = _get_id_token()
-
-	if token.is_empty():
-
-		print(
-			"[QuizPage] Cannot load assessment: ID token is empty."
-		)
-
-		return
-
-	var assessment_url: String = (
+	var assessment_url := (
 		"https://firestore.googleapis.com/v1/projects/"
 		+ PROJECT_ID
 		+ "/databases/"
@@ -371,303 +120,104 @@ func _load_completed_quizzes() -> void:
 		+ uid
 	)
 
-	print(
-		"[QuizPage] Loading student assessment: ",
-		assessment_url
-	)
+	var data: Dictionary = await _firestore_get(assessment_url, token)
 
-	var http := HTTPRequest.new()
-
-	add_child(http)
-
-	var headers := PackedStringArray([
-		"Content-Type: application/json",
-		"Authorization: Bearer " + token
-	])
-
-	var error := http.request(
-		assessment_url,
-		headers,
-		HTTPClient.METHOD_GET
-	)
-
-	if error != OK:
-
-		print(
-			"[QuizPage] Failed to load student assessment: ",
-			error
-		)
-
-		http.queue_free()
-
+	if data.is_empty():
 		return
 
-	var response: Array = \
-		await http.request_completed
-
-	http.queue_free()
-
-	var response_code: int = response[1]
-
-	var body: PackedByteArray = response[3]
-
-	print(
-		"[QuizPage] Student assessment response: ",
-		response_code
-	)
-
-	if response_code != 200:
-
-		print(
-			"[QuizPage] ERROR loading student assessment:"
-		)
-
-		print(
-			body.get_string_from_utf8()
-		)
-
-		return
-
-	var response_text: String = \
-		body.get_string_from_utf8()
-
-	var data = \
-		JSON.parse_string(response_text)
-
-	if data == null:
-
-		print(
-			"[QuizPage] ERROR: Invalid student JSON."
-		)
-
-		return
-
-	var fields: Dictionary = \
-		data.get(
-			"fields",
-			{}
-		)
-
-	if not fields is Dictionary:
-
-		print(
-			"[QuizPage] Student document has no fields."
-		)
-
-		return
-
-	# --------------------------------------------------------
-	# Get assessment map
-	# --------------------------------------------------------
-
-	if not fields.has("assessment"):
-
-		print(
-			"[QuizPage] No assessment field found."
-		)
-
-		print(
-			"[QuizPage] Completed quiz count: 0"
-		)
-
-		return
-
-	var assessment_field = \
-		fields["assessment"]
+	var fields: Dictionary = data.get("fields", {})
+	var assessment_field = fields.get("assessment", {})
 
 	if not assessment_field is Dictionary:
-
-		print(
-			"[QuizPage] Assessment field is invalid."
-		)
-
 		return
 
-	var assessment_map = \
-		assessment_field.get(
-			"mapValue",
-			{}
-		)
-
-	if not assessment_map is Dictionary:
-
-		print(
-			"[QuizPage] Assessment map is invalid."
-		)
-
-		return
-
-	var assessment_fields = \
-		assessment_map.get(
-			"fields",
-			{}
-		)
-
-	if not assessment_fields is Dictionary:
-
-		print(
-			"[QuizPage] No assessment records found."
-		)
-
-		print(
-			"[QuizPage] Completed quiz count: 0"
-		)
-
-		return
-
-	# --------------------------------------------------------
-	# Read every assessment entry
-	# --------------------------------------------------------
+	var assessment_map: Dictionary = assessment_field.get("mapValue", {})
+	var assessment_fields: Dictionary = assessment_map.get("fields", {})
 
 	for assessment_key in assessment_fields.keys():
-
-		var quiz_entry = \
-			assessment_fields[assessment_key]
+		var quiz_entry = assessment_fields[assessment_key]
 
 		if not quiz_entry is Dictionary:
 			continue
 
-		var quiz_map = \
-			quiz_entry.get(
-				"mapValue",
-				{}
-			)
+		var quiz_map: Dictionary = quiz_entry.get("mapValue", {})
+		var quiz_fields: Dictionary = quiz_map.get("fields", {})
 
-		if not quiz_map is Dictionary:
+		if not _get_boolean_field(quiz_fields, "completed"):
 			continue
 
-		var quiz_fields = \
-			quiz_map.get(
-				"fields",
-				{}
-			)
-
-		if not quiz_fields is Dictionary:
-			continue
-
-		# ----------------------------------------------------
-		# Check completed flag
-		# ----------------------------------------------------
-
-		var completed: bool = \
-			_get_boolean_field(
-				quiz_fields,
-				"completed"
-			)
-
-		if not completed:
-
-			print(
-				"[QuizPage] Assessment entry is not completed: ",
-				str(assessment_key)
-			)
-
-			continue
-
-		# ----------------------------------------------------
-		# Try saved quiz_id first
-		# ----------------------------------------------------
-
-		var saved_quiz_id: String = \
-			_get_string_field(
-				quiz_fields,
-				"quiz_id"
-			)
-
-		saved_quiz_id = \
-			saved_quiz_id.strip_edges()
-
-		# ----------------------------------------------------
-		# If quiz_id is missing, use assessment map key
-		# ----------------------------------------------------
+		var saved_quiz_id := _get_string_field(
+			quiz_fields,
+			"quiz_id"
+		).strip_edges()
 
 		if saved_quiz_id.is_empty():
-
-			saved_quiz_id = \
-				str(assessment_key).strip_edges()
-
-		# ----------------------------------------------------
-		# Store completed quiz
-		# ----------------------------------------------------
+			saved_quiz_id = str(assessment_key).strip_edges()
 
 		if saved_quiz_id.is_empty():
 			continue
+			
+		#
 
-		completed_quiz_ids[saved_quiz_id] = true
+		var student_answers: Dictionary = {}
 
-		print(
-			"[QuizPage] Completed quiz found: ",
-			saved_quiz_id
+		var student_answers_field: Dictionary = quiz_fields.get(
+			"student_answers",
+			{}
 		)
 
-	# --------------------------------------------------------
-	# FINAL COUNT
-	# --------------------------------------------------------
-
-	print(
-		"[QuizPage] Completed quiz count: ",
-		completed_quiz_ids.size()
-	)
-
-
-# ============================================================
-# GET QUIZ ID FROM DOCUMENT NAME
-# ============================================================
-
-func _get_quiz_id_from_document_name(
-	document_name: String
-) -> String:
-
-	if document_name.is_empty():
-		return ""
-
-	var parts: PackedStringArray = \
-		document_name.split("/")
-
-	if parts.is_empty():
-		return ""
-
-	return str(
-		parts[parts.size() - 1]
-	)
-
-
-# ============================================================
-# LOAD QUIZZES
-# ============================================================
-
-func load_quizzes() -> void:
-
-	if quiz_loading:
-		return
-
-	quiz_loading = true
-
-	status_label.text = "Loading quizzes..."
-
-	print(
-		"[QuizPage] Loading quizzes for section: ",
-		student_section
-	)
-
-	var token := _get_id_token()
-
-	if token.is_empty():
-
-		print(
-			"[QuizPage] ERROR: Firebase ID token is empty."
+		var student_answers_map: Dictionary = student_answers_field.get(
+			"mapValue",
+			{}
 		)
 
-		quiz_loading = false
-
-		_show_no_quizzes(
-			"Authentication failed."
+		var student_answers_fields: Dictionary = student_answers_map.get(
+			"fields",
+			{}
 		)
 
-		return
+		for question_index in student_answers_fields.keys():
+			var answer_field: Dictionary = student_answers_fields[question_index]
 
+			if answer_field.has("stringValue"):
+				student_answers[int(question_index)] = answer_field.get("stringValue", "")
+
+			elif answer_field.has("integerValue"):
+				student_answers[int(question_index)] = int(answer_field.get("integerValue", "0"))
+
+			elif answer_field.has("arrayValue"):
+				var array_data: Dictionary = answer_field.get("arrayValue", {})
+				var array_values: Array = array_data.get("values", [])
+				var parsed_answers: Array = []
+
+				for answer_value in array_values:
+					if answer_value is Dictionary:
+						if answer_value.has("integerValue"):
+							parsed_answers.append(int(answer_value.get("integerValue", "0")))
+						elif answer_value.has("stringValue"):
+							parsed_answers.append(str(answer_value.get("stringValue", "")))
+
+				student_answers[int(question_index)] = parsed_answers
+
+		var assessment: Dictionary = {
+			"quiz_id": saved_quiz_id,
+			"quiz_title": _get_string_field(quiz_fields, "quiz_title"),
+			"score": _get_integer_field(quiz_fields, "score"),
+			"total_questions": _get_integer_field(quiz_fields, "total_questions"),
+			"percentage": _get_float_field(quiz_fields, "percentage"),
+			"completed": true,
+			"completed_at": _get_string_field(quiz_fields, "completed_at"),
+			"student_answers": student_answers
+		}
+
+		completed_quiz_ids[saved_quiz_id] = assessment
+
+	print("[QuizPage] Completed assessments loaded: ", completed_quiz_ids.size())
+
+
+
+func _firestore_get(url: String, token: String) -> Dictionary:
 	var http := HTTPRequest.new()
-
 	add_child(http)
 
 	var headers := PackedStringArray([
@@ -675,1217 +225,590 @@ func load_quizzes() -> void:
 		"Authorization: Bearer " + token
 	])
 
-	print(
-		"[QuizPage] Request URL: ",
-		firestore_url
-	)
-
 	var error := http.request(
-		firestore_url,
+		url,
 		headers,
 		HTTPClient.METHOD_GET
 	)
 
 	if error != OK:
-
-		print(
-			"[QuizPage] Failed to send request: ",
-			error
-		)
-
 		http.queue_free()
+		return {}
 
-		quiz_loading = false
-
-		_show_no_quizzes(
-			"Connection error."
-		)
-
-		return
-
-	var response: Array = \
-		await http.request_completed
-
+	var response: Array = await http.request_completed
 	http.queue_free()
 
-	var response_code: int = \
-		response[1]
+	var response_code: int = response[1]
 
-	var body: PackedByteArray = \
-		response[3]
+	if response_code != 200:
+		return {}
+
+	var response_text: String = response[3].get_string_from_utf8()
+	var data = JSON.parse_string(response_text)
+
+	if not data is Dictionary:
+		return {}
+
+	return data
+
+
+func load_quizzes() -> void:
+	if quiz_loading:
+		return
+
+	quiz_loading = true
+	status_label.text = "Loading quizzes..."
+
+	var token := _get_id_token()
+
+	if token.is_empty():
+		quiz_loading = false
+		_show_no_quizzes("Authentication failed.")
+		return
+
+	var data: Dictionary = await _firestore_get(
+		firestore_url,
+		token
+	)
 
 	quiz_loading = false
 
-	print(
-		"[QuizPage] Firestore response: ",
-		response_code
-	)
-
-	if response_code != 200:
-
-		print(
-			"[QuizPage] Firestore error:"
-		)
-
-		print(
-			body.get_string_from_utf8()
-		)
-
-		_show_no_quizzes(
-			"Could not load quizzes."
-		)
-
+	if data.is_empty():
+		_show_no_quizzes("Could not load quizzes.")
 		return
 
-	var response_text := \
-		body.get_string_from_utf8()
+	var documents = data.get("documents", [])
 
-	var data = \
-		JSON.parse_string(response_text)
-
-	if data == null:
-
-		print(
-			"[QuizPage] ERROR: Invalid JSON response."
-		)
-
-		_show_no_quizzes(
-			"Invalid server response."
-		)
-
+	if not documents is Array:
+		_show_no_quizzes("No quizzes are available.")
 		return
-
-	if not data.has("documents"):
-
-		print(
-			"[QuizPage] No quiz documents found."
-		)
-
-		_show_no_quizzes(
-			"No quizzes are available."
-		)
-
-		return
-
-	var documents: Array = \
-		data["documents"]
-
-	print(
-		"[QuizPage] Total quiz documents received: ",
-		documents.size()
-	)
 
 	quizzes.clear()
 
 	for document in documents:
-
 		if not document is Dictionary:
 			continue
 
-		var fields: Dictionary = \
-			document.get(
-				"fields",
-				{}
-			)
-
-		var quiz := \
-			_parse_quiz_document(
-				fields,
-				document
-			)
+		var fields: Dictionary = document.get("fields", {})
+		var quiz := _parse_quiz_document(fields, document)
 
 		if quiz.is_empty():
 			continue
 
-		var quiz_section := \
-			str(
-				quiz.get(
-					"section",
-					""
-				)
-			).strip_edges()
-
-		print(
-			"[QuizPage] Quiz section: ",
-			quiz_section
-		)
+		var quiz_section := str(
+			quiz.get("section", "")
+		).strip_edges()
 
 		if quiz_section != student_section:
-
-			print(
-				"[QuizPage] Quiz rejected because section does not match."
-			)
-
 			continue
 
-		print(
-			"[QuizPage] Quiz matches student section: ",
-			student_section
-		)
-
-		quizzes.append(
-			quiz
-		)
-
-	print(
-		"[QuizPage] Matching quizzes: ",
-		quizzes.size()
-	)
+		quizzes.append(quiz)
 
 	if quizzes.is_empty():
-
 		_show_no_quizzes(
 			"No quizzes available for your section."
 		)
-
 		return
 
-	_apply_sort()
+	_build_quiz_list()
 
-	await _build_quiz_list()
-
-
-# ============================================================
-# PARSE QUIZ DOCUMENT
-# ============================================================
 
 func _parse_quiz_document(
 	fields: Dictionary,
 	document: Dictionary
 ) -> Dictionary:
-
 	var quiz: Dictionary = {}
 
-	quiz["quiz_id"] = \
-		_get_string_field(
-			fields,
-			"quiz_id"
-		).strip_edges()
+	quiz["quiz_id"] = _get_string_field(fields, "quiz_id").strip_edges()
 
-	# --------------------------------------------------------
-	# Fallback: get ID from Firestore document name
-	# --------------------------------------------------------
-
-	if str(
-		quiz["quiz_id"]
-	).is_empty():
-
-		quiz["quiz_id"] = \
-			_get_quiz_id_from_document_name(
-				str(
-					document.get(
-						"name",
-						""
-					)
-				)
-			)
-
-	quiz["teacher_id"] = \
-		_get_string_field(
-			fields,
-			"teacher_id"
+	if str(quiz["quiz_id"]).is_empty():
+		quiz["quiz_id"] = _get_quiz_id_from_document_name(
+			str(document.get("name", ""))
 		)
 
-	quiz["title"] = \
-		_get_string_field(
-			fields,
-			"title"
-		)
+	quiz["teacher_id"] = _get_string_field(fields, "teacher_id")
+	quiz["title"] = _get_string_field(fields, "title")
+	quiz["section"] = _get_string_field(fields, "section")
+	quiz["quiz_type"] = _get_string_field(fields, "quiz_type")
+	quiz["question_count"] = _get_integer_field(fields, "question_count")
+	quiz["questions"] = _get_questions_field(fields, "questions")
+	quiz["created_at"] = _get_string_field(fields, "created_at")
+	quiz["document_name"] = str(document.get("name", ""))
 
-	if str(
-		quiz["title"]
-	).strip_edges().is_empty():
+	if str(quiz["title"]).strip_edges().is_empty():
+		quiz["title"] = "Untitled Quiz"
 
-		quiz["title"] = \
-			"Untitled Quiz"
-
-	quiz["section"] = \
-		_get_string_field(
-			fields,
-			"section"
-		)
-
-	quiz["quiz_type"] = \
-		_get_string_field(
-			fields,
-			"quiz_type"
-		)
-
-	quiz["question_count"] = \
-		_get_integer_field(
-			fields,
-			"question_count"
-		)
-
-	quiz["questions"] = \
-		_get_questions_field(
-			fields,
-			"questions"
-		)
-
-	quiz["created_at"] = \
-		_get_string_field(
-			fields,
-			"created_at"
-		)
-
-	quiz["document_name"] = \
-		str(
-			document.get(
-				"name",
-				""
-			)
-		)
-
-	var questions: Array = \
-		quiz["questions"]
-
-	if questions.is_empty():
-
-		print(
-			"[QuizPage] Quiz rejected because it has no questions."
-		)
-
+	if quiz["questions"].is_empty():
 		return {}
 
 	return quiz
 
 
-# ============================================================
-# GET QUESTIONS
-# ============================================================
+func _get_quiz_id_from_document_name(document_name: String) -> String:
+	if document_name.is_empty():
+		return ""
 
-func _get_questions_field(
-	fields: Dictionary,
-	field_name: String
-) -> Array:
+	var parts := document_name.split("/")
+
+	if parts.is_empty():
+		return ""
+
+	return str(parts[parts.size() - 1])
+
+
+func _get_questions_field(fields: Dictionary, field_name: String) -> Array:
+	var result: Array = []
 
 	if not fields.has(field_name):
-		return []
+		return result
 
 	var field = fields[field_name]
 
 	if not field is Dictionary:
-		return []
+		return result
 
-	var array_value = \
-		field.get(
-			"arrayValue",
-			{}
-		)
-
-	if not array_value is Dictionary:
-		return []
-
-	var values = \
-		array_value.get(
-			"values",
-			[]
-		)
+	var array_value: Dictionary = field.get("arrayValue", {})
+	var values = array_value.get("values", [])
 
 	if not values is Array:
-		return []
-
-	var result: Array = []
+		return result
 
 	for value in values:
-
 		if not value is Dictionary:
 			continue
 
-		var map_value = \
-			value.get(
-				"mapValue",
-				{}
-			)
+		var map_value: Dictionary = value.get("mapValue", {})
+		var question_fields: Dictionary = map_value.get("fields", {})
 
-		if not map_value is Dictionary:
-			continue
-
-		var question_fields = \
-			map_value.get(
-				"fields",
-				{}
-			)
-
-		if not question_fields is Dictionary:
+		if question_fields.is_empty():
 			continue
 
 		var question_data: Dictionary = {}
 
-		question_data["question"] = \
-			_get_string_field(
-				question_fields,
-				"question"
-			)
+		question_data["question"] = _get_string_field(
+			question_fields,
+			"question"
+		)
 
-		question_data["type"] = \
-			_get_string_field(
-				question_fields,
-				"type"
-			)
+		question_data["type"] = _get_string_field(
+			question_fields,
+			"type"
+		)
 
-		question_data["answers"] = \
-			_get_string_array_field(
-				question_fields,
-				"answers"
-			)
+		question_data["answers"] = _get_string_array_field(
+			question_fields,
+			"answers"
+		)
 
-		question_data["correct_answers"] = \
-			_get_integer_array_field(
-				question_fields,
-				"correct_answers"
-			)
+		question_data["correct_answers"] = _get_integer_array_field(
+			question_fields,
+			"correct_answers"
+		)
 
-		if str(
-			question_data["question"]
-		).strip_edges().is_empty():
-
+		if str(question_data["question"]).strip_edges().is_empty():
 			continue
 
-		result.append(
-			question_data
-		)
+		result.append(question_data)
 
 	return result
 
 
-# ============================================================
-# BUILD QUIZ LIST
-# ============================================================
-
 func _build_quiz_list() -> void:
-
-	# --------------------------------------------------------
-	# Clear old buttons
-	# --------------------------------------------------------
-
 	for child in quiz_list.get_children():
-
 		child.queue_free()
 
 	await get_tree().process_frame
 
-	# --------------------------------------------------------
-	# Calculate available/completed quizzes
-	# --------------------------------------------------------
-
-	var available_count: int = 0
-	var completed_count: int = 0
+	var available_count := 0
+	var completed_count := 0
 
 	for quiz in quizzes:
-
-		var quiz_id: String = \
-			str(
-				quiz.get(
-					"quiz_id",
-					""
-				)
-			).strip_edges()
-
-		var is_completed: bool = \
-			_is_quiz_completed(
-				quiz_id,
-				quiz
-			)
-
-		if is_completed:
-
+		if _is_quiz_completed(
+			str(quiz.get("quiz_id", "")),
+			quiz
+		):
 			completed_count += 1
-
 		else:
-
 			available_count += 1
 
-	# --------------------------------------------------------
-	# Print counts for debugging
-	# --------------------------------------------------------
-
-	print(
-		"[QuizPage] Available quiz count: ",
-		available_count
-	)
-
-	print(
-		"[QuizPage] Completed quiz count used by UI: ",
-		completed_count
-	)
-
-	print(
-		"[QuizPage] Total quiz count: ",
-		quizzes.size()
-	)
-
-	# --------------------------------------------------------
-	# Update status
-	# --------------------------------------------------------
-
-	status_label.text = \
-		str(available_count) \
-		+ " quiz(es) available. " \
-		+ str(completed_count) \
+	status_label.text = (
+		str(available_count)
+		+ " quiz(es) available. "
+		+ str(completed_count)
 		+ " completed."
+	)
 
-	# --------------------------------------------------------
-	# Create quiz buttons
-	# --------------------------------------------------------
+	for index in range(quizzes.size()):
+		_create_quiz_card(quizzes[index], index)
 
-	for index in range(
-		quizzes.size()
-	):
-
-		var quiz: Dictionary = \
-			quizzes[index]
-
-		_create_quiz_list_item(
-			quiz,
-			index
-		)
+	_apply_filters()
 
 
-# ============================================================
-# CHECK IF QUIZ IS COMPLETED
-# ============================================================
-
-func _is_quiz_completed(
-	quiz_id: String,
-	quiz: Dictionary
-) -> bool:
-
+func _is_quiz_completed(quiz_id: String, quiz: Dictionary) -> bool:
 	quiz_id = quiz_id.strip_edges()
 
-	# --------------------------------------------------------
-	# Normal quiz ID check
-	# --------------------------------------------------------
+	if not quiz_id.is_empty() and completed_quiz_ids.has(quiz_id):
+		return true
 
-	if not quiz_id.is_empty():
+	var document_name := str(
+		quiz.get("document_name", "")
+	)
 
-		if completed_quiz_ids.has(
-			quiz_id
-		):
+	var document_quiz_id := _get_quiz_id_from_document_name(
+		document_name
+	)
 
-			return true
-
-	# --------------------------------------------------------
-	# Check Firestore document ID fallback
-	# --------------------------------------------------------
-
-	var document_name: String = \
-		str(
-			quiz.get(
-				"document_name",
-				""
-			)
-		)
-
-	var document_quiz_id := \
-		_get_quiz_id_from_document_name(
-			document_name
-		)
-
-	document_quiz_id = \
-		document_quiz_id.strip_edges()
-
-	if not document_quiz_id.is_empty():
-
-		if completed_quiz_ids.has(
-			document_quiz_id
-		):
-
-			return true
-
-	return false
+	return (
+		not document_quiz_id.is_empty()
+		and completed_quiz_ids.has(document_quiz_id)
+	)
 
 
-# ============================================================
-# CREATE QUIZ ITEM
-# ============================================================
+func _create_quiz_card(quiz: Dictionary, index: int) -> void:
+	var card := QUIZ_CARD_SCENE.instantiate()
 
-func _create_quiz_list_item(
-	quiz: Dictionary,
-	index: int
-) -> void:
+	card.name = "QuizCard_" + str(index)
+	card.set_meta("quiz_index", index)
 
-	var button := Button.new()
+	var title_label_node := card.find_child("QuizTitle", true, false) as Label
+	var type_label := card.find_child("QuizType", true, false) as Label
+	var item_count_label := card.find_child("ItemCount", true, false) as Label
+	var status_node := card.find_child("Status", true, false) as Label
+	var score_label := card.find_child("Score", true, false) as Label
 
-	button.name = \
-		"Quiz_" + str(index)
+	var take_button := card.find_child("TakeQuizButton", true, false) as Button
+	var view_button := card.find_child("ViewAssessmentButton", true, false) as Button
 
-	button.custom_minimum_size = \
-		Vector2(0, 90)
+	var title := str(quiz.get("title", "Untitled Quiz"))
+	var quiz_type := str(quiz.get("quiz_type", ""))
+	var question_count := int(
+		quiz.get("question_count", quiz.get("questions", []).size())
+	)
 
-	button.size_flags_horizontal = \
-		Control.SIZE_EXPAND_FILL
+	var quiz_id := str(quiz.get("quiz_id", ""))
 
-	var title := \
-		str(
-			quiz.get(
-				"title",
-				"Untitled Quiz"
-			)
-		)
+	var completed := _is_quiz_completed(quiz_id, quiz)
 
-	var quiz_type := \
-		str(
-			quiz.get(
-				"quiz_type",
-				""
-			)
-		)
+	if title_label_node:
+		title_label_node.text = title
 
-	var question_count := \
-		int(
-			quiz.get(
-				"question_count",
-				0
-			)
-		)
+	if type_label:
+		type_label.text = _format_quiz_type(quiz_type)
 
-	var quiz_id: String = \
-		str(
-			quiz.get(
-				"quiz_id",
-				""
-			)
-		).strip_edges()
+	if item_count_label:
+		item_count_label.text = str(question_count) + " Item(s)"
 
-	var is_completed: bool = \
-		_is_quiz_completed(
+	if status_node:
+		status_node.text = "Completed" if completed else "Available"
+
+	# ------------------------------------------------
+	# COMPLETED ASSESSMENT SCORE
+	# ------------------------------------------------
+
+	if completed:
+		var assessment: Dictionary = completed_quiz_ids.get(
 			quiz_id,
-			quiz
+			{}
 		)
 
-	if is_completed:
+		var score := int(assessment.get("score", 0))
+		var total := int(assessment.get("total_questions", 0))
 
-		button.text = (
-			title
-			+ "\n"
-			+ quiz_type.capitalize()
-			+ " • "
-			+ str(question_count)
-			+ " question(s)"
-			+ "\n"
-			+ "COMPLETED"
-		)
+		if score_label:
+			if total > 0:
+				score_label.text = "Score: %d / %d" % [score, total]
+			else:
+				score_label.text = "Score: %d" % score
 
-		button.disabled = true
+			var score_container := score_label.get_parent() as Control
 
+			if score_container:
+				score_container.visible = true
 	else:
+		if score_label:
+			var score_container := score_label.get_parent() as Control
 
-		button.text = (
-			title
-			+ "\n"
-			+ quiz_type.capitalize()
-			+ " • "
-			+ str(question_count)
-			+ " question(s)"
-		)
+			if score_container:
+				score_container.visible = false
 
-	button.add_theme_font_size_override(
-		"font_size",
-		20
-	)
+	# ------------------------------------------------
+	# TAKE QUIZ BUTTON
+	# ------------------------------------------------
 
-	button.pressed.connect(
-		_on_quiz_selected.bind(index)
-	)
+	if take_button:
+		take_button.visible = not completed
 
-	quiz_list.add_child(
-		button
-	)
-
-
-# ============================================================
-# QUIZ SELECTED
-# ============================================================
-
-func _on_quiz_selected(index: int) -> void:
-
-	if index < 0:
-		return
-
-	if index >= quizzes.size():
-		return
-
-	var quiz: Dictionary = \
-		quizzes[index]
-
-	var quiz_id: String = \
-		str(
-			quiz.get(
-				"quiz_id",
-				""
+		if not completed:
+			take_button.disabled = false
+			take_button.pressed.connect(
+				_on_quiz_selected.bind(index)
 			)
-		).strip_edges()
 
-	# --------------------------------------------------------
-	# Prevent opening completed quiz
-	# --------------------------------------------------------
+	# ------------------------------------------------
+	# VIEW ASSESSMENT BUTTON
+	# ------------------------------------------------
 
-	if _is_quiz_completed(
-		quiz_id,
-		quiz
-	):
+	if view_button:
+		view_button.visible = completed
+		view_button.disabled = false
 
-		print(
-			"[QuizPage] Quiz is already completed: ",
-			quiz_id
-		)
+		var button_container := view_button.get_parent() as Control
 
-		status_label.text = \
-			"This quiz has already been completed."
+		if button_container:
+			button_container.visible = completed
 
+		if completed:
+			view_button.pressed.connect(
+				_on_view_assessment_pressed.bind(index)
+			)
+
+	quiz_list.add_child(card)
+func _on_view_assessment_pressed(index: int) -> void:
+	if index < 0 or index >= quizzes.size():
+		push_error("[QuizPage] Invalid quiz index.")
 		return
 
-	print(
-		"[QuizPage] Quiz selected: ",
-		quiz.get(
-			"title",
-			"Untitled Quiz"
-		)
-	)
+	var quiz: Dictionary = quizzes[index]
+	var quiz_id: String = str(quiz.get("quiz_id", "")).strip_edges()
 
-	print(
-		"[QuizPage] Quiz ID: ",
-		quiz_id
-	)
+	if quiz_id.is_empty():
+		push_error("[QuizPage] Quiz ID is missing.")
+		return
 
-	# --------------------------------------------------------
-	# Open quiz-taking page
-	# --------------------------------------------------------
+	if not completed_quiz_ids.has(quiz_id):
+		push_error("[QuizPage] Assessment record not found.")
+		return
 
-	var quiz_scene := preload(
-		"res://Scenes/UI/quiz_taking_page.tscn"
-	)
+	var assessment: Dictionary = completed_quiz_ids[quiz_id]
 
-	var quiz_taking_page = \
-		quiz_scene.instantiate()
+	var assessment_form = QUIZ_FORM_SCENE.instantiate()
+	assessment_form.quiz_data = quiz
+	assessment_form.review_mode = true
+	assessment_form.assessment_data = assessment
+	assessment_form.return_page = self
 
-	quiz_taking_page.quiz_data = quiz
+	var parent_node: Node = get_parent()
 
-	# --------------------------------------------------------
-	# Keep SAME QuizPage alive
-	# --------------------------------------------------------
+	if parent_node == null:
+		assessment_form.queue_free()
+		push_error("[QuizPage] Parent node is missing.")
+		return
 
 	visible = false
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	mouse_filter = \
-		Control.MOUSE_FILTER_IGNORE
+	parent_node.add_child(assessment_form)
 
-	# --------------------------------------------------------
-	# Add QuizTakingPage to same parent
-	# --------------------------------------------------------
+	print("[QuizPage] Opened assessment in review mode: ", quiz_id)
+
+func _format_quiz_type(quiz_type: String) -> String:
+	match quiz_type.to_lower().strip_edges():
+		"multiple_choice":
+			return "Multiple Choice"
+		"true_false":
+			return "True or False"
+		"identification":
+			return "Identification"
+		"enumeration":
+			return "Enumeration"
+		_:
+			return quiz_type.capitalize()
+
+
+func _on_quiz_selected(index: int) -> void:
+	if index < 0 or index >= quizzes.size():
+		return
+
+	var quiz: Dictionary = quizzes[index]
+	var quiz_id := str(quiz.get("quiz_id", "")).strip_edges()
+
+	if _is_quiz_completed(quiz_id, quiz):
+		status_label.text = "This quiz has already been completed."
+		return
+
+	var quiz_taking_page = QUIZ_FORM_SCENE.instantiate()
+	quiz_taking_page.quiz_data = quiz
+	quiz_taking_page.set("return_page", self)
 
 	var parent_node := get_parent()
 
 	if parent_node == null:
-
-		print(
-			"[QuizPage] ERROR: QuizPage has no parent."
-		)
-
-		visible = true
-
-		mouse_filter = \
-			Control.MOUSE_FILTER_STOP
-
 		quiz_taking_page.queue_free()
-
 		return
 
-	parent_node.add_child(
-		quiz_taking_page
-	)
+	visible = false
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	# --------------------------------------------------------
-	# Tell QuizTakingPage which QuizPage to return to
-	# --------------------------------------------------------
-
-	quiz_taking_page.set(
-		"return_page",
-		self
-	)
-
-	print(
-		"[QuizPage] QuizTakingPage opened inside GameMenu."
-	)
+	parent_node.add_child(quiz_taking_page)
 
 
-# ============================================================
-# SEARCH
-# ============================================================
-
-func _on_search_text_changed(
-	new_text: String
-) -> void:
-
-	var search_text := \
-		new_text.strip_edges().to_lower()
-
-	for child in quiz_list.get_children():
-
-		if not child is Button:
-			continue
-
-		var button: Button = child
-
-		var visible_state := true
-
-		if not search_text.is_empty():
-
-			visible_state = \
-				button.text.to_lower().contains(
-					search_text
-				)
-
-		button.visible = visible_state
+func _on_search_text_changed(_new_text: String) -> void:
+	_apply_filters()
 
 
-# ============================================================
-# FILTER
-# ============================================================
-
-func _on_filter_selected(
-	index: int
-) -> void:
-
-	var selected_type := ""
-
+func _on_filter_selected(index: int) -> void:
 	match index:
-
 		0:
-			selected_type = ""
-
+			selected_filter = ""
 		1:
-			selected_type = "multiple choice"
-
+			selected_filter = "multiple_choice"
 		2:
-			selected_type = "true or false"
-
+			selected_filter = "true_false"
 		3:
-			selected_type = "identification"
+			selected_filter = "identification"
+		4:
+			selected_filter = "enumeration"
 
-	_apply_filter(
-		selected_type
-	)
+	_apply_filters()
 
 
-func _apply_filter(
-	selected_type: String
-) -> void:
+func _apply_filters() -> void:
+	var search_text := search_bar.text.strip_edges().to_lower()
 
-	for index in range(
-		quiz_list.get_child_count()
-	):
-
-		var child := \
-			quiz_list.get_child(index)
-
-		if not child is Button:
+	for card in quiz_list.get_children():
+		if not card.has_meta("quiz_index"):
 			continue
 
-		var button: Button = child
+		var index: int = card.get_meta("quiz_index")
 
-		if index >= quizzes.size():
+		if index < 0 or index >= quizzes.size():
 			continue
 
-		if selected_type.is_empty():
+		var quiz: Dictionary = quizzes[index]
+		var title := str(quiz.get("title", "")).to_lower()
+		var quiz_type := str(quiz.get("quiz_type", "")).to_lower()
 
-			button.visible = true
-
-			continue
-
-		var quiz_type := \
-			str(
-				quizzes[index].get(
-					"quiz_type",
-					""
-				)
-			).to_lower()
-
-		button.visible = \
-			quiz_type == selected_type
-
-
-# ============================================================
-# SORT
-# ============================================================
-
-func _on_sort_selected(
-	_index: int
-) -> void:
-
-	_apply_sort()
-
-	await _build_quiz_list()
-
-
-func _apply_sort() -> void:
-
-	var sort_index := \
-		sort_button.selected
-
-	match sort_index:
-
-		0:
-			quizzes.sort_custom(
-				_sort_newest
-			)
-
-		1:
-			quizzes.sort_custom(
-				_sort_oldest
-			)
-
-		2:
-			quizzes.sort_custom(
-				_sort_title_ascending
-			)
-
-		3:
-			quizzes.sort_custom(
-				_sort_title_descending
-			)
-
-
-func _sort_newest(
-	a: Dictionary,
-	b: Dictionary
-) -> bool:
-
-	return str(
-		a.get(
-			"created_at",
-			""
+		var matches_search := (
+			search_text.is_empty()
+			or title.contains(search_text)
 		)
-	) > str(
-		b.get(
-			"created_at",
-			""
+
+		var matches_filter := (
+			selected_filter.is_empty()
+			or quiz_type == selected_filter
 		)
-	)
+
+		card.visible = matches_search and matches_filter
 
 
-func _sort_oldest(
-	a: Dictionary,
-	b: Dictionary
-) -> bool:
-
-	return str(
-		a.get(
-			"created_at",
-			""
-		)
-	) < str(
-		b.get(
-			"created_at",
-			""
-		)
-	)
-
-
-func _sort_title_ascending(
-	a: Dictionary,
-	b: Dictionary
-) -> bool:
-
-	return str(
-		a.get(
-			"title",
-			""
-		)
-	).to_lower() < str(
-		b.get(
-			"title",
-			""
-		)
-	).to_lower()
-
-
-func _sort_title_descending(
-	a: Dictionary,
-	b: Dictionary
-) -> bool:
-
-	return str(
-		a.get(
-			"title",
-			""
-		)
-	).to_lower() > str(
-		b.get(
-			"title",
-			""
-		)
-	).to_lower()
-
-
-# ============================================================
-# REFRESH
-# ============================================================
-
-func _on_refresh_pressed() -> void:
-
-	print(
-		"[QuizPage] Refreshing quizzes..."
-	)
-
-	status_label.text = \
-		"Refreshing quiz progress..."
-
-	# --------------------------------------------------------
-	# Reload completion records FIRST
-	# --------------------------------------------------------
-
-	await _load_completed_quizzes()
-
-	# --------------------------------------------------------
-	# Reload quizzes
-	# --------------------------------------------------------
-
-	await load_quizzes()
-
-
-# ============================================================
-# SHOW NO QUIZZES
-# ============================================================
-
-func _show_no_quizzes(
-	message: String
-) -> void:
-
+func _show_no_quizzes(message: String) -> void:
 	quizzes.clear()
 
 	for child in quiz_list.get_children():
-
 		child.queue_free()
 
 	status_label.text = message
 
 
-# ============================================================
-# STRING FIELD
-# ============================================================
-
-func _get_string_field(
-	fields: Dictionary,
-	field_name: String
-) -> String:
-
-	if not fields.has(field_name):
-		return ""
-
-	var field = fields[field_name]
+func _get_string_field(fields: Dictionary, field_name: String) -> String:
+	var field = fields.get(field_name, {})
 
 	if not field is Dictionary:
 		return ""
 
 	if field.has("stringValue"):
-
-		return str(
-			field["stringValue"]
-		)
+		return str(field["stringValue"])
 
 	if field.has("timestampValue"):
-
-		return str(
-			field["timestampValue"]
-		)
+		return str(field["timestampValue"])
 
 	return ""
 
 
-# ============================================================
-# INTEGER FIELD
-# ============================================================
 
-func _get_integer_field(
-	fields: Dictionary,
-	field_name: String
-) -> int:
+func _get_float_field(fields: Dictionary, field_name: String) -> float:
+	var field = fields.get(field_name, {})
 
-	if not fields.has(field_name):
-		return 0
+	if not field is Dictionary:
+		return 0.0
 
-	var field = fields[field_name]
+	if field.has("doubleValue"):
+		return float(field["doubleValue"])
+
+	if field.has("integerValue"):
+		return float(field["integerValue"])
+
+	return 0.0
+
+
+
+func _get_integer_field(fields: Dictionary, field_name: String) -> int:
+	var field = fields.get(field_name, {})
 
 	if not field is Dictionary:
 		return 0
 
 	if field.has("integerValue"):
-
-		return int(
-			field["integerValue"]
-		)
+		return int(field["integerValue"])
 
 	if field.has("doubleValue"):
-
-		return int(
-			field["doubleValue"]
-		)
+		return int(field["doubleValue"])
 
 	return 0
 
 
-# ============================================================
-# BOOLEAN FIELD
-# ============================================================
-
-func _get_boolean_field(
-	fields: Dictionary,
-	field_name: String
-) -> bool:
-
-	if not fields.has(field_name):
-		return false
-
-	var field = fields[field_name]
+func _get_boolean_field(fields: Dictionary, field_name: String) -> bool:
+	var field = fields.get(field_name, {})
 
 	if not field is Dictionary:
 		return false
 
-	if field.has("booleanValue"):
-
-		return bool(
-			field["booleanValue"]
-		)
-
-	return false
+	return bool(field.get("booleanValue", false))
 
 
-# ============================================================
-# STRING ARRAY FIELD
-# ============================================================
-
-func _get_string_array_field(
-	fields: Dictionary,
-	field_name: String
-) -> Array:
-
+func _get_string_array_field(fields: Dictionary, field_name: String) -> Array:
 	var result: Array = []
-
-	if not fields.has(field_name):
-		return result
-
-	var field = fields[field_name]
+	var field = fields.get(field_name, {})
 
 	if not field is Dictionary:
 		return result
 
-	var array_value = \
-		field.get(
-			"arrayValue",
-			{}
-		)
-
-	if not array_value is Dictionary:
-		return result
-
-	var values = \
-		array_value.get(
-			"values",
-			[]
-		)
+	var array_value: Dictionary = field.get("arrayValue", {})
+	var values = array_value.get("values", [])
 
 	if not values is Array:
 		return result
 
 	for value in values:
-
-		if not value is Dictionary:
-			continue
-
-		if value.has("stringValue"):
-
-			result.append(
-				str(
-					value["stringValue"]
-				)
-			)
+		if value is Dictionary and value.has("stringValue"):
+			result.append(str(value["stringValue"]))
 
 	return result
 
 
-# ============================================================
-# INTEGER ARRAY FIELD
-# ============================================================
-
-func _get_integer_array_field(
-	fields: Dictionary,
-	field_name: String
-) -> Array:
-
+func _get_integer_array_field(fields: Dictionary, field_name: String) -> Array:
 	var result: Array = []
-
-	if not fields.has(field_name):
-		return result
-
-	var field = fields[field_name]
+	var field = fields.get(field_name, {})
 
 	if not field is Dictionary:
 		return result
 
-	var array_value = \
-		field.get(
-			"arrayValue",
-			{}
-		)
-
-	if not array_value is Dictionary:
-		return result
-
-	var values = \
-		array_value.get(
-			"values",
-			[]
-		)
+	var array_value: Dictionary = field.get("arrayValue", {})
+	var values = array_value.get("values", [])
 
 	if not values is Array:
 		return result
 
 	for value in values:
-
 		if not value is Dictionary:
 			continue
 
 		if value.has("integerValue"):
-
-			result.append(
-				int(
-					value["integerValue"]
-				)
-			)
-
+			result.append(int(value["integerValue"]))
 		elif value.has("doubleValue"):
-
-			result.append(
-				int(
-					value["doubleValue"]
-				)
-			)
+			result.append(int(value["doubleValue"]))
 
 	return result
 
 
-# ============================================================
-# FIREBASE UID
-# ============================================================
-
 func _get_uid() -> String:
-
 	if StudentDataManager != null:
-
-		if StudentDataManager.has_method(
-			"get_student_uid"
-		):
-
-			var student_uid := \
-				str(
-					StudentDataManager.get_student_uid()
-				)
+		if StudentDataManager.has_method("get_student_uid"):
+			var student_uid := str(
+				StudentDataManager.get_student_uid()
+			)
 
 			if not student_uid.is_empty():
-
 				return student_uid
 
 	if Firebase.Auth == null:
@@ -1893,122 +816,54 @@ func _get_uid() -> String:
 
 	var auth_data: Dictionary = {}
 
-	if Firebase.Auth.has_method(
-		"get_auth"
-	):
-
-		var result = \
-			Firebase.Auth.get_auth()
+	if Firebase.Auth.has_method("get_auth"):
+		var result = Firebase.Auth.get_auth()
 
 		if result is Dictionary:
-
 			auth_data = result
-
 	else:
-
-		var auth_property = \
-			Firebase.Auth.get("auth")
+		var auth_property = Firebase.Auth.get("auth")
 
 		if auth_property is Dictionary:
-
-			auth_data = \
-				auth_property
+			auth_data = auth_property
 
 	if auth_data.is_empty():
 		return ""
 
-	if auth_data.has("localid"):
-
-		return str(
-			auth_data["localid"]
+	return str(
+		auth_data.get(
+			"localid",
+			auth_data.get(
+				"localId",
+				auth_data.get("uid", "")
+			)
 		)
+	)
 
-	if auth_data.has("localId"):
-
-		return str(
-			auth_data["localId"]
-		)
-
-	if auth_data.has("uid"):
-
-		return str(
-			auth_data["uid"]
-		)
-
-	return ""
-
-
-# ============================================================
-# FIREBASE ID TOKEN
-# ============================================================
 
 func _get_id_token() -> String:
-
 	if Firebase.Auth == null:
-
-		print(
-			"[QuizPage] Firebase.Auth is null."
-		)
-
 		return ""
 
 	var auth_data: Dictionary = {}
 
-	if Firebase.Auth.has_method(
-		"get_auth"
-	):
-
-		var result = \
-			Firebase.Auth.get_auth()
+	if Firebase.Auth.has_method("get_auth"):
+		var result = Firebase.Auth.get_auth()
 
 		if result is Dictionary:
-
 			auth_data = result
-
 	else:
-
-		var auth_property = \
-			Firebase.Auth.get("auth")
+		var auth_property = Firebase.Auth.get("auth")
 
 		if auth_property is Dictionary:
-
-			auth_data = \
-				auth_property
+			auth_data = auth_property
 
 	if auth_data.is_empty():
-
-		print(
-			"[QuizPage] Firebase auth data is empty."
-		)
-
 		return ""
 
-	var token := str(
+	return str(
 		auth_data.get(
 			"idtoken",
-			""
+			auth_data.get("idToken", "")
 		)
 	)
-
-	if token.is_empty():
-
-		token = str(
-			auth_data.get(
-				"idToken",
-				""
-			)
-		)
-
-	if token.is_empty():
-
-		print(
-			"[QuizPage] Could not find ID token."
-		)
-
-	else:
-
-		print(
-			"[QuizPage] Firebase ID token obtained."
-		)
-
-	return token

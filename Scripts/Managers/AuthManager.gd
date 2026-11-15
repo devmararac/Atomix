@@ -282,9 +282,8 @@ func needs_password_change() -> bool:
 		print("[AuthManager] User document not found.")
 		return false
 
-	var required: bool = bool(
-		user_doc.get_value("must_change_password")
-	)
+	var value: Variant = user_doc.get_value("must_change_password")
+	var required: bool = value == true
 
 	print("[AuthManager] Must change password: ", required)
 
@@ -307,13 +306,40 @@ func get_account_school_year() -> String:
 
 
 # Request the latest account information from Firebase.
-func refresh_email_verification_status() -> void:
-
+func refresh_email_verification_status() -> bool:
 	if not is_logged_in():
 		push_warning("[AuthManager] Cannot check email verification. No user logged in.")
-		return
+		return false
+
+	print("[AuthManager] Refreshing Firebase token before checking email...")
+
+	Firebase.Auth.refresh_auth_token()
+
+	var refresh_result: Array = await Firebase.Auth.token_refresh_completed
+
+	if refresh_result.size() < 2 or not bool(refresh_result[0]):
+		push_warning(
+			"[AuthManager] Token refresh failed: "
+			+ str(refresh_result)
+		)
+		return false
+
+	print("[AuthManager] Token refreshed. Retrieving account information...")
 
 	Firebase.Auth.get_user_data()
+
+	var account_result: Array = await Firebase.Auth.userdata_request_completed
+
+	if account_result.is_empty() or not bool(account_result[0]):
+		push_warning(
+			"[AuthManager] Could not retrieve Firebase account information: "
+			+ str(account_result)
+		)
+		return false
+
+	print("[AuthManager] Latest Firebase account information retrieved.")
+
+	return true
 
 
 # Request and wait for the latest email verification status.
@@ -369,7 +395,7 @@ func _on_password_change_completed(
 	print("[AuthManager] Success: ", success)
 	print("[AuthManager] Result: ", result)
 
-# Send a verification email to the current account.
+
 # Send a verification email to the currently logged-in account.
 func send_email_verification() -> Dictionary:
 
@@ -471,3 +497,4 @@ func get_firebase_api_key() -> String:
 		return ""
 
 	return api_key
+	

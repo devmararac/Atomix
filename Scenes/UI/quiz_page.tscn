@@ -5,17 +5,18 @@
 [ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="3_panel"]
 [ext_resource type="Texture2D" uid="uid://dxg7ga6k8m7hs" path="res://Assets/UX/Icons/icon_quiz.png" id="4_quiz_icon"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main"]
-bg_color = Color(0.968627, 0.886275, 0.772549, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.69411767, 0.52156866, 0.3019608, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2wnr6"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+texture = ExtResource("3_panel")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dv8gf"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toolbar"]
 bg_color = Color(0.968627, 0.886275, 0.772549, 1)
@@ -38,7 +39,40 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2wnr6"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpvde"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_63m0i"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 30.0
 
 [node name="QuizPage" type="Control" unique_id=121942015]
 layout_mode = 3
@@ -66,7 +100,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_main")
+theme_override_styles/panel = SubResource("StyleBoxTexture_2wnr6")
 
 [node name="MarginContainer" type="MarginContainer" parent="QuizPanel" unique_id=127082730]
 layout_mode = 1
@@ -84,10 +118,17 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 theme_override_constants/separation = 15
 
+[node name="Spacer" type="Control" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=507694579]
+layout_mode = 2
+
 [node name="Header" type="HBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=1009606978]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 theme_override_constants/separation = 18
+
+[node name="Spacer" type="Control" parent="QuizPanel/MarginContainer/VBoxContainer/Header" unique_id=243560973]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
 
 [node name="QuizIcon" type="TextureRect" parent="QuizPanel/MarginContainer/VBoxContainer/Header" unique_id=931805086]
 custom_minimum_size = Vector2(70, 70)
@@ -110,6 +151,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dv8gf")
 text = "Your Section"
 vertical_alignment = 1
 
@@ -144,10 +186,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 4.0
-offset_right = -8.0
-offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
@@ -168,61 +206,33 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 4.0
-offset_right = -6.0
-offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_font")
-
-[node name="SortPanel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=2079630619]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_search")
-
-[node name="SortButton" type="OptionButton" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SortPanel" unique_id=548985664]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 4.0
-offset_right = -6.0
-offset_bottom = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_font")
-
-[node name="RefreshPanel" type="Panel" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1464248361]
-custom_minimum_size = Vector2(110, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_search")
-
-[node name="RefreshButton" type="Button" parent="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/RefreshPanel" unique_id=1357178045]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_font")
-text = "↻ Refresh"
+theme_override_styles/normal = SubResource("StyleBoxFlat_bpvde")
 
 [node name="QuizScroll" type="ScrollContainer" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=1880864847]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="QuizList" type="VBoxContainer" parent="QuizPanel/MarginContainer/VBoxContainer/QuizScroll" unique_id=1841618144]
+[node name="CenterContainer" type="CenterContainer" parent="QuizPanel/MarginContainer/VBoxContainer/QuizScroll" unique_id=487626155]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 12
+size_flags_vertical = 3
+
+[node name="QuizList" type="GridContainer" parent="QuizPanel/MarginContainer/VBoxContainer/QuizScroll/CenterContainer" unique_id=1769377509]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
 
 [node name="StatusLabel" type="Label" parent="QuizPanel/MarginContainer/VBoxContainer" unique_id=1074249198]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_63m0i")
 text = "Loading quizzes..."
 horizontal_alignment = 1

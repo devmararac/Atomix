@@ -314,7 +314,7 @@ func _on_generate_password_pressed() -> void:
 		return 
 
 	var generated_password := lrn.substr(0, 4) + last_name.replace(" ", "") 
-	password_input.text = generated_password 
+	password_input.text = generated_password 	
 	password_input.secret = true 
 
 

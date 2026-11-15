@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bawsu1ey1jcr4"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_w8qkt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aauto"]
+bg_color = Color(0.92941177, 0.827451, 0.6901961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yp3oq"]
+
+[node name="DictionaryRow" type="Panel" unique_id=19895673]
+custom_minimum_size = Vector2(0, 150)
+anchors_preset = -1
+anchor_right = 0.94900006
+anchor_bottom = 0.11100001
+offset_right = 0.9798584
+offset_bottom = 0.0799942
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_aauto")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=427032692]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Word" type="Label" parent="VBoxContainer" unique_id=1658895828]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_w8qkt")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yp3oq")
+text = "Word:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Description" type="Label" parent="VBoxContainer" unique_id=131534534]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_w8qkt")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yp3oq")
+text = "Description"
+vertical_alignment = 1
+autowrap_mode = 3

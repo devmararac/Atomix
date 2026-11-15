@@ -48,6 +48,7 @@ func _ready() -> void:
 	add_teacher.hide()
 	
 	_create_delete_confirmation()
+
 	
 	# Connect toolbar controls.
 	if not add_teacher_button.pressed.is_connected(
@@ -118,6 +119,7 @@ func load_teachers() -> void:
 	TeacherDataManager.load_teachers()
 
 
+
 func _on_teachers_loaded(teacher_list: Array) -> void:
 	print("[TeacherManagement] Received ", teacher_list.size(), " teachers.")
 
@@ -128,6 +130,7 @@ func _on_teachers_loaded(teacher_list: Array) -> void:
 			all_teachers.append(item.duplicate(true))
 
 	display_teachers()
+	
 
 
 func _on_teachers_error(error: Variant) -> void:
@@ -397,9 +400,15 @@ func _on_teacher_row_delete_requested(data: Dictionary) -> void:
 	var teacher_name := _get_teacher_display_name(data)
 
 	delete_confirmation.dialog_text = (
-		"Are you sure you want to delete the Firestore record for "
+		"Are you sure you want to permanently delete the teacher account for "
 		+ teacher_name
-		+ "?\n\nThis action cannot be undone."
+		+ "?\n\n"
+		+ "This will permanently delete:\n"
+		+ "• Firebase Authentication account\n"
+		+ "• Firestore user record\n"
+		+ "• Firestore teacher record\n"
+		+ "• Account lookup record\n\n"
+		+ "This action cannot be undone."
 	)
 
 	delete_confirmation.popup_centered()
@@ -422,7 +431,7 @@ func _on_delete_confirmation_confirmed() -> void:
 
 	var teacher_name := _get_teacher_display_name(teacher_data)
 
-	print("[TeacherManagement] Deleting teacher record: ", teacher_name)
+	print("[TeacherManagement] Permanently deleting teacher account: ", teacher_name)
 
 	var result: Dictionary = await TeacherDataManager.delete_teacher(
 		teacher_uid
@@ -434,14 +443,14 @@ func _on_delete_confirmation_confirmed() -> void:
 		)
 
 		push_error(
-			"[TeacherManagement] Delete failed: " + error_message
+			"[TeacherManagement] Permanent account deletion failed: "
+			+ error_message
 		)
 
-		# Show the error to the user.
 		var error_dialog := AcceptDialog.new()
-		error_dialog.title = "Delete Failed"
+		error_dialog.title = "Account Deletion Failed"
 		error_dialog.dialog_text = (
-			"Could not delete the teacher record.\n\n"
+			"Could not permanently delete the teacher account.\n\n"
 			+ error_message
 		)
 		add_child(error_dialog)
@@ -452,12 +461,10 @@ func _on_delete_confirmation_confirmed() -> void:
 		error_dialog.popup_centered()
 		return
 
-	print("[TeacherManagement] Teacher record deleted: ", teacher_uid)
-
 	# Record the successful deletion.
 	ActivityLogManager.log_activity(
 		"Deleted Teacher Account",
-		"Deleted teacher account: " + teacher_name,
+		"Permanently deleted teacher account: " + teacher_name,
 		"Teacher Management",
 		teacher_uid
 	)
@@ -467,6 +474,7 @@ func _on_delete_confirmation_confirmed() -> void:
 
 	# Reload the list after successful deletion.
 	load_teachers()
+
 
 
 

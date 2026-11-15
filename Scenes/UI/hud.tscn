@@ -5,10 +5,10 @@
 [ext_resource type="Script" uid="uid://ds1u02nemnxqg" path="res://Scripts/quest_tracker.gd" id="2_pc4p0"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="3_iiebs"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="5_3omb4"]
-[ext_resource type="Texture2D" uid="uid://b38ioxy8g5fta" path="res://Assets/UX/Buttons/Normal/button_Interact.png" id="6_e17ao"]
-[ext_resource type="Texture2D" uid="uid://07tyqohijvey" path="res://Assets/UX/Buttons/Normal/button_Action.png" id="7_0hfmd"]
-[ext_resource type="Texture2D" uid="uid://bf56bu8glsj5q" path="res://Assets/UX/Buttons/On-Pressed/button_Interact_Pressed.png" id="7_iiebs"]
-[ext_resource type="Texture2D" uid="uid://cjxpmwm0fultq" path="res://Assets/UX/Buttons/On-Pressed/button_Action_Pressed.png" id="9_n5w8m"]
+[ext_resource type="Texture2D" uid="uid://b6rs0nx1ayv7q" path="res://Assets/UX/Buttons/Normal/button_Interact2.png" id="5_iiebs"]
+[ext_resource type="Texture2D" uid="uid://du8mhsiv4bhou" path="res://Assets/UX/Buttons/On-Pressed/button_Interact_Pressed2.png" id="6_n5w8m"]
+[ext_resource type="Texture2D" uid="uid://bu0dqomewijt7" path="res://Assets/UX/Buttons/Normal/button_Action2.png" id="7_3omb4"]
+[ext_resource type="Texture2D" uid="uid://osvgns66m52u" path="res://Assets/UX/Buttons/On-Pressed/button_Action_Pressed2.png" id="8_mu5ro"]
 [ext_resource type="Texture2D" uid="uid://oedy3oeap3my" path="res://Assets/UX/Buttons/Normal/reset_button.png" id="10_yxyk2"]
 [ext_resource type="Texture2D" uid="uid://lssmb8lh7mtp" path="res://Assets/UX/Buttons/Normal/item_menu.png" id="12_mgdch"]
 [ext_resource type="Texture2D" uid="uid://dodagbimt4hod" path="res://Assets/UX/Buttons/On-Pressed/item_menu_pressed.png" id="13_k32gu"]
@@ -110,15 +110,15 @@ scale = Vector2(2.9811127, 2.979179)
 [node name="Interact" type="TouchScreenButton" parent="ActionButtons" unique_id=814973628]
 position = Vector2(-1.006, 2.685)
 scale = Vector2(1.37, 1.37)
-texture_normal = ExtResource("6_e17ao")
-texture_pressed = ExtResource("7_iiebs")
+texture_normal = ExtResource("5_iiebs")
+texture_pressed = ExtResource("6_n5w8m")
 action = "Interact"
 
 [node name="Action" type="TouchScreenButton" parent="ActionButtons" unique_id=663166077]
 position = Vector2(63.734, 2.685)
 scale = Vector2(1.37, 1.37)
-texture_normal = ExtResource("7_0hfmd")
-texture_pressed = ExtResource("9_n5w8m")
+texture_normal = ExtResource("7_3omb4")
+texture_pressed = ExtResource("8_mu5ro")
 action = "Action"
 
 [node name="MenuButtons" type="Button" parent="." unique_id=748391866]

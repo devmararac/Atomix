@@ -118,6 +118,42 @@ border_width_bottom = 3
 border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 border_blend = true
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0x8i"]
+bg_color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ffee"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkle7"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="AdminSettings" type="Control" unique_id=1471242581]
 layout_mode = 3
 anchors_preset = 15
@@ -916,3 +952,58 @@ text = "Close"
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 mouse_filter = 1
+
+[node name="Logout" type="Panel" parent="PageBackground" unique_id=1209105164]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.374
+anchor_top = 0.29200003
+anchor_right = 0.62600005
+anchor_bottom = 0.77800006
+offset_left = -0.52001953
+offset_top = -0.24002075
+offset_right = 0.51989746
+offset_bottom = -0.16003418
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g0x8i")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageBackground/Logout" unique_id=534314220]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="PageBackground/Logout/VBoxContainer" unique_id=327745670]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0ffee")
+text = "Verification successful."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Subtitle" type="Label" parent="PageBackground/Logout/VBoxContainer" unique_id=1539289986]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_f638m")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0ffee")
+text = "Please log in with your updated email."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="PageBackground/Logout/VBoxContainer" unique_id=1312189233]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_tkle7")
+text = "Logout"

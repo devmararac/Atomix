@@ -25,6 +25,9 @@ signal credential_operation_completed(operation: String, success: bool, result: 
 signal password_change_completed(success: bool, result: Dictionary)
 signal account_verification_completed(success: bool, result: Dictionary)
 
+signal token_refresh_completed(success: bool, result: Dictionary)
+signal userdata_request_completed(success: bool, result: Dictionary)
+
 const RESPONSE_SIGNUP : String = "identitytoolkit#SignupNewUserResponse"
 const RESPONSE_SIGNIN : String = "identitytoolkit#VerifyPasswordResponse"
 const RESPONSE_ASSERTION : String = "identitytoolkit#VerifyAssertionResponse"
@@ -70,7 +73,9 @@ enum Requests {
 	REAUTHENTICATE,
 	VERIFY_CHANGE_EMAIL,
 	CHANGE_PASSWORD,
-	VERIFY_ACCOUNT_EMAIL
+	VERIFY_ACCOUNT_EMAIL,
+	REFRESH_TOKEN,
+	GET_USER_DATA
 }
 
 var auth_request_type : int = -1
@@ -404,6 +409,57 @@ func manual_token_refresh(auth_data):
 		Firebase._printerr("Error manually refreshing token: %s" % err)
 
 
+# Refresh the Firebase ID token without triggering a new login event.
+func refresh_auth_token() -> void:
+	print("[Firebase Auth] Starting explicit token refresh.")
+
+	if not _is_ready():
+		token_refresh_completed.emit(false, {
+			"message": "Firebase Auth is currently busy."
+		})
+		return
+
+	if not is_logged_in():
+		token_refresh_completed.emit(false, {
+			"message": "No active Firebase session."
+		})
+		return
+
+	var refresh_token := str(auth.get("refreshtoken", ""))
+
+	if refresh_token.is_empty():
+		refresh_token = str(auth.get("refresh_token", ""))
+
+	if refresh_token.is_empty():
+		token_refresh_completed.emit(false, {
+			"message": "Firebase refresh token is missing."
+		})
+		return
+
+	is_busy = true
+	requesting = Requests.REFRESH_TOKEN
+
+	_refresh_request_body.refresh_token = refresh_token
+
+	var err := request(
+		_refresh_request_base_url + _refresh_request_url,
+		_headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(_refresh_request_body)
+	)
+
+	if err != OK:
+		is_busy = false
+		requesting = Requests.NONE
+
+		token_refresh_completed.emit(false, {
+			"message": "Could not start token refresh. Error: %s" % err
+		})
+		return
+
+	print("[Firebase Auth] Token refresh request started.")
+
+
 # Handles completed Firebase Authentication HTTP requests.
 func _on_FirebaseAuth_request_completed(
 	result: int,
@@ -452,11 +508,38 @@ func _on_FirebaseAuth_request_completed(
 		res = json
 
 	if response_code == HTTPClient.RESPONSE_OK:
+		
+		if completed_request_type == Requests.REFRESH_TOKEN:
+			auth = get_clean_keys(res)
 
-		if completed_request_type == Requests.VERIFY_ACCOUNT_EMAIL:
+			# Save the refreshed session.
+			if save_auth(auth):
+				print("[Firebase Auth] Explicit token refresh succeeded.")
+
+				# Update AuthManager and other token-refresh listeners.
+				begin_refresh_countdown()
+
+				token_refresh_completed.emit(true, auth)
+			else:
+				token_refresh_completed.emit(false, {
+					"message": "Token refreshed, but the session could not be saved."
+				})
+
+		elif completed_request_type == Requests.GET_USER_DATA:
+			if res.has("kind") and res.kind == RESPONSE_USERDATA:
+				var userdata = FirebaseUserData.new(res.users[0])
+				userdata_received.emit(userdata)
+				userdata_request_completed.emit(true, {})
+			else:
+				userdata_request_completed.emit(false, {
+					"message": "Firebase returned an unexpected account response."
+				})
+
+		elif completed_request_type == Requests.VERIFY_ACCOUNT_EMAIL:
 			account_verification_completed.emit(true, res)
-
+		
 		elif completed_request_type == Requests.VERIFY_CHANGE_EMAIL:
+			print("[Firebase Auth] Email-change verification response: ", res)
 			credential_operation_completed.emit("email_change", true, res)
 
 		elif completed_request_type == Requests.CHANGE_PASSWORD:
@@ -522,7 +605,17 @@ func _on_FirebaseAuth_request_completed(
 
 		if completed_request_type == Requests.VERIFY_ACCOUNT_EMAIL:
 			account_verification_completed.emit(false, res.get("error", {}))
+		
+		if completed_request_type == Requests.REFRESH_TOKEN:
+			var error_data: Dictionary = res.get("error", {})
+			print("[Firebase Auth] Token refresh failed: ", error_data)
+			token_refresh_completed.emit(false, error_data)
 
+		elif completed_request_type == Requests.GET_USER_DATA:
+			var error_data: Dictionary = res.get("error", {})
+			print("[Firebase Auth] Account information request failed: ", error_data)
+			userdata_request_completed.emit(false, error_data)
+		
 		elif completed_request_type == Requests.VERIFY_CHANGE_EMAIL:
 			credential_operation_completed.emit(
 				"email_change",
@@ -782,17 +875,38 @@ func send_password_reset_email(email : String) -> void:
 
 
 func get_user_data() -> void:
-	if _is_ready():
-		is_busy = true
-		if not is_logged_in():
-			print_debug("Not logged in")
-			is_busy = false
-			return
+	if not _is_ready():
+		userdata_request_completed.emit(false, {
+			"message": "Firebase Auth is currently busy."
+		})
+		return
 
-		var err = request(_base_url + _userdata_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify({"idToken": auth.idtoken}))
-		if err != OK:
-			is_busy = false
-			Firebase._printerr("Error getting user data: %s" % err)
+	if not is_logged_in():
+		userdata_request_completed.emit(false, {
+			"message": "No active Firebase session."
+		})
+		return
+
+	is_busy = true
+	requesting = Requests.GET_USER_DATA
+
+	var err := request(
+		_base_url + _userdata_request_url,
+		_headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify({"idToken": auth.idtoken})
+	)
+
+	if err != OK:
+		is_busy = false
+		requesting = Requests.NONE
+
+		userdata_request_completed.emit(false, {
+			"message": "Could not start account information request. Error: %s" % err
+		})
+		return
+
+	print("[Firebase Auth] Account information request started.")
 
 
 func reauthenticate_user(email: String, password: String) -> void:
@@ -847,31 +961,41 @@ func send_email_change_verification(new_email: String) -> void:
 		)
 		return
 
-	print("[Firebase Auth] Auth is ready.")
-	print("[Firebase Auth] Preparing VERIFY_AND_CHANGE_EMAIL request.")
+	new_email = new_email.strip_edges()
+
+	if new_email.is_empty():
+		credential_operation_completed.emit(
+			"email_change",
+			false,
+			{"message": "New email address is empty."}
+		)
+		return
+
+	var request_body := {
+		"requestType": "VERIFY_AND_CHANGE_EMAIL",
+		"idToken": str(auth.get("idtoken", "")),
+		"newEmail": new_email
+	}
+
+	print("[Firebase Auth] Request endpoint: ", _base_url + _oobcode_request_url)
+	print("[Firebase Auth] Request type: ", request_body.requestType)
+	print("[Firebase Auth] Target new email: ", request_body.newEmail)
+	print("[Firebase Auth] ID token available: ", not request_body.idToken.is_empty())
 
 	is_busy = true
 	requesting = Requests.VERIFY_CHANGE_EMAIL
-
-	_verify_change_email_body.idToken = auth.idtoken
-	_verify_change_email_body.newEmail = new_email
 
 	var err := request(
 		_base_url + _oobcode_request_url,
 		_headers,
 		HTTPClient.METHOD_POST,
-		JSON.stringify(_verify_change_email_body)
+		JSON.stringify(request_body)
 	)
 
-	print("[Firebase Auth] HTTPRequest result: ", err)
-
-	_verify_change_email_body.idToken = ""
-	_verify_change_email_body.newEmail = ""
-
 	if err != OK:
-		print("[Firebase Auth] ERROR: Could not start HTTP request.")
 		is_busy = false
 		requesting = Requests.NONE
+
 		credential_operation_completed.emit(
 			"email_change",
 			false,
