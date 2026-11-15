@@ -263,6 +263,7 @@ text = "Loading quizzes..."
 horizontal_alignment = 1
 
 [node name="Preview" type="Panel" parent="." unique_id=1645457641]
+visible = false
 custom_minimum_size = Vector2(900, 600)
 layout_mode = 1
 anchors_preset = -1

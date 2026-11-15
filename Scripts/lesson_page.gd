@@ -401,12 +401,20 @@ func _extract_lesson_data(
 			"file_url",
 		    ""
 		),
+		
+		"file_name": get_firestore_string(
+			fields,
+			"file_name",
+			""
+		),
 
 		"file_extension": get_firestore_string(
 			fields,
 			"file_extension",
 			""
 		)
+		
+		
 	}
 
 
@@ -613,90 +621,49 @@ func create_lesson_card(
 		_on_preview_pressed.bind(lesson_data)
 	)
 
-
-# ============================================================
-# READ LESSON
-# ============================================================
 # ============================================================
 # READ LESSON
 # ============================================================
 
-func _on_read_pressed(
-	lesson_data: Dictionary
-) -> void:
+
+func _on_read_pressed(lesson_data: Dictionary) -> void:
 
 	var lesson_title := str(
-		lesson_data.get(
-			"title",
-            "Untitled Lesson"
-		)
+		lesson_data.get("title", "Untitled Lesson")
 	)
 
 	var file_url := str(
-		lesson_data.get(
-			"file_url",
-            ""
-		)
+		lesson_data.get("file_url", "")
 	).strip_edges()
 
-	print(
-		"[LessonPage] Read button pressed: ",
-		lesson_title
-	)
-
-	print(
-		"[LessonPage] File URL: ",
-		file_url
-	)
-
-	# Check whether a file URL exists.
+	print("[LessonPage] Read button pressed: ", lesson_title)
+	print("[LessonPage] Cloudinary URL: ", file_url)
 
 	if file_url.is_empty():
-
-		status_label.text = (
-            "This lesson has no uploaded file."
-		)
-
-		print(
-            "[LessonPage] ERROR: File URL is empty."
-		)
-
+		status_label.text = "This lesson has no uploaded file."
+		push_warning("[LessonPage] Missing file_url in lesson data.")
 		return
-
-	# Check whether the URL is valid.
 
 	if not file_url.begins_with("https://"):
-
-		status_label.text = (
-            "Invalid learning material URL."
-		)
-
-		print(
-            "[LessonPage] ERROR: Invalid file URL."
-		)
-
+		status_label.text = "Invalid learning material URL."
+		push_warning("[LessonPage] Invalid file URL: " + file_url)
 		return
 
-	# Open the file using the device's default application.
+	status_label.text = "Opening learning material..."
 
 	var error := OS.shell_open(file_url)
 
 	if error != OK:
-
-		status_label.text = (
-            "Unable to open the learning material."
+		status_label.text = "Unable to open the learning material."
+		push_error(
+			"[LessonPage] Failed to open URL. Error: "
+			+ str(error)
 		)
-
-		print(
-			"[LessonPage] ERROR opening file: ",
-			error
-		)
-
 		return
 
-	print(
-        "[LessonPage] Learning material opened successfully."
-	)
+	status_label.text = "Opening learning material..."
+	print("[LessonPage] External PDF URL launched successfully.")
+
 
 
 # ============================================================

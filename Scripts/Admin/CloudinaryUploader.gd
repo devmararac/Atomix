@@ -45,7 +45,10 @@ func _upload_file_async(
 	var file_bytes := file.get_buffer(file.get_length())
 	file.close()
 
-	var file_name := file_path.get_file()
+	var file_name := file_path.uri_decode().get_file()
+
+	print("[CloudinaryUploader] Normalized filename: ", file_name)
+	
 	var extension := file_path.get_extension().to_lower()
 
 	if extension not in OFFICE_EXTENSIONS \
@@ -141,7 +144,17 @@ func _upload_file_async(
 		return
 
 	var data = JSON.parse_string(response_body.get_string_from_utf8())
+	
+	print("[CloudinaryUploader] Upload response:")
+	print(JSON.stringify(data, "\t"))
 
+	var conversion_info: Variant = data.get("info", {})
+	if conversion_info is Dictionary:
+		print(
+			"[CloudinaryUploader] Conversion information: ",
+			JSON.stringify(conversion_info, "\t")
+		)
+	
 	if not data is Dictionary:
 		_finish(
 			callback_node,
@@ -229,7 +242,11 @@ func _add_field(
 	body.append_array((value + "\r\n").to_utf8_buffer())
 
 
+
 func _wait_for_pdf(pdf_url: String) -> bool:
+
+	print("[CloudinaryUploader] Waiting for converted PDF:")
+	print("[CloudinaryUploader] PDF URL: ", pdf_url)
 
 	for attempt in range(MAX_CONVERSION_ATTEMPTS):
 
@@ -240,6 +257,8 @@ func _wait_for_pdf(pdf_url: String) -> bool:
 		var http := HTTPRequest.new()
 		add_child(http)
 
+		http.timeout = 10.0
+
 		var request_error := http.request(
 			pdf_url,
 			[],
@@ -247,18 +266,40 @@ func _wait_for_pdf(pdf_url: String) -> bool:
 		)
 
 		if request_error != OK:
+			print(
+				"[CloudinaryUploader] Attempt ",
+				attempt + 1,
+				": Could not start HEAD request. Error: ",
+				request_error
+			)
 			http.queue_free()
 			continue
 
 		var response: Array = await http.request_completed
-		http.queue_free()
 
+		var request_result: int = response[0]
 		var response_code: int = response[1]
 
+		print(
+			"[CloudinaryUploader] PDF check ",
+			attempt + 1,
+			"/",
+			MAX_CONVERSION_ATTEMPTS,
+			" | Request result: ",
+			request_result,
+			" | HTTP status: ",
+			response_code
+		)
+
+		http.queue_free()
+
 		if response_code >= 200 and response_code < 300:
+			print("[CloudinaryUploader] Converted PDF is available.")
 			return true
 
+	print("[CloudinaryUploader] PDF availability check timed out.")
 	return false
+
 
 
 func _finish(
