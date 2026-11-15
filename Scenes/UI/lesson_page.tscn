@@ -3,6 +3,107 @@
 [ext_resource type="Script" uid="uid://b0656obast0ym" path="res://Scripts/lesson_page.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_font"]
 [ext_resource type="Texture2D" uid="uid://bq2ijf31e88e5" path="res://Assets/UX/HUD/Panels/atomon_detail.png" id="3_panel"]
+[ext_resource type="Texture2D" uid="uid://bjju3ydi6ctwu" path="res://Assets/UX/Icons/book.png" id="3_wwokj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jn3cx"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilhw8"]
+bg_color = Color(0.968627, 0.886275, 0.772549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.69411767, 0.52156866, 0.3019608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_koeko"]
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_color = Color(0.776, 0.627, 0.482, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrxmc"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vstbg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5p66f"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 30.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwokj"]
+bg_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wwokj"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jn3cx"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.929, 0.827, 0.69, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.776471, 0.627451, 0.482353, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5p66f"]
+bg_color = Color(0.92941177, 0.827451, 0.6901961, 1)
 
 [node name="LessonPage" type="Control" unique_id=654115887]
 layout_mode = 3
@@ -38,46 +139,245 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2090593821]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=431854436]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=778243358]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1099994395]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/Header" unique_id=1553194282]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="LessonIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/Header" unique_id=474805762]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("3_wwokj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Header" unique_id=1778169982]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 52
+text = "LESSONS"
+vertical_alignment = 1
+
+[node name="SectionLabel" type="Label" parent="MarginContainer/VBoxContainer/Header" unique_id=810334949]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jn3cx")
+text = "Your Section"
+vertical_alignment = 1
+
+[node name="ToolbarPanel" type="Panel" parent="MarginContainer/VBoxContainer" unique_id=1931827199]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ilhw8")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/ToolbarPanel" unique_id=392738759]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer" unique_id=1745824]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1090510435]
+[node name="SearchPanel" type="Panel" parent="MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=343040673]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_koeko")
+
+[node name="SearchBar" type="LineEdit" parent="MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SearchPanel" unique_id=214284908]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.57, 0.4617, 0.3534, 1)
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
-text = "Learning Materials"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_lrxmc")
+placeholder_text = "Search lessons..."
+clear_button_enabled = true
 
-[node name="Description" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1063843485]
+[node name="FilterPanel" type="Panel" parent="MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer" unique_id=1075038169]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_koeko")
+
+[node name="FilterButton" type="OptionButton" parent="MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/FilterPanel" unique_id=1923695738]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 16
-text = "Lessons and learning materials assigned to you."
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_vstbg")
 
-[node name="Separator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=2024790228]
-layout_mode = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=1812407255]
+[node name="QuizScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=71311434]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="LessonList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=802900186]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/QuizScroll" unique_id=317018476]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 12
+size_flags_vertical = 3
 
-[node name="StatusLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1962568684]
+[node name="LessonList" type="GridContainer" parent="MarginContainer/VBoxContainer/QuizScroll/CenterContainer" unique_id=1081486870]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1318062748]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5p66f")
+text = "Loading quizzes..."
+horizontal_alignment = 1
+
+[node name="Preview" type="Panel" parent="." unique_id=1645457641]
+custom_minimum_size = Vector2(900, 600)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.273
+anchor_top = 0.083000004
+anchor_right = 0.72700006
+anchor_bottom = 0.91700006
+offset_left = -0.539978
+offset_top = 0.23999786
+offset_right = 0.539917
+offset_bottom = -0.24005127
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wwokj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Preview" unique_id=360693437]
+custom_minimum_size = Vector2(850, 600)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.028
+anchor_right = 0.97200006
+anchor_bottom = 1.0
+offset_left = -0.20000076
+offset_right = 0.19995117
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Preview/VBoxContainer" unique_id=229256620]
+layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 15
-text = "Loading lessons..."
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wwokj")
+text = "Preview"
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Preview/VBoxContainer" unique_id=1440789355]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Preview/VBoxContainer/VBoxContainer" unique_id=67973660]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="TitleLabel" type="Label" parent="Preview/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=98705121]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+text = "Lesson Title"
+
+[node name="TitleInput" type="Label" parent="Preview/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=627582964]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_jn3cx")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Preview/VBoxContainer/VBoxContainer" unique_id=1482639529]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="SubjectLabel" type="Label" parent="Preview/VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1755491499]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+text = "Subject"
+
+[node name="SubjectInput" type="Label" parent="Preview/VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=389100795]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_jn3cx")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Preview/VBoxContainer" unique_id=1357499755]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="Preview/VBoxContainer/VBoxContainer2" unique_id=748582450]
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.470588, 0.352941, 0.235294, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+text = "Description"
+
+[node name="DescriptionInput" type="Label" parent="Preview/VBoxContainer/VBoxContainer2" unique_id=384954358]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_jn3cx")
+
+[node name="ClosePreviewButton" type="Button" parent="Preview/VBoxContainer" unique_id=1141172208]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_5p66f")
+text = "Close"

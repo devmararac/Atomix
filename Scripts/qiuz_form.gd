@@ -45,6 +45,9 @@ const DATABASE_ID: String = "(default)"
 # Prevent duplicate submissions
 var saving_result: bool = false
 
+# Dynamically generated Enumeration answer fields.
+var enumeration_answer_nodes: Array[LineEdit] = []
+
 # ============================================================
 # SCENE REFERENCES
 # ============================================================
@@ -60,6 +63,8 @@ var saving_result: bool = false
 @onready var identification_panel: Control = $VBoxContainer/IdentficationPanel
 @onready var true_false_panel: Control = $VBoxContainer/TrueFalsePanel
 @onready var completion_panel: Control = $VBoxContainer/CompletionPanel
+
+@onready var enumeration_answers_container: GridContainer = $VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers
 
 @onready var back_button: Button = $VBoxContainer/HBoxContainer/Button
 @onready var next_button: Button = $VBoxContainer/HBoxContainer/Button2
@@ -84,6 +89,8 @@ func _ready() -> void:
 	quiz_timer.one_shot = false
 	add_child(quiz_timer)
 	quiz_timer.timeout.connect(_on_timer_timeout)
+
+	_initialize_enumeration_fields()
 
 	if quiz_data.is_empty():
 		push_warning("[QuizForm] No quiz data received.")
@@ -220,8 +227,10 @@ func _display_question() -> void:
 		remaining_time = int(question_times.get(current_question_index, 60))
 		_update_timer_display()
 
-		if quiz_active:
+		if quiz_active and not quiz_submitted:
 			quiz_timer.start()
+		else:
+			quiz_timer.stop()
 
 	print("[QuizForm] Displaying question ", current_question_index + 1)
 
@@ -329,6 +338,7 @@ func _update_multiple_choice_selection() -> void:
 # ============================================================
 # TRUE / FALSE
 # ============================================================
+
 func _display_true_false(question: Dictionary) -> void:
 	var true_checkbox := $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel/Margin/VBox/Correct as CheckBox
 	var false_checkbox := $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel/Margin/VBox/Correct as CheckBox
@@ -368,6 +378,7 @@ func _display_true_false(question: Dictionary) -> void:
 
 	if not false_checkbox.toggled.is_connected(_on_false_selected):
 		false_checkbox.toggled.connect(_on_false_selected)
+
 
 func _on_true_selected(pressed: bool) -> void:
 	if review_mode or quiz_submitted:
@@ -425,6 +436,7 @@ func _display_identification(question: Dictionary) -> void:
 	else:
 		answer_input.modulate = Color.WHITE
 
+
 func _save_identification_answer() -> void:
 	var answer_input := $VBoxContainer/IdentficationPanel/QuestionPanel/QuestionMargin/VBox/AnswerText as TextEdit
 
@@ -432,27 +444,94 @@ func _save_identification_answer() -> void:
 
 
 # ============================================================
-# ENUMERATION
+# ENUMERATION - DYNAMIC ANSWER FIELDS
 # ============================================================
 
+func _initialize_enumeration_fields() -> void:
+	enumeration_answer_nodes.clear()
+
+	for child in enumeration_answers_container.get_children():
+		if child is LineEdit:
+			enumeration_answer_nodes.append(child)
+
+	if enumeration_answer_nodes.is_empty():
+		push_error("[QuizForm] No Enumeration answer fields found in the scene.")
+		return
+
+	print(
+		"[QuizForm] Base Enumeration fields: ",
+		enumeration_answer_nodes.size()
+	)
+
+
+func _ensure_enumeration_field_count(required_count: int) -> void:
+	required_count = max(required_count, 1)
+
+	if enumeration_answer_nodes.is_empty():
+		_initialize_enumeration_fields()
+
+	if enumeration_answer_nodes.is_empty():
+		return
+
+	var template: LineEdit = enumeration_answer_nodes[0]
+
+	# Create additional fields when the teacher configured
+	# more answers than the original three scene fields.
+	while enumeration_answer_nodes.size() < required_count:
+		var new_answer := template.duplicate() as LineEdit
+
+		if new_answer == null:
+			push_error("[QuizForm] Could not duplicate Enumeration answer field.")
+			return
+
+		var new_index := enumeration_answer_nodes.size() + 1
+		new_answer.name = "Answer" + str(new_index)
+		new_answer.text = ""
+		new_answer.editable = true
+		new_answer.show()
+
+		enumeration_answers_container.add_child(new_answer)
+		enumeration_answer_nodes.append(new_answer)
+
+	# Show only the number of fields needed for this question.
+	for i in range(enumeration_answer_nodes.size()):
+		var answer_input: LineEdit = enumeration_answer_nodes[i]
+
+		answer_input.visible = i < required_count
+
+		if i >= required_count:
+			answer_input.text = ""
+
+
 func _display_enumeration(question: Dictionary) -> void:
-	var answer_nodes := [
-		$VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers/Answer1,
-		$VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers/Answer2,
-		$VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers/Answer3
-	]
-
-	var saved_answers: Array = student_answers.get(current_question_index, [])
 	var accepted_answers: Array = question.get("answers", [])
+	var saved_answers: Array = student_answers.get(
+		current_question_index,
+		[]
+	)
 
-	for i in range(answer_nodes.size()):
-		var answer_input: LineEdit = answer_nodes[i]
+	# Use the larger count so previously saved answers
+	# can still be displayed in Review mode.
+	var required_count: int = max(
+		accepted_answers.size(),
+		saved_answers.size()
+	)
 
-		var student_answer: String = (
-			str(saved_answers[i])
-			if i < saved_answers.size()
-			else ""
-		)
+	_ensure_enumeration_field_count(required_count)
+
+	for i in range(enumeration_answer_nodes.size()):
+		var answer_input: LineEdit = enumeration_answer_nodes[i]
+
+		if i >= required_count:
+			answer_input.visible = false
+			continue
+
+		answer_input.visible = true
+
+		var student_answer := ""
+
+		if i < saved_answers.size():
+			student_answer = str(saved_answers[i])
 
 		answer_input.text = student_answer
 		answer_input.editable = not review_mode
@@ -465,29 +544,26 @@ func _display_enumeration(question: Dictionary) -> void:
 					is_correct = true
 					break
 
-			answer_input.modulate = (
-				Color(0.55, 0.9, 0.45, 1)
-				if is_correct
-				else Color(1.0, 0.55, 0.45, 1)
-			) if not student_answer.is_empty() else Color.WHITE
+			if student_answer.strip_edges().is_empty():
+				answer_input.modulate = Color.WHITE
+			elif is_correct:
+				answer_input.modulate = Color(0.55, 0.9, 0.45, 1)
+			else:
+				answer_input.modulate = Color(1.0, 0.55, 0.45, 1)
 		else:
 			answer_input.modulate = Color.WHITE
 
 
 func _save_enumeration_answer() -> void:
-	var answer_nodes := [
-		$VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers/Answer1,
-		$VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers/Answer2,
-		$VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers/Answer3
-	]
-
 	var answers: Array = []
 
-	for answer_input in answer_nodes:
-		var value: String = answer_input.text.strip_edges()
+	for answer_input in enumeration_answer_nodes:
+		if not answer_input.visible:
+			continue
 
-		if not value.is_empty():
-			answers.append(value)
+		# Keep empty positions so answers do not shift
+		# when the student leaves a field blank.
+		answers.append(answer_input.text.strip_edges())
 
 	student_answers[current_question_index] = answers
 
@@ -532,7 +608,7 @@ func _on_back_pressed() -> void:
 func _on_next_pressed() -> void:
 	if quiz_submitted:
 		_exit_form()
-		return	
+		return
 
 	if review_mode:
 		if completion_panel.visible:
@@ -565,7 +641,10 @@ func _on_timer_timeout() -> void:
 	if not quiz_active or review_mode or quiz_submitted:
 		return
 
-	remaining_time -= 1
+	remaining_time = max(remaining_time - 1, 0)
+
+	question_times[current_question_index] = remaining_time
+
 	_update_timer_display()
 
 	if remaining_time <= 0:
@@ -582,10 +661,26 @@ func _on_timer_timeout() -> void:
 
 
 func _update_timer_display() -> void:
-	var minutes := int(remaining_time / 60)
-	var seconds := remaining_time % 60
+	var minutes: int = int(remaining_time / 60)
+	var seconds: int = remaining_time % 60
 
 	timer_label.text = "%02d:%02d" % [minutes, seconds]
+
+	if remaining_time <= 10:
+		timer_label.add_theme_color_override(
+			"font_color",
+			Color(1.0, 0.25, 0.20, 1.0)
+		)
+	elif remaining_time <= 30:
+		timer_label.add_theme_color_override(
+			"font_color",
+			Color(1.0, 0.75, 0.25, 1.0)
+		)
+	else:
+		timer_label.add_theme_color_override(
+			"font_color",
+			Color.WHITE
+		)
 
 
 # ============================================================
@@ -640,11 +735,13 @@ func _calculate_score() -> void:
 					continue
 
 				var expected_answers: Array = []
+				var actual_answers: Array = []
 
 				for accepted in accepted_answers:
-					expected_answers.append(str(accepted).strip_edges().to_lower())
+					var normalized := str(accepted).strip_edges().to_lower()
 
-				var actual_answers: Array = []
+					if not normalized.is_empty():
+						expected_answers.append(normalized)
 
 				for entered in student_answer:
 					var normalized := str(entered).strip_edges().to_lower()
@@ -655,6 +752,8 @@ func _calculate_score() -> void:
 				expected_answers.sort()
 				actual_answers.sort()
 
+				# Every accepted answer must be supplied.
+				# Order does not matter.
 				if expected_answers == actual_answers:
 					score += 1
 
@@ -667,6 +766,7 @@ func _calculate_score() -> void:
 # ============================================================
 # SUBMISSION
 # ============================================================
+
 func _submit_quiz() -> void:
 	if review_mode or quiz_submitted or saving_result:
 		return
@@ -782,14 +882,20 @@ func _show_review_completion() -> void:
 	status_label.text = "This assessment has already been completed."
 
 
+# ============================================================
+# FIREBASE AUTHENTICATION
+# ============================================================
+
 func _get_uid() -> String:
 	if AuthManager.has_method("get_uid"):
 		var uid_value: Variant = AuthManager.get_uid()
+
 		if uid_value != null:
 			return str(uid_value).strip_edges()
 
 	if "user_uid" in AuthManager:
 		var uid_value: Variant = AuthManager.user_uid
+
 		if uid_value != null:
 			return str(uid_value).strip_edges()
 
@@ -814,6 +920,10 @@ func _get_id_token() -> String:
 
 	return str(token_value).strip_edges()
 
+
+# ============================================================
+# SAVE QUIZ RESULT TO FIRESTORE
+# ============================================================
 
 func _save_quiz_result(
 	result_score: int,
@@ -848,7 +958,7 @@ func _save_quiz_result(
 
 	var timestamp: String = Time.get_datetime_string_from_system(true) + "Z"
 
-	# Convert the student's answers into Firestore-compatible values.
+	# Convert student answers into Firestore-compatible values.
 	var student_answers_fields: Dictionary = {}
 
 	for question_index in range(questions.size()):
@@ -981,9 +1091,13 @@ func _exit_form() -> void:
 		return_page.visible = true
 		return_page.mouse_filter = Control.MOUSE_FILTER_STOP
 
-		# Refresh the quiz list after a successful submission.
-		if quiz_submitted and return_page.has_method("_load_completed_quizzes"):
-			return_page._load_completed_quizzes()
+		# Refresh quiz progress after a successful submission.
+		if quiz_submitted:
+			if return_page.has_method("_load_completed_quizzes"):
+				await return_page._load_completed_quizzes()
+
+			if return_page.has_method("_build_quiz_list"):
+				await return_page._build_quiz_list()
 
 	queue_free()
 

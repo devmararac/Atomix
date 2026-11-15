@@ -1,12 +1,17 @@
+
 extends Control
 
 
 # ============================================================
-# FIRESTORE
+# CONFIGURATION
 # ============================================================
 
 const PROJECT_ID := "atomix-f6c6b"
 const DATABASE_ID := "(default)"
+
+const LESSON_CARD_SCENE: PackedScene = preload(
+	"res://Scenes/UI/Student/lesson_card_student.tscn"
+)
 
 var firestore_url: String
 
@@ -15,8 +20,32 @@ var firestore_url: String
 # NODE REFERENCES
 # ============================================================
 
-@onready var lesson_list: VBoxContainer = $MarginContainer/VBoxContainer/ScrollContainer/LessonList
+@onready var lesson_list: GridContainer = $MarginContainer/VBoxContainer/QuizScroll/CenterContainer/LessonList
+
 @onready var status_label: Label = $MarginContainer/VBoxContainer/StatusLabel
+
+@onready var search_bar: LineEdit = $MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/SearchPanel/SearchBar
+
+@onready var filter_button: OptionButton = $MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/FilterPanel/FilterButton
+
+
+@onready var preview_panel: Panel = $Preview
+
+@onready var preview_title_input: Label = $Preview/VBoxContainer/VBoxContainer/VBoxContainer/TitleInput
+
+@onready var preview_subject_input: Label = $Preview/VBoxContainer/VBoxContainer/VBoxContainer2/SubjectInput
+
+@onready var preview_description_input: Label = $Preview/VBoxContainer/VBoxContainer2/DescriptionInput
+
+@onready var close_preview_button: Button = $Preview/VBoxContainer/ClosePreviewButton
+
+# ============================================================
+# LESSON DATA
+# ============================================================
+
+var lesson_records: Array[Dictionary] = []
+
+var student_section := ""
 
 
 # ============================================================
@@ -24,6 +53,7 @@ var firestore_url: String
 # ============================================================
 
 func _ready() -> void:
+
 	print("[LessonPage] Learning Materials opened.")
 
 	firestore_url = (
@@ -34,7 +64,38 @@ func _ready() -> void:
 		+ "/documents/lessons"
 	)
 
+	_setup_filters()
+
+	search_bar.text_changed.connect(
+		_on_search_text_changed
+	)
+
+	filter_button.item_selected.connect(
+		_on_filter_selected
+	)
+
+	close_preview_button.pressed.connect(
+		_on_close_preview_pressed
+	)
+
+	preview_panel.hide()
+
 	load_lessons()
+
+
+# ============================================================
+# FILTER SETUP
+# ============================================================
+
+func _setup_filters() -> void:
+
+	filter_button.clear()
+
+	filter_button.add_item("Sort by")
+	filter_button.add_item("A-Z")
+	filter_button.add_item("Z-A")
+
+	filter_button.select(0)
 
 
 # ============================================================
@@ -47,9 +108,9 @@ func load_lessons() -> void:
 
 	status_label.text = "Loading lessons..."
 
-	# Remove old lesson cards.
-	for child in lesson_list.get_children():
-		child.queue_free()
+	lesson_records.clear()
+
+	_clear_lesson_cards()
 
 
 	# --------------------------------------------------------
@@ -59,8 +120,13 @@ func load_lessons() -> void:
 	var id_token := _get_id_token()
 
 	if id_token.is_empty():
+
 		print("[LessonPage] ERROR: Firebase ID token is empty.")
-		status_label.text = "Unable to connect to learning materials."
+
+		status_label.text = (
+			"Unable to connect to learning materials."
+		)
+
 		return
 
 
@@ -79,11 +145,9 @@ func load_lessons() -> void:
 		_on_lessons_request_completed.bind(http)
 	)
 
-
 	var headers := PackedStringArray([
 		"Authorization: Bearer " + id_token
 	])
-
 
 	print("[LessonPage] Request URL: ", firestore_url)
 	print("[LessonPage] Sending authenticated GET request...")
@@ -95,7 +159,6 @@ func load_lessons() -> void:
 		HTTPClient.METHOD_GET
 	)
 
-
 	if error != OK:
 
 		print(
@@ -103,7 +166,9 @@ func load_lessons() -> void:
 			error
 		)
 
-		status_label.text = "Could not load learning materials."
+		status_label.text = (
+			"Could not load learning materials."
+		)
 
 		http.queue_free()
 
@@ -113,9 +178,9 @@ func load_lessons() -> void:
 # ============================================================
 
 func _on_lessons_request_completed(
-	result: int,
+	_result: int,
 	response_code: int,
-	headers: PackedStringArray,
+	_headers: PackedStringArray,
 	body: PackedByteArray,
 	http: HTTPRequest
 ) -> void:
@@ -124,16 +189,9 @@ func _on_lessons_request_completed(
 
 	http.queue_free()
 
-
 	print(
 		"[LessonPage] Firestore response: ",
 		response_code
-	)
-
-
-	print(
-		"[LessonPage] Response body: ",
-		response_text
 	)
 
 
@@ -144,6 +202,7 @@ func _on_lessons_request_completed(
 	if response_code != 200:
 
 		print("[LessonPage] ERROR LOADING LESSONS")
+		print(response_text)
 
 		status_label.text = (
 			"Unable to load learning materials."
@@ -175,15 +234,16 @@ func _on_lessons_request_completed(
 
 	var data = json.data
 
-
 	if not data is Dictionary:
 
-		status_label.text = "No learning materials found."
+		status_label.text = (
+			"No learning materials found."
+		)
 
 		return
 
 
-	var documents = data.get(
+	var documents: Array = data.get(
 		"documents",
 		[]
 	)
@@ -208,7 +268,7 @@ func _on_lessons_request_completed(
 	# Get student's section
 	# --------------------------------------------------------
 
-	var student_section := await _get_student_section()
+	student_section = await _get_student_section()
 
 	print(
 		"[LessonPage] Student section: ",
@@ -216,11 +276,22 @@ func _on_lessons_request_completed(
 	)
 
 
-	# --------------------------------------------------------
-	# Display matching lessons
-	# --------------------------------------------------------
+	if student_section.is_empty():
 
-	var displayed_count := 0
+		print(
+			"[LessonPage] ERROR: Student section is empty."
+		)
+
+		status_label.text = (
+			"Unable to determine your assigned section."
+		)
+
+		return
+
+
+	# --------------------------------------------------------
+	# Collect matching lessons
+	# --------------------------------------------------------
 
 	for document in documents:
 
@@ -229,277 +300,455 @@ func _on_lessons_request_completed(
 			{}
 		)
 
-		var section := get_firestore_string(
+		var title := get_firestore_string(
 			fields,
-			"section",
-			""
+			"title",
+			"Untitled Lesson"
 		)
 
+		var assigned_sections := _get_lesson_assigned_sections(fields)
 
-		# ----------------------------------------------------
-		# Only show lessons assigned to student's section.
-		# ----------------------------------------------------
+		print("--------------------------------")
+		print("[LessonPage] Found lesson: ", title)
+		print("[LessonPage] Assigned sections: ", assigned_sections)
+		print("[LessonPage] Student section: ", student_section)
 
-		if not _section_matches(section, student_section):
+		var is_assigned := false
 
+		for assigned_section in assigned_sections:
+
+			if _section_matches(
+				assigned_section,
+				student_section
+			):
+				is_assigned = true
+				break
+
+		if not is_assigned:
+			print("[LessonPage] Skipping: not assigned to this section.")
 			continue
 
+		print("[LessonPage] Lesson accepted.")
 
-		create_lesson_card(document)
-
-		displayed_count += 1
+		var extracted_lesson := _extract_lesson_data(document)
+		lesson_records.append(extracted_lesson)
 
 
 	# --------------------------------------------------------
-	# Final status
+	# Display lessons
 	# --------------------------------------------------------
 
-	if displayed_count == 0:
+	_apply_lesson_filters()
 
-		status_label.text = (
-			"No learning materials assigned to your section."
-		)
-
-		print(
-			"[LessonPage] No lessons matched student section."
-		)
-
-	else:
-
-		status_label.text = (
-			str(displayed_count)
-			+ " learning material(s) available."
-		)
-
-		print(
-			"[LessonPage] Lessons displayed: ",
-			displayed_count
-		)
+	print(
+		"[LessonPage] Matching lessons found: ",
+		lesson_records.size()
+	)
 
 
 # ============================================================
-# CREATE LESSON CARD
+# EXTRACT LESSON DATA
 # ============================================================
 
-func create_lesson_card(document: Dictionary) -> void:
+func _extract_lesson_data(
+	document: Dictionary
+) -> Dictionary:
 
 	var fields: Dictionary = document.get(
 		"fields",
 		{}
 	)
 
+	return {
+		"document": document,
 
-	var title := get_firestore_string(
-		fields,
-		"title",
-		"Untitled Lesson"
-	)
+		"document_name": str(
+			document.get("name", "")
+		),
 
-	var description := get_firestore_string(
-		fields,
-		"description",
-		"No description available."
-	)
+		"title": get_firestore_string(
+			fields,
+			"title",
+			"Untitled Lesson"
+		),
 
-	var subject := get_firestore_string(
-		fields,
-		"subject",
-		""
-	)
+		"description": get_firestore_string(
+			fields,
+			"description",
+			"No description available."
+		),
 
-	var section := get_firestore_string(
-		fields,
-		"section",
-		""
-	)
+		"subject": get_firestore_string(
+			fields,
+			"subject",
+			""
+		),
 
-	var school_year := get_firestore_string(
-		fields,
-		"school_year",
-		""
-	)
+		"section": get_firestore_string(
+			fields,
+			"section",
+			""
+		),
 
-	var file_name := get_firestore_string(
-		fields,
-		"file_name",
-		"No material"
-	)
+		"school_year": get_firestore_string(
+			fields,
+			"school_year",
+			""
+		),
 
-	var file_extension := get_firestore_string(
-		fields,
-		"file_extension",
-		""
-	)
+		"file_url": get_firestore_string(
+			fields,
+			"file_url",
+		    ""
+		),
 
-
-	# ========================================================
-	# CARD
-	# ========================================================
-
-	var card := PanelContainer.new()
-
-	card.custom_minimum_size = Vector2(
-		0,
-		150
-	)
-
-
-	# ========================================================
-	# MARGIN
-	# ========================================================
-
-	var margin := MarginContainer.new()
-
-	margin.add_theme_constant_override(
-		"margin_left",
-		18
-	)
-
-	margin.add_theme_constant_override(
-		"margin_right",
-		18
-	)
-
-	margin.add_theme_constant_override(
-		"margin_top",
-		14
-	)
-
-	margin.add_theme_constant_override(
-		"margin_bottom",
-		14
-	)
-
-	card.add_child(margin)
-
-
-	# ========================================================
-	# CONTENT
-	# ========================================================
-
-	var content := VBoxContainer.new()
-
-	content.add_theme_constant_override(
-		"separation",
-		5
-	)
-
-	margin.add_child(content)
-
-
-	# ========================================================
-	# TITLE
-	# ========================================================
-
-	var title_label := Label.new()
-
-	title_label.text = title
-
-	title_label.add_theme_font_size_override(
-		"font_size",
-		24
-	)
-
-	title_label.add_theme_color_override(
-		"font_color",
-		Color(
-			0.47,
-			0.35,
-			0.235,
-			1
+		"file_extension": get_firestore_string(
+			fields,
+			"file_extension",
+			""
 		)
+	}
+
+
+# ============================================================
+# APPLY SEARCH AND SORT
+# ============================================================
+
+func _apply_lesson_filters() -> void:
+
+	_clear_lesson_cards()
+
+	var search_text := search_bar.text.strip_edges().to_lower()
+
+	var filtered_lessons: Array[Dictionary] = []
+
+
+	# --------------------------------------------------------
+	# Search lessons
+	# --------------------------------------------------------
+
+	for lesson in lesson_records:
+
+		var title := str(lesson.get("title", "")).to_lower()
+		var description := str(lesson.get("description", "")).to_lower()
+		var subject := str(lesson.get("subject", "")).to_lower()
+		var file_name := str(lesson.get("file_name", "")).to_lower()
+
+		var matches_search := (
+			search_text.is_empty()
+			or title.contains(search_text)
+			or description.contains(search_text)
+			or subject.contains(search_text)
+			or file_name.contains(search_text)
+		)
+
+		if matches_search:
+			filtered_lessons.append(lesson)
+
+
+	# --------------------------------------------------------
+	# Sort lessons
+	# --------------------------------------------------------
+
+	match filter_button.selected:
+
+		1:
+			filtered_lessons.sort_custom(
+				_sort_lessons_ascending
+			)
+
+		2:
+			filtered_lessons.sort_custom(
+				_sort_lessons_descending
+			)
+
+
+	# --------------------------------------------------------
+	# Create lesson cards
+	# --------------------------------------------------------
+
+	for lesson in filtered_lessons:
+
+		create_lesson_card(lesson)
+
+
+	# --------------------------------------------------------
+	# Update status
+	# --------------------------------------------------------
+
+	if lesson_records.is_empty():
+
+		status_label.text = (
+			"No learning materials assigned to your section."
+		)
+
+	elif filtered_lessons.is_empty():
+
+		status_label.text = (
+			"No lessons match your search."
+		)
+
+	else:
+
+		status_label.text = (
+			str(filtered_lessons.size())
+			+ " lesson(s) available."
+		)
+
+
+	print(
+		"[LessonPage] Displayed lesson cards: ",
+		filtered_lessons.size()
 	)
 
-	content.add_child(title_label)
+
+# ============================================================
+# SORT FUNCTIONS
+# ============================================================
+
+func _sort_lessons_ascending(
+	a: Dictionary,
+	b: Dictionary
+) -> bool:
+
+	return str(a.get("title", "")).to_lower() < str(
+		b.get("title", "")
+	).to_lower()
 
 
-	# ========================================================
-	# DESCRIPTION
-	# ========================================================
+func _sort_lessons_descending(
+	a: Dictionary,
+	b: Dictionary
+) -> bool:
 
-	var description_label := Label.new()
-
-	description_label.text = description
-
-	description_label.autowrap_mode = (
-		TextServer.AUTOWRAP_WORD_SMART
-	)
-
-	description_label.add_theme_font_size_override(
-		"font_size",
-		16
-	)
-
-	content.add_child(description_label)
+	return str(a.get("title", "")).to_lower() > str(
+		b.get("title", "")
+	).to_lower()
 
 
-	# ========================================================
-	# INFORMATION
-	# ========================================================
+# ============================================================
+# SEARCH AND FILTER SIGNALS
+# ============================================================
 
-	var info_label := Label.new()
+func _on_search_text_changed(_new_text: String) -> void:
 
-	info_label.text = (
-		"Subject: "
-		+ subject
-		+ "    |    Section: "
-		+ section
-		+ "    |    School Year: "
-		+ school_year
-	)
-
-	info_label.add_theme_font_size_override(
-		"font_size",
-		14
-	)
-
-	content.add_child(info_label)
+	_apply_lesson_filters()
 
 
-	# ========================================================
-	# MATERIAL
-	# ========================================================
+func _on_filter_selected(_index: int) -> void:
 
-	var material_label := Label.new()
-
-	material_label.text = (
-		"Learning Material: "
-		+ file_name
-	)
-
-	material_label.add_theme_font_size_override(
-		"font_size",
-		15
-	)
-
-	content.add_child(material_label)
+	_apply_lesson_filters()
 
 
-	# ========================================================
-	# MATERIAL TYPE
-	# ========================================================
+# ============================================================
+# CLEAR LESSON CARDS
+# ============================================================
 
-	var type_label := Label.new()
+func _clear_lesson_cards() -> void:
 
-	type_label.text = (
-		"File Type: "
-		+ file_extension.to_upper()
-	)
+	for child in lesson_list.get_children():
 
-	type_label.add_theme_font_size_override(
-		"font_size",
-		13
-	)
-
-	content.add_child(type_label)
+		child.queue_free()
 
 
-	# ========================================================
-	# ADD CARD
-	# ========================================================
+# ============================================================
+# CREATE LESSON CARD
+# ============================================================
+
+func create_lesson_card(
+	lesson_data: Dictionary
+) -> void:
+
+	var card := LESSON_CARD_SCENE.instantiate()
 
 	lesson_list.add_child(card)
 
+
+	# --------------------------------------------------------
+	# Get card nodes
+	# --------------------------------------------------------
+
+	var title_label: Label = card.get_node(
+	    "VBoxContainer/QuizTitle"
+	)
+
+	var status: Label = card.get_node(
+	    "VBoxContainer/HBoxContainer/Status"
+	)
+
+	var read_button: Button = card.get_node(
+	    "VBoxContainer/HBoxContainer2/Button"
+	)
+
+	var preview_button: Button = card.get_node(
+	    "VBoxContainer/HBoxContainer2/Button2"
+	)
+
+
+	# --------------------------------------------------------
+	# Set lesson information
+	# --------------------------------------------------------
+
+	title_label.text = str(
+		lesson_data.get(
+			"title",
+			"Untitled Lesson"
+		)
+	)
+
+	status.text = "Available"
+
+	read_button.text = "Read"
+
+
+	# --------------------------------------------------------
+	# Connect Read button
+	# --------------------------------------------------------
+
+	read_button.pressed.connect(
+		_on_read_pressed.bind(lesson_data)
+	)
+	
+	preview_button.pressed.connect(
+		_on_preview_pressed.bind(lesson_data)
+	)
+
+
+# ============================================================
+# READ LESSON
+# ============================================================
+# ============================================================
+# READ LESSON
+# ============================================================
+
+func _on_read_pressed(
+	lesson_data: Dictionary
+) -> void:
+
+	var lesson_title := str(
+		lesson_data.get(
+			"title",
+            "Untitled Lesson"
+		)
+	)
+
+	var file_url := str(
+		lesson_data.get(
+			"file_url",
+            ""
+		)
+	).strip_edges()
+
+	print(
+		"[LessonPage] Read button pressed: ",
+		lesson_title
+	)
+
+	print(
+		"[LessonPage] File URL: ",
+		file_url
+	)
+
+	# Check whether a file URL exists.
+
+	if file_url.is_empty():
+
+		status_label.text = (
+            "This lesson has no uploaded file."
+		)
+
+		print(
+            "[LessonPage] ERROR: File URL is empty."
+		)
+
+		return
+
+	# Check whether the URL is valid.
+
+	if not file_url.begins_with("https://"):
+
+		status_label.text = (
+            "Invalid learning material URL."
+		)
+
+		print(
+            "[LessonPage] ERROR: Invalid file URL."
+		)
+
+		return
+
+	# Open the file using the device's default application.
+
+	var error := OS.shell_open(file_url)
+
+	if error != OK:
+
+		status_label.text = (
+            "Unable to open the learning material."
+		)
+
+		print(
+			"[LessonPage] ERROR opening file: ",
+			error
+		)
+
+		return
+
+	print(
+        "[LessonPage] Learning material opened successfully."
+	)
+
+
+# ============================================================
+# PREVIEW LESSON
+# ============================================================
+
+func _on_preview_pressed(
+	lesson_data: Dictionary
+) -> void:
+
+	print(
+		"[LessonPage] Preview button pressed: ",
+		lesson_data.get("title", "Untitled Lesson")
+	)
+
+	# Populate lesson information.
+
+	preview_title_input.text = str(
+		lesson_data.get(
+			"title",
+            "Untitled Lesson"
+		)
+	)
+
+	preview_subject_input.text = str(
+		lesson_data.get(
+			"subject",
+            "No subject"
+		)
+	)
+
+	preview_description_input.text = str(
+		lesson_data.get(
+			"description",
+            "No description available."
+		)
+	)
+
+	# Show preview panel.
+
+	preview_panel.show()
+
+
+# ============================================================
+# CLOSE LESSON PREVIEW
+# ============================================================
+
+func _on_close_preview_pressed() -> void:
+
+	preview_panel.hide()
+
+	print("[LessonPage] Lesson preview closed.")
 
 # ============================================================
 # GET FIRESTORE STRING
@@ -514,13 +763,10 @@ func get_firestore_string(
 	if not fields.has(field_name):
 		return default_value
 
-
 	var field_data = fields[field_name]
-
 
 	if not field_data is Dictionary:
 		return default_value
-
 
 	if field_data.has("stringValue"):
 
@@ -528,27 +774,114 @@ func get_firestore_string(
 			field_data["stringValue"]
 		)
 
-
 	return default_value
 
 
 # ============================================================
-# GET ID TOKEN
+# GET ASSIGNED LESSON SECTIONS
+# ============================================================
+
+func _get_lesson_assigned_sections(
+	fields: Dictionary
+) -> Array[String]:
+
+	var result: Array[String] = []
+
+	var assigned_data: Variant = fields.get(
+		"assigned_sections",
+		{}
+	)
+
+	# --------------------------------------------------------
+	# New format: Firestore arrayValue
+	# --------------------------------------------------------
+
+	if assigned_data is Dictionary:
+
+		var array_data: Variant = assigned_data.get(
+			"arrayValue",
+			{}
+		)
+
+		if array_data is Dictionary:
+
+			var values: Variant = array_data.get(
+				"values",
+				[]
+			)
+
+			if values is Array:
+
+				for value in values:
+
+					var section_name := ""
+
+					if value is Dictionary:
+
+						section_name = str(
+							value.get("stringValue", "")
+						).strip_edges()
+
+					elif value is String:
+
+						section_name = value.strip_edges()
+
+					if (
+						not section_name.is_empty()
+						and not result.has(section_name)
+					):
+						result.append(section_name)
+
+	# --------------------------------------------------------
+	# Legacy format: direct array
+	# --------------------------------------------------------
+
+	elif assigned_data is Array:
+
+		for value in assigned_data:
+
+			var section_name := str(value).strip_edges()
+
+			if (
+				not section_name.is_empty()
+				and not result.has(section_name)
+			):
+				result.append(section_name)
+
+	# --------------------------------------------------------
+	# Backward compatibility: old section field
+	# --------------------------------------------------------
+
+	if result.is_empty():
+
+		var old_section := get_firestore_string(
+			fields,
+			"section",
+			""
+		).strip_edges()
+
+		if not old_section.is_empty():
+			result.append(old_section)
+
+	return result
+
+
+# ============================================================
+# GET FIREBASE ID TOKEN
 # ============================================================
 
 func _get_id_token() -> String:
 
 	if not Firebase.Auth:
-		print("[LessonPage] Firebase.Auth is unavailable.")
+
+		print(
+			"[LessonPage] Firebase.Auth is unavailable."
+		)
+
 		return ""
 
 
-	# Firebase.Auth stores the authentication result.
-	# The key returned by the current Firebase plugin is
-	# "idtoken".
-
 	var auth_data = Firebase.Auth.auth
-
 
 	if auth_data is Dictionary:
 
@@ -562,7 +895,6 @@ func _get_id_token() -> String:
 				return token
 
 
-		# Also support camelCase just in case.
 		if auth_data.has("idToken"):
 
 			var token := str(
@@ -589,7 +921,10 @@ func _get_student_section() -> String:
 	var uid := ""
 
 
-	# Try AuthManager first.
+	# --------------------------------------------------------
+	# Get student UID
+	# --------------------------------------------------------
+
 	if AuthManager:
 
 		uid = AuthManager.get_uid()
@@ -610,11 +945,19 @@ func _get_student_section() -> String:
 	)
 
 
+	# --------------------------------------------------------
+	# Get ID token
+	# --------------------------------------------------------
+
 	var id_token := _get_id_token()
 
 	if id_token.is_empty():
 		return ""
 
+
+	# --------------------------------------------------------
+	# Student document URL
+	# --------------------------------------------------------
 
 	var student_url := (
 		"https://firestore.googleapis.com/v1/projects/"
@@ -625,6 +968,10 @@ func _get_student_section() -> String:
 		+ uid
 	)
 
+
+	# --------------------------------------------------------
+	# HTTP request
+	# --------------------------------------------------------
 
 	var http := HTTPRequest.new()
 
@@ -647,6 +994,10 @@ func _get_student_section() -> String:
 
 		http.queue_free()
 
+		print(
+			"[LessonPage] Failed to request student record."
+		)
+
 		return ""
 
 
@@ -655,7 +1006,12 @@ func _get_student_section() -> String:
 	http.queue_free()
 
 
+	# --------------------------------------------------------
+	# Check response
+	# --------------------------------------------------------
+
 	var response_code: int = result_data[1]
+
 	var body: PackedByteArray = result_data[3]
 
 
@@ -669,21 +1025,26 @@ func _get_student_section() -> String:
 		return ""
 
 
-	var response_text := body.get_string_from_utf8()
+	# --------------------------------------------------------
+	# Parse response
+	# --------------------------------------------------------
 
+	var response_text := body.get_string_from_utf8()
 
 	var json := JSON.new()
 
 	if json.parse(response_text) != OK:
+
+		print(
+			"[LessonPage] Failed to parse student record."
+		)
 
 		return ""
 
 
 	var data = json.data
 
-
 	if not data is Dictionary:
-
 		return ""
 
 
@@ -691,22 +1052,27 @@ func _get_student_section() -> String:
 		"fields",
 		{}
 	)
+	
+	print(
+		"[LessonPage] Student teacher ID: ",
+		get_firestore_string(fields, "teacher_id", "")
+	)
 
+	print(
+		"[LessonPage] Student school year: ",
+		get_firestore_string(fields, "school_year", "")
+	)
+
+
+	# --------------------------------------------------------
+	# Get section
+	# --------------------------------------------------------
 
 	var section := get_firestore_string(
 		fields,
 		"section",
 		""
 	)
-
-
-	# --------------------------------------------------------
-	# Normalize section.
-	#
-	# Student may have:
-	# A
-	# 11-A
-	# --------------------------------------------------------
 
 	return section
 
@@ -717,7 +1083,7 @@ func _get_student_section() -> String:
 
 func _section_matches(
 	lesson_section: String,
-	student_section: String
+	target_section: String
 ) -> bool:
 
 	if lesson_section.is_empty():
@@ -727,18 +1093,24 @@ func _section_matches(
 		return false
 
 
-	var lesson_normalized := lesson_section.strip_edges().to_upper()
-	var student_normalized := student_section.strip_edges().to_upper()
+	var lesson_normalized := (
+		lesson_section.strip_edges().to_upper()
+	)
+
+	var student_normalized := (
+		student_section.strip_edges().to_upper()
+	)
 
 
 	# Exact match.
+
 	if lesson_normalized == student_normalized:
 		return true
 
 
 	# Example:
-	# lesson = 11-A
-	# student = A
+	# Lesson = 11-A
+	# Student = A
 
 	if lesson_normalized.ends_with(
 		"-" + student_normalized
@@ -748,8 +1120,8 @@ func _section_matches(
 
 
 	# Example:
-	# lesson = A
-	# student = 11-A
+	# Lesson = A
+	# Student = 11-A
 
 	if student_normalized.ends_with(
 		"-" + lesson_normalized

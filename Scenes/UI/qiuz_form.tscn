@@ -391,16 +391,16 @@ mouse_filter = 1
 placeholder_text = "Type answer option here..."
 
 [node name="EnumetrationPanel" type="Panel" parent="VBoxContainer" unique_id=470219941]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_1c2xc")
 
 [node name="Margin" type="MarginContainer" parent="VBoxContainer/EnumetrationPanel" unique_id=315465405]
 custom_minimum_size = Vector2(0, 200)
-layout_mode = 0
-offset_right = 1800.0
-offset_bottom = 260.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 18
@@ -440,7 +440,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 20
-columns = 3
+columns = 2
 
 [node name="Answer1" type="LineEdit" parent="VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers" unique_id=550114858]
 custom_minimum_size = Vector2(550, 45)
@@ -612,6 +612,7 @@ size_flags_horizontal = 4
 text = "Correct Answer"
 
 [node name="CompletionPanel" type="Panel" parent="VBoxContainer" unique_id=772754910]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_yjasg")
