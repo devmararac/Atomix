@@ -658,16 +658,45 @@ func parse_student_rows(rows: Array[Array]) -> void:
 	if selected_section.is_empty():
 		show_status("Please select a valid section.")
 		return
+	
+	
+	# Make sure the school-year list is loaded first.
+	if TeacherDataManager.school_years_data.is_empty():
+		await TeacherDataManager.load_school_years()
 
-	# Use the current school year, not a spreadsheet column.
-	var timestamp := int(Time.get_unix_time_from_system())
-	var school_year := str(
-		SchoolYearManager.get_school_year_for_timestamp(timestamp)
-	).strip_edges()
+	# Determine the correct school year based on the user's role.
+	var school_year_id := ""
+
+	if current_role == "admin":
+		# Admin uses the school year selected in the dashboard.
+		school_year_id = TeacherDataManager.get_selected_school_year_id()
+
+	elif current_role == "teacher":
+		# Teacher uses the school year assigned to their account.
+		school_year_id = await TeacherDataManager.get_current_teacher_school_year_id()
+
+	else:
+		show_status("Unable to determine the correct school year.")
+		return
+
+	if school_year_id.is_empty():
+		show_status("Could not determine the assigned school year. Please check the school-year assignment.")
+		return
+
+	# Find the display name of the selected school year.
+	var school_year := ""
+
+	for year_data in TeacherDataManager.school_years_data:
+		if str(year_data.get("uid", "")) == school_year_id:
+			school_year = str(year_data.get("name", "")).strip_edges()
+			break
 
 	if school_year.is_empty():
-		show_status("Could not determine the current school year.")
+		show_status("Could not find the assigned school year. Please refresh the school-year list.")
 		return
+
+	print("[ImportStudents] School year ID: ", school_year_id)
+	print("[ImportStudents] School year: ", school_year)
 
 	var invalid_count := 0
 	var seen_lrns: Dictionary = {}

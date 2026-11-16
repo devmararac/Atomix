@@ -37,6 +37,11 @@ var dictionary_data: Array[Dictionary] = [
 		"description": "A pure substance made of only one kind of atom. Examples include Hydrogen, Oxygen, and Iron."
 	},
 	{
+		"word": "Atomon:",
+		"category": "Game Term",
+		"description": "A short term for Atomic Monsters, is the Elements in the Periodic Table represented as Monsters."
+	},
+	{
 		"word": "Atom:",
 		"category": "Atomic Structure",
 		"description": "The smallest unit of an element that still keeps the chemical properties of that element."
@@ -44,22 +49,22 @@ var dictionary_data: Array[Dictionary] = [
 	{
 		"word": "Proton:",
 		"category": "Atomic Structure",
-		"description": "A positively charged particle found inside the nucleus of an atom."
+		"description": "A positively charged particle found inside the nucleus of an atom.  Used as a Crafting Material"
 	},
 	{
 		"word": "Neutron:",
 		"category": "Atomic Structure",
-		"description": "A particle with no electric charge found inside the nucleus of an atom."
+		"description": "A particle with no electric charge found inside the nucleus of an atom.  Used as a Crafting Material"
 	},
 	{
 		"word": "Electron:",
 		"category": "Atomic Structure",
-		"description": "A negatively charged particle found in the space surrounding an atom's nucleus."
+		"description": "A negatively charged particle found in the space surrounding an atom's nucleus.  Used as a Crafting Material"
 	},
 	{
 		"word": "Nucleus:",
 		"category": "Atomic Structure",
-		"description": "The small, dense center of an atom. It contains protons and neutrons."
+		"description": "The small, dense center of an atom. It contains protons and neutrons. Used as a Crafting Material"
 	},
 	{
 		"word": "Atomic Number:",
@@ -67,9 +72,34 @@ var dictionary_data: Array[Dictionary] = [
 		"description": "The number of protons in the nucleus of an atom. It identifies which element the atom belongs to."
 	},
 	{
-		"word": "Atomic Mass:",
-		"category": "Atomic Structure",
-		"description": "The weighted average mass of an element's naturally occurring isotopes, usually measured in atomic mass units."
+		"word": "HP(Hit Points):",
+		"category": "Atomon Game Stats",
+		"description": "A numerical value that measures how much damage an Atomon can take. Calculated with Atomic Mass and Period Group"
+	},
+	{
+		"word": "Attack:",
+		"category": "Atomon Game Stats",
+		"description": "A numerical value that measures how much damage an Atomon can deal. Ionization Energy"
+	},
+	{
+		"word": "Special Attack:",
+		"category": "Atomon Game Stats",
+		"description": "A numerical value that measures how much special(magic) damage an Atomon can deal. Calculated with Electronegativity."
+	},
+	{
+		"word": "Defense:",
+		"category": "Atomon Game Stats",
+		"description": "A numerical value that reduce an Atomon damage recieved. Calculated with Density."
+	},
+	{
+		"word": "Special Defense:",
+		"category": "Atomon Game Stats",
+		"description": "A numerical value that reduce an Atomon special(magic) damage recieved. Calculated with Electron Affinity."
+	},
+	{
+		"word": "Speed:",
+		"category": "Atomon Game Stats",
+		"description": "A numerical value that determine which Atomon Attack First. Calculated with the elements Phase and Atomic Mass."
 	},
 	{
 		"word": "Isotope:",
@@ -114,17 +144,18 @@ var dictionary_data: Array[Dictionary] = [
 	{
 		"word": "Compound:",
 		"category": "Basic Chemistry",
-		"description": "A pure substance made of two or more different elements chemically combined in fixed proportions."
+		"description": "A pure substance made of two or more different elements chemically combined in fixed proportions. Used as the Fusion Skill Mechanic"
 	},
 	{
 		"word": "Periodic Table:",
 		"category": "Periodic Table",
 		"description": "A chart that organizes chemical elements according to their atomic numbers and recurring chemical properties."
 	},
+
 	{
 		"word": "Chemical Formula:",
 		"category": "Chemical Bonding",
-		"description": "A combination of element symbols and numbers that shows which elements are present in a substance and their proportions."
+		"description": "A combination of element symbols and numbers that shows which elements are present in a substance and their proportions. Used to detirmine which Atomon are available for compound skill"
 	}
 ]
 

@@ -716,21 +716,60 @@ func _patch_firestore_fields(
 
 	return true 
 
+
+# ============================================================
+# GET TEACHER'S ASSIGNED SCHOOL YEAR
+# ============================================================
+
+func _get_teacher_school_year() -> String:
+	# Load school years if they haven't been loaded yet.
+	if TeacherDataManager.school_years_data.is_empty():
+		await TeacherDataManager.load_school_years()
+
+	# Get the school year assigned to the current teacher.
+	var school_year_id: String = await TeacherDataManager.get_current_teacher_school_year_id()
+
+	if school_year_id.is_empty():
+		push_error("[AddStudent] Could not determine the teacher's assigned school year.")
+		return ""
+
+	print("[AddStudent] Teacher assigned school year ID: ", school_year_id)
+	print("[AddStudent] Loaded school years: ", TeacherDataManager.school_years_data)
+
+	# Resolve the school-year document ID into its display name.
+	for year_data in TeacherDataManager.school_years_data:
+		if str(year_data.get("uid", "")) == school_year_id:
+			var school_year := str(year_data.get("name", "")).strip_edges()
+
+			if not school_year.is_empty():
+				print("[AddStudent] Assigned school year: ", school_year)
+				return school_year
+
+	push_error("[AddStudent] Assigned school year was not found in the school-year list.")
+	return ""
+
+
 # ============================================================ 
 # CREATE FIRESTORE DOCUMENTS 
 # ============================================================ 
 
-func create_student_document( 
-	uid: String, 
-	student_name: String, 
-	student_id: String, 
-	section: String, 
-	email: String 
-) -> bool: 
-	var timestamp := int(Time.get_unix_time_from_system()) 
-	var current_school_year := SchoolYearManager.get_school_year_for_timestamp(timestamp) 
-	var archive_at := SchoolYearManager.get_archive_timestamp(timestamp) 
+func create_student_document(
+	uid: String,
+	student_name: String,
+	student_id: String,
+	section: String,
+	email: String
+) -> bool:
+	var timestamp := int(Time.get_unix_time_from_system())
 
+	# Use the school year assigned to the teacher.
+	var current_school_year := await _get_teacher_school_year()
+
+	if current_school_year.is_empty():
+		push_error("[AddStudent] Student creation cancelled: assigned school year is missing.")
+		return false
+
+	var archive_at := SchoolYearManager.get_archive_timestamp(timestamp)
 	var user_data := { 
 		"name": student_name, 
 		"email": email, 
@@ -963,7 +1002,17 @@ func _save_student_changes() -> void:
 		return
 
 	var section := section_input.get_item_text(section_input.selected).strip_edges()
+	
+	# Get the school year assigned to the current teacher.
+	var current_school_year := await _get_teacher_school_year()
 
+	if current_school_year.is_empty():
+		show_status("Cannot update student: teacher's assigned school year could not be determined.")
+		_reset_form_buttons()
+		return
+
+	print("[AddStudent] Updating student school year to: ", current_school_year)
+	
 	var form_data := {
 		"first_name": first_name,
 		"middle_initial": middle_initial,
@@ -980,15 +1029,16 @@ func _save_student_changes() -> void:
 	show_status("Saving student changes...") 
 
 	# Update only the intended fields. Do not overwrite progress or game state. 
-	var student_update := { 
-		"name": student_name, 
-		"first_name": first_name, 
-		"middle_initial": middle_initial, 
-		"last_name": last_name, 
-		"suffix": suffix, 
-		"student_id": lrn, 
-		"section": section 
-	} 
+	var student_update := {
+		"name": student_name,
+		"first_name": first_name,
+		"middle_initial": middle_initial,
+		"last_name": last_name,
+		"suffix": suffix,
+		"student_id": lrn,
+		"section": section,
+		"school_year": current_school_year
+	}
 
 	var success := await _patch_firestore_fields("students", uid, student_update) 
 
@@ -1004,9 +1054,10 @@ func _save_student_changes() -> void:
 		) 
 
 		# Keep the display name consistent in the users document. 
-		var user_update := { 
-			"name": student_name 
-		} 
+		var user_update := {
+			"name": student_name,
+			"school_year": current_school_year
+		}
 		var user_success := await _patch_firestore_fields("users", uid, user_update) 
 		 
 				# Register or update the existing student's LRN mapping in D1. 

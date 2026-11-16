@@ -7,6 +7,9 @@ signal slot_selected(year_id: String)
 var year_id: String = ""
 var is_selectable: bool = false
 var is_selected: bool = false
+var is_archived: bool = false
+var is_active: bool = false
+var menu_mode: String = "archive"
 
 @onready var year_label: Label = $HBoxContainer/VBoxContainer/Year
 @onready var subtitle_label: Label = $HBoxContainer/VBoxContainer/Subtitle
@@ -18,32 +21,39 @@ func _ready() -> void:
 	select_button.pressed.connect(_on_select_button_pressed)
 
 
-func setup(year_data: Dictionary) -> void:
+func setup(year_data: Dictionary, mode: String = "archive") -> void:
 	year_id = str(year_data.get("id", ""))
-	var year_name := str(year_data.get("name", "Unnamed school year"))
-	var is_archived := bool(year_data.get("archived", false))
-	var is_active := bool(year_data.get("active", false))
+	menu_mode = mode
 
-	is_selectable = not is_archived and not is_active
+	var year_name := str(year_data.get("name", "Unnamed school year"))
+
+	is_archived = bool(year_data.get("archived", false))
+	is_active = bool(year_data.get("active", false))
+
+	is_selectable = (
+		is_archived
+		if menu_mode == "restore"
+		else not is_archived and not is_active
+	)
 
 	year_label.text = year_name
 
-	if is_archived:
-		subtitle_label.text = "This school year is already archived."
+	if menu_mode == "restore":
+		subtitle_label.text = "Select this school year to restore it."
 		status_label.text = "Archived"
-	elif is_active:
-		subtitle_label.text = "The active school year cannot be archived."
-		status_label.text = "Active"
 	else:
 		subtitle_label.text = "Select this school year to archive it."
 		status_label.text = "Inactive"
 
 	select_button.disabled = not is_selectable
+	select_button.text = "Selected" if is_selected else "Select"
+
 	_update_selection_style()
 
 
 func set_selected(selected: bool) -> void:
 	is_selected = selected
+	select_button.text = "Selected" if selected else "Select"
 	_update_selection_style()
 
 

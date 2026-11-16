@@ -900,6 +900,56 @@ func get_current_teacher_sections() -> Array:
 
 	return []
 
+
+
+# ============================================================
+# CURRENT TEACHER'S ASSIGNED SCHOOL YEAR
+# ============================================================
+
+func get_current_teacher_school_year_id() -> String:
+	var teacher_uid: String = _get_current_uid()
+
+	if teacher_uid.is_empty():
+		push_warning("[TeacherDataManager] Current teacher UID is missing.")
+		return ""
+
+	var response: Dictionary = await _firestore_get(
+		"teachers/" + teacher_uid.uri_encode()
+	)
+
+	if not bool(response.get("ok", false)):
+		push_warning(
+			"[TeacherDataManager] Unable to load teacher school year: "
+			+ str(response.get("error", "Unknown error"))
+		)
+		return ""
+
+	var document: Variant = response.get("data", {})
+
+	if not document is Dictionary:
+		return ""
+
+	var teacher_data: Dictionary = _decode_document(document)
+
+	var school_year_id: String = str(
+		teacher_data.get("school_year_id", "")
+	).strip_edges()
+
+	if school_year_id.is_empty():
+		push_warning(
+			"[TeacherDataManager] Current teacher has no assigned school year."
+		)
+		return ""
+
+	print(
+		"[TeacherDataManager] Current teacher school year ID: ",
+		school_year_id
+	)
+
+	return school_year_id
+
+
+
 # ============================================================
 # LOAD STUDENTS
 # ============================================================

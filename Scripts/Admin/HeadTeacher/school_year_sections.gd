@@ -137,7 +137,9 @@ func _ready() -> void:
 		return
 
 	_load_school_years()
-
+	
+	_test_archive_endpoint_authorization()
+	
 	teacher_selection.hide()
 
 	teacher_cancel_button.pressed.connect(
@@ -461,8 +463,12 @@ func _is_year_archived(year_id: String) -> bool:
 
 
 func _update_archive_button() -> void:
-	# This button always opens the selection menu.
-	archive_button_label.text = "Archive School Year"
+	if selected_year_id.is_empty():
+		archive_button_label.text = "Archive / Unarchive School Year"
+	elif _is_year_archived(selected_year_id):
+		archive_button_label.text = "Unarchive School Year"
+	else:
+		archive_button_label.text = "Archive School Year"
 
 func _update_active_year_display() -> void:
 	var displayed_name := "No school year selected"
@@ -670,29 +676,48 @@ func _send_next_queued_request() -> void:
 		job.get("context", {})
 	)
 
+
 func _populate_archive_menu() -> void:
-	# Remove old slots before rebuilding the list.
 	for child in archive_slots_container.get_children():
 		archive_slots_container.remove_child(child)
 		child.queue_free()
 
 	selected_archive_year_id = ""
 
+	var restoring := _is_year_archived(selected_year_id)
+	var menu_mode := "restore" if restoring else "archive"
+
 	for year in school_years:
+		var is_archived := bool(year.get("archived", false))
+		var is_active := bool(year.get("active", false))
+
+		if restoring:
+			if not is_archived:
+				continue
+		else:
+			if is_archived or is_active:
+				continue
+
 		var slot := preload(
 			"res://Scenes/Admin/HeadTeacher/archive_slot.tscn"
 		).instantiate() as ArchiveSlot
 
 		archive_slots_container.add_child(slot)
-		slot.setup(year)
-
-		if slot.slot_selected.is_connected(_on_archive_slot_selected):
-			slot.slot_selected.disconnect(_on_archive_slot_selected)
+		slot.setup(year, menu_mode)
 
 		slot.slot_selected.connect(_on_archive_slot_selected)
 
-	if school_years.is_empty():
-		_show_error("No school years were found.")
+	if archive_slots_container.get_child_count() == 0:
+		var empty_label := Label.new()
+
+		empty_label.text = (
+			"No archived school years found."
+			if restoring
+			else "No inactive school years available to archive."
+		)
+
+		archive_slots_container.add_child(empty_label)
+
 
 
 func _on_archive_slot_selected(year_id: String) -> void:
@@ -710,7 +735,7 @@ func _on_archive_menu_cancel_pressed() -> void:
 
 func _on_archive_menu_continue_pressed() -> void:
 	if selected_archive_year_id.is_empty():
-		_show_error("Select an inactive school year first.")
+		_show_error("Select a school year first.")
 		return
 
 	var selected_year: Dictionary = {}
@@ -724,15 +749,19 @@ func _on_archive_menu_continue_pressed() -> void:
 		_show_error("The selected school year could not be found.")
 		return
 
+	var year_id := selected_archive_year_id
+
+	# If already archived, offer to restore it.
 	if bool(selected_year.get("archived", false)):
-		_show_error("This school year is already archived.")
+		archive_menu.hide()
+		_confirm_restore_school_year(year_id)
 		return
 
+	# Otherwise, continue with the normal archive process.
 	if bool(selected_year.get("active", false)):
 		_show_error("The active school year cannot be archived.")
 		return
 
-	var year_id := selected_archive_year_id
 	var year_name := str(selected_year.get("name", year_id))
 
 	var dialog := ConfirmationDialog.new()
@@ -761,19 +790,107 @@ func _on_archive_menu_continue_pressed() -> void:
 # --------------------------------------------------
 
 func _on_archive_button_pressed() -> void:
-	selected_archive_year_id = ""
+	if selected_year_id.is_empty():
+		_show_error("Select a school year first.")
+		return
+
 	_populate_archive_menu()
 	archive_menu.show()
 
 
+
 func _archive_school_year(year_id: String) -> void:
+	if year_id.is_empty():
+		_show_error("Invalid school year selected.")
+		return
+
+	if auth_token.is_empty():
+		_show_error("Firebase session expired. Please sign in again.")
+		return
+
 	_set_busy(true)
-	_send_patch(
-		"archive_year",
-		SCHOOL_YEARS_COLLECTION + "/" + year_id,
-		{"archived": true, "active": false},
-		{"year_id": year_id}
+
+	var archive_request := HTTPRequest.new()
+	archive_request.name = "ArchiveSchoolYearRequest"
+	add_child(archive_request)
+
+	archive_request.request_completed.connect(
+		_on_archive_school_year_completed.bind(
+			archive_request,
+			year_id
+		)
 	)
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var payload := {
+		"callerIdToken": auth_token,
+		"schoolYearId": year_id
+	}
+
+	var error := archive_request.request(
+		"https://atomix-auth-api.atomix-auth.workers.dev/admin-archive-school-year",
+		headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(payload)
+	)
+
+	if error != OK:
+		archive_request.queue_free()
+		_set_busy(false)
+		_show_error("Could not send the archive request.")
+		return
+
+	print("[Archive] Archive endpoint request sent: ", year_id)
+
+
+func _on_archive_school_year_completed(
+	result: int,
+	response_code: int,
+	response_headers: PackedStringArray,
+	response_body: PackedByteArray,
+	archive_request: HTTPRequest,
+	year_id: String
+) -> void:
+	var response_text := response_body.get_string_from_utf8()
+	var response: Variant = JSON.parse_string(response_text)
+
+	print("[Archive] HTTP Status: ", response_code)
+	print("[Archive] Response: ", response_text)
+
+	archive_request.queue_free()
+	_set_busy(false)
+
+	if result != HTTPRequest.RESULT_SUCCESS:
+		_show_error("The archive request failed because of a network error.")
+		return
+
+	if response_code < 200 or response_code >= 300:
+		var message := "The archive operation failed."
+
+		if response is Dictionary:
+			message = str(response.get("message", message))
+
+		_show_error(message)
+		return
+
+	if not response is Dictionary or not bool(response.get("success", false)):
+		_show_error("The archive endpoint returned an unexpected response.")
+		return
+
+	ActivityLogManager.log_activity(
+		"Archived School Year",
+		"Archived school year: " + year_id,
+		"School Year",
+		year_id
+	)
+
+	selected_archive_year_id = ""
+	archive_menu.hide()
+
+	_load_school_years()
 
 
 # --------------------------------------------------
@@ -1464,21 +1581,22 @@ func _confirm_restore_school_year(year_id: String) -> void:
 	var dialog := ConfirmationDialog.new()
 	dialog.title = "Restore School Year"
 	dialog.dialog_text = (
-		"Restore %s?\nIt will remain inactive until you select it as the active year."
-		% year_name
-	)
+		"Restore %s?\n"
+		+ "It will remain inactive until you select it as the active year."
+	) % year_name
+
 	add_child(dialog)
 
 	dialog.confirmed.connect(func() -> void:
-		_restore_school_year(year_id)
 		dialog.queue_free()
+		_restore_school_year(year_id)
 	)
+
 	dialog.canceled.connect(func() -> void:
 		dialog.queue_free()
 	)
 
 	dialog.popup_centered()
-
 
 func _restore_school_year(year_id: String) -> void:
 	if year_id.is_empty():
@@ -1628,3 +1746,56 @@ func _update_section_student_counts() -> void:
 				count += 1
 
 		section["student_count"] = count
+
+
+
+func _test_archive_endpoint_authorization() -> void:
+	var token := _get_id_token()
+
+	if token.is_empty():
+		print("[Archive Test] No Firebase ID token available.")
+		return
+
+	var test_request := HTTPRequest.new()
+	test_request.name = "ArchiveEndpointAuthTest"
+	add_child(test_request)
+
+	test_request.request_completed.connect(
+		_on_archive_endpoint_auth_test_completed.bind(test_request)
+	)
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var payload := {
+		"callerIdToken": token,
+		"schoolYearId": "archive-auth-check-nonexistent-20261116-1144"
+	}
+
+	var error := test_request.request(
+		"https://atomix-auth-api.atomix-auth.workers.dev/admin-archive-school-year",
+		headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(payload)
+	)
+
+	if error != OK:
+		print("[Archive Test] Could not send request. Error: ", error)
+		test_request.queue_free()
+		return
+
+	print("[Archive Test] Authorization test request sent.")
+
+
+func _on_archive_endpoint_auth_test_completed(
+	result: int,
+	response_code: int,
+	response_headers: PackedStringArray,
+	response_body: PackedByteArray,
+	test_request: HTTPRequest
+) -> void:
+	print("[Archive Test] HTTP Status: ", response_code)
+	print("[Archive Test] Response: ", response_body.get_string_from_utf8())
+
+	test_request.queue_free()
