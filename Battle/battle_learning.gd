@@ -23,10 +23,10 @@ signal fusion_challenge_finished(
 @onready var answer_3: Button = $Panel/Margin/Split/VBoxContainer2/VBox/Control/Answer3
 @onready var answer_4: Button = $Panel/Margin/Split/VBoxContainer2/VBox/Control/Answer4
 
-@onready var answer_1_label: Label = $Panel/VBoxContainer2/Control/Answer/Label
-@onready var answer_2_label: Label = $Panel/VBoxContainer2/Control/Answer2/Label
-@onready var answer_3_label: Label = $Panel/VBoxContainer2/Control/Answer3/Label
-@onready var answer_4_label: Label = $Panel/VBoxContainer2/Control/Answer4/Label
+@onready var answer_1_label: Label = $Panel/Margin/Split/VBoxContainer2/VBox/Control/Answer/Label
+@onready var answer_2_label: Label = $Panel/Margin/Split/VBoxContainer2/VBox/Control/Answer2/Label
+@onready var answer_3_label: Label = $Panel/Margin/Split/VBoxContainer2/VBox/Control/Answer3/Label
+@onready var answer_4_label: Label = $Panel/Margin/Split/VBoxContainer2/VBox/Control/Answer3/Label
 
 
 # ============================================================

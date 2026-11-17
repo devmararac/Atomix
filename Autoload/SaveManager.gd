@@ -576,6 +576,11 @@ func start_new_game() -> bool:
 	completed_cutscenes.clear()
 	opened_chests.clear()
 	saved_carried_party_ids.clear()
+	
+	# Reset previous scene-transition spawn data.
+	global.return_position = Vector2.ZERO
+	global.spawn_point_name = ""
+	global.return_scene = ""
 
 	# --------------------------------------------------------
 	# PARTY

@@ -1,0 +1,19 @@
+"Dr Mundo": Welcome back! How did Andrew's Fusion training go?
+
+Player: I learned how elements can combine to form compounds.
+
+"Dr Mundo": Excellent! Can you explain what happens when different elements combine?
+
+Player: They can form compounds through chemical bonding.
+
+"Dr Mundo": Correct! Elements can combine through different types of chemical bonds.
+
+"Dr Mundo": Understanding how atoms interact is an important step toward understanding chemistry.
+
+Player: So atoms don't just combine randomly?
+
+"Dr Mundo": Exactly. Their electrons play an important role in how they interact.
+
+"Dr Mundo": You've made good progress. Keep exploring how atoms become stable.
+
+[signal arg="quest_notify:quest_chain_002_02:return_to_dr_mundo_composition"]

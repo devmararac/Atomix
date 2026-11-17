@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://64o7upgo47pn" path="res://Resources/Quest/Unit_2/quest_chain_002_02.tres" id="6_av6f8"]
 [ext_resource type="Resource" uid="uid://bempfgocrqoh" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_dr_mundo_composition.dtl" id="7_jnjhh"]
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="7_tkxad"]
+[ext_resource type="Resource" uid="uid://dalqegcco2q55" path="res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/return_to_dr_mundo_composition.dtl" id="8_n0g2p"]
 [ext_resource type="Resource" uid="uid://c5ub2ricmt6ru" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/go_to_alchemy_house2.tres" id="8_ny4lq"]
 [ext_resource type="Resource" uid="uid://bsg5uqe2ooq3o" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/talk_dr_mundo_matter.tres" id="9_5idsa"]
 [ext_resource type="Resource" uid="uid://cgjaahcjpf3bg" path="res://Resources/Objectives/Unit_2/Quest_chain_002_01/return_to_starter_map4.tres" id="10_i2pm6"]
@@ -53,10 +54,18 @@ quest = ExtResource("6_av6f8")
 timeline = ExtResource("7_jnjhh")
 metadata/_custom_type_script = "uid://bhmqnddyb783i"
 
+[sub_resource type="Resource" id="Resource_i5b5s"]
+script = ExtResource("2_c0iv6")
+objective_id = "return_to_dr_mundo_composition"
+conversation_name = "Return to Dr. Mundo"
+quest = ExtResource("6_av6f8")
+timeline = ExtResource("8_n0g2p")
+metadata/_custom_type_script = "uid://bhmqnddyb783i"
+
 [sub_resource type="Resource" id="Resource_kgj1s"]
 script = ExtResource("3_d00vo")
 default_timeline = ExtResource("4_matter")
-conversations = Array[ExtResource("2_c0iv6")]([SubResource("Resource_wgvyr"), SubResource("Resource_av6f8"), SubResource("Resource_jnjhh")])
+conversations = Array[ExtResource("2_c0iv6")]([SubResource("Resource_wgvyr"), SubResource("Resource_av6f8"), SubResource("Resource_jnjhh"), SubResource("Resource_i5b5s")])
 metadata/_custom_type_script = "uid://ckoa2l31dwe64"
 
 [sub_resource type="Resource" id="Resource_i2pm6"]

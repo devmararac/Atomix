@@ -103,6 +103,7 @@ directories/dtl_directory={
 "observe_iron": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_iron.dtl",
 "observe_mercury": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/observe_mercury.dtl",
 "return_to_andrew": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_001_01/return_to_andrew.dtl",
+"return_to_dr_mundo_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/return_to_dr_mundo_composition.dtl",
 "return_to_dr_mundo_matter": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/return_to_dr_mundo_matter.dtl",
 "states_of_matter_intro": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_01/states_of_matter_intro.dtl",
 "talk_andrew_composition": "res://Resources/Dialouges/Dialogic/Timeline/Quest/Quest_chain_002_02/talk_andrew_composition.dtl",
