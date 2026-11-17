@@ -21,6 +21,10 @@ var teacher_data: Dictionary = {}
 	$Background/HBoxContainer2/HBoxContainer/Delete
 @onready var archive_button: TextureButton = \
 	$Background/HBoxContainer2/HBoxContainer/Archive
+	
+@onready var unarchive_button: TextureButton = \
+	$Background/HBoxContainer2/HBoxContainer/Unarchive
+
 @onready var status_toggle: CheckButton = \
 	$Background/HBoxContainer2/HBoxContainer/StatusToggle
 
@@ -77,6 +81,15 @@ func set_teacher_data(data: Dictionary, row_number: int) -> void:
 	_update_toggle_text_color(is_active)
 	
 	_update_status_style(status)
+	
+	# Show the appropriate button based on account status.
+	var is_archived: bool = status.to_lower() == "archived"
+
+	archive_button.visible = not is_archived
+	unarchive_button.visible = is_archived
+
+	# Archived teachers cannot be toggled active/inactive directly.
+	status_toggle.visible = not is_archived
 
 
 func _get_sections_text(value: Variant) -> String:
@@ -146,3 +159,14 @@ func _update_toggle_text_color(is_active: bool) -> void:
 	status_toggle.add_theme_color_override("font_hover_color", text_color)
 	status_toggle.add_theme_color_override("font_pressed_color", text_color)
 	status_toggle.add_theme_color_override("font_hover_pressed_color", text_color)
+
+
+func _on_unarchive_pressed() -> void:
+	if teacher_data.is_empty():
+		push_error("[TeacherRow] Cannot unarchive: Teacher data is missing.")
+		return
+
+	var restored_data: Dictionary = teacher_data.duplicate(true)
+
+	# Reuse the existing status update signal.
+	status_toggle_requested.emit(restored_data, "active")			

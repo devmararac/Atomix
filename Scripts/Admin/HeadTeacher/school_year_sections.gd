@@ -1126,24 +1126,74 @@ func _reset_section_button() -> void:
 	_set_section_button_label("Add Section")
 
 
-func _on_section_delete_requested(section_id: String, section_name: String) -> void:
+
+func _count_students_assigned_to_section(
+	section_name: String,
+	year_id: String
+) -> int:
+	var count := 0
+	var target_section := section_name.strip_edges().to_lower()
+
+	for student in students:
+		if typeof(student) != TYPE_DICTIONARY:
+			continue
+
+		var student_section := str(
+			student.get("section", "")
+		).strip_edges().to_lower()
+
+		var student_year := str(
+			student.get("school_year", "")
+		).strip_edges()
+
+		if student_section == target_section and student_year == year_id:
+			count += 1
+
+	return count
+
+
+
+
+func _on_section_delete_requested(
+	section_id: String,
+	section_name: String
+) -> void:
 	if _is_year_archived(selected_year_id):
 		_show_error("Archived school years are read-only.")
 		return
+
+	# Check whether students are still assigned to this section.
+	var assigned_count := _count_students_assigned_to_section(
+		section_name,
+		selected_year_id
+	)
+
+	if assigned_count > 0:
+		_show_error(
+			"Cannot delete this section because %d student(s) are still assigned to it.\n\nPlease transfer the students to another section first."
+			% assigned_count
+		)
+		return
+
+	# Continue with the normal deletion confirmation.
 	var dialog := ConfirmationDialog.new()
 	dialog.title = "Delete Section"
 	dialog.dialog_text = "Delete section %s?" % section_name
 	add_child(dialog)
 
 	var year_id := selected_year_id
+
 	dialog.confirmed.connect(func() -> void:
 		_delete_section(section_id, year_id, section_name)
 		dialog.queue_free()
 	)
+
 	dialog.canceled.connect(func() -> void:
 		dialog.queue_free()
 	)
+
 	dialog.popup_centered()
+
 
 
 func _delete_section(
@@ -1600,19 +1650,107 @@ func _confirm_restore_school_year(year_id: String) -> void:
 
 func _restore_school_year(year_id: String) -> void:
 	if year_id.is_empty():
+		_show_error("Invalid school year selected.")
+		return
+
+	if auth_token.is_empty():
+		_show_error("Firebase session expired. Please sign in again.")
 		return
 
 	_set_busy(true)
 
-	_send_patch(
-		"restore_year",
-		SCHOOL_YEARS_COLLECTION + "/" + year_id,
-		{
-			"archived": false,
-			"active": false
-		},
-		{"year_id": year_id}
+	var restore_request := HTTPRequest.new()
+	restore_request.name = "RestoreSchoolYearRequest"
+	add_child(restore_request)
+
+	restore_request.request_completed.connect(
+		_on_restore_school_year_completed.bind(
+			restore_request,
+			year_id
+		)
 	)
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var payload := {
+		"callerIdToken": auth_token,
+		"schoolYearId": year_id
+	}
+
+	var error := restore_request.request(
+		"https://atomix-auth-api.atomix-auth.workers.dev/admin-restore-school-year",
+		headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(payload)
+	)
+
+	if error != OK:
+		restore_request.queue_free()
+		_set_busy(false)
+		_show_error("Could not send the school year restore request.")
+		return
+
+	print("[Restore] Restore endpoint request sent: ", year_id)
+
+
+func _on_restore_school_year_completed(
+	result: int,
+	response_code: int,
+	response_headers: PackedStringArray,
+	response_body: PackedByteArray,
+	restore_request: HTTPRequest,
+	year_id: String
+) -> void:
+	var response_text := response_body.get_string_from_utf8()
+	var response: Variant = JSON.parse_string(response_text)
+
+	print("[Restore] HTTP Status: ", response_code)
+	print("[Restore] Response: ", response_text)
+
+	restore_request.queue_free()
+	_set_busy(false)
+
+	if result != HTTPRequest.RESULT_SUCCESS:
+		_show_error("The restore request failed because of a network error.")
+		return
+
+	if response_code < 200 or response_code >= 300:
+		var message := "The restore operation failed."
+
+		if response is Dictionary:
+			message = str(response.get("message", message))
+
+		_show_error(message)
+		return
+
+	if not response is Dictionary or not bool(response.get("success", false)):
+		_show_error("The restore endpoint returned an unexpected response.")
+		return
+
+	var restored_students := int(
+		response.get("restoredStudents", 0)
+	)
+
+	ActivityLogManager.log_activity(
+		"Restored School Year",
+		"Restored school year %s and %d student account(s)."
+		% [year_id, restored_students],
+		"School Year",
+		year_id
+	)
+
+	selected_archive_year_id = ""
+	archive_menu.hide()
+
+	_load_school_years()
+
+	_show_error(
+		"School year restored successfully.\n"
+		+ "%d student account(s) restored." % restored_students
+	)
+
 
 func _clear_teacher_list() -> void:
 	for child in teacher_list.get_children():

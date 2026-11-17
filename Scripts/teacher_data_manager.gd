@@ -498,113 +498,111 @@ func load_users() -> void:
 # UPDATE TEACHER STATUS
 # ============================================================
 
-func update_teacher_status(
-	teacher_uid: String,
-	new_status: String
-) -> Dictionary:
+func update_teacher_status(teacher_uid: String, new_status: String) -> Dictionary:
 	teacher_uid = teacher_uid.strip_edges()
 	new_status = new_status.strip_edges().to_lower()
 
 	if teacher_uid.is_empty():
 		return {
 			"ok": false,
-			"error": "Teacher document ID is missing."
+			"error": "Teacher UID is missing."
 		}
 
-	if new_status not in ["active", "inactive", "archived"]:
+	if not ["active", "inactive", "archived"].has(new_status):
 		return {
 			"ok": false,
 			"error": "Invalid teacher status."
 		}
 
-	var token: String = _get_firestore_token()
-	if token.is_empty():
+	var caller_token: String = _get_firestore_token()
+
+	if caller_token.is_empty():
 		return {
 			"ok": false,
 			"error": "Firebase authentication token is missing."
 		}
 
-	var project_id: String = get_firebase_project_id()
-	if project_id.is_empty():
-		return {
-			"ok": false,
-			"error": "Firebase Project ID could not be determined."
-		}
-
-	var url: String = (
-		"https://firestore.googleapis.com/v1/projects/"
-		+ project_id
-		+ "/databases/(default)/documents/teachers/"
-		+ teacher_uid.uri_encode()
-		+ "?updateMask.fieldPaths=status"
-	)
-
-	var body: Dictionary = {
-		"fields": {
-			"status": {
-				"stringValue": new_status
-			}
-		}
-	}
-
 	var http := HTTPRequest.new()
 	add_child(http)
 
-	var headers := PackedStringArray([
-		"Authorization: Bearer " + token,
-		"Content-Type: application/json"
-	])
+	var url := "https://atomix-auth-api.atomix-auth.workers.dev/admin-update-teacher-status"
 
-	var request_error: Error = http.request(
+	var headers := [
+		"Content-Type: application/json"
+	]
+
+	var body := {
+		"callerIdToken": caller_token,
+		"teacherUid": teacher_uid,
+		"status": new_status
+	}
+
+	var request_error := http.request(
 		url,
 		headers,
-		HTTPClient.METHOD_PATCH,
+		HTTPClient.METHOD_POST,
 		JSON.stringify(body)
 	)
 
 	if request_error != OK:
 		http.queue_free()
+
 		return {
 			"ok": false,
-			"error": "Unable to start status update: %s" % request_error
+			"error": "Could not send teacher status update request."
 		}
 
 	var response: Array = await http.request_completed
 	http.queue_free()
 
-	var response_code: int = int(response[1])
-	var response_text: String = (
-		(response[3] as PackedByteArray).get_string_from_utf8()
-	)
+	var response_code: int = response[1]
+	var response_body: PackedByteArray = response[3]
 
-	if response_code < 200 or response_code >= 300:
-		var message: String = response_text
-		var parsed_error: Variant = JSON.parse_string(response_text)
+	var response_text := response_body.get_string_from_utf8()
+	var response_data = JSON.parse_string(response_text)
 
-		if parsed_error is Dictionary:
-			var error_data: Variant = parsed_error.get("error", {})
-			if error_data is Dictionary:
-				message = str(
-					error_data.get("message", response_text)
-				)
+	if response_code != 200:
+		var error_message := "Worker request failed. HTTP " + str(response_code)
+
+		if response_data is Dictionary:
+			error_message = str(
+				response_data.get("message", error_message)
+			)
 
 		return {
 			"ok": false,
-			"code": response_code,
-			"error": message
+			"error": error_message,
+			"response": response_data
+		}
+
+	if not response_data is Dictionary:
+		return {
+			"ok": false,
+			"error": "Invalid response received from Worker."
+		}
+
+	if not bool(response_data.get("success", false)):
+		return {
+			"ok": false,
+			"error": str(
+				response_data.get("message", "Teacher status update failed.")
+			),
+			"response": response_data
 		}
 
 	print(
-		"[TeacherDataManager] Teacher ",
+		"[TeacherDataManager] Teacher status updated: ",
 		teacher_uid,
-		" status updated to ",
+		" -> ",
 		new_status
 	)
 
 	return {
 		"ok": true,
-		"status": new_status
+		"status": new_status,
+		"response": response_data
 	}
+
 
 
 
@@ -947,7 +945,7 @@ func get_current_teacher_school_year_id() -> String:
 	)
 
 	return school_year_id
-
+	
 
 
 # ============================================================
@@ -1042,6 +1040,7 @@ func load_students() -> void:
 # UPDATE STUDENT STATUS
 # ============================================================
 
+
 func update_student_status(
 	student_uid: String,
 	new_status: String
@@ -1049,111 +1048,149 @@ func update_student_status(
 	student_uid = student_uid.strip_edges()
 	new_status = new_status.strip_edges().to_lower()
 
+	# 1. Validate student UID.
 	if student_uid.is_empty():
 		return {
 			"ok": false,
-			"error": "Student document ID is missing."
+			"error": "Student UID is missing."
 		}
 
-	if new_status not in ["active", "inactive", "archived"]:
+	# 2. Only allow active and inactive.
+	if new_status not in ["active", "inactive"]:
 		return {
 			"ok": false,
-			"error": "Invalid student status."
+			"error": "Only active and inactive statuses are allowed."
 		}
 
+	# 3. Get the current teacher's Firebase ID token.
 	var token: String = _get_firestore_token()
+
 	if token.is_empty():
 		return {
 			"ok": false,
 			"error": "Firebase authentication token is missing."
 		}
 
-	var project_id: String = get_firebase_project_id()
-	if project_id.is_empty():
-		return {
-			"ok": false,
-			"error": "Firebase Project ID could not be determined."
-		}
-
-	var url: String = (
-		"https://firestore.googleapis.com/v1/projects/"
-		+ project_id
-		+ "/databases/(default)/documents/students/"
-		+ student_uid.uri_encode()
-		+ "?updateMask.fieldPaths=status"
+	# 4. Prepare the Cloudflare Worker request.
+	var url := (
+		"https://atomix-auth-api.atomix-auth.workers.dev"
+		+ "/teacher-update-student-status"
 	)
 
-	var body: Dictionary = {
-		"fields": {
-			"status": {
-				"stringValue": new_status
-			}
-		}
+	var request_body := {
+		"callerIdToken": token,
+		"studentUid": student_uid,
+		"status": new_status
 	}
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
 
 	var http := HTTPRequest.new()
 	add_child(http)
 
-	var headers := PackedStringArray([
-		"Authorization: Bearer " + token,
-		"Content-Type: application/json"
-	])
-
 	var request_error: Error = http.request(
 		url,
 		headers,
-		HTTPClient.METHOD_PATCH,
-		JSON.stringify(body)
+		HTTPClient.METHOD_POST,
+		JSON.stringify(request_body)
 	)
 
 	if request_error != OK:
 		http.queue_free()
+
 		return {
 			"ok": false,
 			"error": "Unable to start student status update: %s" % request_error
 		}
 
+	# 5. Wait for the Worker response.
 	var response: Array = await http.request_completed
 	http.queue_free()
 
+	var request_result: int = int(response[0])
 	var response_code: int = int(response[1])
+
 	var response_text: String = (
 		(response[3] as PackedByteArray).get_string_from_utf8()
 	)
 
-	if response_code < 200 or response_code >= 300:
-		var message: String = response_text
-		var parsed_error: Variant = JSON.parse_string(response_text)
+	# 6. Check network request result.
+	if request_result != HTTPRequest.RESULT_SUCCESS:
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": "Unable to connect to the student status server."
+		}
 
-		if parsed_error is Dictionary:
-			var error_data: Variant = parsed_error.get("error", {})
-			if error_data is Dictionary:
-				message = str(error_data.get("message", response_text))
+	# 7. Parse the Worker response.
+	var parsed_response: Variant = JSON.parse_string(response_text)
+
+	if not parsed_response is Dictionary:
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": "The student status server returned an invalid response."
+		}
+
+	var response_data: Dictionary = parsed_response
+
+	# 8. Check HTTP response.
+	if response_code < 200 or response_code >= 300:
+		var error_message := str(
+			response_data.get(
+				"message",
+				"Student status update failed."
+			)
+		)
+
+		push_error(
+			"[TeacherDataManager] Student status update failed: "
+			+ error_message
+		)
 
 		return {
 			"ok": false,
 			"code": response_code,
-			"error": message
+			"error": error_message,
+			"response": response_data
 		}
 
-	# Update the local student cache after Firestore confirms success.
+	# 9. Require explicit confirmation from the Worker.
+	if not bool(response_data.get("success", false)):
+		return {
+			"ok": false,
+			"code": response_code,
+			"error": str(
+				response_data.get(
+					"message",
+					"Worker did not confirm the student status update."
+				)
+			),
+			"response": response_data
+		}
+
+	# 10. Update the local cache only after confirmed success.
 	for i in range(students_data.size()):
 		if str(students_data[i].get("uid", "")) == student_uid:
 			students_data[i]["status"] = new_status
 			break
 
 	print(
-		"[TeacherDataManager] Student ",
+		"[TeacherDataManager] Student status successfully updated: ",
 		student_uid,
-		" status updated to ",
+		" -> ",
 		new_status
 	)
 
 	return {
 		"ok": true,
 		"uid": student_uid,
-		"status": new_status
+		"status": new_status,
+		"response": response_data
 	}
+
 
 
 # ============================================================

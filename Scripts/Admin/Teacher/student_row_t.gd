@@ -94,7 +94,7 @@ func display_student() -> void:
 	active_inactive_button.set_pressed_no_signal(status == "active")
 	active_inactive_button.text = "Active" if status == "active" else "Inactive"
 
-	_update_status_style(status)
+	_update_toggle_text_color(status)
 
 
 func _get_section_text(value: Variant) -> String:
@@ -117,18 +117,32 @@ func _get_section_text(value: Variant) -> String:
 	return section_name if not section_name.is_empty() else "—"
 
 
+
 func _update_status_style(status: String) -> void:
-	var color := Color(0.31, 0.22, 0.14, 1)
+	var color := Color("#8B8178") # Default / unknown
 
 	match status:
 		"active":
-			color = Color(0.2, 0.5, 0.25, 1)
+			color = Color("#22C55E") # Green
 		"inactive":
-			color = Color(0.65, 0.3, 0.2, 1)
+			color = Color("#EF4444") # Red
 		"archived":
-			color = Color(0.5, 0.45, 0.4, 1)
+			color = Color("#9CA3AF") # Gray
 
 	status_label.add_theme_color_override("font_color", color)
+
+
+func _update_toggle_text_color(status: String) -> void:
+	var color := Color("#EF4444") # Red by default
+
+	if status == "active":
+		color = Color("#22C55E") # Green
+	elif status == "archived":
+		color = Color("#9CA3AF") # Gray
+
+	active_inactive_button.add_theme_color_override("font_color", color)
+	active_inactive_button.add_theme_color_override("font_hover_color", color)
+	active_inactive_button.add_theme_color_override("font_pressed_color", color)
 
 
 func _on_row_clicked() -> void:
@@ -138,7 +152,10 @@ func _on_row_clicked() -> void:
 
 
 func _on_status_toggled(is_pressed: bool) -> void:
+	var status := "active" if is_pressed else "inactive"
+
 	active_inactive_button.text = "Active" if is_pressed else "Inactive"
+	_update_toggle_text_color(status)
 
 	# Request the parent page to update Firebase.
 	status_change_requested.emit(student_data, is_pressed)

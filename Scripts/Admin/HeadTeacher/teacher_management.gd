@@ -98,7 +98,13 @@ func _ready() -> void:
 			)
 
 	# Configure sorting choices.
-	# The scene already defines these two items.
+	sort_button.clear()
+	sort_button.add_item("Name (A-Z)")
+	sort_button.add_item("Name (Z-A)")
+	sort_button.add_item("Created At (Newest First)")
+	sort_button.add_item("Created At (Oldest First)")
+
+	sort_button.select(0)
 	empty_state_label.text = "No teachers found."
 
 	empty_state.show()
@@ -215,20 +221,37 @@ func display_teachers() -> void:
 				"inactive"
 			)
 
-	# Sort by displayed name or creation date.
+	
+	# Sort teachers.
 	match sort_button.selected:
-		0:
+		0: # Name A-Z
 			filtered_teachers.sort_custom(
 				func(a: Dictionary, b: Dictionary) -> bool:
 					return _get_teacher_display_name(a).to_lower() < \
 						_get_teacher_display_name(b).to_lower()
 			)
-		1:
+
+		1: # Name Z-A
+			filtered_teachers.sort_custom(
+				func(a: Dictionary, b: Dictionary) -> bool:
+					return _get_teacher_display_name(a).to_lower() > \
+						_get_teacher_display_name(b).to_lower()
+			)
+
+		2: # Created At - Newest First
 			filtered_teachers.sort_custom(
 				func(a: Dictionary, b: Dictionary) -> bool:
 					return int(a.get("created_at", 0)) > \
 						int(b.get("created_at", 0))
 			)
+
+		3: # Created At - Oldest First
+			filtered_teachers.sort_custom(
+				func(a: Dictionary, b: Dictionary) -> bool:
+					return int(a.get("created_at", 0)) < \
+						int(b.get("created_at", 0))
+			)
+
 
 	if filtered_teachers.is_empty():
 		empty_state_label.text = "No teachers found."
@@ -512,70 +535,67 @@ func _on_teacher_row_archive_requested(data: Dictionary) -> void:
 	teacher_archive_requested.emit(data)
 	load_teachers()
 
+
 func _on_teacher_status_toggle_requested(
 	data: Dictionary,
 	new_status: String
 ) -> void:
 	var teacher_uid: String = str(data.get("uid", "")).strip_edges()
-	var teacher_name := _get_teacher_display_name(data)
-
-	print("[TeacherManagement] Requested status: ", new_status)
-	print("[TeacherManagement] Teacher document ID: ", teacher_uid)
 
 	if teacher_uid.is_empty():
-		push_error(
-            "[TeacherManagement] Cannot update status: teacher UID is empty."
-		)
+		push_error("[TeacherManagement] Cannot update status: Teacher UID is missing.")
 		load_teachers()
 		return
+
+	var teacher_name: String = _get_teacher_display_name(data)
+	var previous_status: String = str(
+		data.get("status", "inactive")
+	).to_lower()
+
+	print(
+		"[TeacherManagement] Updating teacher status: ",
+		teacher_name,
+		" -> ",
+		new_status
+	)
 
 	var result: Dictionary = await TeacherDataManager.update_teacher_status(
 		teacher_uid,
 		new_status
 	)
 
-	print("[TeacherManagement] Firestore update result: ", result)
-
 	if not bool(result.get("ok", false)):
 		push_error(
-            "[TeacherManagement] Status update failed: "
+			"[TeacherManagement] Status update failed: "
 			+ str(result.get("error", "Unknown error"))
 		)
+
+		# Reload the original status if the update fails.
 		load_teachers()
 		return
 
-	# Record the successful status change.
-	var activity_action := ""
-	var activity_details := ""
-
-	match new_status.to_lower():
-		"active":
-			activity_action = "Activated Teacher Account"
-			activity_details = "Activated teacher account: " + teacher_name
-
-		"inactive":
-			activity_action = "Deactivated Teacher Account"
-			activity_details = "Deactivated teacher account: " + teacher_name
-
-		_:
-			activity_action = "Updated Teacher Status"
-			activity_details = (
-                "Changed teacher status to "
-				+ new_status
-				+ ": "
-				+ teacher_name
-			)
-
 	ActivityLogManager.log_activity(
-		activity_action,
-		activity_details,
+		"Updated Teacher Account Status",
+		"Changed teacher status from "
+		+ previous_status
+		+ " to "
+		+ new_status
+		+ ": "
+		+ teacher_name,
 		"Teacher Management",
 		teacher_uid
 	)
 
-	print("[TeacherManagement] Status saved successfully.")
+	print(
+		"[TeacherManagement] Teacher status successfully updated: ",
+		teacher_name,
+		" -> ",
+		new_status
+	)
 
+	# Refresh the list using the latest Firestore data.
 	load_teachers()
+
 
 func _create_delete_confirmation() -> void:
 	delete_confirmation = ConfirmationDialog.new()
