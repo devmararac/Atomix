@@ -1,77 +1,170 @@
-"Dr Mundo": Welcome back.
+"Dr Mundo": Welcome back!
 
-"Dr Mundo": You observed Iron, Mercury, and Helium during your investigation.
+"Dr Mundo": You observed Neon, Sodium, and Chlorine during your investigation.
 
-"Dr Mundo": Tell me, what did those three Atomons help you understand about matter?
+"Dr Mundo": Let's see what you discovered about their electrons.
+
+"Dr Mundo": First, what makes Neon different from Sodium and Chlorine?
 
 Player: <Empty Text Event>
 
-- Matter can exist in different states.
-	"Dr Mundo": Exactly.
+- Neon already has a full outer electron shell.
+	"Dr Mundo": Exactly!
 	
-	"Dr Mundo": Matter can exist as a solid, liquid, or gas, depending on its properties.
+	"Dr Mundo": Neon has the electron arrangement 2,8. Its outermost energy level contains eight electrons, making it complete.
 	
-	jump finish
-
-- All matter has the same shape.
-	"Dr Mundo": Not quite.
-	
-	"Dr Mundo": Different states of matter can behave differently. Their shape and volume are important clues.
+	"Dr Mundo": This is why Neon is generally very stable and does not readily react with other atoms.
 	
 	jump question
 
-- Matter can only exist as a solid.
-	"Dr Mundo": That's not correct.
+- Neon has only one electron in its outermost shell.
+	"Dr Mundo": Not quite.
 	
-	"Dr Mundo": Your observations showed that matter can exist in different states.
+	"Dr Mundo": Neon has the electron arrangement 2,8. Count the electrons in its outermost shell.
+	
+	jump question
+
+- Neon needs to gain seven more electrons.
+	"Dr Mundo": That's incorrect.
+	
+	"Dr Mundo": Neon already has eight electrons in its outermost shell.
 	
 	jump question
 
 label question
 
-"Dr Mundo": Think about what you observed.
+"Dr Mundo": Now let's compare Sodium and Chlorine.
 
-"Dr Mundo": Iron kept its shape, Mercury changed its shape, and Helium spread out.
+"Dr Mundo": Sodium has the electron arrangement 2,8,1, while Chlorine has 2,8,7.
 
-"Dr Mundo": What does this tell us?
+"Dr Mundo": What could Sodium do to achieve a full outer shell?
 
 Player: <Empty Text Event>
 
-- Different states of matter have different properties.
-	"Dr Mundo": Correct.
+- Lose one electron.
+	"Dr Mundo": Correct!
 	
-	"Dr Mundo": Those differences in properties allow us to identify the state of matter.
+	"Dr Mundo": "Dr Mundo"\: When Sodium loses its outermost electron, its remaining electrons have the arrangement 2,8.
 	
-	jump finish
+	"Dr Mundo": It forms a positively charged ion called Na+.
+	
+	jump chlorine
 
-- Every substance behaves exactly the same way.
+- Gain seven electrons.
 	"Dr Mundo": Not quite.
 	
-	"Dr Mundo": Your observations showed that different states of matter behave differently.
+	"Dr Mundo": Sodium only needs to lose its one outermost electron to reveal a full shell underneath.
 	
-	jump question
+	jump question2
 
-- The state of matter does not affect how a substance behaves.
-	"Dr Mundo": That's not correct.
+- Share all its electrons.
+	"Dr Mundo": That's not the best answer.
 	
-	"Dr Mundo": The behavior you observed is one of the clues we use to distinguish different states of matter.
+	"Dr Mundo": Remember that Sodium has only one electron in its outermost shell.
 	
-	jump question
+	jump question2
 
-label finish
+label question2
 
-"Dr Mundo": Excellent work.
+"Dr Mundo": Think about Sodium's arrangement again\: 2,8,1.
 
-"Dr Mundo": You didn't simply memorize the definitions.
+"Dr Mundo": What is the simplest way for it to reach a full outer shell?
 
-"Dr Mundo": You observed the Atomons and used their behavior to understand the states of matter.
+Player: <Empty Text Event>
 
-Player: I understand.
+- Lose one electron.
+	"Dr Mundo": Exactly! Sodium can lose one electron.
+	
+	jump chlorine
 
-"Dr Mundo": Good.
+- Gain seven electrons.
+	"Dr Mundo": Not quite. Try again.
+	
+	jump question2
 
-"Dr Mundo": This is how we will approach chemistry throughout your journey.
+- Lose eight electrons.
+	"Dr Mundo": No. Sodium only has one electron in its outermost shell.
+	
+	jump question2
 
-"Dr Mundo": Observe what happens, think about what it means, and use the evidence to learn.
+label chlorine
+
+"Dr Mundo": Good!
+
+"Dr Mundo": Now, what about Chlorine? It has seven electrons in its outermost shell.
+
+"Dr Mundo": What could Chlorine do to complete that shell?
+
+Player: <Empty Text Event>
+
+- Gain one electron.
+	"Dr Mundo": Correct!
+	
+	"Dr Mundo": Chlorine can gain one electron and reach the arrangement 2,8,8.
+	
+	"Dr Mundo": It forms a negatively charged ion called Cl−.
+	
+	jump octet
+
+- Lose seven electrons.
+	"Dr Mundo": Not quite.
+	
+	"Dr Mundo": Chlorine is only one electron short of a full outer shell.
+	
+	jump chlorine_question
+
+- Gain eight electrons.
+	"Dr Mundo": That's too many.
+	
+	"Dr Mundo": Chlorine needs only one more electron to complete its outer shell.
+	
+	jump chlorine_question
+
+label chlorine_question
+
+"Dr Mundo": Remember, Chlorine already has seven valence electrons.
+
+"Dr Mundo": How many more does it need to reach eight?
+
+Player: <Empty Text Event>
+
+- One electron.
+	"Dr Mundo": Exactly!
+	
+	jump octet
+
+- Seven electrons.
+	"Dr Mundo": Not quite. It already has seven.
+	
+	jump chlorine_question
+
+- Eight electrons.
+	"Dr Mundo": That would be too many.
+	
+	jump chlorine_question
+
+label octet
+
+"Dr Mundo": Excellent work!
+
+Player: Is this what you call the Octet Rule?
+
+"Dr Mundo": Precisely!
+
+"Dr Mundo": The Octet Rule describes the tendency of many atoms to gain, lose, or share electrons to achieve eight valence electrons.
+
+"Dr Mundo": Neon already has eight. Sodium can lose one, while Chlorine can gain one.
+
+Player: So atoms interact because they can become more stable?
+
+"Dr Mundo": That's one important reason!
+
+"Dr Mundo": Remember, the Octet Rule is a useful guideline for many atoms, but it does not explain every situation. Some atoms follow different arrangements.
+
+"Dr Mundo": Keep these observations in mind. In your next lesson, we'll explore how atoms interact through chemical bonding.
+
+Player: I understand!
+
+"Dr Mundo": Excellent. Continue observing, comparing, and thinking about the evidence.
 
 [signal arg="quest_notify:quest_chain_002_01:return_to_dr_mundo_matter"]

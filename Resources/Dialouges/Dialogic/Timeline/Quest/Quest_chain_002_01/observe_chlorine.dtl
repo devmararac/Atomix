@@ -1,0 +1,34 @@
+Player: This Atomon seems different from Sodium and Neon.
+
+Player: I wonder how many electrons it has in its outermost energy level.
+
+Player: What is the electron arrangement of Chlorine?
+
+- 2,8,7
+  Player: Correct! Chlorine has seventeen electrons arranged as 2,8,7.
+
+- 2,8,1
+  Player: Not quite. That is the electron arrangement of Sodium. Chlorine has seventeen electrons.
+
+- 2,8,8
+  Player: Not quite. That is the arrangement Chlorine can achieve after gaining one electron.
+
+Player: So Chlorine has seven valence electrons!
+
+Player: It needs one more electron to complete its outermost energy level.
+
+Player: Dr. Mundo explained that atoms can gain electrons to achieve a more stable arrangement.
+
+Player: Chlorine can gain one electron and become a negatively charged ion called Cl−.
+
+Player: Its electron arrangement then becomes 2,8,8.
+
+Player: Now I understand!
+
+Player: Sodium can lose one electron, while Chlorine can gain one.
+
+Player: Their electron arrangements can become more stable through these changes.
+
+[signal arg="quest_notify:quest_chain_002_01:observe_chlorine"]
+
+Player: I've finished observing the three Atomons. I should return to Dr. Mundo and share what I discovered.

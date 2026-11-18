@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_cdhdi")
-id = "observe_helium"
-description = "Observe the Helium Atomon."
+id = "observe_chlorine"
+description = "Observe the Chlorine Atomon and investigate why it can become more stable by gaining one electron."
 type = 4
-target_id = "helium"
+target_id = "chlorine"

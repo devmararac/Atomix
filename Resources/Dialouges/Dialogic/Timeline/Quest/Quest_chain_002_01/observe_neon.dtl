@@ -1,0 +1,31 @@
+
+Player: This Atomon looks different from the others.
+
+Player: It seems to have a complete arrangement of electrons around its nucleus.
+
+Player: Dr. Mundo mentioned that the electrons in the outermost energy level are called valence electrons.
+
+Player: I wonder how many valence electrons Neon has.
+
+Player: What is the electron arrangement of Neon?
+
+- 2,8
+  Player: Correct! Neon has two electrons in its first energy level and eight in its second energy level.
+
+- 2,7
+  Player: Not quite. Neon has ten electrons in total. Its electron arrangement is 2,8.
+
+- 2,8,1
+  Player: Not quite. That arrangement belongs to Sodium. Neon has an electron arrangement of 2,8.
+
+Player: So Neon has eight valence electrons!
+
+Player: Its outermost energy level is complete.
+
+Player: That explains why Neon is generally very unreactive compared with many other elements.
+
+Player: Neon is an example of an atom that already has a stable outer electron arrangement.
+
+[signal arg="quest_notify:quest_chain_002_01:observe_neon"]
+
+Player: I should remember this observation when I compare Neon with the other Atomons.

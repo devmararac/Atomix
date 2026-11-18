@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_vsc0q")
 id = "go_to_alchemy_house2"
-description = "Go to Alchemy House to to Meet Dr. Mundo"
+description = "Go to the Alchemy House and meet Dr. Mundo to investigate the unusual behavior of Atomons."
 type = 3
 target_id = "alchemy_house"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

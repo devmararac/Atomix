@@ -1,49 +1,56 @@
+
 "Dr Mundo": Ah, you've arrived.
 
 "Dr Mundo": Welcome to the Alchemy House.
 
 Player: Thank you, Dr. Mundo.
 
-"Dr Mundo":  I understand that you're beginning to learn more about chemistry.
+"Dr Mundo": I've heard that you've started learning about chemistry and the Atomons.
 
-Player: I'm ready to learn.
+Player: Yes! I'm ready to learn more.
 
-"Dr Mundo": Then let's start with something fundamental.
+"Dr Mundo": Excellent. Today, I want you to investigate something important about atoms.
 
-"Dr Mundo":  Matter.
+Player: What is it?
 
-"Dr Mundo": Matter is anything that has mass and occupies space.
+"Dr Mundo": Atomic stability.
 
-Player: So matter is basically everything that has mass and takes up space?
+Player: What does that mean?
 
-"Dr Mundo": Exactly.
+"Dr Mundo": Atoms contain electrons arranged in different energy levels around their nucleus.
 
-"Dr Mundo": But matter can exist in different states.
+"Dr Mundo": The electrons in the outermost energy level are especially important. We call them valence electrons.
 
-"Dr Mundo": The three states we will focus on are solid, liquid, and gas.
+Player: Why are they important?
 
-Player: Solid, liquid, and gas?
+"Dr Mundo": Because they influence how atoms interact with one another.
 
-Player: Correct.
+"Dr Mundo": Many atoms tend to become more stable when their outermost energy level is complete.
 
-"Dr Mundo": A solid has a definite shape and a definite volume.
+Player: Is that related to the Octet Rule?
 
-"Dr Mundo": A liquid has a definite volume, but it takes the shape of its container.
+"Dr Mundo": Exactly! The Octet Rule describes the tendency of many atoms to gain, lose, or share electrons to achieve eight valence electrons.
 
-"Dr Mundo": A gas has neither a definite shape nor a definite volume.
+Player: So not every atom already has eight?
 
-"Dr Mundo": I don't want you to simply memorize these definitions.
+"Dr Mundo": Correct. Some atoms already have a complete outer shell, while others can become more stable by interacting with other atoms.
 
-"Dr Mundo": I want you to observe these states for yourself.
+"Dr Mundo": I want you to investigate three Atomons and compare their electron arrangements.
 
-"Dr Mundo": There is an Iron Atomon in the cave.
+"Dr Mundo": First, let's begin with Neon.
 
-"Dr Mundo": Go to the cave and observe it carefully.
+Player: What should I look for?
 
-"Dr Mundo": Pay attention to what you can actually observe.
+"Dr Mundo": Neon is an interesting example because its outermost electron shell is already complete.
+
+"Dr Mundo": Travel to the cave and observe the Neon Atomon.
+
+"Dr Mundo": Pay attention to its electron arrangement and think about why it is considered stable.
+
+Player: I'll investigate Neon!
 
 [signal arg="quest_notify:quest_chain_002_01:talk_dr_mundo_matter"]
 
-"Dr Mundo": Afterward, return to the starter area.
+"Dr Mundo": Good. After your observation, return to the Starter Town.
 
-"Dr Mundo": We'll discuss what you discovered.
+"Dr Mundo": We'll continue your investigation from there.

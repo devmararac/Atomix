@@ -174,35 +174,14 @@ func _on_npc_dialogue_finished(
 	npc: NPCBase,
 	conversation: NPCConversation
 ) -> void:
+
 	print("========== NPC DIALOGUE FINISHED ==========")
 	print("[NPCManager] Finished conversation: ", conversation.conversation_name)
-	print("[NPCManager] Objective ID: ", conversation.objective_id)
 
 	npc.set_dialogue_active(false)
 
 	if global.player != null:
 		global.player.can_move = true
-
-	if (
-		conversation.quest != null
-		and not conversation.objective_id.is_empty()
-	):
-		if (
-			conversation.conversation_type
-			== NPCConversation.ConversationType.DEFAULT
-			or conversation.conversation_type
-			== NPCConversation.ConversationType.QUEST_OBJECTIVE
-		):
-			if conversation.objective_id.begins_with("talk_"):
-				print(
-					"[NPCManager] Notifying TALK objective: ",
-					conversation.objective_id
-				)
-
-				await QuestManager.notify(
-					ObjectiveType.Type.TALK,
-					npc.data.npc_id
-				)
 
 
 # ============================================================

@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_uwttj")
 id = "go_to_cave2"
-description = "Go to the cave."
+description = "Travel to the cave and investigate the Atomons to learn more about their atomic stability."
 type = 3
 target_id = "cave"

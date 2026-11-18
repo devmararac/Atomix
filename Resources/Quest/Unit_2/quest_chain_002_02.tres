@@ -12,14 +12,14 @@
 [sub_resource type="Resource" id="Resource_tjcul"]
 script = ExtResource("1_objective")
 id = "talk_andrew_composition"
-description = "Talk to Andrew about elements and compounds."
+description = "Talk to Andrew and prepare for the Fusion training, where you will apply what you learned about atomic stability."
 target_id = "andrew"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
 
 [resource]
 script = ExtResource("3_quest")
 quest_id = "quest_chain_002_02"
-quest_name = "Elements and Compounds"
-quest_description = "Learn how elements can combine to form compounds through Fusion."
+quest_name = "The Path to Stability"
+quest_description = "Explore how atoms can gain, lose, or share electrons to achieve more stable electron configurations, then apply these ideas during Fusion training."
 objectives = Array[ExtResource("1_objective")]([ExtResource("2_tjcul"), ExtResource("3_47xin"), SubResource("Resource_tjcul"), ExtResource("4_tjcul"), ExtResource("6_7advi"), ExtResource("6_g7fdb")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"

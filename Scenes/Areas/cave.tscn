@@ -16,7 +16,7 @@
 [ext_resource type="Resource" uid="uid://dmxmt65f5xbmd" path="res://Resources/Items/Crafting/CRAFT_ITEM_REQ/Iron_ore.tres" id="15_adu4b"]
 [ext_resource type="PackedScene" uid="uid://gb7ks4vrhima" path="res://Scenes/Atomons/observe_argon.tscn" id="15_r0gw2"]
 [ext_resource type="Resource" uid="uid://capaxse8mrgi3" path="res://Resources/Dialouges/Dialogic/Characters/Dr Mundo.dch" id="16_adu4b"]
-[ext_resource type="PackedScene" uid="uid://duiu3hkh5vxms" path="res://Scenes/Atomons/observe_iron.tscn" id="17_r0gw2"]
+[ext_resource type="PackedScene" uid="uid://duiu3hkh5vxms" path="res://Scenes/Atomons/observe_neon.tscn" id="17_r0gw2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yfbkh"]
 texture = ExtResource("1_02alt")
@@ -1715,5 +1715,5 @@ map_texture_path = ExtResource("14_k27op")
 position = Vector2(432, 264)
 dialogic_character = ExtResource("16_adu4b")
 
-[node name="IronObservation" parent="." unique_id=37917110 instance=ExtResource("17_r0gw2")]
+[node name="NeonObservation" parent="." unique_id=37917110 instance=ExtResource("17_r0gw2")]
 position = Vector2(1021, 114)

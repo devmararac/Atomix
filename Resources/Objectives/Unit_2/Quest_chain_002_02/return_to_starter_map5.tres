@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_8ps8s")
 id = "return_to_main_map5"
-description = "Return to the Starter Town	"
+description = "Return to the Starter Town after discussing how atoms achieve stable electron configurations with Dr. Mundo."
 type = 3
 target_id = "start_map"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

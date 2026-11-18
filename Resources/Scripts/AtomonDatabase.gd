@@ -24,6 +24,7 @@ const ELEMENTS := {
 	"P": preload("res://Resources/Atomons/Phosphorus.tres"),
 	"Si": preload("res://Resources/Atomons/Silicon.tres"),
 	#"W": preload("res://Resources/Atomons/Tungsten.tres"),
+	
 }
 
 static func get_element(symbol: String) -> AtomonData:
@@ -33,4 +34,4 @@ static func get_element(symbol: String) -> AtomonData:
 static func has_element(symbol: String) -> bool:
 	return ELEMENTS.has(symbol)
 
-#"": preload(),
+	#"": preload(),

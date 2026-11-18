@@ -1,24 +1,40 @@
 
-"Dr Mundo": You've learned how matter can exist in different states.
+"Dr Mundo": Welcome back. Your observations have helped you understand how different Atomons behave.
 
-Player: Solid, liquid, and gas.
+Player: What will we investigate next?
 
-"Dr Mundo": Exactly.
+"Dr Mundo": This time, we'll look deeper into the atoms themselves.
 
-"Dr Mundo": But knowing the state of matter is only part of understanding it.
+Player: Their electrons?
 
-"Dr Mundo": We can also ask what matter is made of.
+"Dr Mundo": Exactly! More specifically, we'll focus on the electrons in the outermost energy level. We call these valence electrons.
 
-Player: What matter is made of?
+Player: Why are valence electrons important?
 
-"Dr Mundo": Yes.
+"Dr Mundo": Because they play an important role in how atoms interact and form chemical bonds.
 
-"Dr Mundo": Some substances contain only one type of element.
+"Dr Mundo": Many atoms become more stable when their outermost energy level is filled.
 
-"Dr Mundo": Others contain different elements that are chemically combined.
+Player: Is that what the Octet Rule is about?
 
-"Dr Mundo": Andrew can demonstrate this using the Fusion system.
+"Dr Mundo": Very good! The Octet Rule describes the tendency of many atoms to gain, lose, or share electrons to achieve eight valence electrons.
 
-"Dr Mundo": Go and speak with him.
+Player: So atoms can change their number of electrons or share them?
+
+"Dr Mundo": Correct. Some atoms gain electrons, some lose electrons, and others share electrons.
+
+"Dr Mundo": Remember, the Octet Rule is a useful general rule, not something that applies to every atom. Hydrogen and helium, for example, follow a duet arrangement.
+
+Player: How can we see the difference between atoms with different numbers of valence electrons?
+
+"Dr Mundo": I want you to investigate three Atomons.
+
+"Dr Mundo": First, observe Neon. It has a complete outer shell.
+
+"Dr Mundo": Next, investigate Sodium. It has one valence electron.
+
+"Dr Mundo": Finally, observe Chlorine. It has seven valence electrons.
+
+"Dr Mundo": Compare their electron arrangements and think about why their outermost electrons matter.
 
 [signal arg="quest_notify:quest_chain_002_02:talk_dr_mundo_composition"]

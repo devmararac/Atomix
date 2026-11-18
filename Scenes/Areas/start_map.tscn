@@ -37,7 +37,7 @@
 [ext_resource type="Resource" uid="uid://bjyqjvbh7juja" path="res://Resources/Items/Consumables/watermelon.tres" id="36_70qg0"]
 [ext_resource type="Resource" uid="uid://bfbg8hpv1n4j5" path="res://Resources/NPCs/TRES/andrew.tres" id="36_q0fcu"]
 [ext_resource type="PackedScene" uid="uid://cqqntj6ioteyb" path="res://Scenes/Objects/Structures/leaderboard_sign.tscn" id="37_lska0"]
-[ext_resource type="PackedScene" uid="uid://ce35j85gw40gb" path="res://Scenes/Atomons/observe_helium.tscn" id="38_twyxd"]
+[ext_resource type="PackedScene" uid="uid://ce35j85gw40gb" path="res://Scenes/Atomons/observe_chlorine.tscn" id="38_twyxd"]
 [ext_resource type="Resource" uid="uid://c03d33fasr01a" path="res://Resources/NPCs/TRES/ALFREDTHEALLKNOWING.tres" id="39_70qg0"]
 [ext_resource type="PackedScene" uid="uid://7lcvli2ufbna" path="res://Scenes/Objects/Structures/Exteriors/chest_body.tscn" id="40_rr237"]
 [ext_resource type="Resource" uid="uid://xc3dtslwrpew" path="res://Resources/Atomons/Neon.tres" id="41_v5csn"]
@@ -2998,7 +2998,7 @@ data = ExtResource("35_twyxd")
 position = Vector2(537, 536)
 data = ExtResource("36_70qg0")
 
-[node name="MecuryObservation" parent="." unique_id=1017860796 instance=ExtResource("38_twyxd")]
+[node name="ChlorineObservation" parent="." unique_id=1017860796 instance=ExtResource("38_twyxd")]
 position = Vector2(469, 52)
 
 [node name="NpcBase2" parent="." unique_id=575372863 instance=ExtResource("23_ucnbf")]

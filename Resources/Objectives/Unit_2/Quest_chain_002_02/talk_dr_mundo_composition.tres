@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_objective")
 id = "talk_dr_mundo_composition"
-description = "Talk to Dr. Mundo about what matter is made of."
+description = "Talk to Dr. Mundo and learn how atoms can achieve stable electron configurations by gaining, losing, or sharing electrons."
 target_id = "scientist"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

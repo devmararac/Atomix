@@ -1,46 +1,46 @@
-[gd_scene format=3 uid="uid://ce35j85gw40gb"]
+[gd_scene format=3 uid="uid://bjhhkixwqmim2"]
 
-[ext_resource type="Script" uid="uid://cyqid38quwfiu" path="res://Scripts/Quest/observe_mercury.gd" id="1_50d7c"]
-[ext_resource type="Texture2D" uid="uid://cxil1wcterkts" path="res://Assets/Pets/helium_anim.png" id="2_50d7c"]
-[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="3_uk0ag"]
+[ext_resource type="Script" uid="uid://cyqid38quwfiu" path="res://Scripts/Quest/observe_chlorine.gd" id="1_1j5jm"]
+[ext_resource type="Texture2D" uid="uid://fc3cks5qnncc" path="res://Assets/Pets/Sodium (1).png" id="2_srv3w"]
+[ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="3_snm5a"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uk0ag"]
-atlas = ExtResource("2_50d7c")
-region = Rect2(64, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uk8r"]
+atlas = ExtResource("2_srv3w")
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yuvka"]
-atlas = ExtResource("2_50d7c")
-region = Rect2(0, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_u83m8"]
+atlas = ExtResource("2_srv3w")
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dwgjc"]
-atlas = ExtResource("2_50d7c")
-region = Rect2(128, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnrv5"]
+atlas = ExtResource("2_srv3w")
+region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7vgfj"]
-atlas = ExtResource("2_50d7c")
-region = Rect2(192, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_k30wg"]
+atlas = ExtResource("2_srv3w")
+region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2uk06"]
-atlas = ExtResource("2_50d7c")
-region = Rect2(256, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xf67"]
+atlas = ExtResource("2_srv3w")
+region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2b13l"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uk0ag")
+"texture": SubResource("AtlasTexture_5uk8r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yuvka")
+"texture": SubResource("AtlasTexture_u83m8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dwgjc")
+"texture": SubResource("AtlasTexture_cnrv5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7vgfj")
+"texture": SubResource("AtlasTexture_k30wg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2uk06")
+"texture": SubResource("AtlasTexture_2xf67")
 }],
 "loop": true,
 "name": &"idle",
@@ -52,23 +52,23 @@ radius = 13.0
 height = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ktyap"]
-atlas = ExtResource("3_uk0ag")
+atlas = ExtResource("3_snm5a")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gsueq"]
-atlas = ExtResource("3_uk0ag")
+atlas = ExtResource("3_snm5a")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4723l"]
-atlas = ExtResource("3_uk0ag")
+atlas = ExtResource("3_snm5a")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8d07v"]
-atlas = ExtResource("3_uk0ag")
+atlas = ExtResource("3_snm5a")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iyadn"]
-atlas = ExtResource("3_uk0ag")
+atlas = ExtResource("3_snm5a")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vyini"]
@@ -94,10 +94,10 @@ animations = [{
 "speed": 9.0
 }]
 
-[node name="HeliumObservation" type="CharacterBody2D" unique_id=238339346 groups=["QuestObjects"]]
-script = ExtResource("1_50d7c")
-target_id = "helium"
-dialogue_timeline = "observe_helium"
+[node name="SodiumObservation" type="CharacterBody2D" unique_id=238339346 groups=["QuestObjects"]]
+script = ExtResource("1_1j5jm")
+target_id = "sodium"
+dialogue_timeline = "observe_sodium"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=929656731]
 sprite_frames = SubResource("SpriteFrames_2b13l")

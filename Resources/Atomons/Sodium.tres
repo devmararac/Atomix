@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://2iaeuw54rigl"]
+
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_0an4r"]
+[ext_resource type="Resource" uid="uid://tmx0111" path="res://Resources/Moves/Na_01.tres" id="2_0nwk3"]
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_ftkew"]
+[ext_resource type="Resource" uid="uid://tmx0112" path="res://Resources/Moves/Na_02.tres" id="3_l122i"]
+[ext_resource type="Resource" uid="uid://tmx0113" path="res://Resources/Moves/Na_03.tres" id="4_eywwf"]
+[ext_resource type="Resource" uid="uid://tmx0114" path="res://Resources/Moves/Na_04.tres" id="5_cskjt"]
+[ext_resource type="Texture2D" uid="uid://fc3cks5qnncc" path="res://Assets/Pets/Sodium (1).png" id="7_y7n6w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fx1pc"]
+atlas = ExtResource("7_y7n6w")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24133"]
+atlas = ExtResource("7_y7n6w")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24vgc"]
+atlas = ExtResource("7_y7n6w")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmxkx"]
+atlas = ExtResource("7_y7n6w")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv8y0"]
+atlas = ExtResource("7_y7n6w")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_senfl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fx1pc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24133")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24vgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmxkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv8y0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_ftkew")
+atom_name = "Sodium"
+chemical_symbol = "Na"
+atomic_number = 11
+sprite_frames = SubResource("SpriteFrames_senfl")
+atomic_mass = 22.98976928
+density = 0.971
+ionization_energy = 5.13908
+electronegativity = 0.869
+electron_affinity = 52.870000000000005
+valence_electrons = 1
+mass_number = 23
+element_type = "Alkali Metal"
+state = "Solid"
+period = 3
+moves = Array[ExtResource("1_0an4r")]([ExtResource("2_0nwk3"), ExtResource("3_l122i"), ExtResource("4_eywwf"), ExtResource("5_cskjt")])
+metadata/_custom_type_script = "uid://dvv118enrwub6"

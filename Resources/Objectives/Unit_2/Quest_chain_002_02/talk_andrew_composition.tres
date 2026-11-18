@@ -1,3 +1,4 @@
+
 [gd_resource type="Resource" script_class="Objective" format=3 uid="uid://cau1kpoeddhst"]
 
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_objective"]
@@ -5,6 +6,6 @@
 [resource]
 script = ExtResource("1_objective")
 id = "talk_andrew_composition"
-description = "Talk to Andrew about elements and compounds."
+description = "Talk to Andrew and prepare for the Fusion training, where you will apply what you learned about atomic stability."
 target_id = "andrew"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

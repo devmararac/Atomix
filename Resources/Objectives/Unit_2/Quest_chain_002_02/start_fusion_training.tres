@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_k0w1u")
 id = "start_fusion_training"
-description = "Begin Andrew's Fusion training battle."
+description = "Begin Andrew's Fusion training and apply what you learned about atomic stability."
 type = 5
 target_id = "fusion_training"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

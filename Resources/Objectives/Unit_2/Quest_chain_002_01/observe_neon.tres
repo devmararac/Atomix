@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_tpt8p")
-id = "observe_iron"
-description = "Observe the Iron Atomon."
+id = "observe_neon"
+description = "Observe the Neon Atomon and investigate why its outer electron shell is considered stable."
 type = 4
-target_id = "iron"
+target_id = "neon"

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var target_id := "iron"
-@export var dialogue_timeline := "observe_iron"
+@export var target_id := ""
+@export var dialogue_timeline := ""
 @export var dialogic_character: DialogicCharacter
 @onready var bubble_marker := $BubbleMarker
 

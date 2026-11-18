@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cxpv2d1jgnhnb" path="res://Scenes/Objects/Structures/House_1.tscn" id="8_kk5ve"]
 [ext_resource type="AudioStream" uid="uid://d1u513vg34uhk" path="res://Assets/Music/Kevin MacLeod - Itty Bitty 8 Bit #U266b NO COPYRIGHT 8-bit Music.mp3" id="9_lofcb"]
 [ext_resource type="Shader" uid="uid://dtg7lx50h7oty" path="res://Assets/VFX/warm_cozy.gdshader" id="10_arwxi"]
-[ext_resource type="PackedScene" uid="uid://bjhhkixwqmim2" path="res://Scenes/Atomons/observe_mercury.tscn" id="11_sbj5p"]
+[ext_resource type="PackedScene" uid="uid://bjhhkixwqmim2" path="res://Scenes/Atomons/observe_sodium.tscn" id="11_sbj5p"]
 [ext_resource type="PackedScene" uid="uid://djafjw6fwxvtx" path="res://NPC/npc_base.tscn" id="12_gsiy2"]
 [ext_resource type="Resource" uid="uid://c4yl3yasdfm8g" path="res://Resources/NPCs/TRES/angelo.tres" id="13_ol0v4"]
 [ext_resource type="PackedScene" uid="uid://dmqd2wojxfyoi" path="res://Scenes/Pickables/PickItem.tscn" id="14_w2yqr"]
@@ -2637,7 +2637,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MecuryObservation" parent="." unique_id=238339346 instance=ExtResource("11_sbj5p")]
+[node name="SodiumObservation" parent="." unique_id=238339346 instance=ExtResource("11_sbj5p")]
 position = Vector2(992, 512)
 
 [node name="NpcBase" parent="." unique_id=747614588 instance=ExtResource("12_gsiy2")]

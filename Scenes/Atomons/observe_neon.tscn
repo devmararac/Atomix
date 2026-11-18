@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://duiu3hkh5vxms"]
 
 [ext_resource type="Script" uid="uid://b3bcd4xoahu1f" path="res://Scripts/Quest/observe_iron.gd" id="1_d2qx2"]
-[ext_resource type="Texture2D" uid="uid://bte4enammcpdx" path="res://Assets/Pets/Golem_Armor_Idle.png" id="2_d2qx2"]
+[ext_resource type="Texture2D" uid="uid://c6fkojudehyh4" path="res://Assets/Pets/neon_anim.png" id="2_d2qx2"]
 [ext_resource type="Texture2D" uid="uid://uwxtb45hxwdl" path="res://Assets/UX/Icons/indicator_box.png" id="3_4i3m0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b8xkn"]
@@ -20,6 +20,30 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("2_d2qx2")
 region = Rect2(192, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vaow"]
+atlas = ExtResource("2_d2qx2")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fusxc"]
+atlas = ExtResource("2_d2qx2")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qiwr"]
+atlas = ExtResource("2_d2qx2")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tvwn"]
+atlas = ExtResource("2_d2qx2")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udmts"]
+atlas = ExtResource("2_d2qx2")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk8p8"]
+atlas = ExtResource("2_d2qx2")
+region = Rect2(576, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_2b13l"]
 animations = [{
 "frames": [{
@@ -34,6 +58,24 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n6ygm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0vaow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fusxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qiwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tvwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udmts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk8p8")
 }],
 "loop": true,
 "name": &"idle",
@@ -87,8 +129,10 @@ animations = [{
 "speed": 9.0
 }]
 
-[node name="IronObservation" type="CharacterBody2D" unique_id=238339346 groups=["QuestObjects"]]
+[node name="NeonObservation" type="CharacterBody2D" unique_id=238339346 groups=["QuestObjects"]]
 script = ExtResource("1_d2qx2")
+target_id = "neon"
+dialogue_timeline = "observe_neon"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=929656731]
 sprite_frames = SubResource("SpriteFrames_2b13l")

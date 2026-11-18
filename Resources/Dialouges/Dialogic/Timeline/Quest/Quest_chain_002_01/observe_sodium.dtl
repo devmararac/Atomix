@@ -1,0 +1,33 @@
+
+Player: This Atomon seems to have a different electron arrangement from Neon.
+
+Player: I wonder how many electrons it has in its outermost energy level.
+
+Player: What is the electron arrangement of Sodium?
+
+- 2,8,1
+  Player: Correct! Sodium has eleven electrons arranged as 2,8,1.
+
+- 2,8
+  Player: Not quite. That is the electron arrangement of Neon. Sodium has one more electron.
+
+- 2,7
+  Player: Not quite. Sodium has eleven electrons. Its electron arrangement is 2,8,1.
+
+Player: So Sodium has only one valence electron!
+
+Player: Its outermost energy level is not complete.
+
+Player: Dr. Mundo said that atoms can become more stable by gaining, losing, or sharing electrons.
+
+Player: Sodium can lose its one valence electron.
+
+Player: When it loses that electron, its arrangement becomes 2,8, like Neon.
+
+Player: It then becomes a positively charged ion called Na+.
+
+Player: I understand! Losing one electron can give Sodium a more stable electron arrangement.
+
+[signal arg="quest_notify:quest_chain_002_01:observe_sodium"]
+
+Player: I should compare this with the next Atomon.

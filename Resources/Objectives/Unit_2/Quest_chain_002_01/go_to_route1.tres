@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_yugur")
 id = "go_to_route1"
-description = "Go to Route 1."
+description = "Travel to Route 1 to investigate the Sodium Atomon and discover why it can become stable by losing an electron."
 type = 3
 target_id = "route1"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"
