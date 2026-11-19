@@ -10,10 +10,12 @@ const TOTAL_ELEMENTS := 118
 
 var student_data: Dictionary = {}
 
+# True only when a previously validated student is using an offline session.
+var offline_session_active: bool = false
+
 # IMPORTANT:
 # This contains ONLY the progress currently loaded into the game.
-# It should NOT automatically contain Firebase data just because
-# the student logged in.
+# It should NOT automatically contain Firebase data just because the student logged in.
 var collected_elements: Array[String] = []
 
 # True only after the player explicitly presses LOAD.
@@ -25,25 +27,84 @@ var progress_is_loaded: bool = false
 # ============================================================
 
 func get_student_uid() -> String:
-	return FirebaseManager.get_uid()
+
+	if FirebaseManager.is_authenticated():
+		return FirebaseManager.get_uid()
+
+	if offline_session_active:
+		return str(student_data.get("uid", ""))
+
+	return ""
 
 
 func is_student_logged_in() -> bool:
-	return FirebaseManager.is_authenticated()
+
+	return (
+		FirebaseManager.is_authenticated()
+		or offline_session_active
+	)
+
+
+func is_offline_student() -> bool:
+	return offline_session_active
+
+
+# ============================================================
+# ACTIVATE OFFLINE STUDENT SESSION
+# ============================================================
+
+func activate_offline_session() -> bool:
+
+	# Never replace an existing Firebase session with an offline one.
+	if FirebaseManager.is_authenticated():
+		return false
+
+	var session_record: Dictionary = (
+		OfflineSessionManager.load_student_session()
+	)
+
+	if session_record.is_empty():
+		return false
+
+	var cached_data: Variant = session_record.get(
+		"student_data",
+		{}
+	)
+
+	if not cached_data is Dictionary:
+		return false
+
+	var uid := str(session_record.get("uid", ""))
+
+	if uid.is_empty() or str(cached_data.get("uid", "")) != uid:
+		return false
+
+	student_data = cached_data.duplicate(true)
+
+	offline_session_active = true
+
+	# Do not automatically load collected elements.
+	clear_runtime_progress()
+
+	print("[StudentDataManager] Offline student session activated.")
+
+	return true
+
+
+# ============================================================
+# DEACTIVATE OFFLINE STUDENT SESSION
+# ============================================================
+
+func deactivate_offline_session() -> void:
+
+	offline_session_active = false
+	student_data.clear()
+
+	clear_runtime_progress()
 
 
 # ============================================================
 # LOAD STUDENT ACCOUNT
-# ============================================================
-# IMPORTANT:
-# This loads the student's account/profile information.
-#
-# It DOES NOT load saved game progress into the runtime.
-#
-# This means:
-# LOGIN -> student account loaded
-# START -> fresh runtime progress
-# LOAD -> saved progress explicitly loaded
 # ============================================================
 
 func load_student() -> void:
@@ -54,6 +115,34 @@ func load_student() -> void:
 		student_error.emit({
 			"message": "No authenticated Firebase user."
 		})
+		return
+
+	# ========================================================
+	# OFFLINE STUDENT
+	# ========================================================
+
+	if is_offline_student() and not FirebaseManager.is_authenticated():
+
+		if student_data.is_empty():
+			student_error.emit({
+				"message": "No cached student account is available."
+			})
+			return
+
+		student_data["uid"] = uid
+
+		if not student_data.has("progress"):
+			student_data["progress"] = {
+				"elements_total": TOTAL_ELEMENTS,
+				"elements_collected": 0,
+				"collected_elements": []
+			}
+
+		clear_runtime_progress()
+
+		print("[StudentDataManager] Cached offline student loaded.")
+
+		student_loaded.emit(student_data)
 		return
 
 	print("[StudentDataManager] Loading student: ", uid)
@@ -69,7 +158,13 @@ func load_student() -> void:
 	# ========================================================
 
 	if document == null:
-
+	
+		if FirebaseManager.is_authenticated() and offline_session_active:
+			student_error.emit({
+				"message": "Could not verify the student account online. Offline session remains active."
+			})
+			return
+	
 		print(
 			"[StudentDataManager] Student document not found."
 		)
@@ -89,13 +184,34 @@ func load_student() -> void:
 
 		student_created.emit(student_data)
 		return
+	
+	
+	# Verify that the restored Firebase account matches
+	# the student who was using the offline session.
+	var transitioning_from_offline := false
 
+	if offline_session_active:
+		var cached_uid := str(student_data.get("uid", ""))
+
+		if cached_uid != uid:
+			student_error.emit({
+				"message": "Firebase account does not match the offline student."
+			})
+			return
+
+		transitioning_from_offline = true
+	
+	
 	# ========================================================
 	# LOAD STUDENT ACCOUNT DATA
 	# ========================================================
 
 	student_data = document.get_unsafe_document()
-
+	
+	if transitioning_from_offline:
+		offline_session_active = false
+		print("[StudentDataManager] Offline session transitioned to online.")
+	
 	# Always make sure UID exists locally.
 	student_data["uid"] = uid
 
@@ -127,12 +243,6 @@ func load_student() -> void:
 	# ========================================================
 	# DO NOT LOAD SAVED ELEMENTS HERE
 	# ========================================================
-	#
-	# This is the important change.
-	#
-	# The Firebase progress remains inside student_data,
-	# but collected_elements stays empty until LOAD is pressed.
-	# ========================================================
 
 	clear_runtime_progress()
 
@@ -151,15 +261,15 @@ func load_student() -> void:
 	await update_last_active()
 	student_loaded.emit(student_data)
 
+	# Start syncing only after the online student account
+	# has been successfully verified and loaded.
+	if FirebaseManager.is_authenticated() and not is_offline_student():
+		print("[StudentDataManager] Online account ready. Checking pending synchronization.")
+		SyncManager.call_deferred("sync_pending_save")
+
 
 # ============================================================
 # CLEAR RUNTIME PROGRESS
-# ============================================================
-# Used when starting a NEW game/session.
-#
-# This does NOT delete anything from Firebase.
-# It only clears what the current game session is allowed
-# to see/use.
 # ============================================================
 
 func clear_runtime_progress() -> void:
@@ -180,62 +290,102 @@ func clear_runtime_progress() -> void:
 # ============================================================
 # LOAD SAVED PROGRESS
 # ============================================================
-# This should ONLY be called when the player presses LOAD.
-#
-# This retrieves the saved progress from Firebase and places
-# it into the runtime collected_elements array.
-# ============================================================
 
 func load_saved_progress() -> bool:
 
 	var uid := get_student_uid()
 
 	if uid.is_empty():
-
 		student_error.emit({
-			"message": "No authenticated Firebase user."
+			"message": "No authenticated student account."
 		})
-
 		return false
 
-	print(
-		"[StudentDataManager] Loading SAVED progress for: ",
-		uid
-	)
+	var progress: Dictionary = {}
 
-	var students: FirestoreCollection = (
-		Firebase.Firestore.collection("students")
-	)
+	# ========================================================
+	# OFFLINE: LOAD PROGRESS FROM LOCAL SAVE
+	# ========================================================
 
-	var document: FirestoreDocument = (
-		await students.get_doc(uid)
-	)
+	if is_offline_student():
 
-	if document == null:
+		print("[StudentDataManager] Loading offline saved progress.")
 
-		print(
-			"[StudentDataManager] Student document does not exist."
+		var local_record: Dictionary = (
+			OfflineSaveManager.load_local_record(uid)
 		)
 
-		clear_runtime_progress()
+		if local_record.is_empty():
+			clear_runtime_progress()
+			progress_is_loaded = false
+			return false
 
-		return false
+		var game_data: Variant = local_record.get(
+			"game_data",
+			{}
+		)
 
-	var data: Dictionary = (
-		document.get_unsafe_document()
-	)
+		if not game_data is Dictionary:
+			clear_runtime_progress()
+			progress_is_loaded = false
+			return false
+
+		# Do not treat a New Game reset as an existing playthrough.
+		if not bool(game_data.get("has_save", false)):
+			clear_runtime_progress()
+			progress_is_loaded = false
+			return false
+
+		var saved_progress: Variant = game_data.get(
+			"progress",
+			{}
+		)
+
+		if saved_progress is Dictionary:
+			progress = saved_progress.duplicate(true)
+
+	# ========================================================
+	# ONLINE: LOAD PROGRESS FROM FIRESTORE
+	# ========================================================
+
+	else:
+
+		print(
+			"[StudentDataManager] Loading SAVED progress for: ",
+			uid
+		)
+
+		var students: FirestoreCollection = (
+			Firebase.Firestore.collection("students")
+		)
+
+		var document: FirestoreDocument = (
+			await students.get_doc(uid)
+		)
+
+		if document == null:
+			print(
+				"[StudentDataManager] Student document does not exist."
+			)
+			clear_runtime_progress()
+			progress_is_loaded = false
+			return false
+
+		var data: Dictionary = (
+			document.get_unsafe_document()
+		)
+
+		var saved_progress: Variant = data.get(
+			"progress",
+			{}
+		)
+
+		if saved_progress is Dictionary:
+			progress = saved_progress.duplicate(true)
 
 	# ========================================================
 	# MAKE SURE PROGRESS EXISTS
 	# ========================================================
-
-	var progress: Dictionary = data.get(
-		"progress",
-		{}
-	)
-
-	if not progress is Dictionary:
-		progress = {}
 
 	if not progress.has("elements_total"):
 		progress["elements_total"] = TOTAL_ELEMENTS
@@ -252,37 +402,27 @@ func load_saved_progress() -> bool:
 
 	collected_elements.clear()
 
-	var saved_elements = (
-		progress.get(
-			"collected_elements",
-			[]
-		)
+	var saved_elements: Variant = progress.get(
+		"collected_elements",
+		[]
 	)
 
 	if saved_elements is Array:
-
 		for symbol in saved_elements:
 
-			var element_symbol := (
-				str(symbol).strip_edges()
-			)
+			var element_symbol := str(symbol).strip_edges()
 
 			if element_symbol.is_empty():
 				continue
 
 			if not collected_elements.has(element_symbol):
-
-				collected_elements.append(
-					element_symbol
-				)
+				collected_elements.append(element_symbol)
 
 	# ========================================================
 	# SYNCHRONIZE COUNT
 	# ========================================================
 
-	progress["elements_collected"] = (
-		collected_elements.size()
-	)
+	progress["elements_collected"] = collected_elements.size()
 
 	student_data["progress"] = progress
 
@@ -292,20 +432,12 @@ func load_saved_progress() -> bool:
 
 	progress_is_loaded = true
 
-	print(
-		"[StudentDataManager] SAVED PROGRESS LOADED."
-	)
-
+	print("[StudentDataManager] SAVED PROGRESS LOADED.")
 	print(
 		"[StudentDataManager] Elements loaded: ",
 		collected_elements.size(),
 		"/",
 		TOTAL_ELEMENTS
-	)
-
-	print(
-		"[StudentDataManager] Collected elements: ",
-		collected_elements
 	)
 
 	progress_loaded.emit(progress)
@@ -437,33 +569,55 @@ func save_progress() -> void:
 	var uid: String = get_student_uid()
 
 	if uid.is_empty():
-
 		student_error.emit({
-			"message": "No authenticated Firebase user."
+			"message": "No authenticated student account."
 		})
-
 		return
 
-	var elements_collected := (
-		collected_elements.size()
-	)
+	var progress: Dictionary = {
+		"elements_total": TOTAL_ELEMENTS,
+		"elements_collected": collected_elements.size(),
+		"collected_elements": collected_elements.duplicate()
+	}
 
-	print(
-		"[StudentDataManager] Saving progress for: ",
-		uid
-	)
-
+	print("[StudentDataManager] Saving progress for: ", uid)
 	print(
 		"[StudentDataManager] Elements: ",
-		elements_collected,
+		collected_elements.size(),
 		"/",
 		TOTAL_ELEMENTS
 	)
 
-	print(
-		"[StudentDataManager] Collected elements: ",
-		collected_elements
-	)
+	# ========================================================
+	# OFFLINE: SAVE PROGRESS LOCALLY
+	# ========================================================
+
+	if is_offline_student():
+
+		var local_success: bool = (
+			OfflineSaveManager.update_local_progress(
+				uid,
+				progress
+			)
+		)
+
+		if not local_success:
+			student_error.emit({
+				"message": "Unable to save offline student progress."
+			})
+			return
+
+		student_data["progress"] = progress
+		progress_is_loaded = true
+
+		print("[StudentDataManager] Offline progress saved.")
+
+		progress_updated.emit(progress)
+		return
+
+	# ========================================================
+	# ONLINE: SAVE PROGRESS TO FIRESTORE
+	# ========================================================
 
 	var students: FirestoreCollection = (
 		Firebase.Firestore.collection("students")
@@ -474,48 +628,13 @@ func save_progress() -> void:
 	)
 
 	if document == null:
-
-		print(
-			"[StudentDataManager] Student document does not exist."
-		)
-
 		student_error.emit({
 			"message": "Student document does not exist."
 		})
-
 		return
-
-	# ========================================================
-	# CREATE PROGRESS DATA
-	# ========================================================
-
-	var progress: Dictionary = {
-
-		"elements_total":
-			TOTAL_ELEMENTS,
-
-		"elements_collected":
-			elements_collected,
-
-		"collected_elements":
-			collected_elements.duplicate()
-	}
-
-	# ========================================================
-	# UPDATE FIRESTORE
-	# ========================================================
 
 	document.add_or_update_field(
 		"progress",
-		progress
-	)
-
-	print(
-		"[StudentDataManager] Updating Firestore document..."
-	)
-
-	print(
-		"[StudentDataManager] Progress: ",
 		progress
 	)
 
@@ -524,30 +643,22 @@ func save_progress() -> void:
 	)
 
 	if result == null:
-
-		print(
-			"[StudentDataManager] Failed to save progress."
-		)
-
 		student_error.emit({
 			"message": "Unable to save student progress."
 		})
-
 		return
 
 	# ========================================================
-	# UPDATE LOCAL DATA
+	# UPDATE LOCAL RUNTIME DATA
 	# ========================================================
 
 	student_data["progress"] = progress
-
 	progress_is_loaded = true
 
-	print(
-		"[StudentDataManager] Progress saved successfully."
-	)
+	print("[StudentDataManager] Online progress saved.")
 
 	progress_updated.emit(progress)
+
 
 
 # ============================================================
@@ -687,77 +798,99 @@ func save_player_profile(
 	var uid := get_student_uid()
 
 	if uid.is_empty():
-
 		student_error.emit({
-			"message": "No authenticated Firebase user."
+			"message": "No student account is available."
 		})
-
 		return false
 
 	var clean_display_name := new_display_name.strip_edges()
 	var clean_character_id := new_character_id.strip_edges()
 
 	if clean_display_name.is_empty():
-
-		print(
-			"[StudentDataManager] Cannot save empty display name."
-		)
-
 		student_error.emit({
 			"message": "Display name cannot be empty."
 		})
-
 		return false
 
 	if clean_character_id.is_empty():
-
-		print(
-			"[StudentDataManager] Cannot save empty character ID."
-		)
-
 		student_error.emit({
 			"message": "Character ID cannot be empty."
 		})
-
 		return false
 
-	print(
-		"[StudentDataManager] Saving player profile..."
+	# ========================================================
+	# SAVE PROFILE LOCALLY FIRST
+	# ========================================================
+
+	student_data["display_name"] = clean_display_name
+	student_data["character_id"] = clean_character_id
+
+	var profile_record := {
+		"uid": uid,
+		"display_name": clean_display_name,
+		"character_id": clean_character_id,
+		"updated_at": Time.get_unix_time_from_system(),
+		"pending_sync": true
+	}
+
+	var directory_path := "user://offline_accounts"
+	var directory_error := DirAccess.make_dir_recursive_absolute(
+		ProjectSettings.globalize_path(directory_path)
 	)
 
-	print(
-		"[StudentDataManager] Display Name: ",
-		clean_display_name
-	)
+	if directory_error != OK:
+		student_error.emit({
+			"message": "Unable to save player profile locally."
+		})
+		return false
 
-	print(
-		"[StudentDataManager] Character ID: ",
-		clean_character_id
-	)
+	var safe_uid := uid.validate_filename()
+
+	if safe_uid.is_empty():
+		return false
+
+	var profile_path := directory_path + "/" + safe_uid + "_profile.json"
+
+	var file := FileAccess.open(profile_path, FileAccess.WRITE)
+
+	if file == null:
+		student_error.emit({
+			"message": "Unable to save player profile locally."
+		})
+		return false
+
+	file.store_string(JSON.stringify(profile_record, "\t"))
+
+	var file_error := file.get_error()
+	file.close()
+
+	if file_error != OK:
+		student_error.emit({
+			"message": "Unable to finish saving player profile."
+		})
+		return false
+
+	# ========================================================
+	# OFFLINE: KEEP PROFILE PENDING FOR LATER SYNC
+	# ========================================================
+
+	if is_offline_student():
+		print("[StudentDataManager] Player profile saved locally.")
+		return true
+
+	# ========================================================
+	# ONLINE: UPDATE FIRESTORE
+	# ========================================================
 
 	var students: FirestoreCollection = (
 		Firebase.Firestore.collection("students")
 	)
 
-	var document: FirestoreDocument = (
-		await students.get_doc(uid)
-	)
+	var document: FirestoreDocument = await students.get_doc(uid)
 
 	if document == null:
-
-		print(
-			"[StudentDataManager] Student document does not exist."
-		)
-
-		student_error.emit({
-			"message": "Student document does not exist."
-		})
-
-		return false
-
-	# ========================================================
-	# UPDATE ONLY PLAYER PROFILE FIELDS
-	# ========================================================
+		print("[StudentDataManager] Student document unavailable. Profile remains pending sync.")
+		return true
 
 	document.add_or_update_field(
 		"display_name",
@@ -769,45 +902,120 @@ func save_player_profile(
 		clean_character_id
 	)
 
-	print(
-		"[StudentDataManager] Updating player profile in Firestore..."
-	)
-
-	var result: FirestoreDocument = (
-		await students.update(document)
-	)
+	var result: FirestoreDocument = await students.update(document)
 
 	if result == null:
+		print("[StudentDataManager] Cloud profile update failed. Profile remains pending sync.")
+		return true
 
-		print(
-			"[StudentDataManager] Failed to save player profile."
-		)
+	# Mark the local profile as synchronized.
+	profile_record["pending_sync"] = false
 
-		student_error.emit({
-			"message": "Unable to save player profile."
-		})
+	var update_file := FileAccess.open(profile_path, FileAccess.WRITE)
 
-		return false
+	if update_file != null:
+		update_file.store_string(JSON.stringify(profile_record, "\t"))
+		update_file.close()
 
-	# ========================================================
-	# UPDATE LOCAL STUDENT DATA
-	# ========================================================
-
-	student_data["display_name"] = clean_display_name
-	student_data["character_id"] = clean_character_id
-
-	print(
-		"[StudentDataManager] Player profile saved successfully."
-	)
-
-	print(
-		"[StudentDataManager] Display Name: ",
-		student_data["display_name"]
-	)
-
-	print(
-		"[StudentDataManager] Character ID: ",
-		student_data["character_id"]
-	)
+	print("[StudentDataManager] Player profile saved locally and to Firestore.")
 
 	return true
+
+
+
+func sync_pending_player_profile() -> bool:
+
+	var uid := get_student_uid()
+
+	if uid.is_empty() or is_offline_student():
+		return false
+
+	var safe_uid := uid.validate_filename()
+
+	if safe_uid.is_empty():
+		return false
+
+	var profile_path := (
+		"user://offline_accounts/"
+		+ safe_uid
+		+ "_profile.json"
+	)
+
+	if not FileAccess.file_exists(profile_path):
+		return true
+
+	var file := FileAccess.open(profile_path, FileAccess.READ)
+
+	if file == null:
+		return false
+
+	var parsed_data: Variant = JSON.parse_string(file.get_as_text())
+	file.close()
+
+	if not parsed_data is Dictionary:
+		return false
+
+	if parsed_data.get("uid", "") != uid:
+		push_error("[StudentDataManager] Profile UID mismatch.")
+		return false
+
+	if not bool(parsed_data.get("pending_sync", false)):
+		return true
+
+	var display_name := str(parsed_data.get("display_name", "")).strip_edges()
+	var character_id := str(parsed_data.get("character_id", "")).strip_edges()
+
+	if display_name.is_empty() or character_id.is_empty():
+		return false
+
+	var students: FirestoreCollection = (
+		Firebase.Firestore.collection("students")
+	)
+
+	var document: FirestoreDocument = await students.get_doc(uid)
+
+	if document == null:
+		return false
+
+	document.add_or_update_field("display_name", display_name)
+	document.add_or_update_field("character_id", character_id)
+
+	var result: FirestoreDocument = await students.update(document)
+
+	if result == null:
+		return false
+
+	parsed_data["pending_sync"] = false
+
+	var update_file := FileAccess.open(profile_path, FileAccess.WRITE)
+
+	if update_file == null:
+		return false
+
+	update_file.store_string(JSON.stringify(parsed_data, "\t"))
+
+	var write_error := update_file.get_error()
+	update_file.close()
+
+	if write_error != OK:
+		return false
+
+	student_data["display_name"] = display_name
+	student_data["character_id"] = character_id
+
+	print("[StudentDataManager] Pending player profile synchronized.")
+
+	return true
+
+
+func start_pending_sync() -> void:
+	if not FirebaseManager.is_authenticated():
+		return
+
+	if is_offline_student():
+		return
+
+	if not ConnectionManager.is_connected_to_internet:
+		return
+
+	await SyncManager.sync_pending_save()

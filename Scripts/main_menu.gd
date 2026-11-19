@@ -28,6 +28,7 @@ var role_check_in_progress: bool = false
 
 var restored_session_on_startup: bool = false
 
+var offline_startup_detected: bool = false
 
 func _ready() -> void:
 	# Hide the menus initially
@@ -37,15 +38,27 @@ func _ready() -> void:
 	buttons_cont.hide()
 	
 	
-	# Play the intro only when there is no existing login session.
-	if AuthManager.is_logged_in():
+	# Check whether a previous student can start offline.
+	if (
+		not AuthManager.is_logged_in()
+		and not ConnectionManager.is_connected_to_internet
+	):
+		offline_startup_detected = (
+			StudentDataManager.activate_offline_session()
+		)
+
+	# Hide the intro when an existing session is available.
+	if AuthManager.is_logged_in() or offline_startup_detected:
 		intro_elements.hide()
 		auth_panel.hide()
 		ui_panel.hide()
-		loading_screen.show_loading("RESTORING SESSION...")
+
+		if offline_startup_detected:
+			loading_screen.show_loading("RESTORING OFFLINE SESSION...")
+		else:
+			loading_screen.show_loading("RESTORING SESSION...")
 	else:
 		_play_intro()
-
 	AuthManager.login_success.connect(_on_login_success)
 	AuthManager.login_failed.connect(_on_login_failed)
 	AuthManager.session_restored.connect(_on_session_restored)
@@ -61,10 +74,15 @@ func _ready() -> void:
 		restored_session_on_startup = true
 		print("[MainMenu] Existing Firebase session detected.")
 		call_deferred("_check_user_role")
+
+	elif offline_startup_detected:
+		restored_session_on_startup = true
+		print("[MainMenu] Existing offline student session detected.")
+		call_deferred("_open_offline_student_menu")
+
 	else:
 		restored_session_on_startup = false
 		print("[MainMenu] No existing login session.")
-
 	# AtomiX custom keyboard
 	email_input.focus_entered.connect(_on_email_input_focus_entered)
 	password_input.focus_entered.connect(_on_password_input_focus_entered)
@@ -169,6 +187,37 @@ func _check_user_role() -> void:
 			status_label.text = "Account role could not be determined."
 
 
+# ============================================================
+# OFFLINE STUDENT STARTUP
+# ============================================================
+
+func _open_offline_student_menu() -> void:
+
+	var uid := StudentDataManager.get_student_uid()
+
+	if uid.is_empty():
+		loading_screen.hide_loading()
+		status_label.text = "Unable to restore offline student session."
+		return
+
+	# Only offer Continue when this student has a local save.
+	var has_local_save := OfflineSaveManager.has_local_save(uid)
+
+	loading_screen.hide_loading()
+
+	var student_name := str(
+		StudentDataManager.student_data.get("name", "Student")
+	)
+
+	status_label.text = "Welcome back, " + student_name
+
+	if has_local_save:
+		print("[MainMenu] Local student save found.")
+		_transition_to_game_menu(true)
+	else:
+		print("[MainMenu] No local student save found.")
+		_transition_to_game_menu(false)
+
 
 func _open_staff_dashboard(scene_path: String) -> void:
 
@@ -210,6 +259,12 @@ func _load_student_data() -> void:
 
 func _on_student_loaded(data: Dictionary) -> void:
 	role_check_in_progress = false
+
+	# Save the validated student's identity for future offline access.
+	var uid := StudentDataManager.get_student_uid()
+
+	if not OfflineSessionManager.save_student_session(uid, data):
+		push_warning("[MainMenu] Could not save offline student session.")
 
 	# Hide the loading screen now that data is here!
 	loading_screen.hide_loading()
@@ -337,6 +392,10 @@ func _on_login_button_pressed():
 
 
 func _on_login_failed(message):
+
+	if StudentDataManager.is_offline_student():
+		return
+
 	login_in_progress = false
 	
 	# Hide the loading screen on failure

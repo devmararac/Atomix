@@ -197,11 +197,18 @@ func _set_auth_state(auth_result: Dictionary) -> void:
 
 
 func logout() -> void:
+
+	# Remove offline authorization when the user explicitly logs out.
+	OfflineSessionManager.clear_offline_session()
+
+	StudentDataManager.deactivate_offline_session()
+
 	if Firebase.Auth != null:
 		Firebase.Auth.logout()
 	else:
 		current_user.clear()
 		user_uid = ""
+		current_role = ""
 
 
 func get_uid() -> String:

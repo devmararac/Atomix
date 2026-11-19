@@ -1,4 +1,3 @@
-
 [gd_resource type="Resource" script_class="Objective" format=3 uid="uid://bsg5uqe2ooq3o"]
 
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_xnq06"]
@@ -6,6 +5,6 @@
 [resource]
 script = ExtResource("1_xnq06")
 id = "talk_dr_mundo_matter"
-description = "Talk to Dr. Mundo about the unusual behavior of Atomons and investigate why atoms seek stability."
+description = "Discuss Atomon behavior and atomic stability with Dr. Mundo."
 target_id = "scientist"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

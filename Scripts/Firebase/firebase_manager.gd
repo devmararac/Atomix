@@ -20,13 +20,21 @@ func _ready() -> void:
 
 	if not Firebase.Auth.login_succeeded.is_connected(_on_login_success):
 		Firebase.Auth.login_succeeded.connect(_on_login_success)
+		
+	if not Firebase.Auth.login_failed.is_connected(_on_login_failed):
+		Firebase.Auth.login_failed.connect(_on_login_failed)
 
 	if Firebase.Auth.has_signal("token_refresh_succeeded") and not Firebase.Auth.token_refresh_succeeded.is_connected(_on_token_refresh_succeeded):
 		Firebase.Auth.token_refresh_succeeded.connect(_on_token_refresh_succeeded)
 
 	if Firebase.Auth.has_signal("logged_out") and not Firebase.Auth.logged_out.is_connected(_on_logged_out):
 		Firebase.Auth.logged_out.connect(_on_logged_out)
-
+	
+	
+	if not ConnectionManager.connection_changed.is_connected(_on_connection_changed):
+		ConnectionManager.connection_changed.connect(_on_connection_changed)
+	
+	
 	call_deferred("_restore_saved_session")
 
 
@@ -126,3 +134,29 @@ func is_restoring_saved_session() -> bool:
 
 func get_auth_data() -> Dictionary:
 	return auth_data
+
+
+func _on_login_failed(_code: Variant, _message: Variant) -> void:
+	if restoring_saved_session:
+		restoring_saved_session = false
+		print("[FirebaseManager] Saved session restoration failed.")
+
+
+func _on_connection_changed(connected: bool) -> void:
+	if not connected:
+		return
+
+	if is_authenticated():
+		return
+
+	if Firebase.Auth == null:
+		return
+
+	if Firebase.Auth.is_busy:
+		return
+
+	if Firebase.Auth.needs_login():
+		return
+
+	print("[FirebaseManager] Internet restored. Retrying saved Firebase session...")
+	call_deferred("_restore_saved_session")

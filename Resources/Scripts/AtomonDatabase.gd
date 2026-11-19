@@ -18,6 +18,7 @@ const ELEMENTS := {
 	"Fe": preload("res://Resources/Atomons/Iron.tres"),
 	"Li": preload("res://Resources/Atomons/lithium.tres"),
 	"Hg": preload("res://Resources/Atomons/Mercury.tres"),
+	"Na": preload("res://Resources/Atomons/Sodium.tres"),
 	"Ne": preload("res://Resources/Atomons/Neon.tres"),
 	"N": preload("res://Resources/Atomons/Nitrogen.tres"),
 	"O": preload("res://Resources/Atomons/Oxygen.tres"),

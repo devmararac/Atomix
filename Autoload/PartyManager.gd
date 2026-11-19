@@ -213,91 +213,38 @@ func load_saved_collection(saved_collection: Array) -> void:
 	carried_party.clear()
 	active_index = 0
 
-	print(
-		"[PartyManager] ========================================"
-	)
-
-	print(
-		"[PartyManager] LOADING FIREBASE ATOMON COLLECTION"
-	)
-
-	print(
-		"[PartyManager] Saved entries: ",
-		saved_collection.size()
-	)
-
-	print(
-		"[PartyManager] ========================================"
-	)
-
-	# --------------------------------------------------------
-	# RESTORE EVERY INDIVIDUAL ATOMON
-	# --------------------------------------------------------
-
 	for saved_atom in saved_collection:
 
 		if not saved_atom is Dictionary:
 			continue
 
 		var chemical_symbol := str(
-			saved_atom.get(
-				"chemical_symbol",
-				""
-			)
+			saved_atom.get("chemical_symbol", "")
 		).strip_edges()
 
 		if chemical_symbol.is_empty():
 			continue
 
-		if not AtomonDatabase.has_element(
-			chemical_symbol
-		):
-
-			print(
-				"[PartyManager] Cannot find element data: ",
-				chemical_symbol
+		if not AtomonDatabase.has_element(chemical_symbol):
+			push_warning(
+				"[PartyManager] Unknown element: " + chemical_symbol
 			)
-
 			continue
 
-		var species: AtomonData = (
-			AtomonDatabase.get_element(
-				chemical_symbol
-			)
+		var species: AtomonData = AtomonDatabase.get_element(
+			chemical_symbol
 		)
 
 		if species == null:
 			continue
 
-		# Create individual Atomon instance.
-		var atomon: AtomonInstance = (
-			AtomonInstance.new()
-		)
-
+		var atomon := AtomonInstance.new()
 		atomon.initialize(species)
+		atomon.apply_save_dict(saved_atom)
 
-		# Restore saved instance state.
-		atomon.apply_save_dict(
-			saved_atom
-		)
-
-		# Add to complete collection.
 		party.append(atomon)
 
-		print(
-			"[PartyManager] RESTORED: ",
-			chemical_symbol,
-			" | ID: ",
-			atomon.instance_id
-		)
-
-	# --------------------------------------------------------
-	# FALLBACK CARRIED PARTY
-	# --------------------------------------------------------
-	#
-	# SaveManager can later replace this with the exact saved
-	# carried-party arrangement.
-	# --------------------------------------------------------
+	# TEMPORARY CARRIED PARTY
 
 	var carried_count := mini(
 		MAX_CARRIED_ATOMONS,
@@ -305,23 +252,10 @@ func load_saved_collection(saved_collection: Array) -> void:
 	)
 
 	for i in range(carried_count):
-		carried_party.append(
-			party[i]
-		)
+		carried_party.append(party[i])
 
 	active_index = 0
 
-	print(
-		"[PartyManager] Collection: ",
-		party.size()
-	)
-
-	print(
-		"[PartyManager] Carried: ",
-		carried_party.size(),
-		"/",
-		MAX_CARRIED_ATOMONS
-	)
 
 
 # ============================================================

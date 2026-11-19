@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_jw8df")
 id = "return_to_dr_mundo_matter"
-description = "Return to Dr. Mundo and discuss your observations about the valence electrons and stability of Neon, Sodium, and Chlorine."
+description = "Report your findings on Neon, Sodium, and Chlorine to Dr. Mundo."
 target_id = "scientist"

@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_objective")
 id = "return_to_dr_mundo_composition"
-description = "Return to Dr. Mundo and discuss how gaining, losing, or sharing electrons relates to chemical bonding and atomic stability."
+description = "Discuss electron transfer, sharing, and bonding with Dr. Mundo."
 target_id = "scientist"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

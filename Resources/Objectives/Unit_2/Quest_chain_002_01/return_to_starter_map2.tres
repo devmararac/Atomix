@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_0vy6d")
 id = "return_to_main_map2"
-description = "Return to the Starter Town and prepare to investigate the unusual behavior of Atomons."
+description = "Return to Starter Town to investigate the Atomons' unusual behavior."
 type = 3
 target_id = "start_map"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

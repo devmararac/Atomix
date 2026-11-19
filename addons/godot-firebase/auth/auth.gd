@@ -68,6 +68,7 @@ var requesting : int = -1
 
 enum Requests {
 	NONE = -1,
+	RESTORE_SESSION,
 	EXCHANGE_TOKEN,
 	LOGIN_WITH_OAUTH,
 	REAUTHENTICATE,
@@ -393,20 +394,56 @@ func needs_login() -> bool:
 	return err
 
 
-func manual_token_refresh(auth_data):
-	auth = auth_data
-	var refresh_token = null
-	auth = get_clean_keys(auth)
-	if auth.has("refreshtoken"):
-		refresh_token = auth.refreshtoken
-	elif auth.has("refresh_token"):
-		refresh_token = auth.refresh_token
+func manual_token_refresh(auth_data: Dictionary) -> void:
+
+	auth = get_clean_keys(auth_data)
+
+	var refresh_token := str(
+		auth.get(
+			"refreshtoken",
+			auth.get("refresh_token", "")
+		)
+	)
+
+	if refresh_token.is_empty():
+		login_failed.emit(
+			"INVALID_REFRESH_TOKEN",
+			"Saved Firebase session has no refresh token."
+		)
+		return
+
+	if not _is_ready():
+		return
+
+	is_busy = true
+	requesting = Requests.RESTORE_SESSION
 	_needs_refresh = true
+
 	_refresh_request_body.refresh_token = refresh_token
-	var err = request(_refresh_request_base_url + _refresh_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify(_refresh_request_body))
+
+	print("[Firebase Auth] Restoring saved Firebase session...")
+
+	var err := request(
+		_refresh_request_base_url + _refresh_request_url,
+		_headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(_refresh_request_body)
+	)
+
 	if err != OK:
 		is_busy = false
-		Firebase._printerr("Error manually refreshing token: %s" % err)
+		requesting = Requests.NONE
+		_needs_refresh = false
+
+		login_failed.emit(
+			"RESTORE_REQUEST_FAILED",
+			"Could not start Firebase session restoration."
+		)
+
+		push_error(
+			"[Firebase Auth] Could not start session restoration. Error: "
+			+ str(err)
+		)
 
 
 # Refresh the Firebase ID token without triggering a new login event.
@@ -508,8 +545,22 @@ func _on_FirebaseAuth_request_completed(
 		res = json
 
 	if response_code == HTTPClient.RESPONSE_OK:
-		
-		if completed_request_type == Requests.REFRESH_TOKEN:
+
+		if completed_request_type == Requests.RESTORE_SESSION:
+			auth = get_clean_keys(res)
+
+			if save_auth(auth):
+				print("[Firebase Auth] Saved Firebase session restored.")
+
+				begin_refresh_countdown()
+				login_succeeded.emit(auth)
+			else:
+				login_failed.emit(
+					"RESTORE_SAVE_FAILED",
+					"Firebase session restored, but could not save authentication data."
+				)
+
+		elif completed_request_type == Requests.REFRESH_TOKEN:
 			auth = get_clean_keys(res)
 
 			# Save the refreshed session.
@@ -603,7 +654,19 @@ func _on_FirebaseAuth_request_completed(
 
 	else:
 
-		if completed_request_type == Requests.VERIFY_ACCOUNT_EMAIL:
+		if completed_request_type == Requests.RESTORE_SESSION:
+			var error_data: Dictionary = res.get("error", {})
+
+			print("[Firebase Auth] Saved session restoration failed: ", error_data)
+
+			_needs_refresh = false
+
+			login_failed.emit(
+				error_data.get("code", response_code),
+				error_data.get("message", "Could not restore saved Firebase session.")
+			)
+
+		elif completed_request_type == Requests.VERIFY_ACCOUNT_EMAIL:
 			account_verification_completed.emit(false, res.get("error", {}))
 		
 		if completed_request_type == Requests.REFRESH_TOKEN:
@@ -1019,30 +1082,58 @@ func delete_user_account() -> void:
 			remove_auth()
 
 
+
 func begin_refresh_countdown() -> void:
-	var refresh_token = null
-	var expires_in = 1000
+
+	var refresh_token := ""
+	var expires_in := 1000
+
 	auth = get_clean_keys(auth)
 
 	if auth.has("refreshtoken"):
-		refresh_token = auth.refreshtoken
-		expires_in = auth.expiresin
+		refresh_token = str(auth.refreshtoken)
+		expires_in = int(auth.get("expiresin", 1000))
+
 	elif auth.has("refresh_token"):
-		refresh_token = auth.refresh_token
-		expires_in = auth.expires_in
+		refresh_token = str(auth.refresh_token)
+		expires_in = int(auth.get("expires_in", 1000))
 
 	if auth.has("userid"):
 		auth["localid"] = auth.userid
 
+	if refresh_token.is_empty():
+		push_warning("[Firebase Auth] Cannot schedule refresh: refresh token missing.")
+		return
+
 	_needs_refresh = true
 	token_refresh_succeeded.emit(auth)
+
 	await get_tree().create_timer(float(expires_in)).timeout
 
+	if refresh_token.is_empty():
+		return
+
+	if not _is_ready():
+		return
+
+	is_busy = true
+	requesting = Requests.REFRESH_TOKEN
 	_refresh_request_body.refresh_token = refresh_token
-	var err = request(_refresh_request_base_url + _refresh_request_url, _headers, HTTPClient.METHOD_POST, JSON.stringify(_refresh_request_body))
+
+	print("[Firebase Auth] Starting automatic token refresh.")
+
+	var err := request(
+		_refresh_request_base_url + _refresh_request_url,
+		_headers,
+		HTTPClient.METHOD_POST,
+		JSON.stringify(_refresh_request_body)
+	)
+
 	if err != OK:
 		is_busy = false
-		Firebase._printerr("Error refreshing via countdown: %s" % err)
+		requesting = Requests.NONE
+		push_error("[Firebase Auth] Automatic token refresh failed to start: " + str(err))
+
 
 
 func get_token_from_url(provider: AuthProvider):
