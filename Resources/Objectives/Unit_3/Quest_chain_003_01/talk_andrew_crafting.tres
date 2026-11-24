@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://btuyryy4v3yol"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_twc07"]
+
+[resource]
+script = ExtResource("1_twc07")
+id = "talk_andrew_crafting"
+description = "Talk to Andrew about Atomon crafting."
+target_id = "andrew"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

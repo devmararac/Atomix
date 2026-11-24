@@ -20,7 +20,7 @@
 script = ExtResource("2_quest")
 quest_id = "quest_chain_002_01"
 quest_name = "An Unstable Situation"
-quest_description = "Investigate unusual Atomon behavior and discover how valence electrons relate to atomic stability and the Octet Rule."
+quest_description = "Check unusual Atomon behavior to learn valence electrons, stability, and the Octet Rule."
 unlock_id = "quest_chain_002_02"
 objectives = Array[ExtResource("1_objective")]([ExtResource("2_8ahfe"), ExtResource("3_8ahfe"), ExtResource("4_4kcgs"), ExtResource("5_8ahfe"), ExtResource("6_m3crk"), ExtResource("7_m3crk"), ExtResource("7_ouedp"), ExtResource("8_yj4ji"), ExtResource("10_ouedp"), ExtResource("9_ulk1g"), ExtResource("10_j04wj"), ExtResource("11_f8ph5")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"

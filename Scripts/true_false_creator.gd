@@ -307,7 +307,7 @@ func _on_previous_pressed() -> void:
 	if current_question_index <= 0:
 		return
 
-	if creator_mode != CreatorMode.VIEW and current_question_index < questions.size():
+	if creator_mode != CreatorMode.VIEW:
 		if not _save_current_question_to_memory():
 			return
 
@@ -357,10 +357,11 @@ func _on_save_pressed() -> void:
 		return
 
 	var quiz_id := existing_quiz_id
+
 	if creator_mode == CreatorMode.CREATE:
 		quiz_id = _generate_quiz_id()
-	
-	quiz_id = _generate_quiz_id()
+
+	saved_quiz_id = quiz_id
 	
 	var question_values: Array = []
 
@@ -412,8 +413,12 @@ func _on_save_pressed() -> void:
 			"timestampValue": _get_firestore_timestamp()
 		}
 
-	if not existing_section.is_empty():
-		fields["section"] = {"stringValue": existing_section}
+	if creator_mode == CreatorMode.CREATE:
+		fields["assigned_sections"] = {
+			"arrayValue": {
+				"values": []
+			}
+		}
 
 	var document := {"fields": fields}
 	var json_body := JSON.stringify(document)

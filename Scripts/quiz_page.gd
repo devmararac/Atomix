@@ -295,11 +295,13 @@ func load_quizzes() -> void:
 		if quiz.is_empty():
 			continue
 
-		var quiz_section := str(
-			quiz.get("section", "")
-		).strip_edges()
+		# Check whether this quiz is assigned to the student's section.
+		var assigned_sections: Array = quiz.get(
+			"assigned_sections",
+			[]
+		)
 
-		if quiz_section != student_section:
+		if not assigned_sections.has(student_section):
 			continue
 
 		quizzes.append(quiz)
@@ -319,21 +321,55 @@ func _parse_quiz_document(
 ) -> Dictionary:
 	var quiz: Dictionary = {}
 
-	quiz["quiz_id"] = _get_string_field(fields, "quiz_id").strip_edges()
+	quiz["quiz_id"] = _get_string_field(
+		fields,
+		"quiz_id"
+	).strip_edges()
 
 	if str(quiz["quiz_id"]).is_empty():
 		quiz["quiz_id"] = _get_quiz_id_from_document_name(
 			str(document.get("name", ""))
 		)
 
-	quiz["teacher_id"] = _get_string_field(fields, "teacher_id")
-	quiz["title"] = _get_string_field(fields, "title")
-	quiz["section"] = _get_string_field(fields, "section")
-	quiz["quiz_type"] = _get_string_field(fields, "quiz_type")
-	quiz["question_count"] = _get_integer_field(fields, "question_count")
-	quiz["questions"] = _get_questions_field(fields, "questions")
-	quiz["created_at"] = _get_string_field(fields, "created_at")
-	quiz["document_name"] = str(document.get("name", ""))
+	quiz["teacher_id"] = _get_string_field(
+		fields,
+		"teacher_id"
+	)
+
+	quiz["title"] = _get_string_field(
+		fields,
+		"title"
+	)
+
+	# Read the new assigned_sections array.
+	quiz["assigned_sections"] = _get_string_array_field(
+		fields,
+		"assigned_sections"
+	)
+
+	quiz["quiz_type"] = _get_string_field(
+		fields,
+		"quiz_type"
+	)
+
+	quiz["question_count"] = _get_integer_field(
+		fields,
+		"question_count"
+	)
+
+	quiz["questions"] = _get_questions_field(
+		fields,
+		"questions"
+	)
+
+	quiz["created_at"] = _get_string_field(
+		fields,
+		"created_at"
+	)
+
+	quiz["document_name"] = str(
+		document.get("name", "")
+	)
 
 	if str(quiz["title"]).strip_edges().is_empty():
 		quiz["title"] = "Untitled Quiz"

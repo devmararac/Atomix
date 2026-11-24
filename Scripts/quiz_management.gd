@@ -12,6 +12,10 @@ const ENUMERATION_CREATOR = preload("res://Scenes/Admin/Teacher/enumeration_crea
 const IDENTIFICATION_CREATOR: PackedScene = preload("res://Scenes/Admin/Teacher/identification_creator.tscn")
 const TRUE_FALSE_CREATOR: PackedScene = preload("res://Scenes/Admin/Teacher/true_false_creator.tscn")
 
+const SECTION_OPTION: PackedScene = preload(
+	"res://Scenes/Admin/Teacher/section_option.tscn"
+)
+
 signal create_quiz_selected
 
 # ============================================================
@@ -67,7 +71,7 @@ var filtered_quizzes: Array[Dictionary] = []
 # ============================================================
 
 var current_assign_quiz: Dictionary = {}
-var section_checkboxes: Array[CheckBox] = []
+var assign_section_options: Array[Panel] = []
 
 var request_in_progress := false
 
@@ -465,7 +469,7 @@ func _on_card_assign_requested(quiz_data: Dictionary) -> void:
 
 
 func _build_section_checkboxes() -> void:
-	section_checkboxes.clear()
+	assign_section_options.clear()
 
 	for child in assign_sections_container.get_children():
 		child.queue_free()
@@ -479,36 +483,50 @@ func _build_section_checkboxes() -> void:
 		)
 		message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		assign_sections_container.add_child(message)
+
 		assign_confirm_button.disabled = true
 		return
-
-	assign_confirm_button.disabled = false
 
 	var already_assigned: Array = current_assign_quiz.get(
 		"assigned_sections", []
 	)
 
 	var list := VBoxContainer.new()
-	list.name = "SectionCheckboxList"
+	list.name = "SectionOptionList"
 	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	assign_sections_container.add_child(list)
 
 	for section_name in teacher_sections:
-		var checkbox := CheckBox.new()
-		checkbox.text = section_name
-		checkbox.add_theme_color_override("font_color", Color("#3b2618"))
-		checkbox.add_theme_color_override("font_hover_color", Color("#5a3a26"))
-		checkbox.add_theme_color_override("font_pressed_color", Color("#3b2618"))
-		checkbox.add_theme_color_override("font_focus_color", Color("#3b2618"))
-		checkbox.button_pressed = already_assigned.has(section_name)
-		list.add_child(checkbox)
-		section_checkboxes.append(checkbox)
+		var option := SECTION_OPTION.instantiate() as Panel
+
+		if option == null:
+			push_error(
+				"[QuizManagement] Failed to instantiate SectionOption."
+			)
+			continue
+
+		list.add_child(option)
+
+		option.call(
+			"setup",
+			section_name,
+			already_assigned.has(section_name)
+		)
+
+		assign_section_options.append(option)
+
+		option.connect(
+			"selection_changed",
+			_on_section_option_changed
+		)
+
+	_update_assign_confirm_button()
 
 
 func _on_assign_cancel_pressed() -> void:
 	assign_panel.visible = false
 	current_assign_quiz.clear()
-	section_checkboxes.clear()
+	assign_section_options.clear()
 
 
 func _on_assign_confirm_pressed() -> void:
@@ -517,10 +535,12 @@ func _on_assign_confirm_pressed() -> void:
 
 	var selected_sections: Array[String] = []
 
-	for checkbox in section_checkboxes:
-		if checkbox.button_pressed:
-			selected_sections.append(checkbox.text)
-
+	for option in assign_section_options:
+		if option.call("is_selected"):
+			selected_sections.append(
+				str(option.get("section_name"))
+			)
+			
 	if selected_sections.is_empty():
 		push_warning(
 			"[QuizManagement] Select at least one section before assigning."
@@ -544,19 +564,11 @@ func _on_assign_confirm_pressed() -> void:
 		push_error("[QuizManagement] Cannot assign quiz: missing ID token.")
 		return
 
-	var url := "https://firestore.googleapis.com/v1/" + document_path
-
-	var fields := {
-		"assigned_sections": {
-			"arrayValue": {
-				"values": []
-			}
-		},
-		# Keep the old field populated for older parts of the project.
-		"section": {
-			"stringValue": selected_sections[0]
-		}
-	}
+	var url := (
+		"https://firestore.googleapis.com/v1/"
+		+ document_path
+		+ "?updateMask.fieldPaths=assigned_sections"
+	)
 
 	var section_values: Array[Dictionary] = []
 
@@ -565,7 +577,13 @@ func _on_assign_confirm_pressed() -> void:
 			"stringValue": section_name
 		})
 
-	fields["assigned_sections"]["arrayValue"]["values"] = section_values
+	var fields := {
+		"assigned_sections": {
+			"arrayValue": {
+				"values": section_values
+			}
+		}
+	}
 
 	var payload := JSON.stringify({
 		"fields": fields
@@ -1116,3 +1134,20 @@ func _get_current_teacher_id() -> String:
 			return str(auth_data["localId"])
 
 	return ""
+
+func _on_section_option_changed(
+	_section_name: String,
+	_selected: bool
+) -> void:
+	_update_assign_confirm_button()
+
+
+func _update_assign_confirm_button() -> void:
+	var has_selection := false
+
+	for option in assign_section_options:
+		if option.call("is_selected"):
+			has_selection = true
+			break
+
+	assign_confirm_button.disabled = not has_selection

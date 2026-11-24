@@ -258,6 +258,8 @@ func _load_student_data() -> void:
 # ==========================================
 
 func _on_student_loaded(data: Dictionary) -> void:
+	await _validate_student_account()
+
 	role_check_in_progress = false
 
 	# Save the validated student's identity for future offline access.
@@ -295,6 +297,8 @@ func _on_student_loaded(data: Dictionary) -> void:
 
 
 func _on_student_created(data: Dictionary) -> void:
+	await _validate_student_account()
+
 	role_check_in_progress = false
 	print("[MainMenu] Student document does not exist yet.")
 
@@ -559,3 +563,37 @@ func _show_auth_panel() -> void:
 
 func _on_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/GDMP/GDMPUi.tscn")
+
+
+func _validate_student_account() -> void:
+	var must_change_password: bool = await AuthManager.needs_password_change()
+	var email_verified: bool = await AuthManager.check_email_verified()
+
+	print("[MainMenu] Must change password: ", must_change_password)
+	print("[MainMenu] Email verified: ", email_verified)
+
+	# Skip validation if both requirements are already completed.
+	if not must_change_password and email_verified:
+		print("[MainMenu] Account is already validated.")
+		return
+
+	# At least one requirement is incomplete, so open validation.
+	var validation_scene: PackedScene = preload(
+		"res://Scenes/UI/Student/account_validation.tscn"
+	)
+
+	var validation_instance = validation_scene.instantiate()
+
+	# Hide the MainMenu loading overlay before showing account validation.
+	loading_screen.hide_loading()
+
+	# Show the account validation screen.
+	add_child(validation_instance)
+	
+	# Wait for the student to finish validation.
+	await validation_instance.validation_completed
+
+	# Remove the validation screen.
+	validation_instance.queue_free()
+
+	print("[MainMenu] Account validation completed.")

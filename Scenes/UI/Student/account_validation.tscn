@@ -1,0 +1,397 @@
+[gd_scene format=3 uid="uid://cv8c0sie8bv71"]
+
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_b1l51"]
+[ext_resource type="Script" uid="uid://b05gdf1pwfnnq" path="res://Scripts/Student/account_validation.gd" id="1_fn7ld"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fn7ld"]
+bg_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eqovk"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1l51"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqovk"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1ibl"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.92941177, 0.827451, 0.6901961, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s0efa"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y58oe"]
+content_margin_top = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqt32"]
+bg_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="AccountValidation" type="CanvasLayer" unique_id=1346076329]
+script = ExtResource("1_fn7ld")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=399680850]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9647059, 0.92941177, 0.8627451, 1)
+
+[node name="PasswordPanel" type="Panel" parent="ColorRect" unique_id=798944006]
+custom_minimum_size = Vector2(700, 700)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.323
+anchor_top = 0.014
+anchor_right = 0.67700005
+anchor_bottom = 0.98600006
+offset_left = 0.45996094
+offset_top = -0.07999992
+offset_right = -0.460083
+offset_bottom = 0.079956055
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fn7ld")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/PasswordPanel" unique_id=250327849]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.007
+anchor_top = 0.006
+anchor_right = 0.99300003
+anchor_bottom = 0.99300003
+offset_left = 0.099999905
+offset_top = -0.19999981
+offset_right = -0.10003662
+offset_bottom = -0.10003662
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="ColorRect/PasswordPanel/VBoxContainer" unique_id=282633697]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eqovk")
+text = "Please Update Account Information"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Control" type="Control" parent="ColorRect/PasswordPanel/VBoxContainer" unique_id=1005232506]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="OldPassword" type="VBoxContainer" parent="ColorRect/PasswordPanel/VBoxContainer" unique_id=1123230373]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ColorRect/PasswordPanel/VBoxContainer/OldPassword" unique_id=1145069479]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eqovk")
+text = "Old Password:"
+autowrap_mode = 3
+
+[node name="Password" type="LineEdit" parent="ColorRect/PasswordPanel/VBoxContainer/OldPassword" unique_id=835973635]
+custom_minimum_size = Vector2(650, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_b1l51")
+
+[node name="NewPassword" type="VBoxContainer" parent="ColorRect/PasswordPanel/VBoxContainer" unique_id=1661498076]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ColorRect/PasswordPanel/VBoxContainer/NewPassword" unique_id=1899805253]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eqovk")
+text = "New Password:"
+autowrap_mode = 3
+
+[node name="Password" type="LineEdit" parent="ColorRect/PasswordPanel/VBoxContainer/NewPassword" unique_id=581551230]
+custom_minimum_size = Vector2(650, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_b1l51")
+
+[node name="Control2" type="Control" parent="ColorRect/PasswordPanel/VBoxContainer" unique_id=501458325]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="ColorRect/PasswordPanel/VBoxContainer" unique_id=1456922654]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 20
+text = "Status"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/PasswordPanel/VBoxContainer" unique_id=963490140]
+layout_mode = 2
+alignment = 1
+
+[node name="UpdateButton" type="Button" parent="ColorRect/PasswordPanel/VBoxContainer/HBoxContainer" unique_id=1441002368]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_eqovk")
+text = "Update"
+
+[node name="NextButton" type="Button" parent="ColorRect/PasswordPanel/VBoxContainer/HBoxContainer" unique_id=2000617081]
+visible = false
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_eqovk")
+text = "Next
+"
+
+[node name="EmailPanel" type="Panel" parent="ColorRect" unique_id=489088294]
+visible = false
+custom_minimum_size = Vector2(700, 700)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.323
+anchor_top = 0.014
+anchor_right = 0.67700005
+anchor_bottom = 0.98600006
+offset_left = 0.45996094
+offset_top = -0.07999992
+offset_right = -0.460083
+offset_bottom = 0.079956055
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fn7ld")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/EmailPanel" unique_id=682601307]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.007
+anchor_top = 0.006
+anchor_right = 0.99300003
+anchor_bottom = 0.99300003
+offset_left = 0.099999905
+offset_top = -0.19999981
+offset_right = -0.10003662
+offset_bottom = -0.10003662
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="ColorRect/EmailPanel/VBoxContainer" unique_id=2084707018]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eqovk")
+text = "Please Update Account Information"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Control" type="Control" parent="ColorRect/EmailPanel/VBoxContainer" unique_id=166593706]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Email" type="VBoxContainer" parent="ColorRect/EmailPanel/VBoxContainer" unique_id=733715668]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ColorRect/EmailPanel/VBoxContainer/Email" unique_id=1141853593]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eqovk")
+text = "Email:"
+autowrap_mode = 3
+
+[node name="Email" type="LineEdit" parent="ColorRect/EmailPanel/VBoxContainer/Email" unique_id=1499234183]
+custom_minimum_size = Vector2(650, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_b1l51")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/EmailPanel/VBoxContainer" unique_id=555302302]
+custom_minimum_size = Vector2(650, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Button" type="Button" parent="ColorRect/EmailPanel/VBoxContainer/HBoxContainer2" unique_id=652576671]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_d1ibl")
+text = "Resend Link"
+
+[node name="Control2" type="Control" parent="ColorRect/EmailPanel/VBoxContainer" unique_id=48633943]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/EmailPanel/VBoxContainer" unique_id=661104315]
+layout_mode = 2
+alignment = 1
+
+[node name="VerifyButton" type="Button" parent="ColorRect/EmailPanel/VBoxContainer/HBoxContainer" unique_id=2083052547]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_eqovk")
+text = "Verify"
+
+[node name="LogoutButton" type="Button" parent="ColorRect/EmailPanel/VBoxContainer/HBoxContainer" unique_id=1018245769]
+visible = false
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_eqovk")
+text = "Logout
+"
+
+[node name="LogoutPanel" type="Panel" parent="ColorRect" unique_id=322300767]
+visible = false
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.374
+anchor_top = 0.29200003
+anchor_right = 0.62600005
+anchor_bottom = 0.708
+offset_left = -0.52001953
+offset_top = -0.24002075
+offset_right = 0.51989746
+offset_bottom = 0.23999023
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s0efa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/LogoutPanel" unique_id=1680170731]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008
+anchor_top = 0.017
+anchor_right = 0.99200004
+anchor_bottom = 0.98700005
+offset_top = -0.10000038
+offset_right = -3.0517578e-05
+offset_bottom = -0.1000061
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="ColorRect/LogoutPanel/VBoxContainer" unique_id=33587604]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y58oe")
+text = "Please Login Using Your New Email"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Control" type="Control" parent="ColorRect/LogoutPanel/VBoxContainer" unique_id=1329704941]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="ColorRect/LogoutPanel/VBoxContainer" unique_id=275089960]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_tqt32")
+text = "Logout"
+
+[node name="Control2" type="Control" parent="ColorRect/LogoutPanel/VBoxContainer" unique_id=1191918759]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2

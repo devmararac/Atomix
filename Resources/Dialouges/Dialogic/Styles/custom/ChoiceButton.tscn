@@ -6,7 +6,7 @@
 
 [node name="DialogicNode_ChoiceButton" type="Button" unique_id=965259924 node_paths=PackedStringArray("text_node")]
 self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(620, 100)
+custom_minimum_size = Vector2(820, 100)
 offset_right = 611.0
 offset_bottom = 80.0
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)

@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://cyc6che7b821c"]
+
+[ext_resource type="Script" uid="uid://d3fvrfyfprxy" path="res://Scripts/Admin/Teacher/section_option.gd" id="1_4wwts"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_f8rit"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6x3ru"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4wwts"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[node name="SectionOption" type="Panel" unique_id=1071407901]
+custom_minimum_size = Vector2(500, 50)
+anchors_preset = -1
+anchor_right = 0.25300002
+anchor_bottom = 0.069000006
+offset_right = -500.94003
+offset_bottom = -49.680004
+theme_override_styles/panel = SubResource("StyleBoxFlat_6x3ru")
+script = ExtResource("1_4wwts")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=75437117]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="Control" parent="HBoxContainer" unique_id=1983677043]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="SectionCheckBox" type="CheckBox" parent="HBoxContainer" unique_id=689161488]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_colors/font_focus_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_pressed_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/icon_focus_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/icon_disabled_color = Color(0.74509805, 0.74509805, 0.74509805, 1)
+theme_override_constants/h_separation = 20
+theme_override_fonts/font = ExtResource("1_f8rit")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4wwts")
+text = "Secion"
+
+[node name="Spacer2" type="Control" parent="HBoxContainer" unique_id=1232909055]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2

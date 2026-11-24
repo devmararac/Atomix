@@ -18,7 +18,7 @@ var node_to_point_at: Node = null:
 
 var current_character: DialogicCharacter = null
 
-var max_width := 300
+var max_width := 450
 
 var bubble_rect: Rect2 = Rect2(0.0, 0.0, 2.0, 2.0)
 var base_position := Vector2.ZERO
@@ -119,8 +119,12 @@ func _on_dialog_text_started_revealing_text() -> void:
 	_resize_bubble(await get_base_content_size(), true)
 
 
-func _resize_bubble(content_size:Vector2, popup:=false) -> void:
+func _resize_bubble(content_size, popup):
+	print("BUBBLE RESIZE CALLED")
+	print("Content size: ", content_size, " | Max width: ", max_width)
+	content_size.x = maxf(content_size.x, 450.0)
 	var bubble_size: Vector2 = content_size+(padding*2)+Vector2.ONE*bg_padding
+	print("ACTUAL BUBBLE SIZE: ", bubble_size)
 	var half_size: Vector2= (bubble_size / 2.0)
 	bubble.pivot_offset = half_size
 	bubble_rect = Rect2(position, bubble_size * Vector2(1.1, 1.1))
@@ -150,7 +154,7 @@ func _on_question_shown(info:Dictionary) -> void:
 	choice_container.modulate.a = 0
 
 	var content_size := await get_base_content_size()
-	_resize_bubble(content_size)
+	_resize_bubble(content_size, false)
 
 	# Wait for the choices to calculate their real size
 	await get_tree().process_frame

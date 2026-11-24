@@ -3,7 +3,7 @@ extends PanelContainer
 
 const PROJECT_ID := "atomix-f6c6b"
 const DATABASE_ID := "(default)"
-const MIN_ANSWER_COUNT := 3
+const MIN_ANSWER_COUNT := 1
 
 enum CreatorMode {
 	CREATE,
@@ -163,18 +163,20 @@ func _on_add_answer_button_pressed() -> void:
 		push_error("[EnumerationCreator] Answer1 template not found.")
 		return
 
-	answer_counter = answers_container.get_child_count() + 1
-
 	var answer := reference_answer.duplicate() as LineEdit
-	answer.name = "Answer%d" % answer_counter
+	answer.name = "Answer%d" % (answers_container.get_child_count() + 1)
 	answer.text = ""
 	answer.placeholder_text = "Type Answer"
+	answer.editable = true
+
 	answer.add_theme_color_override(
 		"font_placeholder_color",
 		Color(0.57, 0.4617, 0.3534, 1)
 	)
 
 	answers_container.add_child(answer)
+
+	_update_answer_counter()
 
 
 func _create_answer_from_data(text_value: String = "") -> LineEdit:
@@ -261,13 +263,15 @@ func _load_question(index: int) -> void:
 
 	var answers: Array = data.get("answers", [])
 
-	for i in range(min(answers.size(), MIN_ANSWER_COUNT)):
-		if i < answers_container.get_child_count():
-			var answer_box := answers_container.get_child(i) as LineEdit
-			if answer_box != null:
-				answer_box.text = str(answers[i])
+	# Put the first saved answer in the existing Answer1.
+	if not answers.is_empty():
+		var first_answer := answers_container.get_node_or_null("Answer1") as LineEdit
 
-	for i in range(MIN_ANSWER_COUNT, answers.size()):
+		if first_answer != null:
+			first_answer.text = str(answers[0])
+
+	# Create additional LineEdits for the remaining answers.
+	for i in range(1, answers.size()):
 		_create_answer_from_data(str(answers[i]))
 
 	_update_answer_counter()
@@ -343,7 +347,7 @@ func _on_previous_button_pressed() -> void:
 	if current_question_index <= 0:
 		return
 
-	if creator_mode != CreatorMode.VIEW and current_question_index < questions.size():
+	if creator_mode != CreatorMode.VIEW:
 		if not _save_current_question_to_memory():
 			return
 
@@ -441,7 +445,6 @@ func _on_save_button_pressed() -> void:
 		"quiz_id": {"stringValue": quiz_id},
 		"teacher_id": {"stringValue": uid},
 		"title": {"stringValue": quiz_title},
-		"section": {"stringValue": quiz_section},
 		"quiz_type": {"stringValue": "enumeration"},
 		"question_count": {"integerValue": str(questions.size())},
 		"questions": {
@@ -450,6 +453,13 @@ func _on_save_button_pressed() -> void:
 			}
 		}
 	}
+
+	if creator_mode == CreatorMode.CREATE:
+		fields["assigned_sections"] = {
+			"arrayValue": {
+				"values": []
+			}
+		}
 
 	if creator_mode == CreatorMode.CREATE:
 		fields["created_at"] = {

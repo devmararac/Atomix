@@ -24,6 +24,7 @@ var quest_database := {
 	"quest_chain_001_02": preload("res://Resources/Quest/Unit_1/quest_chain2.tres"),
 	"quest_chain_002_01": preload("res://Resources/Quest/Unit_2/quest_chain_002_01.tres"),
 	"quest_chain_002_02": preload("res://Resources/Quest/Unit_2/quest_chain_002_02.tres"),
+	"quest_chain_003_01": preload("res://Resources/Quest/Unit_3/quest_chain_003_01.tres"),
 	"quest_iron_core": preload("res://Resources/Quest/TRES_FOR_QUEST/quest_iron_core.tres")
 }
 
@@ -334,7 +335,11 @@ func unlock_next_quest(completed_quest: Quest) -> void:
 # ============================================================
 
 func handle_quest_completion(quest: Quest) -> void:
-
+	
+	# Prevent rewards from being granted more than once.
+	if completed_quests.has(quest.quest_id):
+		return
+	
 	if quest == null:
 		return
 
@@ -342,7 +347,17 @@ func handle_quest_completion(quest: Quest) -> void:
 	# Give rewards
 	# --------------------------------------------------------
 
+		# ============================================================
+	# GRANT QUEST REWARDS
+	# ============================================================
+
 	for reward in quest.rewards:
+
+		if reward == null:
+			continue
+
+		if reward.reward_amount <= 0:
+			continue
 
 		match reward.reward_type:
 
@@ -351,6 +366,37 @@ func handle_quest_completion(quest: Quest) -> void:
 					reward.reward_amount
 				)
 
+				print(
+					"[QuestManager] Rewarded ",
+					reward.reward_amount,
+					" coins."
+				)
+
+			"item":
+				if reward.item_data == null:
+					push_warning(
+						"[QuestManager] Item reward has no ItemData assigned."
+					)
+					continue
+
+				var item_instance := ItemInstance.new()
+				item_instance.data = reward.item_data
+				item_instance.quantity = reward.reward_amount
+
+				InventoryManager.add_item(item_instance)
+
+				print(
+					"[QuestManager] Rewarded ",
+					reward.reward_amount,
+					" x ",
+					reward.item_data.item_name
+				)
+
+			_:
+				push_warning(
+					"[QuestManager] Unknown reward type: ",
+					reward.reward_type
+				)
 
 	# --------------------------------------------------------
 	# Remember tracked quest

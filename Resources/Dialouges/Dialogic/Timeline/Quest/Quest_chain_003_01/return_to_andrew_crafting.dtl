@@ -1,0 +1,21 @@
+Andrew: You're back! So, did you manage to craft your Atomon?
+
+Player: Yes! I crafted my very first Atomon.
+
+Andrew: Excellent work! You gathered the materials and used them to create something of your own.
+
+Andrew: Now you know that crafting requires the right materials to produce a specific element.
+
+Player: It was interesting choosing which element to create.
+
+Andrew: And that's only the beginning. As you learn more about atoms, you'll discover that their electrons play an important role in how they interact with one another.
+
+Andrew: Some atoms gain or lose electrons, while others share them. These interactions are what we'll explore in our next lesson: chemical bonding.
+
+Player: Chemical bonding?
+
+Andrew: That's right! We'll look at how atoms interact and what holds them together.
+
+Andrew: But for now, enjoy your new Atomon. You've earned it!
+
+[signal arg="quest_notify:quest_chain_003_01:return_to_andrew_crafting"]

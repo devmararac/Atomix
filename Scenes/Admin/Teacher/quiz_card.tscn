@@ -60,7 +60,7 @@ theme_override_constants/separation = 8
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("2_wydd3")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "Organic Chemistry Review"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -71,8 +71,17 @@ max_lines_visible = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.75)
 theme_override_fonts/font = ExtResource("2_wydd3")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 25
 text = "20 Questions • Multiple Choice"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AssignedSection" type="Label" parent="MarginContainer/VBoxContainer" unique_id=526645927]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 0.75)
+theme_override_fonts/font = ExtResource("2_wydd3")
+theme_override_font_sizes/font_size = 25
+text = "Sections Assigned:"
 horizontal_alignment = 1
 vertical_alignment = 1
 

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Quest" format=3]
+
+[ext_resource type="Script" path="res://Resources/Quest/Quest.gd" id="1_quest"]
+[ext_resource type="Script" path="res://Resources/Quest/Objective.gd" id="2_objective"]
+
+[ext_resource type="Resource" path="res://Resources/Objectives/Unit_3/Quest_chain_003_02/talk_andrew_unstable.tres" id="3_talk"]
+[ext_resource type="Resource" path="res://Resources/Objectives/Unit_3/Quest_chain_003_02/investigate_research_site.tres" id="4_area"]
+[ext_resource type="Resource" path="res://Resources/Objectives/Unit_3/Quest_chain_003_02/observe_unusual_atomon.tres" id="5_observe"]
+[ext_resource type="Resource" path="res://Resources/Objectives/Unit_3/Quest_chain_003_02/examine_research_notes.tres" id="6_interact"]
+[ext_resource type="Resource" path="res://Resources/Objectives/Unit_3/Quest_chain_003_02/return_to_andrew_unstable.tres" id="7_return"]
+
+[resource]
+script = ExtResource("1_quest")
+quest_id = "quest_chain_003_02"
+quest_name = "An Unstable Situation"
+quest_description = "Investigate the strange behavior of Atomons and uncover clues about what causes them to interact."
+objectives = Array[ExtResource("2_objective")]([ExtResource("3_talk"), ExtResource("4_area"), ExtResource("5_observe"), ExtResource("6_interact"), ExtResource("7_return")])

@@ -80,6 +80,57 @@ func activate_offline_session() -> bool:
 		return false
 
 	student_data = cached_data.duplicate(true)
+	
+	# Load the latest locally saved player profile.
+	var uid_safe := uid.validate_filename()
+
+	if not uid_safe.is_empty():
+		var profile_path := (
+			"user://offline_accounts/"
+			+ uid_safe
+			+ "_profile.json"
+		)
+
+		if FileAccess.file_exists(profile_path):
+			var profile_file := FileAccess.open(
+				profile_path,
+				FileAccess.READ
+			)
+
+			if profile_file != null:
+				var profile_data: Variant = JSON.parse_string(
+					profile_file.get_as_text()
+				)
+				profile_file.close()
+
+				if profile_data is Dictionary:
+					if str(profile_data.get("uid", "")) == uid:
+						var saved_display_name := str(
+							profile_data.get("display_name", "")
+						).strip_edges()
+
+						var saved_character_id := str(
+							profile_data.get("character_id", "")
+						).strip_edges()
+
+						if not saved_display_name.is_empty():
+							student_data["display_name"] = saved_display_name
+
+						if not saved_character_id.is_empty():
+							student_data["character_id"] = saved_character_id
+
+						print(
+							"[StudentDataManager] Offline player profile loaded: ",
+							student_data.get("display_name", "")
+						)
+
+	# Apply the loaded offline profile to PlayerManager.
+	PlayerManager.set_player_data(student_data)
+
+	print(
+		"[StudentDataManager] PlayerManager display name: ",
+		PlayerManager.display_name
+	)
 
 	offline_session_active = true
 

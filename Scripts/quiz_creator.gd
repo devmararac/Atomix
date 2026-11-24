@@ -364,11 +364,13 @@ func _on_previous_button_pressed() -> void:
 			_load_question(current_question_index)
 			_apply_creator_mode()
 		return
-	
+
 	if current_question_index <= 0:
 		return
-	if current_question_index < questions.size() and not _save_current_question():
+
+	if not _save_current_question():
 		return
+
 	current_question_index -= 1
 	_load_question(current_question_index)
 	_update_navigation_buttons()
@@ -432,10 +434,14 @@ func _on_save_button_pressed() -> void:
 		"quiz_id": {"stringValue": quiz_id},
 		"teacher_id": {"stringValue": uid},
 		"title": {"stringValue": quiz_title},
-		"section": {"stringValue": quiz_section},
 		"quiz_type": {"stringValue": "multiple_choice"},
 		"question_count": {"integerValue": str(questions.size())},
-		"questions": {"arrayValue": {"values": question_values}}
+		"questions": {"arrayValue": {"values": question_values}},
+		"assigned_sections": {
+			"arrayValue": {
+				"values": []
+			}
+		}
 	}
 
 	# Only assign created_at when creating a new quiz.

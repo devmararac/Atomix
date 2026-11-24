@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_i0q3j")
 id = "go_to_alchemy_house"
-description = "Report your observations to Dr. Mundo at the Alchemy House."
+description = "Report your findings to Dr. Mundo at the Alchemy House."
 type = 3
 target_id = "alchemy_house"
 metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_cdhdi")
 id = "observe_chlorine"
-description = "Study Chlorine's electron gain and stability."
+description = "Observe Chlorine's electron gain."
 type = 4
 target_id = "chlorine"

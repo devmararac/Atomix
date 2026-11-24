@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Objective" format=3]
+
+[ext_resource type="Script" path="res://Resources/Quest/Objective.gd" id="1_objective"]
+
+[resource]
+script = ExtResource("1_objective")
+id = "examine_research_notes"
+description = "Examine the research notes for clues about Atomon behavior."
+type = 5
+target_id = "research_notes"
+metadata/_custom_type_script = "res://Resources/Quest/Objective.gd"

@@ -28,7 +28,7 @@ overrides = {
 "name_label_padding": "Vector2(15, 5)",
 "normal_font": "\"res://Assets/Font/NicoPaint-Regular.woff\"",
 "text_color": "Color(0.35546875, 0.26451874, 0.17356873, 1)",
-"text_max_width": "600.0",
+"text_max_width": "720.0",
 "text_size": "20.0"
 }
 

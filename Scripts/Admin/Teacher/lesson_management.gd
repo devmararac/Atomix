@@ -3,6 +3,8 @@ extends Control
 
 const ADD_LESSON: PackedScene = preload("res://Scenes/Admin/Teacher/add_lesson.tscn")
 const LESSON_CARD: PackedScene = preload("res://Scenes/Admin/Teacher/lesson_cards.tscn")
+const SECTION_OPTION: PackedScene = preload("res://Scenes/Admin/Teacher/section_option.tscn")
+
 
 const PROJECT_ID := "atomix-f6c6b"
 const DATABASE_ID := "(default)"
@@ -24,7 +26,7 @@ const DATABASE_ID := "(default)"
 var firestore_url: String
 var all_teacher_lessons: Array[Dictionary] = []
 var assign_lesson_data: Dictionary = {}
-var assign_section_checkboxes: Array[CheckBox] = []
+var assign_section_options: Array[Panel] = []
 
 
 func _ready() -> void:
@@ -258,7 +260,7 @@ func _on_card_assign_requested(lesson_data: Dictionary) -> void:
 	for child in section_checkbox_container.get_children():
 		child.queue_free()
 
-	assign_section_checkboxes.clear()
+	assign_section_options.clear()
 	confirm_assign_button.disabled = true
 	_set_status_message("Loading your assigned sections...")
 
@@ -276,10 +278,11 @@ func _on_card_assign_requested(lesson_data: Dictionary) -> void:
 		return
 
 	var existing_sections := _get_lesson_assigned_sections(fields)
-	var checkbox_list := VBoxContainer.new()
-	checkbox_list.add_theme_constant_override("separation", 12)
-	checkbox_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	section_checkbox_container.add_child(checkbox_list)
+
+	var option_list := VBoxContainer.new()
+	option_list.add_theme_constant_override("separation", 10)
+
+	section_checkbox_container.add_child(option_list)
 
 	for section_value in sections:
 		var section_name := ""
@@ -292,21 +295,27 @@ func _on_card_assign_requested(lesson_data: Dictionary) -> void:
 		if section_name.is_empty():
 			continue
 
-		var checkbox := CheckBox.new()
-		checkbox.text = section_name
-		checkbox.button_pressed = existing_sections.has(section_name)
-		checkbox.add_theme_font_size_override("font_size", 24)
-		checkbox.add_theme_color_override("font_color", Color("#785A3C"))
-		checkbox.add_theme_color_override("font_hover_color", Color("#A77B50"))
-		checkbox.add_theme_color_override("font_pressed_color", Color("#785A3C"))
-		checkbox.add_theme_color_override("font_focus_color", Color("#785A3C"))
-		checkbox.custom_minimum_size = Vector2(400, 45)
+		var section_option := SECTION_OPTION.instantiate()
 
-		checkbox_list.add_child(checkbox)
-		assign_section_checkboxes.append(checkbox)
+		option_list.add_child(section_option)
 
-	confirm_assign_button.disabled = assign_section_checkboxes.is_empty()
+		section_option.setup(
+			section_name,
+			existing_sections.has(section_name)
+		)
 
+		assign_section_options.append(section_option)
+
+		if not section_option.selection_changed.is_connected(_on_section_option_changed):
+			section_option.selection_changed.connect(_on_section_option_changed)
+
+	confirm_assign_button.disabled = assign_section_options.is_empty()
+
+	status_label.text = (
+		"Select the sections that should have access to this lesson."
+		if not assign_section_options.is_empty()
+		else "No valid sections were found."
+	)
 
 func _on_card_view_requested(lesson_data: Dictionary) -> void:
 	var lesson_title := _get_lesson_title(lesson_data)
@@ -429,9 +438,10 @@ func _on_confirm_assign_pressed() -> void:
 		return
 
 	var selected_sections: Array[String] = []
-	for checkbox in assign_section_checkboxes:
-		if checkbox.button_pressed:
-			selected_sections.append(checkbox.text)
+
+	for option in assign_section_options:
+		if option.is_selected():
+			selected_sections.append(option.section_name)
 
 	if selected_sections.is_empty():
 		_set_status_message("Please select at least one section.")
@@ -527,7 +537,7 @@ func _on_confirm_assign_pressed() -> void:
 	section_selection.hide()
 	lesson_scroll.show()
 	assign_lesson_data.clear()
-	assign_section_checkboxes.clear()
+	assign_section_options.clear()
 	confirm_assign_button.disabled = false
 	_set_status_message("Lesson assigned successfully.")
 
@@ -549,7 +559,7 @@ func _on_cancel_assign_pressed() -> void:
 	section_selection.hide()
 	lesson_scroll.show()
 	assign_lesson_data.clear()
-	assign_section_checkboxes.clear()
+	assign_section_options.clear()
 	confirm_assign_button.disabled = false
 	_set_status_message("")
 
@@ -567,3 +577,14 @@ func _get_string_field(
 	default_value: String = ""
 ) -> String:
 	return get_firestore_string(fields, field_name, default_value)
+
+
+func _on_section_option_changed(_section_name: String, _selected: bool) -> void:
+	var has_selection := false
+
+	for option in assign_section_options:
+		if option.is_selected():
+			has_selection = true
+			break
+
+	confirm_assign_button.disabled = not has_selection

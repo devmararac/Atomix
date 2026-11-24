@@ -205,33 +205,11 @@ custom_minimum_size = Vector2(600, 45)
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_colors/font_placeholder_color = Color(0.7764706, 0.627451, 0.48235294, 1)
 theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_qnsfd")
-text = "Type Answer"
-placeholder_text = "Answer 1"
-
-[node name="Answer2" type="LineEdit" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers" unique_id=793662435]
-custom_minimum_size = Vector2(600, 45)
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
-theme_override_fonts/font = ExtResource("1_font")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_qnsfd")
-text = "Type Answer"
-placeholder_text = "Answer 1"
-
-[node name="Answer3" type="LineEdit" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers" unique_id=1756988378]
-custom_minimum_size = Vector2(600, 45)
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
-theme_override_fonts/font = ExtResource("1_font")
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_qnsfd")
-text = "Type Answer"
-placeholder_text = "Answer 1"
+placeholder_text = "Type Answer..."
 
 [node name="AddAnswerButton" type="Button" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox" unique_id=323939232]
 custom_minimum_size = Vector2(200, 40)

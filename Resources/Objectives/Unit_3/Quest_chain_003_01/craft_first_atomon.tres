@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Objective" format=3 uid="uid://dsn0sa8ibhx87"]
+
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_objective"]
+
+[resource]
+script = ExtResource("1_objective")
+id = "craft_first_atomon"
+description = "Craft your first Atomon."
+type = 8
+target_id = "any"
+metadata/_custom_type_script = "uid://crxv4gs8ypfdt"

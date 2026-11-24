@@ -1,3 +1,4 @@
+
 extends PanelContainer
 
 signal assign_requested(quiz_data: Dictionary)
@@ -10,6 +11,9 @@ signal delete_requested(quiz_data: Dictionary)
 
 @onready var quiz_info: Label = \
 	$MarginContainer/VBoxContainer/QuizInfo
+
+@onready var assigned_sections_label: Label = \
+	$MarginContainer/VBoxContainer/AssignedSection
 
 # These node names match your current quiz_card.tscn.
 # Their visible button text is Assign, View, Edit, and Delete.
@@ -59,6 +63,19 @@ func setup_quiz(data: Dictionary) -> void:
 		question_text,
 		quiz_type
 	]
+
+	# Display assigned sections.
+	var assigned_sections: Array = quiz_data.get(
+		"assigned_sections",
+		[]
+	)
+
+	if assigned_sections.is_empty():
+		assigned_sections_label.text = "Assigned to: Unassigned"
+	else:
+		assigned_sections_label.text = "Assigned to: " + ", ".join(
+			PackedStringArray(assigned_sections)
+		)
 
 
 func _on_assign_pressed() -> void:

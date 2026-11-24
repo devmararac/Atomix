@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_tpt8p")
 id = "observe_neon"
-description = "Observe Neon to learn why its outer shell is stable."
+description = "Observe Neon's shell stability."
 type = 4
 target_id = "neon"

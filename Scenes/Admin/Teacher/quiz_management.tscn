@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ddvvh20hdw4bm" path="res://Assets/UX/Buttons/Normal/arrow_back.png" id="2_tukxh"]
 [ext_resource type="Texture2D" uid="uid://de6w58oatvft8" path="res://Assets/UX/Buttons/On-Pressed/arrow_back_pressed.png" id="3_gjb6x"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="5_gjb6x"]
+[ext_resource type="PackedScene" uid="uid://cyc6che7b821c" path="res://Scenes/Admin/Teacher/section_option.tscn" id="6_t3ks8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wisd"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -157,6 +158,7 @@ stretch_mode = 5
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_gjb6x")
 theme_override_font_sizes/font_size = 56
 text = "QUIZ MANAGEMENT"
 vertical_alignment = 1
@@ -323,6 +325,10 @@ custom_minimum_size = Vector2(0, 420)
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="QuizPanel/AssignQuizPanel/VBoxContainer/ScrollContainer" unique_id=1709027057]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SectionOption" parent="QuizPanel/AssignQuizPanel/VBoxContainer/ScrollContainer/CenterContainer" unique_id=1071407901 instance=ExtResource("6_t3ks8")]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="QuizPanel/AssignQuizPanel/VBoxContainer" unique_id=90879679]

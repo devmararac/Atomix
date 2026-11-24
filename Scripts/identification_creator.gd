@@ -303,9 +303,8 @@ func _on_previous_button_pressed() -> void:
 		return
 
 	if creator_mode != CreatorMode.VIEW:
-		if current_question_index < questions.size():
-			if not _save_current_question():
-				return
+		if not _save_current_question():
+			return
 
 	current_question_index -= 1
 	_load_question(current_question_index)
@@ -421,9 +420,11 @@ func _on_save_button_pressed() -> void:
 		}
 	}
 
-	if not quiz_section.is_empty():
-		fields["section"] = {
-			"stringValue": quiz_section
+	if creator_mode == CreatorMode.CREATE:
+		fields["assigned_sections"] = {
+			"arrayValue": {
+				"values": []
+			}
 		}
 
 	if creator_mode == CreatorMode.CREATE:

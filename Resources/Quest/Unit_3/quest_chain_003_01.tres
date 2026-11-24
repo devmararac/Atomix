@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://gjny3sa11mlj"]
+
+[ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="1_quest"]
+[ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_1gbn7"]
+[ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="2_objective"]
+[ext_resource type="Resource" uid="uid://btuyryy4v3yol" path="res://Resources/Objectives/Unit_3/Quest_chain_003_01/talk_andrew_crafting.tres" id="3_talk"]
+[ext_resource type="Resource" uid="uid://dsn0sa8ibhx87" path="res://Resources/Objectives/Unit_3/Quest_chain_003_01/craft_first_atomon.tres" id="4_craft"]
+[ext_resource type="Resource" uid="uid://2s66lwgiyj5t" path="res://Resources/Objectives/Unit_3/Quest_chain_003_01/return_to_andrew_crafting.tres" id="5_return"]
+
+[resource]
+script = ExtResource("1_quest")
+quest_id = "quest_chain_003_01"
+quest_name = "A Creation of Your Own"
+quest_description = "Learn how to craft your own Atomon using the materials needed to create it."
+objectives = Array[ExtResource("2_objective")]([ExtResource("3_talk"), ExtResource("4_craft"), ExtResource("5_return")])
+metadata/_custom_type_script = "uid://7rrmrho1w3gn"

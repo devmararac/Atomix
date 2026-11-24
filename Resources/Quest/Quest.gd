@@ -71,7 +71,7 @@ func notify(type: ObjectiveType.Type, target_id: String, amount: int = 1) -> boo
 	if objective.type != type:
 		return false
 
-	if objective.target_id != target_id:
+	if objective.target_id != "any" and objective.target_id != target_id:
 		return false
 
 	objective.current_amount = min(

@@ -373,6 +373,14 @@ func _on_craft_pressed() -> void:
 	if new_atomon == null:
 		print("[CraftingUI] FAILED TO CRAFT: ", selected_element.atom_name)
 		return
+		
+	# Notify QuestManager that an Atomon was successfully created.
+	QuestManager.notify(
+		ObjectiveType.Type.CREATE_ATOMON,
+		"any"
+	)
+
+	print("[CraftingUI] Quest progress notified: CREATE_ATOMON")
 
 	var buttons: Array[Node] = []
 	collect_element_buttons($TextureRect/PeriodicTableScroll/Container, buttons)

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cr15rlinx2g7b" path="res://Scripts/Admin/Teacher/lesson_management.gd" id="1_e4brx"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_1exa6"]
+[ext_resource type="PackedScene" uid="uid://cyc6che7b821c" path="res://Scenes/Admin/Teacher/section_option.tscn" id="3_60524"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_background"]
 bg_color = Color(0.968627, 0.886275, 0.772549, 1)
@@ -317,6 +318,10 @@ custom_minimum_size = Vector2(0, 420)
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/SectionSelection/VBoxContainer/ScrollContainer" unique_id=1810731699]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SectionOption" parent="MarginContainer/SectionSelection/VBoxContainer/ScrollContainer/CenterContainer" unique_id=1071407901 instance=ExtResource("3_60524")]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SectionSelection/VBoxContainer" unique_id=1767918056]

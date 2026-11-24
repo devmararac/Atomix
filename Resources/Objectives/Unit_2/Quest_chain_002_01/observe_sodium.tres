@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_cmhsi")
 id = "observe_sodium"
-description = "Observe Sodium to see how losing its outer electron makes it stable."
+description = "Observe Sodium's electron loss."
 type = 4
 target_id = "sodium"

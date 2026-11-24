@@ -1,0 +1,23 @@
+Andrew: You've completed your Fusion training! Not bad.
+
+Andrew: Now that you've learned how Atomons use Compound Skills during Fusion, let's try something different.
+
+Player:  What are we doing next?
+
+Andrew: You'll learn how to craft your very own Atomon.
+
+Player: Craft an Atomon? How?
+
+Andrew: Crafting requires materials. You'll need protons, electrons, neutrons, and an Atomic Core.
+
+Andrew: The amount of each material you need depends on the element you want to create.
+
+Player: So I need to gather the materials before I can craft one?
+
+Andrew: Exactly! Head to the crafting station and try creating an Atomon of your choice.
+
+Andrew: I won't tell you which element to create. Choose one yourself and see what you can make.
+
+Andrew: Once you've successfully crafted your first Atomon, come back here. I want to see what you've created!
+
+[signal arg="quest_notify:quest_chain_003_01:talk_andrew_crafting"]
