@@ -26,6 +26,15 @@ border_blend = true
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecfx7"]
 texture = ExtResource("4_abqt1")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48dqg"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wydd3"]
 bg_color = Color(0.8745098, 0.14509805, 0.14901961, 1)
 border_width_left = 2
@@ -126,6 +135,15 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_jtt84")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ecfx7")
 text = "EDIT"
+
+[node name="ScoresButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=90769769]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("2_wydd3")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_48dqg")
+text = "SCORES"
 
 [node name="ViewButton4" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1273771224]
 custom_minimum_size = Vector2(80, 40)

@@ -773,7 +773,8 @@ func create_student_document(
 	var user_data := { 
 		"name": student_name, 
 		"email": email, 
-		"role": "student", 
+		"role": "student", \
+		"must_change_password": true,
 		"status": "active", 
 		"school_year": current_school_year, 
 		"enrolled_at": timestamp, 
@@ -787,6 +788,7 @@ func create_student_document(
 		"name": student_name, 
 		"email": email, 
 		"role": "student", 
+		"must_change_password": true,
 		"student_id": student_id, 
 		"section": section, 
 		"teacher_id": current_teacher_uid, 

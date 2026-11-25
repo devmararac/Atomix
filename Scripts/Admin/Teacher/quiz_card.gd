@@ -6,6 +6,9 @@ signal view_requested(quiz_data: Dictionary)
 signal edit_requested(quiz_data: Dictionary)
 signal delete_requested(quiz_data: Dictionary)
 
+# NEW
+signal scores_requested(quiz_data: Dictionary)
+
 @onready var quiz_title: Label = \
 	$MarginContainer/VBoxContainer/QuizTitle
 
@@ -29,6 +32,9 @@ signal delete_requested(quiz_data: Dictionary)
 @onready var delete_button: Button = \
 	$MarginContainer/VBoxContainer/HBoxContainer/ViewButton4
 
+@onready var scores_button: Button = \
+	$MarginContainer/VBoxContainer/HBoxContainer/ScoresButton
+
 var quiz_data: Dictionary = {}
 
 
@@ -37,7 +43,10 @@ func _ready() -> void:
 	view_button.pressed.connect(_on_view_pressed)
 	edit_button.pressed.connect(_on_edit_pressed)
 	delete_button.pressed.connect(_on_delete_pressed)
-
+	
+	
+	# NEW
+	scores_button.pressed.connect(_on_scores_pressed)
 
 func setup_quiz(data: Dictionary) -> void:
 	quiz_data = data.duplicate(true)
@@ -96,3 +105,8 @@ func _on_edit_pressed() -> void:
 func _on_delete_pressed() -> void:
 	print("[QuizCard] Delete pressed: ", quiz_data.get("title", "Untitled Quiz"))
 	delete_requested.emit(quiz_data)
+
+
+func _on_scores_pressed() -> void:
+	print("[QuizCard] Scores pressed: ", quiz_data.get("title", "Untitled Quiz"))
+	scores_requested.emit(quiz_data)

@@ -23,6 +23,10 @@ content_margin_right = 20.0
 content_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1l51"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 border_width_left = 5
 border_width_top = 5
@@ -167,7 +171,11 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(650, 50)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
 theme_override_styles/normal = SubResource("StyleBoxFlat_b1l51")
+placeholder_text = "Type Password..."
 
 [node name="NewPassword" type="VBoxContainer" parent="ColorRect/PasswordPanel/VBoxContainer" unique_id=1661498076]
 layout_mode = 2
@@ -185,7 +193,11 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(650, 50)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
 theme_override_styles/normal = SubResource("StyleBoxFlat_b1l51")
+placeholder_text = "Type Password..."
 
 [node name="Control2" type="Control" parent="ColorRect/PasswordPanel/VBoxContainer" unique_id=501458325]
 custom_minimum_size = Vector2(0, 60)
@@ -289,7 +301,11 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(650, 50)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_colors/font_placeholder_color = Color(0.7764706, 0.627451, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("1_b1l51")
 theme_override_styles/normal = SubResource("StyleBoxFlat_b1l51")
+placeholder_text = "Type Email..."
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/EmailPanel/VBoxContainer" unique_id=555302302]
 custom_minimum_size = Vector2(650, 0)

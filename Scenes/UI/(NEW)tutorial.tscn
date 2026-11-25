@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dwywf1ry4f4lb"]
 
 [ext_resource type="Script" uid="uid://dmf1nyee4pby4" path="res://Scripts/(new)tutorial.gd" id="1_ybsoc"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="2_48ib0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_highlight"]
 bg_color = Color(1, 1, 1, 0)
@@ -8,7 +9,7 @@ border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(1, 0.9, 0.35, 1)
+border_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -24,7 +25,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(1, 0.9, 0.35, 1)
+border_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -73,7 +74,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_highlight")
 [node name="Arrow" type="Node2D" parent="." unique_id=942864747]
 
 [node name="ArrowPoly" type="Polygon2D" parent="Arrow" unique_id=1148812063]
-color = Color(1, 0.9, 0.35, 1)
+color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 antialiased = true
 polygon = PackedVector2Array(0, 0, -18, 30, -6, 30, -6, 44, 6, 44, 6, 30, 18, 30)
 
@@ -91,12 +92,15 @@ theme_override_constants/separation = 6
 
 [node name="TitleLabel" type="Label" parent="DescriptionPanel/VBox" unique_id=1911984574]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.9, 0.35, 1)
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("2_48ib0")
 theme_override_font_sizes/font_size = 22
 text = "Move Left"
 
 [node name="DescLabel" type="Label" parent="DescriptionPanel/VBox" unique_id=1933553775]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_fonts/font = ExtResource("2_48ib0")
 theme_override_font_sizes/font_size = 16
 text = "Press this to walk left."
 autowrap_mode = 3

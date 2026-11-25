@@ -2588,6 +2588,9 @@ func create_student_document(
 
 		"role":
 			"student",
+			
+		"must_change_password":
+			true,
 
 		"status":
 			"active",
@@ -2646,6 +2649,9 @@ func create_student_document(
 
 		"role":
 			"student",
+
+		"must_change_password":
+			true,
 
 		"student_id":
 			student_id,

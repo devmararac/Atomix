@@ -456,6 +456,69 @@ func send_email_verification() -> Dictionary:
 	}
 
 
+# Send email-change verification to a newly entered email.
+func send_email_change_verification(new_email: String) -> Dictionary:
+
+	if Firebase.Auth == null:
+		return {
+			"success": false,
+			"error": "Firebase Authentication is unavailable."
+		}
+
+	if not is_logged_in():
+		return {
+			"success": false,
+			"error": "No user is currently logged in."
+		}
+
+	if new_email.strip_edges().is_empty():
+		return {
+			"success": false,
+			"error": "Please enter a new email address."
+		}
+
+	if Firebase.Auth.is_busy:
+		return {
+			"success": false,
+			"error": "Firebase is currently processing another request. Please wait."
+		}
+
+	print("[AuthManager] Requesting email-change verification for: ", new_email)
+
+	Firebase.Auth.send_email_change_verification(new_email.strip_edges())
+
+	var result: Array = await Firebase.Auth.credential_operation_completed
+
+	if result.size() < 3:
+		return {
+			"success": false,
+			"error": "Invalid response from Firebase."
+		}
+
+	var operation: String = str(result[0])
+	var success: bool = bool(result[1])
+	var response: Dictionary = result[2]
+
+	if operation != "email_change" or not success:
+		return {
+			"success": false,
+			"error": str(
+				response.get(
+					"message",
+					response.get("error", "Email-change verification failed.")
+				)
+			),
+			"result": response
+		}
+
+	print("[AuthManager] Firebase accepted email-change verification request.")
+
+	return {
+		"success": true,
+		"result": response
+	}
+
+
 func _on_auth_api_request_completed(
 	result: int,
 	response_code: int,

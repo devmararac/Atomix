@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://de6w58oatvft8" path="res://Assets/UX/Buttons/On-Pressed/arrow_back_pressed.png" id="3_gjb6x"]
 [ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="5_gjb6x"]
 [ext_resource type="PackedScene" uid="uid://cyc6che7b821c" path="res://Scenes/Admin/Teacher/section_option.tscn" id="6_t3ks8"]
+[ext_resource type="Texture2D" uid="uid://dhalffo37ygd3" path="res://Assets/UX/Buttons/Normal/X_icon_button.png" id="7_ir6lb"]
+[ext_resource type="Texture2D" uid="uid://bklsap6h1xlkb" path="res://Assets/UX/Buttons/On-Pressed/X_icon_pressed.png" id="8_eisnn"]
+[ext_resource type="PackedScene" uid="uid://d227pe8bevuqc" path="res://Scenes/Admin/Teacher/quiz_result.tscn" id="9_eisnn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wisd"]
 bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -94,6 +97,49 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eisnn"]
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gicrq"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wssjl"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gicrq"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wssjl"]
+content_margin_left = 30.0
 
 [node name="QuizManagement" type="Control" unique_id=950356207]
 layout_mode = 3
@@ -355,5 +401,151 @@ theme_override_fonts/font = ExtResource("5_gjb6x")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_ir6lb")
 text = "Confirm"
+
+[node name="StundetQuizResultPanel" type="Panel" parent="QuizPanel" unique_id=951911904]
+visible = false
+custom_minimum_size = Vector2(1000, 700)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24700001
+anchor_top = 0.014
+anchor_right = 0.753
+anchor_bottom = 0.98600006
+offset_left = 0.9399719
+offset_top = -0.07999992
+offset_right = -0.9400635
+offset_bottom = 0.079956055
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eisnn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizPanel/StundetQuizResultPanel" unique_id=1225602175]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer" unique_id=1373118721]
+layout_mode = 2
+
+[node name="Control3" type="Control" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/HBoxContainer" unique_id=1159198620]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/HBoxContainer" unique_id=1078753797]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("5_gjb6x")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gicrq")
+text = "Students Scores"
+
+[node name="Control" type="Control" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/HBoxContainer" unique_id=1378737622]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control2" type="Control" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/HBoxContainer" unique_id=1291243318]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Close" type="TextureButton" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/HBoxContainer" unique_id=1959764352]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("7_ir6lb")
+texture_pressed = ExtResource("8_eisnn")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Control4" type="Control" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/HBoxContainer" unique_id=2076563199]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer" unique_id=1917033082]
+layout_mode = 2
+alignment = 2
+
+[node name="SectionSorting" type="OptionButton" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/VBoxContainer" unique_id=1555777958]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_wssjl")
+
+[node name="Control" type="Control" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/VBoxContainer" unique_id=1298813156]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer" unique_id=965555076]
+custom_minimum_size = Vector2(900, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_gicrq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/Panel" unique_id=1233673515]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.006
+anchor_top = 0.071
+anchor_right = 0.994
+anchor_bottom = 0.943
+offset_left = -0.4000001
+offset_top = 0.029999733
+offset_right = 0.39996338
+offset_bottom = -0.010002136
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/Panel/HBoxContainer" unique_id=1423139665]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("5_gjb6x")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wssjl")
+text = "Name"
+
+[node name="Score" type="Label" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/Panel/HBoxContainer" unique_id=654649212]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("5_gjb6x")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wssjl")
+text = "Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Percentage" type="Label" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/Panel/HBoxContainer" unique_id=23629588]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("5_gjb6x")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wssjl")
+text = "Percentage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer" unique_id=1337731920]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/ScrollContainer" unique_id=1598285389]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/ScrollContainer/CenterContainer" unique_id=594057651]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="QuizResult" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1143382063 instance=ExtResource("9_eisnn")]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="QuizPanel/StundetQuizResultPanel/VBoxContainer" unique_id=780146971]
+layout_mode = 2
 
 [connection signal="pressed" from="QuizPanel/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/AddQuizPanel/AddQuizButton" to="." method="_on_add_quiz_button_pressed"]

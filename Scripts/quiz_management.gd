@@ -25,6 +25,18 @@ signal create_quiz_selected
 const PROJECT_ID := "atomix-f6c6b"
 const DATABASE_ID := "(default)"
 
+const STUDENTS_URL := (
+	"https://firestore.googleapis.com/v1/projects/"
+	+ PROJECT_ID
+	+ "/databases/"
+	+ DATABASE_ID
+	+ "/documents/students"
+)
+
+const QUIZ_RESULT_ROW: PackedScene = preload(
+	"res://Scenes/Admin/Teacher/quiz_result.tscn"
+)
+
 var firestore_url: String
 var quizzes: Array[Dictionary] = []
 var filtered_quizzes: Array[Dictionary] = []
@@ -66,6 +78,26 @@ var filtered_quizzes: Array[Dictionary] = []
 @onready var assign_confirm_button: Button = \
 	$QuizPanel/AssignQuizPanel/VBoxContainer/HBoxContainer/Confirm
 
+
+# ============================================================
+# QUIZ RESULTS PANEL
+# ============================================================
+
+@onready var results_panel: Panel = $QuizPanel/StundetQuizResultPanel
+
+@onready var results_close_button: TextureButton = \
+	$QuizPanel/StundetQuizResultPanel/VBoxContainer/HBoxContainer/Close
+
+@onready var results_container: CenterContainer = \
+   $QuizPanel/StundetQuizResultPanel/VBoxContainer/ScrollContainer/CenterContainer
+
+@onready var results_list: VBoxContainer = \
+	$QuizPanel/StundetQuizResultPanel/VBoxContainer/ScrollContainer/CenterContainer/VBoxContainer
+	
+@onready var results_sort_option: OptionButton = \
+	$QuizPanel/StundetQuizResultPanel/VBoxContainer/VBoxContainer/SectionSorting
+
+
 # ============================================================
 # STATE
 # ============================================================
@@ -74,7 +106,7 @@ var current_assign_quiz: Dictionary = {}
 var assign_section_options: Array[Panel] = []
 
 var request_in_progress := false
-
+var current_results_quiz: Dictionary = {}
 # ============================================================
 # INITIALIZATION
 # ============================================================
@@ -95,7 +127,12 @@ func _ready() -> void:
 
 	if not back_button.pressed.is_connected(_on_back_button_pressed):
 		back_button.pressed.connect(_on_back_button_pressed)
+	
+	results_panel.hide()
 
+	if not results_close_button.pressed.is_connected(_on_results_close_pressed):
+		results_close_button.pressed.connect(_on_results_close_pressed)
+	
 	load_quizzes()
 
 func _connect_buttons() -> void:
@@ -242,6 +279,8 @@ func load_quizzes() -> void:
 	quizzes.clear()
 
 	var documents: Array = parsed.get("documents", [])
+	
+	
 	var current_teacher_id := _get_current_teacher_id()
 
 	for document_variant in documents:
@@ -441,7 +480,12 @@ func display_quizzes() -> void:
 			_on_card_delete_requested
 		):
 			card.delete_requested.connect(_on_card_delete_requested)
-
+		
+		if not card.scores_requested.is_connected(
+			_on_card_scores_requested
+		):
+			card.scores_requested.connect(_on_card_scores_requested)
+		
 	print(
 		"[QuizManagement] Displayed ",
 		filtered_quizzes.size(),
@@ -1151,3 +1195,254 @@ func _update_assign_confirm_button() -> void:
 			break
 
 	assign_confirm_button.disabled = not has_selection
+
+
+func _on_results_close_pressed() -> void:
+	results_panel.hide()
+
+
+func _on_card_scores_requested(quiz_data: Dictionary) -> void:
+	_clear_result_rows()
+	results_panel.show()
+
+	var quiz_id := str(quiz_data.get("quiz_id", "")).strip_edges()
+
+	if quiz_id.is_empty():
+		push_error("[QuizManagement] Selected quiz has no quiz_id.")
+		return
+
+	var assigned_sections: Array = quiz_data.get("assigned_sections", [])
+
+	if assigned_sections.is_empty():
+		push_warning("[QuizManagement] This quiz has no assigned sections.")
+		return
+
+	print("[QuizManagement] Fetching results for quiz: ", quiz_id)
+
+	await _fetch_student_quiz_results(quiz_id, assigned_sections)
+
+func _clear_result_rows() -> void:
+	for child in results_list.get_children():
+		child.queue_free()
+
+	print("[QuizManagement]
+	 Cleared previous result rows.")
+
+
+# ============================================================
+# FETCH STUDENT QUIZ RESULTS FROM FIRESTORE
+# ============================================================
+
+func _fetch_student_quiz_results(
+	quiz_id: String,
+	assigned_sections: Array
+) -> void:
+	var id_token := _get_id_token()
+
+	if id_token.is_empty():
+		push_error("[QuizManagement] Missing Firebase ID token.")
+		return
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var headers := PackedStringArray([
+		"Authorization: Bearer " + id_token
+	])
+
+	var url := STUDENTS_URL + "?pageSize=1000"
+
+	var error := http.request(
+		url,
+		headers,
+		HTTPClient.METHOD_GET
+	)
+
+	if error != OK:
+		push_error(
+			"[QuizManagement] Failed to start student request: "
+			+ str(error)
+		)
+		http.queue_free()
+		return
+
+	var result: Array = await http.request_completed
+	http.queue_free()
+
+	var response_code: int = result[1]
+	var response_body: PackedByteArray = result[3]
+
+	if response_code < 200 or response_code >= 300:
+		push_error(
+			"[QuizManagement] Student fetch failed. HTTP "
+			+ str(response_code)
+			+ ": "
+			+ response_body.get_string_from_utf8()
+		)
+		return
+
+	var parsed: Variant = JSON.parse_string(
+		response_body.get_string_from_utf8()
+	)
+
+	if not parsed is Dictionary:
+		push_error("[QuizManagement] Invalid students response.")
+		return
+
+	var documents: Array = parsed.get("documents", [])
+
+	print("[QuizManagement] HTTP status: ", response_code)
+	print("[QuizManagement] Documents received: ", documents.size())
+	print("[QuizManagement] Sections assigned to quiz: ", assigned_sections)
+
+	var displayed_count := 0
+	var section_match_count := 0
+
+	for document_variant in documents:
+		if not document_variant is Dictionary:
+			continue
+
+		var student: Dictionary = document_variant
+		var fields: Dictionary = student.get("fields", {})
+
+		var section := _firestore_string(
+			fields.get("section", {})
+		)
+		
+		if section_match_count < 5:
+			print("[QuizManagement] Student section: ", section)
+
+		if assigned_sections.has(section):
+			section_match_count += 1
+
+		# Only include students in this quiz's assigned sections.
+		if not assigned_sections.has(section):
+			continue
+
+		var student_name := _get_student_display_name(fields)
+
+		var assessment_fields: Dictionary = fields.get(
+			"assessment", {}
+		).get("mapValue", {}).get("fields", {})
+
+		var quiz_result: Dictionary = assessment_fields.get(
+			quiz_id, {}
+		).get("mapValue", {}).get("fields", {})
+
+		var row := QUIZ_RESULT_ROW.instantiate()
+
+		results_list.add_child(row)
+
+		if quiz_result.is_empty():
+			row.call(
+				"setup_not_taken",
+				student_name
+			)
+		else:
+			var score := _firestore_integer(
+				quiz_result.get("score", {})
+			)
+
+			var total_questions := _firestore_integer(
+				quiz_result.get("total_questions", {})
+			)
+
+			var percentage := _firestore_number(
+				quiz_result.get("percentage", {})
+			)
+
+			var completed := _firestore_boolean(
+				quiz_result.get("completed", {})
+			)
+
+			if not completed:
+				row.call(
+					"setup_not_taken",
+					student_name
+				)
+			else:
+				row.call(
+					"setup_result",
+					student_name,
+					score,
+					total_questions,
+					percentage
+				)
+
+		displayed_count += 1
+	
+	
+	print(
+		"[QuizManagement] Result rows loaded: ",
+		displayed_count
+	)
+	
+	print("[QuizManagement] Section matches: ", section_match_count)
+	
+func _get_student_display_name(fields: Dictionary) -> String:
+	var first_name := _firestore_string(
+		fields.get("first_name", {})
+	).strip_edges()
+
+	var middle_name := _firestore_string(
+		fields.get("middle_name", {})
+	).strip_edges()
+
+	var last_name := _firestore_string(
+		fields.get("last_name", {})
+	).strip_edges()
+
+	var suffix := _firestore_string(
+		fields.get("suffix", {})
+	).strip_edges()
+
+	var name_parts: Array[String] = []
+
+	if not first_name.is_empty():
+		name_parts.append(first_name)
+
+	if not middle_name.is_empty():
+		name_parts.append(middle_name)
+
+	if not last_name.is_empty():
+		name_parts.append(last_name)
+
+	if not suffix.is_empty():
+		name_parts.append(suffix)
+
+	var full_name := " ".join(name_parts)
+
+	if not full_name.is_empty():
+		return full_name
+
+	# Fallback for student documents using a single name field.
+	var name := _firestore_string(
+		fields.get("name", {})
+	).strip_edges()
+
+	if name.is_empty():
+		name = _firestore_string(
+			fields.get("full_name", {})
+		).strip_edges()
+
+	if name.is_empty():
+		name = "Unnamed Student"
+
+	return name
+
+
+func _firestore_number(value: Dictionary) -> float:
+	if value.has("doubleValue"):
+		return float(value["doubleValue"])
+
+	if value.has("integerValue"):
+		return float(value["integerValue"])
+
+	return 0.0
+
+
+func _firestore_boolean(value: Dictionary) -> bool:
+	if value.has("booleanValue"):
+		return bool(value["booleanValue"])
+
+	return false

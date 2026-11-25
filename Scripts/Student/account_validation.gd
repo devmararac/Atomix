@@ -26,17 +26,23 @@ const FIRESTORE_BASE := "https://firestore.googleapis.com/v1/projects/"
 
 var current_uid: String = ""
 var current_email: String = ""
+var pending_email: String = ""
 var email_verified: bool = false
 
 var password_change_required: bool = false
 var validation_busy: bool = false
 
+var email_change_in_progress: bool = false
+var email_change_verified_ready: bool = false
 
 func _ready() -> void:
+	# Mask password fields.
+	old_password_input.secret = true
+	new_password_input.secret = true
+
 	password_panel.hide()
 	email_panel.hide()
 	logout_panel.hide()
-
 	next_password_button.hide()
 
 	# Initial email verification button text.
@@ -168,14 +174,17 @@ func _on_update_password_pressed() -> void:
 
 	_show_message("Verifying your current password...")
 
-	var auth_data: Dictionary = Firebase.Auth.auth
-	current_email = str(auth_data.get("email", ""))
+	# Use the email retrieved from Firebase account information.
+	current_email = current_email.strip_edges()
 
 	if current_email.is_empty():
 		validation_busy = false
 		update_password_button.disabled = false
-		_show_message("Unable to determine your account email.")
+		_show_message("Unable to determine your account email. Please try logging in again.")
+		push_error("[AccountValidation] Firebase account email is empty.")
 		return
+
+	print("[AccountValidation] Reauthenticating with email: ", current_email)
 
 	Firebase.Auth.reauthenticate_user(current_email, old_password)
 
@@ -266,7 +275,6 @@ func _on_next_password_pressed() -> void:
 # ============================================================
 # EMAIL VERIFICATION
 # ============================================================
-
 func _check_email_validation() -> void:
 	password_panel.hide()
 	email_panel.hide()
@@ -275,80 +283,147 @@ func _check_email_validation() -> void:
 	var refreshed: bool = await AuthManager.refresh_email_verification_status()
 
 	if not refreshed:
+		email_panel.hide()
+		logout_panel.show()
+		_show_message("Your session has expired. Please log out and sign in again.")
+		return
+	# If a new email change is already in progress,
+	# do not bypass its verification.
+	if email_change_in_progress:
 		email_panel.show()
-		_show_message("Unable to check verification status. Please try again.")
+
+		if email_change_verified_ready:
+			_show_message("Your new email is verified. Press Verify to continue.")
+		else:
+			_show_message("Please verify your new email to continue.")
+
 		return
 
-	if email_verified:
-		_finish_validation()
-		return
-
+	# Do not automatically pass using the old email's verification.
 	email_panel.show()
 
-	_show_message("Your email is not verified. Please verify it to continue.")
-
+	_show_message("Please enter your new email and send the verification link.")
 
 # Send Link / Resend Link button.
 func _on_resend_pressed() -> void:
+
 	if validation_busy:
+		return
+
+	var new_email := email_input.text.strip_edges().to_lower()
+
+
+	if new_email.is_empty():
+		_show_message("Please enter your new email address.")
+		return
+
+	if not _is_valid_email(new_email):
+		_show_message("Please enter a valid email address.")
 		return
 
 	validation_busy = true
 	resend_button.disabled = true
 	resend_button.text = "Sending..."
+	_show_message("Sending verification email to " + new_email + "...")
 
-	_show_message("Sending verification email...")
-
-	var result: Dictionary = await AuthManager.send_email_verification()
+	var result: Dictionary = await AuthManager.send_email_change_verification(new_email)
 
 	validation_busy = false
 	resend_button.disabled = false
 
 	if result.get("success", false):
+		pending_email = new_email
+		email_change_in_progress = true
+		email_change_verified_ready = false
+
 		resend_button.text = "Resend Link"
-		_show_message("Verification email sent. Please check your inbox.")
+		_show_message("Verification link sent to " + new_email + ". Please check your inbox.")
 	else:
 		resend_button.text = "Send Link"
-		_show_message(
-			"Unable to send verification email: "
-			+ str(result.get("error", "Unknown error."))
-		)
-
-
+		_show_message("Unable to send verification email: " + str(result.get("error", "Unknown error.")))
 func _on_verify_pressed() -> void:
 	if validation_busy:
 		return
 
-	validation_busy = true
-	verify_button.disabled = true
-
-	_show_message("Refreshing verification status...")
-
-	var refreshed: bool = await AuthManager.refresh_email_verification_status()
-
-	verify_button.disabled = false
-	validation_busy = false
-
-	if not refreshed:
-		_show_message("Unable to check your email verification. Please try again.")
+	if not email_change_in_progress:
+		_show_message("Please enter a new email and send the verification link first.")
 		return
 
-	if email_verified:
-		_show_message("Email verified successfully!")
-		_finish_validation()
-	else:
-		_show_message("Your email is not verified yet. Please check your inbox and try again.")
+	if pending_email.is_empty():
+		_show_message("No pending email address found.")
+		return
 
+	validation_busy = true
+	verify_button.disabled = true
+	_show_message("Checking your new email verification...")
+
+	var refresh_success: bool = await AuthManager.refresh_email_verification_status()
+
+	if not refresh_success:
+		validation_busy = false
+		verify_button.disabled = false
+
+		password_panel.hide()
+		email_panel.hide()
+		logout_panel.show()
+
+		logout_button.disabled = false
+
+		_show_message(
+	        "Your email verification process is complete or your session has expired. "
+			+ "Please log out and sign in using your updated email."
+		)
+
+		print("[AccountValidation] Firebase refresh failed. Redirecting user to logout panel.")
+
+		return
+
+	validation_busy = false
+	verify_button.disabled = false
+
+	if not email_change_verified_ready:
+		_show_message("Your new email is not verified yet. Please check your inbox and click the verification link.")
+		return
+
+	if current_email.to_lower() != pending_email.to_lower():
+		_show_message("Your Firebase email does not match the new email you submitted.")
+		return
+
+	if not email_verified:
+		_show_message("Your new email is not verified yet.")
+		return
+
+	_show_message("Email verified successfully!")
+	_finish_validation()
 
 func _on_account_data_received(
 	firebase_email: String,
 	is_verified: bool
 ) -> void:
-	current_email = firebase_email
 	email_verified = is_verified
+	current_email = firebase_email.strip_edges()
 
-	if email_input.text != current_email:
-		email_input.text = current_email
+	print("[AccountValidation] Firebase email: ", current_email)
+	print("[AccountValidation] Email verified: ", email_verified)
+
+	# No new email verification is in progress.
+	if not email_change_in_progress:
+		return
+
+	# Firebase has not switched to the pending email yet.
+	if current_email.to_lower() != pending_email.to_lower():
+		_show_message("Waiting for verification at " + pending_email)
+		return
+
+	# Firebase email matches the pending email, but isn't verified.
+	if not email_verified:
+		_show_message("The new email is not verified yet.")
+		return
+
+	# The new email has been changed and verified.
+	email_change_verified_ready = true
+
+	_show_message("New email verified successfully!")
 
 
 func _on_email_verification_status_received(is_verified: bool) -> void:
@@ -356,20 +431,103 @@ func _on_email_verification_status_received(is_verified: bool) -> void:
 
 
 # ============================================================
+# EMAIL SYNC WITH CLOUDFLARE WORKER
+# ============================================================
+
+func _sync_verified_email_with_worker() -> Dictionary:
+	var id_token := _get_current_id_token()
+
+	if id_token.is_empty():
+		return {
+			"success": false,
+			"message": "Firebase ID token is unavailable."
+		}
+
+	var url := "https://atomix-auth-api.atomix-auth.workers.dev/sync-own-email"
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	var request_error := http.request(
+		url,
+		PackedStringArray([
+			"Content-Type: application/json"
+		]),
+		HTTPClient.METHOD_POST,
+		JSON.stringify({
+			"idToken": id_token
+		})
+	)
+
+	if request_error != OK:
+		http.queue_free()
+		return {
+			"success": false,
+			"message": "Could not start email synchronization request."
+		}
+
+	var response: Array = await http.request_completed
+	http.queue_free()
+
+	var response_code: int = response[1]
+	var response_body: PackedByteArray = response[3]
+
+	var json := JSON.new()
+	var parse_error := json.parse(
+		response_body.get_string_from_utf8()
+	)
+
+	if parse_error != OK:
+		return {
+			"success": false,
+			"message": "Invalid response from email synchronization server."
+		}
+
+	if response_code < 200 or response_code >= 300:
+		return {
+			"success": false,
+			"message": str(json.data.get("message", "Email synchronization failed."))
+		}
+
+	return json.data
+
+
+# ============================================================
 # VALIDATION COMPLETE
 # ============================================================
 
 func _finish_validation() -> void:
+	validation_busy = true
+	verify_button.disabled = true
+
+	_show_message("Email verified. Synchronizing account records...")
+
+	var sync_result: Dictionary = await _sync_verified_email_with_worker()
+
+	validation_busy = false
+	verify_button.disabled = false
+
+	if not sync_result.get("success", false):
+		email_panel.show()
+
+		_show_message(
+			"Email verified, but account synchronization failed: "
+			+ str(sync_result.get("message", "Unknown error."))
+		)
+
+		push_warning("[AccountValidation] Email synchronization failed: " + str(sync_result))
+
+		return
+
 	password_panel.hide()
 	email_panel.hide()
 	logout_panel.hide()
 
-	_show_message("Account validation completed.")
+	_show_message("Email verified and account records synchronized successfully.")
 
-	print("[AccountValidation] Student account validation completed.")
+	print("[AccountValidation] Email verification and synchronization completed.")
 
 	validation_completed.emit()
-
 
 # ============================================================
 # LOG OUT
@@ -563,3 +721,12 @@ func _show_message(message: String) -> void:
 	if is_instance_valid(password_status_label):
 		password_status_label.show()
 		password_status_label.text = message
+
+
+func _is_valid_email(value: String) -> bool:
+	var at_position := value.find("@")
+	var dot_position := value.rfind(".")
+
+	return at_position > 0 \
+		and dot_position > at_position + 1 \
+		and dot_position < value.length() - 1

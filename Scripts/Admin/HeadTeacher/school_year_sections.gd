@@ -989,6 +989,7 @@ func _create_section_for_year(year_id: String, section_name: String) -> void:
 	)
 
 
+
 func _update_section_for_year(
 	year_id: String,
 	section_id: String,
@@ -1017,21 +1018,16 @@ func _update_section_for_year(
 		+ "/sections/" + section_id
 	)
 
-	# Clear any previous rename jobs.
 	rename_jobs.clear()
 
-	# ---------------------------------------------------------
-	# 1. Queue student updates
-	# ---------------------------------------------------------
+	# 1. Queue student updates.
 	_queue_student_section_renames(
 		old_section_name,
 		section_name,
 		year_id
 	)
 
-	# ---------------------------------------------------------
-	# 2. Queue teacher updates
-	# ---------------------------------------------------------
+	# 2. Queue teacher updates.
 	_queue_teacher_section_renames(
 		section_id,
 		old_section_name,
@@ -1039,32 +1035,33 @@ func _update_section_for_year(
 		year_id
 	)
 
-	# ---------------------------------------------------------
-	# 3. Queue the section document LAST
-	# ---------------------------------------------------------
-	rename_jobs.append({
-		"path": section_path,
-		"fields": {
-			"name": section_name
-		},
-		"type": "section",
-		"context": {
-			"year_id": year_id,
-			"section_id": section_id,
-			"section_name": section_name
-		}
-	})
+	# Save rename information for the remaining steps.
+	var rename_context := {
+		"old_section_name": old_section_name,
+		"new_section_name": section_name,
+		"year_id": year_id,
+		"section_id": section_id,
+		"section_path": section_path
+	}
 
 	print("[Section Rename] =========================")
 	print("[Section Rename] Old name: ", old_section_name)
 	print("[Section Rename] New name: ", section_name)
-	print("[Section Rename] Total jobs: ", rename_jobs.size())
-	print("[Section Rename] Student/teacher updates queued.")
-	print("[Section Rename] Section update queued LAST.")
+	print("[Section Rename] Student/teacher jobs: ", rename_jobs.size())
+	print("[Section Rename] Loading quizzes next.")
 	print("[Section Rename] =========================")
-	
+
 	_set_busy(true)
-	_send_next_rename_job()
+
+	# 3. Load quizzes before sending the rename jobs.
+	_send_request(
+		"rename_load_quizzes",
+		HTTPClient.METHOD_GET,
+		_firestore_url("/databases/(default)/documents/quizzes"),
+		{},
+		rename_context
+	)
+
 
 func _queue_student_section_renames(
 	old_section_name: String,
@@ -1167,6 +1164,122 @@ func _queue_teacher_section_renames(
 			" -> ",
 			new_section_name
 		)
+
+
+
+# ---------------------------------------------------------
+# QUIZ / LESSON SECTION RENAMING
+# ---------------------------------------------------------
+
+func _queue_assignment_section_renames(
+	documents: Array,
+	collection_name: String,
+	old_section_name: String,
+	new_section_name: String
+) -> void:
+	for document in documents:
+		if not document is Dictionary:
+			continue
+
+		var full_name := str(document.get("name", ""))
+		var parts := full_name.split("/", false)
+
+		if parts.is_empty():
+			continue
+
+		var document_id := str(parts[parts.size() - 1])
+		var fields: Dictionary = document.get("fields", {})
+		var update_fields: Dictionary = {}
+
+		# Update assigned_sections array, preserving other sections.
+		if fields.has("assigned_sections"):
+			var array_data: Dictionary = fields["assigned_sections"].get(
+				"arrayValue",
+				{}
+			)
+
+			var values: Array = array_data.get("values", [])
+			var assigned_sections: Array = []
+
+			for value in values:
+				if not value is Dictionary:
+					continue
+
+				if value.has("stringValue"):
+					assigned_sections.append(
+						str(value["stringValue"])
+					)
+
+			var changed := false
+
+			for i in range(assigned_sections.size()):
+				if str(assigned_sections[i]).strip_edges() == old_section_name:
+					assigned_sections[i] = new_section_name
+					changed = true
+
+			if changed:
+				update_fields["assigned_sections"] = assigned_sections
+
+		# Also support legacy documents using a single "section" field.
+		if fields.has("section"):
+			var old_value := str(
+				fields["section"].get("stringValue", "")
+			)
+
+			if old_value.strip_edges() == old_section_name:
+				update_fields["section"] = new_section_name
+
+		# Only update documents that actually contain the old section.
+		if update_fields.is_empty():
+			continue
+
+		rename_jobs.append({
+			"path": (
+				"/databases/(default)/documents/"
+				+ collection_name
+				+ "/" + document_id
+			),
+			"fields": update_fields,
+			"type": collection_name
+		})
+
+		print(
+			"[Section Rename] Queued ",
+			collection_name,
+			" update: ",
+			document_id,
+			" | ",
+			old_section_name,
+			" -> ",
+			new_section_name
+		 )
+
+
+func _queue_section_document_rename(context: Dictionary) -> void:
+	# The section document is always updated last.
+	rename_jobs.append({
+		"path": str(context.get("section_path", "")),
+		"fields": {
+			"name": str(context.get("new_section_name", ""))
+		},
+		"type": "section",
+		"context": {
+			"year_id": str(context.get("year_id", "")),
+			"section_id": str(context.get("section_id", "")),
+			"section_name": str(context.get("new_section_name", ""))
+		}
+	})
+
+
+func _finish_loading_rename_documents(context: Dictionary) -> void:
+	# Queue the official section document update LAST.
+	_queue_section_document_rename(context)
+
+	print("[Section Rename] Total rename jobs queued: ", rename_jobs.size())
+	print("[Section Rename] Starting sequential updates.")
+
+	_send_next_rename_job()
+
 
 
 func _send_next_rename_job() -> void:
@@ -1720,6 +1833,55 @@ func _on_request_completed(
 					HTTPClient.METHOD_GET,
 					_firestore_url("/databases/(default)/documents/teachers")
 				)
+				
+		
+		"rename_load_quizzes":
+			var old_name := str(context.get("old_section_name", ""))
+			var new_name := str(context.get("new_section_name", ""))
+
+			_queue_assignment_section_renames(
+				response.get("documents", []),
+				"quizzes",
+				old_name,
+				new_name
+			)
+
+			print("[Section Rename] Quiz scan completed.")
+			print("[Section Rename] Loading lessons next.")
+
+			_send_request(
+				"rename_load_lessons",
+				HTTPClient.METHOD_GET,
+				_firestore_url(
+					"/databases/(default)/documents/lessons"
+				),
+				{},
+				context
+			)
+
+		"rename_load_lessons":
+			var old_name := str(context.get("old_section_name", ""))
+			var new_name := str(context.get("new_section_name", ""))
+
+			_queue_assignment_section_renames(
+				response.get("documents", []),
+				"lessons",
+				old_name,
+				new_name
+			)
+
+			print("[Section Rename] Lesson scan completed.")
+
+			# Queue the official section document update last.
+			_queue_section_document_rename(context)
+
+			print(
+				"[Section Rename] All jobs queued: ",
+				rename_jobs.size()
+			)
+
+			_send_next_rename_job()
+
 
 		"load_teachers_for_cards":
 			_parse_teachers_for_cards(response)
@@ -1800,6 +1962,7 @@ func _on_request_completed(
 		"assignment_teacher_write":
 			_send_next_assignment_job()
 		
+		
 		"rename_student_write":
 			print("[Section Rename] Student update successful.")
 			_send_next_rename_job()
@@ -1807,6 +1970,15 @@ func _on_request_completed(
 		"rename_teacher_write":
 			print("[Section Rename] Teacher update successful.")
 			_send_next_rename_job()
+
+		"rename_quiz_write":
+			print("[Section Rename] Quiz assignment updated successfully.")
+			_send_next_rename_job()
+
+		"rename_lesson_write":
+			print("[Section Rename] Lesson assignment updated successfully.")
+			_send_next_rename_job()
+
 
 		"rename_section_write":
 			var renamed_year_id := str(context.get("year_id", ""))
