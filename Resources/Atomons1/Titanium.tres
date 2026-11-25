@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://byqtdaf4komj4"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0221" path="res://Resources/Moves1/Ti_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0222" path="res://Resources/Moves1/Ti_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0223" path="res://Resources/Moves1/Ti_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0224" path="res://Resources/Moves1/Ti_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://8vacp2j4srin" path="res://Assets/Pets/all/Titanium (1).png" id="7_2r25y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5l7q5"]
+atlas = ExtResource("7_2r25y")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dysoe"]
+atlas = ExtResource("7_2r25y")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7t1b6"]
+atlas = ExtResource("7_2r25y")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sx81m"]
+atlas = ExtResource("7_2r25y")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mgghx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5l7q5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dysoe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7t1b6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sx81m")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Titanium"
+chemical_symbol = "Ti"
+atomic_number = 22
+sprite_frames = SubResource("SpriteFrames_mgghx")
+atomic_mass = 47.867
+density = 4.54
+ionization_energy = 6.8281
+electronegativity = 1.38
+electron_affinity = 7.28
+valence_electrons = 4
+mass_number = 48
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 4
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

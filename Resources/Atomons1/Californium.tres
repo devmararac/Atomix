@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/Cf_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Cf_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Cf_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Cf_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Californium"
+chemical_symbol = "Cf"
+atomic_number = 98
+alias = ""
+move_speed = 20.0
+atomic_mass = 251.0
+density = 15.1
+ionization_energy = 6.2817
+electronegativity = 2.275
+electron_affinity = -97.31
+valence_electrons = 12
+mass_number = 251
+element_type = "Actinide"
+state = "Solid"
+block = "f"
+radioactive = true
+period = 7
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

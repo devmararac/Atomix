@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/Tm_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Tm_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Tm_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Tm_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Thulium"
+chemical_symbol = "Tm"
+atomic_number = 69
+alias = ""
+move_speed = 20.0
+atomic_mass = 168.93422
+density = 9.321
+ionization_energy = 6.18431
+electronegativity = 1.04
+electron_affinity = 99.0
+valence_electrons = 15
+mass_number = 169
+element_type = "Lanthanide"
+state = "Solid"
+block = "f"
+radioactive = false
+period = 6
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

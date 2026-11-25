@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/Ta_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Ta_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Ta_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Ta_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Tantalum"
+chemical_symbol = "Ta"
+atomic_number = 73
+alias = ""
+move_speed = 20.0
+atomic_mass = 180.94788
+density = 16.654
+ionization_energy = 7.5496
+electronegativity = 1.34
+electron_affinity = 31.0
+valence_electrons = 5
+mass_number = 181
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+radioactive = false
+period = 6
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

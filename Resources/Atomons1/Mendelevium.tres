@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/Md_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Md_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Md_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Md_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Mendelevium"
+chemical_symbol = "Md"
+atomic_number = 101
+alias = ""
+move_speed = 20.0
+atomic_mass = 258.0
+density = 10.3
+ionization_energy = 6.58
+electronegativity = 2.275
+electron_affinity = -93.91
+valence_electrons = 15
+mass_number = 258
+element_type = "Actinide"
+state = "Solid"
+block = "f"
+radioactive = true
+period = 7
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

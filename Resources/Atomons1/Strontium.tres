@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://82rv50l122ky"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0381" path="res://Resources/Moves1/Sr_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0382" path="res://Resources/Moves1/Sr_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0383" path="res://Resources/Moves1/Sr_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0384" path="res://Resources/Moves1/Sr_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://cs63axed076s1" path="res://Assets/Pets/all/Strontium (1).png" id="7_qdng1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd3ti"]
+atlas = ExtResource("7_qdng1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srehg"]
+atlas = ExtResource("7_qdng1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xy3b2"]
+atlas = ExtResource("7_qdng1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3xjj"]
+atlas = ExtResource("7_qdng1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rfy1d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cd3ti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srehg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xy3b2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3xjj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Strontium"
+chemical_symbol = "Sr"
+atomic_number = 38
+sprite_frames = SubResource("SpriteFrames_rfy1d")
+atomic_mass = 87.62
+density = 2.64
+ionization_energy = 5.6949
+electronegativity = 0.963
+electron_affinity = 5.02
+valence_electrons = 2
+mass_number = 88
+element_type = "Alkaline Earth Metal"
+state = "Solid"
+period = 5
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

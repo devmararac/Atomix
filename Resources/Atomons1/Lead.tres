@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/Pb_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pb_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pb_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pb_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Lead"
+chemical_symbol = "Pb"
+atomic_number = 82
+alias = ""
+move_speed = 20.0
+atomic_mass = 207.2
+density = 11.342
+ionization_energy = 7.41666
+electronegativity = 1.854
+electron_affinity = 34.41
+valence_electrons = 4
+mass_number = 207
+element_type = "Post-transition Metal"
+state = "Solid"
+block = "p"
+radioactive = false
+period = 6
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

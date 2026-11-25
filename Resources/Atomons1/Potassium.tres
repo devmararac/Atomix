@@ -1,0 +1,140 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://ktdx3ab6yisf"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx02a1" path="res://Resources/Moves1/K_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx02a2" path="res://Resources/Moves1/K_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx02a3" path="res://Resources/Moves1/K_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx02a4" path="res://Resources/Moves1/K_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://cp0xxye01tqq0" path="res://Assets/Pets/all/Potassium (1).png" id="7_sxhet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gept1"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0orph"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_caobh"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x85sc"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk287"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uw6ii"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ubi1"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m1p2"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okahd"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62ogs"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prx45"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qldxn"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4npqo"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ri7c"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnit8"]
+atlas = ExtResource("7_sxhet")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aaj80"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gept1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0orph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_caobh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x85sc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk287")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uw6ii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ubi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8m1p2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okahd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62ogs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prx45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qldxn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4npqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ri7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnit8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Potassium"
+chemical_symbol = "K"
+atomic_number = 19
+sprite_frames = SubResource("SpriteFrames_aaj80")
+atomic_mass = 39.0983
+density = 0.862
+ionization_energy = 4.34066
+electronegativity = 0.734
+electron_affinity = 48.38
+valence_electrons = 1
+mass_number = 39
+element_type = "Alkali Metal"
+state = "Solid"
+period = 4
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

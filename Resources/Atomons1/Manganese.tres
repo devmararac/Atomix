@@ -1,0 +1,106 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://b6smtqxgm4jyx"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0251" path="res://Resources/Moves1/Mn_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0252" path="res://Resources/Moves1/Mn_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0253" path="res://Resources/Moves1/Mn_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0254" path="res://Resources/Moves1/Mn_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://de5jl0gojg3v" path="res://Assets/Pets/all/Manganese (1).png" id="7_mximi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfrug"]
+atlas = ExtResource("7_mximi")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwfbh"]
+atlas = ExtResource("7_mximi")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_niqnt"]
+atlas = ExtResource("7_mximi")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3l5b"]
+atlas = ExtResource("7_mximi")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rogvt"]
+atlas = ExtResource("7_mximi")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xue6s"]
+atlas = ExtResource("7_mximi")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drj5l"]
+atlas = ExtResource("7_mximi")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjeae"]
+atlas = ExtResource("7_mximi")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8vh1"]
+atlas = ExtResource("7_mximi")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gutov"]
+atlas = ExtResource("7_mximi")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2yyho"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfrug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwfbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_niqnt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3l5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rogvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xue6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drj5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjeae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8vh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gutov")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Manganese"
+chemical_symbol = "Mn"
+atomic_number = 25
+sprite_frames = SubResource("SpriteFrames_2yyho")
+atomic_mass = 54.938044
+density = 7.44
+ionization_energy = 7.43402
+electronegativity = 1.75
+electron_affinity = -50.0
+valence_electrons = 7
+mass_number = 55
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 4
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

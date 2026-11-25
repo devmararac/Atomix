@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/No_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/No_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/No_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/No_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Nobelium"
+chemical_symbol = "No"
+atomic_number = 102
+alias = ""
+move_speed = 20.0
+atomic_mass = 259.0
+density = 9.9
+ionization_energy = 6.65
+electronegativity = 2.275
+electron_affinity = -223.22
+valence_electrons = 16
+mass_number = 259
+element_type = "Actinide"
+state = "Solid"
+block = "f"
+radioactive = true
+period = 7
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

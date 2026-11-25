@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://boq7v0dkih0lv"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0131" path="res://Resources/Moves1/Al_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0132" path="res://Resources/Moves1/Al_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0133" path="res://Resources/Moves1/Al_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0134" path="res://Resources/Moves1/Al_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://b4scp160tyn7b" path="res://Assets/Pets/Aluminum_Idle.png" id="7_a8310"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svnxn"]
+atlas = ExtResource("7_a8310")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7n4hw"]
+atlas = ExtResource("7_a8310")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8qtc"]
+atlas = ExtResource("7_a8310")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8okh"]
+atlas = ExtResource("7_a8310")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qakmb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svnxn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7n4hw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8qtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8okh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Aluminum"
+chemical_symbol = "Al"
+atomic_number = 13
+sprite_frames = SubResource("SpriteFrames_qakmb")
+atomic_mass = 26.9815385
+density = 2.698
+ionization_energy = 5.98577
+electronegativity = 1.613
+electron_affinity = 41.76
+valence_electrons = 3
+mass_number = 27
+element_type = "Post-transition Metal"
+state = "Solid"
+block = "p"
+period = 3
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

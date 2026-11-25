@@ -1,0 +1,92 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bb8246d0wekbv"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0301" path="res://Resources/Moves1/Zn_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0302" path="res://Resources/Moves1/Zn_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0303" path="res://Resources/Moves1/Zn_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0304" path="res://Resources/Moves1/Zn_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://u0t4ff741gm4" path="res://Assets/Pets/all/Zinc (1).png" id="7_4jh6t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fswcu"]
+atlas = ExtResource("7_4jh6t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ci85m"]
+atlas = ExtResource("7_4jh6t")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guhkq"]
+atlas = ExtResource("7_4jh6t")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tinwh"]
+atlas = ExtResource("7_4jh6t")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06076"]
+atlas = ExtResource("7_4jh6t")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2h0ps"]
+atlas = ExtResource("7_4jh6t")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nbg1"]
+atlas = ExtResource("7_4jh6t")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir6h3"]
+atlas = ExtResource("7_4jh6t")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m23s1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fswcu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ci85m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guhkq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tinwh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06076")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2h0ps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nbg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir6h3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Zinc"
+chemical_symbol = "Zn"
+atomic_number = 30
+sprite_frames = SubResource("SpriteFrames_m23s1")
+atomic_mass = 65.38
+density = 7.134
+ionization_energy = 9.3942
+electronegativity = 1.588
+electron_affinity = -58.0
+valence_electrons = 12
+mass_number = 65
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 4
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

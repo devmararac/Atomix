@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/Pm_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pm_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pm_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pm_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Promethium"
+chemical_symbol = "Pm"
+atomic_number = 61
+alias = ""
+move_speed = 20.0
+atomic_mass = 145.0
+density = 7.26
+ionization_energy = 5.582
+electronegativity = 1.05
+electron_affinity = -12.45
+valence_electrons = 7
+mass_number = 145
+element_type = "Lanthanide"
+state = "Solid"
+block = "f"
+radioactive = true
+period = 6
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://cppgddxcy7vo"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0361" path="res://Resources/Moves1/Kr_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0362" path="res://Resources/Moves1/Kr_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0363" path="res://Resources/Moves1/Kr_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0364" path="res://Resources/Moves1/Kr_04.tres" id="6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a6fcv"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Krypton"
+chemical_symbol = "Kr"
+atomic_number = 36
+sprite_frames = SubResource("SpriteFrames_a6fcv")
+atomic_mass = 83.798
+density = 0.003733
+ionization_energy = 13.99961
+electronegativity = 2.966
+electron_affinity = -96.0
+valence_electrons = 8
+mass_number = 84
+element_type = "Noble Gas"
+block = "p"
+period = 4
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

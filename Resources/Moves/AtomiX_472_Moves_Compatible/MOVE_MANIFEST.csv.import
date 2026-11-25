@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dnx7dyuqp8uqw"
+
+[deps]
+
+files=["res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.element.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.slot.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.skill.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.category.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.power.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.effect.translation"]
+
+source_file="res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.csv"
+dest_files=["res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.element.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.slot.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.skill.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.category.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.power.translation", "res://Resources/Moves/AtomiX_472_Moves_Compatible/MOVE_MANIFEST.effect.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://r6nxg4l5e5ru"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx1aa1" path="res://Resources/Moves1/Ac_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx1aa2" path="res://Resources/Moves1/Ac_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx1aa3" path="res://Resources/Moves1/Ac_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx1aa4" path="res://Resources/Moves1/Ac_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://l4jqubuw44s2" path="res://Assets/Pets/all/Actinium/Idle.png" id="7_8va5u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uk7kj"]
+atlas = ExtResource("7_8va5u")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utbm4"]
+atlas = ExtResource("7_8va5u")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axhpi"]
+atlas = ExtResource("7_8va5u")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdlel"]
+atlas = ExtResource("7_8va5u")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lqrck"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uk7kj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utbm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axhpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdlel")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Actinium"
+chemical_symbol = "Ac"
+atomic_number = 89
+sprite_frames = SubResource("SpriteFrames_lqrck")
+atomic_mass = 227.0
+density = 10.07
+ionization_energy = 5.17
+electronegativity = 1.0
+electron_affinity = -33.77
+valence_electrons = 3
+mass_number = 227
+element_type = "Actinide"
+state = "Solid"
+block = "f"
+radioactive = true
+period = 7
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://ce1p2hvm3wk6n"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0241" path="res://Resources/Moves1/Cr_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0242" path="res://Resources/Moves1/Cr_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0243" path="res://Resources/Moves1/Cr_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0244" path="res://Resources/Moves1/Cr_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://bhhfaf15m64ew" path="res://Assets/Pets/all/Chromium (1).png" id="7_himoo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0tk6"]
+atlas = ExtResource("7_himoo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cpin"]
+atlas = ExtResource("7_himoo")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnq2j"]
+atlas = ExtResource("7_himoo")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ujl5"]
+atlas = ExtResource("7_himoo")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yil51"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0tk6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cpin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnq2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ujl5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Chromium"
+chemical_symbol = "Cr"
+atomic_number = 24
+sprite_frames = SubResource("SpriteFrames_yil51")
+atomic_mass = 51.9961
+density = 7.15
+ionization_energy = 6.7665
+electronegativity = 1.65
+electron_affinity = 65.21
+valence_electrons = 6
+mass_number = 52
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 4
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

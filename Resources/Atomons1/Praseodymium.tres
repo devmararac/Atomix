@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/Pr_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pr_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pr_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pr_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Praseodymium"
+chemical_symbol = "Pr"
+atomic_number = 59
+alias = ""
+move_speed = 20.0
+atomic_mass = 140.90766
+density = 6.773
+ionization_energy = 5.473
+electronegativity = 1.06
+electron_affinity = 10.53
+valence_electrons = 5
+mass_number = 141
+element_type = "Lanthanide"
+state = "Solid"
+block = "f"
+radioactive = false
+period = 6
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

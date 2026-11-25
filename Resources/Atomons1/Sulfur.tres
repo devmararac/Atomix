@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://ctg42ew8dw6ls"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0161" path="res://Resources/Moves1/S_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0162" path="res://Resources/Moves1/S_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0163" path="res://Resources/Moves1/S_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0164" path="res://Resources/Moves1/S_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://lg2qd8ofifta" path="res://Assets/Pets/all/Sulfur (1).png" id="7_lporl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8aver"]
+atlas = ExtResource("7_lporl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2swg"]
+atlas = ExtResource("7_lporl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcnpi"]
+atlas = ExtResource("7_lporl")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekhki"]
+atlas = ExtResource("7_lporl")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eaflv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8aver")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2swg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcnpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekhki")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Sulfur"
+chemical_symbol = "S"
+atomic_number = 16
+sprite_frames = SubResource("SpriteFrames_eaflv")
+atomic_mass = 32.06
+density = 2.067
+ionization_energy = 10.36001
+electronegativity = 2.589
+electron_affinity = 200.4
+valence_electrons = 6
+mass_number = 32
+state = "Solid"
+block = "p"
+period = 3
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

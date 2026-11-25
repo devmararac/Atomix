@@ -1,0 +1,147 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://bnd5w7a7iywj5"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0371" path="res://Resources/Moves1/Rb_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0372" path="res://Resources/Moves1/Rb_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0373" path="res://Resources/Moves1/Rb_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0374" path="res://Resources/Moves1/Rb_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://c4l28lwd6of6v" path="res://Assets/Pets/all/Rubidium (1).png" id="7_vq8rk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rnvw"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilewo"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoogw"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hx32o"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0246"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdwsj"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pmub"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3k5om"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntf6u"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tavuh"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_330gs"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15akx"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uran"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2q8ko"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cm1jv"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gu456"]
+atlas = ExtResource("7_vq8rk")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sl5pd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rnvw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilewo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoogw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hx32o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0246")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdwsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pmub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3k5om")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntf6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tavuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_330gs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15akx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4uran")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2q8ko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cm1jv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gu456")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Rubidium"
+chemical_symbol = "Rb"
+atomic_number = 37
+sprite_frames = SubResource("SpriteFrames_sl5pd")
+atomic_mass = 85.4678
+density = 1.532
+ionization_energy = 4.17713
+electronegativity = 0.706
+electron_affinity = 46.88
+valence_electrons = 1
+mass_number = 85
+element_type = "Alkali Metal"
+state = "Solid"
+period = 5
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

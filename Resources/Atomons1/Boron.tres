@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://cn2u0cveqw5p6"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0051" path="res://Resources/Moves1/B_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0052" path="res://Resources/Moves1/B_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0053" path="res://Resources/Moves1/B_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0054" path="res://Resources/Moves1/B_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://bc3vgsj8xx52i" path="res://Assets/Pets/all/Boron (1).png" id="7_wvr2a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l06n3"]
+atlas = ExtResource("7_wvr2a")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw0eu"]
+atlas = ExtResource("7_wvr2a")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5vfa"]
+atlas = ExtResource("7_wvr2a")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkppu"]
+atlas = ExtResource("7_wvr2a")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cdcyg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l06n3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qw0eu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5vfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkppu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Boron"
+chemical_symbol = "B"
+atomic_number = 5
+sprite_frames = SubResource("SpriteFrames_cdcyg")
+atomic_mass = 10.81
+density = 2.34
+ionization_energy = 8.29803
+electronegativity = 2.051
+electron_affinity = 26.99
+valence_electrons = 3
+mass_number = 11
+element_type = "Metalloid"
+state = "Solid"
+block = "p"
+period = 2
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

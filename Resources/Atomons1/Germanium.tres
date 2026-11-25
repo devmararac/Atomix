@@ -1,0 +1,106 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://dhj5kfbwhxhbx"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0321" path="res://Resources/Moves1/Ge_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0322" path="res://Resources/Moves1/Ge_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0323" path="res://Resources/Moves1/Ge_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0324" path="res://Resources/Moves1/Ge_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://3l3hl2ruq7xy" path="res://Assets/Pets/all/Germanium (1).png" id="7_m6y4v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0wri"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_670i2"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06qio"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5dgw"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d34vq"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhdh1"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qldx"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xdrq"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wd3o"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6a217"]
+atlas = ExtResource("7_m6y4v")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6664y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0wri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_670i2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06qio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5dgw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d34vq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhdh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qldx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xdrq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wd3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6a217")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Germanium"
+chemical_symbol = "Ge"
+atomic_number = 32
+sprite_frames = SubResource("SpriteFrames_6664y")
+atomic_mass = 72.63
+density = 5.323
+ionization_energy = 7.8994
+electronegativity = 1.994
+electron_affinity = 118.93
+valence_electrons = 4
+mass_number = 73
+element_type = "Metalloid"
+state = "Solid"
+block = "p"
+period = 4
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

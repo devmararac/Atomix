@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/P_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/P_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/P_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/P_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Phosphorus"
+chemical_symbol = "P"
+atomic_number = 15
+alias = ""
+move_speed = 20.0
+atomic_mass = 30.973761998
+density = 1.82
+ionization_energy = 10.48669
+electronegativity = 2.253
+electron_affinity = 72.04
+valence_electrons = 5
+mass_number = 31
+element_type = "Nonmetal"
+state = "Solid"
+block = "p"
+radioactive = false
+period = 3
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

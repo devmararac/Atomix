@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/In_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/In_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/In_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/In_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Indium"
+chemical_symbol = "In"
+atomic_number = 49
+alias = ""
+move_speed = 20.0
+atomic_mass = 114.818
+density = 7.31
+ionization_energy = 5.78636
+electronegativity = 1.656
+electron_affinity = 37.04
+valence_electrons = 3
+mass_number = 115
+element_type = "Post-transition Metal"
+state = "Solid"
+block = "p"
+radioactive = false
+period = 5
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

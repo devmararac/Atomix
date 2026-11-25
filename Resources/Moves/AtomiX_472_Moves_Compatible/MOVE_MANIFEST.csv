@@ -1,0 +1,473 @@
+skill_id,element,slot,skill_name,category,power_or_heal,effect_name
+H_01,Hydrogen,1,Proton Strike,damage,30,
+H_02,Hydrogen,2,Hydrogen Flare,damage,50,
+H_03,Hydrogen,3,Combustion,heal,25,
+H_04,Hydrogen,4,Combustion,status,,Excite
+He_01,Helium,1,Helium Burst,damage,25,
+He_02,Helium,2,Pressure Pop,damage,45,
+He_03,Helium,3,Lightness,heal,30,
+He_04,Helium,4,Lightness,status,,Stabilize
+Li_01,Lithium,1,Lithium Spark,damage,35,
+Li_02,Lithium,2,Reactive Blast,damage,55,
+Li_03,Lithium,3,Water Reaction,heal,25,
+Li_04,Lithium,4,Water Reaction,status,,Excite
+Be_01,Beryllium,1,Beryllium Strike,damage,35,
+Be_02,Beryllium,2,Metal Pierce,damage,50,
+Be_03,Beryllium,3,Hardening,heal,30,
+Be_04,Beryllium,4,Hardening,status,,Stabilize
+B_01,Boron,1,Boron Blade,damage,35,
+B_02,Boron,2,Crystal Impact,damage,55,
+B_03,Boron,3,Crystallize,heal,30,
+B_04,Boron,4,Crystallize,status,,Stabilize
+C_01,Carbon,1,Carbon Shot,damage,35,
+C_02,Carbon,2,Diamond Crash,damage,60,
+C_03,Carbon,3,Carbonize,heal,30,
+C_04,Carbon,4,Carbonize,status,,Inhibit
+N_01,Nitrogen,1,Nitrogen Blast,damage,35,
+N_02,Nitrogen,2,Cryogenic Burst,damage,50,
+N_03,Nitrogen,3,Suffocation,heal,25,
+N_04,Nitrogen,4,Suffocation,status,,Inhibit
+O_01,Oxygen,1,Oxygen Blast,damage,35,
+O_02,Oxygen,2,Oxidation Wave,damage,55,
+O_03,Oxygen,3,Oxidize,heal,35,
+O_04,Oxygen,4,Oxidize,status,,Oxidize
+F_01,Fluorine,1,Fluorine Fang,damage,40,
+F_02,Fluorine,2,Corrosive Burst,damage,60,
+F_03,Fluorine,3,Corrosion,heal,20,
+F_04,Fluorine,4,Corrosion,status,,Corrode
+Ne_01,Neon,1,Neon Ray,damage,35,
+Ne_02,Neon,2,Radiant Burst,damage,50,
+Ne_03,Neon,3,Neon Glow,heal,30,
+Ne_04,Neon,4,Neon Glow,status,,Excite
+Na_01,Sodium,1,Sodium Slash,damage,40,
+Na_02,Sodium,2,Water Reaction,damage,60,
+Na_03,Sodium,3,Volatile,heal,25,
+Na_04,Sodium,4,Volatile,status,,Excite
+Mg_01,Magnesium,1,Magnesium Spark,damage,40,
+Mg_02,Magnesium,2,White Flame,damage,60,
+Mg_03,Magnesium,3,Flashburn,heal,30,
+Mg_04,Magnesium,4,Flashburn,status,,Excite
+Al_01,Aluminum,1,Aluminum Strike,damage,40,
+Al_02,Aluminum,2,Metal Crash,damage,55,
+Al_03,Aluminum,3,Passivation,heal,35,
+Al_04,Aluminum,4,Passivation,status,,Passivate
+Si_01,Silicon,1,Silicon Shard,damage,40,
+Si_02,Silicon,2,Silicon Crystal,damage,60,
+Si_03,Silicon,3,Semiconductor,heal,30,
+Si_04,Silicon,4,Semiconductor,status,,Stabilize
+P_01,Phosphorus,1,Phosphorus Shot,damage,40,
+P_02,Phosphorus,2,Phosphor Burst,damage,60,
+P_03,Phosphorus,3,Ignition,heal,30,
+P_04,Phosphorus,4,Ignition,status,,Excite
+S_01,Sulfur,1,Sulfur Cloud,damage,35,
+S_02,Sulfur,2,Sulfur Burst,damage,55,
+S_03,Sulfur,3,Toxic Fumes,heal,25,
+S_04,Sulfur,4,Toxic Fumes,status,,Inhibit
+Cl_01,Chlorine,1,Chlorine Slash,damage,40,
+Cl_02,Chlorine,2,Chlorine Cloud,damage,55,
+Cl_03,Chlorine,3,Toxic Gas,heal,30,
+Cl_04,Chlorine,4,Toxic Gas,status,,Inhibit
+Ar_01,Argon,1,Argon Pulse,damage,30,
+Ar_02,Argon,2,Inert Blast,damage,50,
+Ar_03,Argon,3,Inertness,heal,40,
+Ar_04,Argon,4,Inertness,status,,Passivate
+K_01,Potassium,1,Potassium Strike,damage,40,
+K_02,Potassium,2,Water Detonation,damage,65,
+K_03,Potassium,3,Volatile Reaction,heal,25,
+K_04,Potassium,4,Volatile Reaction,status,,Excite
+Ca_01,Calcium,1,Calcium Bash,damage,40,
+Ca_02,Calcium,2,Bone Crusher,damage,60,
+Ca_03,Calcium,3,Fortify,heal,35,
+Ca_04,Calcium,4,Fortify,status,,Stabilize
+Sc_01,Scandium,1,Scandium Slash,damage,40,
+Sc_02,Scandium,2,Metal Surge,damage,55,
+Sc_03,Scandium,3,Reinforce,heal,30,
+Sc_04,Scandium,4,Reinforce,status,,Stabilize
+Ti_01,Titanium,1,Titanium Strike,damage,45,
+Ti_02,Titanium,2,Titanium Crash,damage,65,
+Ti_03,Titanium,3,Titanium Guard,heal,30,
+Ti_04,Titanium,4,Titanium Guard,status,,Passivate
+V_01,Vanadium,1,Vanadium Slash,damage,45,
+V_02,Vanadium,2,Variable Strike,damage,60,
+V_03,Vanadium,3,Catalysis,heal,30,
+V_04,Vanadium,4,Catalysis,status,,Catalyze
+Cr_01,Chromium,1,Chrome Slash,damage,45,
+Cr_02,Chromium,2,Chromium Crash,damage,60,
+Cr_03,Chromium,3,Passivation,heal,35,
+Cr_04,Chromium,4,Passivation,status,,Passivate
+Mn_01,Manganese,1,Manganese Strike,damage,45,
+Mn_02,Manganese,2,Oxidation Smash,damage,60,
+Mn_03,Manganese,3,Oxidize,heal,30,
+Mn_04,Manganese,4,Oxidize,status,,Oxidize
+Fe_01,Iron,1,Iron Strike,damage,45,
+Fe_02,Iron,2,Iron Hammer,damage,65,
+Fe_03,Iron,3,Rust,heal,35,
+Fe_04,Iron,4,Rust,status,,Corrode
+Co_01,Cobalt,1,Cobalt Bolt,damage,45,
+Co_02,Cobalt,2,Cobalt Crash,damage,60,
+Co_03,Cobalt,3,Toxic Metal,heal,30,
+Co_04,Cobalt,4,Toxic Metal,status,,Inhibit
+Ni_01,Nickel,1,Nickel Slash,damage,45,
+Ni_02,Nickel,2,Nickel Impact,damage,60,
+Ni_03,Nickel,3,Corrode,heal,35,
+Ni_04,Nickel,4,Corrode,status,,Corrode
+Cu_01,Copper,1,Copper Bolt,damage,45,
+Cu_02,Copper,2,Conductive Strike,damage,60,
+Cu_03,Copper,3,Conductive,heal,30,
+Cu_04,Copper,4,Conductive,status,,Ionize
+Zn_01,Zinc,1,Zinc Shot,damage,40,
+Zn_02,Zinc,2,Zinc Burst,damage,55,
+Zn_03,Zinc,3,Protective Coating,heal,40,
+Zn_04,Zinc,4,Protective Coating,status,,Passivate
+Ga_01,Gallium,1,Gallium Melt,damage,45,
+Ga_02,Gallium,2,Liquid Metal,damage,60,
+Ga_03,Gallium,3,Melting Point,heal,30,
+Ga_04,Gallium,4,Melting Point,status,,Inhibit
+Ge_01,Germanium,1,Germanium Ray,damage,45,
+Ge_02,Germanium,2,Crystal Beam,damage,60,
+Ge_03,Germanium,3,Semiconductor,heal,30,
+Ge_04,Germanium,4,Semiconductor,status,,Stabilize
+As_01,Arsenic,1,Arsenic Shot,damage,45,
+As_02,Arsenic,2,Toxic Burst,damage,60,
+As_03,Arsenic,3,Poison,heal,25,
+As_04,Arsenic,4,Poison,status,,Inhibit
+Se_01,Selenium,1,Selenium Ray,damage,45,
+Se_02,Selenium,2,Photoelectric Burst,damage,60,
+Se_03,Selenium,3,Light Charge,heal,30,
+Se_04,Selenium,4,Light Charge,status,,Excite
+Br_01,Bromine,1,Bromine Splash,damage,45,
+Br_02,Bromine,2,Halogen Burst,damage,60,
+Br_03,Bromine,3,Corrosion,heal,30,
+Br_04,Bromine,4,Corrosion,status,,Corrode
+Kr_01,Krypton,1,Krypton Ray,damage,40,
+Kr_02,Krypton,2,Krypton Flash,damage,60,
+Kr_03,Krypton,3,Inertness,heal,40,
+Kr_04,Krypton,4,Inertness,status,,Passivate
+Rb_01,Rubidium,1,Rubidium Spark,damage,45,
+Rb_02,Rubidium,2,Water Explosion,damage,65,
+Rb_03,Rubidium,3,Volatile,heal,25,
+Rb_04,Rubidium,4,Volatile,status,,Excite
+Sr_01,Strontium,1,Strontium Strike,damage,45,
+Sr_02,Strontium,2,Red Flame,damage,60,
+Sr_03,Strontium,3,Fortify,heal,35,
+Sr_04,Strontium,4,Fortify,status,,Stabilize
+Y_01,Yttrium,1,Yttrium Ray,damage,45,
+Y_02,Yttrium,2,Crystal Beam,damage,60,
+Y_03,Yttrium,3,Stabilize,heal,35,
+Y_04,Yttrium,4,Stabilize,status,,Stabilize
+Zr_01,Zirconium,1,Zirconium Blade,damage,50,
+Zr_02,Zirconium,2,Zirconium Crash,damage,65,
+Zr_03,Zirconium,3,Reinforce,heal,35,
+Zr_04,Zirconium,4,Reinforce,status,,Stabilize
+Nb_01,Niobium,1,Niobium Strike,damage,50,
+Nb_02,Niobium,2,Superconductor Crash,damage,65,
+Nb_03,Niobium,3,Superconduct,heal,35,
+Nb_04,Niobium,4,Superconduct,status,,Ionize
+Mo_01,Molybdenum,1,Molybdenum Slash,damage,50,
+Mo_02,Molybdenum,2,Heatproof Strike,damage,65,
+Mo_03,Molybdenum,3,Heat Resistance,heal,35,
+Mo_04,Molybdenum,4,Heat Resistance,status,,Passivate
+Tc_01,Technetium,1,Technetium Ray,damage,50,
+Tc_02,Technetium,2,Radiation Burst,damage,70,
+Tc_03,Technetium,3,Radiation,heal,25,
+Tc_04,Technetium,4,Radiation,status,,Ionize
+Ru_01,Ruthenium,1,Ruthenium Slash,damage,50,
+Ru_02,Ruthenium,2,Catalytic Crash,damage,65,
+Ru_03,Ruthenium,3,Catalyze,heal,35,
+Ru_04,Ruthenium,4,Catalyze,status,,Catalyze
+Rh_01,Rhodium,1,Rhodium Strike,damage,50,
+Rh_02,Rhodium,2,Reflective Crash,damage,65,
+Rh_03,Rhodium,3,Reflect,heal,40,
+Rh_04,Rhodium,4,Reflect,status,,Passivate
+Pd_01,Palladium,1,Palladium Shot,damage,50,
+Pd_02,Palladium,2,Hydrogen Absorb,damage,65,
+Pd_03,Palladium,3,Absorb,heal,40,
+Pd_04,Palladium,4,Absorb,status,,Neutralize
+Ag_01,Silver,1,Silver Blade,damage,50,
+Ag_02,Silver,2,Silver Flash,damage,65,
+Ag_03,Silver,3,Conductive,heal,40,
+Ag_04,Silver,4,Conductive,status,,Ionize
+Cd_01,Cadmium,1,Cadmium Shot,damage,45,
+Cd_02,Cadmium,2,Toxic Metal Burst,damage,65,
+Cd_03,Cadmium,3,Toxic,heal,30,
+Cd_04,Cadmium,4,Toxic,status,,Inhibit
+In_01,Indium,1,Indium Strike,damage,50,
+In_02,Indium,2,Soft Metal Crash,damage,60,
+In_03,Indium,3,Malleable,heal,40,
+In_04,Indium,4,Malleable,status,,Stabilize
+Sn_01,Tin,1,Tin Bash,damage,50,
+Sn_02,Tin,2,Tin Collapse,damage,60,
+Sn_03,Tin,3,Corrode,heal,40,
+Sn_04,Tin,4,Corrode,status,,Corrode
+Sb_01,Antimony,1,Antimony Blast,damage,50,
+Sb_02,Antimony,2,Toxic Metal Burst,damage,65,
+Sb_03,Antimony,3,Poison,heal,30,
+Sb_04,Antimony,4,Poison,status,,Inhibit
+Te_01,Tellurium,1,Tellurium Ray,damage,50,
+Te_02,Tellurium,2,Telluric Burst,damage,65,
+Te_03,Tellurium,3,Toxic,heal,35,
+Te_04,Tellurium,4,Toxic,status,,Inhibit
+I_01,Iodine,1,Iodine Slash,damage,50,
+I_02,Iodine,2,Iodine Cloud,damage,65,
+I_03,Iodine,3,Toxic Vapor,heal,40,
+I_04,Iodine,4,Toxic Vapor,status,,Inhibit
+Xe_01,Xenon,1,Xenon Flash,damage,50,
+Xe_02,Xenon,2,Xenon Beam,damage,70,
+Xe_03,Xenon,3,Flashblind,heal,45,
+Xe_04,Xenon,4,Flashblind,status,,Ionize
+Cs_01,Cesium,1,Cesium Spark,damage,50,
+Cs_02,Cesium,2,Water Detonation,damage,70,
+Cs_03,Cesium,3,Extreme Volatility,heal,25,
+Cs_04,Cesium,4,Extreme Volatility,status,,Excite
+Ba_01,Barium,1,Barium Bash,damage,50,
+Ba_02,Barium,2,Heavy Metal Crash,damage,65,
+Ba_03,Barium,3,Fortify,heal,40,
+Ba_04,Barium,4,Fortify,status,,Stabilize
+La_01,Lanthanum,1,Lanthanum Strike,damage,50,
+La_02,Lanthanum,2,Rare Earth Crash,damage,65,
+La_03,Lanthanum,3,Stabilize,heal,40,
+La_04,Lanthanum,4,Stabilize,status,,Stabilize
+Ce_01,Cerium,1,Cerium Spark,damage,50,
+Ce_02,Cerium,2,Firestarter Strike,damage,70,
+Ce_03,Cerium,3,Ignition,heal,35,
+Ce_04,Cerium,4,Ignition,status,,Excite
+Pr_01,Praseodymium,1,Praseodymium Slash,damage,50,
+Pr_02,Praseodymium,2,Rare Earth Burst,damage,70,
+Pr_03,Praseodymium,3,Magnetic Pull,heal,40,
+Pr_04,Praseodymium,4,Magnetic Pull,status,,Polarize
+Nd_01,Neodymium,1,Neodymium Strike,damage,55,
+Nd_02,Neodymium,2,Magnetic Crush,damage,70,
+Nd_03,Neodymium,3,Magnetize,heal,40,
+Nd_04,Neodymium,4,Magnetize,status,,Polarize
+Pm_01,Promethium,1,Promethium Ray,damage,55,
+Pm_02,Promethium,2,Radiant Burst,damage,75,
+Pm_03,Promethium,3,Radiation,heal,30,
+Pm_04,Promethium,4,Radiation,status,,Ionize
+Sm_01,Samarium,1,Samarium Shot,damage,55,
+Sm_02,Samarium,2,Magnetic Burst,damage,70,
+Sm_03,Samarium,3,Magnetize,heal,40,
+Sm_04,Samarium,4,Magnetize,status,,Polarize
+Eu_01,Europium,1,Europium Ray,damage,50,
+Eu_02,Europium,2,Red Phosphor Burst,damage,70,
+Eu_03,Europium,3,Luminescence,heal,45,
+Eu_04,Europium,4,Luminescence,status,,Excite
+Gd_01,Gadolinium,1,Gadolinium Strike,damage,55,
+Gd_02,Gadolinium,2,Magnetic Pulse,damage,70,
+Gd_03,Gadolinium,3,Magnetize,heal,45,
+Gd_04,Gadolinium,4,Magnetize,status,,Polarize
+Tb_01,Terbium,1,Terbium Ray,damage,55,
+Tb_02,Terbium,2,Green Flash,damage,70,
+Tb_03,Terbium,3,Luminescence,heal,40,
+Tb_04,Terbium,4,Luminescence,status,,Excite
+Dy_01,Dysprosium,1,Dysprosium Slash,damage,55,
+Dy_02,Dysprosium,2,Magnetic Storm,damage,75,
+Dy_03,Dysprosium,3,Magnetize,heal,45,
+Dy_04,Dysprosium,4,Magnetize,status,,Polarize
+Ho_01,Holmium,1,Holmium Strike,damage,55,
+Ho_02,Holmium,2,Magnetic Crash,damage,75,
+Ho_03,Holmium,3,Magnetize,heal,45,
+Ho_04,Holmium,4,Magnetize,status,,Polarize
+Er_01,Erbium,1,Erbium Ray,damage,55,
+Er_02,Erbium,2,Laser Burst,damage,75,
+Er_03,Erbium,3,Laserblind,heal,45,
+Er_04,Erbium,4,Laserblind,status,,Ionize
+Tm_01,Thulium,1,Thulium Shot,damage,55,
+Tm_02,Thulium,2,Rare Earth Beam,damage,75,
+Tm_03,Thulium,3,Radiation,heal,40,
+Tm_04,Thulium,4,Radiation,status,,Ionize
+Yb_01,Ytterbium,1,Ytterbium Strike,damage,55,
+Yb_02,Ytterbium,2,Atomic Pulse,damage,70,
+Yb_03,Ytterbium,3,Stabilize,heal,45,
+Yb_04,Ytterbium,4,Stabilize,status,,Stabilize
+Lu_01,Lutetium,1,Lutetium Blade,damage,55,
+Lu_02,Lutetium,2,Heavy Rare Earth Crash,damage,75,
+Lu_03,Lutetium,3,Fortify,heal,45,
+Lu_04,Lutetium,4,Fortify,status,,Stabilize
+Hf_01,Hafnium,1,Hafnium Strike,damage,55,
+Hf_02,Hafnium,2,Heatproof Crash,damage,75,
+Hf_03,Hafnium,3,Heat Resistance,heal,45,
+Hf_04,Hafnium,4,Heat Resistance,status,,Passivate
+Ta_01,Tantalum,1,Tantalum Blade,damage,60,
+Ta_02,Tantalum,2,Tantalum Crash,damage,80,
+Ta_03,Tantalum,3,Resist,heal,45,
+Ta_04,Tantalum,4,Resist,status,,Passivate
+W_01,Tungsten,1,Tungsten Hammer,damage,60,
+W_02,Tungsten,2,Heavy Metal Crash,damage,85,
+W_03,Tungsten,3,Heatproof,heal,50,
+W_04,Tungsten,4,Heatproof,status,,Passivate
+Re_01,Rhenium,1,Rhenium Strike,damage,60,
+Re_02,Rhenium,2,High-Heat Burst,damage,80,
+Re_03,Rhenium,3,Heatproof,heal,45,
+Re_04,Rhenium,4,Heatproof,status,,Passivate
+Os_01,Osmium,1,Osmium Smash,damage,60,
+Os_02,Osmium,2,Dense Impact,damage,85,
+Os_03,Osmium,3,Heavyweight,heal,50,
+Os_04,Osmium,4,Heavyweight,status,,Inhibit
+Ir_01,Iridium,1,Iridium Strike,damage,60,
+Ir_02,Iridium,2,Meteor Impact,damage,85,
+Ir_03,Iridium,3,Unbreakable,heal,50,
+Ir_04,Iridium,4,Unbreakable,status,,Stabilize
+Pt_01,Platinum,1,Platinum Slash,damage,60,
+Pt_02,Platinum,2,Catalyst Crash,damage,80,
+Pt_03,Platinum,3,Catalyze,heal,50,
+Pt_04,Platinum,4,Catalyze,status,,Catalyze
+Au_01,Gold,1,Golden Slash,damage,60,
+Au_02,Gold,2,Solar Gold,damage,80,
+Au_03,Gold,3,Purify,heal,50,
+Au_04,Gold,4,Purify,status,,Neutralize
+Hg_01,Mercury,1,Mercury Shot,damage,55,
+Hg_02,Mercury,2,Liquid Metal,damage,75,
+Hg_03,Mercury,3,Mercury Poison,heal,40,
+Hg_04,Mercury,4,Mercury Poison,status,,Inhibit
+Tl_01,Thallium,1,Thallium Strike,damage,55,
+Tl_02,Thallium,2,Toxic Metal Burst,damage,75,
+Tl_03,Thallium,3,Poison,heal,35,
+Tl_04,Thallium,4,Poison,status,,Inhibit
+Pb_01,Lead,1,Lead Hammer,damage,60,
+Pb_02,Lead,2,Heavy Metal Crush,damage,80,
+Pb_03,Lead,3,Heavyweight,heal,50,
+Pb_04,Lead,4,Heavyweight,status,,Inhibit
+Bi_01,Bismuth,1,Bismuth Blast,damage,55,
+Bi_02,Bismuth,2,Crystal Cascade,damage,75,
+Bi_03,Bismuth,3,Iridescence,heal,50,
+Bi_04,Bismuth,4,Iridescence,status,,Excite
+Po_01,Polonium,1,Polonium Ray,damage,60,
+Po_02,Polonium,2,Radiation Burst,damage,85,
+Po_03,Polonium,3,Radiation,heal,30,
+Po_04,Polonium,4,Radiation,status,,Ionize
+At_01,Astatine,1,Astatine Shot,damage,60,
+At_02,Astatine,2,Radioactive Burst,damage,85,
+At_03,Astatine,3,Decay,heal,30,
+At_04,Astatine,4,Decay,status,,Ionize
+Rn_01,Radon,1,Radon Cloud,damage,55,
+Rn_02,Radon,2,Radioactive Wave,damage,80,
+Rn_03,Radon,3,Radiation,heal,40,
+Rn_04,Radon,4,Radiation,status,,Ionize
+Fr_01,Francium,1,Francium Spark,damage,60,
+Fr_02,Francium,2,Extreme Reaction,damage,90,
+Fr_03,Francium,3,Volatile,heal,25,
+Fr_04,Francium,4,Volatile,status,,Excite
+Ra_01,Radium,1,Radium Ray,damage,60,
+Ra_02,Radium,2,Radium Burst,damage,90,
+Ra_03,Radium,3,Radiation,heal,35,
+Ra_04,Radium,4,Radiation,status,,Ionize
+Ac_01,Actinium,1,Actinium Strike,damage,60,
+Ac_02,Actinium,2,Actinium Radiation,damage,90,
+Ac_03,Actinium,3,Radioactive Decay,heal,35,
+Ac_04,Actinium,4,Radioactive Decay,status,,Ionize
+Th_01,Thorium,1,Thorium Blast,damage,65,
+Th_02,Thorium,2,Thorium Wave,damage,90,
+Th_03,Thorium,3,Radiation,heal,45,
+Th_04,Thorium,4,Radiation,status,,Ionize
+Pa_01,Protactinium,1,Protactinium Ray,damage,65,
+Pa_02,Protactinium,2,Nuclear Burst,damage,90,
+Pa_03,Protactinium,3,Decay,heal,40,
+Pa_04,Protactinium,4,Decay,status,,Ionize
+U_01,Uranium,1,Uranium Shot,damage,65,
+U_02,Uranium,2,Fission Blast,damage,100,
+U_03,Uranium,3,Radioactive Decay,heal,45,
+U_04,Uranium,4,Radioactive Decay,status,,Ionize
+Np_01,Neptunium,1,Neptunium Ray,damage,65,
+Np_02,Neptunium,2,Nuclear Wave,damage,95,
+Np_03,Neptunium,3,Radiation,heal,40,
+Np_04,Neptunium,4,Radiation,status,,Ionize
+Pu_01,Plutonium,1,Plutonium Strike,damage,70,
+Pu_02,Plutonium,2,Critical Fission,damage,105,
+Pu_03,Plutonium,3,Nuclear Decay,heal,45,
+Pu_04,Plutonium,4,Nuclear Decay,status,,Ionize
+Am_01,Americium,1,Americium Ray,damage,65,
+Am_02,Americium,2,Smoke Detector Burst,damage,90,
+Am_03,Americium,3,Radiation,heal,40,
+Am_04,Americium,4,Radiation,status,,Ionize
+Cm_01,Curium,1,Curium Blast,damage,70,
+Cm_02,Curium,2,Curium Radiation,damage,95,
+Cm_03,Curium,3,Decay,heal,45,
+Cm_04,Curium,4,Decay,status,,Ionize
+Bk_01,Berkelium,1,Berkelium Strike,damage,70,
+Bk_02,Berkelium,2,Berkelium Burst,damage,95,
+Bk_03,Berkelium,3,Radiation,heal,40,
+Bk_04,Berkelium,4,Radiation,status,,Ionize
+Cf_01,Californium,1,Californium Ray,damage,70,
+Cf_02,Californium,2,Neutron Burst,damage,100,
+Cf_03,Californium,3,Neutron Radiation,heal,45,
+Cf_04,Californium,4,Neutron Radiation,status,,Ionize
+Es_01,Einsteinium,1,Einsteinium Blast,damage,70,
+Es_02,Einsteinium,2,Einstein Pulse,damage,100,
+Es_03,Einsteinium,3,Radioactive Decay,heal,40,
+Es_04,Einsteinium,4,Radioactive Decay,status,,Ionize
+Fm_01,Fermium,1,Fermium Strike,damage,70,
+Fm_02,Fermium,2,Fermium Burst,damage,100,
+Fm_03,Fermium,3,Decay,heal,45,
+Fm_04,Fermium,4,Decay,status,,Ionize
+Md_01,Mendelevium,1,Mendelevium Ray,damage,70,
+Md_02,Mendelevium,2,Periodic Pulse,damage,100,
+Md_03,Mendelevium,3,Radiation,heal,40,
+Md_04,Mendelevium,4,Radiation,status,,Ionize
+No_01,Nobelium,1,Nobelium Blast,damage,70,
+No_02,Nobelium,2,Nuclear Nobel,damage,100,
+No_03,Nobelium,3,Decay,heal,50,
+No_04,Nobelium,4,Decay,status,,Ionize
+Lr_01,Lawrencium,1,Lawrencium Strike,damage,70,
+Lr_02,Lawrencium,2,Elemental Finale,damage,105,
+Lr_03,Lawrencium,3,Radiation,heal,45,
+Lr_04,Lawrencium,4,Radiation,status,,Ionize
+Rf_01,Rutherfordium,1,Rutherford Strike,damage,70,
+Rf_02,Rutherfordium,2,Nuclear Crash,damage,100,
+Rf_03,Rutherfordium,3,Radiation,heal,50,
+Rf_04,Rutherfordium,4,Radiation,status,,Ionize
+Db_01,Dubnium,1,Dubnium Slash,damage,70,
+Db_02,Dubnium,2,Heavy Atomic Burst,damage,100,
+Db_03,Dubnium,3,Decay,heal,45,
+Db_04,Dubnium,4,Decay,status,,Ionize
+Sg_01,Seaborgium,1,Seaborgium Blast,damage,70,
+Sg_02,Seaborgium,2,Nuclear Wave,damage,105,
+Sg_03,Seaborgium,3,Radiation,heal,50,
+Sg_04,Seaborgium,4,Radiation,status,,Ionize
+Bh_01,Bohrium,1,Bohrium Strike,damage,75,
+Bh_02,Bohrium,2,Heavy Metal Crash,damage,105,
+Bh_03,Bohrium,3,Decay,heal,50,
+Bh_04,Bohrium,4,Decay,status,,Ionize
+Hs_01,Hassium,1,Hassium Smash,damage,75,
+Hs_02,Hassium,2,Heavy Atomic Impact,damage,110,
+Hs_03,Hassium,3,Decay,heal,55,
+Hs_04,Hassium,4,Decay,status,,Ionize
+Mt_01,Meitnerium,1,Meitnerium Ray,damage,75,
+Mt_02,Meitnerium,2,Nuclear Impact,damage,110,
+Mt_03,Meitnerium,3,Radiation,heal,45,
+Mt_04,Meitnerium,4,Radiation,status,,Ionize
+Ds_01,Darmstadtium,1,Darmstadtium Strike,damage,75,
+Ds_02,Darmstadtium,2,Superheavy Crash,damage,110,
+Ds_03,Darmstadtium,3,Decay,heal,50,
+Ds_04,Darmstadtium,4,Decay,status,,Ionize
+Rg_01,Roentgenium,1,Roentgenium Ray,damage,75,
+Rg_02,Roentgenium,2,X-Ray Burst,damage,110,
+Rg_03,Roentgenium,3,Radiation,heal,45,
+Rg_04,Roentgenium,4,Radiation,status,,Ionize
+Cn_01,Copernicium,1,Copernicium Blast,damage,75,
+Cn_02,Copernicium,2,Heavy Metal Burst,damage,110,
+Cn_03,Copernicium,3,Decay,heal,55,
+Cn_04,Copernicium,4,Decay,status,,Ionize
+Nh_01,Nihonium,1,Nihonium Strike,damage,75,
+Nh_02,Nihonium,2,Superheavy Burst,damage,110,
+Nh_03,Nihonium,3,Radiation,heal,45,
+Nh_04,Nihonium,4,Radiation,status,,Ionize
+Fl_01,Flerovium,1,Flerovium Blast,damage,75,
+Fl_02,Flerovium,2,Heavy Atomic Wave,damage,110,
+Fl_03,Flerovium,3,Decay,heal,55,
+Fl_04,Flerovium,4,Decay,status,,Ionize
+Mc_01,Moscovium,1,Moscovium Strike,damage,80,
+Mc_02,Moscovium,2,Superheavy Impact,damage,115,
+Mc_03,Moscovium,3,Radiation,heal,45,
+Mc_04,Moscovium,4,Radiation,status,,Ionize
+Lv_01,Livermorium,1,Livermorium Blast,damage,80,
+Lv_02,Livermorium,2,Heavy Element Burst,damage,115,
+Lv_03,Livermorium,3,Decay,heal,50,
+Lv_04,Livermorium,4,Decay,status,,Ionize
+Ts_01,Tennessine,1,Tennessine Fang,damage,80,
+Ts_02,Tennessine,2,Halogen Apocalypse,damage,120,
+Ts_03,Tennessine,3,Corrosion,heal,40,
+Ts_04,Tennessine,4,Corrosion,status,,Corrode
+Og_01,Oganesson,1,Oganesson Pulse,damage,80,
+Og_02,Oganesson,2,Noble Atomic Burst,damage,120,
+Og_03,Oganesson,3,Noble Stability,heal,60,
+Og_04,Oganesson,4,Noble Stability,status,,Stabilize

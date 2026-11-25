@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/C_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/C_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/C_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/C_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Carbon"
+chemical_symbol = "C"
+atomic_number = 6
+alias = ""
+move_speed = 20.0
+atomic_mass = 12.011
+density = 2.267
+ionization_energy = 11.2603
+electronegativity = 2.544
+electron_affinity = 121.77
+valence_electrons = 4
+mass_number = 12
+element_type = "Nonmetal"
+state = "Solid"
+block = "p"
+radioactive = false
+period = 2
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

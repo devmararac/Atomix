@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/Fe_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Fe_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Fe_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Fe_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Iron"
+chemical_symbol = "Fe"
+atomic_number = 26
+alias = ""
+move_speed = 20.0
+atomic_mass = 55.845
+density = 7.874
+ionization_energy = 7.9024
+electronegativity = 1.8
+electron_affinity = 14.78
+valence_electrons = 8
+mass_number = 56
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+radioactive = false
+period = 4
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

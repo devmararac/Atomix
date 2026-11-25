@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/H_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/H_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/H_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/H_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Hydrogen"
+chemical_symbol = "H"
+atomic_number = 1
+alias = ""
+move_speed = 20.0
+atomic_mass = 1.008
+density = 8.988e-05
+ionization_energy = 13.59844
+electronegativity = 2.3
+electron_affinity = 72.78
+valence_electrons = 1
+mass_number = 1
+element_type = "Nonmetal"
+state = "Gas"
+block = "s"
+radioactive = false
+period = 1
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

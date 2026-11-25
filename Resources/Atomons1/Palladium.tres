@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://dcqjikf5uvqn6"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0461" path="res://Resources/Moves1/Pd_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0462" path="res://Resources/Moves1/Pd_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0463" path="res://Resources/Moves1/Pd_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0464" path="res://Resources/Moves1/Pd_04.tres" id="6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j66u8"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Palladium"
+chemical_symbol = "Pd"
+atomic_number = 46
+sprite_frames = SubResource("SpriteFrames_j66u8")
+atomic_mass = 106.42
+density = 12.02
+ionization_energy = 8.3369
+electronegativity = 1.58
+electron_affinity = 54.24
+valence_electrons = 10
+mass_number = 106
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 5
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

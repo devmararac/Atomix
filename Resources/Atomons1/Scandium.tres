@@ -1,0 +1,99 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://brjn4b5jv1ix7"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0211" path="res://Resources/Moves1/Sc_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0212" path="res://Resources/Moves1/Sc_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0213" path="res://Resources/Moves1/Sc_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0214" path="res://Resources/Moves1/Sc_04.tres" id="6"]
+[ext_resource type="Texture2D" uid="uid://802wjldc5b25" path="res://Assets/Pets/all/Scandium (1).png" id="7_rfydh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oarmr"]
+atlas = ExtResource("7_rfydh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ufpa"]
+atlas = ExtResource("7_rfydh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3ms8"]
+atlas = ExtResource("7_rfydh")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t3jo"]
+atlas = ExtResource("7_rfydh")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfg2u"]
+atlas = ExtResource("7_rfydh")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7gsl"]
+atlas = ExtResource("7_rfydh")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wias6"]
+atlas = ExtResource("7_rfydh")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dt072"]
+atlas = ExtResource("7_rfydh")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ico8"]
+atlas = ExtResource("7_rfydh")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1hhx2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oarmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ufpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3ms8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0t3jo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfg2u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7gsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wias6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dt072")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ico8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Scandium"
+chemical_symbol = "Sc"
+atomic_number = 21
+sprite_frames = SubResource("SpriteFrames_1hhx2")
+atomic_mass = 44.955908
+density = 2.989
+ionization_energy = 6.5615
+electronegativity = 1.19
+electron_affinity = 18.0
+valence_electrons = 3
+mass_number = 45
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 4
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

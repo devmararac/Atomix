@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="AtomonData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" path="res://Resources/Scripts/MoveData.gd" id="2"]
+
+
+[ext_resource type="Resource" path="res://Resources/Moves1/Pu_01.tres" id="3"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pu_02.tres" id="4"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pu_03.tres" id="5"]
+[ext_resource type="Resource" path="res://Resources/Moves1/Pu_04.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Plutonium"
+chemical_symbol = "Pu"
+atomic_number = 94
+alias = ""
+move_speed = 20.0
+atomic_mass = 244.0
+density = 19.84
+ionization_energy = 6.0262
+electronegativity = 1.27
+electron_affinity = -48.33
+valence_electrons = 8
+mass_number = 244
+element_type = "Actinide"
+state = "Solid"
+block = "f"
+radioactive = true
+period = 7
+catch_rate = 100
+sell_price = 50
+rarity = 1
+description = ""
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])

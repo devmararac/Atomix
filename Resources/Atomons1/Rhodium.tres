@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://m2dw5wvjn3sf"]
+
+[ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="1"]
+[ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="2"]
+[ext_resource type="Resource" uid="uid://tmx0451" path="res://Resources/Moves1/Rh_01.tres" id="3"]
+[ext_resource type="Resource" uid="uid://tmx0452" path="res://Resources/Moves1/Rh_02.tres" id="4"]
+[ext_resource type="Resource" uid="uid://tmx0453" path="res://Resources/Moves1/Rh_03.tres" id="5"]
+[ext_resource type="Resource" uid="uid://tmx0454" path="res://Resources/Moves1/Rh_04.tres" id="6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xkdxw"]
+
+[resource]
+script = ExtResource("1")
+atom_name = "Rhodium"
+chemical_symbol = "Rh"
+atomic_number = 45
+sprite_frames = SubResource("SpriteFrames_xkdxw")
+atomic_mass = 102.9055
+density = 12.41
+ionization_energy = 7.4589
+electronegativity = 1.56
+electron_affinity = 110.27
+valence_electrons = 9
+mass_number = 103
+element_type = "Transition Metal"
+state = "Solid"
+block = "d"
+period = 5
+moves = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])
