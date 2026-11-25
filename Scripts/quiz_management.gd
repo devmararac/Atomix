@@ -107,6 +107,18 @@ var assign_section_options: Array[Panel] = []
 
 var request_in_progress := false
 var current_results_quiz: Dictionary = {}
+
+# ============================================================
+# QUIZ RESULTS FILTERING
+# ============================================================
+
+# Stores all fetched student results before displaying them.
+var all_quiz_results: Array[Dictionary] = []
+
+# The currently selected section filter.
+# "All Students" means display everyone.
+var selected_results_section: String = "All Students"
+
 # ============================================================
 # INITIALIZATION
 # ============================================================
@@ -132,7 +144,11 @@ func _ready() -> void:
 
 	if not results_close_button.pressed.is_connected(_on_results_close_pressed):
 		results_close_button.pressed.connect(_on_results_close_pressed)
-	
+
+	# Connect the section filter dropdown.
+	if not results_sort_option.item_selected.is_connected(_on_results_section_selected):
+		results_sort_option.item_selected.connect(_on_results_section_selected)
+
 	load_quizzes()
 
 func _connect_buttons() -> void:
@@ -1295,6 +1311,8 @@ func _fetch_student_quiz_results(
 	print("[QuizManagement] Documents received: ", documents.size())
 	print("[QuizManagement] Sections assigned to quiz: ", assigned_sections)
 
+	all_quiz_results.clear()
+
 	var displayed_count := 0
 	var section_match_count := 0
 
@@ -1329,16 +1347,16 @@ func _fetch_student_quiz_results(
 			quiz_id, {}
 		).get("mapValue", {}).get("fields", {})
 
-		var row := QUIZ_RESULT_ROW.instantiate()
+		var student_result: Dictionary = {
+			"name": student_name,
+			"section": section,
+			"taken": false,
+			"score": 0,
+			"total_questions": 0,
+			"percentage": 0.0
+		}
 
-		results_list.add_child(row)
-
-		if quiz_result.is_empty():
-			row.call(
-				"setup_not_taken",
-				student_name
-			)
-		else:
+		if not quiz_result.is_empty():
 			var score := _firestore_integer(
 				quiz_result.get("score", {})
 			)
@@ -1355,20 +1373,13 @@ func _fetch_student_quiz_results(
 				quiz_result.get("completed", {})
 			)
 
-			if not completed:
-				row.call(
-					"setup_not_taken",
-					student_name
-				)
-			else:
-				row.call(
-					"setup_result",
-					student_name,
-					score,
-					total_questions,
-					percentage
-				)
+			if completed:
+				student_result["taken"] = true
+				student_result["score"] = score
+				student_result["total_questions"] = total_questions
+				student_result["percentage"] = percentage
 
+		all_quiz_results.append(student_result)
 		displayed_count += 1
 	
 	
@@ -1378,7 +1389,55 @@ func _fetch_student_quiz_results(
 	)
 	
 	print("[QuizManagement] Section matches: ", section_match_count)
-	
+	# Populate the filter and display all students by default.
+	_setup_results_section_filter(assigned_sections)
+
+
+# ============================================================
+# DISPLAY FILTERED QUIZ RESULTS
+# ============================================================
+
+func _display_filtered_quiz_results() -> void:
+	_clear_result_rows()
+
+	var displayed_count := 0
+
+	for student in all_quiz_results:
+		var student_section := str(student.get("section", ""))
+
+		# If All Students is selected, show everyone.
+		# Otherwise, show only the selected section.
+		if selected_results_section != "All Students":
+			if student_section != selected_results_section:
+				continue
+
+		var row := QUIZ_RESULT_ROW.instantiate()
+		results_list.add_child(row)
+
+		var student_name := str(student.get("name", "Unnamed Student"))
+		var taken: bool = student.get("taken", false)
+
+		if not taken:
+			row.call("setup_not_taken", student_name)
+		else:
+			row.call(
+				"setup_result",
+				student_name,
+				int(student.get("score", 0)),
+				int(student.get("total_questions", 0)),
+				float(student.get("percentage", 0.0))
+			)
+
+		displayed_count += 1
+
+	print(
+		"[QuizManagement] Displayed ",
+		displayed_count,
+		" students for filter: ",
+		selected_results_section
+	)
+
+
 func _get_student_display_name(fields: Dictionary) -> String:
 	var first_name := _firestore_string(
 		fields.get("first_name", {})
@@ -1446,3 +1505,41 @@ func _firestore_boolean(value: Dictionary) -> bool:
 		return bool(value["booleanValue"])
 
 	return false
+
+func _on_results_section_selected(index: int) -> void:
+	if index < 0 or index >= results_sort_option.item_count:
+		return
+
+	selected_results_section = results_sort_option.get_item_text(index)
+
+	_display_filtered_quiz_results()
+
+
+func _setup_results_section_filter(assigned_sections: Array) -> void:
+	results_sort_option.clear()
+
+	# First option: everyone.
+	results_sort_option.add_item("All Students")
+
+	# Add only the sections assigned to this quiz.
+	for section_name in assigned_sections:
+		var name := str(section_name).strip_edges()
+
+		if name.is_empty():
+			continue
+
+		# Prevent duplicate section options.
+		var already_exists := false
+
+		for i in range(results_sort_option.item_count):
+			if results_sort_option.get_item_text(i) == name:
+				already_exists = true
+				break
+
+		if not already_exists:
+			results_sort_option.add_item(name)
+	# Default selection.
+	results_sort_option.select(0)
+	selected_results_section = "All Students"
+
+	_display_filtered_quiz_results()
