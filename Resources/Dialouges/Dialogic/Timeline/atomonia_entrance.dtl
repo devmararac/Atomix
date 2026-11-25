@@ -26,5 +26,5 @@ Player: Wait...
 [signal arg="pan_camera"]
 [wait time="5.0"]
 Player: This isn't the classroom...
-[signal arg="quest_accept:story_quest_explore_dungeon"]
 [signal arg="show_hud"]
+[signal arg="explore_the_area"]

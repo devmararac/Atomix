@@ -434,6 +434,26 @@ func populate_section_filter() -> void:
 func apply_filters_and_sort() -> void:
 
 	leaderboard_data.clear()
+	
+	# Update the leaderboard column header based on category.
+	var category := category_option.get_item_text(
+		category_option.selected
+	)
+
+	var column_header: Label = $Panel/Panel/HBoxContainer/AtomonCollected
+
+	match category:
+		"Overall":
+			column_header.text = "Overall Score"
+
+		"Atomons Collected":
+			column_header.text = "Atomons Collected"
+
+		"Battles Won":
+			column_header.text = "Battles Won"
+
+		"Quiz Score":
+			column_header.text = "Quiz Score"
 
 	var selected_section := section_option.get_item_text(
 		section_option.selected
@@ -584,11 +604,34 @@ func build_rankings() -> void:
 		MAX_VISIBLE_RANKINGS
 	)
 
+	var previous_value: float = -1.0
+	var previous_rank: int = 0
+
 	for index in range(visible_count):
 
 		var student: Dictionary = (
 			leaderboard_data[index]
 		)
+
+		var category := category_option.get_item_text(
+			category_option.selected
+		)
+
+		var current_value := float(
+			get_category_value(
+				student,
+				category
+			)
+		)
+
+		var rank := index + 1
+
+		# Students with equal scores share the same rank.
+		if index > 0 and is_equal_approx(
+			current_value,
+			previous_value
+		):
+			rank = previous_rank
 
 		var rank_slot := preload(
 			"res://Scenes/UI/rank_slot.tscn"
@@ -608,10 +651,12 @@ func build_rankings() -> void:
 
 		setup_rank_slot(
 			rank_slot,
-			index + 1,
+			rank,
 			student
 		)
 
+		previous_value = current_value
+		previous_rank = rank
 
 # ============================================================
 # RANK SLOT
@@ -657,21 +702,26 @@ func setup_rank_slot(
 		)
 	)
 
-	collected_label.text = (
-		str(
-			student.get(
-				"elements_collected",
-				0
-			)
-		)
-		+ "/"
-		+ str(
-			student.get(
-				"elements_total",
-				118
-			)
-		)
+	var category := category_option.get_item_text(
+		category_option.selected
 	)
+
+	match category:
+		"Overall":
+			collected_label.text = "%.1f" % float(student.get("overall_score", 0))
+
+		"Atomons Collected":
+			collected_label.text = (
+				str(student.get("elements_collected", 0))
+				+ "/"
+				+ str(student.get("elements_total", 118))
+			)
+
+		"Battles Won":
+			collected_label.text = str(student.get("battles_won", 0))
+
+		"Quiz Score":
+			collected_label.text = "%.1f%%" % float(student.get("average_quiz_score", 0))
 
 
 # ============================================================

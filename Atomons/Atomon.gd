@@ -9,6 +9,9 @@ var cutscene_mode := false
 
 @export var data: AtomonData
 
+# Unique identity for this wild Atomon spawn point
+@export var spawn_id: String = ""
+
 var speed := 20
 var player_chase := false
 var player = null
@@ -18,11 +21,96 @@ var recruited := false
 
 @export var battle_mode := false
 
+# ============================================================
+# WILD ATOMON RESPAWN
+# ============================================================
+
+var is_defeated := false
+var respawn_check_timer := 0.0
+const RESPAWN_CHECK_INTERVAL := 1.0
+
+var original_collision_layer: int
+var original_collision_mask: int
 
 func _ready() -> void:
+
+	# Save original collision settings
+	original_collision_layer = collision_layer
+	original_collision_mask = collision_mask
+
 	if data != null:
 		setup(data)
+
 	randomize_cry_timer()
+
+	# Check whether this spawn is currently on cooldown
+	check_respawn_status()
+
+
+# ============================================================
+# CHECK ATOMON RESPAWN STATUS
+# ============================================================
+
+func check_respawn_status() -> void:
+
+	var id := get_effective_spawn_id()
+
+	if RespawnManager.can_spawn(id):
+
+		is_defeated = false
+		show_atomon()
+
+	else:
+
+		hide_atomon()
+
+
+# ============================================================
+# HIDE / SHOW WILD ATOMON
+# ============================================================
+
+func hide_atomon() -> void:
+
+	is_defeated = true
+	visible = false
+
+	player_chase = false
+	player = null
+	velocity = Vector2.ZERO
+
+	# Disable collision
+	collision_layer = 0
+	collision_mask = 0
+
+	# Disable interaction Area2D
+	if has_node("Area2D"):
+		var area = get_node("Area2D")
+		area.monitoring = false
+		area.monitorable = false
+
+	# Stop Atomon cry
+	if cry_player.playing:
+		cry_player.stop()
+
+
+func show_atomon() -> void:
+
+	is_defeated = false
+	respawn_check_timer = 0.0
+	visible = true
+
+	# Restore original collision
+	collision_layer = original_collision_layer
+	collision_mask = original_collision_mask
+
+	# Re-enable interaction Area2D
+	if has_node("Area2D"):
+		var area = get_node("Area2D")
+		area.monitoring = true
+		area.monitorable = true
+
+	velocity = Vector2.ZERO
+	play_anim("idle")
 
 
 func setup(atomon_data: AtomonData) -> void:
@@ -39,8 +127,40 @@ func setup(atomon_data: AtomonData) -> void:
 
 	play_anim("idle")
 
+func get_effective_spawn_id() -> String:
+	if not spawn_id.is_empty():
+		return spawn_id
+
+	var current_scene := get_tree().current_scene
+
+	if current_scene:
+		return current_scene.scene_file_path + "::" + str(get_path())
+
+	return str(get_path())
+
 
 func _physics_process(delta: float) -> void:
+
+	# ========================================================
+	# WILD ATOMON RESPAWN CHECK
+	# ========================================================
+
+	if is_defeated:
+
+		respawn_check_timer += delta
+
+		if respawn_check_timer >= RESPAWN_CHECK_INTERVAL:
+
+			respawn_check_timer = 0.0
+			check_respawn_status()
+
+		# Stop normal processing while defeated
+		if is_defeated:
+			return
+
+	# ========================================================
+	# ORIGINAL CRY SYSTEM
+	# ========================================================
 
 	if screen_notifier.is_on_screen():
 		cry_timer -= delta
@@ -48,8 +168,16 @@ func _physics_process(delta: float) -> void:
 			play_cry()
 			randomize_cry_timer()
 
+	# ========================================================
+	# ORIGINAL BATTLE CHECK
+	# ========================================================
+
 	if battle_mode:
 		return
+
+	# ========================================================
+	# ORIGINAL MOVEMENT SYSTEM
+	# ========================================================
 
 	if player_chase:
 
@@ -113,6 +241,8 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	player_chase = false
 
 
+
+
 func take_hit():
 
 	if battle_started:
@@ -136,7 +266,8 @@ func _start_battle():
 	BattleManager.start_battle(
 		data,
 		current_scene.scene_file_path,
-		global_position
+		global_position,
+		get_effective_spawn_id()
 	)
 
 func randomize_cry_timer() -> void:

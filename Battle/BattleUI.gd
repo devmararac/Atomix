@@ -594,7 +594,10 @@ func _execute_run() -> void:
 	if battle_save_success:
 		print("[BattleUI] Battle state saved successfully after escape.")
 	else:
-		push_error("[BattleUI] Battle state save after escape FAILED.")
+		print(
+			"[BattleUI] Local escape save completed. "
+			+ "Cloud sync is pending."
+		)
 
 	await get_tree().create_timer(1.0).timeout
 
@@ -859,6 +862,23 @@ func _on_player_fainted() -> void:
 		return
 
 	battle_ending = true
+	
+	# ========================================================
+	# WILD ATOMON RESPAWN COOLDOWN
+	# ========================================================
+
+	if not BattleManager.wild_spawn_id.is_empty():
+
+		RespawnManager.register_respawn(
+			BattleManager.wild_spawn_id,
+			60.0
+		)
+
+		print(
+			"[BattleUI] Wild Atomon respawn registered: ",
+			BattleManager.wild_spawn_id,
+			" | Cooldown: 60 seconds"
+		)
 
 	battle_log.text = "No Atomons left!"
 	announce("No Atomons left!")
@@ -1027,7 +1047,26 @@ func _on_enemy_fainted() -> void:
 	# ========================================================
 
 	battle_ending = true
+	
+	
+	# ========================================================
+	# WILD ATOMON RESPAWN COOLDOWN
+	# ========================================================
 
+	if not BattleManager.wild_spawn_id.is_empty():
+
+		RespawnManager.register_respawn(
+			BattleManager.wild_spawn_id,
+			60.0
+		)
+
+		print(
+			"[BattleUI] Wild Atomon respawn registered: ",
+			BattleManager.wild_spawn_id,
+			" | 60 seconds"
+		)
+	
+	
 	battle_log.text = enemy_data.atom_name + " fainted!"
 
 	announce(
@@ -1071,8 +1110,9 @@ func _on_enemy_fainted() -> void:
 
 	else:
 
-		push_error(
-			"[BattleUI] Battle state automatic save FAILED."
+		print(
+			"[BattleUI] Local battle save succeeded. "
+			+ "Cloud sync is pending; save will be synchronized later."
 		)
 
 	await get_tree().create_timer(1.0).timeout

@@ -1023,18 +1023,31 @@ func sync_pending_player_profile() -> bool:
 		Firebase.Firestore.collection("students")
 	)
 
+	print("[StudentDataManager] Syncing profile to Firestore...")
+	print("[StudentDataManager] UID: ", uid)
+	print("[StudentDataManager] Display name: ", display_name)
+	print("[StudentDataManager] Character ID: ", character_id)
+
 	var document: FirestoreDocument = await students.get_doc(uid)
 
 	if document == null:
+		push_error("[StudentDataManager] Firestore get_doc returned NULL.")
 		return false
+
+	print("[StudentDataManager] Firestore document retrieved successfully.")
 
 	document.add_or_update_field("display_name", display_name)
 	document.add_or_update_field("character_id", character_id)
 
+	print("[StudentDataManager] Updating player profile document...")
+
 	var result: FirestoreDocument = await students.update(document)
 
 	if result == null:
+		push_error("[StudentDataManager] Firestore update returned NULL.")
 		return false
+
+	print("[StudentDataManager] Firestore update returned a document.")
 
 	parsed_data["pending_sync"] = false
 

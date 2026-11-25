@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1k0g0ha53dqo"
-path="res://.godot/imported/generate_a_pokemon_like_creature_in_pixe_4_1790478213.png-9ef7d621e8f352c16e3948e110fc032d.ctex"
+uid="uid://iadtr83sqa8u"
+path="res://.godot/imported/bahay3-final na talaga.png-0489a4ee8f1a587fee4924600b883f36.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://spritefusion/generated/generate_a_pokemon_like_creature_in_pixe_4_1790478213.png"
-dest_files=["res://.godot/imported/generate_a_pokemon_like_creature_in_pixe_4_1790478213.png-9ef7d621e8f352c16e3948e110fc032d.ctex"]
+source_file="res://Assets/Structures/Houses/bahay3-final na talaga.png"
+dest_files=["res://.godot/imported/bahay3-final na talaga.png-0489a4ee8f1a587fee4924600b883f36.ctex"]
 
 [params]
 

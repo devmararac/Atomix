@@ -1,10 +1,18 @@
 extends StaticBody2D
 
+
+signal chest_opened(chest_node)
+
 @export var chest_id: String = "chest_01"
 
-@export_category("Contents")
+@export_category("Random Loot")
 @export var item_resources: Array[ItemData] = []
-@export var item_amounts: Array[int] = []
+
+@export_range(1, 10) var min_loot_items: int = 1
+@export_range(1, 10) var max_loot_items: int = 3
+
+@export_range(1, 99) var min_item_amount: int = 1
+@export_range(1, 99) var max_item_amount: int = 5
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var highlight: AnimatedSprite2D = $Highlight
@@ -27,6 +35,7 @@ func interact() -> void:
 		return
 
 	is_opened = true
+	chest_opened.emit(self)
 	highlight.visible = false
 	$CollisionShape2D.set_deferred("disabled", true)
 	
@@ -41,24 +50,38 @@ func interact() -> void:
 	
 	await get_tree().create_timer(0.15).timeout
 
-	# --- GATHER ITEMS ---
-	var items_to_show = []
-	
-	for i in item_resources.size():
-		var item_data: ItemData = item_resources[i]
-		if item_data == null:
-			continue
-		
-		var amount := 1
-		if i < item_amounts.size():
-			amount = item_amounts[i]
+	# --- GATHER RANDOM ITEMS ---
+	var items_to_show: Array = []
 
-		var new_item := ItemInstance.new()
-		new_item.data = item_data
-		new_item.quantity = amount
-		InventoryManager.add_item(new_item)
-		
-		items_to_show.append({"data": item_data, "amount": amount})
+	if not item_resources.is_empty():
+		var valid_items: Array[ItemData] = []
+
+		for item in item_resources:
+			if item != null:
+				valid_items.append(item)
+
+		if not valid_items.is_empty():
+			var loot_count := randi_range(
+				min_loot_items,
+				min(max_loot_items, valid_items.size())
+			)
+
+			valid_items.shuffle()
+
+			for i in range(loot_count):
+				var item_data: ItemData = valid_items[i]
+				var amount := randi_range(min_item_amount, max_item_amount)
+
+				var new_item := ItemInstance.new()
+				new_item.data = item_data
+				new_item.quantity = amount
+
+				InventoryManager.add_item(new_item)
+
+				items_to_show.append({
+					"data": item_data,
+					"amount": amount
+				})
 
 	# --- SAVE THAT THIS CHEST IS OPENED ---
 	SaveManager.mark_chest_opened(chest_id)

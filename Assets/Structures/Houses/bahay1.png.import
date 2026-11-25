@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b550ttpx2sdjp"
-path="res://.godot/imported/generate_a_pokemon_like_creature_in_pixe_10_1790478216.png-50f8833007362aa2effbd4b87c5f8c28.ctex"
+uid="uid://cmvfcv8kkjqfc"
+path="res://.godot/imported/bahay1.png-fb807e87d4a5bb2c6d1789b564fcb71a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://spritefusion/generated/generate_a_pokemon_like_creature_in_pixe_10_1790478216.png"
-dest_files=["res://.godot/imported/generate_a_pokemon_like_creature_in_pixe_10_1790478216.png-50f8833007362aa2effbd4b87c5f8c28.ctex"]
+source_file="res://Assets/Structures/Houses/bahay1.png"
+dest_files=["res://.godot/imported/bahay1.png-fb807e87d4a5bb2c6d1789b564fcb71a.ctex"]
 
 [params]
 

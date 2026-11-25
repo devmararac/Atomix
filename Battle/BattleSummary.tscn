@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b5pccx46wypxe" path="res://Assets/UX/Buttons/On-Pressed/continue_button_pressed.png" id="7_continue_pressed"]
 
 [node name="BattleSummary" type="Control" unique_id=1896528558]
-z_index = 10
+z_index = 500
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15

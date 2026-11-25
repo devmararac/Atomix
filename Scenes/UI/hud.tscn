@@ -104,29 +104,31 @@ theme_override_constants/separation = 4
 
 [node name="ActionButtons" type="HBoxContainer" parent="." unique_id=1631709524]
 anchors_preset = -1
-anchor_left = 0.792
-anchor_top = 0.668
-anchor_right = 0.985
-anchor_bottom = 0.962
-offset_left = -0.16003418
-offset_top = 0.040008545
-offset_right = -253.8241
-offset_bottom = -140.50696
+anchor_left = 0.88900006
+anchor_top = 0.81500006
+anchor_right = 0.88900006
+anchor_bottom = 0.81500006
+offset_left = -192.2201
+offset_top = -105.80005
+offset_right = -63.74414
+offset_bottom = -34.666992
 scale = Vector2(2.9811127, 2.979179)
+size_flags_horizontal = 3
+alignment = 1
 
-[node name="Interact" type="TouchScreenButton" parent="ActionButtons" unique_id=814973628]
-position = Vector2(-1.006, 2.685)
-scale = Vector2(1.37, 1.37)
+[node name="Interact" type="TextureButton" parent="ActionButtons" unique_id=505190502]
+layout_mode = 2
+size_flags_horizontal = 3
 texture_normal = ExtResource("5_iiebs")
 texture_pressed = ExtResource("6_n5w8m")
-action = "Interact"
+stretch_mode = 0
 
-[node name="Action" type="TouchScreenButton" parent="ActionButtons" unique_id=663166077]
-position = Vector2(63.734, 2.685)
-scale = Vector2(1.37, 1.37)
+[node name="Action" type="TextureButton" parent="ActionButtons" unique_id=834540927]
+layout_mode = 2
+size_flags_horizontal = 3
 texture_normal = ExtResource("7_3omb4")
 texture_pressed = ExtResource("8_mu5ro")
-action = "Action"
+stretch_mode = 0
 
 [node name="MenuButtons" type="Button" parent="." unique_id=748391866]
 visible = false

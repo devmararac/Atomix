@@ -51,12 +51,16 @@ func _ready() -> void:
 	if not file_dialog.file_selected.is_connected(_on_file_selected):
 		file_dialog.file_selected.connect(_on_file_selected)
 
-	file_dialog.filters = PackedStringArray([
-		"*.csv ; CSV Spreadsheet",
-		"*.xlsx ; Excel Workbook",
-		"*.tsv ; Tab-Separated Spreadsheet",
-		"*.txt ; Text Spreadsheet"
-	])
+	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	file_dialog.title = "Select Student Master List"
+	file_dialog.use_native_dialog = true
+	file_dialog.clear_filters()
+
+	file_dialog.add_filter(
+		"*.csv,*.xlsx,*.tsv,*.txt",
+		"Supported Student Files"
+	)
 
 	await _load_sections()
 

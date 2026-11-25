@@ -1211,7 +1211,7 @@ z_index = 1
 position = Vector2(599, 283)
 
 [node name="NpcBase" parent="Objects" unique_id=747614588 instance=ExtResource("28_xwgko")]
-z_index = 1
+z_index = 500
 position = Vector2(627, 372)
 data = ExtResource("21_3yeww")
 

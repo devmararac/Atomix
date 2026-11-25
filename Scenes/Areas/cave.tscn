@@ -1671,30 +1671,37 @@ autoplay = true
 [node name="CharacterBody2D" parent="." unique_id=1785293783 instance=ExtResource("9_h3csq")]
 position = Vector2(397, 434)
 data = ExtResource("7_k27op")
+spawn_id = "argon"
 
 [node name="ItemPickUp" parent="." unique_id=1939754100 instance=ExtResource("14_8jeg0")]
 position = Vector2(216, 141)
 data = ExtResource("15_adu4b")
+spawn_id = "iron"
 
 [node name="ItemPickUp2" parent="." unique_id=788435615 instance=ExtResource("14_8jeg0")]
 position = Vector2(715, 184)
 data = ExtResource("15_adu4b")
+spawn_id = "iron"
 
 [node name="ItemPickUp3" parent="." unique_id=2034441683 instance=ExtResource("14_8jeg0")]
 position = Vector2(905, 82)
 data = ExtResource("15_adu4b")
+spawn_id = "iron"
 
 [node name="ItemPickUp4" parent="." unique_id=585738629 instance=ExtResource("14_8jeg0")]
 position = Vector2(1053, 257)
 data = ExtResource("15_adu4b")
+spawn_id = "iron"
 
 [node name="ItemPickUp5" parent="." unique_id=1180462329 instance=ExtResource("14_8jeg0")]
 position = Vector2(854, 352)
 data = ExtResource("15_adu4b")
+spawn_id = "iron"
 
 [node name="ItemPickUp6" parent="." unique_id=493268803 instance=ExtResource("14_8jeg0")]
 position = Vector2(894, 195)
 data = ExtResource("15_adu4b")
+spawn_id = "iron"
 
 [node name="Player" parent="." unique_id=1857981194 instance=ExtResource("2_3usej")]
 position = Vector2(541, 630)

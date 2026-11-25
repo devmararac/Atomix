@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://crxv4gs8ypfdt" path="res://Resources/Quest/Objective.gd" id="1_0rppk"]
 [ext_resource type="Script" uid="uid://s0771j4ovmsh" path="res://Resources/Quest/Reward.gd" id="2_iw870"]
+[ext_resource type="Resource" uid="uid://dcin88cr2e5ys" path="res://Resources/Objectives/Angelo/Rewards.tres" id="3_3qu0f"]
 [ext_resource type="Script" uid="uid://7rrmrho1w3gn" path="res://Resources/Quest/Quest.gd" id="3_p2tow"]
 
 [sub_resource type="Resource" id="Resource_0rppk"]
@@ -19,4 +20,5 @@ quest_id = "story_quest_explore_dungeon"
 quest_name = "Explore the Dungeon"
 quest_description = "You woke up in an unknown area all of a sudden."
 objectives = Array[ExtResource("1_0rppk")]([SubResource("Resource_0rppk")])
+rewards = Array[ExtResource("2_iw870")]([ExtResource("3_3qu0f")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"

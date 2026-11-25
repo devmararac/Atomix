@@ -9,7 +9,7 @@ content_margin_left = 20.0
 content_margin_top = 20.0
 content_margin_right = 20.0
 content_margin_bottom = 20.0
-bg_color = Color(0.1, 0.1, 0.1, 0.85)
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 0)
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
@@ -89,6 +89,7 @@ text = "Started"
 horizontal_alignment = 1
 
 [node name="Rewards" type="PanelContainer" parent="PopupContainer" unique_id=1898104810]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

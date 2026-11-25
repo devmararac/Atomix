@@ -5,6 +5,7 @@ var save_data: SaveData = null
 var completed_cutscenes: Dictionary = {}
 var saved_carried_party_ids: Array[String] = []
 var opened_chests: Array[String] = []
+var chest_respawn_times: Dictionary = {}
 # ============================================================
 # AUTOMATIC SAVE STATE
 # ============================================================
@@ -1148,6 +1149,19 @@ func load_game() -> void:
 			push_error("[SaveManager] Pending local save is invalid.")
 			return
 
+		# Explicitly reject New Game reset data.
+		if not bool(local_game_data.get("has_save", true)):
+			push_warning("[SaveManager] Local data is a New Game reset. No playable save to continue.")
+			return
+
+		var local_scene := str(
+			local_game_data.get("current_scene", "")
+		)
+
+		if local_scene.is_empty():
+			push_error("[SaveManager] Pending local save has no scene.")
+			return
+
 		_apply_local_save_data(local_game_data)
 
 	else:
@@ -1168,6 +1182,7 @@ func load_game() -> void:
 		if not cloud_loaded:
 
 			if local_record.is_empty():
+				push_warning("[SaveManager] No local save available.")
 				return
 
 			var local_game_data: Variant = local_record.get(
@@ -1179,14 +1194,31 @@ func load_game() -> void:
 				push_error("[SaveManager] Local save data is invalid.")
 				return
 
+			# Reject reset data and empty scenes.
+			if not bool(local_game_data.get("has_save", true)):
+				push_warning("[SaveManager] Local record is a New Game reset. Cannot continue.")
+				return
+
+			var local_scene := str(
+				local_game_data.get("current_scene", "")
+			)
+
+			if local_scene.is_empty():
+				push_error("[SaveManager] Local save has no saved scene.")
+				return
+
 			_apply_local_save_data(local_game_data)
 
 	# --------------------------------------------------------
-	# VALIDATE SAVE DATA
+	# VALIDATE FINAL SAVE DATA
 	# --------------------------------------------------------
 
 	if save_data == null:
 		push_error("[SaveManager] Cannot restore: save_data is null.")
+		return
+
+	if not save_data.has_save:
+		push_warning("[SaveManager] No playable save exists. Start a New Game instead.")
 		return
 
 	if save_data.current_scene.is_empty():
@@ -1889,7 +1921,9 @@ func download_from_firebase() -> bool:
 	# ========================================================
 
 	save_data = SaveData.new()
-
+	
+	save_data.has_save = bool(game_state.get("has_save", false))
+	
 	save_data.player_name = PlayerManager.display_name
 
 	save_data.current_scene = str(
@@ -2425,7 +2459,7 @@ func is_chest_opened(chest_id: String) -> bool:
 func _apply_local_save_data(data: Dictionary) -> void:
 
 	save_data = SaveData.new()
-
+	save_data.has_save = bool(data.get("has_save", true))
 	save_data.player_name = data.get("player_name", "Player")
 	save_data.coins = int(data.get("coins", 0))
 	save_data.current_scene = data.get("current_scene", "")

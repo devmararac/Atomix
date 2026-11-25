@@ -11,9 +11,26 @@ const GAME_MENU = preload("res://Scenes/UI/game_menu.tscn")
 
 func _ready() -> void:
 	skip_button.hide()
-	
+
 	Dialogic.timeline_started.connect(_on_dialogue_started)
 	Dialogic.timeline_ended.connect(_on_dialogue_ended)
+
+	# --- Bridge: TextureButton -> real InputEventAction ---
+	$ActionButtons/Interact.button_down.connect(
+		func(): _fire_action("Interact", true))
+	$ActionButtons/Interact.button_up.connect(
+		func(): _fire_action("Interact", false))
+
+	$ActionButtons/Action.button_down.connect(
+		func(): _fire_action("Action", true))
+	$ActionButtons/Action.button_up.connect(
+		func(): _fire_action("Action", false))
+
+func _fire_action(action: StringName, pressed: bool) -> void:
+	var ev := InputEventAction.new()
+	ev.action = action
+	ev.pressed = pressed
+	Input.parse_input_event(ev)
 
 # ==========================================
 # SKIP BUTTON LOGIC

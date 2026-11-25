@@ -10,6 +10,10 @@
 [ext_resource type="Resource" uid="uid://dd1s72beec06" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/use_fusion.tres" id="6_7advi"]
 [ext_resource type="Resource" uid="uid://75gym2c753ne" path="res://Resources/Objectives/Unit_2/Quest_chain_002_02/return_to_dr_mundo_composition.tres" id="6_g7fdb"]
 
+[sub_resource type="Resource" id="Resource_pxogr"]
+script = ExtResource("2_reward")
+metadata/_custom_type_script = "uid://s0771j4ovmsh"
+
 [resource]
 script = ExtResource("3_quest")
 quest_id = "quest_chain_002_02"
@@ -17,4 +21,5 @@ quest_name = "The Path to Stability"
 quest_description = "Learn electron gain, loss, and sharing for stability, then use them in Fusion training."
 unlock_id = "quest_chain_003_01"
 objectives = Array[ExtResource("1_objective")]([ExtResource("2_tjcul"), ExtResource("3_47xin"), ExtResource("4_47xin"), ExtResource("4_tjcul"), ExtResource("6_7advi"), ExtResource("6_g7fdb")])
+rewards = Array[ExtResource("2_reward")]([SubResource("Resource_pxogr")])
 metadata/_custom_type_script = "uid://7rrmrho1w3gn"

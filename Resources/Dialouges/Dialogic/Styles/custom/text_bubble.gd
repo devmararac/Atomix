@@ -120,11 +120,9 @@ func _on_dialog_text_started_revealing_text() -> void:
 
 
 func _resize_bubble(content_size, popup):
-	print("BUBBLE RESIZE CALLED")
-	print("Content size: ", content_size, " | Max width: ", max_width)
+
 	content_size.x = maxf(content_size.x, 450.0)
 	var bubble_size: Vector2 = content_size+(padding*2)+Vector2.ONE*bg_padding
-	print("ACTUAL BUBBLE SIZE: ", bubble_size)
 	var half_size: Vector2= (bubble_size / 2.0)
 	bubble.pivot_offset = half_size
 	bubble_rect = Rect2(position, bubble_size * Vector2(1.1, 1.1))

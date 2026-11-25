@@ -1,6 +1,5 @@
+
 extends Control
-
-
 
 @onready var logout_button: TextureButton = $Content/LogoutContainer/Logout
 @onready var music_slider: HSlider = $Content/MusicPanel/Margin/MusicVBox/MusicControls/MusicSlider
@@ -12,28 +11,21 @@ extends Control
 
 
 func _ready() -> void:
-	# Initialize displayed volume values
-	_update_music_value(music_slider.value)
-	_update_sfx_value(sfx_slider.value)
+	# Restore previously selected Master volume
+	music_slider.value = SfxManager.master_volume
+	_update_music_value(SfxManager.master_volume)
 
+	# Restore SFX volume
+	sfx_slider.value = SfxManager.sfx_volume
+	_update_sfx_value(SfxManager.sfx_volume)
 
 
 # ============================================================
 # MUSIC
 # ============================================================
-
 func _on_music_volume_changed(value: float) -> void:
 	_update_music_value(value)
-
-	# TODO:
-	# Connect this to your AudioManager later.
-	#
-	# Example:
-	# AudioServer.set_bus_volume_db(
-	#     AudioServer.get_bus_index("Music"),
-	#     linear_to_db(value / 100.0)
-	# )
-
+	SfxManager.set_master_volume(value)
 
 func _update_music_value(value: float) -> void:
 	music_value.text = "%d%%" % int(value)
@@ -45,15 +37,7 @@ func _update_music_value(value: float) -> void:
 
 func _on_sfx_volume_changed(value: float) -> void:
 	_update_sfx_value(value)
-
-	# TODO:
-	# Connect this to your AudioManager later.
-	#
-	# Example:
-	# AudioServer.set_bus_volume_db(
-	#     AudioServer.get_bus_index("SFX"),
-	#     linear_to_db(value / 100.0)
-	# )
+	SfxManager.set_sfx_volume(value)
 
 
 func _update_sfx_value(value: float) -> void:
@@ -88,6 +72,7 @@ func _on_profile_pressed() -> void:
 	else:
 		push_error("[Settings] GameMenu instance is unavailable.")
 
+
 # ============================================================
 # LOG OUT
 # ============================================================
@@ -95,7 +80,6 @@ func _on_profile_pressed() -> void:
 func _on_logout_pressed() -> void:
 	logout_button.disabled = true
 
-	# Explicit logout removes Firebase's saved auth session.
 	AuthManager.logout()
 
 	await get_tree().create_timer(0.2).timeout

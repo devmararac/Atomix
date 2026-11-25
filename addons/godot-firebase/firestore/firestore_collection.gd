@@ -180,18 +180,38 @@ func _get_request_url() -> String:
 	return _base_url + _extended_url + collection_name
 
 func _process_request(task : FirestoreTask, document_id : String, url : String, fields := "") -> void:
+	# -------------------------------------------------
+	# OFFLINE CHECK
+	# -------------------------------------------------
+	if not ConnectionManager.is_connected_to_internet:
+		Firebase._print("[FirestoreCollection] Offline. Skipping Firestore request.")
+		return
+
+	# -------------------------------------------------
+	# ANONYMOUS AUTHENTICATION
+	# -------------------------------------------------
 	if auth == null or auth.is_empty():
 		Firebase._print("Unauthenticated request issued...")
 		Firebase.Auth.login_anonymous()
+
 		var result : Array = await Firebase.Auth.auth_request
+
 		if str(result[0]) != "1":
-			Firebase.Firestore._check_auth_error(result[0], result[1])
+			if result[0] is int:
+				Firebase.Firestore._check_auth_error(result[0], result[1])
+			else:
+				Firebase._print("[FirestoreCollection] Authentication failed: " + str(result[0]))
 			return
+
 		Firebase._print("Client authenticated as Anonymous User.")
 
+	# -------------------------------------------------
+	# SEND FIRESTORE REQUEST
+	# -------------------------------------------------
 	task._url = url
 	task._fields = fields
 	task._headers = PackedStringArray([_AUTHORIZATION_HEADER + auth.idtoken])
+
 	Firebase.Firestore._pooled_request(task)
 
 func get_database_url(append) -> String:

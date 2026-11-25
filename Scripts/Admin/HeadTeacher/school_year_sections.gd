@@ -93,6 +93,9 @@ var teachers: Array[Dictionary] = []
 var assignment_checkboxes: Array[CheckBox] = []
 var assignment_jobs: Array[Dictionary] = []
 
+# Jobs used when renaming a section and synchronizing student/teacher records.
+var rename_jobs: Array[Dictionary] = []
+
 var assignment_button_group: ButtonGroup
 
 var assignment_dialog: ConfirmationDialog
@@ -991,22 +994,229 @@ func _update_section_for_year(
 	section_id: String,
 	section_name: String
 ) -> void:
-	var path := (
+	var old_section_name := ""
+
+	# Find the original section name.
+	for section in sections:
+		if str(section.get("id", "")) == section_id:
+			old_section_name = str(section.get("name", "")).strip_edges()
+			break
+
+	if old_section_name.is_empty():
+		_show_error("Could not find the original section name.")
+		return
+
+	# No need to update if the name hasn't changed.
+	if old_section_name == section_name:
+		_reset_section_button()
+		return
+
+	var section_path := (
 		SCHOOL_YEARS_COLLECTION
 		+ "/" + year_id
 		+ "/sections/" + section_id
 	)
 
-	_set_busy(true)
-	_send_patch(
-		"update_section",
-		path,
-		{"name": section_name},
-		{
+	# Clear any previous rename jobs.
+	rename_jobs.clear()
+
+	# ---------------------------------------------------------
+	# 1. Queue student updates
+	# ---------------------------------------------------------
+	_queue_student_section_renames(
+		old_section_name,
+		section_name,
+		year_id
+	)
+
+	# ---------------------------------------------------------
+	# 2. Queue teacher updates
+	# ---------------------------------------------------------
+	_queue_teacher_section_renames(
+		section_id,
+		old_section_name,
+		section_name,
+		year_id
+	)
+
+	# ---------------------------------------------------------
+	# 3. Queue the section document LAST
+	# ---------------------------------------------------------
+	rename_jobs.append({
+		"path": section_path,
+		"fields": {
+			"name": section_name
+		},
+		"type": "section",
+		"context": {
 			"year_id": year_id,
 			"section_id": section_id,
 			"section_name": section_name
 		}
+	})
+
+	print("[Section Rename] =========================")
+	print("[Section Rename] Old name: ", old_section_name)
+	print("[Section Rename] New name: ", section_name)
+	print("[Section Rename] Total jobs: ", rename_jobs.size())
+	print("[Section Rename] Student/teacher updates queued.")
+	print("[Section Rename] Section update queued LAST.")
+	print("[Section Rename] =========================")
+	
+	_set_busy(true)
+	_send_next_rename_job()
+
+func _queue_student_section_renames(
+	old_section_name: String,
+	new_section_name: String,
+	year_id: String
+) -> void:
+	for student in students:
+		if typeof(student) != TYPE_DICTIONARY:
+			continue
+
+		var student_id := str(student.get("id", ""))
+		var student_section := str(student.get("section", "")).strip_edges()
+		var student_year := str(student.get("school_year", "")).strip_edges()
+
+		# Only target students belonging to the old section
+		# in the specific school year being renamed.
+		if student_section != old_section_name:
+			continue
+
+		if student_year != year_id:
+			continue
+
+		if student_id.is_empty():
+			continue
+
+		rename_jobs.append({
+			"path": "/databases/(default)/documents/students/" + student_id,
+			"fields": {
+				"section": new_section_name
+			},
+			"type": "student"
+		})
+
+		print(
+			"[Section Rename] Queued student update: ",
+			student_id,
+			" | ",
+			old_section_name,
+			" -> ",
+			new_section_name
+			)
+
+
+func _queue_teacher_section_renames(
+	section_id: String,
+	old_section_name: String,
+	new_section_name: String,
+	year_id: String
+) -> void:
+	for teacher in teachers:
+		if typeof(teacher) != TYPE_DICTIONARY:
+			continue
+
+		var teacher_uid := str(teacher.get("uid", ""))
+		var teacher_year_id := str(teacher.get("school_year_id", ""))
+
+		var assigned_section_ids: Array = teacher.get(
+			"assigned_section_ids",
+			[]
+		)
+
+		var assigned_sections: Array = teacher.get(
+			"assigned_sections",
+			[]
+		)
+
+		# Only target teachers assigned to this exact section ID
+		# in the correct school year.
+		if not assigned_section_ids.has(section_id):
+			continue
+
+		if teacher_year_id != year_id:
+			continue
+
+		if teacher_uid.is_empty():
+			continue
+
+		# Preserve all other assigned section names.
+		var updated_section_names: Array = assigned_sections.duplicate()
+
+		for i in range(updated_section_names.size()):
+			if str(updated_section_names[i]).strip_edges() == old_section_name:
+				updated_section_names[i] = new_section_name
+
+		# Queue only the assigned_sections field.
+		# assigned_section_ids will remain untouched.
+		rename_jobs.append({
+			"path": "/databases/(default)/documents/teachers/" + teacher_uid,
+			"fields": {
+				"assigned_sections": updated_section_names
+			},
+			"type": "teacher"
+		})
+
+		print(
+			"[Section Rename] Queued teacher update: ",
+			teacher_uid,
+			" | ",
+			old_section_name,
+			" -> ",
+			new_section_name
+		)
+
+
+func _send_next_rename_job() -> void:
+	# Stop safely if there are no more jobs.
+	if rename_jobs.is_empty():
+		print("[Section Rename] All rename jobs completed.")
+		_set_busy(false)
+		return
+
+	# Get the next job.
+	var job: Dictionary = rename_jobs.pop_front()
+
+	var job_type := str(job.get("type", ""))
+	var document_path := str(job.get("path", ""))
+	var fields: Dictionary = job.get("fields", {})
+	var context: Dictionary = job.get("context", {})
+
+	# Identify the rename operation.
+	var action := ""
+
+	match job_type:
+		"student":
+			action = "rename_student_write"
+
+		"teacher":
+			action = "rename_teacher_write"
+
+		"section":
+			action = "rename_section_write"
+
+		_:
+			_show_error("Unknown section rename job type: " + job_type)
+			rename_jobs.clear()
+			return
+
+	# Validate the job.
+	if document_path.is_empty() or fields.is_empty():
+		_show_error("Invalid section rename job.")
+		rename_jobs.clear()
+		return
+
+	print("[Section Rename] Sending job: ", job_type)
+	print("[Section Rename] Document: ", document_path)
+
+	# Send the PATCH request.
+	_send_patch(
+		action,
+		document_path,
+		fields,
+		context
 	)
 
 
@@ -1439,6 +1649,15 @@ func _on_request_completed(
 			"Firestore request failed. Action: %s, HTTP: %d, Response: %s"
 			% [action, response_code, response_text]
 		)
+		
+			# Stop the section rename sequence if any PATCH fails.
+		if action.begins_with("rename_"):
+			rename_jobs.clear()
+			push_error(
+				"[Section Rename] Failed midway. Some student or teacher records "
+				+ "may already have been updated. Remaining jobs were cancelled."
+			)
+		
 		request_queue.clear()
 		_set_busy(false)
 		_show_error(
@@ -1580,7 +1799,35 @@ func _on_request_completed(
 
 		"assignment_teacher_write":
 			_send_next_assignment_job()
+		
+		"rename_student_write":
+			print("[Section Rename] Student update successful.")
+			_send_next_rename_job()
 
+		"rename_teacher_write":
+			print("[Section Rename] Teacher update successful.")
+			_send_next_rename_job()
+
+		"rename_section_write":
+			var renamed_year_id := str(context.get("year_id", ""))
+			var renamed_section_id := str(context.get("section_id", ""))
+			var renamed_section_name := str(context.get("section_name", ""))
+
+			print("[Section Rename] Official section name updated.")
+
+			ActivityLogManager.log_activity(
+				"Renamed Section",
+				"Renamed section to '%s' in school year %s"
+				% [renamed_section_name, renamed_year_id],
+				"Sections",
+				renamed_section_id
+			)
+
+			rename_jobs.clear()
+			_set_busy(false)
+			_reset_section_button()
+			_load_sections()
+		
 		"assignment_section_write":
 			ActivityLogManager.log_activity(
 				"Updated Teacher Assignment",

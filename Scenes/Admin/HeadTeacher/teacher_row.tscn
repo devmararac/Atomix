@@ -16,12 +16,14 @@ bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
 border_width_bottom = 1
 border_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3dgei"]
-content_margin_left = 5.0
-content_margin_right = 5.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rpiqk"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
 
 [node name="TeacherRow" type="HBoxContainer" unique_id=184608605]
-custom_minimum_size = Vector2(1600, 0)
+custom_minimum_size = Vector2(1600, 80)
 anchors_preset = -1
 anchor_right = 0.837
 anchor_bottom = 0.075
@@ -48,17 +50,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 55
 
-[node name="Number" type="Label" parent="Background/HBoxContainer2" unique_id=1149602221]
+[node name="Number" type="Label" parent="Background/HBoxContainer2" unique_id=499422993]
 layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 theme_override_fonts/font = ExtResource("2_7tdwk")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxEmpty_3dgei")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rpiqk")
 text = "#"
 
 [node name="FullName" type="Label" parent="Background/HBoxContainer2" unique_id=31630788]
-custom_minimum_size = Vector2(450, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -79,6 +80,7 @@ text = "LRN"
 horizontal_alignment = 1
 
 [node name="Section" type="Label" parent="Background/HBoxContainer2" unique_id=1182607616]
+custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -87,6 +89,7 @@ theme_override_fonts/font = ExtResource("2_7tdwk")
 theme_override_font_sizes/font_size = 25
 text = "SECTION"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Status" type="Label" parent="Background/HBoxContainer2" unique_id=1664981520]
 layout_mode = 2
@@ -106,7 +109,7 @@ theme_override_constants/separation = 25
 alignment = 1
 
 [node name="Edit" type="TextureButton" parent="Background/HBoxContainer2/HBoxContainer" unique_id=1000579524]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 0
@@ -116,7 +119,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Delete" type="TextureButton" parent="Background/HBoxContainer2/HBoxContainer" unique_id=1018423191]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 0
@@ -126,7 +129,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Archive" type="TextureButton" parent="Background/HBoxContainer2/HBoxContainer" unique_id=968241368]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -148,7 +151,7 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
 theme_override_fonts/font = ExtResource("2_7tdwk")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 text = "ACTIVE"
 
 [connection signal="pressed" from="Background/HBoxContainer2/HBoxContainer/Edit" to="." method="_on_edit_pressed"]

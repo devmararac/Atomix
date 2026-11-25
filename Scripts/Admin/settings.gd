@@ -928,11 +928,17 @@ func _on_update_pressed() -> void:
 			)
 			return
 
-	# Save profile information.
+	# ============================================================
+	# SAVE PROFILE TO USERS COLLECTION
+	# ============================================================
+
 	_show_profile_status("Saving profile...")
 
+	print("[Settings] Name fields being saved: ", updated_fields)
+
 	var result: Dictionary = await _update_user_profile(
-		updated_fields
+		updated_fields,
+		"users"
 	)
 
 	if not bool(result.get("ok", false)):
@@ -943,6 +949,31 @@ func _on_update_pressed() -> void:
 			+ str(result.get("error", "Unknown error."))
 		)
 		return
+
+
+	# ============================================================
+	# ALSO UPDATE TEACHERS COLLECTION (TEACHER ACCOUNTS ONLY)
+	# ============================================================
+
+	if current_role == "teacher":
+
+		print("[Settings] Updating teachers collection...")
+
+		var teacher_result: Dictionary = await _update_user_profile(
+			updated_fields,
+			"teachers"
+		)
+
+		if not bool(teacher_result.get("ok", false)):
+			_finish_profile_save()
+
+			_show_profile_status(
+				"Users profile updated, but teachers profile failed: "
+				+ str(teacher_result.get("error", "Unknown error."))
+			)
+			return
+
+		print("[Settings] Teachers profile updated successfully.")
 
 	# Clear temporary password requirement if applicable.
 	if password_changed:
@@ -1146,7 +1177,10 @@ func _build_full_name(
 # FIRESTORE PROFILE UPDATE
 # ============================================================
 
-func _update_user_profile(data: Dictionary) -> Dictionary:
+func _update_user_profile(
+	data: Dictionary,
+	collection: String = "users"
+) -> Dictionary:
 
 	var token := _get_current_id_token()
 
@@ -1157,7 +1191,7 @@ func _update_user_profile(data: Dictionary) -> Dictionary:
 		}
 
 	var url := _firestore_document_url(
-		"users",
+		collection,
 		current_uid
 	)
 

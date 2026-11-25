@@ -880,79 +880,7 @@ data = ExtResource("13_mudfs")
 position = Vector2(356, 563)
 data = ExtResource("10_fa4p3")
 
-[node name="ProtonPickup2" parent="." unique_id=188243964 instance=ExtResource("12_1crdq")]
-position = Vector2(356, 563)
-data = ExtResource("10_fa4p3")
-
-[node name="ProtonPickup3" parent="." unique_id=1491616012 instance=ExtResource("12_1crdq")]
-position = Vector2(356, 563)
-data = ExtResource("10_fa4p3")
-
-[node name="ProtonPickup4" parent="." unique_id=738078156 instance=ExtResource("12_1crdq")]
-position = Vector2(356, 563)
-data = ExtResource("10_fa4p3")
-
-[node name="ProtonPickup5" parent="." unique_id=586744270 instance=ExtResource("12_1crdq")]
-position = Vector2(356, 563)
-data = ExtResource("10_fa4p3")
-
-[node name="ProtonPickup6" parent="." unique_id=736890371 instance=ExtResource("12_1crdq")]
-position = Vector2(356, 563)
-data = ExtResource("10_fa4p3")
-
-[node name="ProtonPickup7" parent="." unique_id=1062232116 instance=ExtResource("12_1crdq")]
-position = Vector2(356, 563)
-data = ExtResource("10_fa4p3")
-
-[node name="ProtonPickup8" parent="." unique_id=13970654 instance=ExtResource("12_1crdq")]
-position = Vector2(356, 563)
-data = ExtResource("10_fa4p3")
-
-[node name="ProtonPickup9" parent="." unique_id=349271892 instance=ExtResource("12_1crdq")]
-position = Vector2(356, 563)
-data = ExtResource("10_fa4p3")
-
-[node name="ProtonPickup10" parent="." unique_id=373026929 instance=ExtResource("12_1crdq")]
-position = Vector2(356, 563)
-data = ExtResource("10_fa4p3")
-
 [node name="ElectronPickup" parent="." unique_id=860581831 instance=ExtResource("12_1crdq")]
-position = Vector2(515, 562)
-data = ExtResource("11_5ccym")
-
-[node name="ElectronPickup2" parent="." unique_id=438402000 instance=ExtResource("12_1crdq")]
-position = Vector2(515, 562)
-data = ExtResource("11_5ccym")
-
-[node name="ElectronPickup3" parent="." unique_id=1265814082 instance=ExtResource("12_1crdq")]
-position = Vector2(515, 562)
-data = ExtResource("11_5ccym")
-
-[node name="ElectronPickup4" parent="." unique_id=676247727 instance=ExtResource("12_1crdq")]
-position = Vector2(515, 562)
-data = ExtResource("11_5ccym")
-
-[node name="ElectronPickup5" parent="." unique_id=1905993454 instance=ExtResource("12_1crdq")]
-position = Vector2(515, 562)
-data = ExtResource("11_5ccym")
-
-[node name="ElectronPickup6" parent="." unique_id=2013774150 instance=ExtResource("12_1crdq")]
-position = Vector2(515, 562)
-data = ExtResource("11_5ccym")
-
-[node name="ElectronPickup7" parent="." unique_id=1717958605 instance=ExtResource("12_1crdq")]
-position = Vector2(515, 562)
-data = ExtResource("11_5ccym")
-
-[node name="ElectronPickup8" parent="." unique_id=1211611530 instance=ExtResource("12_1crdq")]
-position = Vector2(515, 562)
-data = ExtResource("11_5ccym")
-
-[node name="ElectronPickup9" parent="." unique_id=958538972 instance=ExtResource("12_1crdq")]
-position = Vector2(515, 562)
-data = ExtResource("11_5ccym")
-
-[node name="ElectronPickup10" parent="." unique_id=1516393520 instance=ExtResource("12_1crdq")]
 position = Vector2(515, 562)
 data = ExtResource("11_5ccym")
 
@@ -960,79 +888,7 @@ data = ExtResource("11_5ccym")
 position = Vector2(485, 485)
 data = ExtResource("12_gigt8")
 
-[node name="NeutronPickup2" parent="." unique_id=1166954841 instance=ExtResource("12_1crdq")]
-position = Vector2(485, 485)
-data = ExtResource("12_gigt8")
-
-[node name="NeutronPickup3" parent="." unique_id=1022011811 instance=ExtResource("12_1crdq")]
-position = Vector2(485, 485)
-data = ExtResource("12_gigt8")
-
-[node name="NeutronPickup4" parent="." unique_id=11203083 instance=ExtResource("12_1crdq")]
-position = Vector2(485, 485)
-data = ExtResource("12_gigt8")
-
-[node name="NeutronPickup5" parent="." unique_id=1924657956 instance=ExtResource("12_1crdq")]
-position = Vector2(485, 485)
-data = ExtResource("12_gigt8")
-
-[node name="NeutronPickup6" parent="." unique_id=1127168618 instance=ExtResource("12_1crdq")]
-position = Vector2(485, 485)
-data = ExtResource("12_gigt8")
-
-[node name="NeutronPickup7" parent="." unique_id=798220110 instance=ExtResource("12_1crdq")]
-position = Vector2(485, 485)
-data = ExtResource("12_gigt8")
-
-[node name="NeutronPickup8" parent="." unique_id=454828386 instance=ExtResource("12_1crdq")]
-position = Vector2(485, 485)
-data = ExtResource("12_gigt8")
-
-[node name="NeutronPickup9" parent="." unique_id=718212149 instance=ExtResource("12_1crdq")]
-position = Vector2(485, 485)
-data = ExtResource("12_gigt8")
-
-[node name="NeutronPickup10" parent="." unique_id=289984454 instance=ExtResource("12_1crdq")]
-position = Vector2(485, 485)
-data = ExtResource("12_gigt8")
-
 [node name="AtomicCorePickup" parent="." unique_id=1754904885 instance=ExtResource("12_1crdq")]
-position = Vector2(432, 463)
-data = ExtResource("13_ex5ne")
-
-[node name="AtomicCorePickup2" parent="." unique_id=745032373 instance=ExtResource("12_1crdq")]
-position = Vector2(432, 463)
-data = ExtResource("13_ex5ne")
-
-[node name="AtomicCorePickup3" parent="." unique_id=747864929 instance=ExtResource("12_1crdq")]
-position = Vector2(432, 463)
-data = ExtResource("13_ex5ne")
-
-[node name="AtomicCorePickup4" parent="." unique_id=1180997589 instance=ExtResource("12_1crdq")]
-position = Vector2(432, 463)
-data = ExtResource("13_ex5ne")
-
-[node name="AtomicCorePickup5" parent="." unique_id=2085712022 instance=ExtResource("12_1crdq")]
-position = Vector2(432, 463)
-data = ExtResource("13_ex5ne")
-
-[node name="AtomicCorePickup6" parent="." unique_id=217333831 instance=ExtResource("12_1crdq")]
-position = Vector2(432, 463)
-data = ExtResource("13_ex5ne")
-
-[node name="AtomicCorePickup7" parent="." unique_id=874998880 instance=ExtResource("12_1crdq")]
-position = Vector2(432, 463)
-data = ExtResource("13_ex5ne")
-
-[node name="AtomicCorePickup8" parent="." unique_id=1701891312 instance=ExtResource("12_1crdq")]
-position = Vector2(432, 463)
-data = ExtResource("13_ex5ne")
-
-[node name="AtomicCorePickup9" parent="." unique_id=1948141270 instance=ExtResource("12_1crdq")]
-position = Vector2(432, 463)
-data = ExtResource("13_ex5ne")
-
-[node name="AtomicCorePickup10" parent="." unique_id=679211505 instance=ExtResource("12_1crdq")]
 position = Vector2(432, 463)
 data = ExtResource("13_ex5ne")
 

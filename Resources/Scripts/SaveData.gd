@@ -1,7 +1,7 @@
 class_name SaveData
 extends Resource
 
-
+@export var has_save: bool = false
 # ============================================================
 # PLAYER
 # ============================================================

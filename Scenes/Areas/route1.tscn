@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://dmqd2wojxfyoi" path="res://Scenes/Pickables/PickItem.tscn" id="14_w2yqr"]
 [ext_resource type="Resource" uid="uid://dmxmt65f5xbmd" path="res://Resources/Items/Crafting/CRAFT_ITEM_REQ/Iron_ore.tres" id="15_6wuhr"]
 [ext_resource type="PackedScene" uid="uid://58her1ab75n5" path="res://Scenes/UI/hud.tscn" id="15_kn5sb"]
+[ext_resource type="PackedScene" uid="uid://7lcvli2ufbna" path="res://Scenes/Objects/Structures/Exteriors/chest_body.tscn" id="16_6wuhr"]
+[ext_resource type="PackedScene" uid="uid://cqdgv2530s6id" path="res://Scenes/UI/chest_spawn.tscn" id="16_kn5sb"]
+[ext_resource type="PackedScene" uid="uid://gt1m8flfp80d" path="res://Scenes/UI/chest_spawnNode.tscn" id="17_o0cfw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wip4p"]
 texture = ExtResource("1_n5eeq")
@@ -2647,19 +2650,44 @@ data = ExtResource("13_ol0v4")
 [node name="ItemPickUp" parent="." unique_id=1939754100 instance=ExtResource("14_w2yqr")]
 position = Vector2(845, 394)
 data = ExtResource("15_6wuhr")
+spawn_id = " iron"
 
 [node name="ItemPickUp2" parent="." unique_id=520031972 instance=ExtResource("14_w2yqr")]
 position = Vector2(886, 391)
 data = ExtResource("15_6wuhr")
+spawn_id = "iron"
 
 [node name="ItemPickUp3" parent="." unique_id=151675279 instance=ExtResource("14_w2yqr")]
 position = Vector2(928, 394)
 data = ExtResource("15_6wuhr")
+spawn_id = "iron"
 
 [node name="ItemPickUp4" parent="." unique_id=608871663 instance=ExtResource("14_w2yqr")]
 position = Vector2(970, 395)
 data = ExtResource("15_6wuhr")
+spawn_id = "iron"
 
 [node name="ItemPickUp5" parent="." unique_id=902512286 instance=ExtResource("14_w2yqr")]
 position = Vector2(1012, 395)
 data = ExtResource("15_6wuhr")
+spawn_id = "iron"
+
+[node name="ChestSpawn" parent="." unique_id=1672994077 instance=ExtResource("17_o0cfw")]
+
+[node name="ChestSpawn2" parent="." unique_id=1462062067 instance=ExtResource("16_kn5sb")]
+position = Vector2(731, 387)
+
+[node name="ChestSpawn3" parent="." unique_id=467387841 instance=ExtResource("16_kn5sb")]
+position = Vector2(592, 361)
+
+[node name="ChestSpawn4" parent="." unique_id=326314386 instance=ExtResource("16_kn5sb")]
+position = Vector2(555, 527)
+
+[node name="ChestSpawn5" parent="." unique_id=997078828 instance=ExtResource("16_kn5sb")]
+position = Vector2(1077, 388)
+
+[node name="ChestSpawn6" parent="." unique_id=1331087915 instance=ExtResource("16_kn5sb")]
+position = Vector2(877, 294)
+
+[node name="ChestBody" parent="." unique_id=1456347440 instance=ExtResource("16_6wuhr")]
+position = Vector2(877, 294)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr3vbss04o1fo"
-path="res://.godot/imported/generate_a_pokemon_like_creature_in_pixe_5_1790478213.png-274cfe14ed010024c1d10905c1a2f436.ctex"
+uid="uid://bgoypkd21p1d8"
+path="res://.godot/imported/cafe.png-fb390fba6c449ca5c7c86c90ddb2fa65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://spritefusion/generated/generate_a_pokemon_like_creature_in_pixe_5_1790478213.png"
-dest_files=["res://.godot/imported/generate_a_pokemon_like_creature_in_pixe_5_1790478213.png-274cfe14ed010024c1d10905c1a2f436.ctex"]
+source_file="res://Assets/Structures/Houses/cafe.png"
+dest_files=["res://.godot/imported/cafe.png-fb390fba6c449ca5c7c86c90ddb2fa65.ctex"]
 
 [params]
 

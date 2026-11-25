@@ -556,3 +556,7 @@ func _place_character(ctrl: Control, px: Vector2, size_px: Vector2) -> void:
 	ctrl.offset_right  = (px.x + size_px.x) * responsive_scale
 	ctrl.offset_bottom = (px.y + size_px.y) * responsive_scale
 	ctrl.size = size_px * responsive_scale
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Cutscenes/classroom_cutscene.tscn") # Replace with function body.

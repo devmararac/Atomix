@@ -2795,7 +2795,8 @@ data = ExtResource("36_q0fcu")
 movement_mode = 1
 
 [node name="LeaderboardSign" parent="." unique_id=2040535907 groups=["QuestObjects"] instance=ExtResource("37_lska0")]
-z_index = 2
+z_index = 50
+texture_filter = 1
 position = Vector2(315, 25)
 
 [node name="Scene_Trigger" parent="." unique_id=1986080103 instance=ExtResource("12_3kusq")]
@@ -2978,6 +2979,7 @@ position = Vector2(143, 235)
 [node name="Hydrogen" parent="." unique_id=1785293783 instance=ExtResource("25_sp10x")]
 position = Vector2(63, 220)
 data = ExtResource("27_ynirp")
+spawn_id = "hydrogen"
 
 [node name="Store" parent="." unique_id=1082374117 groups=["QuestObjects"] instance=ExtResource("29_kjb13")]
 position = Vector2(642, 178)
@@ -2985,18 +2987,22 @@ position = Vector2(642, 178)
 [node name="ItemPickUp4" parent="." unique_id=171822534 instance=ExtResource("21_u7ab4")]
 position = Vector2(581, 318)
 data = ExtResource("33_q0fcu")
+spawn_id = "apple"
 
 [node name="ItemPickUp5" parent="." unique_id=1479248982 instance=ExtResource("21_u7ab4")]
 position = Vector2(710, 25)
 data = ExtResource("34_lska0")
+spawn_id = "coffee"
 
 [node name="ItemPickUp6" parent="." unique_id=104765280 instance=ExtResource("21_u7ab4")]
 position = Vector2(807, 287)
 data = ExtResource("35_twyxd")
+spawn_id = "grapes"
 
 [node name="ItemPickUp7" parent="." unique_id=231124707 instance=ExtResource("21_u7ab4")]
 position = Vector2(537, 536)
 data = ExtResource("36_70qg0")
+spawn_id = "watermelon"
 
 [node name="ChlorineObservation" parent="." unique_id=1017860796 instance=ExtResource("38_twyxd")]
 position = Vector2(469, 52)
@@ -3011,3 +3017,4 @@ position = Vector2(805, 225)
 [node name="CharacterBody2D" parent="." unique_id=833369258 instance=ExtResource("25_sp10x")]
 position = Vector2(626, 322)
 data = ExtResource("41_v5csn")
+spawn_id = "neon"

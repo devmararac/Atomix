@@ -329,27 +329,23 @@ func unlock_next_quest(completed_quest: Quest) -> void:
 	quest_list_updated.emit()
 	refresh_npc_quest_indicators()
 
-
 # ============================================================
 # PLAYER REWARDS + QUEST COMPLETION
 # ============================================================
 
 func handle_quest_completion(quest: Quest) -> void:
-	
-	# Prevent rewards from being granted more than once.
-	if completed_quests.has(quest.quest_id):
-		return
-	
+
+	# Validate quest first.
 	if quest == null:
 		return
 
-	# --------------------------------------------------------
-	# Give rewards
-	# --------------------------------------------------------
+	# Prevent rewards from being granted more than once.
+	if completed_quests.has(quest.quest_id):
+		return
 
-		# ============================================================
+	# --------------------------------------------------------
 	# GRANT QUEST REWARDS
-	# ============================================================
+	# --------------------------------------------------------
 
 	for reward in quest.rewards:
 
@@ -361,7 +357,8 @@ func handle_quest_completion(quest: Quest) -> void:
 
 		match reward.reward_type:
 
-			"coins":
+			Reward.Type.COINS:
+
 				CurrencyManager.add_coins(
 					reward.reward_amount
 				)
@@ -372,7 +369,9 @@ func handle_quest_completion(quest: Quest) -> void:
 					" coins."
 				)
 
-			"item":
+
+			Reward.Type.ITEM:
+
 				if reward.item_data == null:
 					push_warning(
 						"[QuestManager] Item reward has no ItemData assigned."
@@ -392,11 +391,14 @@ func handle_quest_completion(quest: Quest) -> void:
 					reward.item_data.item_name
 				)
 
+
 			_:
+
 				push_warning(
 					"[QuestManager] Unknown reward type: ",
 					reward.reward_type
 				)
+
 
 	# --------------------------------------------------------
 	# Remember tracked quest
@@ -462,15 +464,25 @@ func handle_quest_completion(quest: Quest) -> void:
 	quest_completed.emit(
 		quest.quest_id
 	)
-	
-		# --- SHOW POPUP (Completed) ---
+
+
+	# --------------------------------------------------------
+	# COMPLETED POPUP
+	# --------------------------------------------------------
+
 	if active_popup != null and is_instance_valid(active_popup):
 		active_popup.queue_free()
-	
+
 	active_popup = quest_popup_scene.instantiate()
 	get_tree().current_scene.add_child(active_popup)
+
+	active_popup.show_popup(
+		quest.quest_name,
+		"CHAPTER I",
+		"Completed"
+	)
 	
-	active_popup.show_popup(quest.quest_name, "CHAPTER I", "Completed")
+	active_popup.show_rewards(quest.rewards)
 	
 	quest_list_updated.emit()
 
@@ -478,7 +490,7 @@ func handle_quest_completion(quest: Quest) -> void:
 
 
 	# --------------------------------------------------------
-	# Save
+	# SAVE
 	# --------------------------------------------------------
 
 	if quest.quest_id == "story_quest_explore_dungeon":

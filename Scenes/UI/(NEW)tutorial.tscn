@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://dwywf1ry4f4lb"]
+
+[ext_resource type="Script" uid="uid://dmf1nyee4pby4" path="res://Scripts/(new)tutorial.gd" id="1_ybsoc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_highlight"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.9, 0.35, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.1, 0.1, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.9, 0.35, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ControlTutorial" type="CanvasLayer" unique_id=1450260017]
+layer = 100
+script = ExtResource("1_ybsoc")
+
+[node name="DimTop" type="ColorRect" parent="." unique_id=1985580907]
+offset_right = 1152.0
+offset_bottom = 100.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="DimBottom" type="ColorRect" parent="." unique_id=754023142]
+offset_top = 548.0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="DimLeft" type="ColorRect" parent="." unique_id=1265691313]
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 548.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="DimRight" type="ColorRect" parent="." unique_id=877106408]
+offset_left = 1052.0
+offset_top = 100.0
+offset_right = 1152.0
+offset_bottom = 548.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="Highlight" type="Panel" parent="." unique_id=287581900]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 200.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_highlight")
+
+[node name="Arrow" type="Node2D" parent="." unique_id=942864747]
+
+[node name="ArrowPoly" type="Polygon2D" parent="Arrow" unique_id=1148812063]
+color = Color(1, 0.9, 0.35, 1)
+antialiased = true
+polygon = PackedVector2Array(0, 0, -18, 30, -6, 30, -6, 44, 6, 44, 6, 30, 18, 30)
+
+[node name="DescriptionPanel" type="PanelContainer" parent="." unique_id=2053090211]
+custom_minimum_size = Vector2(350, 0)
+offset_left = 200.0
+offset_top = 200.0
+offset_right = 500.0
+offset_bottom = 300.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="DescriptionPanel" unique_id=242339534]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="DescriptionPanel/VBox" unique_id=1911984574]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.35, 1)
+theme_override_font_sizes/font_size = 22
+text = "Move Left"
+
+[node name="DescLabel" type="Label" parent="DescriptionPanel/VBox" unique_id=1933553775]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Press this to walk left."
+autowrap_mode = 3

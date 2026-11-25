@@ -70,6 +70,7 @@ animation = &"highlight"
 autoplay = "highlight"
 
 [node name="Label" type="Label" parent="." unique_id=2135493934]
+texture_filter = 1
 offset_left = -40.0
 offset_top = -21.0
 offset_right = 40.0

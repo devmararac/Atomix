@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bdviw66vr5ryd"]
+
+[ext_resource type="Texture2D" uid="uid://cmvfcv8kkjqfc" path="res://Assets/Structures/Houses/bahay1.png" id="1_7inxr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxke2"]
+size = Vector2(108, 41)
+
+[node name="Node2D" type="StaticBody2D" unique_id=778324384]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1397579652]
+position = Vector2(0, -8)
+texture = ExtResource("1_7inxr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=826002777]
+position = Vector2(0, 20.5)
+shape = SubResource("RectangleShape2D_qxke2")

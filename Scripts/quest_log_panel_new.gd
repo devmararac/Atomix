@@ -138,6 +138,9 @@ func update_rewards(quest: Quest) -> void:
 	# Add the rewards for this quest.
 	for reward in quest.rewards:
 
+		if reward == null:
+			continue
+
 		var label := Label.new()
 
 		label.add_theme_font_size_override("font_size", 20)
@@ -146,10 +149,19 @@ func update_rewards(quest: Quest) -> void:
 			Color(0.8, 0.689, 0.166, 1.0)
 		)
 
-		label.text = "%s: %s" % [
-			reward.reward_type.capitalize(),
-			str(reward.reward_amount)
-		]
+		match reward.reward_type:
+
+			Reward.Type.COINS:
+				label.text = "Coins: %d" % reward.reward_amount
+
+			Reward.Type.ITEM:
+				if reward.item_data != null:
+					label.text = "%s x%d" % [
+						reward.item_data.item_name,
+						reward.reward_amount
+					]
+				else:
+					label.text = "Item x%d" % reward.reward_amount
 
 		quest_reward_grid.add_child(label)
 

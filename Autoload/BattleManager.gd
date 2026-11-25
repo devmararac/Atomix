@@ -19,13 +19,13 @@ var is_fusion_training_battle: bool = false
 var training_party: Array[AtomonInstance] = []
 
 
-# ============================================================
 # OPTIONAL BATTLE DATA
-# ============================================================
-
 var battle_result := ""
 var previous_scene := ""
 var previous_position := Vector2.ZERO
+
+# WILD ATOMON RESPAWN
+var wild_spawn_id := ""
 
 
 # ============================================================
@@ -35,7 +35,8 @@ var previous_position := Vector2.ZERO
 func start_battle(
 	enemy: AtomonData,
 	scene_path: String,
-	player_position: Vector2
+	player_position: Vector2,
+	spawn_id: String = ""
 ) -> void:
 
 	var battle_party: Array[AtomonInstance] = PartyManager.get_battle_party()
@@ -78,8 +79,10 @@ func start_battle(
 	enemy_data = enemy
 
 	# Save the scene and position BEFORE changing scenes
+	wild_spawn_id = spawn_id
 	previous_scene = scene_path
 	previous_position = player_position
+	
 
 	print(
 		"RETURN SCENE: ",

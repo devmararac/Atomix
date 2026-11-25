@@ -53,7 +53,6 @@ GroupQuizManager="*uid://hiwxq1l6pmsv"
 PlayerManager="*uid://wwnlhr1cbhww"
 FusionManager="*uid://bmnqlysm3ka2n"
 SchoolYearManager="*uid://c8utwrk6cof4a"
-MediaPipeExternalFiles="*uid://cbxaxq52rcwu1"
 CameraSource="*uid://deohdb0jyk48k"
 GdmpAndroid="*uid://rlxpi2j08van"
 HandTracker="*uid://c3xyk15xmaep4"
@@ -61,6 +60,7 @@ LineRenderer="*uid://bvd3yudqk7jgg"
 OrientationManager="*uid://bld5mi6uuoefu"
 ActivityLogManager="*uid://4uxlabwpax37"
 VirtualKeyboardManager="*uid://kw65cg7c4d4c"
+RespawnManager="*uid://b3jl2dppi1qb4"
 
 [dialogic]
 
@@ -173,7 +173,7 @@ window/canvas_textures/default_texture_filter=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/godot-firebase/plugin.cfg", "res://addons/spritefusion/plugin.cfg", "res://addons/virtual_joystick/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/godot-firebase/plugin.cfg", "res://addons/virtual_joystick/plugin.cfg")
 
 [global]
 
