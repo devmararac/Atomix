@@ -17,6 +17,8 @@ const AUTH_API_URL := "https://atomix-auth-api.atomix-auth.workers.dev"
 @onready var file_dialog: FileDialog = $FileDialog
 @onready var section_option_button: OptionButton = $PageBackground/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/OptionButton
 
+@onready var download_template_button: Button = $PageBackground/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/DownloadTemplate
+
 # ============================================================
 # DATA
 # ============================================================
@@ -47,7 +49,10 @@ func _ready() -> void:
 	import_button.disabled = true
 	clear_preview()
 	show_status("No students loaded.")
-
+	
+	if not download_template_button.pressed.is_connected(_on_download_template_pressed):
+		download_template_button.pressed.connect(_on_download_template_pressed)
+	
 	if not file_dialog.file_selected.is_connected(_on_file_selected):
 		file_dialog.file_selected.connect(_on_file_selected)
 
@@ -1084,6 +1089,9 @@ func _on_import_button_pressed() -> void:
 	var updated_count := 0
 	var unchanged_count := 0
 	var failed_count := 0
+	
+	var verification_sent_count := 0
+	var verification_failed_count := 0
 
 	# ========================================================
 	# IMPORT EACH STUDENT
@@ -1233,9 +1241,45 @@ func _on_import_button_pressed() -> void:
 				str(student_data["student_id"]),
 				student_id_token
 			)
-
+			#
 			if d1_success:
 				created_count += 1
+
+				# ====================================================
+				# SEND CUSTOM VERIFICATION EMAIL
+				# NEW ACCOUNTS ONLY
+				# ====================================================
+
+				show_status(
+					"Sending verification email for student "
+					+ str(i + 1)
+					+ " of "
+					+ str(total)
+					+ "..."
+				)
+
+				var verification_success := await send_student_verification_email(
+					uid,
+					student_id_token,
+					str(student_data["student_id"])
+				)
+
+				if verification_success:
+					verification_sent_count += 1
+
+					print(
+						"[ImportStudents] Verification email sent: ",
+						student_data["email"]
+					)
+
+				else:
+					verification_failed_count += 1
+
+					print(
+					"[ImportStudents] WARNING: Student created, "
+					+ "but verification email failed: ",
+					student_data["email"]
+					)
 
 			else:
 				print(
@@ -1329,61 +1373,34 @@ func _on_import_button_pressed() -> void:
 	browse_button.disabled = false
 	cancel_button.disabled = false
 
-	var changed_count := (
-		created_count
-		+
-		updated_count
+	var changed_count := created_count + updated_count
+
+	var summary := (
+		str(created_count) + " created. "
+		+ str(updated_count) + " updated. "
+		+ str(unchanged_count) + " unchanged. "
+		+ str(failed_count) + " failed."
 	)
 
-	if (
-		changed_count > 0
-		and
-		failed_count == 0
-	):
-
-		show_status(
-			str(created_count)
-			+ " created. "
-			+ str(updated_count)
-			+ " updated. "
-			+ str(unchanged_count)
-			+ " unchanged."
+	if created_count > 0:
+		summary += (
+			" Verification emails sent: "
+			+ str(verification_sent_count)
+			+ ". Verification emails failed: "
+			+ str(verification_failed_count)
+			+ "."
 		)
 
-	elif changed_count > 0:
-
-		show_status(
-			str(created_count)
-			+ " created. "
-			+ str(updated_count)
-			+ " updated. "
-			+ str(unchanged_count)
-			+ " unchanged. "
-			+ str(failed_count)
-			+ " failed."
-		)
-
-	elif unchanged_count > 0 and failed_count == 0:
-
-		show_status(
-			"Nothing new to update. "
-			+ str(unchanged_count)
-			+ " student(s) unchanged."
-		)
-
-	else:
-
-		show_status(
-			"No students were changed. "
-			+ str(failed_count)
-			+ " failed."
-		)
+	show_status(summary)
 
 	print("[ImportStudents] Import complete.")
 	print("[ImportStudents] Created: ", created_count)
 	print("[ImportStudents] Updated: ", updated_count)
 	print("[ImportStudents] Unchanged: ", unchanged_count)
 	print("[ImportStudents] Failed: ", failed_count)
+	print("[ImportStudents] Verification emails sent: ", verification_sent_count)
+	print("[ImportStudents] Verification emails failed: ", verification_failed_count)
+
 
 	# ========================================================
 	# ACTIVITY LOG
@@ -1406,6 +1423,8 @@ func _on_import_button_pressed() -> void:
 			+ " | Updated: " + str(updated_count)
 			+ " | Unchanged: " + str(unchanged_count)
 			+ " | Failed: " + str(failed_count)
+			+ " | Verification Sent: " + str(verification_sent_count)
+			+ " | Verification Failed: " + str(verification_failed_count)
 		)
 
 		ActivityLogManager.log_activity(
@@ -1432,6 +1451,124 @@ func _on_import_button_pressed() -> void:
 	else:
 
 		import_button.disabled = false
+
+
+# ============================================================
+# CUSTOM STUDENT EMAIL VERIFICATION - RESEND
+# ============================================================
+
+func send_student_verification_email(
+	student_uid: String,
+	student_id_token: String,
+	student_id: String
+) -> bool:
+
+	var teacher_token := _get_current_id_token().strip_edges()
+
+	if teacher_token.is_empty():
+		print("[ImportStudents] ERROR: Teacher ID token missing.")
+		return false
+
+	if student_id_token.is_empty():
+		print("[ImportStudents] ERROR: Student ID token missing.")
+		return false
+
+	if student_uid.is_empty() or student_id.is_empty():
+		print("[ImportStudents] ERROR: Student UID or LRN missing.")
+		return false
+
+	var http := HTTPRequest.new()
+	add_child(http)
+
+	http.timeout = 30.0
+
+	var headers := PackedStringArray([
+		"Content-Type: application/json"
+	])
+
+	var request_body := {
+		"callerIdToken": teacher_token,
+		"accountIdToken": student_id_token,
+		"studentUid": student_uid,
+		"studentId": student_id
+	}
+
+	var body := JSON.stringify(request_body)
+
+	var error := http.request(
+		AUTH_API_URL + "/send-student-verification-email",
+		headers,
+		HTTPClient.METHOD_POST,
+		body
+	)
+
+	if error != OK:
+		print(
+			"[ImportStudents] Verification HTTP request failed to start: ",
+			error
+		)
+
+		http.queue_free()
+		return false
+
+	var response: Array = await http.request_completed
+
+	var response_code: int = response[1]
+	var response_body: PackedByteArray = response[3]
+	var response_text := response_body.get_string_from_utf8()
+
+	http.queue_free()
+
+	print(
+		"[ImportStudents] Verification response code: ",
+		response_code
+	)
+
+	var json := JSON.new()
+
+	if json.parse(response_text) != OK:
+		print("[ImportStudents] Invalid verification endpoint response.")
+		print("[ImportStudents] Response: ", response_text)
+		return false
+
+	if not json.data is Dictionary:
+		print("[ImportStudents] Verification response is not a Dictionary.")
+		return false
+
+	var result: Dictionary = json.data
+
+	if response_code < 200 or response_code >= 300:
+		print(
+			"[ImportStudents] Verification email failed. HTTP: ",
+			response_code
+		)
+		print(
+			"[ImportStudents] Worker response: ",
+			result
+		)
+		return false
+
+	if not bool(result.get("success", false)):
+		print(
+			"[ImportStudents] Worker did not confirm verification email."
+		)
+		print(
+			"[ImportStudents] Response: ",
+			result
+		)
+		return false
+
+	if bool(result.get("alreadyVerified", false)):
+		print(
+			"[ImportStudents] Account email was already verified."
+		)
+
+	print(
+		"[ImportStudents] Verification email request successful for LRN: ",
+		student_id
+	)
+
+	return true
 
 
 func _get_current_id_token() -> String:
@@ -2959,3 +3096,52 @@ func firestore_create_document(
 		return false
 
 	return true
+
+
+# ============================================================
+# DOWNLOAD STUDENT IMPORT TEMPLATE
+# ============================================================
+func _on_download_template_pressed() -> void:
+	var csv_content := "LRN,First Name,Last Name\n"
+
+	if OS.get_name() != "Android":
+		show_status("This feature is available on Android only.")
+		return
+
+	var dialog := FileDialog.new()
+
+	dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+	dialog.access = FileDialog.ACCESS_FILESYSTEM
+	dialog.use_native_dialog = true
+	dialog.current_file = "StudentImportTemplate.csv"
+
+	dialog.add_filter("*.csv", "CSV Files")
+
+	add_child(dialog)
+
+	dialog.file_selected.connect(
+		func(path: String) -> void:
+			var file := FileAccess.open(path, FileAccess.WRITE)
+
+			if file == null:
+				print("[ImportStudents] Save failed: ", FileAccess.get_open_error())
+				show_status("Failed to save template.")
+				dialog.queue_free()
+				return
+
+			file.store_string(csv_content)
+			file.close()
+
+			print("[ImportStudents] Saved to: ", path)
+			show_status("Student template saved successfully!")
+
+			dialog.queue_free()
+	)
+
+	dialog.canceled.connect(
+		func() -> void:
+			print("[ImportStudents] Save cancelled.")
+			dialog.queue_free()
+	)
+
+	dialog.popup_file_dialog()

@@ -39,13 +39,15 @@ var firestore_url: String
 
 @onready var close_preview_button: Button = $Preview/VBoxContainer/ClosePreviewButton
 
+@onready var section_label: Label = $MarginContainer/VBoxContainer/Header/SectionLabel
+
 # ============================================================
 # LESSON DATA
 # ============================================================
 
 var lesson_records: Array[Dictionary] = []
 
-var student_section := ""
+var student_section : String= ""
 
 
 # ============================================================
@@ -80,8 +82,14 @@ func _ready() -> void:
 
 	preview_panel.hide()
 
-	load_lessons()
+	student_section = await _get_student_section()
 
+	if student_section.is_empty():
+		section_label.text = "Section unavailable"
+	else:
+		section_label.text = "Section: " + student_section
+
+	check_learning_access_and_load_lessons()
 
 # ============================================================
 # FILTER SETUP
@@ -171,6 +179,61 @@ func load_lessons() -> void:
 		)
 
 		http.queue_free()
+
+
+func check_learning_access_and_load_lessons() -> void:
+	print("[LessonPage] Checking learning access...")
+
+	# Get the logged-in user's UID.
+	var uid := AuthManager.get_uid()
+
+	if uid.is_empty():
+		status_label.text = "Unable to verify your account. Please log in again."
+		push_warning("[LessonPage] UID is empty. Access denied.")
+		return
+
+	# Retrieve the user's role from Firestore.
+	var role: String = await AuthManager.get_user_role()
+
+	print("[LessonPage] User role: ", role)
+
+	# --------------------------------------------------
+	# ADMIN AND TEACHER BYPASS
+	# --------------------------------------------------
+	if role == "admin" or role == "teacher":
+		print("[LessonPage] Staff account. Learning access granted.")
+		load_lessons()
+		return
+
+	# --------------------------------------------------
+	# UNKNOWN ROLE: DENY ACCESS
+	# --------------------------------------------------
+	if role != "student":
+		status_label.text = "Unable to verify your account role."
+		push_warning("[LessonPage] Unknown role. Learning access denied.")
+		return
+
+	# --------------------------------------------------
+	# STUDENT SCHOOL YEAR CHECK
+	# --------------------------------------------------
+	var access_result: Dictionary = await SchoolYearAccess.check_student_learning_access(uid)
+
+	if not access_result.get("success", false):
+		status_label.text = "Unable to verify your school year. Please try again later."
+		push_warning("[LessonPage] School year verification failed.")
+		return
+
+	if not access_result.get("allowed", false):
+		status_label.text = "Your school year is inactive. Game access is available, but learning materials are restricted."
+
+		print("[LessonPage] Inactive school year. Lesson access denied.")
+		return
+
+	# --------------------------------------------------
+	# ACTIVE STUDENT: ALLOW LESSONS
+	# --------------------------------------------------
+	print("[LessonPage] Active school year. Learning access granted.")
+	load_lessons()
 
 
 # ============================================================
@@ -267,8 +330,6 @@ func _on_lessons_request_completed(
 	# --------------------------------------------------------
 	# Get student's section
 	# --------------------------------------------------------
-
-	student_section = await _get_student_section()
 
 	print(
 		"[LessonPage] Student section: ",
@@ -606,27 +667,36 @@ func create_lesson_card(
 
 	status.text = "Available"
 
-	read_button.text = "Read"
+	# --------------------------------------------------------
+	# Set button labels
+	# --------------------------------------------------------
+
+	read_button.text = "Preview"
+	preview_button.text = "Download"
 
 
 	# --------------------------------------------------------
-	# Connect Read button
+	# Connect Preview button
 	# --------------------------------------------------------
 
 	read_button.pressed.connect(
-		_on_read_pressed.bind(lesson_data)
-	)
-	
-	preview_button.pressed.connect(
 		_on_preview_pressed.bind(lesson_data)
 	)
 
+
+	# --------------------------------------------------------
+	# Connect Download button
+	# --------------------------------------------------------
+
+	preview_button.pressed.connect(
+		_on_download_pressed.bind(lesson_data)
+	)
+
 # ============================================================
-# READ LESSON
+# PREVIEW LESSON PDF
 # ============================================================
 
-
-func _on_read_pressed(lesson_data: Dictionary) -> void:
+func _on_preview_pressed(lesson_data: Dictionary) -> void:
 
 	var lesson_title := str(
 		lesson_data.get("title", "Untitled Lesson")
@@ -636,75 +706,180 @@ func _on_read_pressed(lesson_data: Dictionary) -> void:
 		lesson_data.get("file_url", "")
 	).strip_edges()
 
-	print("[LessonPage] Read button pressed: ", lesson_title)
-	print("[LessonPage] Cloudinary URL: ", file_url)
+	print("[LessonPage] Preview pressed: ", lesson_title)
 
 	if file_url.is_empty():
 		status_label.text = "This lesson has no uploaded file."
-		push_warning("[LessonPage] Missing file_url in lesson data.")
 		return
 
 	if not file_url.begins_with("https://"):
 		status_label.text = "Invalid learning material URL."
-		push_warning("[LessonPage] Invalid file URL: " + file_url)
 		return
 
-	status_label.text = "Opening learning material..."
+	status_label.text = "Opening lesson preview..."
 
 	var error := OS.shell_open(file_url)
 
 	if error != OK:
-		status_label.text = "Unable to open the learning material."
-		push_error(
-			"[LessonPage] Failed to open URL. Error: "
-			+ str(error)
-		)
+		status_label.text = "Unable to open the PDF preview."
+		push_error("[LessonPage] Preview failed: " + str(error))
 		return
 
-	status_label.text = "Opening learning material..."
-	print("[LessonPage] External PDF URL launched successfully.")
-
+	status_label.text = "Lesson preview opened."
 
 
 # ============================================================
-# PREVIEW LESSON
+# DOWNLOAD LESSON PDF
 # ============================================================
 
-func _on_preview_pressed(
-	lesson_data: Dictionary
-) -> void:
+func _on_download_pressed(lesson_data: Dictionary) -> void:
 
-	print(
-		"[LessonPage] Preview button pressed: ",
+	var lesson_title := str(
 		lesson_data.get("title", "Untitled Lesson")
 	)
 
-	# Populate lesson information.
+	var file_url := str(
+		lesson_data.get("file_url", "")
+	).strip_edges()
 
-	preview_title_input.text = str(
-		lesson_data.get(
-			"title",
-            "Untitled Lesson"
+	print("[LessonPage] Download pressed: ", lesson_title)
+
+	if file_url.is_empty():
+		status_label.text = "This lesson has no uploaded file."
+		return
+
+	if not file_url.begins_with("https://"):
+		status_label.text = "Invalid learning material URL."
+		return
+
+	# --------------------------------------------------------
+	# Get the device's Downloads directory
+	# --------------------------------------------------------
+
+	var download_directory := OS.get_system_dir(
+		OS.SYSTEM_DIR_DOWNLOADS
+	)
+
+	if download_directory.is_empty():
+		download_directory = "user://downloads"
+
+	# --------------------------------------------------------
+	# Prepare filename
+	# The stored file is now a converted PDF.
+	# --------------------------------------------------------
+
+	var original_name := str(
+		lesson_data.get("file_name", lesson_title)
+	)
+
+	var file_name := original_name.get_basename()
+
+	if file_name.is_empty():
+		file_name = lesson_title
+
+	# Make the filename safe.
+	file_name = file_name.replace("/", "_")
+	file_name = file_name.replace("\\", "_")
+	file_name = file_name.replace(":", "_")
+	file_name = file_name.replace("*", "_")
+	file_name = file_name.replace("?", "_")
+	file_name = file_name.replace("\"", "_")
+	file_name = file_name.replace("<", "_")
+	file_name = file_name.replace(">", "_")
+	file_name = file_name.replace("|", "_")
+
+	var download_path := (
+		download_directory.path_join(file_name + ".pdf")
+	)
+
+	print("[LessonPage] Download destination: ", download_path)
+
+	# --------------------------------------------------------
+	# Create HTTPRequest
+	# --------------------------------------------------------
+
+	var http := HTTPRequest.new()
+
+	http.timeout = 120.0
+	http.download_file = download_path
+
+	add_child(http)
+
+	http.request_completed.connect(
+		_on_pdf_download_completed.bind(
+			http,
+			download_path
 		)
 	)
 
-	preview_subject_input.text = str(
-		lesson_data.get(
-			"subject",
-            "No subject"
+	status_label.text = "Downloading lesson PDF..."
+
+	var error := http.request(file_url)
+
+	if error != OK:
+
+		http.queue_free()
+
+		status_label.text = "Unable to start PDF download."
+
+		push_error(
+			"[LessonPage] Download request error: "
+			+ str(error)
 		)
-	)
 
-	preview_description_input.text = str(
-		lesson_data.get(
-			"description",
-            "No description available."
+
+# ============================================================
+# PDF DOWNLOAD COMPLETED
+# ============================================================
+
+func _on_pdf_download_completed(
+	result: int,
+	response_code: int,
+	_headers: PackedStringArray,
+	_body: PackedByteArray,
+	http: HTTPRequest,
+	download_path: String
+) -> void:
+
+	if is_instance_valid(http):
+		http.queue_free()
+
+	# --------------------------------------------------------
+	# Check download result
+	# --------------------------------------------------------
+
+	if result != HTTPRequest.RESULT_SUCCESS \
+	or response_code != 200:
+
+		status_label.text = "PDF download failed."
+
+		push_error(
+			"[LessonPage] Download failed. Result: "
+			+ str(result)
+			+ " | HTTP: "
+			+ str(response_code)
 		)
-	)
 
-	# Show preview panel.
+		return
 
-	preview_panel.show()
+	# --------------------------------------------------------
+	# Confirm file exists
+	# --------------------------------------------------------
+
+	if not FileAccess.file_exists(download_path):
+
+		status_label.text = "Download finished, but file was not found."
+
+		push_error(
+			"[LessonPage] Downloaded file missing: "
+			+ download_path
+		)
+
+		return
+
+	status_label.text = "PDF downloaded successfully!"
+
+	print("[LessonPage] PDF saved: ", download_path)
 
 
 # ============================================================

@@ -1,5 +1,6 @@
 extends Control
 
+const HEAL_TARGET_MENU := preload("res://Scenes/UI/HealTargetMenu.tscn")
 const TOTAL_SLOTS := 40
 
 @onready var slot_container: GridContainer = $"Left Panel/ScrollContainer/SlotContainer"
@@ -21,6 +22,9 @@ var selected_item: ItemInstance
 
 func _ready():
 	CurrencyManager.coins_changed.connect(_on_coins_changed)
+	InventoryManager.inventory_changed.connect(refresh)
+	use_button.pressed.connect(_on_use_pressed)
+
 	_on_coins_changed(CurrencyManager.coins)
 	populate_inventory()
 	clear_selection()
@@ -91,3 +95,58 @@ func animate_item_icon():
 		0.0,
 		0.18
 	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+# ============================================================
+# USE ITEM
+# ============================================================
+
+func _on_use_pressed() -> void:
+
+	if selected_item == null:
+		return
+
+	if selected_item.data == null:
+		return
+
+	if not selected_item.data.consumable:
+		return
+
+	# Open the Atomon selection menu for healing items.
+	if selected_item.data.heal_amount > 0:
+
+		var heal_menu = HEAL_TARGET_MENU.instantiate()
+
+		add_child(heal_menu)
+
+		heal_menu.target_selected.connect(
+			_on_heal_target_selected
+		)
+
+		return
+
+	print("[InventoryUI] This consumable has no implemented effect yet.")
+
+
+# ============================================================
+# HEAL TARGET SELECTED
+# ============================================================
+
+func _on_heal_target_selected(
+	atomon: AtomonInstance
+) -> void:
+
+	if selected_item == null:
+		return
+
+	var success := InventoryManager.use_healing_item(
+		selected_item,
+		atomon
+	)
+
+	if success:
+		print("[InventoryUI] Healing item used successfully.")
+
+	# Refresh item slots and clear the selected item.
+	refresh()
+	clear_selection()

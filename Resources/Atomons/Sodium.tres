@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="AtomonData" format=3 uid="uid://2iaeuw54rigl"]
 
 [ext_resource type="Script" uid="uid://c3r52ktnjg7y" path="res://Resources/Scripts/MoveData.gd" id="1_0an4r"]
-[ext_resource type="Resource" uid="uid://tmx0111" path="res://Resources/Moves/Na_01.tres" id="2_0nwk3"]
+[ext_resource type="Resource" uid="uid://tmx0111" path="res://Resources/Moves/AtomiX_472_Moves_Compatible/Moves/Na_01.tres" id="2_0nwk3"]
 [ext_resource type="Script" uid="uid://dvv118enrwub6" path="res://Resources/Scripts/AtomonData.gd" id="2_ftkew"]
-[ext_resource type="Resource" uid="uid://tmx0112" path="res://Resources/Moves/Na_02.tres" id="3_l122i"]
-[ext_resource type="Resource" uid="uid://tmx0113" path="res://Resources/Moves/Na_03.tres" id="4_eywwf"]
-[ext_resource type="Resource" uid="uid://tmx0114" path="res://Resources/Moves/Na_04.tres" id="5_cskjt"]
+[ext_resource type="Resource" uid="uid://tmx0112" path="res://Resources/Moves/AtomiX_472_Moves_Compatible/Moves/Na_02.tres" id="3_l122i"]
+[ext_resource type="Resource" uid="uid://tmx0113" path="res://Resources/Moves/AtomiX_472_Moves_Compatible/Moves/Na_03.tres" id="4_eywwf"]
+[ext_resource type="Resource" uid="uid://tmx0114" path="res://Resources/Moves/AtomiX_472_Moves_Compatible/Moves/Na_04.tres" id="5_cskjt"]
 [ext_resource type="Texture2D" uid="uid://fc3cks5qnncc" path="res://Assets/Pets/Sodium (1).png" id="7_y7n6w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fx1pc"]

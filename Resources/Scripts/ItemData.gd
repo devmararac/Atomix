@@ -40,3 +40,7 @@ enum Rarity {
 @export var crafting_recipe := false
 @export var consumable := false
 @export var quest_item := false
+
+
+@export_category("Consumable Effects")
+@export var heal_amount: int = 0

@@ -338,7 +338,14 @@ func _firestore_document_to_quiz(document: Dictionary) -> Dictionary:
 		fields.get("question_count", {})
 	)
 	var created_at := _firestore_string(fields.get("created_at", {}))
-
+	var case_sensitive := _firestore_boolean(
+		fields.get("case_sensitive", {})
+	)
+	
+	var show_correct_answers := _firestore_boolean(
+		fields.get("show_correct_answers", {})
+	)
+	
 	# Preserve the actual Firestore document path for PATCH and DELETE.
 	var document_path := str(document.get("name", ""))
 
@@ -419,6 +426,7 @@ func _firestore_document_to_quiz(document: Dictionary) -> Dictionary:
 		"title": title,
 		"teacher_id": teacher_id,
 		"quiz_type": quiz_type,
+		"case_sensitive": case_sensitive,
 		"question_count": question_count,
 		"created_at": created_at,
 		"questions": questions,

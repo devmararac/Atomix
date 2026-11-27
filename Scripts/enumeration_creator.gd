@@ -24,14 +24,15 @@ var current_question_index: int = 0
 var answer_counter: int = MIN_ANSWER_COUNT
 
 @onready var quiz_title_input: LineEdit = $MarginContainer/VBoxContainer/QuizSettings/QuizTitle
-@onready var question_text: TextEdit = $MarginContainer/VBoxContainer/QuestionPanel/QuestionMargin/QuestionText
-@onready var answers_container: GridContainer = $MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers
-@onready var answer_scroll: ScrollContainer = $MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AnswerScroll
-@onready var add_answer_button: Button = $MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AddAnswerButton
+@onready var question_text: TextEdit = $MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/QuestionPanel/QuestionMargin/QuestionText
+@onready var answers_container: GridContainer = $MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel/Margin/VBox/Answers
+@onready var answer_scroll: ScrollContainer = $MarginContainer/VBoxContainer/AnswerScroll
+@onready var add_answer_button: Button = $MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AddAnswerButton
 @onready var previous_button: Button = $MarginContainer/VBoxContainer/NavigationBar/PreviousButton
 @onready var save_button: Button = $MarginContainer/VBoxContainer/NavigationBar/SaveButton
 @onready var next_button: Button = $MarginContainer/VBoxContainer/NavigationBar/NextButton
-
+@onready var case_sensitive_checkbox: CheckBox = $MarginContainer/VBoxContainer/HBoxContainer/CaseSensitive
+@onready var hide_answer_checkbox: CheckBox = $MarginContainer/VBoxContainer/HBoxContainer/HideAnswer
 
 func _ready() -> void:
 	firestore_url = (
@@ -41,7 +42,10 @@ func _ready() -> void:
 		+ DATABASE_ID
 		+ "/documents/quizzes"
 	)
-
+	
+	# Hide correct answers by default for new quizzes.
+	hide_answer_checkbox.button_pressed = true
+	
 	_configure_answer_scroll()
 	_update_answer_counter()
 
@@ -85,7 +89,29 @@ func _load_existing_quiz(quiz_data: Dictionary) -> void:
 	quiz_title = str(quiz_data.get("title", "Untitled Quiz"))
 	quiz_section = str(quiz_data.get("section", ""))
 	quiz_title_input.text = quiz_title
+	
+	var case_value: Variant = quiz_data.get("case_sensitive", false)
 
+	if case_value is Dictionary:
+		case_value = case_value.get("booleanValue", false)
+
+	case_sensitive_checkbox.button_pressed = bool(case_value)
+	
+	# Restore the saved correct-answer visibility setting.
+	# Older quizzes default to hiding correct answers.
+	var show_correct_answers: Variant = quiz_data.get(
+		"show_correct_answers",
+		false
+	)
+
+	if show_correct_answers is Dictionary:
+		show_correct_answers = show_correct_answers.get(
+			"booleanValue",
+			false
+		)
+
+	hide_answer_checkbox.button_pressed = not bool(show_correct_answers)
+	
 	questions.clear()
 
 	var saved_questions: Array = quiz_data.get("questions", [])
@@ -117,7 +143,10 @@ func _load_existing_quiz(quiz_data: Dictionary) -> void:
 
 func _apply_creator_mode() -> void:
 	var is_view_mode := creator_mode == CreatorMode.VIEW
-
+	case_sensitive_checkbox.disabled = is_view_mode
+	
+	hide_answer_checkbox.disabled = is_view_mode
+	
 	quiz_title_input.editable = not is_view_mode
 	question_text.editable = not is_view_mode
 	add_answer_button.disabled = is_view_mode
@@ -447,6 +476,12 @@ func _on_save_button_pressed() -> void:
 		"title": {"stringValue": quiz_title},
 		"quiz_type": {"stringValue": "enumeration"},
 		"question_count": {"integerValue": str(questions.size())},
+		"case_sensitive": {
+			"booleanValue": case_sensitive_checkbox.button_pressed
+		},
+		"show_correct_answers": {
+			"booleanValue": not hide_answer_checkbox.button_pressed
+		},
 		"questions": {
 			"arrayValue": {
 				"values": question_values

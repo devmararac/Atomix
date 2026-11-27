@@ -455,9 +455,9 @@ func send_email_verification() -> Dictionary:
 		"result": result
 	}
 
-
-# Send email-change verification to a newly entered email.
 func send_email_change_verification(new_email: String) -> Dictionary:
+
+	new_email = new_email.strip_edges().to_lower()
 
 	if Firebase.Auth == null:
 		return {
@@ -471,10 +471,10 @@ func send_email_change_verification(new_email: String) -> Dictionary:
 			"error": "No user is currently logged in."
 		}
 
-	if new_email.strip_edges().is_empty():
+	if new_email.is_empty():
 		return {
 			"success": false,
-			"error": "Please enter a new email address."
+			"error": "Please enter your new email address."
 		}
 
 	if Firebase.Auth.is_busy:
@@ -483,39 +483,41 @@ func send_email_change_verification(new_email: String) -> Dictionary:
 			"error": "Firebase is currently processing another request. Please wait."
 		}
 
-	print("[AuthManager] Requesting email-change verification for: ", new_email)
+	print("[AuthManager] Requesting Firebase email-change verification for: ", new_email)
 
-	Firebase.Auth.send_email_change_verification(new_email.strip_edges())
+	Firebase.Auth.send_email_change_verification(new_email)
 
-	var result: Array = await Firebase.Auth.credential_operation_completed
+	var response: Array = await Firebase.Auth.credential_operation_completed
 
-	if result.size() < 3:
+	if response.size() < 3:
 		return {
 			"success": false,
 			"error": "Invalid response from Firebase."
 		}
 
-	var operation: String = str(result[0])
-	var success: bool = bool(result[1])
-	var response: Dictionary = result[2]
+	var operation: String = str(response[0])
+	var success: bool = response[1]
+	var result: Dictionary = response[2]
 
-	if operation != "email_change" or not success:
+	print("[AuthManager] Operation: ", operation)
+	print("[AuthManager] Success: ", success)
+	print("[AuthManager] Firebase result: ", result)
+
+	if not success:
+		var error_message := str(
+			result.get("message", result.get("error", "Firebase failed to send the email."))
+		)
+
 		return {
 			"success": false,
-			"error": str(
-				response.get(
-					"message",
-					response.get("error", "Email-change verification failed.")
-				)
-			),
-			"result": response
+			"error": error_message,
+			"result": result
 		}
-
-	print("[AuthManager] Firebase accepted email-change verification request.")
 
 	return {
 		"success": true,
-		"result": response
+		"result": result,
+		"message": "Firebase verification email sent to " + new_email
 	}
 
 

@@ -24,6 +24,8 @@ var current_question_index := 0
 
 @onready var quiz_settings: Control = $MarginContainer/VBoxContainer/QuizSettings
 @onready var quiz_title_input: LineEdit = $MarginContainer/VBoxContainer/QuizSettings/QuizTitle
+@onready var case_sensitive_checkbox: CheckBox = $MarginContainer/VBoxContainer/HBoxContainer/CaseSensitive
+@onready var hide_answer_checkbox: CheckBox = $MarginContainer/VBoxContainer/HBoxContainer/HideAnswer
 @onready var question_text: TextEdit = $MarginContainer/VBoxContainer/QuestionPanel/QuestionMargin/QuestionText
 @onready var answer_text: TextEdit = $MarginContainer/VBoxContainer/AnswerPanel/Margin/VBox/AnswerText
 @onready var save_button: Button = $MarginContainer/VBoxContainer/NavigationBar/SaveButton
@@ -39,7 +41,10 @@ func _ready() -> void:
 		+ DATABASE_ID
 		+ "/documents/quizzes"
 	)
-
+	
+	# Hide correct answers by default for new quizzes.
+	hide_answer_checkbox.button_pressed = true
+	
 	if not save_button.pressed.is_connected(_on_save_button_pressed):
 		save_button.pressed.connect(_on_save_button_pressed)
 
@@ -121,6 +126,26 @@ func _load_existing_quiz(quiz_data: Dictionary) -> void:
 
 	current_question_index = 0
 	quiz_title_input.text = quiz_title
+	# Restore correct-answer visibility setting.
+	# Missing field defaults to hiding correct answers.
+	var show_correct_answers: bool = bool(
+		_get_field_value(
+			quiz_data,
+			"show_correct_answers",
+			false
+		)
+	)
+
+	hide_answer_checkbox.button_pressed = not show_correct_answers
+
+	# Load case-sensitive setting from the existing quiz.
+	var case_sensitive_value: Variant = _get_field_value(
+		quiz_data,
+		"case_sensitive",
+		false
+	)
+
+	case_sensitive_checkbox.button_pressed = bool(case_sensitive_value)
 
 	if questions.is_empty():
 		_clear_question()
@@ -132,37 +157,24 @@ func _load_existing_quiz(quiz_data: Dictionary) -> void:
 			+ "/databases/" + DATABASE_ID \
 			+ "/documents/quizzes/" + existing_quiz_id
 
-
 func _get_field_value(
 	data: Dictionary,
 	field_name: String,
 	default_value: Variant
 ) -> Variant:
-	if not data.has(field_name):
+	# Support both flattened quiz data and raw Firestore REST documents.
+	var source: Dictionary = data
+
+	if data.has("fields") and data["fields"] is Dictionary:
+		source = data["fields"]
+
+	if not source.has(field_name):
 		return default_value
 
-	var value: Variant = data[field_name]
+	var value: Variant = source[field_name]
 
-	# Support Firestore REST fields, such as {"stringValue": "..."}.
-	if value is Dictionary:
-		if value.has("stringValue"):
-			return value["stringValue"]
-		if value.has("integerValue"):
-			return int(value["integerValue"])
-		if value.has("doubleValue"):
-			return float(value["doubleValue"])
-		if value.has("booleanValue"):
-			return value["booleanValue"]
-		if value.has("arrayValue"):
-			var array_data: Dictionary = value["arrayValue"]
-			var result: Array = []
-			for entry in array_data.get("values", []):
-				result.append(_decode_firestore_value(entry))
-			return result
-		if value.has("mapValue"):
-			return _decode_firestore_value(value)
-
-	return value
+	# Decode Firestore REST value wrappers.
+	return _decode_firestore_value(value)
 
 
 func _decode_firestore_value(value: Variant) -> Variant:
@@ -205,7 +217,10 @@ func _apply_creator_mode() -> void:
 	quiz_title_input.editable = not is_view
 	question_text.editable = not is_view
 	answer_text.editable = not is_view
-
+	case_sensitive_checkbox.disabled = is_view
+	
+	hide_answer_checkbox.disabled = is_view
+	
 	save_button.visible = not is_view
 
 	if is_view:
@@ -410,6 +425,14 @@ func _on_save_button_pressed() -> void:
 		"quiz_type": {
 			"stringValue": QUIZ_TYPE
 		},
+		"case_sensitive": {
+			"booleanValue": case_sensitive_checkbox.button_pressed
+		},
+		
+		"show_correct_answers": {
+			"booleanValue": not hide_answer_checkbox.button_pressed
+		},
+
 		"question_count": {
 			"integerValue": str(questions.size())
 		},
@@ -436,11 +459,20 @@ func _on_save_button_pressed() -> void:
 	var json_body := JSON.stringify(document)
 
 	var target_url := ""
+
 	if creator_mode == CreatorMode.EDIT:
-		target_url = "https://firestore.googleapis.com/v1/" + existing_document_path
+		target_url = "https://firestore.googleapis.com/v1/" \
+			+ existing_document_path \
+			+ "?updateMask.fieldPaths=quiz_id" \
+			+ "&updateMask.fieldPaths=teacher_id" \
+			+ "&updateMask.fieldPaths=title" \
+			+ "&updateMask.fieldPaths=quiz_type" \
+			+ "&updateMask.fieldPaths=case_sensitive" \
+			+ "&updateMask.fieldPaths=show_correct_answers" \
+			+ "&updateMask.fieldPaths=question_count" \
+			+ "&updateMask.fieldPaths=questions"
 	else:
 		target_url = firestore_url + "/" + quiz_id
-
 	var http := HTTPRequest.new()
 	add_child(http)
 	http.request_completed.connect(

@@ -242,16 +242,6 @@ theme_override_font_sizes/font_size = 25
 text = "#"
 horizontal_alignment = 1
 
-[node name="FullName" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader/HBoxContainer" unique_id=1224342232]
-custom_minimum_size = Vector2(800, 0)
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
-theme_override_fonts/font = ExtResource("2_amdbu")
-theme_override_font_sizes/font_size = 25
-text = "NAME"
-horizontal_alignment = 1
-
 [node name="LRN" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader/HBoxContainer" unique_id=409395183]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -260,6 +250,16 @@ theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_amdbu")
 theme_override_font_sizes/font_size = 25
 text = "LRN"
+horizontal_alignment = 1
+
+[node name="FullName" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader/HBoxContainer" unique_id=1224342232]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("2_amdbu")
+theme_override_font_sizes/font_size = 25
+text = "NAME"
 horizontal_alignment = 1
 
 [node name="Section" type="Label" parent="PageBackground/MarginContainer/VBoxContainer/StudentTable/TableHeader/HBoxContainer" unique_id=1786853206]

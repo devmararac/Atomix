@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://e85rmrlumee0"]
+
+[ext_resource type="Script" uid="uid://bt7qfcgmmtria" path="res://Scripts/Admin/Teacher/section_button.gd" id="1_f76s5"]
+[ext_resource type="FontFile" uid="uid://c2isx77cwbm0s" path="res://Assets/Font/NicoPaint-Regular.woff" id="1_qdx7v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f76s5"]
+bg_color = Color(0.98039216, 0.92941177, 0.8392157, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="ProgressBackground"]
+bg_color = Color(0.85, 0.79, 0.68, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="ProgressFill"]
+bg_color = Color(0.47, 0.35, 0.235, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="SectionButton" type="Button" unique_id=1706782651]
+custom_minimum_size = Vector2(450, 170)
+anchors_preset = -1
+anchor_right = 0.22700001
+anchor_bottom = 0.23600002
+offset_right = 0.539978
+offset_bottom = 0.07998657
+theme_override_styles/normal = SubResource("StyleBoxFlat_f76s5")
+script = ExtResource("1_f76s5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=211514273]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.027
+anchor_top = 0.047000002
+anchor_right = 0.97300005
+anchor_bottom = 0.95300007
+offset_left = -0.15000057
+offset_top = 0.009999752
+offset_right = 0.14996338
+offset_bottom = -0.010009766
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer" unique_id=2039001248]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Section Name" type="Label" parent="VBoxContainer/Header" unique_id=162540793]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_qdx7v")
+theme_override_font_sizes/font_size = 25
+text = "Section"
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer/Header" unique_id=638387990]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NumberofStudents" type="Label" parent="VBoxContainer/Header" unique_id=1007200670]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_qdx7v")
+theme_override_font_sizes/font_size = 16
+text = "0 students"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Details" type="HBoxContainer" parent="VBoxContainer" unique_id=1754758284]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ProgressLabel" type="Label" parent="VBoxContainer/Details" unique_id=305946430]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
+theme_override_fonts/font = ExtResource("1_qdx7v")
+theme_override_font_sizes/font_size = 16
+text = "Overall Progress"
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=1863254654]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/VBoxContainer" unique_id=275295093]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/background = SubResource("ProgressBackground")
+theme_override_styles/fill = SubResource("ProgressFill")
+show_percentage = false
+
+[node name="Percentage" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=2142779560]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47, 0.35, 0.235, 1)
+theme_override_fonts/font = ExtResource("1_qdx7v")
+theme_override_font_sizes/font_size = 28
+text = "0%"
+horizontal_alignment = 1
+vertical_alignment = 1

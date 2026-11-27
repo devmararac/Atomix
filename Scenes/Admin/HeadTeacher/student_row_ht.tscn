@@ -76,16 +76,6 @@ theme_override_font_sizes/font_size = 25
 text = "#"
 horizontal_alignment = 1
 
-[node name="FullName" type="Label" parent="TableHeader/HBoxContainer" unique_id=1706244444]
-custom_minimum_size = Vector2(800, 0)
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
-theme_override_fonts/font = ExtResource("2_joabx")
-theme_override_font_sizes/font_size = 25
-text = "Student Name"
-horizontal_alignment = 1
-
 [node name="LRN" type="Label" parent="TableHeader/HBoxContainer" unique_id=1480672308]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -94,6 +84,16 @@ theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
 theme_override_fonts/font = ExtResource("2_joabx")
 theme_override_font_sizes/font_size = 25
 text = "LRN"
+horizontal_alignment = 1
+
+[node name="FullName" type="Label" parent="TableHeader/HBoxContainer" unique_id=1706244444]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.31, 0.22, 0.14, 1)
+theme_override_fonts/font = ExtResource("2_joabx")
+theme_override_font_sizes/font_size = 25
+text = "Student Name"
 horizontal_alignment = 1
 
 [node name="Section" type="Label" parent="TableHeader/HBoxContainer" unique_id=1200960962]
@@ -105,6 +105,7 @@ theme_override_fonts/font = ExtResource("2_joabx")
 theme_override_font_sizes/font_size = 25
 text = "Section"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Status" type="Label" parent="TableHeader/HBoxContainer" unique_id=1710033172]
 custom_minimum_size = Vector2(200, 0)

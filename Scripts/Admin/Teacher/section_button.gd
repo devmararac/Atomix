@@ -1,5 +1,4 @@
-
-extends Panel
+extends Button
 
 signal section_selected(section_name: String, record_type: String)
 
@@ -7,16 +6,34 @@ var section_name: String = ""
 var student_count: int = 0
 var record_type: String = "quiz"
 
+var progress_percentage: float = 0.0
+
 
 func _ready() -> void:
-	$VBoxContainer/NumberofStudents.text = str(student_count)
-	$VBoxContainer.get_node("Section Name").text = section_name
+	_update_display()
 
-	mouse_filter = Control.MOUSE_FILTER_STOP
+	pressed.connect(_on_pressed)
+
+func _update_display() -> void:
+	# Section name
+	$VBoxContainer/Header.get_node("Section Name").text = section_name
+
+	# Number of students
+	$VBoxContainer/Header/NumberofStudents.text = "%d students" % student_count
+
+	# Progress label
+	if record_type == "atomon":
+		$VBoxContainer/Details/ProgressLabel.text = "Overall Atomon Collection"
+	else:
+		$VBoxContainer/Details/ProgressLabel.text = "Overall Quiz Completion"
+
+	# Progress bar
+	$VBoxContainer/VBoxContainer/ProgressBar.max_value = 100
+	$VBoxContainer/VBoxContainer/ProgressBar.value = progress_percentage
+
+	# Percentage
+	$VBoxContainer/VBoxContainer/Percentage.text = "%.1f%%" % progress_percentage
 
 
-func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			section_selected.emit(section_name, record_type)
-			accept_event()
+func _on_pressed() -> void:
+	section_selected.emit(section_name, record_type)

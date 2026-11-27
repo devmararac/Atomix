@@ -25,6 +25,29 @@ const CLASS_CARD_SCENE: PackedScene = preload(
 	"Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer/Label2"
 )
 @onready var add_year_panel: Panel = get_node("Background/AddSchoolYear")
+
+@onready var carry_sections_panel: Panel = get_node(
+	"Background/CarrySections"
+)
+
+@onready var carry_sections_container: VBoxContainer = get_node(
+	"Background/CarrySections/VBoxContainer/ScrollContainer/CenterContainer/VBoxContainer"
+)
+
+@onready var carry_section_slot: Node = get_node(
+	"Background/CarrySections/VBoxContainer/ScrollContainer/CenterContainer/VBoxContainer/SectionSlot"
+)
+
+
+@onready var carry_skip_button: Button = get_node(
+	"Background/CarrySections/VBoxContainer/HBoxContainer/Skip"
+)
+
+@onready var carry_continue_button: Button = get_node(
+	"Background/CarrySections/VBoxContainer/HBoxContainer/Continue"
+)
+
+
 @onready var add_year_input: LineEdit = get_node(
 	"Background/AddSchoolYear/VBoxContainer/LineEdit"
 )
@@ -58,6 +81,10 @@ const CLASS_CARD_SCENE: PackedScene = preload(
 	"Background/ScrollContainer/CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/ArchiveButton/HBoxContainer2/Label2"
 )
 
+@onready var carry_source_year_option: OptionButton = get_node(
+	"Background/CarrySections/VBoxContainer/SourceYearOption"
+)
+
 @onready var teacher_selection: Panel = $Background/TeacherSelection
 	
 @onready var teacher_selection_title: Label = $Background/TeacherSelection/VBoxContainer/Title
@@ -84,6 +111,25 @@ var selected_year_id := ""
 var editing_section_id := ""
 
 var selected_archive_year_id := ""
+
+
+# =========================================================
+# CARRY SECTIONS - REVISION #3
+# =========================================================
+
+var carry_source_year_id: String = ""
+var carry_source_year_name: String = ""
+
+var carry_selected_sections: Array[Dictionary] = []
+var carry_section_slots: Array[Node] = []
+
+var carry_destination_year_id: String = ""
+
+# Sequential section-copy jobs
+var carry_copy_jobs: Array[Dictionary] = []
+var carry_copy_skipped_duplicates: Array[String] = []
+var carry_copy_total: int = 0
+var carry_copy_completed: int = 0
 
 var pending_action := ""
 var request_context: Dictionary = {}
@@ -125,6 +171,11 @@ func _ready() -> void:
 		archive_continue_button.pressed.connect(_on_archive_menu_continue_pressed)
 
 	add_year_panel.hide()
+	carry_sections_panel.hide()
+	carry_section_slot.hide()
+	carry_source_year_option.item_selected.connect(
+		_on_carry_source_year_selected
+	)
 	add_year_input.placeholder_text = "Enter starting year (e.g. 2026)"
 	section_input.placeholder_text = "Section Name"
 
@@ -152,6 +203,8 @@ func _ready() -> void:
 	teacher_confirm_button.pressed.connect(
 		_on_teacher_assignments_confirmed
 	)
+	carry_skip_button.pressed.connect(_on_carry_skip_pressed)
+	carry_continue_button.pressed.connect(_on_carry_continue_pressed)
 
 # --------------------------------------------------
 # AUTHENTICATION
@@ -378,6 +431,7 @@ func _parse_school_years(response: Dictionary) -> void:
 			break
 
 	_populate_year_selector()
+	_populate_carry_source_year_option()
 
 	# Prefer the active year. If none is active, select the first non-archived year.
 	selected_year_id = active_year_id
@@ -846,22 +900,18 @@ func _archive_school_year(year_id: String) -> void:
 		_show_error("Could not send the archive request.")
 		return
 
-	print("[Archive] Archive endpoint request sent: ", year_id)
+
 
 
 func _on_archive_school_year_completed(
 	result: int,
 	response_code: int,
-	response_headers: PackedStringArray,
 	response_body: PackedByteArray,
 	archive_request: HTTPRequest,
 	year_id: String
 ) -> void:
 	var response_text := response_body.get_string_from_utf8()
 	var response: Variant = JSON.parse_string(response_text)
-
-	print("[Archive] HTTP Status: ", response_code)
-	print("[Archive] Response: ", response_text)
 
 	archive_request.queue_free()
 	_set_busy(false)
@@ -972,9 +1022,6 @@ func _create_section_for_year(year_id: String, section_name: String) -> void:
 		}
 	}
 
-	print("[SchoolYearSections] Creating section under year ID: ", year_id)
-	print("[SchoolYearSections] Firestore path: ", path)
-
 	_set_busy(true)
 	_send_request(
 		"create_section",
@@ -1044,13 +1091,6 @@ func _update_section_for_year(
 		"section_path": section_path
 	}
 
-	print("[Section Rename] =========================")
-	print("[Section Rename] Old name: ", old_section_name)
-	print("[Section Rename] New name: ", section_name)
-	print("[Section Rename] Student/teacher jobs: ", rename_jobs.size())
-	print("[Section Rename] Loading quizzes next.")
-	print("[Section Rename] =========================")
-
 	_set_busy(true)
 
 	# 3. Load quizzes before sending the rename jobs.
@@ -1095,14 +1135,6 @@ func _queue_student_section_renames(
 			"type": "student"
 		})
 
-		print(
-			"[Section Rename] Queued student update: ",
-			student_id,
-			" | ",
-			old_section_name,
-			" -> ",
-			new_section_name
-			)
 
 
 func _queue_teacher_section_renames(
@@ -1156,14 +1188,6 @@ func _queue_teacher_section_renames(
 			"type": "teacher"
 		})
 
-		print(
-			"[Section Rename] Queued teacher update: ",
-			teacher_uid,
-			" | ",
-			old_section_name,
-			" -> ",
-			new_section_name
-		)
 
 
 
@@ -1243,16 +1267,6 @@ func _queue_assignment_section_renames(
 			"type": collection_name
 		})
 
-		print(
-			"[Section Rename] Queued ",
-			collection_name,
-			" update: ",
-			document_id,
-			" | ",
-			old_section_name,
-			" -> ",
-			new_section_name
-		 )
 
 
 func _queue_section_document_rename(context: Dictionary) -> void:
@@ -1275,9 +1289,6 @@ func _finish_loading_rename_documents(context: Dictionary) -> void:
 	# Queue the official section document update LAST.
 	_queue_section_document_rename(context)
 
-	print("[Section Rename] Total rename jobs queued: ", rename_jobs.size())
-	print("[Section Rename] Starting sequential updates.")
-
 	_send_next_rename_job()
 
 
@@ -1285,7 +1296,6 @@ func _finish_loading_rename_documents(context: Dictionary) -> void:
 func _send_next_rename_job() -> void:
 	# Stop safely if there are no more jobs.
 	if rename_jobs.is_empty():
-		print("[Section Rename] All rename jobs completed.")
 		_set_busy(false)
 		return
 
@@ -1320,9 +1330,6 @@ func _send_next_rename_job() -> void:
 		_show_error("Invalid section rename job.")
 		rename_jobs.clear()
 		return
-
-	print("[Section Rename] Sending job: ", job_type)
-	print("[Section Rename] Document: ", document_path)
 
 	# Send the PATCH request.
 	_send_patch(
@@ -1786,12 +1793,20 @@ func _on_request_completed(
 		"create_year":
 			var created_year_id := str(context.get("year_id", ""))
 
+			carry_destination_year_id = created_year_id
+			carry_source_year_id = ""
+			carry_source_year_name = ""
+			carry_selected_sections.clear()
+
 			ActivityLogManager.log_activity(
 				"Created School Year",
 				"Created school year: " + created_year_id,
 				"School Year",
 				created_year_id
 			)
+
+			carry_sections_panel.show()
+			carry_sections_panel.move_to_front()
 
 			_load_school_years()
 
@@ -1834,6 +1849,27 @@ func _on_request_completed(
 					_firestore_url("/databases/(default)/documents/teachers")
 				)
 				
+		"load_carry_sections":
+			var documents: Array = response.get("documents", [])
+			var source_sections: Array = []
+
+			for document in documents:
+				var fields: Dictionary = document.get("fields", {})
+				var section_name: String = str(
+					fields.get("name", {}).get("stringValue", "")
+				)
+
+				if section_name.is_empty():
+					continue
+
+				source_sections.append({
+					"name": section_name
+				})
+
+			_display_carry_sections(source_sections)
+
+		"load_carry_destination_sections":
+			_prepare_carry_copy_jobs(response)
 		
 		"rename_load_quizzes":
 			var old_name := str(context.get("old_section_name", ""))
@@ -1845,9 +1881,6 @@ func _on_request_completed(
 				old_name,
 				new_name
 			)
-
-			print("[Section Rename] Quiz scan completed.")
-			print("[Section Rename] Loading lessons next.")
 
 			_send_request(
 				"rename_load_lessons",
@@ -1870,15 +1903,9 @@ func _on_request_completed(
 				new_name
 			)
 
-			print("[Section Rename] Lesson scan completed.")
 
 			# Queue the official section document update last.
 			_queue_section_document_rename(context)
-
-			print(
-				"[Section Rename] All jobs queued: ",
-				rename_jobs.size()
-			)
 
 			_send_next_rename_job()
 
@@ -1924,6 +1951,16 @@ func _on_request_completed(
 			_reset_section_button()
 			_load_sections()
 
+
+		"carry_create_section":
+
+			carry_copy_completed += 1
+
+
+
+			_send_next_carry_copy_job()
+
+
 		"update_section":
 			var updated_section_year_id := str(context.get("year_id", ""))
 			var section_id := str(context.get("section_id", ""))
@@ -1964,19 +2001,15 @@ func _on_request_completed(
 		
 		
 		"rename_student_write":
-			print("[Section Rename] Student update successful.")
 			_send_next_rename_job()
 
 		"rename_teacher_write":
-			print("[Section Rename] Teacher update successful.")
 			_send_next_rename_job()
 
 		"rename_quiz_write":
-			print("[Section Rename] Quiz assignment updated successfully.")
 			_send_next_rename_job()
 
 		"rename_lesson_write":
-			print("[Section Rename] Lesson assignment updated successfully.")
 			_send_next_rename_job()
 
 
@@ -1985,7 +2018,6 @@ func _on_request_completed(
 			var renamed_section_id := str(context.get("section_id", ""))
 			var renamed_section_name := str(context.get("section_name", ""))
 
-			print("[Section Rename] Official section name updated.")
 
 			ActivityLogManager.log_activity(
 				"Renamed Section",
@@ -2012,7 +2044,7 @@ func _on_request_completed(
 			assignment_jobs.clear()
 			_set_busy(false)
 			_load_sections()
-	
+
 # --------------------------------------------------
 # UI HELPERS
 # --------------------------------------------------
@@ -2111,22 +2143,17 @@ func _restore_school_year(year_id: String) -> void:
 		_show_error("Could not send the school year restore request.")
 		return
 
-	print("[Restore] Restore endpoint request sent: ", year_id)
-
 
 func _on_restore_school_year_completed(
 	result: int,
 	response_code: int,
-	response_headers: PackedStringArray,
+	_response_headers: PackedStringArray,
 	response_body: PackedByteArray,
 	restore_request: HTTPRequest,
 	year_id: String
 ) -> void:
 	var response_text := response_body.get_string_from_utf8()
 	var response: Variant = JSON.parse_string(response_text)
-
-	print("[Restore] HTTP Status: ", response_code)
-	print("[Restore] Response: ", response_text)
 
 	restore_request.queue_free()
 	_set_busy(false)
@@ -2310,7 +2337,6 @@ func _test_archive_endpoint_authorization() -> void:
 	var token := _get_id_token()
 
 	if token.is_empty():
-		print("[Archive Test] No Firebase ID token available.")
 		return
 
 	var test_request := HTTPRequest.new()
@@ -2338,21 +2364,294 @@ func _test_archive_endpoint_authorization() -> void:
 	)
 
 	if error != OK:
-		print("[Archive Test] Could not send request. Error: ", error)
 		test_request.queue_free()
 		return
 
-	print("[Archive Test] Authorization test request sent.")
-
 
 func _on_archive_endpoint_auth_test_completed(
-	result: int,
-	response_code: int,
-	response_headers: PackedStringArray,
-	response_body: PackedByteArray,
+	_result: int,
+	_response_code: int,
+	_response_headers: PackedStringArray,
+	_response_body: PackedByteArray,
 	test_request: HTTPRequest
 ) -> void:
-	print("[Archive Test] HTTP Status: ", response_code)
-	print("[Archive Test] Response: ", response_body.get_string_from_utf8())
+
 
 	test_request.queue_free()
+
+
+func _on_carry_source_year_selected(index: int) -> void:
+	var source_year_id: String = carry_source_year_option.get_item_metadata(index)
+
+	if source_year_id == null:
+		return
+
+	carry_source_year_id = str(source_year_id)
+	carry_source_year_name = carry_source_year_option.get_item_text(index)
+
+	_load_carry_sections()
+
+func _populate_carry_source_year_option() -> void:
+	carry_source_year_option.clear()
+
+	carry_source_year_option.add_item("Select Source School Year")
+	carry_source_year_option.set_item_metadata(0, "")
+
+	for year in school_years:
+		var year_id := str(year.get("id", ""))
+		var year_name := str(year.get("name", "Unnamed school year"))
+
+		# Do not allow the newly created year to be its own source.
+		if year_id == carry_destination_year_id:
+			continue
+
+		carry_source_year_option.add_item(year_name)
+		carry_source_year_option.set_item_metadata(
+			carry_source_year_option.item_count - 1,
+			year_id
+		)
+
+	carry_source_year_option.select(0)
+
+	carry_source_year_id = ""
+	carry_source_year_name = ""
+
+
+func _clear_carry_section_slots() -> void:
+	for slot in carry_section_slots:
+		if is_instance_valid(slot):
+			slot.queue_free()
+
+	carry_section_slots.clear()
+	carry_selected_sections.clear()
+
+
+func _display_carry_sections(carry_sections_data: Array) -> void:
+	_clear_carry_section_slots()
+
+	for section in carry_sections_data:
+		var section_name: String = str(section.get("name", ""))
+
+		if section_name.is_empty():
+			continue
+
+		var slot := carry_section_slot.duplicate()
+		slot.show()
+
+		carry_sections_container.add_child(slot)
+		slot.setup(section_name)
+
+		slot.selection_changed.connect(
+			_on_carry_section_selection_changed
+		)
+
+		carry_section_slots.append(slot)
+
+func _on_carry_section_selection_changed(
+	section_name: String,
+	selected: bool
+) -> void:
+	if selected:
+		# Avoid duplicate selections.
+		for section in carry_selected_sections:
+			if str(section.get("name", "")) == section_name:
+				return
+
+		carry_selected_sections.append({
+			"name": section_name
+		})
+	else:
+		for i in range(carry_selected_sections.size() - 1, -1, -1):
+			if str(carry_selected_sections[i].get("name", "")) == section_name:
+				carry_selected_sections.remove_at(i)
+
+
+func _load_carry_sections() -> void:
+	if carry_source_year_id.is_empty():
+		_clear_carry_section_slots()
+		return
+
+	var sections_path := (
+		SCHOOL_YEARS_COLLECTION
+		+ "/"
+		+ carry_source_year_id
+		+ "/sections"
+	)
+
+
+	_send_request(
+		"load_carry_sections",
+		HTTPClient.METHOD_GET,
+		_firestore_url(sections_path),
+		{},
+		{
+			"source_year_id": carry_source_year_id
+		}
+	)
+
+func _on_carry_skip_pressed() -> void:
+
+	# Clear all carry-over selections
+	carry_source_year_id = ""
+	carry_source_year_name = ""
+	carry_selected_sections.clear()
+
+	# Clear displayed section slots
+	_clear_carry_section_slots()
+
+	# Close carry sections panel
+	carry_sections_panel.hide()
+
+func _on_carry_continue_pressed() -> void:
+
+	if carry_destination_year_id.is_empty():
+		_show_error("Destination school year is missing.")
+		return
+
+	if carry_source_year_id.is_empty():
+		_show_error("Select a source school year first.")
+		return
+
+	if carry_selected_sections.is_empty():
+		_show_error("Select at least one section to carry.")
+		return
+
+	if not pending_action.is_empty():
+		_show_error("Please wait for the current request to finish.")
+		return
+
+	carry_copy_jobs.clear()
+	carry_copy_skipped_duplicates.clear()
+	carry_copy_total = 0
+	carry_copy_completed = 0
+
+
+	var destination_path := (
+		SCHOOL_YEARS_COLLECTION
+		+ "/"
+		+ carry_destination_year_id
+		+ "/sections"
+	)
+
+	_set_busy(true)
+
+	_send_request(
+		"load_carry_destination_sections",
+		HTTPClient.METHOD_GET,
+		_firestore_url(destination_path)
+	)
+
+
+func _prepare_carry_copy_jobs(response: Dictionary) -> void:
+	var existing_names: Array[String] = []
+	var existing_ids: Array[String] = []
+
+	for document in response.get("documents", []):
+		if not document is Dictionary:
+			continue
+
+		var section := _parse_document(document)
+
+		var existing_name := str(section.get("name", "")).strip_edges()
+		var existing_id := str(section.get("id", ""))
+
+		if not existing_name.is_empty():
+			existing_names.append(existing_name.to_lower())
+
+		if not existing_id.is_empty():
+			existing_ids.append(existing_id)
+
+	carry_copy_jobs.clear()
+	carry_copy_skipped_duplicates.clear()
+
+	for selected_section in carry_selected_sections:
+		var section_name := str(
+			selected_section.get("name", "")
+		).strip_edges()
+
+		if section_name.is_empty():
+			continue
+
+		# Prevent duplicate section names.
+		if existing_names.has(section_name.to_lower()):
+			carry_copy_skipped_duplicates.append(section_name)
+			continue
+
+		# Use the same section ID format as normal section creation.
+		var section_id := section_name.replace("/", "-").replace(" ", "_")
+
+		# Avoid overwriting an existing document ID.
+		if existing_ids.has(section_id):
+			carry_copy_skipped_duplicates.append(section_name)
+			continue
+
+		var section_path := (
+			SCHOOL_YEARS_COLLECTION
+			+ "/"
+			+ carry_destination_year_id
+			+ "/sections/"
+			+ section_id
+		)
+
+		var section_body: Dictionary = {
+			"fields": {
+				"name": {"stringValue": section_name},
+				"student_count": {"integerValue": "0"},
+				"created_by": {"stringValue": current_uid}
+			}
+		}
+
+		carry_copy_jobs.append({
+			"path": section_path,
+			"body": section_body,
+			"section_id": section_id,
+			"section_name": section_name
+		})
+
+	carry_copy_total = carry_copy_jobs.size()
+	carry_copy_completed = 0
+
+	if carry_copy_jobs.is_empty():
+		_finish_carry_copy()
+		return
+
+	_send_next_carry_copy_job()
+
+
+func _send_next_carry_copy_job() -> void:
+	if carry_copy_jobs.is_empty():
+		_finish_carry_copy()
+		return
+
+	var job: Dictionary = carry_copy_jobs.pop_front()
+
+	var section_name := str(job.get("section_name", ""))
+	var section_path := str(job.get("path", ""))
+	var body: Dictionary = job.get("body", {})
+
+	_send_request(
+		"carry_create_section",
+		HTTPClient.METHOD_PATCH,
+		_firestore_url(section_path),
+		body,
+		{
+			"section_id": str(job.get("section_id", "")),
+			"section_name": section_name
+		}
+	)
+
+
+func _finish_carry_copy() -> void:
+	_set_busy(false)
+
+	for section_name in carry_copy_skipped_duplicates:
+		print("[CarrySections] Skipped section: ", section_name)
+
+	carry_sections_panel.hide()
+	_clear_carry_section_slots()
+
+	carry_source_year_id = ""
+	carry_source_year_name = ""
+	carry_selected_sections.clear()
+
+	_load_school_years()

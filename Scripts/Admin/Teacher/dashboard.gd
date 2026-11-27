@@ -24,6 +24,9 @@ const SECTION_QUIZ_ROW_SCENE: PackedScene = preload(
 # This is the VBoxContainer that holds the dynamically generated section rows.
 @onready var section_quiz_rows_container: VBoxContainer = $Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer/GraphPanel/ScrollContainer/CenterContainer/VBoxContainer
 
+@onready var section_option: OptionButton = $Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer/HBoxContainer/SectionOption
+
+
 var section_graph: DashboardGraph
 var users_graph: DashboardGraph
 var atomon_graph: DashboardGraph
@@ -35,6 +38,8 @@ var scoped_students: Array[Dictionary] = []
 var dashboard_sections: Array[Dictionary] = []
 var dashboard_quizzes: Array[Dictionary] = []
 
+var selected_section_id: String = ""
+var selected_section_name: String = ""
 
 func _ready() -> void:
 	_setup_graphs()
@@ -63,7 +68,43 @@ func _ready() -> void:
 		_update_dashboard(scoped_students)
 		return
 
-	TeacherDataManager.load_students()
+		# =========================================================
+		# LOAD DASHBOARD DATA IN THE CORRECT ORDER
+		# =========================================================
+
+		if _is_headteacher():
+			# 1. Load school years first.
+			await TeacherDataManager.load_school_years()
+
+			# 2. Always use the ACTIVE school year.
+			var year_id: String = TeacherDataManager.get_active_school_year_id()
+
+			if year_id.is_empty():
+				push_error("[HeadTeacher Dashboard] No active school year found.")
+
+				sections_value.text = "—"
+				dashboard_sections.clear()
+				scoped_students.clear()
+
+				_update_dashboard([])
+				return
+
+			print("[HeadTeacher Dashboard] Active school year: ", year_id)
+
+			# 3. Load sections belonging to the active school year.
+			await TeacherDataManager.load_sections(year_id)
+
+			# 4. Load students after the year is established.
+			await TeacherDataManager.load_students()
+
+		else:
+			# Teacher dashboard: retain the existing access restrictions.
+			await TeacherDataManager.load_students()
+
+		# 5. Load other dashboard data.
+		TeacherDataManager.load_teachers()
+		TeacherDataManager.load_users()
+		TeacherDataManager.load_quizzes()
 
 	if _is_headteacher():
 		await TeacherDataManager.load_school_years()
@@ -81,6 +122,7 @@ func _ready() -> void:
 		TeacherDataManager.load_teachers()
 		TeacherDataManager.load_users()
 		TeacherDataManager.load_quizzes()
+		
 
 
 # --------------------------------------------------
@@ -121,7 +163,11 @@ func _connect_data_signals() -> void:
 	if not TeacherDataManager.quizzes_error.is_connected(_on_quizzes_error):
 		TeacherDataManager.quizzes_error.connect(_on_quizzes_error)
 
-
+	if _is_headteacher():
+		if not section_option.item_selected.is_connected(_on_section_option_selected):
+			section_option.item_selected.connect(_on_section_option_selected)
+	
+	
 func _get_account_scope() -> void:
 	dashboard_role = ""
 	assigned_sections.clear()
@@ -229,6 +275,50 @@ func _update_dashboard(student_list: Array[Dictionary]) -> void:
 		_rebuild_section_quiz_rows()
 
 
+func _populate_section_option() -> void:
+	section_option.clear()
+
+	selected_section_id = ""
+	selected_section_name = ""
+
+	if dashboard_sections.is_empty():
+		return
+
+	var sorted_sections := dashboard_sections.duplicate()
+	sorted_sections.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		return str(a.get("name", "")).to_lower() < str(b.get("name", "")).to_lower()
+	)
+
+	for section in sorted_sections:
+		var section_id := str(section.get("uid", ""))
+		var section_name := str(section.get("name", "Unnamed Section"))
+
+		section_option.add_item(section_name)
+
+		var index := section_option.item_count - 1
+		section_option.set_item_metadata(index, section_id)
+
+	# Automatically select the first section
+	if section_option.item_count > 0:
+		section_option.select(0)
+
+		selected_section_id = str(section_option.get_item_metadata(0))
+		selected_section_name = section_option.get_item_text(0)
+
+	print("[HeadTeacher Dashboard] Section dropdown populated.")
+	print("[HeadTeacher Dashboard] Selected section: ", selected_section_name)
+	print("[HeadTeacher Dashboard] Selected section ID: ", selected_section_id)
+
+func _on_section_option_selected(index: int) -> void:
+	if index < 0 or index >= section_option.item_count:
+		return
+
+	selected_section_id = str(section_option.get_item_metadata(index))
+	selected_section_name = section_option.get_item_text(index)
+
+	print("[HeadTeacher Dashboard] Section selected: ", selected_section_name)
+	print("[HeadTeacher Dashboard] Section ID: ", selected_section_id)
+	_rebuild_section_quiz_rows()
 # --------------------------------------------------
 # SECTIONS
 # --------------------------------------------------
@@ -238,7 +328,10 @@ func _on_sections_loaded(section_list: Array) -> void:
 
 	for item in section_list:
 		if item is Dictionary:
+			print("[DEBUG SECTION DATA] ", item)
 			dashboard_sections.append(item)
+
+	_populate_section_option()
 
 	_update_stat_cards(scoped_students)
 	_update_section_graph(scoped_students)
@@ -511,18 +604,18 @@ func _rebuild_section_quiz_rows() -> void:
 	if dashboard_sections.is_empty():
 		return
 
-	var sorted_sections: Array[Dictionary] = dashboard_sections.duplicate()
-	sorted_sections.sort_custom(
-		func(a: Dictionary, b: Dictionary) -> bool:
-			return str(a.get("name", "")).to_lower() < str(b.get("name", "")).to_lower()
-	)
+	if selected_section_id.is_empty():
+		return
 
-	for section_data in sorted_sections:
+	for section_data in dashboard_sections:
 		var section_id: String = str(section_data.get("uid", "")).strip_edges()
 		var section_name: String = str(section_data.get("name", "")).strip_edges()
 
 		if section_name.is_empty():
 			section_name = section_id
+
+		if section_id != selected_section_id:
+			continue
 
 		if section_name.is_empty():
 			continue
@@ -531,7 +624,7 @@ func _rebuild_section_quiz_rows() -> void:
 
 		if row == null:
 			push_error("Dashboard: Unable to instantiate section quiz row.")
-			continue
+			return
 
 		section_quiz_rows_container.add_child(row)
 
@@ -540,6 +633,8 @@ func _rebuild_section_quiz_rows() -> void:
 			section_id,
 			section_name
 		)
+
+		return
 
 
 func _setup_section_quiz_row(
@@ -908,6 +1003,10 @@ func _show_error_state() -> void:
 	total_teachers_value.text = "—"
 	sections_value.text = "—"
 	average_score_value.text = "—"
+	
+	section_option.clear()
+	selected_section_id = ""
+	selected_section_name = ""
 
 	if section_graph != null:
 		section_graph.set_graph_data([], [], [])

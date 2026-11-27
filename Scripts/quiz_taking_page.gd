@@ -27,6 +27,8 @@ var text_answers: Array = []
 # Each question contains an Array of strings.
 var enumeration_answers: Array = []
 
+var case_sensitive: bool = false
+var show_correct_answers: bool = false
 # ============================================================
 # QUIZ TIMER
 # ============================================================
@@ -87,7 +89,14 @@ func _ready() -> void:
 		next_button.disabled = true
 
 		return
-
+	
+	case_sensitive = _get_case_sensitive_setting()
+	show_correct_answers = _get_show_correct_answers_setting()
+	print(
+		"[QuizTakingPage] Case-sensitive mode: ",
+		case_sensitive
+	)
+	
 	questions = quiz_data.get("questions", []).duplicate()
 
 	questions.shuffle()
@@ -1002,11 +1011,52 @@ func _save_quiz_result(score: int, total_questions: int, percentage: float) -> b
 
 	return false
 
+# ============================================================
+# ANSWER COMPARISON HELPERS
+# ============================================================
+
+func _get_case_sensitive_setting() -> bool:
+	var value: Variant = quiz_data.get("case_sensitive", false)
+
+	# Support Firestore REST field format.
+	if value is Dictionary:
+		value = value.get("booleanValue", false)
+
+	# Support documents that contain the Firestore fields wrapper.
+	if quiz_data.has("fields"):
+		var fields: Dictionary = quiz_data.get("fields", {})
+		var field_value: Variant = fields.get("case_sensitive", false)
+
+		if field_value is Dictionary:
+			field_value = field_value.get("booleanValue", false)
+
+		value = field_value
+
+	return bool(value)
+
+
+func _get_show_correct_answers_setting() -> bool:
+	var value: Variant = quiz_data.get("show_correct_answers", false)
+
+	if value is Dictionary:
+		value = value.get("booleanValue", false)
+
+	return bool(value)
+
+func _normalize_answer(answer: String) -> String:
+	var cleaned := answer.strip_edges()
+
+	if not case_sensitive:
+		cleaned = cleaned.to_lower()
+
+	return cleaned
+
+
+func _answers_match(student_answer: String, correct_answer: String) -> bool:
+	return _normalize_answer(student_answer) == _normalize_answer(correct_answer)
 
 	# ============================================================
-
 	# CHECK CURRENT ANSWER
-
 	# ============================================================
 
 func _check_current_answer() -> void:
@@ -1114,17 +1164,11 @@ func _check_identification_answer(
 	if correct_index >= answers.size():
 		return
 
-	var student_answer: String = \
-		text_answers[current_question_index] \
-		.strip_edges() \
-		.to_lower()
+	var student_answer: String = text_answers[current_question_index]
 
-	var correct_answer: String = \
-		str(answers[correct_index]) \
-		.strip_edges() \
-		.to_lower()
+	var correct_answer: String = str(answers[correct_index])
 
-	if student_answer == correct_answer:
+	if _answers_match(student_answer, correct_answer):
 
 		print(
 			"[QuizTakingPage] Identification answer correct."
@@ -1177,8 +1221,7 @@ func _check_enumeration_answer(
 
 	for answer in student_answers:
 
-		var cleaned: String = \
-			str(answer).strip_edges().to_lower()
+		var cleaned: String = _normalize_answer(str(answer))
 
 		if not cleaned.is_empty():
 
@@ -1190,8 +1233,7 @@ func _check_enumeration_answer(
 
 	for answer in accepted_answers:
 
-		var cleaned: String = \
-			str(answer).strip_edges().to_lower()
+		var cleaned: String = _normalize_answer(str(answer))
 
 		if not cleaned.is_empty():
 
@@ -1284,8 +1326,7 @@ func _calculate_final_score() -> void:
 
 			for answer in student_answers:
 
-				var cleaned: String = \
-					str(answer).strip_edges().to_lower()
+				var cleaned: String = _normalize_answer(str(answer))
 
 				if not cleaned.is_empty():
 
@@ -1297,8 +1338,7 @@ func _calculate_final_score() -> void:
 
 			for answer in accepted_answers:
 
-				var cleaned: String = \
-					str(answer).strip_edges().to_lower()
+				var cleaned: String = _normalize_answer(str(answer))
 
 				if not cleaned.is_empty():
 
@@ -1410,18 +1450,14 @@ func _calculate_final_score() -> void:
 			if correct_index >= answers.size():
 				continue
 
-			var identification_student: String = \
-				text_answers[i] \
-				.strip_edges() \
-				.to_lower()
+			var identification_student: String = text_answers[i]
 
-			var identification_correct: String = \
-				str(answers[correct_index]) \
-				.strip_edges() \
-				.to_lower()
-
-			if identification_student == \
-				identification_correct:
+			var identification_correct: String = str(answers[correct_index])
+		
+			if _answers_match(
+				identification_student,
+				identification_correct
+			):
 
 				score += 1
 
@@ -1484,51 +1520,30 @@ func _calculate_final_score() -> void:
 	# RESULT
 
 	# ============================================================
-
 func _show_result() -> void:
 
-
-	var total_questions: int = \
-		questions.size()
-
+	var total_questions: int = questions.size()
 	var percentage: float = 0.0
 
 	if total_questions > 0:
-
 		percentage = (
 			float(score)
 			/ float(total_questions)
 		) * 100.0
 
-	print(
-		"[QuizTakingPage] Quiz completed."
-	)
-
-	print(
-		"[QuizTakingPage] Score: ",
-		score,
-		" / ",
-		total_questions
-	)
-
-	print(
-		"[QuizTakingPage] Percentage: ",
-		percentage,
-		"%"
-	)
+	print("[QuizTakingPage] Quiz completed.")
+	print("[QuizTakingPage] Score: ", score, " / ", total_questions)
+	print("[QuizTakingPage] Percentage: ", percentage, "%")
 
 	question_counter.text = "Completed"
-
 	question_label.text = "QUIZ COMPLETE!"
 
+	# Clear the previous question's controls.
 	for child in answer_container.get_children():
-
 		if child == identification_input:
 			continue
-
 		if child == enumeration_input:
 			continue
-
 		child.queue_free()
 
 	await get_tree().process_frame
@@ -1536,43 +1551,121 @@ func _show_result() -> void:
 	identification_input.visible = false
 	enumeration_input.visible = false
 
+	# Display the score.
 	var score_label: Label = Label.new()
+	score_label.custom_minimum_size = Vector2(0, 100)
 
-	score_label.custom_minimum_size = \
-		Vector2(0, 100)
-
-	score_label.text = \
-		"Score: " \
-		+ str(score) \
-		+ " / " \
-		+ str(total_questions) \
-		+ "\n" \
-		+ "Percentage: " \
-		+ str(round(percentage)) \
+	score_label.text = (
+		"Score: "
+		+ str(score)
+		+ " / "
+		+ str(total_questions)
+		+ "\nPercentage: "
+		+ str(round(percentage))
 		+ "%"
-
-	score_label.horizontal_alignment = \
-		HORIZONTAL_ALIGNMENT_CENTER
-
-	score_label.vertical_alignment = \
-		VERTICAL_ALIGNMENT_CENTER
-
-	score_label.add_theme_font_size_override(
-		"font_size",
-		32
 	)
 
-	answer_container.add_child(
-		score_label
-	)
+	score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	score_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	score_label.add_theme_font_size_override("font_size", 32)
+
+	answer_container.add_child(score_label)
+
+	# Show the correct-answer review only if the teacher allows it.
+	if show_correct_answers:
+		_build_correct_answer_review()
 
 	next_button.visible = false
 
 	back_button.disabled = false
 	back_button.text = "← Back to Quizzes"
 
-	status_label.text = \
-		"Quiz completed."
+	if show_correct_answers:
+		status_label.text = "Quiz completed. Correct answers are available below."
+	else:
+		status_label.text = "Quiz completed."
+
+
+func _build_correct_answer_review() -> void:
+
+	var review_title: Label = Label.new()
+	review_title.text = "ANSWER REVIEW"
+	review_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	review_title.add_theme_font_size_override("font_size", 26)
+	review_title.custom_minimum_size = Vector2(0, 70)
+
+	answer_container.add_child(review_title)
+
+	for i in range(questions.size()):
+
+		var question_data: Dictionary = questions[i]
+
+		var question_type: String = str(
+			question_data.get("type", "multiple_choice")
+		).strip_edges().to_lower()
+
+		# Question heading.
+		var question_review: Label = Label.new()
+		question_review.text = "Question %d: %s" % [
+			i + 1,
+			str(question_data.get("question", ""))
+		]
+		question_review.autowrap_mode = TextServer.AUTOWRAP_WORD
+		question_review.add_theme_font_size_override("font_size", 20)
+
+		answer_container.add_child(question_review)
+
+		# Correct answer label.
+		var correct_label: Label = Label.new()
+		correct_label.add_theme_font_size_override("font_size", 18)
+		correct_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+
+		# Enumeration: all accepted answers are correct.
+		if _is_enumeration(question_type):
+
+			var accepted_answers: Array = question_data.get("answers", [])
+
+			if accepted_answers.is_empty():
+				correct_label.text = "Correct answers: Not configured."
+			else:
+				var answer_text: String = ""
+
+				for j in range(accepted_answers.size()):
+					answer_text += "• " + str(accepted_answers[j])
+
+					if j < accepted_answers.size() - 1:
+						answer_text += "\n"
+
+				correct_label.text = "Correct answers:\n" + answer_text
+
+		# Multiple Choice, True/False, Identification.
+		else:
+
+			var answers: Array = question_data.get("answers", [])
+			var correct_answers: Array = question_data.get("correct_answers", [])
+
+			if answers.is_empty() or correct_answers.is_empty():
+
+				correct_label.text = "Correct answer: Not configured."
+
+			else:
+
+				var correct_index: int = int(correct_answers[0])
+
+				if correct_index >= 0 and correct_index < answers.size():
+
+					correct_label.text = "Correct answer: " + str(answers[correct_index])
+
+				else:
+
+					correct_label.text = "Correct answer: Invalid answer index."
+
+		answer_container.add_child(correct_label)
+
+		# Add spacing between questions.
+		var separator: HSeparator = HSeparator.new()
+		answer_container.add_child(separator)
+
 
 # ============================================================
 # QUIZ TIMER

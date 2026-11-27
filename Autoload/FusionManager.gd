@@ -38,21 +38,13 @@ func _ready() -> void:
 func load_fusion_recipes() -> void:
 	fusion_recipes.clear()
 
-	print("")
-	print("========================================")
-	print("[FusionManager] LOADING FUSION RECIPES")
-	print("========================================")
 
 	for resource in FUSION_RECIPE_RESOURCES:
 
 		if resource == null:
-			print("[FusionManager] NULL resource!")
+
 			continue
 
-		print(
-			"[FusionManager] Checking resource: ",
-			resource.resource_path
-		)
 
 		if not resource is FusionRecipe:
 
@@ -65,34 +57,10 @@ func load_fusion_recipes() -> void:
 
 		var recipe: FusionRecipe = resource as FusionRecipe
 
-		print(
-			"[FusionManager] Formula: ",
-			recipe.chemical_formula
-		)
-
-		print(
-			"[FusionManager] Compound: ",
-			recipe.compound_name
-		)
-
-		print(
-			"[FusionManager] Requirements: ",
-			recipe.get_required_element_counts()
-		)
-
-		print(
-			"[FusionManager] Valid: ",
-			recipe.is_valid()
-		)
-
 		if recipe.is_valid():
 
 			fusion_recipes.append(recipe)
 
-			print(
-				"[FusionManager] Loaded Fusion Recipe: ",
-				recipe.chemical_formula
-			)
 
 		else:
 
@@ -101,13 +69,7 @@ func load_fusion_recipes() -> void:
 				+ recipe.chemical_formula
 			)
 
-	print(
-		"[FusionManager] Total Fusion Recipes Loaded: ",
-		fusion_recipes.size()
-	)
 
-	print("========================================")
-	print("")
 
 
 # ========================================================
@@ -164,10 +126,6 @@ func get_party_element_counts() -> Dictionary:
 func print_party_element_counts() -> void:
 	var counts := get_party_element_counts()
 
-	print(
-		"[FusionManager] Carried Atomon Element Counts: ",
-		counts
-	)
 
 
 # ========================================================
@@ -310,31 +268,3 @@ func get_available_fusion_recipes() -> Array[FusionRecipe]:
 		available.append(recipe)
 
 	return available
-
-
-# ========================================================
-# DEBUG
-# ========================================================
-
-func print_available_fusions() -> void:
-	var available := get_available_fusion_recipes()
-
-	print(
-		"[FusionManager] Available Fusion Recipes: ",
-		available.size()
-	)
-
-	for recipe in available:
-		print(
-			"[FusionManager] Available: ",
-			recipe.chemical_formula
-		)
-
-
-func print_fusion_atomon_candidates(recipe: FusionRecipe) -> void:
-	var candidates := get_fusion_atomon_candidates(recipe)
-
-	print(
-		"[FusionManager] Fusion Atomon Candidates: ",
-		candidates
-	)

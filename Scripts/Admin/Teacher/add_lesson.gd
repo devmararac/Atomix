@@ -27,7 +27,7 @@ enum FormMode {
 @onready var create_button: Button = $FormPanel/VBoxContainer/ButtonContainer/CreateButton
 @onready var cancel_button: Button = $FormPanel/VBoxContainer/ButtonContainer/CancelButton
 @onready var choose_file_button: Button = $FormPanel/VBoxContainer/HBoxContainer/VBoxContainer4/Panel/ChooseFileButton
-
+@onready var open_material_button: Button = $FormPanel/VBoxContainer/HBoxContainer/VBoxContainer4/Panel/OpenMaterialButton
 # ------------------------------------------------------------
 # FIRESTORE AND FORM STATE
 # ------------------------------------------------------------
@@ -113,6 +113,9 @@ func _apply_form_mode() -> void:
 			subject_input.editable = true
 			description_input.editable = true
 			create_button.visible = true
+			
+			open_material_button.visible = false
+			choose_file_button.visible = true
 
 			_load_lesson_fields() # Empty form when adding.
 
@@ -126,6 +129,9 @@ func _apply_form_mode() -> void:
 			subject_input.editable = true
 			description_input.editable = true
 			create_button.visible = true
+			
+			open_material_button.visible = false
+			choose_file_button.visible = true
 
 			_load_lesson_fields()
 
@@ -138,6 +144,18 @@ func _apply_form_mode() -> void:
 			title_input.editable = false
 			subject_input.editable = false
 			description_input.editable = false
+
+			# Prevent text fields from receiving focus in View mode.
+			title_input.focus_mode = Control.FOCUS_NONE
+			subject_input.focus_mode = Control.FOCUS_NONE
+			description_input.focus_mode = Control.FOCUS_NONE
+
+			# Release any previously focused text input.
+			get_viewport().gui_release_focus()
+			
+			open_material_button.visible = true
+			choose_file_button.visible = false
+			
 
 			_load_lesson_fields()
 
@@ -587,3 +605,42 @@ func _on_cloudinary_upload_finished(success: bool, file_url_or_error: String):
 		cancel_button.disabled = false
 		choose_file_button.disabled = false
 		_show_error("Upload Failed: " + file_url_or_error)
+
+
+# ------------------------------------------------------------
+# OPEN LESSON MATERIAL (VIEW MODE)
+# ------------------------------------------------------------
+# ------------------------------------------------------------
+# OPEN LESSON MATERIAL (VIEW MODE)
+# ------------------------------------------------------------
+
+func _on_open_material_button_pressed() -> void:
+	if form_mode != FormMode.VIEW:
+		return
+
+	var fields: Dictionary = lesson_data.get("fields", {})
+
+	var file_url := _get_string_field(
+		fields,
+		"file_url",
+		""
+	).strip_edges()
+
+	if file_url.is_empty():
+		_show_error("No lesson material is available.")
+		return
+
+	if not file_url.begins_with("https://"):
+		_show_error("Invalid lesson material URL.")
+		return
+
+	status_label.text = "Opening lesson material..."
+
+	var error := OS.shell_open(file_url)
+
+	if error == OK:
+		status_label.text = "Lesson material opened successfully."
+		print("[AddLesson] Opened Cloudinary lesson PDF: ", file_url)
+	else:
+		_show_error("Unable to open lesson material.")
+		push_error("[AddLesson] Failed to open PDF. Error: " + str(error))

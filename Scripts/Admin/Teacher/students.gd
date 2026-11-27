@@ -17,7 +17,7 @@ extends Control
 
 @onready var filter_button: OptionButton = $PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/FilterButton
 
-# Import Students button is located in the ImportStudents panel
+
 @onready var import_students_button = get_node_or_null(
 	"PageBackground/MarginContainer/VBoxContainer/ToolbarPanel/MarginContainer/HBoxContainer/ImportStudentButton"
 )
@@ -43,12 +43,66 @@ extends Control
 
 @onready var student_profile: Control = $StudentProfile
 
+
+# ============================================================
+# VIEW PANEL
+# ============================================================
+
+@onready var view_panel: Panel = get_node_or_null(
+	"PageBackground/ViewPanel"
+)
+
+@onready var view_close_button: TextureButton = get_node_or_null(
+	"PageBackground/ViewPanel/Button"
+)
+
+@onready var view_lrn_label: Label = get_node_or_null(
+	"PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Display/LRN/Label2"
+)
+
+@onready var view_name_label: Label = get_node_or_null(
+	"PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Display/Fullname/Label2"
+)
+
+@onready var view_section_label: Label = get_node_or_null(
+	"PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Display/Sections/Label2"
+)
+
+@onready var view_status_label: Label = get_node_or_null(
+	"PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Status/Label2"
+)
+
+@onready var view_edit_button: Button = get_node_or_null(
+	"PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/ActionButtons/Edit"
+)
+
+@onready var view_activate_button: Button = get_node_or_null(
+	"PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/ActionButtons/Activate"
+)
+
+@onready var view_deactivate_button: Button = get_node_or_null(
+	"PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/ActionButtons/Deactivate"
+)
+
+@onready var view_delete_button: Button = get_node_or_null(
+	"PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/ActionButtons/Delete"
+)
+
+
 # ============================================================
 # DELETE CONFIRMATION
 # ============================================================
 
 var delete_confirmation: ConfirmationDialog
+
 var pending_delete_student: Dictionary = {}
+
+
+# ============================================================
+# CURRENTLY SELECTED STUDENT
+# ============================================================
+
+var selected_student: Dictionary = {}
 
 
 # ============================================================
@@ -63,7 +117,11 @@ var pending_delete_student: Dictionary = {}
 # ============================================================
 
 func _ready() -> void:
-	# Hide optional panels only when they exist.
+
+	# --------------------------------------------------------
+	# Hide optional panels
+	# --------------------------------------------------------
+
 	if add_student_panel != null:
 		add_student_panel.hide()
 
@@ -72,13 +130,25 @@ func _ready() -> void:
 
 	if student_profile != null:
 		student_profile.hide()
-	
+
+	if view_panel != null:
+		view_panel.hide()
+
+
+	# --------------------------------------------------------
+	# DELETE CONFIRMATION
+	# --------------------------------------------------------
+
 	delete_confirmation = ConfirmationDialog.new()
+
 	delete_confirmation.title = "Delete Student"
+
 	delete_confirmation.dialog_text = (
 		"Are you sure you want to delete this student?"
 	)
+
 	delete_confirmation.ok_button_text = "Delete"
+
 	delete_confirmation.cancel_button_text = "Cancel"
 
 	add_child(delete_confirmation)
@@ -87,8 +157,13 @@ func _ready() -> void:
 		_on_delete_student_confirmed
 	)
 
-	# Connect teacher-only buttons only when they exist.
+
+	# --------------------------------------------------------
+	# ADD STUDENT BUTTON
+	# --------------------------------------------------------
+
 	if add_student_button != null:
+
 		if not add_student_button.pressed.is_connected(
 			_on_add_student_pressed
 		):
@@ -96,7 +171,13 @@ func _ready() -> void:
 				_on_add_student_pressed
 			)
 
+
+	# --------------------------------------------------------
+	# IMPORT STUDENTS BUTTON
+	# --------------------------------------------------------
+
 	if import_students_button != null:
+
 		if not import_students_button.pressed.is_connected(
 			_on_import_students_pressed
 		):
@@ -104,23 +185,58 @@ func _ready() -> void:
 				_on_import_students_pressed
 			)
 
-	# Shared search and filter controls.
-	if not search_input.text_changed.is_connected(_on_search_changed):
-		search_input.text_changed.connect(_on_search_changed)
 
-	if not filter_button.item_selected.is_connected(_on_filter_changed):
-		filter_button.item_selected.connect(_on_filter_changed)
+	# --------------------------------------------------------
+	# SEARCH
+	# --------------------------------------------------------
 
-	# Shared student data signals.
-	if not TeacherDataManager.students_loaded.is_connected(_on_students_loaded):
-		TeacherDataManager.students_loaded.connect(_on_students_loaded)
+	if not search_input.text_changed.is_connected(
+		_on_search_changed
+	):
+		search_input.text_changed.connect(
+			_on_search_changed
+		)
 
-	if not TeacherDataManager.students_error.is_connected(_on_students_error):
-		TeacherDataManager.students_error.connect(_on_students_error)
 
-	# Connect optional panel signals only when those panels exist.
+	# --------------------------------------------------------
+	# FILTER
+	# --------------------------------------------------------
+
+	if not filter_button.item_selected.is_connected(
+		_on_filter_changed
+	):
+		filter_button.item_selected.connect(
+		_on_filter_changed
+	)
+
+
+	# --------------------------------------------------------
+	# STUDENT DATA SIGNALS
+	# --------------------------------------------------------
+
+	if not TeacherDataManager.students_loaded.is_connected(
+		_on_students_loaded
+	):
+		TeacherDataManager.students_loaded.connect(
+			_on_students_loaded
+		)
+
+	if not TeacherDataManager.students_error.is_connected(
+		_on_students_error
+	):
+		TeacherDataManager.students_error.connect(
+		_on_students_error
+	)
+
+
+	# --------------------------------------------------------
+	# ADD STUDENT SIGNAL
+	# --------------------------------------------------------
+
 	if add_student_panel != null:
+
 		if add_student_panel.has_signal("student_created"):
+
 			if not add_student_panel.is_connected(
 				"student_created",
 				Callable(self, "_on_student_created")
@@ -130,8 +246,15 @@ func _ready() -> void:
 					Callable(self, "_on_student_created")
 				)
 
+
+	# --------------------------------------------------------
+	# IMPORT STUDENTS SIGNAL
+	# --------------------------------------------------------
+
 	if import_students_panel != null:
+
 		if import_students_panel.has_signal("students_imported"):
+
 			if not import_students_panel.is_connected(
 				"students_imported",
 				Callable(self, "_on_students_imported")
@@ -141,7 +264,90 @@ func _ready() -> void:
 					Callable(self, "_on_students_imported")
 				)
 
+
+	# --------------------------------------------------------
+	# VIEW PANEL BUTTONS
+	# --------------------------------------------------------
+
+	if view_close_button != null:
+
+		if not view_close_button.pressed.is_connected(
+			_on_view_close_pressed
+		):
+			view_close_button.pressed.connect(
+				_on_view_close_pressed
+			)
+
+
+	if view_edit_button != null:
+
+		if not view_edit_button.pressed.is_connected(
+			_on_view_edit_pressed
+		):
+			view_edit_button.pressed.connect(
+				_on_view_edit_pressed
+			)
+
+
+	if view_activate_button != null:
+
+		if not view_activate_button.pressed.is_connected(
+			_on_view_activate_pressed
+		):
+			view_activate_button.pressed.connect(
+				_on_view_activate_pressed
+			)
+
+
+	if view_deactivate_button != null:
+
+		if not view_deactivate_button.pressed.is_connected(
+			_on_view_deactivate_pressed
+		):
+			view_deactivate_button.pressed.connect(
+				_on_view_deactivate_pressed
+			)
+
+
+	if view_delete_button != null:
+
+		if not view_delete_button.pressed.is_connected(
+			_on_view_delete_pressed
+		):
+			view_delete_button.pressed.connect(
+				_on_view_delete_pressed
+			)
+
+	
+	# ============================================================
+	# VIEW PANEL MOUSE INPUT FIX
+	# ============================================================
+
+	if view_panel != null:
+
+		var panel_content := view_panel.get_node_or_null("VBoxContainer")
+
+		if panel_content is Control:
+			panel_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+
+	if view_close_button != null:
+
+		view_close_button.mouse_filter = Control.MOUSE_FILTER_STOP
+
+		view_close_button.z_index = 1000
+
+		view_close_button.show()
+
+		view_close_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
+	
+	# --------------------------------------------------------
+	# INITIAL UI
+	# --------------------------------------------------------
+
 	empty_state.show()
+
 	load_students()
 
 
@@ -151,9 +357,7 @@ func _ready() -> void:
 
 func _on_refresh_pressed() -> void:
 
-	print(
-		"[Students] Refresh button pressed."
-	)
+	print("[Students] Refresh button pressed.")
 
 	load_students()
 
@@ -163,32 +367,53 @@ func _on_refresh_pressed() -> void:
 # ============================================================
 
 func _on_add_student_pressed() -> void:
+
 	if add_student_panel == null:
 		return
 
 	print("[Students] Opening Add Student panel.")
 
+	close_view_panel()
+
 	if import_students_panel != null:
 		import_students_panel.hide()
+
+	if student_profile != null:
+		student_profile.hide()
 
 	add_student_panel.show()
 	add_student_panel.move_to_front()
 
 
+# ============================================================
+# IMPORT STUDENTS
+# ============================================================
+
 func _on_import_students_pressed() -> void:
+
 	if import_students_panel == null:
 		return
 
 	print("[Students] Opening Import Students panel.")
 
+	close_view_panel()
+
 	if add_student_panel != null:
 		add_student_panel.hide()
+
+	if student_profile != null:
+		student_profile.hide()
 
 	import_students_panel.show()
 	import_students_panel.move_to_front()
 
 
+# ============================================================
+# STUDENT CREATED
+# ============================================================
+
 func _on_student_created() -> void:
+
 	print("[Students] Student created.")
 
 	if add_student_panel != null:
@@ -197,7 +422,12 @@ func _on_student_created() -> void:
 	load_students()
 
 
+# ============================================================
+# STUDENTS IMPORTED
+# ============================================================
+
 func _on_students_imported() -> void:
+
 	print("[Students] Students imported successfully.")
 
 	if import_students_panel != null:
@@ -246,7 +476,6 @@ func _on_sort_changed(
 func clear_rows() -> void:
 
 	for child in rows.get_children():
-
 		child.queue_free()
 
 
@@ -256,15 +485,59 @@ func clear_rows() -> void:
 
 func load_students() -> void:
 
-	print(
-		"[Students] Requesting student data..."
-	)
+	print("[Students] Requesting students for active school year...")
 
 	clear_rows()
 
 	empty_state.show()
 
-	TeacherDataManager.load_students()
+
+	# --------------------------------------------------------
+	# 1. Load school years
+	# --------------------------------------------------------
+
+	await TeacherDataManager.load_school_years()
+
+
+	var active_year_id: String = (
+		TeacherDataManager.get_active_school_year_id()
+	)
+
+
+	if active_year_id.is_empty():
+
+		push_error("[Students] No active school year found.")
+
+		clear_rows()
+
+		empty_state.show()
+
+		return
+
+
+	print("[Students] Active school year: ", active_year_id)
+
+
+	# --------------------------------------------------------
+	# 2. Load sections
+	# --------------------------------------------------------
+
+	await TeacherDataManager.load_sections(
+		active_year_id
+	)
+
+
+	print(
+		"[Students] Active-year sections loaded: ",
+		TeacherDataManager.sections_data.size()
+	)
+
+
+	# --------------------------------------------------------
+	# 3. Load students
+	# --------------------------------------------------------
+
+	await TeacherDataManager.load_students()
 
 
 # ============================================================
@@ -319,9 +592,9 @@ func display_students() -> void:
 	var filtered_students: Array[Dictionary] = []
 
 
-	# ========================================================
+	# --------------------------------------------------------
 	# SEARCH TEXT
-	# ========================================================
+	# --------------------------------------------------------
 
 	var search_text: String = (
 		search_input.text
@@ -333,42 +606,27 @@ func display_students() -> void:
 	for student_data in all_students:
 
 		var student_name: String = str(
-			student_data.get(
-				"name",
-				""
-			)
+			student_data.get("name", "")
 		).to_lower()
 
 
 		var email: String = str(
-			student_data.get(
-				"email",
-				""
-			)
+			student_data.get("email", "")
 		).to_lower()
 
 
 		var student_id: String = str(
-			student_data.get(
-				"student_id",
-				""
-			)
+			student_data.get("student_id", "")
 		).to_lower()
 
 
 		var section: String = str(
-			student_data.get(
-				"section",
-				""
-			)
+			student_data.get("section", "")
 		).to_lower()
 
 
 		var school_year: String = str(
-			student_data.get(
-				"school_year",
-				""
-			)
+			student_data.get("school_year", "")
 		).to_lower()
 
 
@@ -402,9 +660,9 @@ func display_students() -> void:
 			)
 
 
-	# ========================================================
+	# --------------------------------------------------------
 	# FILTER
-	# ========================================================
+	# --------------------------------------------------------
 
 	var filter_index: int = filter_button.selected
 
@@ -422,9 +680,10 @@ func display_students() -> void:
 			filtered_students
 		)
 
-	# ========================================================
+
+	# --------------------------------------------------------
 	# EMPTY STATE
-	# ========================================================
+	# --------------------------------------------------------
 
 	if filtered_students.is_empty():
 
@@ -436,9 +695,9 @@ func display_students() -> void:
 	empty_state.hide()
 
 
-	# ========================================================
+	# --------------------------------------------------------
 	# CREATE STUDENT ROWS
-	# ========================================================
+	# --------------------------------------------------------
 
 	var number: int = 1
 
@@ -446,21 +705,20 @@ func display_students() -> void:
 	for student_data in filtered_students:
 
 		if student_row_scene == null:
+
 			push_error(
 				"[Students] No student row scene assigned in the Inspector."
 			)
+
 			return
+
 
 		var row: Control = student_row_scene.instantiate()
 
-		rows.add_child(
-			row
-		)
+		rows.add_child(row)
 
 
-		if row.has_method(
-			"setup"
-		):
+		if row.has_method("setup"):
 
 			row.setup(
 				student_data,
@@ -468,26 +726,33 @@ func display_students() -> void:
 			)
 
 
-		# Open student profile.
+		# View student details panel.
 		if row.has_signal("student_clicked"):
+
 			row.student_clicked.connect(
 				_on_student_container_student_clicked
 			)
 
-		# Update Active/Inactive status.
+
+		# Active/Inactive status changes.
 		if row.has_signal("status_change_requested"):
+
 			row.status_change_requested.connect(
 				_on_student_status_change_requested
 			)
 
+
 		# Edit student.
 		if row.has_signal("edit_requested"):
+
 			row.edit_requested.connect(
 				_on_student_edit_requested
 			)
 
+
 		# Delete student.
 		if row.has_signal("delete_requested"):
+
 			row.delete_requested.connect(
 				_on_student_delete_requested
 			)
@@ -505,10 +770,7 @@ func get_student_id(
 ) -> String:
 
 	return str(
-		data.get(
-			"student_id",
-			""
-		)
+		data.get("student_id", "")
 	)
 
 
@@ -521,10 +783,7 @@ func get_student_name(
 ) -> String:
 
 	return str(
-		data.get(
-			"name",
-			"Unknown Student"
-		)
+		data.get("name", "Unknown Student")
 	)
 
 
@@ -537,10 +796,7 @@ func get_student_section(
 ) -> String:
 
 	return str(
-		data.get(
-			"section",
-			""
-		)
+		data.get("section", "")
 	)
 
 
@@ -553,10 +809,7 @@ func get_school_year(
 ) -> String:
 
 	return str(
-		data.get(
-			"school_year",
-			""
-		)
+		data.get("school_year", "")
 	)
 
 
@@ -569,10 +822,7 @@ func get_student_email(
 ) -> String:
 
 	return str(
-		data.get(
-			"email",
-			"No email"
-		)
+		data.get("email", "No email")
 	)
 
 
@@ -591,7 +841,6 @@ func get_elements_collected(
 
 
 	if not progress_value is Dictionary:
-
 		return 0
 
 
@@ -600,10 +849,7 @@ func get_elements_collected(
 
 	return clamp(
 		int(
-			progress.get(
-				"elements_collected",
-				0
-			)
+			progress.get("elements_collected", 0)
 		),
 		0,
 		118
@@ -625,7 +871,6 @@ func get_elements_total(
 
 
 	if not progress_value is Dictionary:
-
 		return 118
 
 
@@ -633,15 +878,11 @@ func get_elements_total(
 
 
 	var total: int = int(
-		progress.get(
-			"elements_total",
-			118
-		)
+		progress.get("elements_total", 118)
 	)
 
 
 	if total <= 0:
-
 		return 118
 
 
@@ -656,18 +897,12 @@ func get_student_progress(
 	data: Dictionary
 ) -> float:
 
-	var collected: int = get_elements_collected(
-		data
-	)
+	var collected: int = get_elements_collected(data)
 
-
-	var total: int = get_elements_total(
-		data
-	)
+	var total: int = get_elements_total(data)
 
 
 	if total <= 0:
-
 		return 0.0
 
 
@@ -690,41 +925,25 @@ func get_last_active_timestamp(
 	data: Dictionary
 ) -> int:
 
-	var value = data.get(
-		"last_active",
-		0
-	)
+	var value = data.get("last_active", 0)
 
 
-	# Normal Unix timestamp
 	if value is int:
-
 		return int(value)
 
 
-	# Firebase may return a float
 	if value is float:
-
 		return int(value)
 
 
-	# Numeric string
 	if value is String:
 
 		if value.strip_edges().is_valid_int():
-
-			return int(
-				value.strip_edges()
-			)
+			return int(value.strip_edges())
 
 
 		if value.strip_edges().is_valid_float():
-
-			return int(
-				float(
-					value.strip_edges()
-				)
-			)
+			return int(float(value.strip_edges()))
 
 
 	return 0
@@ -734,13 +953,18 @@ func get_last_active_timestamp(
 # ACCOUNT STATUS
 # ============================================================
 
-func get_student_status(data: Dictionary) -> String:
+func get_student_status(
+	data: Dictionary
+) -> String:
+
 	var status: String = str(
 		data.get("status", "inactive")
 	).strip_edges().to_lower()
 
+
 	if status.is_empty():
 		return "inactive"
+
 
 	return status
 
@@ -752,11 +976,15 @@ func get_student_status(data: Dictionary) -> String:
 func get_active_students(
 	student_list: Array[Dictionary]
 ) -> Array[Dictionary]:
+
 	var result: Array[Dictionary] = []
 
+
 	for student_data in student_list:
+
 		if get_student_status(student_data) == "active":
 			result.append(student_data)
+
 
 	return result
 
@@ -768,56 +996,276 @@ func get_active_students(
 func get_inactive_students(
 	student_list: Array[Dictionary]
 ) -> Array[Dictionary]:
+
 	var result: Array[Dictionary] = []
 
+
 	for student_data in student_list:
+
 		if get_student_status(student_data) == "inactive":
 			result.append(student_data)
+
 
 	return result
 
 
 # ============================================================
-# STUDENT CLICKED
+# STUDENT ROW VIEW CLICKED
+# ============================================================
+# This now opens the existing ViewPanel instead of StudentProfile.
 # ============================================================
 
 func _on_student_container_student_clicked(
 	student_data: Dictionary
 ) -> void:
-	print("[Students] Student clicked!")
 
-	if not is_instance_valid(student_profile):
-		push_error("[Students] StudentProfile reference is invalid.")
+	print("[Students] View clicked.")
+
+	selected_student = student_data.duplicate(true)
+
+	print(
+		"[Students] Selected student: ",
+		get_student_name(selected_student)
+	)
+
+	open_view_panel(selected_student)
+
+
+# ============================================================
+# OPEN VIEW PANEL
+# ============================================================
+
+func open_view_panel(
+	student_data: Dictionary
+) -> void:
+
+	if view_panel == null:
+
+		push_error(
+			"[Students] ViewPanel node was not found."
+		)
+
 		return
 
-	print("[Students] Selected student: ", student_data.get("name", "Unknown Student"))
-	print("[Students] Profile path: ", student_profile.get_path())
 
-	# Close other panels.
-	if is_instance_valid(add_student_panel):
+	selected_student = student_data.duplicate(true)
+
+
+	# --------------------------------------------------------
+	# Populate student information
+	# --------------------------------------------------------
+
+	if view_lrn_label != null:
+
+		view_lrn_label.text = get_student_id(
+			selected_student
+		)
+
+
+	if view_name_label != null:
+
+		view_name_label.text = get_student_name(
+			selected_student
+		)
+
+
+	if view_section_label != null:
+
+		view_section_label.text = get_student_section(
+			selected_student
+		)
+
+
+	if view_status_label != null:
+
+		view_status_label.text = get_student_status(
+			selected_student
+		).capitalize()
+
+
+	# --------------------------------------------------------
+	# Configure action buttons based on account status
+	# --------------------------------------------------------
+
+	var status := get_student_status(
+		selected_student
+	)
+
+
+	if view_activate_button != null:
+
+		view_activate_button.visible = (
+			status == "inactive"
+		)
+
+
+	if view_deactivate_button != null:
+
+		view_deactivate_button.visible = (
+			status == "active"
+		)
+
+
+	# --------------------------------------------------------
+	# Deletion is available only for inactive students.
+	# --------------------------------------------------------
+
+	if view_delete_button != null:
+
+		view_delete_button.visible = (
+			status == "inactive"
+		)
+
+
+	# --------------------------------------------------------
+	# Hide other panels
+	# --------------------------------------------------------
+
+	if add_student_panel != null:
 		add_student_panel.hide()
 
-	if is_instance_valid(import_students_panel):
+	if import_students_panel != null:
 		import_students_panel.hide()
 
-	# Populate the profile before displaying it.
-	if student_profile.has_method("setup"):
-		student_profile.setup(student_data)
-	elif student_profile.has_method("set_student"):
-		student_profile.set_student(student_data)
-	else:
-		push_error("[Students] StudentProfile has no setup() or set_student() method.")
+	if student_profile != null:
+		student_profile.hide()
+
+
+	# --------------------------------------------------------
+	# Display panel
+	# --------------------------------------------------------
+
+	view_panel.show()
+
+	view_panel.z_index = 100
+
+	view_panel.move_to_front()
+
+
+	print(
+		"[Students] ViewPanel opened for: ",
+		get_student_name(selected_student)
+	)
+
+
+# ============================================================
+# CLOSE VIEW PANEL BUTTON
+# ============================================================
+
+func _on_view_close_pressed() -> void:
+
+	close_view_panel()
+
+
+# ============================================================
+# CLOSE VIEW PANEL
+# ============================================================
+
+func close_view_panel() -> void:
+
+	if view_panel != null:
+		view_panel.hide()
+
+	selected_student.clear()
+
+
+# ============================================================
+# EDIT BUTTON IN VIEW PANEL
+# ============================================================
+
+func _on_view_edit_pressed() -> void:
+
+	if selected_student.is_empty():
 		return
 
-	# Display the profile above the student list.
-	student_profile.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	student_profile.z_index = 100
-	student_profile.show()
-	student_profile.move_to_front()
 
-	print("[Students] Profile visible: ", student_profile.visible)
-	print("[Students] Profile size: ", student_profile.size)
-	print("[Students] Profile global position: ", student_profile.global_position)
+	print(
+		"[Students] ViewPanel Edit pressed for: ",
+		get_student_name(selected_student)
+	)
+
+
+	var student_to_edit := selected_student.duplicate(true)
+
+
+	close_view_panel()
+
+
+	_on_student_edit_requested(
+		student_to_edit
+	)
+
+
+# ============================================================
+# ACTIVATE BUTTON IN VIEW PANEL
+# ============================================================
+
+func _on_view_activate_pressed() -> void:
+
+	if selected_student.is_empty():
+		return
+
+
+	print(
+		"[Students] ViewPanel Activate pressed for: ",
+		get_student_name(selected_student)
+	)
+
+
+	await _on_student_status_change_requested(
+		selected_student.duplicate(true),
+		true
+	)
+
+
+# ============================================================
+# DEACTIVATE BUTTON IN VIEW PANEL
+# ============================================================
+
+func _on_view_deactivate_pressed() -> void:
+
+	if selected_student.is_empty():
+		return
+
+
+	print(
+		"[Students] ViewPanel Deactivate pressed for: ",
+		get_student_name(selected_student)
+	)
+
+
+	await _on_student_status_change_requested(
+		selected_student.duplicate(true),
+		false
+	)
+
+
+# ============================================================
+# DELETE BUTTON IN VIEW PANEL
+# ============================================================
+
+func _on_view_delete_pressed() -> void:
+
+	if selected_student.is_empty():
+		return
+
+
+	# --------------------------------------------------------
+	# SAFETY CHECK
+	# --------------------------------------------------------
+
+	if get_student_status(selected_student) != "inactive":
+
+		push_warning(
+			"[Students] Only inactive students can be deleted."
+		)
+
+		return
+
+
+	_on_student_delete_requested(
+		selected_student.duplicate(true)
+	)
 
 
 # ============================================================
@@ -826,7 +1274,8 @@ func _on_student_container_student_clicked(
 
 func close_student_profile() -> void:
 
-	student_profile.hide()
+	if student_profile != null:
+		student_profile.hide()
 
 
 # ============================================================
@@ -837,18 +1286,39 @@ func _on_student_status_change_requested(
 	student_data: Dictionary,
 	is_active: bool
 ) -> void:
+	
+	print("========== STUDENT STATUS DEBUG ==========")
+	print("Student Name: ", student_data.get("name", ""))
+	print("Student UID: ", student_data.get("uid", ""))
+	print("Student Section: ", student_data.get("section", ""))
+	print("Student School Year: ", student_data.get("school_year", ""))
+	print("Student Teacher ID: ", student_data.get("teacher_id", ""))
+	print("Current Status: ", student_data.get("status", ""))
+	print("Requested Status: ", "active" if is_active else "inactive")
+	print("=======================================")
+	
 	var student_uid := str(
 		student_data.get("uid", "")
 	).strip_edges()
 
+
 	if student_uid.is_empty():
+
 		push_error(
 			"[Students] Cannot update status: student UID is missing."
 		)
+
 		load_students()
+
 		return
 
-	var new_status := "active" if is_active else "inactive"
+
+	var new_status := (
+		"active"
+		if is_active
+		else "inactive"
+	)
+
 
 	print(
 		"[Students] Updating student ",
@@ -857,18 +1327,31 @@ func _on_student_status_change_requested(
 		new_status
 	)
 
+
 	var result: Dictionary = await TeacherDataManager.update_student_status(
 		student_uid,
 		new_status
 	)
 
+
 	if not bool(result.get("ok", false)):
+
 		push_error(
 			"[Students] Status update failed: "
 			+ str(result.get("error", "Unknown error"))
 		)
 
-	# Reload so the table displays the confirmed Firebase state.
+		return
+
+
+	print(
+		"[Students] Status updated successfully."
+	)
+
+
+	# Close the ViewPanel and refresh from backend.
+	close_view_panel()
+
 	load_students()
 
 
@@ -879,15 +1362,34 @@ func _on_student_status_change_requested(
 func _on_student_delete_requested(
 	student_data: Dictionary
 ) -> void:
+
+	# --------------------------------------------------------
+	# SAFETY CHECK
+	# --------------------------------------------------------
+
+	if get_student_status(student_data) != "inactive":
+
+		push_warning(
+			"[Students] Cannot delete an active student. Deactivate first."
+		)
+
+		return
+
+
 	pending_delete_student = student_data.duplicate(true)
 
-	var student_name := get_student_name(student_data)
+
+	var student_name := get_student_name(
+		student_data
+	)
+
 
 	delete_confirmation.dialog_text = (
 		"Are you sure you want to delete "
 		+ student_name
 		+ "?\n\nThis will delete the student's Firestore record."
 	)
+
 
 	delete_confirmation.popup_centered()
 
@@ -897,18 +1399,39 @@ func _on_student_delete_requested(
 # ============================================================
 
 func _on_delete_student_confirmed() -> void:
+
 	if pending_delete_student.is_empty():
 		return
+
+
+	# --------------------------------------------------------
+	# SAFETY CHECK AGAIN BEFORE DELETION
+	# --------------------------------------------------------
+
+	if get_student_status(pending_delete_student) != "inactive":
+
+		push_warning(
+			"[Students] Deletion blocked. Student is active."
+		)
+
+		pending_delete_student.clear()
+
+		return
+
 
 	var student_uid := str(
 		pending_delete_student.get("uid", "")
 	).strip_edges()
 
+
 	if student_uid.is_empty():
+
 		push_error(
 			"[Students] Cannot delete student: UID is missing."
 		)
+
 		return
+
 
 	print(
 		"[Students] Deleting student: ",
@@ -917,23 +1440,35 @@ func _on_delete_student_confirmed() -> void:
 		student_uid
 	)
 
+
 	var result: Dictionary = await TeacherDataManager.delete_student(
 		student_uid
 	)
 
+
 	if bool(result.get("ok", false)):
+
 		print("[Students] Student deleted successfully.")
 
-		if student_profile.visible:
+
+		if student_profile != null:
 			student_profile.hide()
 
+
+		close_view_panel()
+
 		pending_delete_student.clear()
+
 		load_students()
+
+
 	else:
+
 		push_error(
 			"[Students] Student deletion failed: "
 			+ str(result.get("error", "Unknown error"))
 		)
+
 
 # ============================================================
 # EDIT STUDENT
@@ -942,32 +1477,60 @@ func _on_delete_student_confirmed() -> void:
 func _on_student_edit_requested(
 	student_data: Dictionary
 ) -> void:
+
 	if add_student_panel == null:
+
 		push_error(
 			"[Students] Add Student panel was not found."
 		)
+
 		return
+
 
 	if import_students_panel != null:
 		import_students_panel.hide()
 
+
 	if student_profile != null:
 		student_profile.hide()
 
+
+	close_view_panel()
+
+
 	add_student_panel.show()
+
 	add_student_panel.move_to_front()
 
-	# Use an edit method if the Add Student panel supports one.
+
+	# --------------------------------------------------------
+	# Use the existing Add Student panel's edit functionality.
+	# --------------------------------------------------------
+
 	if add_student_panel.has_method("setup_for_edit"):
-		add_student_panel.setup_for_edit(student_data.duplicate(true))
-	elif add_student_panel.has_method("set_student"):
-		add_student_panel.set_student(student_data.duplicate(true))
-	elif add_student_panel.has_method("setup"):
-		add_student_panel.setup(student_data.duplicate(true))
-	else:
-		push_warning(
-			"[Students] The Add Student panel does not expose an edit setup method yet."
+
+		add_student_panel.setup_for_edit(
+			student_data.duplicate(true)
 		)
+
+	elif add_student_panel.has_method("set_student"):
+
+		add_student_panel.set_student(
+			student_data.duplicate(true)
+		)
+
+	elif add_student_panel.has_method("setup"):
+
+		add_student_panel.setup(
+			student_data.duplicate(true)
+		)
+
+	else:
+
+		push_warning(
+			"[Students] Add Student panel does not expose an edit setup method yet."
+		)
+
 
 	print(
 		"[Students] Edit requested for: ",

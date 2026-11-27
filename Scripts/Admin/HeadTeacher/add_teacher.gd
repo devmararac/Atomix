@@ -46,11 +46,19 @@ var is_creating: bool = false
 var form_mode: FormMode = FormMode.ADD
 var editing_teacher: Dictionary = {}
 var create_attempted: bool = false
+var original_input_styles: Dictionary = {}
 
 
 func _ready() -> void:
 	print("[AddTeacher] Teacher form ready.")
-
+	
+	# Cache original Inspector styles before applying any validation overrides.
+	_cache_input_original_styles(id_input)
+	_cache_input_original_styles(first_name_input)
+	_cache_input_original_styles(last_name_input)
+	_cache_input_original_styles(email_input)
+	_cache_input_original_styles(password_input)
+	
 	id_input.max_length = ID_NUMBER_LENGTH
 
 	id_input.text_changed.connect(_on_id_number_changed)
@@ -196,6 +204,12 @@ func _get_full_name() -> String:
 	return " ".join(parts)
 
 
+func _cache_input_original_styles(input: LineEdit) -> void:
+	original_input_styles[input] = {
+		"normal": input.get_theme_stylebox("normal").duplicate(),
+		"focus": input.get_theme_stylebox("focus").duplicate()
+	}
+
 # ------------------------------------------------------------
 # VALIDATION
 # ------------------------------------------------------------
@@ -217,13 +231,16 @@ func _on_id_number_changed(new_text: String) -> void:
 
 func _on_required_field_changed(_new_text: String) -> void:
 	_update_required_field_labels()
-
 func _update_required_field_labels() -> void:
 	var show_errors := create_attempted
+
 	var id_number := id_input.text.strip_edges()
+	var first_name := first_name_input.text.strip_edges()
+	var last_name := last_name_input.text.strip_edges()
 	var email := email_input.text.strip_edges()
 	var password := password_input.text
 
+	# ID Number
 	_set_label_error(
 		id_label,
 		show_errors and (
@@ -231,26 +248,57 @@ func _update_required_field_labels() -> void:
 			or not _contains_digits_only(id_number)
 		)
 	)
+	_set_input_error(
+		id_input,
+		show_errors and (
+			id_number.length() != ID_NUMBER_LENGTH
+			or not _contains_digits_only(id_number)
+		)
+	)
 
+	# First Name
 	_set_label_error(
 		first_name_label,
-		show_errors and first_name_input.text.strip_edges().is_empty()
+		show_errors and first_name.is_empty()
+	)
+	_set_input_error(
+		first_name_input,
+		show_errors and first_name.is_empty()
 	)
 
+	# Last Name
 	_set_label_error(
 		last_name_label,
-		show_errors and last_name_input.text.strip_edges().is_empty()
+		show_errors and last_name.is_empty()
+	)
+	_set_input_error(
+		last_name_input,
+		show_errors and last_name.is_empty()
 	)
 
+	# Email
 	_set_label_error(
 		email_label,
 		show_errors and not _is_valid_email(email)
 	)
-
-	_set_label_error(
-		password_label,
-		show_errors and password.is_empty()
+	_set_input_error(
+		email_input,
+		show_errors and not _is_valid_email(email)
 	)
+
+	# Password (required only in ADD mode)
+	var password_invalid := (
+		form_mode == FormMode.ADD
+		and show_errors
+		and (
+			password.strip_edges().is_empty()
+			or password.length() < 6
+			or password.length() > 128
+		 )
+	)
+
+	_set_label_error(password_label, password_invalid)
+	_set_input_error(password_input, password_invalid)
 
 
 func _contains_digits_only(value: String) -> bool:
@@ -265,10 +313,39 @@ func _contains_digits_only(value: String) -> bool:
 
 
 func _set_label_error(label: Label, has_error: bool) -> void:
-	label.add_theme_color_override(
-		"font_color",
-		ERROR_LABEL_COLOR if has_error else NORMAL_LABEL_COLOR
-	)
+	if has_error:
+		label.add_theme_color_override("font_color", ERROR_LABEL_COLOR)
+	else:
+		label.remove_theme_color_override("font_color")
+
+func _set_input_error(input: LineEdit, has_error: bool) -> void:
+	# Restore the original Inspector styles when there is no error.
+	if not has_error:
+		input.remove_theme_stylebox_override("normal")
+		input.remove_theme_stylebox_override("focus")
+		return
+
+	# Retrieve the original styles cached before any error styling.
+	if not original_input_styles.has(input):
+		return
+
+	var original_styles: Dictionary = original_input_styles[input]
+
+	var normal_style: StyleBox = original_styles["normal"].duplicate()
+	var focus_style: StyleBox = original_styles["focus"].duplicate()
+
+	# Change only the border color and width.
+	if normal_style is StyleBoxFlat:
+		normal_style.border_color = ERROR_LABEL_COLOR
+		normal_style.set_border_width_all(2)
+
+	if focus_style is StyleBoxFlat:
+		focus_style.border_color = ERROR_LABEL_COLOR
+		focus_style.set_border_width_all(2)
+
+	# Apply the modified copies temporarily.
+	input.add_theme_stylebox_override("normal", normal_style)
+	input.add_theme_stylebox_override("focus", focus_style)
 
 
 func _is_valid_email(email: String) -> bool:
@@ -314,6 +391,14 @@ func _validate_form() -> bool:
 	# Password
 	if password.strip_edges().is_empty():
 		missing_fields.append("Password")
+		if first_invalid_input == null:
+			first_invalid_input = password_input
+	elif password.length() < 6:
+		missing_fields.append("Password (at least 6 characters)")
+		if first_invalid_input == null:
+			first_invalid_input = password_input
+	elif password.length() > 128:
+		missing_fields.append("Password (maximum 128 characters)")
 		if first_invalid_input == null:
 			first_invalid_input = password_input
 

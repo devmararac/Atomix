@@ -107,28 +107,6 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_fdj0u")
 placeholder_text = "Enter quiz title..."
 
-[node name="QuestionPanel" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer" unique_id=415633823]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBox_Question")
-
-[node name="QuestionMargin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/QuestionPanel" unique_id=240103763]
-layout_mode = 2
-theme_override_constants/margin_left = 18
-theme_override_constants/margin_top = 18
-theme_override_constants/margin_right = 18
-theme_override_constants/margin_bottom = 18
-
-[node name="QuestionText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/QuestionPanel/QuestionMargin" unique_id=2031115964]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
-theme_override_colors/font_placeholder_color = Color(0.96862745, 0.8862745, 0.77254903, 0.654902)
-theme_override_fonts/font = ExtResource("1_7wisd")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBox_TextEdit")
-placeholder_text = "Type question here..."
-
 [node name="AnswersScroll" type="ScrollContainer" parent="QuizCreator/MarginContainer/VBoxContainer" unique_id=-1110037095]
 custom_minimum_size = Vector2(0, 230)
 layout_mode = 2
@@ -142,37 +120,67 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Answers" type="GridContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center" unique_id=968090990]
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center" unique_id=1266858784]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="QuestionPanel" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer" unique_id=415633823]
+custom_minimum_size = Vector2(1900, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_Question")
+
+[node name="QuestionMargin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/QuestionPanel" unique_id=240103763]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="QuestionText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/QuestionPanel/QuestionMargin" unique_id=2031115964]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+theme_override_colors/font_placeholder_color = Color(0.96862745, 0.8862745, 0.77254903, 0.654902)
+theme_override_fonts/font = ExtResource("1_7wisd")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_TextEdit")
+placeholder_text = "Type question here..."
+
+[node name="Answers" type="GridContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer" unique_id=968090990]
 custom_minimum_size = Vector2(984, 217)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
-columns = 4
+columns = 6
 
-[node name="AnswerA" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers" unique_id=1862201447]
+[node name="AnswerA" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers" unique_id=1862201447]
 custom_minimum_size = Vector2(240, 217)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="AnswerABg" type="ColorRect" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerA" unique_id=230140179]
+[node name="AnswerABg" type="ColorRect" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerA" unique_id=230140179]
 layout_mode = 2
 mouse_filter = 1
 color = Color(0.23529412, 0.6392157, 0.6745098, 1)
 
-[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerA" unique_id=1183656125]
+[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerA" unique_id=1183656125]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerA/Margin" unique_id=1942274961]
+[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerA/Margin" unique_id=1942274961]
 layout_mode = 2
 
-[node name="TopBar" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerA/Margin/VBox" unique_id=1807713772]
+[node name="TopBar" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerA/Margin/VBox" unique_id=1807713772]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerA/Margin/VBox/TopBar" unique_id=434658496]
+[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerA/Margin/VBox/TopBar" unique_id=434658496]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
@@ -180,41 +188,41 @@ theme_override_fonts/font = ExtResource("1_7wisd")
 theme_override_font_sizes/font_size = 26
 text = "A."
 
-[node name="Correct" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerA/Margin/VBox/TopBar" unique_id=1581602181]
+[node name="Correct" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerA/Margin/VBox/TopBar" unique_id=1581602181]
 layout_mode = 2
 size_flags_horizontal = 10
 mouse_filter = 1
 
-[node name="AnswerText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerA/Margin/VBox" unique_id=61443556]
+[node name="AnswerText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerA/Margin/VBox" unique_id=61443556]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 placeholder_text = "Type answer option here..."
 
-[node name="AnswerB" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers" unique_id=1508151314]
+[node name="AnswerB" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers" unique_id=1508151314]
 custom_minimum_size = Vector2(240, 217)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="AnswerBBg" type="ColorRect" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerB" unique_id=835348970]
+[node name="AnswerBBg" type="ColorRect" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerB" unique_id=835348970]
 layout_mode = 2
 mouse_filter = 1
 color = Color(0.23529412, 0.6392157, 0.6745098, 1)
 
-[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerB" unique_id=319454236]
+[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerB" unique_id=319454236]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerB/Margin" unique_id=189776081]
+[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerB/Margin" unique_id=189776081]
 layout_mode = 2
 
-[node name="TopBar" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerB/Margin/VBox" unique_id=824006944]
+[node name="TopBar" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerB/Margin/VBox" unique_id=824006944]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerB/Margin/VBox/TopBar" unique_id=49686338]
+[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerB/Margin/VBox/TopBar" unique_id=49686338]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
@@ -222,41 +230,41 @@ theme_override_fonts/font = ExtResource("1_7wisd")
 theme_override_font_sizes/font_size = 26
 text = "B."
 
-[node name="Correct" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerB/Margin/VBox/TopBar" unique_id=1017701421]
+[node name="Correct" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerB/Margin/VBox/TopBar" unique_id=1017701421]
 layout_mode = 2
 size_flags_horizontal = 10
 mouse_filter = 1
 
-[node name="AnswerText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerB/Margin/VBox" unique_id=265307539]
+[node name="AnswerText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerB/Margin/VBox" unique_id=265307539]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 placeholder_text = "Type answer option here..."
 
-[node name="AnswerC" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers" unique_id=2094197866]
+[node name="AnswerC" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers" unique_id=2094197866]
 custom_minimum_size = Vector2(240, 217)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="AnswerCBg" type="ColorRect" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC" unique_id=1751379151]
+[node name="AnswerCBg" type="ColorRect" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerC" unique_id=1751379151]
 layout_mode = 2
 mouse_filter = 1
 color = Color(0.23529412, 0.6392157, 0.6745098, 1)
 
-[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC" unique_id=695410941]
+[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerC" unique_id=695410941]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC/Margin" unique_id=1640593937]
+[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerC/Margin" unique_id=1640593937]
 layout_mode = 2
 
-[node name="TopBar" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC/Margin/VBox" unique_id=2084257842]
+[node name="TopBar" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerC/Margin/VBox" unique_id=2084257842]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC/Margin/VBox/TopBar" unique_id=189752831]
+[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerC/Margin/VBox/TopBar" unique_id=189752831]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
@@ -264,41 +272,41 @@ theme_override_fonts/font = ExtResource("1_7wisd")
 theme_override_font_sizes/font_size = 26
 text = "C."
 
-[node name="Correct" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC/Margin/VBox/TopBar" unique_id=442318768]
+[node name="Correct" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerC/Margin/VBox/TopBar" unique_id=442318768]
 layout_mode = 2
 size_flags_horizontal = 10
 mouse_filter = 1
 
-[node name="AnswerText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerC/Margin/VBox" unique_id=322429566]
+[node name="AnswerText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerC/Margin/VBox" unique_id=322429566]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 placeholder_text = "Type answer option here..."
 
-[node name="AnswerD" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers" unique_id=2117570255]
+[node name="AnswerD" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers" unique_id=2117570255]
 custom_minimum_size = Vector2(240, 217)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="AnswerDBg" type="ColorRect" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerD" unique_id=1272486510]
+[node name="AnswerDBg" type="ColorRect" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerD" unique_id=1272486510]
 layout_mode = 2
 mouse_filter = 1
 color = Color(0.23529412, 0.6392157, 0.6745098, 1)
 
-[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerD" unique_id=312067618]
+[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerD" unique_id=312067618]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerD/Margin" unique_id=1614768503]
+[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerD/Margin" unique_id=1614768503]
 layout_mode = 2
 
-[node name="TopBar" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerD/Margin/VBox" unique_id=1862991042]
+[node name="TopBar" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerD/Margin/VBox" unique_id=1862991042]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerD/Margin/VBox/TopBar" unique_id=1754435394]
+[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerD/Margin/VBox/TopBar" unique_id=1754435394]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
@@ -306,12 +314,12 @@ theme_override_fonts/font = ExtResource("1_7wisd")
 theme_override_font_sizes/font_size = 26
 text = "D."
 
-[node name="Correct" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerD/Margin/VBox/TopBar" unique_id=1351103724]
+[node name="Correct" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerD/Margin/VBox/TopBar" unique_id=1351103724]
 layout_mode = 2
 size_flags_horizontal = 10
 mouse_filter = 1
 
-[node name="AnswerText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/Answers/AnswerD/Margin/VBox" unique_id=1991588818]
+[node name="AnswerText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers/AnswerD/Margin/VBox" unique_id=1991588818]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
@@ -326,7 +334,16 @@ layout_mode = 2
 tooltip_text = "Allow more than one correct answer"
 theme_override_colors/font_color = Color(0.57, 0.4617, 0.3534, 1)
 theme_override_fonts/font = ExtResource("1_7wisd")
+theme_override_font_sizes/font_size = 25
 text = "Multiple Correct Answers"
+
+[node name="HideAnswer" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/BottomBar" unique_id=711490140]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_constants/h_separation = 20
+theme_override_fonts/font = ExtResource("1_7wisd")
+theme_override_font_sizes/font_size = 25
+text = "Hide Answers"
 
 [node name="Spacer" type="Control" parent="QuizCreator/MarginContainer/VBoxContainer/BottomBar" unique_id=1529156287]
 layout_mode = 2

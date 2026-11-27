@@ -61,6 +61,7 @@ OrientationManager="*uid://bld5mi6uuoefu"
 ActivityLogManager="*uid://4uxlabwpax37"
 VirtualKeyboardManager="*uid://kw65cg7c4d4c"
 RespawnManager="*uid://b3jl2dppi1qb4"
+SchoolYearAccess="*uid://chawde0q6d3n6"
 
 [dialogic]
 

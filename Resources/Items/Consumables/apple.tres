@@ -10,9 +10,9 @@ item_name = "Apple"
 description = "A fresh, sweet fruit that provides a quick and refreshing boost of energy.
 "
 icon = ExtResource("1_xhkrw")
-rarity = "Common"
 buy_price = 15
 sell_price = 7
 category = 1
 consumable = true
+heal_amount = 20
 metadata/_custom_type_script = "uid://c5udixdhxp1jw"

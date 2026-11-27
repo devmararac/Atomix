@@ -17,10 +17,10 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wkbc7"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ewp2"]
 bg_color = Color(1, 1, 0.93333334, 1)
@@ -62,12 +62,12 @@ expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
 [node name="QuizRowHt" type="Panel" unique_id=1116783344]
-custom_minimum_size = Vector2(1500, 488)
+custom_minimum_size = Vector2(1500, 540)
 anchors_preset = -1
 anchor_right = 0.758
-anchor_bottom = 0.67800003
+anchor_bottom = 0.75000006
 offset_right = -0.8400879
-offset_bottom = -0.16003418
+offset_bottom = -6.1035156e-05
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_l050j")
 
@@ -94,6 +94,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(1400, 430)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_4ewp2")
 
@@ -125,7 +126,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BarGraph" type="Panel" parent="VBoxContainer/Panel/HBoxContainer/VBoxContainer" unique_id=450323276]
-custom_minimum_size = Vector2(650, 350)
+custom_minimum_size = Vector2(650, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
@@ -149,7 +150,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PieGraph" type="Panel" parent="VBoxContainer/Panel/HBoxContainer/VBoxContainer2" unique_id=447866102]
-custom_minimum_size = Vector2(600, 350)
+custom_minimum_size = Vector2(600, 300)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4

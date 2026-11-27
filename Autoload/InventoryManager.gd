@@ -77,3 +77,64 @@ func remove_item_by_id(item_id: String, amount: int) -> bool:
 			return true
 
 	return true
+
+
+# =========================================================
+# USE HEALING ITEM
+# =========================================================
+
+func use_healing_item(
+	item: ItemInstance,
+	atomon: AtomonInstance
+) -> bool:
+
+	if item == null or item.data == null:
+		return false
+
+	if atomon == null or atomon.data == null:
+		return false
+
+	# Must be a consumable.
+	if not item.data.consumable:
+		return false
+
+	# Must have a healing effect.
+	if item.data.heal_amount <= 0:
+		return false
+
+	# Must have at least one remaining.
+	if item.quantity <= 0:
+		return false
+
+	# Cannot heal a full-HP Atomon.
+	var max_hp := StatCalculator.get_hp(atomon.data)
+
+	if atomon.current_hp >= max_hp:
+		print("[InventoryManager] Atomon already has full HP.")
+		return false
+
+	# Apply healing.
+	var healed_amount := atomon.heal(item.data.heal_amount)
+
+	if healed_amount <= 0:
+		return false
+
+	# Consume exactly one item.
+	item.quantity -= 1
+
+	# Remove the stack if empty.
+	if item.quantity <= 0:
+		inventory.erase(item)
+
+	# Notify inventory UI to refresh.
+	inventory_changed.emit()
+
+	print(
+		"[InventoryManager] Used ",
+		item.data.item_name,
+		". Restored ",
+		healed_amount,
+		" HP."
+	)
+
+	return true

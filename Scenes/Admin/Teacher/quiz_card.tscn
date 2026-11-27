@@ -45,10 +45,13 @@ border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
 border_blend = true
 
 [node name="QuizCard" type="PanelContainer" unique_id=1020437252]
-custom_minimum_size = Vector2(0, 220)
+custom_minimum_size = Vector2(0, 250)
+anchors_preset = -1
+anchor_right = 0.26200002
+anchor_bottom = 0.349
 offset_top = 1.0
-offset_right = 291.0
-offset_bottom = 221.0
+offset_right = -227.76007
+offset_bottom = -30.279999
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_w25kg")
@@ -93,6 +96,7 @@ theme_override_font_sizes/font_size = 25
 text = "Sections Assigned:"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=322056254]
 layout_mode = 2

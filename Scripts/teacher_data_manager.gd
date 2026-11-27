@@ -1,4 +1,3 @@
-
 extends Node
 
 # ============================================================
@@ -497,10 +496,13 @@ func load_users() -> void:
 # ============================================================
 # UPDATE TEACHER STATUS
 # ============================================================
-
 func update_teacher_status(teacher_uid: String, new_status: String) -> Dictionary:
 	teacher_uid = teacher_uid.strip_edges()
 	new_status = new_status.strip_edges().to_lower()
+
+	# =========================================================
+	# VALIDATION
+	# =========================================================
 
 	if teacher_uid.is_empty():
 		return {
@@ -514,6 +516,10 @@ func update_teacher_status(teacher_uid: String, new_status: String) -> Dictionar
 			"error": "Invalid teacher status."
 		}
 
+	# =========================================================
+	# AUTHENTICATION
+	# =========================================================
+
 	var caller_token: String = _get_firestore_token()
 
 	if caller_token.is_empty():
@@ -522,22 +528,31 @@ func update_teacher_status(teacher_uid: String, new_status: String) -> Dictionar
 			"error": "Firebase authentication token is missing."
 		}
 
+	# =========================================================
+	# HTTP REQUEST SETUP
+	# =========================================================
+
 	var http := HTTPRequest.new()
+	http.timeout = 30.0
 	add_child(http)
 
-	var url := "https://atomix-auth-api.atomix-auth.workers.dev/admin-update-teacher-status"
+	var url: String = "https://atomix-auth-api.atomix-auth.workers.dev/admin-update-teacher-status"
 
-	var headers := [
+	var headers: PackedStringArray = [
 		"Content-Type: application/json"
 	]
 
-	var body := {
+	var body: Dictionary = {
 		"callerIdToken": caller_token,
 		"teacherUid": teacher_uid,
 		"status": new_status
 	}
 
-	var request_error := http.request(
+	print("[TeacherDataManager] Sending teacher status request...")
+	print("[TeacherDataManager] Teacher UID: ", teacher_uid)
+	print("[TeacherDataManager] New status: ", new_status)
+
+	var request_error: Error = http.request(
 		url,
 		headers,
 		HTTPClient.METHOD_POST,
@@ -547,51 +562,119 @@ func update_teacher_status(teacher_uid: String, new_status: String) -> Dictionar
 	if request_error != OK:
 		http.queue_free()
 
+		print(
+			"[TeacherDataManager] Request could not start. Error: ",
+			request_error
+		)
+
 		return {
 			"ok": false,
-			"error": "Could not send teacher status update request."
+			"error": "Could not send teacher status update request.",
+			"request_error": request_error
 		}
+
+	# =========================================================
+	# WAIT FOR RESPONSE
+	# =========================================================
 
 	var response: Array = await http.request_completed
 	http.queue_free()
 
-	var response_code: int = response[1]
+	var request_result: int = int(response[0])
+	var response_code: int = int(response[1])
 	var response_body: PackedByteArray = response[3]
 
-	var response_text := response_body.get_string_from_utf8()
-	var response_data = JSON.parse_string(response_text)
+	var response_text: String = response_body.get_string_from_utf8()
 
-	if response_code != 200:
-		var error_message := "Worker request failed. HTTP " + str(response_code)
+	print("[TeacherDataManager] Network result: ", request_result)
+	print("[TeacherDataManager] HTTP code: ", response_code)
+	print("[TeacherDataManager] Response body: ", response_text)
 
-		if response_data is Dictionary:
-			error_message = str(
-				response_data.get("message", error_message)
-			)
+	# =========================================================
+	# CHECK NETWORK RESULT FIRST
+	# =========================================================
 
+	if request_result != 0:
 		return {
 			"ok": false,
-			"error": error_message,
-			"response": response_data
+			"error": "Network request failed. HTTPRequest result: " + str(request_result),
+			"network_result": request_result,
+			"code": response_code
 		}
+
+	# =========================================================
+	# CHECK EMPTY RESPONSE
+	# =========================================================
+
+	if response_text.strip_edges().is_empty():
+		return {
+			"ok": false,
+			"error": "The Worker returned an empty response.",
+			"code": response_code
+		}
+
+	# =========================================================
+	# PARSE JSON
+	# =========================================================
+
+	var response_data: Variant = JSON.parse_string(response_text)
 
 	if not response_data is Dictionary:
 		return {
 			"ok": false,
-			"error": "Invalid response received from Worker."
+			"error": "Invalid JSON response received from Worker.",
+			"code": response_code,
+			"raw_response": response_text
 		}
+
+	# =========================================================
+	# CHECK HTTP STATUS
+	# =========================================================
+
+	if response_code < 200 or response_code >= 300:
+		return {
+			"ok": false,
+			"error": str(
+				response_data.get(
+					"message",
+					"Worker request failed. HTTP " + str(response_code)
+				)
+			),
+			"code": response_code,
+			"response": response_data
+		}
+
+	# =========================================================
+	# CHECK WORKER SUCCESS
+	# =========================================================
 
 	if not bool(response_data.get("success", false)):
 		return {
 			"ok": false,
 			"error": str(
-				response_data.get("message", "Teacher status update failed.")
+				response_data.get(
+					"message",
+					"Teacher status update failed."
+				)
 			),
 			"response": response_data
 		}
 
+	# =========================================================
+	# UPDATE LOCAL CACHE
+	# =========================================================
+
+	for teacher in teachers_data:
+		if str(teacher.get("uid", "")) == teacher_uid:
+			teacher["status"] = new_status
+			break
+
+	# =========================================================
+	# SUCCESS
+	# =========================================================
+
 	print(
-		"[TeacherDataManager] Teacher status updated: ",
+		"[TeacherDataManager] Teacher status updated successfully: ",
 		teacher_uid,
 		" -> ",
 		new_status
@@ -602,9 +685,6 @@ func update_teacher_status(teacher_uid: String, new_status: String) -> Dictionar
 		"status": new_status,
 		"response": response_data
 	}
-
-
-
 
 # ============================================================
 # DELETE TEACHER FIRESTORE DOCUMENT
@@ -862,43 +942,61 @@ func get_teachers() -> Array[Dictionary]:
 
 
 # ============================================================
-# CURRENT TEACHER'S ASSIGNED SECTIONS
+# CURRENT TEACHER'S ASSIGNED SECTIONS — ACTIVE SCHOOL YEAR
 # ============================================================
-
 func get_current_teacher_sections() -> Array:
 	var teacher_uid: String = _get_current_uid()
 
 	if teacher_uid.is_empty():
-		push_warning("[TeacherDataManager] Current user UID is missing.")
+		push_warning("[TeacherDataManager] Current teacher UID is missing.")
 		return []
 
-	var response: Dictionary = await _firestore_get(
-		"teachers/" + teacher_uid.uri_encode()
+	# Ensure school years are loaded
+	if active_school_year_id.is_empty():
+		await load_school_years()
+
+	var year_id: String = active_school_year_id
+
+	if year_id.is_empty():
+		push_warning("[TeacherDataManager] No active school year found.")
+		return []
+
+	print("[TeacherDataManager] Checking assignments for teacher: ", teacher_uid)
+	print("[TeacherDataManager] Active school year: ", year_id)
+
+	# Fetch sections for the active school year directly
+	var result = await _firestore_get(
+		"school_years/%s/sections" % year_id
 	)
 
-	if not bool(response.get("ok", false)):
-		push_warning(
-			"[TeacherDataManager] Unable to load current teacher: "
-			+ str(response.get("error", "Unknown error"))
-		)
+	if not result.get("ok", false):
+		push_warning("[TeacherDataManager] Failed to load sections: ", result.get("error", "Unknown error"))
 		return []
 
-	var document: Variant = response.get("data", {})
-	if not document is Dictionary:
-		return []
+	var raw_data: Dictionary = result.get("data", {})
+	var documents: Array = raw_data.get("documents", [])
+	var assigned_sections: Array = []
 
-	var teacher_data: Dictionary = _decode_document(document)
-	var sections: Variant = teacher_data.get("assigned_sections", [])
+	for document in documents:
+		var section_data: Dictionary = _decode_document(document)
 
-	if sections is Array:
-		return sections
+		var teacher_ids: Array = section_data.get("assigned_teacher_ids", [])
 
-	if sections is String and not sections.strip_edges().is_empty():
-		return [sections.strip_edges()]
+		if not teacher_ids.has(teacher_uid):
+			continue
 
-	return []
+		var section_name: String = str(section_data.get("name", "")).strip_edges()
+		var section_id: String = str(section_data.get("uid", "")).strip_edges()
 
+		if section_name.is_empty():
+			section_name = section_id
 
+		if not section_name.is_empty():
+			assigned_sections.append(section_name)
+			print("[TeacherDataManager] Assigned section found: ", section_name)
+
+	print("[TeacherDataManager] Teacher sections: ", assigned_sections)
+	return assigned_sections
 
 # ============================================================
 # CURRENT TEACHER'S ASSIGNED SCHOOL YEAR
@@ -951,16 +1049,15 @@ func get_current_teacher_school_year_id() -> String:
 # ============================================================
 # LOAD STUDENTS
 # ============================================================
-
 func load_students() -> void:
-	print("[TeacherDataManager] Loading students from Firestore...")
+	print("[TeacherDataManager] Loading students for active school year...")
 
 	students_data.clear()
 
+	# 1. Determine current role
 	var role: String = await _get_current_role()
 	role = role.strip_edges().to_lower()
 
-	# Normalize headteacher role names.
 	if role in ["headteacher", "head_teacher", "head teacher"]:
 		role = "admin"
 
@@ -970,40 +1067,62 @@ func load_students() -> void:
 		})
 		return
 
+	# 2. Ensure active school year is available
+	if active_school_year_id.is_empty():
+		await load_school_years()
+
+	var year_id: String = get_active_school_year_id()
+
+	if year_id.is_empty():
+		students_error.emit({
+			"message": "No active school year found. Cannot filter students."
+		})
+		return
+
+	print("[TeacherDataManager] Active school year: ", year_id)
+
+	# 3. Get teacher's assigned sections
 	var assigned_sections: Array = []
 
-	# Only teachers are restricted by assigned sections here.
 	if role == "teacher":
 		assigned_sections = await get_current_teacher_sections()
 
 		if assigned_sections.is_empty():
-			print(
-				"[TeacherDataManager] Teacher has no assigned sections."
-			)
+			print("[TeacherDataManager] No assigned sections found.")
 			students_loaded.emit(students_data)
 			return
 
-	var response: Dictionary = await _get_collection_documents(
-		"students"
-	)
+	# Normalize assigned section names
+	var assigned_section_lookup: Dictionary = {}
+
+	for assigned_section in assigned_sections:
+		var normalized_section := str(assigned_section).strip_edges().to_lower()
+		if not normalized_section.is_empty():
+			assigned_section_lookup[normalized_section] = true
+
+	# 4. Fetch students
+	var response: Dictionary = await _get_collection_documents("students")
 
 	if not bool(response.get("ok", false)):
-		var message: String = str(
-			response.get("error", "Unable to load students.")
-		)
-
 		students_error.emit({
-			"message": message
+			"message": str(response.get("error", "Unable to load students."))
 		})
 		return
 
 	var documents: Array = response.get("documents", [])
 
+	# 5. Filter students
 	for student in documents:
 		if not student is Dictionary:
 			continue
 
-		# Teachers see students from their assigned sections.
+		# School-year filter
+		var student_school_year := str(student.get("school_year", "")).strip_edges()
+
+		if student_school_year != year_id:
+			continue
+
+		# Teacher section restriction
 		if role == "teacher":
 			var section_value: Variant = student.get("section", "")
 			var student_sections: Array = []
@@ -1011,30 +1130,31 @@ func load_students() -> void:
 			if section_value is Array:
 				student_sections = section_value
 			elif not str(section_value).strip_edges().is_empty():
-				student_sections = [str(section_value).strip_edges()]
+				student_sections = [section_value]
 
-			var has_assigned_section: bool = false
+			var has_assigned_section := false
 
 			for section in student_sections:
-				if assigned_sections.has(section):
+				var normalized_student_section := str(section).strip_edges().to_lower()
+
+				if assigned_section_lookup.has(normalized_student_section):
 					has_assigned_section = true
 					break
 
 			if not has_assigned_section:
 				continue
 
-		# Headteachers/admins retain all student records.
 		students_data.append(student)
 
+	# 6. Emit results
 	print(
-		"[TeacherDataManager] Role: ",
-		role,
-		" | Students loaded: ",
-		students_data.size()
+		"[TeacherDataManager] Role: ", role,
+		" | School year: ", year_id,
+		" | Total students: ", documents.size(),
+		" | Filtered students: ", students_data.size()
 	)
 
 	students_loaded.emit(students_data)
-	
 
 # ============================================================
 # UPDATE STUDENT STATUS

@@ -206,3 +206,41 @@ func apply_save_dict(save_dict: Dictionary) -> void:
 
 		for pp in saved_pp:
 			current_pp.append(int(pp))
+
+
+# ============================================================
+# HEALING
+# ============================================================
+
+func heal(amount: int) -> int:
+
+	if data == null:
+		return 0
+
+	if amount <= 0:
+		return 0
+
+	var max_hp := StatCalculator.get_hp(data)
+
+	if current_hp >= max_hp:
+		return 0
+
+	var old_hp := current_hp
+
+	current_hp = min(current_hp + amount, max_hp)
+
+	var healed_amount := current_hp - old_hp
+
+	print(
+		"[AtomonInstance] ",
+		data.atom_name,
+		" healed for ",
+		healed_amount,
+		" HP. (",
+		current_hp,
+		"/",
+		max_hp,
+		")"
+	)
+
+	return healed_amount

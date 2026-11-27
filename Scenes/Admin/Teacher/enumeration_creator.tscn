@@ -128,19 +128,34 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_vcp05")
 placeholder_text = "Enter quiz title..."
 
-[node name="QuestionPanel" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer" unique_id=782449495]
+[node name="AnswerScroll" type="ScrollContainer" parent="QuizCreator/MarginContainer/VBoxContainer" unique_id=806162609]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll" unique_id=158342335]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer" unique_id=487825819]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="QuestionPanel" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer" unique_id=782449495]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBox_Question")
 
-[node name="QuestionMargin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/QuestionPanel" unique_id=900500259]
+[node name="QuestionMargin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/QuestionPanel" unique_id=900500259]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 18
 
-[node name="QuestionText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/QuestionPanel/QuestionMargin" unique_id=2053480405]
+[node name="QuestionText" type="TextEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/QuestionPanel/QuestionMargin" unique_id=2053480405]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
@@ -150,13 +165,13 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBox_TextEdit")
 placeholder_text = "Type question here..."
 
-[node name="EnumerationPanel" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer" unique_id=604440682]
-custom_minimum_size = Vector2(0, 240)
+[node name="EnumerationPanel" type="PanelContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer" unique_id=604440682]
+custom_minimum_size = Vector2(1900, 240)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBox_Answer")
 
-[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel" unique_id=589644585]
+[node name="Margin" type="MarginContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel" unique_id=589644585]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 theme_override_constants/margin_left = 18
@@ -164,35 +179,26 @@ theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 18
 
-[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin" unique_id=587544588]
+[node name="VBox" type="VBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel/Margin" unique_id=587544588]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox" unique_id=1854998082]
+[node name="Label" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel/Margin/VBox" unique_id=1854998082]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.87058824, 0.79607844, 0.69411767, 1)
 theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 30
 text = "Accepted Answers"
 
-[node name="Instructions" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox" unique_id=1854998083]
+[node name="Instructions" type="Label" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel/Margin/VBox" unique_id=1854998083]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96862745, 0.8862745, 0.77254903, 0.8)
 theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 20
 text = "Add every answer that should be accepted."
 
-[node name="AnswerScroll" type="ScrollContainer" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox" unique_id=806162609]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-vertical_scroll_mode = 0
-
-[node name="CenterContainer" type="CenterContainer" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AnswerScroll" unique_id=158342335]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Answers" type="GridContainer" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AnswerScroll/CenterContainer" unique_id=1171112882]
+[node name="Answers" type="GridContainer" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel/Margin/VBox" unique_id=1171112882]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -200,7 +206,7 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 3
 
-[node name="Answer1" type="LineEdit" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers" unique_id=1105962924]
+[node name="Answer1" type="LineEdit" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel/Margin/VBox/Answers" unique_id=1105962924]
 custom_minimum_size = Vector2(600, 45)
 layout_mode = 2
 mouse_filter = 1
@@ -211,12 +217,34 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_qnsfd")
 placeholder_text = "Type Answer..."
 
-[node name="AddAnswerButton" type="Button" parent="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox" unique_id=323939232]
+[node name="AddAnswerButton" type="Button" parent="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel/Margin/VBox" unique_id=323939232]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_s0fe4")
 text = "+ Add Answer"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer" unique_id=1763081547]
+layout_mode = 2
+
+[node name="CaseSensitive" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/HBoxContainer" unique_id=536986712]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+text = " Case-sensitive answers"
+
+[node name="Control" type="Control" parent="QuizCreator/MarginContainer/VBoxContainer/HBoxContainer" unique_id=627287993]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HideAnswer" type="CheckBox" parent="QuizCreator/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1161498180]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_constants/h_separation = 20
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 25
+text = "Hide Answers"
 
 [node name="NavigationBar" type="HBoxContainer" parent="QuizCreator/MarginContainer/VBoxContainer" unique_id=296851670]
 layout_mode = 2
@@ -248,7 +276,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_vkgkd")
 text = "Next >"
 
 [connection signal="pressed" from="QuizCreator/MarginContainer/VBoxContainer/Header/CloseButton" to="QuizCreator" method="_on_texture_button_pressed"]
-[connection signal="pressed" from="QuizCreator/MarginContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AddAnswerButton" to="QuizCreator" method="_on_add_answer_pressed"]
+[connection signal="pressed" from="QuizCreator/MarginContainer/VBoxContainer/AnswerScroll/CenterContainer/VBoxContainer/EnumerationPanel/Margin/VBox/AddAnswerButton" to="QuizCreator" method="_on_add_answer_pressed"]
 [connection signal="pressed" from="QuizCreator/MarginContainer/VBoxContainer/NavigationBar/PreviousButton" to="QuizCreator" method="_on_previous_pressed"]
 [connection signal="pressed" from="QuizCreator/MarginContainer/VBoxContainer/NavigationBar/SaveButton" to="QuizCreator" method="_on_save_pressed"]
 [connection signal="pressed" from="QuizCreator/MarginContainer/VBoxContainer/NavigationBar/NextButton" to="QuizCreator" method="_on_next_pressed"]

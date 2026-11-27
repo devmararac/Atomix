@@ -24,17 +24,19 @@ var current_question_index: int = 0
 var assigned_sections: Array = []
 
 @onready var quiz_title_input: LineEdit = $MarginContainer/VBoxContainer/QuizSettings/QuizTitle
-@onready var question_text: TextEdit = $MarginContainer/VBoxContainer/QuestionPanel/QuestionMargin/QuestionText
-@onready var answers_container: GridContainer = $MarginContainer/VBoxContainer/AnswersScroll/Center/Answers
+@onready var question_text: TextEdit = $MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/QuestionPanel/QuestionMargin/QuestionText
+@onready var answers_container: GridContainer = $MarginContainer/VBoxContainer/AnswersScroll/Center/VBoxContainer/Answers
 @onready var multiple_answers: CheckBox = $MarginContainer/VBoxContainer/BottomBar/MultipleAnswers
 @onready var add_answer_button: Button = $MarginContainer/VBoxContainer/BottomBar/AddAnswerButton
 @onready var save_button: Button = $MarginContainer/VBoxContainer/NavigationBar/SaveButton
 @onready var next_button: Button = $MarginContainer/VBoxContainer/NavigationBar/NextButton
 @onready var previous_button: Button = $MarginContainer/VBoxContainer/NavigationBar/PreviousButton
-
+@onready var hide_answer_checkbox: CheckBox = $MarginContainer/VBoxContainer/BottomBar/HideAnswer
 
 func _ready() -> void:
 	firestore_url = "https://firestore.googleapis.com/v1/projects/%s/databases/%s/documents/quizzes" % [PROJECT_ID, DATABASE_ID]
+	# Hide correct answers by default for new quizzes.
+	hide_answer_checkbox.button_pressed = true
 	add_answer_button.show()
 	_connect_button_signals()
 	_set_answer_card_count(MIN_ANSWER_COUNT)
@@ -61,7 +63,14 @@ func _load_existing_quiz(quiz_data: Dictionary) -> void:
 	quiz_section = str(quiz_data.get("section", ""))
 
 	quiz_title_input.text = quiz_title
-
+	
+	# Load saved answer visibility setting.
+	# show_correct_answers defaults to false, so HideAnswer is checked.
+	var show_correct_answers: bool = bool(
+		quiz_data.get("show_correct_answers", false)
+	)
+	hide_answer_checkbox.button_pressed = not show_correct_answers
+	
 	questions.clear()
 
 	var saved_questions: Array = quiz_data.get("questions", [])
@@ -107,6 +116,7 @@ func _apply_creator_mode() -> void:
 	quiz_title_input.editable = not is_view_mode
 	question_text.editable = not is_view_mode
 	multiple_answers.disabled = is_view_mode
+	hide_answer_checkbox.disabled = is_view_mode
 	add_answer_button.disabled = is_view_mode
 	save_button.visible = not is_view_mode
 
@@ -436,6 +446,11 @@ func _on_save_button_pressed() -> void:
 		"title": {"stringValue": quiz_title},
 		"quiz_type": {"stringValue": "multiple_choice"},
 		"question_count": {"integerValue": str(questions.size())},
+
+		"show_correct_answers": {
+			"booleanValue": not hide_answer_checkbox.button_pressed
+		},
+
 		"questions": {"arrayValue": {"values": question_values}},
 		"assigned_sections": {
 			"arrayValue": {

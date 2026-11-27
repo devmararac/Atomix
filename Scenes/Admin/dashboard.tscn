@@ -63,6 +63,25 @@ content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_utavo"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndrba"]
+bg_color = Color(0.96862745, 0.8862745, 0.77254903, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ok0qd"]
 content_margin_left = 5.0
 content_margin_top = 5.0
@@ -512,13 +531,30 @@ offset_bottom = -1.5258789e-05
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Label" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer" unique_id=122369578]
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer" unique_id=895378662]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer/HBoxContainer" unique_id=122369578]
 layout_mode = 2
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.30980393, 0.21960784, 0.14117648, 1)
 theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_utavo")
 text = "Quiz Activity & Average Score by Section"
+
+[node name="Control" type="Control" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer/HBoxContainer" unique_id=407194424]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SectionOption" type="OptionButton" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer/HBoxContainer" unique_id=1577844695]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.47058824, 0.3529412, 0.23529412, 1)
+theme_override_fonts/font = ExtResource("4_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_ndrba")
 
 [node name="GraphPanel" type="Panel" parent="Background/ScrollContainer/CenterContainer/VBoxContainer/QuizCompletion/QuizCompletion2/VBoxContainer" unique_id=422962390]
 custom_minimum_size = Vector2(1650, 520)

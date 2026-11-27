@@ -5,15 +5,10 @@ const TEACHER_ROW_SCENE: PackedScene = preload(
 	"res://Scenes/Admin/HeadTeacher/teacher_row.tscn"
 )
 
-const ADD_TEACHER_SCENE: PackedScene = preload(
-	"res://Scenes/Admin/HeadTeacher/add_teacher.tscn"
-)
-
 signal teacher_edit_requested(teacher_data: Dictionary)
 signal teacher_delete_requested(teacher_data: Dictionary)
 signal teacher_archive_requested(teacher_data: Dictionary)
 
-# UI references: paths match teacher_management.tscn.
 @onready var rows: VBoxContainer = \
 	$PageBackground/MarginContainer/VBoxContainer/TeacherTable/ScrollContainer/Rows
 
@@ -37,7 +32,59 @@ signal teacher_archive_requested(teacher_data: Dictionary)
 
 @onready var add_teacher: Control = $AddTeacher
 
+# ============================================================
+# VIEW PANEL
+# ============================================================
+
+@onready var view_panel: Control = $PageBackground/ViewPanel
+
+@onready var view_close_button: TextureButton = \
+	$PageBackground/ViewPanel/Button
+
+@onready var view_title: Label = \
+	$PageBackground/ViewPanel/VBoxContainer/Title
+
+@onready var view_lrn_label: Label = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Display/LRN/Label2
+
+@onready var view_fullname_label: Label = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Display/Fullname/Label2
+
+@onready var view_sections_label: Label = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Display/Sections/Label2
+
+@onready var view_status_label: Label = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Status/Label2
+
+@onready var view_display: Control = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Display
+
+@onready var view_edit: Control = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/Edit
+
+@onready var view_action_buttons: HBoxContainer = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/ActionButtons
+
+@onready var view_edit_button: Button = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/ActionButtons/Edit
+
+@onready var view_activate_button: Button = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/ActionButtons/Activate
+
+@onready var view_deactivate_button: Button = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/ActionButtons/Deactivate
+
+@onready var view_delete_button: Button = \
+	$PageBackground/ViewPanel/VBoxContainer/Panel/VBoxContainer/ActionButtons/Delete
+
+
+# ============================================================
+# DATA
+# ============================================================
+
 var all_teachers: Array[Dictionary] = []
+var selected_teacher: Dictionary = {}
+
 var pending_delete_teacher: Dictionary = {}
 var delete_confirmation: ConfirmationDialog
 
@@ -46,11 +93,11 @@ func _ready() -> void:
 	print("[TeacherManagement] Teacher Management opened.")
 
 	add_teacher.hide()
-	
+	view_panel.hide()
+
 	_create_delete_confirmation()
 
-	
-	# Connect toolbar controls.
+	# Toolbar
 	if not add_teacher_button.pressed.is_connected(
 		_on_add_teacher_button_pressed
 	):
@@ -61,19 +108,25 @@ func _ready() -> void:
 	if not search_input.text_changed.is_connected(
 		_on_search_changed
 	):
-		search_input.text_changed.connect(_on_search_changed)
+		search_input.text_changed.connect(
+			_on_search_changed
+		)
 
 	if not filter_button.item_selected.is_connected(
 		_on_filter_changed
 	):
-		filter_button.item_selected.connect(_on_filter_changed)
+		filter_button.item_selected.connect(
+			_on_filter_changed
+		)
 
 	if not sort_button.item_selected.is_connected(
 		_on_sort_changed
 	):
-		sort_button.item_selected.connect(_on_sort_changed)
+		sort_button.item_selected.connect(
+			_on_sort_changed
+		)
 
-	# Connect TeacherDataManager signals.
+	# TeacherDataManager
 	if not TeacherDataManager.teachers_loaded.is_connected(
 		_on_teachers_loaded
 	):
@@ -88,7 +141,7 @@ func _ready() -> void:
 			_on_teachers_error
 		)
 
-	# Connect the embedded Add Teacher form.
+	# Add Teacher form
 	if add_teacher.has_signal("teacher_created"):
 		if not add_teacher.teacher_created.is_connected(
 			_on_teacher_created
@@ -97,17 +150,29 @@ func _ready() -> void:
 				_on_teacher_created
 			)
 
-	# Configure sorting choices.
+	# View panel buttons
+	if not view_close_button.pressed.is_connected(_on_view_close_pressed):
+		view_close_button.pressed.connect(_on_view_close_pressed)
+
+	view_close_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	view_close_button.disabled = false
+	view_close_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	view_edit_button.pressed.connect(_on_view_edit_pressed)
+	view_activate_button.pressed.connect(_on_view_activate_pressed)
+	view_deactivate_button.pressed.connect(_on_view_deactivate_pressed)
+	view_delete_button.pressed.connect(_on_view_delete_pressed)
+
+	# Sorting choices
 	sort_button.clear()
 	sort_button.add_item("Name (A-Z)")
 	sort_button.add_item("Name (Z-A)")
 	sort_button.add_item("Created At (Newest First)")
 	sort_button.add_item("Created At (Oldest First)")
-
 	sort_button.select(0)
-	empty_state_label.text = "No teachers found."
 
+	empty_state_label.text = "No teachers found."
 	empty_state.show()
+
 	load_teachers()
 
 
@@ -125,7 +190,6 @@ func load_teachers() -> void:
 	TeacherDataManager.load_teachers()
 
 
-
 func _on_teachers_loaded(teacher_list: Array) -> void:
 	print("[TeacherManagement] Received ", teacher_list.size(), " teachers.")
 
@@ -136,11 +200,12 @@ func _on_teachers_loaded(teacher_list: Array) -> void:
 			all_teachers.append(item.duplicate(true))
 
 	display_teachers()
-	
 
 
 func _on_teachers_error(error: Variant) -> void:
-	push_error("[TeacherManagement] Failed to load teachers: %s" % str(error))
+	push_error(
+		"[TeacherManagement] Failed to load teachers: %s" % str(error)
+	)
 
 	all_teachers.clear()
 	clear_rows()
@@ -154,14 +219,22 @@ func _on_teachers_error(error: Variant) -> void:
 # ============================================================
 
 func _get_teacher_display_name(data: Dictionary) -> String:
-	var first_name: String = str(data.get("first_name", "")).strip_edges()
-	var last_name: String = str(data.get("last_name", "")).strip_edges()
+	var first_name: String = str(
+		data.get("first_name", "")
+	).strip_edges()
 
-	var full_name: String = (first_name + " " + last_name).strip_edges()
+	var last_name: String = str(
+		data.get("last_name", "")
+	).strip_edges()
 
-	# Support older teacher documents that only store "name".
+	var full_name: String = (
+		first_name + " " + last_name
+	).strip_edges()
+
 	if full_name.is_empty():
-		full_name = str(data.get("name", "Unknown")).strip_edges()
+		full_name = str(
+			data.get("name", "Unknown")
+	).strip_edges()
 
 	if full_name.is_empty():
 		full_name = "Unknown"
@@ -179,11 +252,9 @@ func display_teachers() -> void:
 	var filtered_teachers: Array[Dictionary] = []
 	var search_text: String = search_input.text.strip_edges().to_lower()
 
-	# Search by first name + last name, legacy name, email, ID, or section.
 	for teacher_data in all_teachers:
-		var teacher_name: String = _get_teacher_display_name(
-			teacher_data
-		).to_lower()
+		var teacher_name: String = \
+			_get_teacher_display_name(teacher_data).to_lower()
 
 		var email: String = str(
 			teacher_data.get("email", "")
@@ -193,9 +264,10 @@ func display_teachers() -> void:
 			teacher_data.get("id_number", "")
 		).to_lower()
 
-		var sections_text: String = _get_sections_text(
-			teacher_data.get("assigned_sections", [])
-		).to_lower()
+		var sections_text: String = \
+			_get_sections_text(
+				teacher_data.get("assigned_sections", [])
+			).to_lower()
 
 		var matches_search: bool = (
 			search_text.is_empty()
@@ -208,7 +280,7 @@ func display_teachers() -> void:
 		if matches_search:
 			filtered_teachers.append(teacher_data)
 
-	# Filter by status.
+	# Status filter
 	match filter_button.selected:
 		1:
 			filtered_teachers = get_teachers_by_status(
@@ -221,37 +293,35 @@ func display_teachers() -> void:
 				"inactive"
 			)
 
-	
-	# Sort teachers.
+	# Sorting
 	match sort_button.selected:
-		0: # Name A-Z
+		0:
 			filtered_teachers.sort_custom(
 				func(a: Dictionary, b: Dictionary) -> bool:
 					return _get_teacher_display_name(a).to_lower() < \
 						_get_teacher_display_name(b).to_lower()
 			)
 
-		1: # Name Z-A
+		1:
 			filtered_teachers.sort_custom(
 				func(a: Dictionary, b: Dictionary) -> bool:
 					return _get_teacher_display_name(a).to_lower() > \
 						_get_teacher_display_name(b).to_lower()
 			)
 
-		2: # Created At - Newest First
+		2:
 			filtered_teachers.sort_custom(
 				func(a: Dictionary, b: Dictionary) -> bool:
 					return int(a.get("created_at", 0)) > \
 						int(b.get("created_at", 0))
 			)
 
-		3: # Created At - Oldest First
+		3:
 			filtered_teachers.sort_custom(
 				func(a: Dictionary, b: Dictionary) -> bool:
 					return int(a.get("created_at", 0)) < \
 						int(b.get("created_at", 0))
 			)
-
 
 	if filtered_teachers.is_empty():
 		empty_state_label.text = "No teachers found."
@@ -264,45 +334,30 @@ func display_teachers() -> void:
 
 	for teacher_data in filtered_teachers:
 		var row_node: Node = TEACHER_ROW_SCENE.instantiate()
+
 		if row_node == null:
-			push_error("[TeacherManagement] Could not instantiate teacher_row.tscn.")
+			push_error(
+				"[TeacherManagement] Could not instantiate teacher_row.tscn."
+			)
 			continue
 
 		rows.add_child(row_node)
 
 		if not row_node.has_method("set_teacher_data"):
 			push_error(
-				"[TeacherManagement] TeacherRow is missing set_teacher_data()."
+				"[TeacherManagement] TeacherRow missing set_teacher_data()."
 			)
 			row_node.queue_free()
 			continue
 
 		row_node.call("set_teacher_data", teacher_data, row_number)
 
-		# Connect actions exposed by teacher_row.gd.
-		if row_node.has_signal("edit_requested"):
-			row_node.connect(
-				"edit_requested",
-				_on_teacher_row_edit_requested
+		# The only row action is View.
+		if row_node.has_signal("view_requested"):
+			row_node.view_requested.connect(
+				_on_teacher_row_view_requested
 			)
 
-		if row_node.has_signal("delete_requested"):
-			row_node.connect(
-				"delete_requested",
-				_on_teacher_row_delete_requested
-			)
-
-		if row_node.has_signal("archive_requested"):
-			row_node.connect(
-				"archive_requested",
-				_on_teacher_row_archive_requested
-			)
-		
-		if row_node.has_signal("status_toggle_requested"):
-			row_node.status_toggle_requested.connect(
-				_on_teacher_status_toggle_requested
-			)
-		
 		row_number += 1
 
 	print("[TeacherManagement] Displayed ", row_number - 1, " teacher row(s).")
@@ -314,6 +369,7 @@ func _get_sections_text(value: Variant) -> String:
 
 		for item in value:
 			var section_name: String = str(item).strip_edges()
+
 			if not section_name.is_empty():
 				section_names.append(section_name)
 
@@ -373,13 +429,11 @@ func _on_sort_changed(_index: int) -> void:
 	display_teachers()
 
 
-
-
 func _on_add_teacher_button_pressed() -> void:
 	print("[TeacherManagement] Opening Add Teacher form.")
 
 	if not is_instance_valid(add_teacher):
-		push_error("[TeacherManagement] AddTeacher node has already been freed.")
+		push_error("[TeacherManagement] AddTeacher node was freed.")
 		return
 
 	if add_teacher.has_method("open_add_mode"):
@@ -389,9 +443,12 @@ func _on_add_teacher_button_pressed() -> void:
 
 
 func _on_teacher_created() -> void:
-	print("[TeacherManagement] Teacher created.")
+	print("[TeacherManagement] Teacher created or updated.")
 
 	add_teacher.hide()
+	view_panel.hide()
+	selected_teacher.clear()
+
 	load_teachers()
 
 
@@ -401,26 +458,200 @@ func close_add_teacher() -> void:
 
 
 # ============================================================
-# ROW ACTION EVENTS
+# VIEW PANEL
 # ============================================================
 
-func _on_teacher_row_edit_requested(data: Dictionary) -> void:
-	print(
-		"[TeacherManagement] Edit requested: ",
-		_get_teacher_display_name(data)
+func _on_teacher_row_view_requested(data: Dictionary) -> void:
+	selected_teacher = data.duplicate(true)
+	_update_view_panel()
+
+	view_panel.show()
+	view_panel.move_to_front()
+
+
+func _update_view_panel() -> void:
+	if selected_teacher.is_empty():
+		return
+
+	view_title.text = _get_teacher_display_name(selected_teacher)
+
+	view_lrn_label.text = str(
+		selected_teacher.get(
+			"id_number",
+			selected_teacher.get("teacher_id", "—")
+		 )
 	)
 
+	view_fullname_label.text = _get_teacher_display_name(
+		selected_teacher
+	)
+
+	view_sections_label.text = _get_sections_text(
+		selected_teacher.get("assigned_sections", [])
+	)
+
+	var status: String = str(
+		selected_teacher.get("status", "inactive")
+	).strip_edges().to_lower()
+
+	if status.is_empty():
+		status = "inactive"
+
+	view_status_label.text = status.capitalize()
+
+	# Display mode only.
+	view_display.show()
+	view_edit.hide()
+
+	# Status actions.
+	var is_active: bool = status == "active"
+	var is_inactive: bool = status == "inactive"
+
+	view_activate_button.visible = is_inactive
+	view_deactivate_button.visible = is_active
+
+	# Deletion is only available for inactive accounts.
+	view_delete_button.visible = is_inactive
+	view_delete_button.disabled = not is_inactive
+
+	view_edit_button.visible = true
+
+
+func _on_view_close_pressed() -> void:
+	print("[TeacherManagement] Close button clicked.")
+	view_panel.hide()
+	selected_teacher.clear()
+
+
+# ============================================================
+# EDIT TEACHER
+# ============================================================
+
+func _on_view_edit_pressed() -> void:
+	if selected_teacher.is_empty():
+		return
+
+	print(
+		"[TeacherManagement] Edit requested: ",
+		_get_teacher_display_name(selected_teacher)
+	)
+
+	# Reuse the existing AddTeacher edit workflow.
+	# It updates teachers, users, and D1.
 	if add_teacher.has_method("open_edit_mode"):
-		add_teacher.open_edit_mode(data)
+		view_panel.hide()
+		add_teacher.open_edit_mode(selected_teacher)
 	else:
 		push_error("AddTeacher is missing open_edit_mode().")
 
 
+# ============================================================
+# ACTIVATE / DEACTIVATE
+# ============================================================
 
-func _on_teacher_row_delete_requested(data: Dictionary) -> void:
-	pending_delete_teacher = data.duplicate(true)
+func _on_view_activate_pressed() -> void:
+	if selected_teacher.is_empty():
+		return
 
-	var teacher_name := _get_teacher_display_name(data)
+	if _get_teacher_status(selected_teacher) != "inactive":
+		push_warning("[TeacherManagement] Only inactive teachers can be activated.")
+		_update_view_panel()
+		return
+
+	await _update_selected_teacher_status("active")
+
+
+func _on_view_deactivate_pressed() -> void:
+	if selected_teacher.is_empty():
+		return
+
+	if _get_teacher_status(selected_teacher) != "active":
+		push_warning("[TeacherManagement] Only active teachers can be deactivated.")
+		_update_view_panel()
+		return
+
+	await _update_selected_teacher_status("inactive")
+
+
+func _get_teacher_status(data: Dictionary) -> String:
+	return str(
+		data.get("status", "inactive")
+	).strip_edges().to_lower()
+
+
+func _update_selected_teacher_status(new_status: String) -> void:
+	var teacher_data: Dictionary = selected_teacher.duplicate(true)
+	var teacher_uid: String = str(
+		teacher_data.get("uid", "")
+	).strip_edges()
+
+	if teacher_uid.is_empty():
+		push_error("[TeacherManagement] Teacher UID is missing.")
+		return
+
+	var teacher_name: String = _get_teacher_display_name(teacher_data)
+	var previous_status: String = _get_teacher_status(teacher_data)
+
+	print(
+		"[TeacherManagement] Updating status: ",
+		teacher_name,
+		" -> ",
+		new_status
+	)
+
+	var result: Dictionary = await TeacherDataManager.update_teacher_status(
+		teacher_uid,
+		new_status
+	)
+
+	if not bool(result.get("ok", false)):
+		push_error(
+			"[TeacherManagement] Status update failed: "
+			+ str(result.get("error", "Unknown error"))
+		)
+		return
+
+	ActivityLogManager.log_activity(
+		"Updated Teacher Account Status",
+		"Changed teacher status from "
+		+ previous_status
+		+ " to "
+		+ new_status
+		+ ": "
+		+ teacher_name,
+		"Teacher Management",
+		teacher_uid
+	)
+
+	# Update local selected data immediately.
+	selected_teacher["status"] = new_status
+	_update_view_panel()
+
+	# Reload table data from Firestore.
+	load_teachers()
+
+
+# ============================================================
+# DELETE TEACHER
+# ============================================================
+
+func _on_view_delete_pressed() -> void:
+	if selected_teacher.is_empty():
+		return
+
+	# First safety check before displaying confirmation.
+	if _get_teacher_status(selected_teacher) != "inactive":
+		push_warning(
+			"[TeacherManagement] Deletion denied: teacher account is not inactive."
+		)
+		_update_view_panel()
+		return
+
+	pending_delete_teacher = selected_teacher.duplicate(true)
+
+	var teacher_name: String = _get_teacher_display_name(
+		pending_delete_teacher
+	)
 
 	delete_confirmation.dialog_text = (
 		"Are you sure you want to permanently delete the teacher account for "
@@ -438,53 +669,53 @@ func _on_teacher_row_delete_requested(data: Dictionary) -> void:
 
 
 func _on_delete_confirmation_confirmed() -> void:
-	var teacher_data := pending_delete_teacher.duplicate(true)
+	var teacher_data: Dictionary = pending_delete_teacher.duplicate(true)
 
 	if teacher_data.is_empty():
 		push_warning("[TeacherManagement] No teacher selected for deletion.")
 		return
 
-	var teacher_uid := str(teacher_data.get("uid", "")).strip_edges()
-
-	if teacher_uid.is_empty():
+	# Re-check status immediately before deletion.
+	if _get_teacher_status(teacher_data) != "inactive":
 		push_error(
-			"[TeacherManagement] Cannot delete teacher: UID is missing."
+			"[TeacherManagement] Deletion blocked. Teacher must be inactive."
 		)
+		pending_delete_teacher.clear()
 		return
 
-	var teacher_name := _get_teacher_display_name(teacher_data)
+	var teacher_uid: String = str(
+		teacher_data.get("uid", "")
+	).strip_edges()
 
-	print("[TeacherManagement] Permanently deleting teacher account: ", teacher_name)
+	if teacher_uid.is_empty():
+		push_error("[TeacherManagement] Cannot delete teacher: UID is missing.")
+		pending_delete_teacher.clear()
+		return
+
+	var teacher_name: String = _get_teacher_display_name(teacher_data)
+
+	print(
+		"[TeacherManagement] Permanently deleting inactive teacher: ",
+		teacher_name
+	)
 
 	var result: Dictionary = await TeacherDataManager.delete_teacher(
 		teacher_uid
 	)
 
 	if not bool(result.get("ok", false)):
-		var error_message := str(
+		var error_message: String = str(
 			result.get("error", "Unknown error")
 		)
 
 		push_error(
-			"[TeacherManagement] Permanent account deletion failed: "
+			"[TeacherManagement] Account deletion failed: "
 			+ error_message
 		)
 
-		var error_dialog := AcceptDialog.new()
-		error_dialog.title = "Account Deletion Failed"
-		error_dialog.dialog_text = (
-			"Could not permanently delete the teacher account.\n\n"
-			+ error_message
-		)
-		add_child(error_dialog)
-		error_dialog.confirmed.connect(
-			func() -> void:
-				error_dialog.queue_free()
-		)
-		error_dialog.popup_centered()
+		_show_deletion_error(error_message)
 		return
 
-	# Record the successful deletion.
 	ActivityLogManager.log_activity(
 		"Deleted Teacher Account",
 		"Permanently deleted teacher account: " + teacher_name,
@@ -493,117 +724,42 @@ func _on_delete_confirmation_confirmed() -> void:
 	)
 
 	teacher_delete_requested.emit(teacher_data)
+
 	pending_delete_teacher.clear()
+	selected_teacher.clear()
+	view_panel.hide()
 
-	# Reload the list after successful deletion.
 	load_teachers()
 
 
-
-
-func _on_teacher_row_archive_requested(data: Dictionary) -> void:
-	var teacher_uid: String = str(data.get("uid", "")).strip_edges()
-
-	if teacher_uid.is_empty():
-		push_error("[TeacherManagement] Cannot archive teacher: UID is missing.")
-		return
-
-	var teacher_name := _get_teacher_display_name(data)
-
-	var result: Dictionary = await TeacherDataManager.update_teacher_status(
-		teacher_uid,
-        "archived"
+func _show_deletion_error(error_message: String) -> void:
+	var error_dialog := AcceptDialog.new()
+	error_dialog.title = "Account Deletion Failed"
+	error_dialog.dialog_text = (
+		"Could not permanently delete the teacher account.\n\n"
+		+ error_message
 	)
 
-	if not bool(result.get("ok", false)):
-		push_error(
-            "[TeacherManagement] Archive failed: "
-			+ str(result.get("error", "Unknown error"))
-		)
-		return
-
-	# Record the successful archive.
-	ActivityLogManager.log_activity(
-		"Archived Teacher Account",
-		"Archived teacher account: " + teacher_name,
-		"Teacher Management",
-		teacher_uid
+	add_child(error_dialog)
+	error_dialog.confirmed.connect(
+		func() -> void:
+			error_dialog.queue_free()
 	)
-
-	print("[TeacherManagement] Teacher archived: ", teacher_name)
-
-	teacher_archive_requested.emit(data)
-	load_teachers()
+	error_dialog.popup_centered()
 
 
-func _on_teacher_status_toggle_requested(
-	data: Dictionary,
-	new_status: String
-) -> void:
-	var teacher_uid: String = str(data.get("uid", "")).strip_edges()
-
-	if teacher_uid.is_empty():
-		push_error("[TeacherManagement] Cannot update status: Teacher UID is missing.")
-		load_teachers()
-		return
-
-	var teacher_name: String = _get_teacher_display_name(data)
-	var previous_status: String = str(
-		data.get("status", "inactive")
-	).to_lower()
-
-	print(
-		"[TeacherManagement] Updating teacher status: ",
-		teacher_name,
-		" -> ",
-		new_status
-	)
-
-	var result: Dictionary = await TeacherDataManager.update_teacher_status(
-		teacher_uid,
-		new_status
-	)
-
-	if not bool(result.get("ok", false)):
-		push_error(
-			"[TeacherManagement] Status update failed: "
-			+ str(result.get("error", "Unknown error"))
-		)
-
-		# Reload the original status if the update fails.
-		load_teachers()
-		return
-
-	ActivityLogManager.log_activity(
-		"Updated Teacher Account Status",
-		"Changed teacher status from "
-		+ previous_status
-		+ " to "
-		+ new_status
-		+ ": "
-		+ teacher_name,
-		"Teacher Management",
-		teacher_uid
-	)
-
-	print(
-		"[TeacherManagement] Teacher status successfully updated: ",
-		teacher_name,
-		" -> ",
-		new_status
-	)
-
-	# Refresh the list using the latest Firestore data.
-	load_teachers()
-
+# ============================================================
+# DELETE CONFIRMATION
+# ============================================================
 
 func _create_delete_confirmation() -> void:
 	delete_confirmation = ConfirmationDialog.new()
-	delete_confirmation.title = "Delete Teacher"
+	delete_confirmation.title = "Delete Teacher Account"
 	delete_confirmation.dialog_text = (
-		"Are you sure you want to delete this teacher's record?"
+		"Are you sure you want to permanently delete this teacher's account?"
 	)
-	delete_confirmation.ok_button_text = "Delete"
+
+	delete_confirmation.ok_button_text = "Delete Account"
 	delete_confirmation.cancel_button_text = "Cancel"
 
 	add_child(delete_confirmation)

@@ -26,14 +26,17 @@ var saved_quiz_id: String = ""
 @onready var next_button: Button = $MarginContainer/VBoxContainer/NavigationBar/NextButton
 @onready var true_panel: Control = $MarginContainer/VBoxContainer/AnswerPanel/Answers/TruePanel
 @onready var false_panel: Control = $MarginContainer/VBoxContainer/AnswerPanel/Answers/FalsePanel
-
+@onready var hide_answer_checkbox: CheckBox = $MarginContainer/VBoxContainer/HideAnswer
 
 func _ready() -> void:
 	firestore_url = "https://firestore.googleapis.com/v1/projects/%s/databases/%s/documents/quizzes" % [
 		PROJECT_ID,
 		DATABASE_ID
 	]
-
+	
+	# Hide correct answers by default for new quizzes.
+	hide_answer_checkbox.button_pressed = true
+	
 	if not previous_button.pressed.is_connected(_on_previous_pressed):
 		previous_button.pressed.connect(_on_previous_pressed)
 
@@ -82,7 +85,14 @@ func _load_existing_quiz(quiz_data: Dictionary) -> void:
 
 	if quiz_title_input != null:
 		quiz_title_input.text = quiz_title
-
+	
+	# Restore the saved correct-answer visibility setting.
+	# Missing field defaults to hiding correct answers.
+	var show_correct_answers: bool = bool(
+		quiz_data.get("show_correct_answers", false)
+	)
+	hide_answer_checkbox.button_pressed = not show_correct_answers
+	
 	questions.clear()
 	var loaded_questions: Variant = quiz_data.get("questions", [])
 
@@ -165,7 +175,9 @@ func _apply_creator_mode() -> void:
 	question_text.editable = not is_view_mode
 	true_correct.disabled = is_view_mode
 	false_correct.disabled = is_view_mode
-
+	
+	hide_answer_checkbox.disabled = is_view_mode
+	
 	save_button.visible = not is_view_mode
 	save_button.disabled = is_view_mode
 
@@ -401,6 +413,9 @@ func _on_save_pressed() -> void:
 		"title": {"stringValue": quiz_title},
 		"quiz_type": {"stringValue": QUIZ_TYPE},
 		"question_count": {"integerValue": str(questions.size())},
+		"show_correct_answers": {
+			"booleanValue": not hide_answer_checkbox.button_pressed
+		},
 		"questions": {
 			"arrayValue": {
 				"values": question_values

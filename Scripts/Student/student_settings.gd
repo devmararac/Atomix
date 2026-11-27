@@ -905,9 +905,8 @@ func _on_verification_pressed() -> void:
 	verification_button.disabled = false
 	_set_status("Check your current account email for the verification link.")
 
-
 func _request_email_change_verification(new_email: String) -> Dictionary:
-	new_email = new_email.strip_edges()
+	new_email = new_email.strip_edges().to_lower()
 
 	if not _is_valid_email(new_email):
 		return {
@@ -915,7 +914,7 @@ func _request_email_change_verification(new_email: String) -> Dictionary:
 			"message": "Please enter a valid email address."
 		}
 
-	if new_email.to_lower() == original_email.to_lower():
+	if new_email == original_email.strip_edges().to_lower():
 		return {
 			"ok": false,
 			"message": "Please enter a different email address."
@@ -927,37 +926,23 @@ func _request_email_change_verification(new_email: String) -> Dictionary:
 			"message": "An email verification request is already in progress."
 		}
 
-	# Match Admin Settings: mark the email as pending only after
-	# Firebase successfully accepts the email-change request.
 	is_changing_email = true
 
-	Firebase.Auth.send_email_change_verification(new_email)
+	_set_status("Sending custom verification email...")
 
-	var result: Array = await Firebase.Auth.credential_operation_completed
+	# Use the centralized AuthManager function.
+	# This sends through Cloudflare Worker + Resend.
+	var result: Dictionary = await AuthManager.send_email_change_verification(new_email)
 
 	is_changing_email = false
 
-	if result.size() < 3:
+	if not result.get("success", false):
 		return {
 			"ok": false,
-			"message": "Invalid response from Firebase."
+			"message": str(result.get("error", "Email verification request failed."))
 		}
 
-	var operation: String = str(result[0])
-	var success: bool = bool(result[1])
-	var response: Dictionary = result[2]
-
-	if operation != "email_change" or not success:
-		return {
-			"ok": false,
-			"message": str(
-				response.get(
-					"message",
-					response.get("error", "Email verification request failed.")
-				)
-			)
-		}
-
+	# Only mark as pending after the Worker reports success.
 	pending_email = new_email
 	email_change_in_progress = true
 	email_change_verified_ready = false
@@ -965,12 +950,13 @@ func _request_email_change_verification(new_email: String) -> Dictionary:
 	status_label.text = "Waiting for verification at " + pending_email
 	verification_status.show()
 
-	print("[StudentSettings] Firebase accepted email-change request for: ", pending_email)
+	print("[StudentSettings] Custom verification email sent to: ", pending_email)
 
 	return {
 		"ok": true,
 		"message": "Verification link sent to " + new_email
 	}
+
 
 
 func _get_latest_firebase_account_data() -> Dictionary:

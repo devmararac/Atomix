@@ -64,7 +64,7 @@ var enumeration_answer_nodes: Array[LineEdit] = []
 @onready var true_false_panel: Control = $VBoxContainer/TrueFalsePanel
 @onready var completion_panel: Control = $VBoxContainer/CompletionPanel
 
-@onready var enumeration_answers_container: GridContainer = $VBoxContainer/EnumetrationPanel/Margin/VBox/AnswerScroll/CenterContainer/Answers
+@onready var enumeration_answers_container: GridContainer = $VBoxContainer/EnumetrationPanel/Margin/VBox/Answers
 
 @onready var back_button: Button = $VBoxContainer/HBoxContainer/Button
 @onready var next_button: Button = $VBoxContainer/HBoxContainer/Button2
@@ -241,10 +241,10 @@ func _display_question() -> void:
 
 func _get_multiple_choice_cards() -> Array:
 	return [
-		$VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerA,
-		$VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerB,
-		$VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerC,
-		$VBoxContainer/MultipleChoicePanel/AnswersScroll/Center/Answers/AnswerD
+		$VBoxContainer/MultipleChoicePanel/Answers/AnswerA,
+		$VBoxContainer/MultipleChoicePanel/Answers/AnswerB,
+		$VBoxContainer/MultipleChoicePanel/Answers/AnswerC,
+		$VBoxContainer/MultipleChoicePanel/Answers/AnswerD
 	]
 
 
@@ -338,10 +338,12 @@ func _update_multiple_choice_selection() -> void:
 # ============================================================
 # TRUE / FALSE
 # ============================================================
-
 func _display_true_false(question: Dictionary) -> void:
-	var true_checkbox := $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel/Margin/VBox/Correct as CheckBox
-	var false_checkbox := $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel/Margin/VBox/Correct as CheckBox
+	var true_panel: Control = $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel
+	var false_panel: Control = $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel
+
+	var true_checkbox := true_panel.get_node("Margin/VBox/Correct") as CheckBox
+	var false_checkbox := false_panel.get_node("Margin/VBox/Correct") as CheckBox
 
 	var selected := str(student_answers.get(current_question_index, ""))
 
@@ -351,61 +353,77 @@ func _display_true_false(question: Dictionary) -> void:
 	if not correct_answers.is_empty():
 		correct_value = "True" if int(correct_answers[0]) == 0 else "False"
 
+	# Restore the student's selection.
 	true_checkbox.set_pressed_no_signal(selected == "True")
 	false_checkbox.set_pressed_no_signal(selected == "False")
 
 	true_checkbox.disabled = review_mode
 	false_checkbox.disabled = review_mode
 
+	# Reset both answer cards.
+	true_panel.modulate = Color.WHITE
+	false_panel.modulate = Color.WHITE
+
+	# Review mode: show the correct answer.
 	if review_mode:
-		true_checkbox.modulate = (
-			Color(0.55, 0.9, 0.45, 1)
-			if correct_value == "True"
-			else Color.WHITE
-		)
+		if correct_value == "True":
+			true_panel.modulate = Color(0.55, 0.9, 0.45, 1)
+		elif correct_value == "False":
+			false_panel.modulate = Color(0.55, 0.9, 0.45, 1)
 
-		false_checkbox.modulate = (
-			Color(0.55, 0.9, 0.45, 1)
-			if correct_value == "False"
-			else Color.WHITE
-		)
+	# Normal quiz: highlight the student's selection.
 	else:
-		true_checkbox.modulate = Color.WHITE
-		false_checkbox.modulate = Color.WHITE
+		if selected == "True":
+			true_panel.modulate = Color(0.55, 0.9, 0.45, 1)
+		elif selected == "False":
+			false_panel.modulate = Color(0.55, 0.9, 0.45, 1)
 
+	# Connect signals only once.
 	if not true_checkbox.toggled.is_connected(_on_true_selected):
 		true_checkbox.toggled.connect(_on_true_selected)
 
 	if not false_checkbox.toggled.is_connected(_on_false_selected):
 		false_checkbox.toggled.connect(_on_false_selected)
 
-
 func _on_true_selected(pressed: bool) -> void:
 	if review_mode or quiz_submitted:
 		return
 
-	var true_checkbox := $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel/Margin/VBox/Correct as CheckBox
-	var false_checkbox := $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel/Margin/VBox/Correct as CheckBox
+	var true_panel: Control = $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel
+	var false_panel: Control = $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel
+
+	var true_checkbox := true_panel.get_node("Margin/VBox/Correct") as CheckBox
+	var false_checkbox := false_panel.get_node("Margin/VBox/Correct") as CheckBox
 
 	if pressed:
 		false_checkbox.set_pressed_no_signal(false)
 		student_answers[current_question_index] = "True"
+
+		true_panel.modulate = Color(0.55, 0.9, 0.45, 1)
+		false_panel.modulate = Color.WHITE
 	else:
 		student_answers.erase(current_question_index)
-
+		true_panel.modulate = Color.WHITE
 
 func _on_false_selected(pressed: bool) -> void:
 	if review_mode or quiz_submitted:
 		return
 
-	var true_checkbox := $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel/Margin/VBox/Correct as CheckBox
-	var false_checkbox := $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel/Margin/VBox/Correct as CheckBox
+	var true_panel: Control = $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/TruePanel
+	var false_panel: Control = $VBoxContainer/TrueFalsePanel/AnswerPanel/Answers/FalsePanel
+
+	var true_checkbox := true_panel.get_node("Margin/VBox/Correct") as CheckBox
+	var false_checkbox := false_panel.get_node("Margin/VBox/Correct") as CheckBox
 
 	if pressed:
 		true_checkbox.set_pressed_no_signal(false)
 		student_answers[current_question_index] = "False"
+
+		false_panel.modulate = Color(0.55, 0.9, 0.45, 1)
+		true_panel.modulate = Color.WHITE
 	else:
 		student_answers.erase(current_question_index)
+		false_panel.modulate = Color.WHITE
 
 
 # ============================================================

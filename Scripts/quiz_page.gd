@@ -43,6 +43,13 @@ func _ready() -> void:
 	filter_button.item_selected.connect(_on_filter_selected)
 
 	_setup_filter_button()
+	
+	# Check school-year learning access before loading quizzes.
+	var access_allowed := await _check_learning_access()
+
+	if not access_allowed:
+		return
+
 
 	status_label.text = "Loading student information..."
 
@@ -71,6 +78,52 @@ func _setup_filter_button() -> void:
 	filter_button.add_item("Enumeration")
 
 	filter_button.select(0)
+
+
+
+func _check_learning_access() -> bool:
+	print("[QuizPage] Checking learning access...")
+
+	var uid := AuthManager.get_uid()
+
+	if uid.is_empty():
+		status_label.text = "Unable to verify your account. Please log in again."
+		push_warning("[QuizPage] UID is empty. Access denied.")
+		return false
+
+	# Retrieve the user's role.
+	var role: String = await AuthManager.get_user_role()
+
+	print("[QuizPage] User role: ", role)
+
+	# Admin and teachers are not restricted.
+	if role == "admin" or role == "teacher":
+		print("[QuizPage] Staff account. Quiz access granted.")
+		return true
+
+	# Unknown roles are blocked.
+	if role != "student":
+		status_label.text = "Unable to verify your account role."
+		push_warning("[QuizPage] Unknown role. Quiz access denied.")
+		return false
+
+	# Check whether the student's school year is active.
+	var access_result: Dictionary = await SchoolYearAccess.check_student_learning_access(uid)
+
+	if not access_result.get("success", false):
+		status_label.text = "Unable to verify your school year. Please try again later."
+		push_warning("[QuizPage] School-year verification failed.")
+		return false
+
+	if not access_result.get("allowed", false):
+		status_label.text = "Your school year is inactive. Game access is available, but quizzes and assessments are restricted."
+		print("[QuizPage] Inactive school year. Quiz access denied.")
+		return false
+
+	print("[QuizPage] Active school year. Quiz access granted.")
+	return true
+	
+
 
 
 func _load_student_section() -> void:

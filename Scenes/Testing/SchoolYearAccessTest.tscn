@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cdxsgroql5rbv"]
+
+[ext_resource type="Script" uid="uid://c77pjcbdohpal" path="res://Scripts/Managers/SchoolYearAccessTest.gd" id="1_ecjpo"]
+
+[node name="SchoolYearAccessTest" type="Node" unique_id=1594318289]
+script = ExtResource("1_ecjpo")
